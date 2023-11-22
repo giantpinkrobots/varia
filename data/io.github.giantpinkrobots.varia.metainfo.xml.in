@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+<name>Varia</name>
+<summary>Download manager based on aria2</summary>
+<id>io.github.giantpinkrobots.varia</id>
+
+<metadata_license>FSFAP</metadata_license>
+<project_license>MPL-2.0</project_license>
+
+<content_rating type="oars-1.1" />
+<url type="homepage">https://github.com/giantpinkrobots/varia</url>
+
+<description>
+<p>
+Varia is a download manager based on aria2 that utilizes GTK4 and Libadwaita to provide a easy to use interface that integrates well with the GNOME desktop.
+</p>
+</description>
+
+<launchable type="desktop-id">io.github.giantpinkrobots.varia.desktop</launchable>
+<screenshots>
+<screenshot type="default">
+<image>https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-1.png</image>
+</screenshot>
+<screenshot>
+<image>https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-2.png</image>
+</screenshot>
+</screenshots>
+
+<releases>
+<release version="v2023.11.22" date="2023-11-22">
+<description>
+<p>Initial release.</p>
+</description>
+</release>
+</releases>
+</component>

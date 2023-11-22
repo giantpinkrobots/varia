@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Varia
+Exec=varia
+Icon=io.github.giantpinkrobots.varia
+Terminal=false
+Type=Application
+Categories=Internet
+StartupNotify=true

@@ -1,0 +1,92 @@
+{
+    "app-id" : "io.github.giantpinkrobots.varia",
+    "runtime" : "org.gnome.Platform",
+    "runtime-version" : "45",
+    "sdk" : "org.gnome.Sdk",
+    "command" : "varia",
+    "finish-args" : [
+        "--share=network",
+        "--share=ipc",
+        "--socket=fallback-x11",
+        "--device=dri",
+        "--socket=wayland",
+        "--filesystem=xdg-download"
+    ],
+    "cleanup" : [
+        "/include",
+        "/lib/pkgconfig",
+        "/man",
+        "/share/doc",
+        "/share/gtk-doc",
+        "/share/man",
+        "/share/pkgconfig",
+        "*.la",
+        "*.a"
+    ],
+    "modules" : [
+    	"./dependencies/python3-aria2p.json",
+	{
+            "name" : "aria2",
+            "only-arches": ["x86_64"],
+            "buildsystem" : "simple",
+            "build-commands": [
+            	"mkdir /app/aria2",
+            	"install -D ./dependencies/aria2c-amd64/* /app/aria2",
+            	"install -D ./dependencies/libaria2-amd64/* /app/lib",
+            	"install -D ./dependencies/libssh2-amd64/* /app/lib",
+            	"install -D ./dependencies/libc-ares2-amd64/* /app/lib"
+	    ],
+            "sources" : [
+                {
+                    "type" : "dir",
+                    "path" : "./"
+                }
+            ]
+        },
+        {
+            "name" : "aria2",
+            "only-arches": ["aarch64"],
+            "buildsystem" : "simple",
+            "build-commands": [
+            	"mkdir /app/aria2",
+            	"install -D ./dependencies/aria2c-arm64/* /app/aria2",
+            	"install -D ./dependencies/libaria2-arm64/* /app/lib",
+            	"install -D ./dependencies/libssh2-arm64/* /app/lib",
+            	"install -D ./dependencies/libc-ares2-arm64/* /app/lib"
+	    ],
+            "sources" : [
+                {
+                    "type" : "dir",
+                    "path" : "./"
+                }
+            ]
+        },
+        {
+            "name" : "dependencies_information",
+            "buildsystem" : "simple",
+            "build-commands": [
+            	"install -d /app/dependencies_information",
+            	"install -d /app/dependencies_information/ARIA2",
+            	"install -d /app/dependencies_information/ARIA2P",
+            	"install -d ./dependencies_information/* /app/dependencies_information"
+	    ],
+            "sources" : [
+                {
+                    "type" : "dir",
+                    "path" : "./"
+                }
+            ]
+        },
+        {
+            "name" : "varia",
+            "builddir" : true,
+            "buildsystem" : "meson",
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "file:///./"
+                }
+            ]
+        }
+    ]
+}
