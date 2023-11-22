@@ -4,5 +4,5 @@ Exec=varia
 Icon=io.github.giantpinkrobots.varia
 Terminal=false
 Type=Application
-Categories=Internet
+Categories=Network
 StartupNotify=true
