@@ -440,7 +440,7 @@ class MainWindow(Gtk.Window):
         dialog.set_comments("aria2 based download manager utilizing GTK4 and Libadwaita.")
         dialog.set_website("https://github.com/giantpinkrobots/varia")
         dialog.set_issue_url("https://github.com/giantpinkrobots/varia/issues")
-        dialog.set_copyright("2023 Giant Pink Robots!\n\nThis application relies on the following pieces of software:\n\n- aria2: GPL v2 License (aria2 itself relies on OpenSSL: OpenSSL License)\n- aria2p: ISC License\n- c-ares: MIT License\n- libssh2: BSD-3-Clause License\n\nThe licenses of all of these pieces of software can be found in the dependencies_information directory in this application's app directory. A copy of aria2's source code has also been provided in that same directory in order to comply with GPL v2.")
+        dialog.set_copyright("2023 Giant Pink Robots!\n\nThis application relies on the following pieces of software:\n\n- aria2: GPL v2 License (aria2 itself relies on OpenSSL: OpenSSL License)\n- aria2p: ISC License\n\nThe licenses of all of these pieces of software can be found in the dependencies_information directory in this application's app directory.")
         dialog.set_developers(["Giant Pink Robots! (@giantpinkrobots) https://github.com/giantpinkrobots"])
         dialog.set_application_icon("io.github.giantpinkrobots.varia")
         dialog.set_translator_credits("")

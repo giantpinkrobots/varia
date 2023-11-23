@@ -24,59 +24,24 @@
         "*.a"
     ],
     "modules" : [
-    	"./dependencies/python3-aria2p.json",
+    	"./python3-aria2p.json",
 	{
-            "name" : "aria2",
-            "only-arches": ["x86_64"],
-            "buildsystem" : "simple",
-            "build-commands": [
-            	"mkdir /app/aria2",
-            	"install -D ./dependencies/aria2c-amd64/* /app/aria2",
-            	"install -D ./dependencies/libaria2-amd64/* /app/lib",
-            	"install -D ./dependencies/libssh2-amd64/* /app/lib",
-            	"install -D ./dependencies/libc-ares2-amd64/* /app/lib"
-	    ],
-            "sources" : [
+	   "name" : "aria2",
+	   "buildsystem" : "simple",
+	   "build-commands" : [
+	   	"mkdir /app/aria2/",
+		"./configure --without-libxml2 --without-libexpat --without-sqlite3 --without-appletls --without-gnutls --without-libgmp --without-libnettle --without-libgcrypt --without-libssh2 --without-cppunit --without-libz --without-libcunit --without-libssl --without-libuv --without-libcares --without-libaria2 --disable-nls --with-openssl --disable-bittorrent --disable-ftp",
+	   	"make",
+	   	"install -Dm755 src/aria2c /app/aria2/"
+	   ],
+	   "sources" : [
                 {
-                    "type" : "dir",
-                    "path" : "./"
+                    "type" : "archive",
+                    "url" : "https://github.com/aria2/aria2/releases/download/release-1.35.0/aria2-1.35.0.tar.xz",
+                    "sha256" : "1e2b7fd08d6af228856e51c07173cfcf987528f1ac97e04c5af4a47642617dfd"
                 }
             ]
-        },
-        {
-            "name" : "aria2",
-            "only-arches": ["aarch64"],
-            "buildsystem" : "simple",
-            "build-commands": [
-            	"mkdir /app/aria2",
-            	"install -D ./dependencies/aria2c-arm64/* /app/aria2",
-            	"install -D ./dependencies/libaria2-arm64/* /app/lib",
-            	"install -D ./dependencies/libssh2-arm64/* /app/lib",
-            	"install -D ./dependencies/libc-ares2-arm64/* /app/lib"
-	    ],
-            "sources" : [
-                {
-                    "type" : "dir",
-                    "path" : "./"
-                }
-            ]
-        },
-        {
-            "name" : "dependencies_information",
-            "buildsystem" : "simple",
-            "build-commands": [
-            	"install -d /app/dependencies_information",
-            	"install -d /app/dependencies_information/ARIA2",
-            	"install -d /app/dependencies_information/ARIA2P",
-            	"install -d ./dependencies_information/* /app/dependencies_information"
-	    ],
-            "sources" : [
-                {
-                    "type" : "dir",
-                    "path" : "./"
-                }
-            ]
-        },
+	},
         {
             "name" : "varia",
             "builddir" : true,
