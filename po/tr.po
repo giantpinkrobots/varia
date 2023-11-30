@@ -1,0 +1,150 @@
+# Turkish translations for varia package.
+# Copyright (C) 2023 varia'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the varia package.
+#
+# Sabri Ünal <libreajans@gmail.com>, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-30 03:17+0300\n"
+"PO-Revision-Date: 2023-11-30 03:18+0300\n"
+"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
+"Language-Team: Turkish <takim@gnome.org.tr>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.1\n"
+
+#. Translators: Do NOT translate or localize the application name.
+#: data/io.github.giantpinkrobots.varia.desktop.in:4
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:3
+msgid "Varia"
+msgstr "Varia"
+
+#. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
+#: data/io.github.giantpinkrobots.varia.desktop.in:11
+msgid "varia;aria;download;manager;"
+msgstr "varia;aria;download;manager;indirme;yöneticisi;"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
+msgid "Download manager based on aria2"
+msgstr "Aria2 tabanlı indirme yöneticisi"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
+msgid ""
+"Varia is a download manager based on aria2 that utilizes GTK4 and Libadwaita "
+"to provide a easy to use interface that integrates well with the GNOME "
+"desktop."
+msgstr ""
+"Varia, GNOME masaüstü ile iyi tümleşen kullanımı kolay arayüz sağlamak için "
+"GTK4 ve Libadwaita kullanan aria2 tabanlı bir indirme yöneticisidir."
+
+#: src/variamain.py:45
+msgid "This is not a valid URL."
+msgstr "URL geçersiz."
+
+#: src/variamain.py:171
+msgid "About Varia"
+msgstr "Varia Hakkında"
+
+#: src/variamain.py:177
+msgid "URL"
+msgstr "URL"
+
+#: src/variamain.py:178
+msgid "Download"
+msgstr "İndir"
+
+#: src/variamain.py:203 src/variamain.py:423
+msgid "Pause All"
+msgstr "Tümünü Duraklat"
+
+#: src/variamain.py:215
+msgid "Cancel All"
+msgstr "Tümünü İptal Et"
+
+#: src/variamain.py:274
+msgid "Download complete."
+msgstr "İndirme tamamlandı."
+
+#: src/variamain.py:276
+msgid "An error occurred."
+msgstr "Hata oluştu."
+
+#: src/variamain.py:292
+msgid "MB/s"
+msgstr "MB/s"
+
+#: src/variamain.py:294
+msgid "KB/s"
+msgstr "KB/s"
+
+#: src/variamain.py:298
+msgid "0 B/s"
+msgstr "0 B/s"
+
+#: src/variamain.py:300
+msgid " MB/s"
+msgstr " MB/s"
+
+#: src/variamain.py:302
+msgid " KB/s"
+msgstr " KB/s"
+
+#: src/variamain.py:304
+msgid " B/s"
+msgstr " B/s"
+
+#: src/variamain.py:410
+msgid "Resume All"
+msgstr "Tümünü Sürdür"
+
+#: src/variamain.py:443
+msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
+msgstr "GTK4 ve Libadwaita kullanan aria2 tabanlı indirme yöneticisi."
+
+#: src/variamain.py:446
+msgid ""
+"2023 Giant Pink Robots!\n"
+"\n"
+"This application relies on the following pieces of software:\n"
+"\n"
+"- aria2: GPL v2 License (aria2 itself relies on OpenSSL: OpenSSL License)\n"
+"- aria2p: ISC License\n"
+"\n"
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
+msgstr ""
+"2023 Giant Pink Robots!\n"
+"\n"
+"Bu uygulama aşağıdaki yazılımlara dayanır:\n"
+"\n"
+"- aria2: GPL v2 Lisansı (aria2'nin kendisi OpenSSL'e dayanır: OpenSSL "
+"Lisansı)\n"
+"- aria2p: ISC Lisansı\n"
+"\n"
+"Tüm bu yazılımlara ait lisanslar, uygulama dizinindeki "
+"dependencies_information dizininde bulunabilir."
+
+#: src/variamain.py:449
+msgid "translator-credits"
+msgstr "Sabri Ünal <libreajans@gmail.com>"
+
+#: src/gtk/help-overlay.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Genel"
+
+#: src/gtk/help-overlay.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Kısayolları Göster"
+
+#: src/gtk/help-overlay.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Çık"

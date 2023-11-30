@@ -13,9 +13,18 @@ localedir = '@localedir@'
 
 sys.path.insert(1, pkgdatadir)
 signal.signal(signal.SIGINT, signal.SIG_DFL)
-locale.bindtextdomain('varia', localedir)
-locale.textdomain('varia')
 gettext.install('varia', localedir)
+
+try:
+  locale.bindtextdomain('varia', localedir)
+  locale.textdomain('varia')
+except:
+  print('Cannot set locale.')
+try:
+  gettext.bindtextdomain('varia', localedir)
+  gettext.textdomain('varia')
+except:
+  print('Cannot load translations.')
 
 if __name__ == '__main__':
     import gi

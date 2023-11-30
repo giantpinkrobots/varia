@@ -9,6 +9,8 @@
 
 <content_rating type="oars-1.1" />
 <url type="homepage">https://github.com/giantpinkrobots/varia</url>
+<url type="vcs-browser">https://github.com/giantpinkrobots/varia</url>
+<url type="translate">https://github.com/giantpinkrobots/varia/tree/main/po</url>
 
 <description>
 <p>
@@ -17,6 +19,7 @@ Varia is a download manager based on aria2 that utilizes GTK4 and Libadwaita to 
 </description>
 
 <launchable type="desktop-id">io.github.giantpinkrobots.varia.desktop</launchable>
+<translation type="gettext">varia</translation>
 <screenshots>
 <screenshot type="default">
 <image>https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-1.png</image>
@@ -28,7 +31,7 @@ Varia is a download manager based on aria2 that utilizes GTK4 and Libadwaita to 
 
 <releases>
 <release version="v2023.11.22" date="2023-11-22">
-<description>
+<description translatable="no">
 <p>Initial release.</p>
 </description>
 </release>
