@@ -1,8 +1,11 @@
 [Desktop Entry]
+# Translators: Do NOT translate or localize the application name.
 Name=Varia
 Exec=varia
 Icon=io.github.giantpinkrobots.varia
 Terminal=false
 Type=Application
 Categories=Network
+# Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
+Keywords=varia;aria;download;manager;
 StartupNotify=true
