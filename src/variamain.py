@@ -2,9 +2,7 @@ variaVersion = "v2023.11.22"
 
 import gi
 import sys
-
 from gettext import gettext as _
-
 import time
 from io import BytesIO
 from urllib.parse import unquote, urlparse
@@ -20,6 +18,7 @@ gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, GLib, Gio
 import multiprocessing
+import requests
 
 class DownloadThread(threading.Thread):
     def __init__(self, api, url, progress_bar, speed_label, downloaddir):
@@ -33,8 +32,8 @@ class DownloadThread(threading.Thread):
         self.stop_event = threading.Event()
 
     def is_valid_url(self, url):
+        result = urlparse(url)
         try:
-            result = urlparse(url)
             return all([result.scheme, result.netloc])
         except ValueError:
             return False
@@ -57,6 +56,7 @@ class DownloadThread(threading.Thread):
                             os.remove(os.path.join(self.downloaddir,(self.download.gid + ".varia.json")))
                         break
                     elif (self.download.status == "error"):
+                        self.speed_label.set_text(_("An error occurred:") + " " + self.download.error_message.split("status=")[1])
                         return
                 except:
                     return
@@ -94,7 +94,7 @@ class DownloadThread(threading.Thread):
                 try:
                     self.download.resume()
                 except:
-                    return
+                    self.speed_label.set_text(_("An error occurred:") + " " + self.download.error_message.split("status=")[1])
 
     def stop(self, deletefiles):
         if self.download:
@@ -122,11 +122,11 @@ class DownloadThread(threading.Thread):
                 json.dump(state, f)
 
     @classmethod
-    def load_state(cls, api, downloaddir, filename, progress_bar, speed_label):
+    def load_state(cls, api, downloaddir, filename, progress_bar, pause_button, speed_label):
         with open(os.path.join(downloaddir, filename), 'r') as f:
             state = json.load(f)
             os.remove(os.path.join(downloaddir, filename))
-        instance = cls(api, state['url'], progress_bar, speed_label, downloaddir)
+        instance = cls(api, state['url'], progress_bar, speed_label, pause_button, downloaddir)
         return instance
 
 class MainWindow(Gtk.Window):
@@ -134,12 +134,20 @@ class MainWindow(Gtk.Window):
         super().__init__(*args, **kwargs)
 
         self.downloaddir = GLib.get_user_special_dir(GLib.USER_DIRECTORY_DOWNLOAD)
+        self.appdir = os.path.join('/var', 'data')
+        self.appconf = {'download_speed_limit': "0"}
+
+        if os.path.exists(os.path.join(self.appdir, 'varia.conf')):
+            with open(os.path.join(self.appdir, 'varia.conf'), 'r') as f:
+                self.appconf = json.load(f)
+        else:
+            with open(os.path.join(self.appdir, 'varia.conf'), 'w') as f:
+                json.dump(self.appconf, f)
 
         self.api = aria2p.API(
             aria2p.Client(
                 host="http://localhost",
-                port=6801,
-                secret="ARIA2CFORVARIA"
+                port=6801
             )
         )
 
@@ -173,20 +181,61 @@ class MainWindow(Gtk.Window):
         about_button.connect("clicked", self.show_about)
         about_button.set_icon_name("help-about-symbolic")
 
+        open_downloads_folder_button = Gtk.Button(tooltip_text=_("Open Downloads Folder"))
+        header_bar.pack_end(open_downloads_folder_button)
+        open_downloads_folder_button.connect("clicked", self.open_downloads_folder)
+        open_downloads_folder_button.set_icon_name("folder-symbolic")
+
         download_entry = Gtk.Entry()
         download_entry.set_placeholder_text(_("URL"))
+        download_entry.set_placeholder_text("URL")
+
         download_button = Gtk.Button(label=_("Download"))
         download_button.get_style_context().add_class("pill")
         download_button.get_style_context().add_class("suggested-action")
         download_button.connect("clicked", self.on_download_clicked, download_entry)
 
-        sidebar_content_box.set_margin_start(10)
-        sidebar_content_box.set_margin_end(10)
-        sidebar_content_box.set_margin_top(10)
-        sidebar_content_box.set_margin_bottom(10)
+        sidebar_expanding_box = Gtk.Box()
+        Gtk.Widget.set_vexpand(sidebar_expanding_box, True)
+
+        speed_limit_label = Gtk.Label(label = _("Speed Limit"))
+
+        speed_limit_box = Gtk.Box()
+
+        speed_limit_unit_names = Gtk.ListStore(int, str)
+        speed_limit_unit_names.append([1, _("KB/s")])
+        speed_limit_unit_names.append([2, _("MB/s")])
+        speed_limit_unit_names.append([3, _("GB/s")])
+        speed_limit_unit_names_dropdown = Gtk.ComboBox.new_with_model(speed_limit_unit_names)
+        speed_limit_unit_names_dropdown.set_active(0)
+        speed_limit_unit_names_dropdown_renderer_text = Gtk.CellRendererText()
+        speed_limit_unit_names_dropdown.pack_start(speed_limit_unit_names_dropdown_renderer_text, True)
+        speed_limit_unit_names_dropdown.add_attribute(speed_limit_unit_names_dropdown_renderer_text, "text", 1)
+        speed_limit_unit_names_dropdown.set_margin_end(2)
+
+        speed_limit_entry = Gtk.Entry()
+        speed_limit_entry.set_placeholder_text(_("Speed"))
+        speed_limit_entry.set_margin_end(2)
+
+        speed_limit_apply_button = Gtk.Button(tooltip_text=_("Set Speed Limit"))
+        speed_limit_apply_button.set_icon_name("emblem-ok-symbolic")
+        speed_limit_apply_button.get_style_context().add_class("suggested-action")
+        speed_limit_apply_button.connect('clicked', lambda entry: self.on_speed_limit_changed(speed_limit_entry, speed_limit_unit_names_dropdown))
+
+        speed_limit_box.append(speed_limit_entry)
+        speed_limit_box.append(speed_limit_unit_names_dropdown)
+        speed_limit_box.append(speed_limit_apply_button)
+
+        sidebar_content_box.set_margin_start(6)
+        sidebar_content_box.set_margin_end(6)
+        sidebar_content_box.set_margin_top(6)
+        sidebar_content_box.set_margin_bottom(6)
 
         sidebar_content_box.append(download_entry)
         sidebar_content_box.append(download_button)
+        sidebar_content_box.append(sidebar_expanding_box)
+        sidebar_content_box.append(speed_limit_label)
+        sidebar_content_box.append(speed_limit_box)
         sidebar_box.append(sidebar_content_box)
 
         self.overlay_split_view.set_sidebar(sidebar_box)
@@ -258,6 +307,18 @@ class MainWindow(Gtk.Window):
         self.check_download_status_thread = threading.Thread(target=self.check_download_status)
         self.check_download_status_thread.start()
 
+        # Set download speed limit from appconf:
+        if (self.appconf["download_speed_limit"][0] != "0"):
+            match self.appconf["download_speed_limit"][-1]:
+                case "K":
+                    speed_limit_unit_names_dropdown.set_active(0)
+                case "M":
+                    speed_limit_unit_names_dropdown.set_active(1)
+                case "G":
+                    speed_limit_unit_names_dropdown.set_active(2)
+            speed_limit_entry.set_text(self.appconf["download_speed_limit"][:-1])
+            self.on_speed_limit_changed(speed_limit_entry, speed_limit_unit_names_dropdown)
+
         for filename in os.listdir(self.downloaddir):
             if filename.endswith('.varia.json'):
                 with open(os.path.join(self.downloaddir, filename), 'r') as f:
@@ -269,11 +330,15 @@ class MainWindow(Gtk.Window):
 
     def check_download_status(self):
         while (self.terminating == False):
+            i = 0
             for download_thread in self.downloads:
                 if (download_thread.download.is_complete == 1):
                     download_thread.speed_label.set_text(_("Download complete."))
+                    self.pause_buttons[i].hide()
                 elif (download_thread.download.status == "error") or (download_thread.download.status == "removed"):
-                    download_thread.speed_label.set_text(_("An error occurred."))
+                    download_thread.speed_label.set_text(_("An error occurred:") + " " + download_thread.download.error_message.split("status=")[1])
+                    self.pause_buttons[i].hide()
+                i += 1
             time.sleep(1)
 
     def total_download_speed_get(self, downloads, total_download_speed_label):
@@ -286,7 +351,10 @@ class MainWindow(Gtk.Window):
                     download_thread.download.update()
                 except:
                     continue
-                speed_label_text_first_digit = download_thread.speed_label.get_text()[0]
+                try:
+                    speed_label_text_first_digit = download_thread.speed_label.get_text()[0]
+                except:
+                    speed_label_text_first_digit = "0"
                 if (speed_label_text_first_digit.isdigit()):
                     download_speed = (float(download_thread.speed_label.get_text().split(" ")[4]))
                     if (download_thread.speed_label.get_text().split(" ")[5] == _("MB/s")):
@@ -368,6 +436,7 @@ class MainWindow(Gtk.Window):
             download_thread.start()
 
     def on_pause_clicked(self, button, pause_button, download_item):
+        self.all_paused = False
         download_thread = self.downloads[download_item.index+1]
         if download_thread.download.is_paused:
             download_thread.resume()
@@ -433,6 +502,39 @@ class MainWindow(Gtk.Window):
             for download_thread in self.downloads:
                 download_thread.stop(True)
                 self.downloads.remove(download_thread)
+
+    def on_speed_limit_changed(self, speed, speed_type):
+        speed = speed.get_text()
+        if (speed == ""):
+            speed = "0"
+        speed_type = speed_type.get_active()
+        match speed_type:
+            case 0:
+                download_limit = speed + "K"
+            case 1:
+                download_limit = speed + "M"
+            case 2:
+                download_limit = speed + "G"
+
+        json_request = {
+            "jsonrpc": "2.0",
+            "id": "1",
+            "method": "aria2.changeGlobalOption",
+            "params": [
+                {"max-overall-download-limit": download_limit}
+            ]
+        }
+
+        response = requests.post('http://localhost:6801/jsonrpc', headers={'Content-Type': 'application/json'}, data=json.dumps(json_request))
+        self.appconf = {'download_speed_limit': download_limit}
+        self.save_appconf()
+
+    def save_appconf(self):
+        with open(os.path.join(self.appdir, 'varia.conf'), 'w') as f:
+            json.dump(self.appconf, f)
+
+    def open_downloads_folder(self, app):
+        subprocess.Popen(["xdg-open", self.downloaddir])
 
     def show_about(self, app):
         dialog = Adw.AboutWindow(transient_for=self)

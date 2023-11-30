@@ -18,7 +18,26 @@ Varia is a simple download manager that conforms to the latest Libadwaita design
   <img src="https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-2.png" width=500 />
 </p>
 
-Varia supports some basic functionality you'd expect from a download manager such as resuming incomplete downloads upon relaunch, but (right now) doesn't support saving files outside of your default download directory. I want to change this in the future while still having a minimal set of permissions with Flatpak.
+Varia supports some basic functionality you'd expect from a download manager such as resuming incomplete downloads upon relaunch, and limiting the download speed, but (right now) doesn't support saving files outside of your default download directory. I want to change this in the future while still having a minimal set of permissions with Flatpak.
+
+## Building
+
+The easiest way of building Varia is to use GNOME Builder. Just clone this repository, and open the folder using Builder. Then, press run.
+
+If you don't want to use GNOME Builder, or Flatpak, you'll need Meson. Here's how you can install it on some Linux distros:
+<br>Ubuntu / Debian: ```sudo apt install meson ninja-build```
+<br>Fedora / RHEL / derivatives: ```sudo dnf install meson ninja-build```
+<br>Arch: ```sudo pacman -S meson```
+
+After that, you can use these instructions to build and install Varia:
+```
+git clone https://github.com/giantpinkrobots/varia
+cd varia
+meson setup builddir
+cd builddir
+meson compile
+meson install
+```
 
 ## License
 
@@ -39,3 +58,4 @@ Also, I really want to change the logo as it's something I hastly hacked togethe
 ## The name
 
 The name "Varia" comes from the aria2 software it is based on, and I added a "V" to make it "Varia". In the Metroid series of games, there is a special suit you eventually get named a "<a href=https://metroid.fandom.com/wiki/Varia_Suit>Varia Suit</a>" with its main feature being allowing Samus to withstand extreme temperatures. I spent some time thinking about how to connect the Varia Suit to my app, but couldn't, soooo... I think it just sounds cool.
+

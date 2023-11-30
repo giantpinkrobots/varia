@@ -59,11 +59,27 @@ msgstr "URL"
 msgid "Download"
 msgstr "İndir"
 
+#: src/variamain.py:184
+msgid "Open Downloads Folder"
+msgstr "İndirilenler Klasörünü Aç"
+
+#: src/variamain.py:196
+msgid "Speed Limit"
+msgstr "Hız Sınırı"
+
 #: src/variamain.py:203 src/variamain.py:423
 msgid "Pause All"
 msgstr "Tümünü Duraklat"
 
+#: src/variamain.py:212
+msgid "Speed"
+msgstr "Hız"
+
 #: src/variamain.py:215
+msgid "Set Speed Limit"
+msgstr "Hız Sınırı Koy"
+
+#: src/variamain.py:216
 msgid "Cancel All"
 msgstr "Tümünü İptal Et"
 
@@ -72,8 +88,8 @@ msgid "Download complete."
 msgstr "İndirme tamamlandı."
 
 #: src/variamain.py:276
-msgid "An error occurred."
-msgstr "Hata oluştu."
+msgid "An error occurred:"
+msgstr "Hata oluştu:"
 
 #: src/variamain.py:292
 msgid "MB/s"
@@ -132,7 +148,7 @@ msgstr ""
 
 #: src/variamain.py:449
 msgid "translator-credits"
-msgstr "Sabri Ünal <libreajans@gmail.com>"
+msgstr "Sabri Ünal <libreajans@gmail.com>\nGiant Pink Robots! <giantpinkrobots@protonmail.com>"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

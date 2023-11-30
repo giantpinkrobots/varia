@@ -55,11 +55,27 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
+#: src/variamain.py:184
+msgid "Open Downloads Folder"
+msgstr ""
+
+#: src/variamain.py:196
+msgid "Speed Limit"
+msgstr ""
+
 #: src/variamain.py:203 src/variamain.py:423
 msgid "Pause All"
 msgstr ""
 
+#: src/variamain.py:212
+msgid "Speed"
+msgstr ""
+
 #: src/variamain.py:215
+msgid "Set Speed Limit"
+msgstr ""
+
+#: src/variamain.py:216
 msgid "Cancel All"
 msgstr ""
 
@@ -68,7 +84,7 @@ msgid "Download complete."
 msgstr ""
 
 #: src/variamain.py:276
-msgid "An error occurred."
+msgid "An error occurred:"
 msgstr ""
 
 #: src/variamain.py:292
