@@ -2,6 +2,9 @@ variaVersion = "v2023.11.22"
 
 import gi
 import sys
+
+from gettext import gettext as _
+
 import time
 from io import BytesIO
 from urllib.parse import unquote, urlparse
