@@ -42,7 +42,7 @@ class DownloadThread(threading.Thread):
     def run(self):
         if not (self.is_valid_url(self.url)):
             try:
-                GLib.idle_add(self.show_message("This is not a valid URL."))
+                GLib.idle_add(self.show_message(_("This is not a valid URL.")))
             except:
                 return
         else:
@@ -168,14 +168,14 @@ class MainWindow(Gtk.Window):
         header_bar.get_style_context().add_class('flat')
         sidebar_box.append(header_bar)
 
-        about_button = Gtk.Button(label="About")
+        about_button = Gtk.Button(tooltip_text=_("About Varia"))
         header_bar.pack_start(about_button)
         about_button.connect("clicked", self.show_about)
         about_button.set_icon_name("help-about-symbolic")
 
         download_entry = Gtk.Entry()
-        download_entry.set_placeholder_text("URL")
-        download_button = Gtk.Button(label="Download")
+        download_entry.set_placeholder_text(_("URL"))
+        download_button = Gtk.Button(label=_("Download"))
         download_button.get_style_context().add_class("pill")
         download_button.get_style_context().add_class("suggested-action")
         download_button.connect("clicked", self.on_download_clicked, download_entry)
@@ -200,7 +200,7 @@ class MainWindow(Gtk.Window):
         header_button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
         header_pause_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
-        header_pause_label = Gtk.Label(label = "Pause all")
+        header_pause_label = Gtk.Label(label =_("Pause All"))
         header_pause_image = Gtk.Image.new()
         header_pause_image.set_from_icon_name("media-playback-pause-symbolic")
         header_pause_box.append(header_pause_image)
@@ -212,7 +212,7 @@ class MainWindow(Gtk.Window):
         header_button_box.append(header_pause_button)
 
         header_stop_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
-        header_stop_label = Gtk.Label(label = "Cancel all")
+        header_stop_label = Gtk.Label(label = _("Cancel All"))
         header_stop_image = Gtk.Image.new()
         header_stop_image.set_from_icon_name("process-stop-symbolic")
         header_stop_box.append(header_stop_image)
@@ -271,9 +271,9 @@ class MainWindow(Gtk.Window):
         while (self.terminating == False):
             for download_thread in self.downloads:
                 if (download_thread.download.is_complete == 1):
-                    download_thread.speed_label.set_text("Download complete.")
+                    download_thread.speed_label.set_text(_("Download complete."))
                 elif (download_thread.download.status == "error") or (download_thread.download.status == "removed"):
-                    download_thread.speed_label.set_text("An error occurred.")
+                    download_thread.speed_label.set_text(_("An error occurred."))
             time.sleep(1)
 
     def total_download_speed_get(self, downloads, total_download_speed_label):
@@ -289,19 +289,19 @@ class MainWindow(Gtk.Window):
                 speed_label_text_first_digit = download_thread.speed_label.get_text()[0]
                 if (speed_label_text_first_digit.isdigit()):
                     download_speed = (float(download_thread.speed_label.get_text().split(" ")[4]))
-                    if (download_thread.speed_label.get_text().split(" ")[5] == "MB/s"):
+                    if (download_thread.speed_label.get_text().split(" ")[5] == _("MB/s")):
                         download_speed_mb = True
-                    elif (download_thread.speed_label.get_text().split(" ")[5] == "KB/s"):
+                    elif (download_thread.speed_label.get_text().split(" ")[5] == _("KB/s")):
                         download_speed_kb = True
                     total_download_speed = total_download_speed + download_speed
             if (total_download_speed == 0):
-                total_download_speed_label.set_text("0 B/s")
+                total_download_speed_label.set_text(_("0 B/s"))
             elif (download_speed_mb == True):
-                total_download_speed_label.set_text(str(round(total_download_speed, 2)) + " MB/s")
+                total_download_speed_label.set_text(str(round(total_download_speed, 2)) + _(" MB/s"))
             elif (download_speed_kb == True):
-                total_download_speed_label.set_text(str(round(total_download_speed, 2)) + " KB/s")
+                total_download_speed_label.set_text(str(round(total_download_speed, 2)) + _(" KB/s"))
             else:
-                total_download_speed_label.set_text(str(round(total_download_speed, 2)) + " B/s")
+                total_download_speed_label.set_text(str(round(total_download_speed, 2)) + _(" B/s"))
             time.sleep(1)
 
     def create_actionrow(self, url):
@@ -407,7 +407,7 @@ class MainWindow(Gtk.Window):
                 i += 1
             if (header_pause_label != "no"):
                 header_pause_image.set_from_icon_name("media-playback-start-symbolic")
-                header_pause_label.set_text("Resume all")
+                header_pause_label.set_text(_("Resume All"))
             self.all_paused = True
         else:
             for download_thread in self.downloads:
@@ -420,7 +420,7 @@ class MainWindow(Gtk.Window):
                 i += 1
             if (header_pause_label != "no"):
                 header_pause_image.set_from_icon_name("media-playback-pause-symbolic")
-                header_pause_label.set_text("Pause all")
+                header_pause_label.set_text(_("Pause All"))
             self.all_paused = False
 
     def stop_all(self):
@@ -440,13 +440,13 @@ class MainWindow(Gtk.Window):
         dialog.set_version(variaVersion)
         dialog.set_developer_name("Giant Pink Robots!")
         dialog.set_license_type(Gtk.License(Gtk.License.MPL_2_0))
-        dialog.set_comments("aria2 based download manager utilizing GTK4 and Libadwaita.")
+        dialog.set_comments(_("aria2 based download manager utilizing GTK4 and Libadwaita."))
         dialog.set_website("https://github.com/giantpinkrobots/varia")
         dialog.set_issue_url("https://github.com/giantpinkrobots/varia/issues")
-        dialog.set_copyright("2023 Giant Pink Robots!\n\nThis application relies on the following pieces of software:\n\n- aria2: GPL v2 License (aria2 itself relies on OpenSSL: OpenSSL License)\n- aria2p: ISC License\n\nThe licenses of all of these pieces of software can be found in the dependencies_information directory in this application's app directory.")
+        dialog.set_copyright(_("2023 Giant Pink Robots!\n\nThis application relies on the following pieces of software:\n\n- aria2: GPL v2 License (aria2 itself relies on OpenSSL: OpenSSL License)\n- aria2p: ISC License\n\nThe licenses of all of these pieces of software can be found in the dependencies_information directory in this application's app directory."))
         dialog.set_developers(["Giant Pink Robots! (@giantpinkrobots) https://github.com/giantpinkrobots"])
         dialog.set_application_icon("io.github.giantpinkrobots.varia")
-        dialog.set_translator_credits("")
+        dialog.set_translator_credits(_("translator-credits"))
         dialog.show()
 
     def exitProgram(self, app):
@@ -466,6 +466,7 @@ class MyApp(Adw.Application):
         self.win.present()
 
 def main(version):
+   
     app = MyApp(application_id="io.github.giantpinkrobots.varia")
     try:
         app.run(sys.argv)
