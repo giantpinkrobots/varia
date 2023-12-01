@@ -1,0 +1,165 @@
+# Brazilian Portuguese translation for varia.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Tiago Lucas Flach <tigolucas9830@gmial.com>, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-30 03:17+0300\n"
+"PO-Revision-Date: 2023-12-01 15:08-0300\n"
+"Last-Translator: Tiago Lucas Flach <tiagolucas9830@gmail.com>\n"
+"Language-Team: \n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4\n"
+
+#. Translators: Do NOT translate or localize the application name.
+#: data/io.github.giantpinkrobots.varia.desktop.in:4
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:3
+msgid "Varia"
+msgstr "Varia"
+
+#. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
+#: data/io.github.giantpinkrobots.varia.desktop.in:11
+msgid "varia;aria;download;manager;"
+msgstr "varia;aria;download;gerenciador;"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
+msgid "Download manager based on aria2"
+msgstr "Gerenciador de downloads baseado em aria2"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
+msgid ""
+"Varia is a download manager based on aria2 that utilizes GTK4 and Libadwaita "
+"to provide a easy to use interface that integrates well with the GNOME "
+"desktop."
+msgstr ""
+"Varia é um gerenciador de downloads baseado  aria2 que utiliza GTK4 e "
+"Libadwaita para fornecer uma interface fácil de usar que se integra bem ao "
+"desktop GNOME."
+
+#: src/variamain.py:45
+msgid "This is not a valid URL."
+msgstr "Este não é um URL válido."
+
+#: src/variamain.py:171
+msgid "About Varia"
+msgstr "Sobre Varia"
+
+#: src/variamain.py:177
+msgid "URL"
+msgstr "URL"
+
+#: src/variamain.py:178
+msgid "Download"
+msgstr "Download"
+
+#: src/variamain.py:184
+msgid "Open Downloads Folder"
+msgstr "Abra a Pasta de Downloads"
+
+#: src/variamain.py:196
+msgid "Speed Limit"
+msgstr "Limite de Velocidade"
+
+#: src/variamain.py:203 src/variamain.py:423
+msgid "Pause All"
+msgstr "Pausar Tudo"
+
+#: src/variamain.py:212
+msgid "Speed"
+msgstr "Velocidade"
+
+#: src/variamain.py:215
+msgid "Set Speed Limit"
+msgstr "Definir Limite de Velocidade"
+
+#: src/variamain.py:216
+msgid "Cancel All"
+msgstr "Cancelar Tudo"
+
+#: src/variamain.py:274
+msgid "Download complete."
+msgstr "Download completo."
+
+#: src/variamain.py:276
+msgid "An error occurred:"
+msgstr "Um erro ocorreu:"
+
+#: src/variamain.py:292
+msgid "MB/s"
+msgstr "MB/s"
+
+#: src/variamain.py:294
+msgid "KB/s"
+msgstr "KB/s"
+
+#: src/variamain.py:298
+msgid "0 B/s"
+msgstr "0 B/s"
+
+#: src/variamain.py:300
+msgid " MB/s"
+msgstr " MB/s"
+
+#: src/variamain.py:302
+msgid " KB/s"
+msgstr " KB/s"
+
+#: src/variamain.py:304
+msgid " B/s"
+msgstr " KB/s"
+
+#: src/variamain.py:410
+msgid "Resume All"
+msgstr "Continuar Todos"
+
+#: src/variamain.py:443
+msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
+msgstr "gerenciador de download baseado em aria2 utilizando GTK4 e Libadwaita."
+
+#: src/variamain.py:446
+msgid ""
+"2023 Giant Pink Robots!\n"
+"\n"
+"This application relies on the following pieces of software:\n"
+"\n"
+"- aria2: GPL v2 License (aria2 itself relies on OpenSSL: OpenSSL License)\n"
+"- aria2p: ISC License\n"
+"\n"
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
+msgstr ""
+"2023 Giant Pink Robots!\n"
+"\n"
+"Este aplicativo depende dos seguintes softwares:\n"
+"\n"
+"- aria2: Licença GPL v2 (o próprio aria2 depende de OpenSSL: Licença "
+"OpenSSL)\n"
+"- aria2p: Licença ISC\n"
+"\n"
+"As licenças de todos esses softwares podem ser encontradas no diretório "
+"dependencies_information no diretório app deste aplicativo."
+
+#: src/variamain.py:449
+msgid "translator-credits"
+msgstr "Tiago Lucas Flach <tiagolucas9830@gmail.com>"
+
+#: src/gtk/help-overlay.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Geral"
+
+#: src/gtk/help-overlay.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Mostrar Atalhos"
+
+#: src/gtk/help-overlay.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Sair"
