@@ -51,7 +51,7 @@ The licenses of all of these pieces of software can be found in the dependencies
 
 ## Contributing
 
-Contributions are always welcome, of course! I have not set up translations yet, and this time I want to utilize the .po files to do it. I will update this section once that is in.
+Contributions are always welcome, of course! In the case of translations, they are done with .po files that you can create with a program like Poedit for example. Keep in mind that Varia is kind of a simple app at the moment, and I will keep addding new features so the translations you add right now can become incomplete when I add new features.
 
 Also, I really want to change the logo as it's something I hastly hacked together in Krita. If you can make a logo that conforms to the GNOME logo design guidelines, that would be amazing!
 
