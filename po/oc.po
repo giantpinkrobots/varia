@@ -1,0 +1,165 @@
+# Occitan translation file.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Quentin PAGÈS, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-30 03:17+0300\n"
+"PO-Revision-Date: 2023-11-30 19:59+0100\n"
+"Last-Translator: Quentin PAGÈS\n"
+"Language-Team: \n"
+"Language: oc\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.1\n"
+
+#. Translators: Do NOT translate or localize the application name.
+#: data/io.github.giantpinkrobots.varia.desktop.in:4
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:3
+msgid "Varia"
+msgstr "Varia"
+
+#. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
+#: data/io.github.giantpinkrobots.varia.desktop.in:11
+msgid "varia;aria;download;manager;"
+msgstr "varia;aria;telecargament;descargament;gestionari;"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
+msgid "Download manager based on aria2"
+msgstr "Gestionari de telecargaments basat sus aria2"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
+msgid ""
+"Varia is a download manager based on aria2 that utilizes GTK4 and Libadwaita "
+"to provide a easy to use interface that integrates well with the GNOME "
+"desktop."
+msgstr ""
+"Varia es un gestionari de telecargaments basat sus aria2 qu'utiliza GTK4 e "
+"Libadwaita per provesir una interfàcia de bon utilizar que s'intègra ben amb "
+"lo burèu GNOME."
+
+#: src/variamain.py:45
+msgid "This is not a valid URL."
+msgstr "Aquò es pas una URL valida."
+
+#: src/variamain.py:171
+msgid "About Varia"
+msgstr "A prepaus de Varia"
+
+#: src/variamain.py:177
+msgid "URL"
+msgstr "URL"
+
+#: src/variamain.py:178
+msgid "Download"
+msgstr "Telecargar"
+
+#: src/variamain.py:184
+msgid "Open Downloads Folder"
+msgstr "Dobrir lo dossièr dels telecargaments"
+
+#: src/variamain.py:196
+msgid "Speed Limit"
+msgstr "Velocitat limit"
+
+#: src/variamain.py:203 src/variamain.py:423
+msgid "Pause All"
+msgstr "Tot metre en pausa"
+
+#: src/variamain.py:212
+msgid "Speed"
+msgstr "Velocitat"
+
+#: src/variamain.py:215
+msgid "Set Speed Limit"
+msgstr "Definir la velocitat limit"
+
+#: src/variamain.py:216
+msgid "Cancel All"
+msgstr "Tot anullar"
+
+#: src/variamain.py:274
+msgid "Download complete."
+msgstr "Telecargament acabat."
+
+#: src/variamain.py:276
+msgid "An error occurred:"
+msgstr "Una error s'es producha :"
+
+#: src/variamain.py:292
+msgid "MB/s"
+msgstr "Mo/s"
+
+#: src/variamain.py:294
+msgid "KB/s"
+msgstr "ko/s"
+
+#: src/variamain.py:298
+msgid "0 B/s"
+msgstr "0 o/s"
+
+#: src/variamain.py:300
+msgid " MB/s"
+msgstr " Mo/s"
+
+#: src/variamain.py:302
+msgid " KB/s"
+msgstr " ko/s"
+
+#: src/variamain.py:304
+msgid " B/s"
+msgstr " o/s"
+
+#: src/variamain.py:410
+msgid "Resume All"
+msgstr "Tot reprendre"
+
+#: src/variamain.py:443
+msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
+msgstr ""
+"gestionari de telecargaments basat sus aria2 qu'utiliza GTK4 e Libadwaita."
+
+#: src/variamain.py:446
+msgid ""
+"2023 Giant Pink Robots!\n"
+"\n"
+"This application relies on the following pieces of software:\n"
+"\n"
+"- aria2: GPL v2 License (aria2 itself relies on OpenSSL: OpenSSL License)\n"
+"- aria2p: ISC License\n"
+"\n"
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
+msgstr ""
+"2023 Giant Pink Robots!\n"
+"\n"
+"Aquesta aplicacion utiliza los tròces de logicial :\n"
+"\n"
+"- aria2: licéncia GPL v2 (aria2 utiliza OpenSSL : licéncia OpenSSL)\n"
+"- aria2p: licéncia ISC\n"
+"\n"
+"Las licéncias de totes aquestes tròces se tròban dins lo dossièr de las "
+"informacions de las dependénciasound dins lo repertòri d'aquesta aplicacion."
+
+#: src/variamain.py:449
+msgid "translator-credits"
+msgstr "Quentin PAGÈS"
+
+#: src/gtk/help-overlay.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "General"
+
+#: src/gtk/help-overlay.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Afichar los acorchis"
+
+#: src/gtk/help-overlay.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Quitar"
