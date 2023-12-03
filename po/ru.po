@@ -1,0 +1,167 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Varia\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-30 03:17+0300\n"
+"PO-Revision-Date: 2023-12-02 22:02+0300\n"
+"Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
+"Language-Team: \n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"X-Generator: Poedit 3.4.1\n"
+
+#. Translators: Do NOT translate or localize the application name.
+#: data/io.github.giantpinkrobots.varia.desktop.in:4
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:3
+msgid "Varia"
+msgstr "Varia"
+
+#. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
+#: data/io.github.giantpinkrobots.varia.desktop.in:11
+msgid "varia;aria;download;manager;"
+msgstr "varia;aria;download;manager;загрузка;загрузить;скачать;менеджер;"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
+msgid "Download manager based on aria2"
+msgstr "Менеджер загрузок на основе aria2"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
+msgid ""
+"Varia is a download manager based on aria2 that utilizes GTK4 and Libadwaita "
+"to provide a easy to use interface that integrates well with the GNOME "
+"desktop."
+msgstr ""
+"Varia - это менеджер загрузок, основанный на aria2, который использует GTK4 "
+"и Libadwaita для создания простого в использовании интерфейса, который "
+"хорошо интегрируется с рабочим столом GNOME."
+
+#: src/variamain.py:45
+msgid "This is not a valid URL."
+msgstr "Это неправильный URL-адрес."
+
+#: src/variamain.py:171
+msgid "About Varia"
+msgstr "О приложении"
+
+#: src/variamain.py:177
+msgid "URL"
+msgstr "URL-адрес"
+
+#: src/variamain.py:178
+msgid "Download"
+msgstr "Загрузить"
+
+#: src/variamain.py:184
+msgid "Open Downloads Folder"
+msgstr "Открыть папку \"Загрузки\""
+
+#: src/variamain.py:196
+msgid "Speed Limit"
+msgstr "Ограничение скорости"
+
+#: src/variamain.py:203 src/variamain.py:423
+msgid "Pause All"
+msgstr "Приостановить все"
+
+#: src/variamain.py:212
+msgid "Speed"
+msgstr "Скорость"
+
+#: src/variamain.py:215
+msgid "Set Speed Limit"
+msgstr "Установить ограничение скорости"
+
+#: src/variamain.py:216
+msgid "Cancel All"
+msgstr "Отменить все"
+
+#: src/variamain.py:274
+msgid "Download complete."
+msgstr "Загрузка завершена."
+
+#: src/variamain.py:276
+msgid "An error occurred:"
+msgstr "Произошла ошибка:"
+
+#: src/variamain.py:292
+msgid "MB/s"
+msgstr "Мбайт/с"
+
+#: src/variamain.py:294
+msgid "KB/s"
+msgstr "Кбайт/с"
+
+#: src/variamain.py:298
+msgid "0 B/s"
+msgstr "0 Байт/с"
+
+#: src/variamain.py:300
+msgid " MB/s"
+msgstr " Мбайт/с"
+
+#: src/variamain.py:302
+msgid " KB/s"
+msgstr " Кбайт/с"
+
+#: src/variamain.py:304
+msgid " B/s"
+msgstr " Байт/с"
+
+#: src/variamain.py:410
+msgid "Resume All"
+msgstr "Возобновить все"
+
+#: src/variamain.py:443
+msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
+msgstr "Менеджер загрузок на основе aria2, использующий GTK4 и Libadwaita."
+
+#: src/variamain.py:446
+msgid ""
+"2023 Giant Pink Robots!\n"
+"\n"
+"This application relies on the following pieces of software:\n"
+"\n"
+"- aria2: GPL v2 License (aria2 itself relies on OpenSSL: OpenSSL License)\n"
+"- aria2p: ISC License\n"
+"\n"
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
+msgstr ""
+"2023 Giant Pink Robots!\n"
+"\n"
+"Это приложение использует следующие части программного обеспечения:\n"
+"\n"
+"- aria2: Лицензия GPL v2 (сама aria2 опирается на OpenSSL: Лицензия "
+"OpenSSL)\n"
+"- aria2p: Лицензия ISC\n"
+"\n"
+"Лицензии всех этих программных продуктов можно найти в каталоге "
+"dependencies_information в этом приложении."
+
+#: src/variamain.py:449
+msgid "translator-credits"
+msgstr "Aleksandr Melman <Alexmelman88@gmail.com>, 2023"
+
+#: src/gtk/help-overlay.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Общие"
+
+#: src/gtk/help-overlay.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Показать комбинации клавиш"
+
+#: src/gtk/help-overlay.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Выйти"
