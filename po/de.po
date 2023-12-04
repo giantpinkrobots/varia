@@ -1,0 +1,165 @@
+# German translation for Varia.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Varia package.
+# Philipp Kiemle <philipp.kiemle@gmail.com>, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-30 03:17+0300\n"
+"PO-Revision-Date: 2023-12-03 21:37+0100\n"
+"Last-Translator: Philipp Kiemle <philipp.kiemle@gmail.com>\n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.1\n"
+
+#. Translators: Do NOT translate or localize the application name.
+#: data/io.github.giantpinkrobots.varia.desktop.in:4
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:3
+msgid "Varia"
+msgstr "Varia"
+
+#. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
+#: data/io.github.giantpinkrobots.varia.desktop.in:11
+msgid "varia;aria;download;manager;"
+msgstr "varia;aria;download;herunterladen;manager;Verwaltung;"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
+msgid "Download manager based on aria2"
+msgstr "Auf aria2 basierender Download-Manager"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
+msgid ""
+"Varia is a download manager based on aria2 that utilizes GTK4 and Libadwaita "
+"to provide a easy to use interface that integrates well with the GNOME "
+"desktop."
+msgstr ""
+"Varia ist ein auf aria2 basierender Download-Manager, der GTK4 und "
+"Libadwaita nutzt, um eine einfache Benutzeroberfläche zu kreieren, die sich "
+"gut in den GNOME Desktop einfügt."
+
+#: src/variamain.py:45
+msgid "This is not a valid URL."
+msgstr "Das ist keine gültige URL."
+
+#: src/variamain.py:171
+msgid "About Varia"
+msgstr "Info zu Varia"
+
+#: src/variamain.py:177
+msgid "URL"
+msgstr "URL"
+
+#: src/variamain.py:178
+msgid "Download"
+msgstr "Herunterladen"
+
+#: src/variamain.py:184
+msgid "Open Downloads Folder"
+msgstr "Downloads-Verzeichnis öffnen"
+
+#: src/variamain.py:196
+msgid "Speed Limit"
+msgstr "Geschwindigkeitsbegrenzung"
+
+#: src/variamain.py:203 src/variamain.py:423
+msgid "Pause All"
+msgstr "Alle pausieren"
+
+#: src/variamain.py:212
+msgid "Speed"
+msgstr "Geschwindigkeit"
+
+#: src/variamain.py:215
+msgid "Set Speed Limit"
+msgstr "Geschwindigkeitsbegrenzung setzen"
+
+#: src/variamain.py:216
+msgid "Cancel All"
+msgstr "Alle abbrechen"
+
+#: src/variamain.py:274
+msgid "Download complete."
+msgstr "Herunterladen abgeschlossen."
+
+#: src/variamain.py:276
+msgid "An error occurred:"
+msgstr "Es ist ein Fehler aufgetreten:"
+
+#: src/variamain.py:292
+msgid "MB/s"
+msgstr "MB/s"
+
+#: src/variamain.py:294
+msgid "KB/s"
+msgstr "KB/s"
+
+#: src/variamain.py:298
+msgid "0 B/s"
+msgstr "0 B/s"
+
+#: src/variamain.py:300
+msgid " MB/s"
+msgstr " MB/s"
+
+#: src/variamain.py:302
+msgid " KB/s"
+msgstr " KB/s"
+
+#: src/variamain.py:304
+msgid " B/s"
+msgstr " B/s"
+
+#: src/variamain.py:410
+msgid "Resume All"
+msgstr "Alle fortfahren"
+
+#: src/variamain.py:443
+msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
+msgstr ""
+"Ein aria2-basierter Download-Manager, welcher GTK4 und Libadwaita nutzt."
+
+#: src/variamain.py:446
+msgid ""
+"2023 Giant Pink Robots!\n"
+"\n"
+"This application relies on the following pieces of software:\n"
+"\n"
+"- aria2: GPL v2 License (aria2 itself relies on OpenSSL: OpenSSL License)\n"
+"- aria2p: ISC License\n"
+"\n"
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
+msgstr ""
+"2023 Giant Pink Robots!\n"
+"\n"
+"Diese Anwendung nutzt folgende Software:\n"
+"\n"
+"- aria2: GPL v2-Lizenz (aria2 verwendet selbst OpenSSL: OpenSSL-Lizenz)\n"
+"- aria2p: ISC-Lizenz\n"
+"\n"
+"Die Lizenzen dieser verwendeten Software können Sie im Verzeichnis "
+"»dependencies_information« im Anwendungsverzeichnis der App einsehen."
+
+#: src/variamain.py:449
+msgid "translator-credits"
+msgstr "Philipp Kiemle <philipp.kiemle@gmail.com>"
+
+#: src/gtk/help-overlay.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Allgemein"
+
+#: src/gtk/help-overlay.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Tastenkürzel anzeigen"
+
+#: src/gtk/help-overlay.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Beenden"
