@@ -24,20 +24,7 @@ Varia supports some basic functionality you'd expect from a download manager suc
 
 The easiest way of building Varia is to use GNOME Builder. Just clone this repository, and open the folder using Builder. Then, press run.
 
-If you don't want to use GNOME Builder, or Flatpak, you'll need Meson. Here's how you can install it on some Linux distros:
-<br>Ubuntu / Debian: ```sudo apt install meson ninja-build```
-<br>Fedora / RHEL / derivatives: ```sudo dnf install meson ninja-build```
-<br>Arch: ```sudo pacman -S meson```
-
-After that, you can use these instructions to build and install Varia:
-```
-git clone https://github.com/giantpinkrobots/varia
-cd varia
-meson setup builddir
-cd builddir
-meson compile
-meson install
-```
+For now, building using Flatpak is the only supported way of building Varia, but I will add meson-only build instructions later when I fix the code to support that.
 
 ## License
 
