@@ -1,11 +1,10 @@
-variaVersion = "v2023.11.22"
+variaVersion = "v2023.12.4"
 
 import gi
 import sys
 from gettext import gettext as _
 import time
 from io import BytesIO
-from urllib.parse import unquote, urlparse
 import json
 import os
 import time
@@ -13,133 +12,29 @@ import aria2p
 import subprocess
 import threading
 from pathlib import Path
-from urllib.parse import urlparse
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, GLib, Gio
 import multiprocessing
 import requests
-
-class DownloadThread(threading.Thread):
-    def __init__(self, api, url, progress_bar, speed_label, downloaddir):
-        threading.Thread.__init__(self)
-        self.api = api
-        self.downloaddir = downloaddir
-        self.download = None
-        self.url = url
-        self.progress_bar = progress_bar
-        self.speed_label = speed_label
-        self.stop_event = threading.Event()
-
-    def is_valid_url(self, url):
-        result = urlparse(url)
-        try:
-            return all([result.scheme, result.netloc])
-        except ValueError:
-            return False
-
-    def run(self):
-        if not (self.is_valid_url(self.url)):
-            try:
-                GLib.idle_add(self.show_message(_("This is not a valid URL.")))
-            except:
-                return
-        else:
-            self.download = self.api.add_uris([self.url])
-            downloadname = self.download.name
-            while (True):
-                try:
-                    self.download.update()
-                    GLib.idle_add(self.update_labels_and_things)
-                    if (self.download.is_complete):
-                        if os.path.exists(os.path.join(self.downloaddir,(self.download.gid + ".varia.json"))):
-                            os.remove(os.path.join(self.downloaddir,(self.download.gid + ".varia.json")))
-                        break
-                    elif (self.download.status == "error"):
-                        self.speed_label.set_text(_("An error occurred:") + " " + self.download.error_message.split("status=")[1])
-                        return
-                except:
-                    return
-                time.sleep(1)
-
-    def show_message(self, message):
-        self.speed_label.set_text(message)
-
-    def update_labels_and_things(self):
-        self.progress_bar.set_fraction(self.download.progress / 100)
-        download_speed_mb = (self.download.download_speed / 1024 / 1024)
-        if int(str(download_speed_mb)[0]) == 0:
-            download_speed_kb = (self.download.download_speed / 1024)
-            if int(str(download_speed_kb)[0]) == 0:
-                self.speed_label.set_text(f"{round(self.download.progress)}%  |  {round(self.download.download_speed, 2)} B/s")
-            else:
-                self.speed_label.set_text(f"{round(self.download.progress)}%  |  {round(self.download.download_speed / 1024, 2)} KB/s")
-        else:
-            self.speed_label.set_text(f"{round(self.download.progress)}%  |  {round(self.download.download_speed / 1024 / 1024, 2)} MB/s")
-
-    def pause(self):
-        if self.download:
-            if self.download.is_paused == False:
-                try:
-                    self.download.pause()
-                except:
-                    try:
-                        self.download.pause([self.download.gid])
-                    except:
-                        self.stop(False)
-
-    def resume(self):
-        if self.download:
-            if self.download.is_paused == True:
-                try:
-                    self.download.resume()
-                except:
-                    self.speed_label.set_text(_("An error occurred:") + " " + self.download.error_message.split("status=")[1])
-
-    def stop(self, deletefiles):
-        if self.download:
-            downloadgid = self.download.gid
-            downloadname = self.download.name
-            self.download.remove(force=True)
-            if not self.download.is_complete:
-                if (deletefiles == True):
-                    if os.path.exists(os.path.join(self.downloaddir,(downloadgid + ".varia.json"))):
-                        os.remove(os.path.join(self.downloaddir,(downloadgid + ".varia.json")))
-                    if os.path.exists(os.path.join(self.downloaddir, downloadname)):
-                        os.remove(os.path.join(self.downloaddir, downloadname))
-
-    def save_state(self):
-        if self.download:
-            try:
-                self.download.update()
-            except:
-                return
-            state = {
-                'url': self.url,
-                'downloaded': self.download.completed_length,
-            }
-            with open(os.path.join(self.downloaddir, f'{self.download.gid}.varia.json'), 'w') as f:
-                json.dump(state, f)
-
-    @classmethod
-    def load_state(cls, api, downloaddir, filename, progress_bar, pause_button, speed_label):
-        with open(os.path.join(downloaddir, filename), 'r') as f:
-            state = json.load(f)
-            os.remove(os.path.join(downloaddir, filename))
-        instance = cls(api, state['url'], progress_bar, speed_label, pause_button, downloaddir)
-        return instance
+from urllib.parse import unquote, urlparse
 
 class MainWindow(Gtk.Window):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.downloaddir = GLib.get_user_special_dir(GLib.USER_DIRECTORY_DOWNLOAD)
-        self.appdir = os.path.join('/var', 'data')
-        self.appconf = {'download_speed_limit': "0"}
+        if "FLATPAK_ID" in os.environ:
+            self.appdir = os.path.join('/var', 'data')
+        else:
+            self.appdir = os.path.join(os.path.expanduser('~'), '.varia')
+            if not os.path.exists(self.appdir):
+                os.makedirs(self.appdir)
+
+        self.appconf = {'download_speed_limit_enabled': '0', 'download_speed_limit': '0', 'auth': '0', 'auth_username': '', 'auth_password': '', 'download_directory': GLib.get_user_special_dir(GLib.USER_DIRECTORY_DOWNLOAD)}
 
         if os.path.exists(os.path.join(self.appdir, 'varia.conf')):
             with open(os.path.join(self.appdir, 'varia.conf'), 'r') as f:
-                self.appconf = json.load(f)
+                self.appconf.update(json.load(f))
         else:
             with open(os.path.join(self.appdir, 'varia.conf'), 'w') as f:
                 json.dump(self.appconf, f)
@@ -176,15 +71,29 @@ class MainWindow(Gtk.Window):
         header_bar.get_style_context().add_class('flat')
         sidebar_box.append(header_bar)
 
-        about_button = Gtk.Button(tooltip_text=_("About Varia"))
-        header_bar.pack_start(about_button)
-        about_button.connect("clicked", self.show_about)
-        about_button.set_icon_name("help-about-symbolic")
+        preferences_button = Gtk.Button(tooltip_text=_("Preferences"))
+        preferences_button.set_icon_name("emblem-system-symbolic")
+        preferences_button.connect("clicked", self.show_preferences)
 
-        open_downloads_folder_button = Gtk.Button(tooltip_text=_("Open Downloads Folder"))
-        header_bar.pack_end(open_downloads_folder_button)
-        open_downloads_folder_button.connect("clicked", self.open_downloads_folder)
-        open_downloads_folder_button.set_icon_name("folder-symbolic")
+        self.hamburger_button = Gtk.MenuButton(tooltip_text=_("Other"))
+        self.hamburger_button.set_icon_name("open-menu-symbolic")
+        self.hamburger_menu_popover = Gtk.PopoverMenu()
+        self.hamburger_button.set_popover(self.hamburger_menu_popover)
+        self.hamburger_menu_popover_box = Gtk.ListBox()
+        self.hamburger_menu_popover.set_child(self.hamburger_menu_popover_box)
+
+        self.hamburger_menu_item_open_downloads_folder = Gtk.ListBoxRow()
+        self.hamburger_menu_item_open_downloads_folder.set_child(Gtk.Label(label=_("Open Download Folder")))
+        self.hamburger_menu_popover_box.append(self.hamburger_menu_item_open_downloads_folder)
+
+        self.hamburger_menu_item_about = Gtk.ListBoxRow()
+        self.hamburger_menu_item_about.set_child(Gtk.Label(label=_("About Varia")))
+        self.hamburger_menu_popover_box.append(self.hamburger_menu_item_about)
+
+        self.hamburger_menu_popover_box.connect("row-activated", self.on_popover_menu_row_activated)
+
+        header_bar.pack_start(preferences_button)
+        header_bar.pack_end(self.hamburger_button)
 
         download_entry = Gtk.Entry()
         download_entry.set_placeholder_text(_("URL"))
@@ -198,33 +107,7 @@ class MainWindow(Gtk.Window):
         sidebar_expanding_box = Gtk.Box()
         Gtk.Widget.set_vexpand(sidebar_expanding_box, True)
 
-        speed_limit_label = Gtk.Label(label = _("Speed Limit"))
-
-        speed_limit_box = Gtk.Box()
-
-        speed_limit_unit_names = Gtk.ListStore(int, str)
-        speed_limit_unit_names.append([1, _("KB/s")])
-        speed_limit_unit_names.append([2, _("MB/s")])
-        speed_limit_unit_names.append([3, _("GB/s")])
-        speed_limit_unit_names_dropdown = Gtk.ComboBox.new_with_model(speed_limit_unit_names)
-        speed_limit_unit_names_dropdown.set_active(0)
-        speed_limit_unit_names_dropdown_renderer_text = Gtk.CellRendererText()
-        speed_limit_unit_names_dropdown.pack_start(speed_limit_unit_names_dropdown_renderer_text, True)
-        speed_limit_unit_names_dropdown.add_attribute(speed_limit_unit_names_dropdown_renderer_text, "text", 1)
-        speed_limit_unit_names_dropdown.set_margin_end(2)
-
-        speed_limit_entry = Gtk.Entry()
-        speed_limit_entry.set_placeholder_text(_("Speed"))
-        speed_limit_entry.set_margin_end(2)
-
-        speed_limit_apply_button = Gtk.Button(tooltip_text=_("Set Speed Limit"))
-        speed_limit_apply_button.set_icon_name("emblem-ok-symbolic")
-        speed_limit_apply_button.get_style_context().add_class("suggested-action")
-        speed_limit_apply_button.connect('clicked', lambda entry: self.on_speed_limit_changed(speed_limit_entry, speed_limit_unit_names_dropdown))
-
-        speed_limit_box.append(speed_limit_entry)
-        speed_limit_box.append(speed_limit_unit_names_dropdown)
-        speed_limit_box.append(speed_limit_apply_button)
+        self.sidebar_speed_limited_label = Gtk.Label()
 
         sidebar_content_box.set_margin_start(6)
         sidebar_content_box.set_margin_end(6)
@@ -234,8 +117,7 @@ class MainWindow(Gtk.Window):
         sidebar_content_box.append(download_entry)
         sidebar_content_box.append(download_button)
         sidebar_content_box.append(sidebar_expanding_box)
-        sidebar_content_box.append(speed_limit_label)
-        sidebar_content_box.append(speed_limit_box)
+        sidebar_content_box.append(self.sidebar_speed_limited_label)
         sidebar_box.append(sidebar_content_box)
 
         self.overlay_split_view.set_sidebar(sidebar_box)
@@ -246,7 +128,7 @@ class MainWindow(Gtk.Window):
 
         self.total_download_speed_label = Gtk.Label(label=self.total_download_speed)
 
-        header_button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        header_button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=4)
 
         header_pause_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
         header_pause_label = Gtk.Label(label =_("Pause All"))
@@ -308,36 +190,44 @@ class MainWindow(Gtk.Window):
         self.check_download_status_thread.start()
 
         # Set download speed limit from appconf:
-        if (self.appconf["download_speed_limit"][0] != "0"):
-            match self.appconf["download_speed_limit"][-1]:
-                case "K":
-                    speed_limit_unit_names_dropdown.set_active(0)
-                case "M":
-                    speed_limit_unit_names_dropdown.set_active(1)
-                case "G":
-                    speed_limit_unit_names_dropdown.set_active(2)
-            speed_limit_entry.set_text(self.appconf["download_speed_limit"][:-1])
-            self.on_speed_limit_changed(speed_limit_entry, speed_limit_unit_names_dropdown)
+        if ((self.appconf["download_speed_limit_enabled"] == "1") and (self.appconf["download_speed_limit"][:-1] != "0")):
+            self.set_speed_limit(self.appconf["download_speed_limit"])
 
-        for filename in os.listdir(self.downloaddir):
+        # Set download directory from appconf:
+        self.set_aria2c_download_directory()
+
+        for filename in os.listdir(self.appconf["download_directory"]):
             if filename.endswith('.varia.json'):
-                with open(os.path.join(self.downloaddir, filename), 'r') as f:
+                with open(os.path.join(self.appconf["download_directory"], filename), 'r') as f:
                     state = json.load(f)
                 objectlist = self.create_actionrow(state['url'])
-                download_thread = DownloadThread.load_state(self.api, self.downloaddir, filename, objectlist[0], objectlist[1])
+                download_thread = DownloadThread.load_state(self.api, self.appconf["download_directory"], filename, objectlist[0], objectlist[1], self.appconf["auth"], self.appconf["auth_username"], self.appconf["auth_password"])
                 self.downloads.append(download_thread)
                 download_thread.start()
+
+    def on_popover_menu_row_activated(self, listbox, row):
+        if row == self.hamburger_menu_item_open_downloads_folder:
+            self.open_downloads_folder(self)
+        elif row == self.hamburger_menu_item_about:
+            self.show_about(self)
+        self.hamburger_button.popdown()
 
     def check_download_status(self):
         while (self.terminating == False):
             i = 0
             for download_thread in self.downloads:
-                if (download_thread.download.is_complete == 1):
-                    download_thread.speed_label.set_text(_("Download complete."))
-                    self.pause_buttons[i].hide()
-                elif (download_thread.download.status == "error") or (download_thread.download.status == "removed"):
-                    download_thread.speed_label.set_text(_("An error occurred:") + " " + download_thread.download.error_message.split("status=")[1])
-                    self.pause_buttons[i].hide()
+                if (download_thread.download):
+                    if (download_thread.download.is_complete == 1):
+                        download_thread.speed_label.set_text(_("Download complete."))
+                        self.pause_buttons[i].hide()
+                    elif (download_thread.download.status == "error") or (download_thread.download.status == "removed"):
+                        if (download_thread.download.error_code == "24"):
+                            download_thread.speed_label.set_text(_("Authorization failed."))
+                        else:
+                            download_thread.speed_label.set_text(_("An error occurred:") + " " + str(download_thread.download.error_code))
+                        download_thread.stop(False)
+                        download_thread.download.remove(force=True)
+                        self.pause_buttons[i].hide()
                 i += 1
             time.sleep(1)
 
@@ -431,7 +321,7 @@ class MainWindow(Gtk.Window):
         entry.set_text("")
         if url:
             objectlist = self.create_actionrow(url)
-            download_thread = DownloadThread(self.api, url, objectlist[0], objectlist[1], self.downloaddir)
+            download_thread = DownloadThread(self.api, url, objectlist[0], objectlist[1], self.appconf["download_directory"], self.appconf["auth"], self.appconf["auth_username"], self.appconf["auth_password"])
             self.downloads.append(download_thread)
             download_thread.start()
 
@@ -503,18 +393,12 @@ class MainWindow(Gtk.Window):
                 download_thread.stop(True)
                 self.downloads.remove(download_thread)
 
-    def on_speed_limit_changed(self, speed, speed_type):
-        speed = speed.get_text()
-        if (speed == ""):
-            speed = "0"
-        speed_type = speed_type.get_active()
-        match speed_type:
-            case 0:
-                download_limit = speed + "K"
-            case 1:
-                download_limit = speed + "M"
-            case 2:
-                download_limit = speed + "G"
+    def set_speed_limit(self, download_limit):
+        self.sidebar_speed_limited_label.set_text("")
+        if ((download_limit[:-1] != "0") and (self.appconf["download_speed_limit_enabled"] == "1")):
+            self.sidebar_speed_limited_label.set_markup("<span color='red'>" + _("Speed limited") + "</span>")
+        else:
+            download_limit = "0"
 
         json_request = {
             "jsonrpc": "2.0",
@@ -526,15 +410,25 @@ class MainWindow(Gtk.Window):
         }
 
         response = requests.post('http://localhost:6801/jsonrpc', headers={'Content-Type': 'application/json'}, data=json.dumps(json_request))
-        self.appconf = {'download_speed_limit': download_limit}
-        self.save_appconf()
+
+    def set_aria2c_download_directory(self):
+        json_request = {
+            "jsonrpc": "2.0",
+            "id": "1",
+            "method": "aria2.changeGlobalOption",
+            "params": [
+                {"dir": self.appconf["download_directory"]}
+            ]
+        }
+
+        response = requests.post('http://localhost:6801/jsonrpc', headers={'Content-Type': 'application/json'}, data=json.dumps(json_request))
 
     def save_appconf(self):
         with open(os.path.join(self.appdir, 'varia.conf'), 'w') as f:
             json.dump(self.appconf, f)
 
     def open_downloads_folder(self, app):
-        subprocess.Popen(["xdg-open", self.downloaddir])
+        subprocess.Popen(["xdg-open", self.appconf["download_directory"]])
 
     def show_about(self, app):
         dialog = Adw.AboutWindow(transient_for=self)
@@ -551,12 +445,314 @@ class MainWindow(Gtk.Window):
         dialog.set_translator_credits(_("translator-credits"))
         dialog.show()
 
+    def show_preferences(self, app):
+        preferences = Adw.PreferencesWindow()
+
+        page = Adw.PreferencesPage(title=_("Preferences"))
+        preferences.add(page)
+        group_1 = Adw.PreferencesGroup()
+        page.add(group_1)
+
+        download_directory_actionrow = Adw.ActionRow()
+        download_directory_actionrow.set_title(_("Download Directory"))
+        download_directory_actionrow.set_subtitle(self.appconf["download_directory"])
+
+        download_directory_change_button = Gtk.Button(label=_("Change"))
+        download_directory_change_button.get_style_context().add_class("suggested-action")
+        download_directory_change_button.set_halign(Gtk.Align.START)
+        download_directory_change_button.set_valign(Gtk.Align.CENTER)
+        download_directory_change_button.connect("clicked", lambda clicked: self.on_download_directory_change(preferences, download_directory_actionrow))
+
+
+        download_directory_actionrow.add_suffix(download_directory_change_button)
+
+        speed_limit_expanded_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=4)
+
+        speed_limit_unit_names = Gtk.ListStore(int, str)
+        speed_limit_unit_names.append([1, _("KB/s")])
+        speed_limit_unit_names.append([2, _("MB/s")])
+        speed_limit_unit_names.append([3, _("GB/s")])
+        speed_limit_unit_names_dropdown = Gtk.ComboBox.new_with_model(speed_limit_unit_names)
+        speed_limit_unit_names_dropdown.set_active(0)
+        speed_limit_unit_names_dropdown_renderer_text = Gtk.CellRendererText()
+        speed_limit_unit_names_dropdown.pack_start(speed_limit_unit_names_dropdown_renderer_text, True)
+        speed_limit_unit_names_dropdown.add_attribute(speed_limit_unit_names_dropdown_renderer_text, "text", 1)
+
+        speed_limit_entry = Gtk.Entry()
+        speed_limit_entry.set_placeholder_text(_("Speed"))
+
+        speed_limit_expander_box = Adw.ExpanderRow()
+        speed_limit_expander_box.set_title(_("Speed Limit"))
+
+        speed_limit_expander_switch = Gtk.Switch()
+        speed_limit_expander_switch.set_halign(Gtk.Align.START)
+        speed_limit_expander_switch.set_valign(Gtk.Align.CENTER)
+        speed_limit_expander_switch.connect("state-set", self.on_switch_speed_limit)
+
+        if (self.appconf["download_speed_limit_enabled"] == "1"):
+            speed_limit_expander_switch.set_active("active")
+
+        speed_limit_expander_box.add_action(speed_limit_expander_switch)
+
+        speed_limit_apply_button = Gtk.Button(tooltip_text=_("Set Speed Limit"))
+        speed_limit_apply_button.set_icon_name("emblem-ok-symbolic")
+        speed_limit_apply_button.get_style_context().add_class("suggested-action")
+        speed_limit_apply_button.connect('clicked', lambda clicked: self.on_speed_limit_changed(speed_limit_entry, speed_limit_unit_names_dropdown))
+
+        preferences_hexpanding_box_left = Gtk.Box()
+        Gtk.Widget.set_hexpand(preferences_hexpanding_box_left, True)
+        preferences_hexpanding_box_right = Gtk.Box()
+        Gtk.Widget.set_hexpand(preferences_hexpanding_box_right, True)
+
+        speed_limit_expanded_box.append(preferences_hexpanding_box_left)
+        speed_limit_expanded_box.append(speed_limit_entry)
+        speed_limit_expanded_box.append(speed_limit_unit_names_dropdown)
+        speed_limit_expanded_box.append(speed_limit_apply_button)
+        speed_limit_expanded_box.append(preferences_hexpanding_box_right)
+
+        speed_limit_expanded_box.set_margin_top(10)
+        speed_limit_expanded_box.set_margin_bottom(10)
+
+        speed_limit_expander_box.add_row(speed_limit_expanded_box)
+
+        auth_expander = Adw.ExpanderRow()
+        auth_expander.set_title(_("Authentication"))
+
+        auth_expander_switch = Gtk.Switch()
+        auth_expander_switch.set_halign(Gtk.Align.START)
+        auth_expander_switch.set_valign(Gtk.Align.CENTER)
+        auth_expander_switch.connect("state-set", self.on_switch_auth)
+
+        if (self.appconf["auth"] == "1"):
+            auth_expander_switch.set_active("active")
+
+        auth_expander.add_action(auth_expander_switch)
+
+        username_entry = Gtk.Entry()
+        username_entry.set_placeholder_text(_("Username"))
+        password_entry = Gtk.Entry()
+        password_entry.set_placeholder_text(_("Password"))
+        password_entry.set_visibility(False)
+        auth_apply_button = Gtk.Button(tooltip_text=_("Set Speed Limit"))
+        auth_apply_button.set_icon_name("emblem-ok-symbolic")
+        auth_apply_button.get_style_context().add_class("suggested-action")
+        auth_apply_button.connect('clicked', lambda entry: self.set_auth_credentials(username_entry, password_entry))
+
+        auth_expander_expanded_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=5)
+        auth_expander_expanded_box.append(username_entry)
+        auth_expander_expanded_box.append(password_entry)
+        auth_expander_expanded_box.append(auth_apply_button)
+        auth_expander_expanded_box.set_margin_top(10)
+        auth_expander_expanded_box.set_margin_bottom(10)
+        auth_expander_expanded_box.set_margin_start(10)
+        auth_expander_expanded_box.set_margin_end(10)
+
+        auth_expander.add_row(auth_expander_expanded_box)
+
+        group_1.add(download_directory_actionrow)
+        group_1.add(speed_limit_expander_box)
+        group_1.add(auth_expander)
+
+        match self.appconf["download_speed_limit"][-1]:
+            case "K":
+                speed_limit_unit_names_dropdown.set_active(0)
+            case "M":
+                speed_limit_unit_names_dropdown.set_active(1)
+            case "G":
+                speed_limit_unit_names_dropdown.set_active(2)
+        if (self.appconf["download_speed_limit"][:-1] != "0"):
+            speed_limit_entry.set_text(self.appconf["download_speed_limit"][:-1])
+
+        preferences.present()
+
+    def on_download_directory_change(self, prefswindow, actionrow):
+        Gtk.FileDialog().select_folder(None, None, self.on_download_directory_selected, prefswindow, actionrow)
+
+    def on_download_directory_selected(self, dialog, result, prefswindow, actionrow):
+        try:
+            folder = dialog.select_folder_finish(result)
+            self.appconf["download_directory"] = folder.get_path()
+            self.save_appconf()
+            actionrow.set_subtitle(self.appconf["download_directory"])
+            self.set_aria2c_download_directory()
+        except:
+            error_dialog = Adw.MessageDialog()
+            error_dialog.set_body(_("Failed to open folder."))
+            error_dialog.add_response("ok",  _("OK"))
+            error_dialog.set_default_response("ok")
+            error_dialog.set_close_response("ok")
+            error_dialog.set_transient_for(prefswindow)
+            error_dialog.connect("response", self.on_dialog_dismiss)
+            error_dialog.show()
+
+    def on_dialog_dismiss(self, dialog, response_id):
+        dialog.destroy()
+
+    def on_switch_speed_limit(self, switch, state):
+        if state:
+            self.appconf["download_speed_limit_enabled"] = "1"
+        else:
+            self.appconf["download_speed_limit_enabled"] = "0"
+        self.set_speed_limit(self.appconf["download_speed_limit"])
+        self.save_appconf()
+
+    def on_speed_limit_changed(self, speed, speed_type):
+        speed = speed.get_text()
+        if (speed == ""):
+            speed = "0"
+        speed_type = speed_type.get_active()
+        match speed_type:
+            case 0:
+                download_limit = speed + "K"
+            case 1:
+                download_limit = speed + "M"
+            case 2:
+                download_limit = speed + "G"
+
+        self.set_speed_limit(download_limit)
+        self.appconf = {'download_speed_limit': download_limit}
+        self.save_appconf()
+
+    def on_switch_auth(self, switch, state):
+        if state:
+            self.appconf["auth"] = "1"
+        else:
+            self.appconf["auth"] = "0"
+        self.save_appconf()
+
+    def set_auth_credentials(self, username_entry, password_entry):
+        self.appconf["auth_username"] = username_entry.get_text()
+        self.appconf["auth_password"] = password_entry.get_text()
+        self.save_appconf()
+
     def exitProgram(self, app):
         self.terminating = True
         self.all_paused = False
         self.pause_all("no","no")
         self.api.client.shutdown()
         self.destroy()
+
+class DownloadThread(threading.Thread):
+    def __init__(self, api, url, progress_bar, speed_label, downloaddir, auth, auth_username, auth_password):
+        threading.Thread.__init__(self)
+        self.api = api
+        self.downloaddir = downloaddir
+        self.download = None
+        self.url = url
+        self.speed_label = speed_label
+        self.stop_event = threading.Event()
+        self.auth = auth
+        self.auth_username = auth_username
+        self.auth_password = auth_password
+        self.progress_bar = progress_bar
+
+    def is_valid_url(self):
+        if not ((self.url[0:7] == "http://") or (self.url[0:8] == "https://")):
+            self.url = "http://" + self.url
+        result = urlparse(self.url)
+        try:
+            return all([result.scheme, result.netloc])
+        except ValueError:
+            return False
+
+    def run(self):
+        if not (self.is_valid_url()):
+            try:
+                GLib.idle_add(self.show_message(_("This is not a valid URL.")))
+            except:
+                return
+        else:
+            response = requests.head(self.url)
+            if ((response.status_code == 401) and (self.auth == '1')):
+                if (self.url[0:7] == "http://"):
+                    self.url = self.url[:7] + self.auth_username + ":" + self.auth_password + "@" + self.url[7:]
+                elif (self.url[0:8] == "https://"):
+                    self.url = self.url[:8] + self.auth_username + ":" + self.auth_password + "@" + self.url[8:]
+                else:
+                    self.url = self.auth_username + ":" + self.auth_password + "@" + self.url
+            print(self.url)
+            self.download = self.api.add_uris([self.url])
+            downloadname = self.download.name
+            while (True):
+                try:
+                    self.download.update()
+                    GLib.idle_add(self.update_labels_and_things)
+                    if (self.download.is_complete):
+                        if os.path.exists(os.path.join(self.appconf["download_directory"],(self.download.gid + ".varia.json"))):
+                            os.remove(os.path.join(self.appconf["download_directory"],(self.download.gid + ".varia.json")))
+                        break
+                    elif (self.download.status == "error"):
+                        return
+                except:
+                    return
+                time.sleep(1)
+
+    def show_message(self, message):
+        self.speed_label.set_text(message)
+
+    def update_labels_and_things(self):
+        self.progress_bar.set_fraction(self.download.progress / 100)
+        download_speed_mb = (self.download.download_speed / 1024 / 1024)
+        if int(str(download_speed_mb)[0]) == 0:
+            download_speed_kb = (self.download.download_speed / 1024)
+            if int(str(download_speed_kb)[0]) == 0:
+                self.speed_label.set_text(f"{round(self.download.progress)}%  |  {round(self.download.download_speed, 2)} B/s")
+            else:
+                self.speed_label.set_text(f"{round(self.download.progress)}%  |  {round(self.download.download_speed / 1024, 2)} KB/s")
+        else:
+            self.speed_label.set_text(f"{round(self.download.progress)}%  |  {round(self.download.download_speed / 1024 / 1024, 2)} MB/s")
+
+    def pause(self):
+        if self.download:
+            if self.download.is_paused == False:
+                try:
+                    self.download.pause()
+                except:
+                    try:
+                        self.download.pause([self.download.gid])
+                    except:
+                        self.stop(False)
+
+    def resume(self):
+        if self.download:
+            if self.download.is_paused == True:
+                try:
+                    self.download.resume()
+                except:
+                    self.speed_label.set_text(_("An error occurred:") + " " + self.download.error_message.split("status=")[1])
+
+    def stop(self, deletefiles):
+        if self.download:
+            downloadgid = self.download.gid
+            downloadname = self.download.name
+            self.download.remove(force=True)
+            if not self.download.is_complete:
+                if (deletefiles == True):
+                    if os.path.exists(os.path.join(self.appconf["download_directory"],(downloadgid + ".varia.json"))):
+                        os.remove(os.path.join(self.appconf["download_directory"],(downloadgid + ".varia.json")))
+                    if os.path.exists(os.path.join(self.appconf["download_directory"], downloadname)):
+                        os.remove(os.path.join(self.appconf["download_directory"], downloadname))
+
+    def save_state(self):
+        if self.download:
+            try:
+                self.download.update()
+            except:
+                return
+            state = {
+                'url': self.url,
+                'downloaded': self.download.completed_length,
+            }
+            with open(os.path.join(self.appconf["download_directory"], f'{self.download.gid}.varia.json'), 'w') as f:
+                json.dump(state, f)
+
+    @classmethod
+    def load_state(cls, api, downloaddir, filename, progress_bar, speed_label, auth, auth_username, auth_password):
+        with open(os.path.join(downloaddir, filename), 'r') as f:
+            state = json.load(f)
+            os.remove(os.path.join(downloaddir, filename))
+        instance = cls(api, state['url'], progress_bar, speed_label, downloaddir, auth, auth_username, auth_password)
+        return instance
 
 class MyApp(Adw.Application):
     def __init__(self, **kwargs):
@@ -568,7 +764,6 @@ class MyApp(Adw.Application):
         self.win.present()
 
 def main(version):
-   
     app = MyApp(application_id="io.github.giantpinkrobots.varia")
     try:
         app.run(sys.argv)

@@ -60,8 +60,8 @@ msgid "Download"
 msgstr "İndir"
 
 #: src/variamain.py:184
-msgid "Open Downloads Folder"
-msgstr "İndirilenler Klasörünü Aç"
+msgid "Open Download Folder"
+msgstr "İndirme Klasörünü Aç"
 
 #: src/variamain.py:196
 msgid "Speed Limit"
@@ -83,11 +83,23 @@ msgstr "Hız Sınırı Koy"
 msgid "Cancel All"
 msgstr "Tümünü İptal Et"
 
+#: src/variamain.py:235
+msgid "/s"
+msgstr "/s"
+
+#: src/variamain.py:238
+msgid "No limit"
+msgstr "Limit yok"
+
 #: src/variamain.py:274
 msgid "Download complete."
 msgstr "İndirme tamamlandı."
 
 #: src/variamain.py:276
+msgid "Download speed is limited."
+msgstr "İndirme hızı sınırlandı."
+
+#: src/variamain.py:277
 msgid "An error occurred:"
 msgstr "Hata oluştu:"
 
@@ -149,6 +161,34 @@ msgstr ""
 #: src/variamain.py:449
 msgid "translator-credits"
 msgstr "Sabri Ünal <libreajans@gmail.com>\nGiant Pink Robots! <giantpinkrobots@protonmail.com>"
+
+#: src/variamain.py:457
+msgid "Download Directory"
+msgstr "İndirme Klasörü"
+
+#: src/variamain.py:460
+msgid "Change"
+msgstr "Değiştir"
+
+#: src/variamain.py:463
+msgid "Speed limited"
+msgstr "Hız sınırlı"
+
+#: src/variamain.py:519
+msgid "Authentication"
+msgstr "Kimlik Doğrulama"
+
+#: src/variamain.py:532
+msgid "Username"
+msgstr "Kullanıcı Adı"
+
+#: src/variamain.py:534
+msgid "Password"
+msgstr "Şifre"
+
+#: src/variamain.py:554
+msgid "Authorization failed."
+msgstr "Yetkilendirme başarısız oldu."
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

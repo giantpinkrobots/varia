@@ -1,6 +1,5 @@
 #!/bin/bash
-download_dir=$(xdg-user-dir DOWNLOAD)
 pythonexec='@PYTHON@'
 pkgdatadir='@pkgdatadir@'
-$pkgdatadir/../../aria2/aria2c -d $download_dir --enable-rpc --rpc-listen-port=6801 &
+$pkgdatadir/../../aria2/aria2c --enable-rpc --rpc-listen-port=6801 &
 $pythonexec $pkgdatadir/../../bin/varia-py.py
