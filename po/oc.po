@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2023-11-30 19:59+0100\n"
+"PO-Revision-Date: 2023-12-07 17:40+0100\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: \n"
 "Language: oc\n"
@@ -59,7 +59,7 @@ msgid "Download"
 msgstr "Telecargar"
 
 #: src/variamain.py:184
-msgid "Open Downloads Folder"
+msgid "Open Download Folder"
 msgstr "Dobrir lo dossièr dels telecargaments"
 
 #: src/variamain.py:196
@@ -82,11 +82,23 @@ msgstr "Definir la velocitat limit"
 msgid "Cancel All"
 msgstr "Tot anullar"
 
+#: src/variamain.py:235
+msgid "/s"
+msgstr "/s"
+
+#: src/variamain.py:238
+msgid "No limit"
+msgstr "Cap de limit"
+
 #: src/variamain.py:274
 msgid "Download complete."
 msgstr "Telecargament acabat."
 
 #: src/variamain.py:276
+msgid "Download speed is limited."
+msgstr "La velocitat de telecargament es limitada."
+
+#: src/variamain.py:277
 msgid "An error occurred:"
 msgstr "Una error s'es producha :"
 
@@ -148,6 +160,34 @@ msgstr ""
 #: src/variamain.py:449
 msgid "translator-credits"
 msgstr "Quentin PAGÈS"
+
+#: src/variamain.py:457
+msgid "Download Directory"
+msgstr "Repertòri de telecargament"
+
+#: src/variamain.py:460
+msgid "Change"
+msgstr "Modificar"
+
+#: src/variamain.py:463
+msgid "Speed limited"
+msgstr "Velocitat limitada"
+
+#: src/variamain.py:519
+msgid "Authentication"
+msgstr "Autentificacion"
+
+#: src/variamain.py:532
+msgid "Username"
+msgstr "Nom d’utilizaire"
+
+#: src/variamain.py:534
+msgid "Password"
+msgstr "Senhal"
+
+#: src/variamain.py:554
+msgid "Authorization failed."
+msgstr "Autorizacion refusada."
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
