@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2023-12-03 21:37+0100\n"
+"PO-Revision-Date: 2023-12-07 12:00+0100\n"
 "Last-Translator: Philipp Kiemle <philipp.kiemle@gmail.com>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -59,8 +59,8 @@ msgid "Download"
 msgstr "Herunterladen"
 
 #: src/variamain.py:184
-msgid "Open Downloads Folder"
-msgstr "Downloads-Verzeichnis öffnen"
+msgid "Open Download Folder"
+msgstr "Download-Verzeichnis öffnen"
 
 #: src/variamain.py:196
 msgid "Speed Limit"
@@ -82,11 +82,24 @@ msgstr "Geschwindigkeitsbegrenzung setzen"
 msgid "Cancel All"
 msgstr "Alle abbrechen"
 
+#: src/variamain.py:235
+#| msgid "MB/s"
+msgid "/s"
+msgstr "/s"
+
+#: src/variamain.py:238
+msgid "No limit"
+msgstr "Keine Begrenzung"
+
 #: src/variamain.py:274
 msgid "Download complete."
 msgstr "Herunterladen abgeschlossen."
 
 #: src/variamain.py:276
+msgid "Download speed is limited."
+msgstr "Downloadgeschwindigkeit ist begrenzt."
+
+#: src/variamain.py:277
 msgid "An error occurred:"
 msgstr "Es ist ein Fehler aufgetreten:"
 
@@ -148,6 +161,34 @@ msgstr ""
 #: src/variamain.py:449
 msgid "translator-credits"
 msgstr "Philipp Kiemle <philipp.kiemle@gmail.com>"
+
+#: src/variamain.py:457
+msgid "Download Directory"
+msgstr "Download-Verzeichnis"
+
+#: src/variamain.py:460
+msgid "Change"
+msgstr "Ändern"
+
+#: src/variamain.py:463
+msgid "Speed limited"
+msgstr "Geschwindigkeit begrenzt"
+
+#: src/variamain.py:519
+msgid "Authentication"
+msgstr "Legitimierung"
+
+#: src/variamain.py:532
+msgid "Username"
+msgstr "Benutzername"
+
+#: src/variamain.py:534
+msgid "Password"
+msgstr "Passwort"
+
+#: src/variamain.py:554
+msgid "Authorization failed."
+msgstr "Legitimierung fehlgeschlagen."
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
