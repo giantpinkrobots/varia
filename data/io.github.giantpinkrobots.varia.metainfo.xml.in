@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
 <name>Varia</name>
-<summary>Download manager based on aria2</summary>
+<summary>Download files quickly and efficiently</summary>
 <id>io.github.giantpinkrobots.varia</id>
 
 <metadata_license>FSFAP</metadata_license>
@@ -14,7 +14,10 @@
 
 <description>
 <p>
-Varia is a download manager based on aria2 that utilizes GTK4 and Libadwaita to provide a easy to use interface that integrates well with the GNOME desktop.
+Varia is a download manager for all your download needs. It can download multiple files at once very quickly with aria2.
+</p>
+<p>
+Varia utilizes GTK4 and Libadwaita to provide a easy to use interface that integrates well with the GNOME desktop.
 </p>
 </description>
 
@@ -27,16 +30,16 @@ Varia is a download manager based on aria2 that utilizes GTK4 and Libadwaita to 
 <screenshot>
 <image>https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-2.png</image>
 </screenshot>
+<screenshot>
+<image>https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-3.png</image>
+</screenshot>
 </screenshots>
 
 <releases>
-<release version="v2023.12.7" date="2023-12-07">
+<release version="v2023.12.8" date="2023-12-08">
 <description translatable="yes">
-<p>- Added the ability to change download directory.</p>
-<p>- Added the ability to adjust maximum download speed.</p>
-<p>- Added the ability to add a username/password combo for authentication.</p>
-<p>- Translation support, with the initial Turkish, German, Russian, Brazilian Portuguese, Dutch and Occitan language support.</p>
-<p>- Some other adjustments and bugfixes.</p>
+<p>- Important bugfixes and adjustments.</p>
+<p>- Ukrainian translation support.</p>
 </description>
 </release>
 </releases>

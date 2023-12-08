@@ -1,10 +1,9 @@
-variaVersion = "v2023.12.7"
+variaVersion = "v2023.12.8"
 
 import gi
 import sys
 from gettext import gettext as _
 import time
-from io import BytesIO
 import json
 import os
 import time
@@ -15,12 +14,12 @@ from pathlib import Path
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, GLib, Gio
-import multiprocessing
 import requests
 from urllib.parse import unquote, urlparse
+import textwrap
 
 class MainWindow(Gtk.Window):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, myapp, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         if "FLATPAK_ID" in os.environ:
@@ -75,25 +74,28 @@ class MainWindow(Gtk.Window):
         preferences_button.set_icon_name("emblem-system-symbolic")
         preferences_button.connect("clicked", self.show_preferences)
 
-        self.hamburger_button = Gtk.MenuButton(tooltip_text=_("Other"))
-        self.hamburger_button.set_icon_name("open-menu-symbolic")
-        self.hamburger_menu_popover = Gtk.PopoverMenu()
-        self.hamburger_button.set_popover(self.hamburger_menu_popover)
-        self.hamburger_menu_popover_box = Gtk.ListBox()
-        self.hamburger_menu_popover.set_child(self.hamburger_menu_popover_box)
+        hamburger_button = Gtk.MenuButton(tooltip_text=_("Other"))
+        hamburger_button.set_icon_name("open-menu-symbolic")
+        hamburger_menu_model = Gio.Menu()
 
-        self.hamburger_menu_item_open_downloads_folder = Gtk.ListBoxRow()
-        self.hamburger_menu_item_open_downloads_folder.set_child(Gtk.Label(label=_("Open Download Folder")))
-        self.hamburger_menu_popover_box.append(self.hamburger_menu_item_open_downloads_folder)
+        about_action = Gio.SimpleAction.new("downloads_folder", None)
+        about_action.connect("activate", self.open_downloads_folder)
+        myapp.add_action(about_action)
 
-        self.hamburger_menu_item_about = Gtk.ListBoxRow()
-        self.hamburger_menu_item_about.set_child(Gtk.Label(label=_("About Varia")))
-        self.hamburger_menu_popover_box.append(self.hamburger_menu_item_about)
+        downloads_folder_action = Gio.SimpleAction.new("about", None)
+        downloads_folder_action.connect("activate", self.show_about)
+        myapp.add_action(downloads_folder_action)
 
-        self.hamburger_menu_popover_box.connect("row-activated", self.on_popover_menu_row_activated)
+        hamburger_menu_item_open_downloads_folder = Gio.MenuItem.new(_("Open Download Folder"), "app.downloads_folder")
+        hamburger_menu_model.append_item(hamburger_menu_item_open_downloads_folder)
+
+        hamburger_menu_item_about = Gio.MenuItem.new(_("About Varia"), "app.about")
+        hamburger_menu_model.append_item(hamburger_menu_item_about)
+
+        hamburger_button.set_menu_model(hamburger_menu_model)
 
         header_bar.pack_start(preferences_button)
-        header_bar.pack_end(self.hamburger_button)
+        header_bar.pack_end(hamburger_button)
 
         download_entry = Gtk.Entry()
         download_entry.set_placeholder_text(_("URL"))
@@ -189,6 +191,11 @@ class MainWindow(Gtk.Window):
         self.check_download_status_thread = threading.Thread(target=self.check_download_status)
         self.check_download_status_thread.start()
 
+        # Check if the download path still exists:
+        if not (os.path.exists(self.appconf["download_directory"])):
+            self.appconf["download_directory"] = GLib.get_user_special_dir(GLib.USER_DIRECTORY_DOWNLOAD)
+            self.save_appconf()
+
         # Set download speed limit from appconf:
         if ((self.appconf["download_speed_limit_enabled"] == "1") and (self.appconf["download_speed_limit"][:-1] != "0")):
             self.set_speed_limit(self.appconf["download_speed_limit"])
@@ -204,13 +211,6 @@ class MainWindow(Gtk.Window):
                 download_thread = DownloadThread.load_state(self.api, self.appconf["download_directory"], filename, objectlist[0], objectlist[1], self.appconf["auth"], self.appconf["auth_username"], self.appconf["auth_password"])
                 self.downloads.append(download_thread)
                 download_thread.start()
-
-    def on_popover_menu_row_activated(self, listbox, row):
-        if row == self.hamburger_menu_item_open_downloads_folder:
-            self.open_downloads_folder(self)
-        elif row == self.hamburger_menu_item_about:
-            self.show_about(self)
-        self.hamburger_button.popdown()
 
     def check_download_status(self):
         while (self.terminating == False):
@@ -396,7 +396,9 @@ class MainWindow(Gtk.Window):
     def set_speed_limit(self, download_limit):
         self.sidebar_speed_limited_label.set_text("")
         if ((download_limit[:-1] != "0") and (self.appconf["download_speed_limit_enabled"] == "1")):
-            self.sidebar_speed_limited_label.set_markup("<span color='red'>" + _("Speed limited") + "</span>")
+            speed_limited_text = textwrap.wrap(_("Speed limited"), width=40, break_long_words=False)
+            speed_limited_text = "\n".join(speed_limited_text)
+            self.sidebar_speed_limited_label.set_markup("<span color='red'>" + speed_limited_text + "</span>")
         else:
             download_limit = "0"
 
@@ -426,11 +428,12 @@ class MainWindow(Gtk.Window):
     def save_appconf(self):
         with open(os.path.join(self.appdir, 'varia.conf'), 'w') as f:
             json.dump(self.appconf, f)
+        print("Config saved")
 
-    def open_downloads_folder(self, app):
+    def open_downloads_folder(self, app, myapp):
         subprocess.Popen(["xdg-open", self.appconf["download_directory"]])
 
-    def show_about(self, app):
+    def show_about(self, app, myapp):
         dialog = Adw.AboutWindow(transient_for=self)
         dialog.set_application_name("Varia")
         dialog.set_version(variaVersion)
@@ -462,7 +465,6 @@ class MainWindow(Gtk.Window):
         download_directory_change_button.set_halign(Gtk.Align.START)
         download_directory_change_button.set_valign(Gtk.Align.CENTER)
         download_directory_change_button.connect("clicked", lambda clicked: self.on_download_directory_change(preferences, download_directory_actionrow))
-
 
         download_directory_actionrow.add_suffix(download_directory_change_button)
 
@@ -573,8 +575,8 @@ class MainWindow(Gtk.Window):
             folder = dialog.select_folder_finish(result)
             self.appconf["download_directory"] = folder.get_path()
             self.save_appconf()
-            actionrow.set_subtitle(self.appconf["download_directory"])
             self.set_aria2c_download_directory()
+            actionrow.set_subtitle(self.appconf["download_directory"])
         except:
             error_dialog = Adw.MessageDialog()
             error_dialog.set_body(_("Failed to open folder."))
@@ -610,7 +612,7 @@ class MainWindow(Gtk.Window):
                 download_limit = speed + "G"
 
         self.set_speed_limit(download_limit)
-        self.appconf = {'download_speed_limit': download_limit}
+        self.appconf['download_speed_limit'] = download_limit
         self.save_appconf()
 
     def on_switch_auth(self, switch, state):
@@ -659,7 +661,9 @@ class DownloadThread(threading.Thread):
         if not (self.is_valid_url()):
             try:
                 GLib.idle_add(self.show_message(_("This is not a valid URL.")))
+                print("Error: Not a valid url.")
             except:
+                print("Error: Couldn't display 'not a valid url' error, for some reason.")
                 return
         else:
             response = requests.head(self.url)
@@ -670,16 +674,18 @@ class DownloadThread(threading.Thread):
                     self.url = self.url[:8] + self.auth_username + ":" + self.auth_password + "@" + self.url[8:]
                 else:
                     self.url = self.auth_username + ":" + self.auth_password + "@" + self.url
+                print ("Authentication enabled.")
             print(self.url)
             self.download = self.api.add_uris([self.url])
             downloadname = self.download.name
+            print("Download added.\n" + self.downloaddir + "\n" + self.url)
             while (True):
                 try:
                     self.download.update()
                     GLib.idle_add(self.update_labels_and_things)
                     if (self.download.is_complete):
-                        if os.path.exists(os.path.join(self.appconf["download_directory"],(self.download.gid + ".varia.json"))):
-                            os.remove(os.path.join(self.appconf["download_directory"],(self.download.gid + ".varia.json")))
+                        if os.path.exists(os.path.join(self.downloaddir,(self.download.gid + ".varia.json"))):
+                            os.remove(os.path.join(self.downloaddir,(self.download.gid + ".varia.json")))
                         break
                     elif (self.download.status == "error"):
                         return
@@ -707,19 +713,24 @@ class DownloadThread(threading.Thread):
             if self.download.is_paused == False:
                 try:
                     self.download.pause()
+                    print ("Download paused.")
                 except:
                     try:
                         self.download.pause([self.download.gid])
+                        print ("Download paused.")
                     except:
                         self.stop(False)
+                        print ("Something went wrong when pausing. Stopping download without removing files.")
 
     def resume(self):
         if self.download:
             if self.download.is_paused == True:
                 try:
                     self.download.resume()
+                    print ("Download resumed.")
                 except:
                     self.speed_label.set_text(_("An error occurred:") + " " + self.download.error_message.split("status=")[1])
+                    print ("An error occurred when resuming. " + self.download.error_message.split("status=")[1])
 
     def stop(self, deletefiles):
         if self.download:
@@ -728,23 +739,26 @@ class DownloadThread(threading.Thread):
             self.download.remove(force=True)
             if not self.download.is_complete:
                 if (deletefiles == True):
-                    if os.path.exists(os.path.join(self.appconf["download_directory"],(downloadgid + ".varia.json"))):
-                        os.remove(os.path.join(self.appconf["download_directory"],(downloadgid + ".varia.json")))
-                    if os.path.exists(os.path.join(self.appconf["download_directory"], downloadname)):
-                        os.remove(os.path.join(self.appconf["download_directory"], downloadname))
+                    if os.path.exists(os.path.join(self.downloaddir,(downloadgid + ".varia.json"))):
+                        os.remove(os.path.join(self.downloaddir,(downloadgid + ".varia.json")))
+                    if os.path.exists(os.path.join(self.downloaddir, downloadname)):
+                        os.remove(os.path.join(self.downloaddir, downloadname))
+            print ("Download stopped.")
 
     def save_state(self):
         if self.download:
             try:
                 self.download.update()
             except:
+                print ("Couldn't update the status of the download. Skipping state saving.")
                 return
             state = {
                 'url': self.url,
                 'downloaded': self.download.completed_length,
             }
-            with open(os.path.join(self.appconf["download_directory"], f'{self.download.gid}.varia.json'), 'w') as f:
+            with open(os.path.join(self.downloaddir, f'{self.download.gid}.varia.json'), 'w') as f:
                 json.dump(state, f)
+            print ("State saved for download.")
 
     @classmethod
     def load_state(cls, api, downloaddir, filename, progress_bar, speed_label, auth, auth_username, auth_password):
@@ -760,7 +774,7 @@ class MyApp(Adw.Application):
         self.connect('activate', self.on_activate)
 
     def on_activate(self, app):
-        self.win = MainWindow(application=app)
+        self.win = MainWindow(application=app, myapp=self)
         self.win.present()
 
 def main(version):
