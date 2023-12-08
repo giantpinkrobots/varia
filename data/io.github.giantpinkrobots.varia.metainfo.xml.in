@@ -30,9 +30,13 @@ Varia is a download manager based on aria2 that utilizes GTK4 and Libadwaita to 
 </screenshots>
 
 <releases>
-<release version="v2023.11.22" date="2023-11-22">
-<description translatable="no">
-<p>Initial release.</p>
+<release version="v2023.12.7" date="2023-12-07">
+<description translatable="yes">
+<p>- Added the ability to change download directory.</p>
+<p>- Added the ability to adjust maximum download speed.</p>
+<p>- Added the ability to add a username/password combo for authentication.</p>
+<p>- Translation support, with the initial Turkish, German, Russian, Brazilian Portuguese, Dutch and Occitan language support.</p>
+<p>- Some other adjustments and bugfixes.</p>
 </description>
 </release>
 </releases>

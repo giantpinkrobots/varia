@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Varia\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2023-12-02 22:02+0300\n"
+"PO-Revision-Date: 2023-12-07 11:34+0300\n"
 "Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -61,8 +61,8 @@ msgid "Download"
 msgstr "Загрузить"
 
 #: src/variamain.py:184
-msgid "Open Downloads Folder"
-msgstr "Открыть папку \"Загрузки\""
+msgid "Open Download Folder"
+msgstr "Открыть папку загрузки"
 
 #: src/variamain.py:196
 msgid "Speed Limit"
@@ -84,11 +84,23 @@ msgstr "Установить ограничение скорости"
 msgid "Cancel All"
 msgstr "Отменить все"
 
+#: src/variamain.py:235
+msgid "/s"
+msgstr "/с"
+
+#: src/variamain.py:238
+msgid "No limit"
+msgstr "Без ограничений"
+
 #: src/variamain.py:274
 msgid "Download complete."
 msgstr "Загрузка завершена."
 
 #: src/variamain.py:276
+msgid "Download speed is limited."
+msgstr "Скорость загрузки ограничена."
+
+#: src/variamain.py:277
 msgid "An error occurred:"
 msgstr "Произошла ошибка:"
 
@@ -150,6 +162,34 @@ msgstr ""
 #: src/variamain.py:449
 msgid "translator-credits"
 msgstr "Aleksandr Melman <Alexmelman88@gmail.com>, 2023"
+
+#: src/variamain.py:457
+msgid "Download Directory"
+msgstr "Папка загрузки"
+
+#: src/variamain.py:460
+msgid "Change"
+msgstr "Изменить"
+
+#: src/variamain.py:463
+msgid "Speed limited"
+msgstr "Скорость ограничена"
+
+#: src/variamain.py:519
+msgid "Authentication"
+msgstr "Аутентификация"
+
+#: src/variamain.py:532
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: src/variamain.py:534
+msgid "Password"
+msgstr "Пароль"
+
+#: src/variamain.py:554
+msgid "Authorization failed."
+msgstr "Авторизация не удалась."
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

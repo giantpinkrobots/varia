@@ -14,11 +14,11 @@
 Varia is a simple download manager that conforms to the latest Libadwaita design guidelines, integrating nicely with GNOME. It uses the amazing aria2 to handle the downloads.
 
 <p float="left" align="middle">
-  <img src="https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-1.png" width=500 />
-  <img src="https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-2.png" width=500 />
+  <img src="https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-1.png" width=400 />
+  <img src="https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-2.png" width=400 />
 </p>
 
-Varia supports some basic functionality you'd expect from a download manager such as resuming incomplete downloads upon relaunch, and limiting the download speed, but (right now) doesn't support saving files outside of your default download directory. I want to change this in the future while still having a minimal set of permissions with Flatpak.
+It supports basic functionality like continuing incomplete downloads from the previous session upon startup, pausing/cancelling all downloads at once, setting a speed limit, authentication with a username/password, and setting the download directory.
 
 ## Building
 
