@@ -1,0 +1,206 @@
+# Ukrainian translation for Varia.
+# Copyright (C) 2023 THE Varia's COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# volkov <volkovissocool@gmail.com>, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-30 03:17+0300\n"
+"PO-Revision-Date: 2023-12-08 15:49+0200\n"
+"Last-Translator: volkov <volkovissocool@gmail.com>\n"
+"Language-Team: \n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4\n"
+
+#. Translators: Do NOT translate or localize the application name.
+#: data/io.github.giantpinkrobots.varia.desktop.in:4
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:3
+msgid "Varia"
+msgstr ""
+
+#. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
+#: data/io.github.giantpinkrobots.varia.desktop.in:11
+msgid "varia;aria;download;manager;"
+msgstr "varia;aria;download;manager;завантажувач;скачати;зберегти;варія;арія;"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
+msgid "Download manager based on aria2"
+msgstr "Менеджер завантажень заснований на aria2"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
+msgid ""
+"Varia is a download manager based on aria2 that utilizes GTK4 and Libadwaita "
+"to provide a easy to use interface that integrates well with the GNOME "
+"desktop."
+msgstr ""
+"Varia це менеджер завантажень заснований на aria2, який використовує GTK4 та "
+"Libadwaita щоб зробити простий і зрозумілий інтерфейс який дуже добре "
+"інтегрується зі стільницею GNOME."
+
+#: src/variamain.py:45
+msgid "This is not a valid URL."
+msgstr "Це не правильна URL-адреса."
+
+#: src/variamain.py:171
+msgid "About Varia"
+msgstr "Про Varia"
+
+#: src/variamain.py:177
+msgid "URL"
+msgstr "URL-адреса"
+
+#: src/variamain.py:178
+msgid "Download"
+msgstr "Завантажити"
+
+#: src/variamain.py:184
+msgid "Open Download Folder"
+msgstr "Відкрити теку з завантаженнями"
+
+#: src/variamain.py:196
+msgid "Speed Limit"
+msgstr "Обмеження швидкості"
+
+#: src/variamain.py:203 src/variamain.py:423
+msgid "Pause All"
+msgstr "Призупинити всі"
+
+#: src/variamain.py:212
+msgid "Speed"
+msgstr "Швидкість"
+
+#: src/variamain.py:215
+msgid "Set Speed Limit"
+msgstr "Встановити обмеження швидкості"
+
+#: src/variamain.py:216
+msgid "Cancel All"
+msgstr "Скасувати всі"
+
+#: src/variamain.py:235
+msgid "/s"
+msgstr "/с"
+
+#: src/variamain.py:238
+msgid "No limit"
+msgstr "Без лімітів"
+
+#: src/variamain.py:274
+msgid "Download complete."
+msgstr "Завантаження завершене."
+
+#: src/variamain.py:276
+msgid "Download speed is limited."
+msgstr "Швидкість завантаження обмежена."
+
+#: src/variamain.py:277
+msgid "An error occurred:"
+msgstr "Сталася помилка:"
+
+#: src/variamain.py:292
+msgid "MB/s"
+msgstr "МБ/с"
+
+#: src/variamain.py:294
+msgid "KB/s"
+msgstr "КБ/с"
+
+#: src/variamain.py:298
+msgid "0 B/s"
+msgstr "0 Б/с"
+
+#: src/variamain.py:300
+msgid " MB/s"
+msgstr " МБ/с"
+
+#: src/variamain.py:302
+msgid " KB/s"
+msgstr " КБ/с"
+
+#: src/variamain.py:304
+msgid " B/s"
+msgstr " Б/с"
+
+#: src/variamain.py:410
+msgid "Resume All"
+msgstr "Відновити всі"
+
+#: src/variamain.py:443
+msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
+msgstr ""
+"Менеджер завантажень заснований на aria2, який використовує GTK4 та "
+"Libadwaita."
+
+#: src/variamain.py:446
+msgid ""
+"2023 Giant Pink Robots!\n"
+"\n"
+"This application relies on the following pieces of software:\n"
+"\n"
+"- aria2: GPL v2 License (aria2 itself relies on OpenSSL: OpenSSL License)\n"
+"- aria2p: ISC License\n"
+"\n"
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
+msgstr ""
+"2023 Giant Pink Robots!\n"
+"\n"
+"Цей додаток покладається на наступне програмне забезпечення:\n"
+"\n"
+"- aria2: GPL v2 ліцензія (aria2 покладається на OpenSSL: OpenSSL ліцензія)\n"
+"- aria2p: ISC ліцензія\n"
+"\n"
+"Знайти ліцензії усього перерахованого програмного забезпечення можна у теці "
+"'dependencies_information' цього додатку."
+
+#: src/variamain.py:449
+msgid "translator-credits"
+msgstr "volkov <volkovissocool@gmail.com>"
+
+#: src/variamain.py:457
+msgid "Download Directory"
+msgstr "Тека для завантажень"
+
+#: src/variamain.py:460
+msgid "Change"
+msgstr "Змінити"
+
+#: src/variamain.py:463
+msgid "Speed limited"
+msgstr "Швидкість обмежена"
+
+#: src/variamain.py:519
+msgid "Authentication"
+msgstr "Аутентифікація"
+
+#: src/variamain.py:532
+msgid "Username"
+msgstr "Ім'я користувача"
+
+#: src/variamain.py:534
+msgid "Password"
+msgstr "Пароль"
+
+#: src/variamain.py:554
+msgid "Authorization failed."
+msgstr "Не вдалося авторизуватися."
+
+#: src/gtk/help-overlay.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Загальні"
+
+#: src/gtk/help-overlay.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Показати клавіатурні скорочення"
+
+#: src/gtk/help-overlay.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Вийти"
