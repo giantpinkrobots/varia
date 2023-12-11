@@ -1,6 +1,7 @@
 [Desktop Entry]
 # Translators: Do NOT translate or localize the application name.
 Name=Varia
+Comment=Download files quickly and efficiently
 Exec=varia
 Icon=io.github.giantpinkrobots.varia
 Terminal=false
