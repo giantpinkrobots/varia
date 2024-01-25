@@ -16,16 +16,45 @@ Varia is a simple download manager that conforms to the latest Libadwaita design
 <p float="left" align="middle">
   <img src="https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-1.png" width=400 />
   <img src="https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-2.png" width=400 />
-  <img src="https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-3.png" width=400 />
 </p>
 
 It supports basic functionality like continuing incomplete downloads from the previous session upon startup, pausing/cancelling all downloads at once, setting a speed limit, authentication with a username/password, and setting the download directory.
+
+## Get Varia
+
+### Flatpak
+The main way to get Varia that is supported by me is via [Flathub](https://flathub.org/apps/io.github.giantpinkrobots.varia).
+```
+flatpak install flathub io.github.giantpinkrobots.varia
+```
+This requires you to have Flatpak and the Flathub Flatpak repository installed on your system.
+
+### AUR (Arch Linux)
+You can get Varia via the [AUR](https://aur.archlinux.org/packages/varia) as well, but it is not distributed by me.
 
 ## Building
 
 The easiest way of building Varia is to use GNOME Builder. Just clone this repository, and open the folder using Builder. Then, press run.
 
-For now, building using Flatpak is the only supported way of building Varia, but I will add meson-only build instructions later when I fix the code to support that.
+If you don't want to utilize Flatpak to build Varia you need meson, python-setuptools, Gtk4 and its development libraries, Libadwaita, aria2 and the aria2p python package. To install the meson build system and aria2 on certain Linux systems:
+```
+Ubuntu, Debian, Mint etc: sudo apt install meson ninja-build aria2 python-setuptools libgtk-4-dev libadwaita-1-0
+Fedora, RHEL etc: sudo dnf install meson ninja-build aria2 python-setuptools gtk4-devel libadwaita
+Arch, EndeavourOS, Manjaro etc: sudo pacman -S meson aria2 python-setuptools gtk4 libadwaita
+```
+To install aria2p using pip (your distro probably doesn't have it in its repos - it's on the AUR for Arch):
+```
+pip install aria2p
+```
+Then, you can use meson commands to build Varia:
+```
+git clone https://github.com/giantpinkrobots/varia
+cd varia
+meson setup builddir
+cd builddir
+meson compile
+sudo meson install
+```
 
 ## License
 
@@ -46,4 +75,5 @@ Also, I really want to change the logo as it's something I hastly hacked togethe
 ## The name
 
 The name "Varia" comes from the aria2 software it is based on, and I added a "V" to make it "Varia". In the Metroid series of games, there is a special suit you eventually get named a "<a href=https://metroid.fandom.com/wiki/Varia_Suit>Varia Suit</a>" with its main feature being allowing Samus to withstand extreme temperatures. I spent some time thinking about how to connect the Varia Suit to my app, but couldn't, soooo... I think it just sounds cool.
+
 

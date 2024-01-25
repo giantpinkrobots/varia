@@ -1,5 +1,16 @@
 #!/bin/bash
 pythonexec='@PYTHON@'
 pkgdatadir='@pkgdatadir@'
-$pkgdatadir/../../bin/aria2/aria2c --enable-rpc --rpc-listen-port=6801 &
+aria2cexec=$pkgdatadir/../../bin/aria2c
+if !(test -f $aria2cexec;)
+then
+	echo "Probably not a Flatpak environment. Trying to find the system's aria2c..."
+	aria2cexec=$(which aria2c)
+	if !(test -f $aria2cexec;)
+	then
+		echo "aria2c not found. Exiting."
+		exit
+	fi
+fi
+$aria2cexec --enable-rpc --rpc-listen-port=6801 &
 $pythonexec $pkgdatadir/../../bin/varia-py.py

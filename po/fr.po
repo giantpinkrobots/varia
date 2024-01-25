@@ -1,0 +1,198 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# bluekillwood <>, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-30 03:17+0300\n"
+"PO-Revision-Date: 2023-12-13 17:59+0300\n"
+"Last-Translator: bluekillwood <>\n"
+"Language-Team: French <>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"X-Generator: Gtranslator 45.3\n"
+
+#. Translators: Do NOT translate or localize the application name.
+#: data/io.github.giantpinkrobots.varia.desktop.in:4
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:3
+msgid "Varia"
+msgstr ""
+
+#. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
+#: data/io.github.giantpinkrobots.varia.desktop.in:11
+msgid "varia;aria;download;manager;"
+msgstr ""
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
+msgid "Download manager based on aria2"
+msgstr "Gestionnaire de téléchargement basé sur ari2"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
+msgid ""
+"Varia is a download manager based on aria2 that utilizes GTK4 and Libadwaita "
+"to provide a easy to use interface that integrates well with the GNOME "
+"desktop."
+msgstr ""
+"Varia est un gestionnaire de téléchargement basé sur aria2 qui utilise GTK4 "
+"et Libadwaita pour fournir une interface simple d'utilisation qui s'intègre "
+"bien avec l'environnement Gnome"
+
+#: src/variamain.py:45
+msgid "This is not a valid URL."
+msgstr "Ce n'est pas une URL valide"
+
+#: src/variamain.py:171
+msgid "About Varia"
+msgstr "À propos de Varia"
+
+#: src/variamain.py:177
+msgid "URL"
+msgstr "URL"
+
+#: src/variamain.py:178
+msgid "Download"
+msgstr "Téléchargement"
+
+#: src/variamain.py:184
+msgid "Open Download Folder"
+msgstr "Ouvrir le dossier des téléchargeemnts"
+
+#: src/variamain.py:196
+msgid "Speed Limit"
+msgstr "Limite de vitesse"
+
+#: src/variamain.py:203 src/variamain.py:423
+msgid "Pause All"
+msgstr "Tout mettre en pause"
+
+#: src/variamain.py:212
+msgid "Speed"
+msgstr "Vitesse"
+
+#: src/variamain.py:215
+msgid "Set Speed Limit"
+msgstr "Définir la limite de vitesse"
+
+#: src/variamain.py:216
+msgid "Cancel All"
+msgstr "Tout annuler"
+
+#: src/variamain.py:235
+msgid "/s"
+msgstr "/s"
+
+#: src/variamain.py:238
+msgid "No limit"
+msgstr "Pas de limite"
+
+#: src/variamain.py:274
+msgid "Download complete."
+msgstr "Téléchargement terminé"
+
+#: src/variamain.py:276
+msgid "Download speed is limited."
+msgstr "La vitesse de téléchargement est limitée"
+
+#: src/variamain.py:277
+msgid "An error occurred:"
+msgstr "Une erreur est survenue:"
+
+#: src/variamain.py:292
+msgid "MB/s"
+msgstr "Mo/s"
+
+#: src/variamain.py:294
+msgid "KB/s"
+msgstr "Ko/s"
+
+#: src/variamain.py:298
+msgid "0 B/s"
+msgstr "0 b/s"
+
+#: src/variamain.py:300
+msgid " MB/s"
+msgstr " Mo/s"
+
+#: src/variamain.py:302
+msgid " KB/s"
+msgstr " Kb/s"
+
+#: src/variamain.py:304
+msgid " B/s"
+msgstr " b/s"
+
+#: src/variamain.py:410
+msgid "Resume All"
+msgstr "Tout reprendre"
+
+#: src/variamain.py:443
+msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
+msgstr ""
+"gestionnaire de téléchargement basé sur aria2 utilisant GTK4 et Libadwaita"
+
+#: src/variamain.py:446
+msgid ""
+"2023 Giant Pink Robots!\n"
+"\n"
+"This application relies on the following pieces of software:\n"
+"\n"
+"- aria2: GPL v2 License (aria2 itself relies on OpenSSL: OpenSSL License)\n"
+"- aria2p: ISC License\n"
+"\n"
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
+msgstr ""
+
+#: src/variamain.py:449
+msgid "translator-credits"
+msgstr "bluekillwood"
+
+#: src/variamain.py:457
+msgid "Download Directory"
+msgstr ""
+
+#: src/variamain.py:460
+msgid "Change"
+msgstr ""
+
+#: src/variamain.py:463
+msgid "Speed limited"
+msgstr ""
+
+#: src/variamain.py:519
+msgid "Authentication"
+msgstr ""
+
+#: src/variamain.py:532
+msgid "Username"
+msgstr ""
+
+#: src/variamain.py:534
+msgid "Password"
+msgstr ""
+
+#: src/variamain.py:554
+msgid "Authorization failed."
+msgstr ""
+
+#: src/gtk/help-overlay.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr ""
+
+#: src/gtk/help-overlay.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr ""
+
+#: src/gtk/help-overlay.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr ""
