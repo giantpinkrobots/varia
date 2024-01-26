@@ -36,7 +36,7 @@ Varia utilizes GTK4 and Libadwaita to provide a easy to use interface that integ
 </screenshots>
 
 <releases>
-<release version="v2024.1.25" date="2024-01-25">
+<release version="v2024.1.26" date="2024-01-26">
 <description translatable="yes">
 <p>- UI enhancements and cleanup.</p>
 <p>- Important bugfixes.</p>

@@ -1,4 +1,4 @@
-variaVersion = "v2024.1.25"
+variaVersion = "v2024.1.26"
 
 import gi
 import sys
@@ -32,8 +32,6 @@ class MainWindow(Gtk.Window):
         self.appconf = {'download_speed_limit_enabled': '0', 'download_speed_limit': '0', 'auth': '0', 'auth_username': '', 'auth_password': '', 'download_directory': GLib.get_user_special_dir(GLib.USER_DIRECTORY_DOWNLOAD)}
         self.downloaddir = GLib.get_user_special_dir(GLib.USER_DIRECTORY_DOWNLOAD)
         self.appdir = os.path.join('/var', 'data')
-
-        self.appconf = {'download_speed_limit_enabled': '0', 'download_speed_limit': '0', 'auth': '0', 'auth_username': '', 'auth_password': ''}
 
         if os.path.exists(os.path.join(self.appdir, 'varia.conf')):
             with open(os.path.join(self.appdir, 'varia.conf'), 'r') as f:
