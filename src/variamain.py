@@ -655,7 +655,7 @@ class MainWindow(Gtk.Window):
         speed_limit_entry.connect('changed', self.speed_limit_text_filter)
         speed_limit_entry.connect('apply', lambda clicked: self.on_speed_limit_changed(speed_limit_entry, speed_limit_unit_names_dropdown, speed_limit_expander_switch))
 
-        if ((self.appconf["download_speed_limit"] != "0K") and (self.appconf["download_speed_limit"] != "0M") and (self.appconf["download_speed_limit"] != "0G")):
+        if ((self.appconf["download_speed_limit"] != "0K") and (self.appconf["download_speed_limit"] != "0M") and (self.appconf["download_speed_limit"] != "0G") and (self.appconf["download_speed_limit"] != "0")):
             speed_limit_expander_switch.set_sensitive(True)
             match (self.appconf["download_speed_limit"][-1]):
                 case "K":
