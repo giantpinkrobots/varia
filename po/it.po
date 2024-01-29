@@ -1,0 +1,203 @@
+# ITALIAN TRANSLATION.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# ALBANO BATTISTELLA <ALBANOBATTISTELLA@GMAIL.COM>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-30 03:17+0300\n"
+"PO-Revision-Date: 2024-01-26 17:31+0100\n"
+"Last-Translator: Albano Battistella <albanobattistella@gmail.com>\n"
+"Language-Team: Italian <LL@li.org>\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Translators: Do NOT translate or localize the application name.
+#: data/io.github.giantpinkrobots.varia.desktop.in:4
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:3
+msgid "Varia"
+msgstr "Varia"
+
+#. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
+#: data/io.github.giantpinkrobots.varia.desktop.in:11
+msgid "varia;aria;download;manager;"
+msgstr ""
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
+msgid "Download manager based on aria2"
+msgstr "Gestore di download basato su aria2"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
+msgid ""
+"Varia is a download manager based on aria2 that utilizes GTK4 and Libadwaita "
+"to provide a easy to use interface that integrates well with the GNOME "
+"desktop."
+msgstr ""
+"Varia è un download manager basato su aria2 che utilizza GTK4 e Libadwaita "
+"per fornire un'interfaccia facile da usare che si integri bene con il desktop "
+"GNOME."
+
+#: src/variamain.py:45
+msgid "This is not a valid URL."
+msgstr "Questo non è un URL valido."
+
+#: src/variamain.py:171
+msgid "About Varia"
+msgstr "Informazioni su Varia"
+
+#: src/variamain.py:177
+msgid "URL"
+msgstr "URL"
+
+#: src/variamain.py:178
+msgid "Download"
+msgstr "Download"
+
+#: src/variamain.py:184
+msgid "Open Download Folder"
+msgstr "Apri la cartella di download"
+
+#: src/variamain.py:196
+msgid "Speed Limit"
+msgstr "Limite di velocità"
+
+#: src/variamain.py:203 src/variamain.py:423
+msgid "Pause All"
+msgstr "Metti tutto in pausa"
+
+#: src/variamain.py:212
+msgid "Speed"
+msgstr "vELOCITÀ"
+
+#: src/variamain.py:215
+msgid "Set Speed Limit"
+msgstr "Imposta limite di velocità"
+
+#: src/variamain.py:216
+msgid "Cancel All"
+msgstr "Annulla tutto"
+
+#: src/variamain.py:235
+msgid "/s"
+msgstr "/s"
+
+#: src/variamain.py:238
+msgid "No limit"
+msgstr "Nessun limite"
+
+#: src/variamain.py:274
+msgid "Download complete."
+msgstr "Download completo."
+
+#: src/variamain.py:276
+msgid "Download speed is limited."
+msgstr "La velocità di download è limitata."
+
+#: src/variamain.py:277
+msgid "An error occurred:"
+msgstr "Si è verificato un errore:"
+
+#: src/variamain.py:292
+msgid "MB/s"
+msgstr "MB/s"
+
+#: src/variamain.py:294
+msgid "KB/s"
+msgstr "KB/s"
+
+#: src/variamain.py:298
+msgid "0 B/s"
+msgstr "0 B/s"
+
+#: src/variamain.py:300
+msgid " MB/s"
+msgstr " MB/s"
+
+#: src/variamain.py:302
+msgid " KB/s"
+msgstr " KB/s"
+
+#: src/variamain.py:304
+msgid " B/s"
+msgstr " B/s"
+
+#: src/variamain.py:410
+msgid "Resume All"
+msgstr "Riprendi tutto"
+
+#: src/variamain.py:443
+msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
+msgstr "Gestore di download basato su aria2 che utilizza GTK4 e Libadwaita."
+
+#: src/variamain.py:446
+msgid ""
+"2023 Giant Pink Robots!\n"
+"\n"
+"This application relies on the following pieces of software:\n"
+"\n"
+"- aria2: GPL v2 License (aria2 itself relies on OpenSSL: OpenSSL License)\n"
+"- aria2p: ISC License\n"
+"\n"
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
+msgstr ""
+"2023 Giant Pink Robots!\n"
+"\n"
+"Questa applicazione si basa sui seguenti software:\n"
+"\n"
+"- aria2: licenza GPL v2 (aria2 stessa si basa su OpenSSL: licenza OpenSSL)\n"
+"- aria2p: Licenza ISC\n"
+"\n"
+"Le licenze di tutti questi software si trovano nella "
+"directory dependencies_information nella directory dell'app di questa applicazione."
+
+#: src/variamain.py:449
+msgid "translator-credits"
+msgstr "Albano Battistella <albanobattistella@gmail.com>"
+
+#: src/variamain.py:457
+msgid "Download Directory"
+msgstr "Directory di download"
+
+#: src/variamain.py:460
+msgid "Change"
+msgstr "Modifica"
+
+#: src/variamain.py:463
+msgid "Speed limited"
+msgstr "Velocità limitata"
+
+#: src/variamain.py:519
+msgid "Authentication"
+msgstr "Autenticazione"
+
+#: src/variamain.py:532
+msgid "Username"
+msgstr "Nome Utente"
+
+#: src/variamain.py:534
+msgid "Password"
+msgstr "Passwrd"
+
+#: src/variamain.py:554
+msgid "Authorization failed."
+msgstr "Autorizzazione fallita."
+
+#: src/gtk/help-overlay.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Generale"
+
+#: src/gtk/help-overlay.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Mostra scorciatoie"
+
+#: src/gtk/help-overlay.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Esci"
