@@ -36,11 +36,18 @@ You can get Varia via the [AUR](https://aur.archlinux.org/packages/varia) as wel
 
 The easiest way of building Varia is to use GNOME Builder. Just clone this repository, and open the folder using Builder. Then, press run.
 
-If you don't want to utilize Flatpak to build Varia you need meson, python-setuptools, Gtk4 and its development libraries, Libadwaita, aria2 and the aria2p python package. To install the meson build system and aria2 on certain Linux systems:
+If you don't want to utilize Flatpak to build Varia you need:
+- meson
+- python-setuptools
+- Gtk4 and its development libraries
+- Libadwaita
+- gettext
+- aria2 and the aria2p python package.
+To install the ones besides aria2p on some Linux systems:
 ```
-Ubuntu, Debian, Mint etc: sudo apt install meson ninja-build aria2 python-setuptools libgtk-4-dev libadwaita-1-0
-Fedora, RHEL etc: sudo dnf install meson ninja-build aria2 python-setuptools gtk4-devel libadwaita
-Arch, EndeavourOS, Manjaro etc: sudo pacman -S meson aria2 python-setuptools gtk4 libadwaita
+Ubuntu, Debian, Mint etc: sudo apt install meson ninja-build aria2 python-setuptools libgtk-4-dev libadwaita-1-0 gettext
+Fedora, RHEL etc: sudo dnf install meson ninja-build aria2 python-setuptools gtk4-devel libadwaita gettext
+Arch, EndeavourOS, Manjaro etc: sudo pacman -S meson aria2 python-setuptools gtk4 libadwaita gettext
 ```
 To install aria2p using pip (your distro probably doesn't have it in its repos - it's on the AUR for Arch):
 ```

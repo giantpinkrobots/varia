@@ -1,4 +1,4 @@
-variaVersion = "v2024.1.26"
+variaVersion = "v2024.1.31"
 
 import gi
 import sys
@@ -403,6 +403,9 @@ class MainWindow(Gtk.Window):
 
     def create_actionrow(self, url):
         filename = url.split("/")[-1].split("?")[0]
+        filename_shortened = filename[:40]
+        if (filename != filename_shortened):
+            filename_shortened = filename_shortened + "..."
 
         download_item = Adw.Bin()
         style_context = download_item.get_style_context()
@@ -420,7 +423,7 @@ class MainWindow(Gtk.Window):
 
         download_item.set_child(box_2)
 
-        filename_label = Gtk.Label(label=filename)
+        filename_label = Gtk.Label(label=filename_shortened)
         filename_label.set_halign(Gtk.Align.START)
         box.append(filename_label)
 
