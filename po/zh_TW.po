@@ -1,0 +1,202 @@
+# German translation for Varia.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Varia package.
+# Philipp Kiemle <philipp.kiemle@gmail.com>, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-30 03:17+0300\n"
+"PO-Revision-Date: 2023-12-07 12:00+0100\n"
+"Last-Translator: Julian Lai <s9209122222@gmail.com>\n"
+"Language-Team: \n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.1\n"
+
+#. Translators: Do NOT translate or localize the application name.
+#: data/io.github.giantpinkrobots.varia.desktop.in:4
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:3
+msgid "Varia"
+msgstr "Varia"
+
+#. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
+#: data/io.github.giantpinkrobots.varia.desktop.in:11
+msgid "varia;aria;download;manager;"
+msgstr "varia;aria;download;下載;manager;管理員;"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
+msgid "Download manager based on aria2"
+msgstr "基於 aria2 的下載管理員"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
+msgid ""
+"Varia is a download manager based on aria2 that utilizes GTK4 and Libadwaita "
+"to provide a easy to use interface that integrates well with the GNOME "
+"desktop."
+msgstr ""
+"Varia 基於 aria2 且使用 GTK4 與 Libadwaita 以提供易用介面，並與 Gnome 良好整合的下載管理員"
+
+#: src/variamain.py:45
+msgid "This is not a valid URL."
+msgstr "這不是可用的網址。"
+
+#: src/variamain.py:171
+msgid "About Varia"
+msgstr "關於 Varia"
+
+#: src/variamain.py:177
+msgid "URL"
+msgstr "網址"
+
+#: src/variamain.py:178
+msgid "Download"
+msgstr "下載"
+
+#: src/variamain.py:184
+msgid "Open Download Folder"
+msgstr "打開下載路徑"
+
+#: src/variamain.py:196
+msgid "Speed Limit"
+msgstr "限速"
+
+#: src/variamain.py:203 src/variamain.py:423
+msgid "Pause All"
+msgstr "全部暫停"
+
+#: src/variamain.py:212
+msgid "Speed"
+msgstr "網速"
+
+#: src/variamain.py:215
+msgid "Set Speed Limit"
+msgstr "設定速限"
+
+#: src/variamain.py:216
+msgid "Cancel All"
+msgstr "全部取消"
+
+#: src/variamain.py:235
+#| msgid "MB/s"
+msgid "/s"
+msgstr "/s"
+
+#: src/variamain.py:238
+msgid "No limit"
+msgstr "不限速"
+
+#: src/variamain.py:274
+msgid "Download complete."
+msgstr "下載完成。"
+
+#: src/variamain.py:276
+msgid "Download speed is limited."
+msgstr "已限制下載速度"
+
+#: src/variamain.py:277
+msgid "An error occurred:"
+msgstr "偵測到錯誤："
+
+#: src/variamain.py:292
+msgid "MB/s"
+msgstr "MB/s"
+
+#: src/variamain.py:294
+msgid "KB/s"
+msgstr "KB/s"
+
+#: src/variamain.py:298
+msgid "0 B/s"
+msgstr "0 B/s"
+
+#: src/variamain.py:300
+msgid " MB/s"
+msgstr " MB/s"
+
+#: src/variamain.py:302
+msgid " KB/s"
+msgstr " KB/s"
+
+#: src/variamain.py:304
+msgid " B/s"
+msgstr " B/s"
+
+#: src/variamain.py:410
+msgid "Resume All"
+msgstr "全部復原"
+
+#: src/variamain.py:443
+msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
+msgstr "基於 aria2 且使用 GTK4 與 Libadwaita 的下載管理員。"
+
+#: src/variamain.py:446
+msgid ""
+"2023 Giant Pink Robots!\n"
+"\n"
+"This application relies on the following pieces of software:\n"
+"\n"
+"- aria2: GPL v2 License (aria2 itself relies on OpenSSL: OpenSSL License)\n"
+"- aria2p: ISC License\n"
+"\n"
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
+msgstr ""
+"2023 Giant Pink Robots!\n"
+"\n"
+"這程式需依賴以下幾款軟體：\n"
+"\n"
+"- aria2: GPL v2 協議 (aria2 本身依賴於 OpenSSL: OpenSSL 協議)\n"
+"- aria2p: ISC 協議\n"
+"\n"
+"全部協議可在此程式路徑中的 dependencies_information 內找到。"
+
+#: src/variamain.py:449
+msgid "translator-credits"
+msgstr "Julian Lai <s9209122222@gmail.com>"
+
+#: src/variamain.py:457
+msgid "Download Directory"
+msgstr "下載路徑"
+
+#: src/variamain.py:460
+msgid "Change"
+msgstr "改變"
+
+#: src/variamain.py:463
+msgid "Speed limited"
+msgstr "限速"
+
+#: src/variamain.py:519
+msgid "Authentication"
+msgstr "身份驗證"
+
+#: src/variamain.py:532
+msgid "Username"
+msgstr "使用者名稱"
+
+#: src/variamain.py:534
+msgid "Password"
+msgstr "密碼"
+
+#: src/variamain.py:554
+msgid "Authorization failed."
+msgstr "驗證失敗。"
+
+#: src/gtk/help-overlay.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "一般"
+
+#: src/gtk/help-overlay.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "顯示捷徑"
+
+#: src/gtk/help-overlay.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "離開"
