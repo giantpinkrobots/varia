@@ -127,6 +127,10 @@ msgstr " KB/s"
 msgid " B/s"
 msgstr " B/s"
 
+#: src/variamain.py:404
+msgid "Simultaneous Download Amount"
+msgstr "Aynı Anda İndirme Sayısı"
+
 #: src/variamain.py:410
 msgid "Resume All"
 msgstr "Tümünü Sürdür"

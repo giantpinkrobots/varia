@@ -123,6 +123,10 @@ msgstr ""
 msgid " B/s"
 msgstr ""
 
+#: src/variamain.py:404
+msgid "Simultaneous Download Amount"
+msgstr ""
+
 #: src/variamain.py:410
 msgid "Resume All"
 msgstr ""
