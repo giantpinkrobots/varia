@@ -47,6 +47,18 @@ msgstr ""
 msgid "This is not a valid URL."
 msgstr "URL geçersiz."
 
+#: src/variamain.py:125
+msgid "All"
+msgstr "Hepsi"
+
+#: src/variamain.py:137
+msgid "In Progress"
+msgstr "Devam Edenler"
+
+#: src/variamain.py:148
+msgid "Completed"
+msgstr "Tamamlananlar"
+
 #: src/variamain.py:171
 msgid "About Varia"
 msgstr "Varia Hakkında"

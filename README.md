@@ -18,7 +18,7 @@ Varia is a simple download manager that conforms to the latest Libadwaita design
   <img src="https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-2.png" width=400 />
 </p>
 
-It supports basic functionality like continuing incomplete downloads from the previous session upon startup, pausing/cancelling all downloads at once, setting a speed limit, authentication with a username/password, and setting the download directory.
+It supports basic functionality like continuing incomplete downloads from the previous session upon startup, pausing/cancelling all downloads at once, setting a speed limit, authentication with a username/password, setting the simultaneous download amount and setting the download directory.
 
 ## Get Varia
 
@@ -43,6 +43,7 @@ If you don't want to utilize Flatpak to build Varia you need:
 - Libadwaita
 - gettext
 - aria2 and the aria2p python package.
+
 To install the ones besides aria2p on some Linux systems:
 ```
 Ubuntu, Debian, Mint etc: sudo apt install meson ninja-build aria2 python-setuptools libgtk-4-dev libadwaita-1-0 gettext
@@ -67,11 +68,11 @@ sudo meson install
 
 <a href=https://github.com/giantpinkrobots/varia/blob/main/LICENSE>Varia is licensed under the Mozilla Public License 2.0.</a>
 
-But, it also application relies on the following pieces of software:
+But, it also relies on the following pieces of software:
 - aria2: GPL v2 License (aria2 itself relies on OpenSSL: OpenSSL License)
 - aria2p: ISC License
 
-The licenses of all of these pieces of software can be found in the dependencies_information directory in this application's app directory.
+The licenses of all of these pieces of software can be found in the dependencies_information directory in Varia's app directory.
 
 ## Contributing
 

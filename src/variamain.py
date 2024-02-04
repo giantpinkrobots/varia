@@ -67,7 +67,7 @@ class MainWindow(Gtk.Window):
 
         # Sidebar
         sidebar_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        sidebar_content_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+        sidebar_content_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
 
         header_bar = Adw.HeaderBar()
         header_bar.get_style_context().add_class('flat')
@@ -115,20 +115,49 @@ class MainWindow(Gtk.Window):
         download_button.get_style_context().add_class("suggested-action")
         download_button.connect("clicked", self.on_download_clicked, download_entry)
 
-        self.filter_button_show_all = Gtk.ToggleButton(label=_("All"))
+        self.filter_button_show_all = Gtk.ToggleButton()
+        self.filter_button_show_all.get_style_context().add_class('flat')
+        filter_button_show_all_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        filter_button_show_all_box.set_margin_top(8)
+        filter_button_show_all_box.set_margin_bottom(8)
+        filter_button_show_all_box.append(Gtk.Image.new_from_icon_name("switch-off-symbolic"))
+        filter_button_show_all_label = Gtk.Label(label=_("All"))
+        filter_button_show_all_label.get_style_context().add_class('body')
+        filter_button_show_all_box.append(filter_button_show_all_label)
+        self.filter_button_show_all.set_child(filter_button_show_all_box)
         self.filter_button_show_all.set_active(True)
         self.filter_button_show_all.connect("clicked", self.filter_download_list, "show_all")
 
-        self.filter_button_show_downloading = Gtk.ToggleButton(label=_("In Progress"))
+        self.filter_button_show_downloading = Gtk.ToggleButton()
+        self.filter_button_show_downloading.get_style_context().add_class('flat')
+        filter_button_show_downloading_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        filter_button_show_downloading_box.set_margin_top(8)
+        filter_button_show_downloading_box.set_margin_bottom(8)
+        filter_button_show_downloading_box.append(Gtk.Image.new_from_icon_name("content-loading-symbolic"))
+        filter_button_show_downloading_label = Gtk.Label(label=_("In Progress"))
+        filter_button_show_downloading_label.get_style_context().add_class('body')
+        filter_button_show_downloading_box.append(filter_button_show_downloading_label)
+        self.filter_button_show_downloading.set_child(filter_button_show_downloading_box)
         self.filter_button_show_downloading.connect("clicked", self.filter_download_list, "show_downloading")
 
-        self.filter_button_show_completed = Gtk.ToggleButton(label=_("Completed"))
+        self.filter_button_show_completed = Gtk.ToggleButton()
+        self.filter_button_show_completed.get_style_context().add_class('flat')
+        filter_button_show_completed_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        filter_button_show_completed_box.set_margin_top(8)
+        filter_button_show_completed_box.set_margin_bottom(8)
+        filter_button_show_completed_box.append(Gtk.Image.new_from_icon_name("emblem-ok-symbolic"))
+        filter_button_show_completed_label = Gtk.Label(label=_("Completed"))
+        filter_button_show_completed_label.get_style_context().add_class('body')
+        filter_button_show_completed_box.append(filter_button_show_completed_label)
+        self.filter_button_show_completed.set_child(filter_button_show_completed_box)
         self.filter_button_show_completed.connect("clicked", self.filter_download_list, "show_completed")
 
-        sidebar_expanding_box1 = Gtk.Box()
-        Gtk.Widget.set_vexpand(sidebar_expanding_box1, True)
-        sidebar_expanding_box2 = Gtk.Box()
-        Gtk.Widget.set_vexpand(sidebar_expanding_box2, True)
+        sidebar_separator = Gtk.Separator()
+        sidebar_separator.set_margin_top(8)
+        sidebar_separator.set_margin_bottom(8)
+
+        sidebar_expanding_box = Gtk.Box()
+        Gtk.Widget.set_vexpand(sidebar_expanding_box, True)
 
         self.sidebar_speed_limited_label = Gtk.Label()
 
@@ -137,13 +166,16 @@ class MainWindow(Gtk.Window):
         sidebar_content_box.set_margin_top(6)
         sidebar_content_box.set_margin_bottom(6)
 
+        sidebar_filter_buttons_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
+        sidebar_filter_buttons_box.append(self.filter_button_show_all)
+        sidebar_filter_buttons_box.append(self.filter_button_show_downloading)
+        sidebar_filter_buttons_box.append(self.filter_button_show_completed)
+
         sidebar_content_box.append(download_entry)
         sidebar_content_box.append(download_button)
-        sidebar_content_box.append(sidebar_expanding_box1)
-        sidebar_content_box.append(self.filter_button_show_all)
-        sidebar_content_box.append(self.filter_button_show_downloading)
-        sidebar_content_box.append(self.filter_button_show_completed)
-        sidebar_content_box.append(sidebar_expanding_box2)
+        sidebar_content_box.append(sidebar_separator)
+        sidebar_content_box.append(sidebar_filter_buttons_box)
+        sidebar_content_box.append(sidebar_expanding_box)
         sidebar_content_box.append(self.sidebar_speed_limited_label)
         sidebar_box.append(sidebar_content_box)
 
@@ -182,7 +214,7 @@ class MainWindow(Gtk.Window):
         header_bar.set_title_widget(header_box)
         content_box.append(header_bar)
 
-        self.download_list = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=5)
+        self.download_list = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
         self.download_list.set_margin_start(6)
         self.download_list.set_margin_end(6)
         self.download_list.set_margin_bottom(6)
@@ -468,9 +500,9 @@ class MainWindow(Gtk.Window):
                             else:
                                 download_thread.speed_label.set_text(_("An error occurred:") + " " + str(download_thread.download.error_code))
                             download_thread.stop(False)
-                            download_thread.download.remove(force=True)
                             self.pause_buttons[i].hide()
                             self.filter_download_list("no", self.applied_filter)
+
                 except:
                     self.pause_buttons[i].hide()
                     self.filter_download_list("no", self.applied_filter)
@@ -481,8 +513,6 @@ class MainWindow(Gtk.Window):
     def total_download_speed_get(self, downloads, total_download_speed_label):
         while (self.terminating == False):
             total_download_speed = 0
-            download_speed_mb = False
-            download_speed_kb = False
             for download_thread in downloads:
                 try:
                     download_thread.download.update()
@@ -494,19 +524,21 @@ class MainWindow(Gtk.Window):
                     speed_label_text_first_digit = "0"
                 if (speed_label_text_first_digit.isdigit()):
                     download_speed = (float(download_thread.speed_label.get_text().split(" ")[4]))
-                    if (download_thread.speed_label.get_text().split(" ")[5] == _("MB/s")):
-                        download_speed_mb = True
+                    if (download_thread.speed_label.get_text().split(" ")[5] == _("GB/s")):
+                        download_speed = download_speed * 1024 * 1024 * 1024
+                    elif (download_thread.speed_label.get_text().split(" ")[5] == _("MB/s")):
+                        download_speed = download_speed * 1024 * 1024
                     elif (download_thread.speed_label.get_text().split(" ")[5] == _("KB/s")):
-                        download_speed_kb = True
+                        download_speed = download_speed * 1024
                     total_download_speed = total_download_speed + download_speed
             if (total_download_speed == 0):
-                total_download_speed_label.set_text(_("0 B/s"))
-            elif (download_speed_mb == True):
-                total_download_speed_label.set_text(str(round(total_download_speed, 2)) + _(" MB/s"))
-            elif (download_speed_kb == True):
-                total_download_speed_label.set_text(str(round(total_download_speed, 2)) + _(" KB/s"))
+                total_download_speed_label.set_text("0" + _(" B/s"))
+            elif (total_download_speed < 1024):
+                total_download_speed_label.set_text(str(total_download_speed) + _(" B/s"))
+            elif ((total_download_speed >= 1024) and (total_download_speed < 1048576)):
+                total_download_speed_label.set_text(str(round(total_download_speed / 1024, 2)) + _(" KB/s"))
             else:
-                total_download_speed_label.set_text(str(round(total_download_speed, 2)) + _(" B/s"))
+                total_download_speed_label.set_text(str(round(total_download_speed / 1024 / 1024, 2)) + _(" MB/s"))
             time.sleep(1)
 
     def create_actionrow(self, url):
@@ -669,7 +701,8 @@ class MainWindow(Gtk.Window):
     def set_speed_limit(self, download_limit):
         self.sidebar_speed_limited_label.set_text("")
         if ((download_limit[:-1] != "0") and (self.appconf["download_speed_limit_enabled"] == "1")):
-            self.sidebar_speed_limited_label.set_markup("<span color='red'>" + _("Speed limited") + "</span>")
+            self.sidebar_speed_limited_label.set_text(_("Speed limited"))
+            self.sidebar_speed_limited_label.get_style_context().add_class('warning')
         else:
             download_limit = "0K"
 

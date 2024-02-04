@@ -43,6 +43,18 @@ msgstr ""
 msgid "This is not a valid URL."
 msgstr ""
 
+#: src/variamain.py:125
+msgid "All"
+msgstr ""
+
+#: src/variamain.py:137
+msgid "In Progress"
+msgstr ""
+
+#: src/variamain.py:148
+msgid "Completed"
+msgstr ""
+
 #: src/variamain.py:171
 msgid "About Varia"
 msgstr ""
