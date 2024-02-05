@@ -1054,3 +1054,7 @@ def main(version):
     finally:
         app.win.exitProgram(app)
 
+if ((__name__ == '__main__') and (os.name == 'nt')):
+    subprocess.Popen(["aria2c", "--enable-rpc", "--rpc-listen-port=6801"], shell=True)
+    sys.exit(main(variaVersion))
+
