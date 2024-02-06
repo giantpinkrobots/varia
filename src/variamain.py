@@ -760,7 +760,10 @@ class MainWindow(Gtk.Window):
         print("Config saved")
 
     def open_downloads_folder(self, app, variaapp):
-        subprocess.Popen(["xdg-open", self.appconf["download_directory"]])
+        if (os.name == 'nt'):
+            os.startfile(self.appconf["download_directory"])
+        else:
+            subprocess.Popen(["xdg-open", self.appconf["download_directory"]])
 
     def show_about(self, app, variaapp):
         dialog = Adw.AboutWindow(transient_for=self)
@@ -775,9 +778,8 @@ class MainWindow(Gtk.Window):
         dialog.set_developers(["Giant Pink Robots! (@giantpinkrobots) https://github.com/giantpinkrobots"])
         dialog.set_application_icon("io.github.giantpinkrobots.varia")
         dialog.set_translator_credits(_("translator-credits"))
+        dialog.set_artists(["Jakub Steiner"])
         dialog.show()
-
-
 
     def speed_limit_text_filter(self, entry):
         text = entry.get_text()
