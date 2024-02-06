@@ -1,0 +1,167 @@
+@font-face {
+    font-family: "Cantarell var";
+    font-weight: 100 900;
+    font-display: swap;
+    font-style: normal;
+    font-named-instance: "Regular";
+    src: url("./Cantarell-VF.otf") format("opentype");
+}
+
+hr.solid {
+    border: 1px solid #deddda;
+}
+
+div[name='logo'] {
+    filter: drop-shadow(rgb(122, 122, 122) 0rem 0.5rem 8px);
+}
+
+body {
+    font-family: 'Cantarell var';
+    background-color: #f6f5f4;
+}
+
+h1 {
+    font-family: 'Cantarell var', bold;
+    font-size: 500%;
+    color: #1c71d8;
+    line-height: 0;
+}
+
+h2 {
+    font-family: 'Cantarell var';
+    font-size: 175%;
+    color: #241f31;
+}
+
+h3 {
+    font-family: 'Cantarell var';
+    font-size: 75%;
+    color: #241f31;
+}
+
+p {
+    font-family: 'Cantarell var';
+    font-size: 150%;
+    color: #241f31;
+}
+
+.pill-button {
+    border: none;
+    padding: 15px 25px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 100px;
+    font-family: 'Cantarell var';
+    font-weight: bold;
+    font-size: 110%;
+    filter: drop-shadow(rgba(0, 0, 0, 0.5) 0rem 0rem 8px);
+    transition: all 0.25s;
+    transition-timing-function: ease-out;
+    display: block;
+}
+
+.pill-button-linux {
+    overflow: hidden;
+}
+
+.button-label {
+    display: block;
+}
+
+.pill-button-blue {
+    background-color: #3584e4;
+    color: white;
+}
+
+.pill-button-gray {
+    background-color: #5e5c64;
+    color: white;
+}
+
+.pill-button-ltblue {
+    background-color: #bed5f1;
+    color: #1b1b1b;
+}
+
+.pill-button:hover {
+    transform: scale(105%);
+}
+
+.pill-button:active {
+    transform: scale(90%);
+}
+
+.pill-button-blue:hover {
+    background-color: #62a0ea;
+}
+
+.pill-button-gray:hover {
+    background-color: #77767b;
+}
+
+.pill-button-ltblue:hover {
+    background-color: #F6F5F4;
+}
+
+.button-icon {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+}
+
+.footer-icon {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+    filter: brightness(10%);
+}
+
+.linux-instructions {
+    max-height: 1000px;
+    overflow: hidden;
+    border-radius: 15px;
+    background: #EBEBEB;
+    padding: 20px;
+    filter: drop-shadow(rgba(0, 0, 0, 0.5) 0rem 0.3rem 8px);
+    width: 800px;
+    transition: max-height 0.5s ease-in-out, padding 0.25s ease-in-out, border-radius 0.25s ease-in-out;
+    margin: 5px;
+}
+
+.linux-instructions.hidden {
+    max-height: 0;
+    padding: 0px;
+    border-radius: 0px;
+}
+
+@media (prefers-color-scheme: dark) {
+    div[name='logo'] {
+        filter: drop-shadow(rgb(39, 39, 39) 0rem 0rem 0px);
+    }
+
+    body {
+        background-color: #241f31;
+        color: #f6f5f4
+    }
+
+    .footer-icon {
+        filter: brightness(100%);
+    }    
+
+    h1 {
+        color: #62a0ea;
+    }
+
+    h2, h3, p {
+        color: #f6f5f4;
+    }
+
+    hr.solid {
+        border: 1px solid #3d3846;
+    }
+
+    .linux-instructions {
+        background: #3d3846;
+    }
+}

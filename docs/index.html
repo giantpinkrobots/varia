@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<script>
+function toggleLinuxInstructions() {
+    var windowsInstructionsContent = document.getElementById("windows-instructions");
+    windowsInstructionsContent.classList.add("hidden");
+    var linuxInstructionsContent = document.getElementById("linux-instructions");
+    linuxInstructionsContent.classList.toggle("hidden");
+}
+
+function toggleWindowsInstructions(id) {
+    var linuxInstructionsContent = document.getElementById("linux-instructions");
+    linuxInstructionsContent.classList.add("hidden");
+    var windowsInstructionsContent = document.getElementById("windows-instructions");
+    windowsInstructionsContent.classList.toggle("hidden");
+}
+</script>
+
+<center>
+
+    <div class='parent'>
+        <div name='logo' style="display: inline-block"><img src="variaIcon.png" alt="Varia icon" width="250" height="250"></div>
+        <h1 style="display: inline-block">Varia</h1>
+    </div>
+
+    <h2>Quick and efficient download manager</h2>
+    
+    <div class='parent'>
+        <button style="display: inline-block" class="pill-button pill-button-blue" onclick="toggleLinuxInstructions()">
+            <span class="button-label"><img src="tuxIcon.png" class="button-icon">&nbsp;&nbsp;&nbsp;&nbsp;Download for Linux</span>
+        </button>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <button style="display: inline-block" class="pill-button pill-button-blue" onclick="toggleWindowsInstructions()">
+            <span class="button-label"><img src="windowsIcon.png" class="button-icon">&nbsp;&nbsp;&nbsp;&nbsp;Download for Windows</span>
+        </button>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        
+        <div style="display: inline-block"><a href="https://github.com/giantpinkrobots/varia" class="pill-button pill-button-gray"><img src="githubIcon.png" class="button-icon">&nbsp;&nbsp;&nbsp;&nbsp;Source on GitHub</a></div>
+    </div>
+
+    <br>
+
+    <div id='linux-instructions' class='linux-instructions hidden'>
+        <div style="display: inline-block"><a href="https://flathub.org/apps/io.github.giantpinkrobots.varia" class="pill-button pill-button-ltblue"><img src="flathubIcon.png" class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;Flathub</a></div>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <div style="display: inline-block"><a href="https://github.com/giantpinkrobots/varia/releases/latest/download/io.github.giantpinkrobots.varia.flatpak" class="pill-button pill-button-ltblue"><img src="flatpakIcon.png" class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;Flatpak file</a></div>
+        
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <div style="display: inline-block"><a href="https://aur.archlinux.org/packages/varia" class="pill-button pill-button-ltblue"><img src="archLinuxIcon.png" class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;AUR (unofficial)</a></div>
+        
+        <br>
+        <br>
+
+        The main way to install Varia is through Flathub to get it as a Flatpak.
+        <br>
+        You can also install it from a .flatpak file directly.
+        <br>
+        If you're on Arch Linux you can install it through the AUR as well, but it is not maintained by me.
+    </div>
+
+    <div id='windows-instructions' class='linux-instructions hidden'>
+        <div style="display: inline-block"><a href="https://github.com/giantpinkrobots/varia/releases/download/v2024.2.6/varia-windows-setup-amd64.exe" class="pill-button pill-button-ltblue"><img src="downloadIcon.png" class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;Installer</a></div>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <div style="display: inline-block"><a href="https://github.com/giantpinkrobots/varia/releases/download/v2024.2.6/varia-windows-portable-amd64.exe" class="pill-button pill-button-ltblue"><img src="downloadIcon.png" class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;Portable version</a></div>
+        
+        <br>
+        <br>
+        
+        Windows support is experimental.
+        <br>
+        If you're not sure, get the Installer file.
+        <br>
+        The portable version extracts the files into a temporary folder before automatically running it.
+    </div>
+    
+    <picture>
+        <source srcset="https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-2.png" alt="Varia screenshot" media="(prefers-color-scheme: dark)" />
+        <img src="https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-1.png" alt="Varia screenshot">
+    </picture>
+
+    <hr class="solid">
+
+    <br>
+    <br>
+
+    <h2>Download quickly.</h2>
+    <br>
+    <p>Utilizing the aria2 backend, Varia helps you take advantage of your connection<br>speed to its fullest when it comes to downloading files.</p>
+
+    <br>
+    <p>/</p>
+    <br>
+
+    <h2>Pick up where you left off.</h2>
+    <br>
+    <p>With Varia, you can pause your downloads and continue downloading them<br>afterwards, even after rebooting your computer.</p>
+
+    <br>
+    <p>/</p>
+    <br>
+
+    <h2>Slow down if need be.</h2>
+    <br>
+    <p>Although Varia can download files very fast, a speed limit can be assigned to it<br>as well, which will prevent it from saturating your connection speed if you're<br>doing something else on the side.</p>
+
+    <br>
+    <p>/</p>
+    <br>
+
+    <h2>Use it easily.</h2>
+    <br>
+    <p>Varia has a very simple and easy to understand user interface.</p>
+
+    <br>
+    <p>/</p>
+    <br>
+
+    <h2>It's all open.</h2>
+    <br>
+    <p>Varia is open source software, which means the building blocks of it are publicly<br>available. You can take a look at it and contribute to it.</p>
+
+    <br>
+    <br>
+    <br>
+
+    <hr class="solid">
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <h3>
+    The Varia logo / icon and the Flathub logo were made by Jakub Steiner.
+    <br>
+    <br>
+    The icons used in this web page were modified by me (mainly the colors and sizes were changed).
+    <br>
+    <br>
+    The original Linux Tux icon was made by Larry Ewing. The version used here was made by OpenClipart-Vectors<br>on Pixabay.
+    <br>
+    <br>
+    The Arch Linux logo was sourced from Arch Linux, made by Judd Vinet, Aaron Griffin and Levente Polyák.
+    <br>
+    <br>
+    The Flatpak icon is licensed under the Creative Commons Attribution 3.0. flatpak.org
+    <br>
+    <br>
+    Windows and the Windows logo are trademarks, or registered trademarks of Microsoft Corporation in the<br>United States and/or other countries.
+    <br>
+    <br>
+    GITHUB®, the GITHUB® logo design, the INVERTOCAT logo design, OCTOCAT®, and the OCTOCAT® logo design are<br>trademarks of GitHub, Inc., registered in the United States and other countries.<br>The OCTOCAT design is the exclusive property of GitHub, Inc and has been federally registered with the<br>United States Copyright Office.
+    <br>
+    <br>
+    The download icon used in the Download for Windows section is part of the Feater icons set, licensed under the MIT license. feathericons.com
+    </h3>
+    
+    <br>
+    <br>
+    <br>
+
+
+</center>
+
+</body>
+</html>

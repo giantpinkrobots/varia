@@ -38,9 +38,12 @@ Varia utilizes GTK4 and Libadwaita to provide a easy to use interface that integ
 </screenshots>
 
 <releases>
-<release version="v2024.1.31" date="2024-01-31">
+<release version="v2024.2.6" date="2024-02-06">
 <description translatable="yes">
-<p>Bug fixes.</p>
+<p>- Varia now has a brand new icon.</p>
+<p>- The sidebar now hosts buttons for all downloads, downloads in progress and completed downloads.</p>
+<p>- A setting for adjusting the simultaneous download amount was added.</p>
+<p>- Bug fixes and adjustments.</p>
 </description>
 </release>
 </releases>
