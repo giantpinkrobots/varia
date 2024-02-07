@@ -136,28 +136,13 @@ msgstr "Возобновить все"
 msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
 msgstr "Менеджер загрузок на основе aria2, использующий GTK4 и Libadwaita."
 
-#: src/variamain.py:446
-msgid ""
-"2023 Giant Pink Robots!\n"
-"\n"
-"This application relies on the following pieces of software:\n"
-"\n"
-"- aria2: GPL v2 License (aria2 itself relies on OpenSSL: OpenSSL License)\n"
-"- aria2p: ISC License\n"
-"\n"
-"The licenses of all of these pieces of software can be found in the "
-"dependencies_information directory in this application's app directory."
-msgstr ""
-"2023 Giant Pink Robots!\n"
-"\n"
-"Это приложение использует следующие части программного обеспечения:\n"
-"\n"
-"- aria2: Лицензия GPL v2 (сама aria2 опирается на OpenSSL: Лицензия "
-"OpenSSL)\n"
-"- aria2p: Лицензия ISC\n"
-"\n"
-"Лицензии всех этих программных продуктов можно найти в каталоге "
-"dependencies_information в этом приложении."
+#: src/variamain.py:777
+msgid "This application relies on the following pieces of software:"
+msgstr "Это приложение использует следующие части программного обеспечения:"
+
+#: src/variamain.py:777
+msgid "The licenses of all of these pieces of software can be found in the dependencies_information directory in this application's app directory."
+msgstr "Лицензии всех этих программных продуктов можно найти в каталоге dependencies_information в этом приложении."
 
 #: src/variamain.py:449
 msgid "translator-credits"

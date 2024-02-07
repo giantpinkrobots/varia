@@ -151,28 +151,13 @@ msgstr "Tümünü Sürdür"
 msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
 msgstr "GTK4 ve Libadwaita kullanan aria2 tabanlı indirme yöneticisi."
 
-#: src/variamain.py:446
-msgid ""
-"2023 Giant Pink Robots!\n"
-"\n"
-"This application relies on the following pieces of software:\n"
-"\n"
-"- aria2: GPL v2 License (aria2 itself relies on OpenSSL: OpenSSL License)\n"
-"- aria2p: ISC License\n"
-"\n"
-"The licenses of all of these pieces of software can be found in the "
-"dependencies_information directory in this application's app directory."
-msgstr ""
-"2023 Giant Pink Robots!\n"
-"\n"
-"Bu uygulama aşağıdaki yazılımlara dayanır:\n"
-"\n"
-"- aria2: GPL v2 Lisansı (aria2'nin kendisi OpenSSL'e dayanır: OpenSSL "
-"Lisansı)\n"
-"- aria2p: ISC Lisansı\n"
-"\n"
-"Tüm bu yazılımlara ait lisanslar, uygulama dizinindeki "
-"dependencies_information dizininde bulunabilir."
+#: src/variamain.py:777
+msgid "This application relies on the following pieces of software:"
+msgstr "Bu uygulama aşağıdaki yazılımlara dayanır:"
+
+#: src/variamain.py:777
+msgid "The licenses of all of these pieces of software can be found in the dependencies_information directory in this application's app directory."
+msgstr "Tüm bu yazılımlara ait lisanslar, uygulama dizinindeki dependencies_information dizininde bulunabilir."
 
 #: src/variamain.py:449
 msgid "translator-credits"
@@ -205,6 +190,10 @@ msgstr "Şifre"
 #: src/variamain.py:554
 msgid "Authorization failed."
 msgstr "Yetkilendirme başarısız oldu."
+
+#: src/variamain.py:806
+msgid "Failed to open directory."
+msgstr "Dizin açılamadı."
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

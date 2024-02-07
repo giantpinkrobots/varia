@@ -774,7 +774,9 @@ class MainWindow(Gtk.Window):
         dialog.set_comments(_("aria2 based download manager utilizing GTK4 and Libadwaita."))
         dialog.set_website("https://github.com/giantpinkrobots/varia")
         dialog.set_issue_url("https://github.com/giantpinkrobots/varia/issues")
-        dialog.set_copyright(_("2023 Giant Pink Robots!\n\nThis application relies on the following pieces of software:\n\n- aria2: GPL v2 License (aria2 itself relies on OpenSSL: OpenSSL License)\n- aria2p: ISC License\n\nThe licenses of all of these pieces of software can be found in the dependencies_information directory in this application's app directory."))
+        dialog.set_copyright("2023 Giant Pink Robots!\n\n" + _("This application relies on the following pieces of software:") +
+            "\n\n- aria2\n- GTK4\n- Libadwaita\n- Meson\n- OpenSSL\n- Python-appdirs\n- Python-aria2p\n- Python-certifi\n- Python-charset-normalizer\n- Python-gettext\n- Python-idna\n- Python-loguru\n- Python-requests\n- Python-setuptools\n- Python-urllib3\n- Python-websocket-client\n\n" +
+            _("The licenses of all of these pieces of software can be found in the dependencies_information directory in this application's app directory."))
         dialog.set_developers(["Giant Pink Robots! (@giantpinkrobots) https://github.com/giantpinkrobots"])
         dialog.set_application_icon("io.github.giantpinkrobots.varia")
         dialog.set_translator_credits(_("translator-credits"))
@@ -803,7 +805,7 @@ class MainWindow(Gtk.Window):
             actionrow.set_subtitle(self.appconf["download_directory"])
         except:
             error_dialog = Adw.MessageDialog()
-            error_dialog.set_body(_("Failed to open folder."))
+            error_dialog.set_body(_("Failed to open directory."))
             error_dialog.add_response("ok",  _("OK"))
             error_dialog.set_default_response("ok")
             error_dialog.set_close_response("ok")

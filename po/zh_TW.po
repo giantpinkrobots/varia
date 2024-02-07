@@ -133,26 +133,13 @@ msgstr "全部復原"
 msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
 msgstr "基於 aria2 且使用 GTK4 與 Libadwaita 的下載管理員。"
 
-#: src/variamain.py:446
-msgid ""
-"2023 Giant Pink Robots!\n"
-"\n"
-"This application relies on the following pieces of software:\n"
-"\n"
-"- aria2: GPL v2 License (aria2 itself relies on OpenSSL: OpenSSL License)\n"
-"- aria2p: ISC License\n"
-"\n"
-"The licenses of all of these pieces of software can be found in the "
-"dependencies_information directory in this application's app directory."
-msgstr ""
-"2023 Giant Pink Robots!\n"
-"\n"
-"這程式需依賴以下幾款軟體：\n"
-"\n"
-"- aria2: GPL v2 協議 (aria2 本身依賴於 OpenSSL: OpenSSL 協議)\n"
-"- aria2p: ISC 協議\n"
-"\n"
-"全部協議可在此程式路徑中的 dependencies_information 內找到。"
+#: src/variamain.py:777
+msgid "This application relies on the following pieces of software:"
+msgstr "這程式需依賴以下幾款軟體："
+
+#: src/variamain.py:777
+msgid "The licenses of all of these pieces of software can be found in the dependencies_information directory in this application's app directory."
+msgstr "全部協議可在此程式路徑中的 dependencies_information 內找到。"
 
 #: src/variamain.py:449
 msgid "translator-credits"

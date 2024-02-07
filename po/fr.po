@@ -134,20 +134,14 @@ msgstr "Tout reprendre"
 
 #: src/variamain.py:443
 msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
-msgstr ""
-"gestionnaire de téléchargement basé sur aria2 utilisant GTK4 et Libadwaita"
+msgstr "gestionnaire de téléchargement basé sur aria2 utilisant GTK4 et Libadwaita"
 
-#: src/variamain.py:446
-msgid ""
-"2023 Giant Pink Robots!\n"
-"\n"
-"This application relies on the following pieces of software:\n"
-"\n"
-"- aria2: GPL v2 License (aria2 itself relies on OpenSSL: OpenSSL License)\n"
-"- aria2p: ISC License\n"
-"\n"
-"The licenses of all of these pieces of software can be found in the "
-"dependencies_information directory in this application's app directory."
+#: src/variamain.py:777
+msgid "This application relies on the following pieces of software:"
+msgstr ""
+
+#: src/variamain.py:777
+msgid "The licenses of all of these pieces of software can be found in the dependencies_information directory in this application's app directory."
 msgstr ""
 
 #: src/variamain.py:449
