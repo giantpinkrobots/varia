@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the Varia package.
 # Julian Lai <s9209122222@gmail.com>, 2023.
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
@@ -15,7 +16,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.4.1\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -37,12 +37,23 @@ msgid ""
 "Varia is a download manager based on aria2 that utilizes GTK4 and Libadwaita "
 "to provide a easy to use interface that integrates well with the GNOME "
 "desktop."
-msgstr ""
-"Varia 基於 aria2 且使用 GTK4 與 Libadwaita 以提供易用介面，並與 Gnome 良好整合的下載管理員"
+msgstr "Varia 基於 aria2 且使用 GTK4 與 Libadwaita 以提供易用介面，並與 Gnome 良好整合的下載管理員"
 
 #: src/variamain.py:45
 msgid "This is not a valid URL."
 msgstr "這不是可用的網址。"
+
+#: src/variamain.py:125
+msgid "All"
+msgstr "全部"
+
+#: src/variamain.py:137
+msgid "In Progress"
+msgstr "進行中"
+
+#: src/variamain.py:148
+msgid "Completed"
+msgstr "已完成"
 
 #: src/variamain.py:171
 msgid "About Varia"
@@ -81,7 +92,6 @@ msgid "Cancel All"
 msgstr "全部取消"
 
 #: src/variamain.py:235
-#| msgid "MB/s"
 msgid "/s"
 msgstr "/s"
 
@@ -124,6 +134,10 @@ msgstr " KB/s"
 #: src/variamain.py:304
 msgid " B/s"
 msgstr " B/s"
+
+#: src/variamain.py:404
+msgid "Simultaneous Download Amount"
+msgstr "同時下載數量"
 
 #: src/variamain.py:410
 msgid "Resume All"
