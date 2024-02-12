@@ -6,6 +6,7 @@ import sys
 import signal
 import locale
 import gettext
+import json
 
 VERSION = '@VERSION@'
 pkgdatadir = '@pkgdatadir@'
@@ -15,25 +16,21 @@ sys.path.insert(1, pkgdatadir)
 signal.signal(signal.SIGINT, signal.SIG_DFL)
 gettext.install('varia', localedir)
 
+aria2cexec = sys.argv[1]
+
 try:
-  locale.bindtextdomain('varia', localedir)
-  locale.textdomain('varia')
+	locale.bindtextdomain('varia', localedir)
+	locale.textdomain('varia')
 except:
-  print('Cannot set locale.')
+	print('Cannot set locale.')
 try:
-  gettext.bindtextdomain('varia', localedir)
-  gettext.textdomain('varia')
+	gettext.bindtextdomain('varia', localedir)
+	gettext.textdomain('varia')
 except:
-  print('Cannot load translations.')
+	print('Cannot load translations.')
 
 if __name__ == '__main__':
-    import gi
-
-    from gi.repository import Gio
-    resource = Gio.Resource.load(os.path.join(pkgdatadir, 'varia.gresource'))
-    resource._register()
-
-    mymodule_dir = os.path.join(pkgdatadir, 'varia')
-    sys.path.append( mymodule_dir )
-    from variamain import main
-    sys.exit(main(VERSION))
+	mymodule_dir = os.path.join(pkgdatadir, 'varia')
+	sys.path.append( mymodule_dir )
+	from variamain import main
+	sys.exit(main(VERSION, aria2cexec))

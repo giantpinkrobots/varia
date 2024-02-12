@@ -191,6 +191,21 @@ msgstr ""
 msgid "Failed to open directory."
 msgstr ""
 
+msgid "Remote Mode"
+msgstr ""
+
+msgid "Remote aria2 IP"
+msgstr ""
+
+msgid "Remote aria2 Port"
+msgstr ""
+
+msgid "Remote aria2 RPC Secret"
+msgstr ""
+
+msgid "Remote Download Location"
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"

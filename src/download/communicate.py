@@ -1,0 +1,75 @@
+import requests
+import json
+
+def set_speed_limit(self, download_limit):
+    self.sidebar_speed_limited_label.set_text("")
+    if ((download_limit[:-1] != "0") and (self.appconf["download_speed_limit_enabled"] == "1")):
+        self.sidebar_speed_limited_label.set_text(_("Speed limited"))
+        self.sidebar_speed_limited_label.get_style_context().add_class('warning')
+    else:
+        download_limit = "0K"
+
+    token = "token:" + self.appconf['remote_secret']
+    json_request = {
+        "jsonrpc": "2.0",
+        "id": "1",
+        "method": "aria2.changeGlobalOption",
+        "params": [
+            token,
+            {"max-overall-download-limit": download_limit}
+        ],
+    }
+
+    response = requests.post(self.aria2cLocation + '/jsonrpc', headers={'Content-Type': 'application/json'}, data=json.dumps(json_request))
+
+def set_aria2c_download_directory(self):
+    token = "token:" + self.appconf['remote_secret']
+    if (self.appconf["remote"] == '0'):
+        json_request = {
+            "jsonrpc": "2.0",
+            "id": "1",
+            "method": "aria2.changeGlobalOption",
+            "params": [
+                token,
+                {"dir": self.appconf["download_directory"]}
+            ],
+        }
+    else:
+        json_request = {
+            "jsonrpc": "2.0",
+            "id": "1",
+            "method": "aria2.changeGlobalOption",
+            "params": [
+                token,
+                {"dir": self.appconf["remote_location"]}
+            ],
+        }
+
+    response = requests.post(self.aria2cLocation + '/jsonrpc', headers={'Content-Type': 'application/json'}, data=json.dumps(json_request))
+
+def set_aria2c_download_simultaneous_amount(self):
+    downloads_that_will_restart = []
+
+    for download_thread in self.downloads:
+        if (download_thread.download):
+            if (download_thread.return_is_paused() == False):
+                downloads_that_will_restart.append(download_thread.return_gid())
+                download_thread.download.pause()
+
+    token = "token:" + self.appconf['remote_secret']
+    json_request = {
+        "jsonrpc": "2.0",
+        "id": "1",
+        "method": "aria2.changeGlobalOption",
+        "params": [
+            token,
+            {"max-concurrent-downloads": str(self.appconf["download_simultaneous_amount"])}
+        ]
+    }
+
+    response = requests.post(self.aria2cLocation + '/jsonrpc', headers={'Content-Type': 'application/json'}, data=json.dumps(json_request))
+
+    for download_thread in self.downloads:
+        if (download_thread.download):
+            if (download_thread.return_gid() in downloads_that_will_restart):
+                download_thread.download.resume()
