@@ -40,11 +40,17 @@ You can get Varia via the [AUR](https://aur.archlinux.org/packages/varia) as wel
 ### Windows (experimental)
 You can find a *highly experimental* build of Varia in the releases section. But keep in mind, it will have bugs.
 
-## Building (Linux)
+## Building
 
-The easiest way of building Varia is to use GNOME Builder. Just clone this repository, and open the folder using Builder. Then, press run.
+There are two branches here: 'main' and 'next'. 'next' is where the feature developments for the next version happen.
 
-If you don't want to utilize Flatpak to build Varia you need:
+The 'main' branch can be built with the instructions below. The 'next' branch may also be built with these instructions, but it's not guaranteed. If you want to build the 'next' branch, it can be built with GNOME Builder on Linux.
+
+### for Linux
+
+The easiest way of building Varia is to use GNOME Builder. Just clone this repository, and open the folder using Builder. Then, press run. This is the way I make Varia, and the 'next' branch can only be reliably built this way.
+
+To build Varia without Flatpak or GNOME Builder though, you'll need:
 - meson
 - python-setuptools
 - Gtk4 and its development libraries
@@ -77,7 +83,7 @@ meson compile
 sudo meson install
 ```
 
-## Building (Windows)
+### for Windows
 
 Windows support is experimental. Translations don't work yet.
 
@@ -107,7 +113,7 @@ Running variamain.exe will start Varia.
 
 ## Contributing
 
-Contributions are always welcome, of course! In the case of translations, they are done with .po files that you can create with a program like Poedit for example. Keep in mind that Varia is kind of a simple app at the moment, and I will keep adding new features so the translations you add right now can become incomplete when I add new features.
+[Please refer to the contributing guide page.](https://github.com/giantpinkrobots/varia/blob/main/CONTRIBUTING.md)
 
 ## License
 
