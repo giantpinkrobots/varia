@@ -206,6 +206,9 @@ msgstr ""
 msgid "Remote Download Location"
 msgstr ""
 
+msgid "Exiting Varia..."
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"

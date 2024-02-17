@@ -1,0 +1,26 @@
+chrome.downloads.onCreated.addListener(function(downloadItem) {
+  chrome.storage.sync.get('enabled', function(data) {
+    if (data.enabled) {
+      sendToAria2(downloadItem);
+    }
+  });
+});
+
+function sendToAria2(downloadItem) {
+  fetch('http://localhost:6801/jsonrpc', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      jsonrpc: '2.0',
+      id: '1',
+      method: 'aria2.addUri',
+      params: [[downloadItem.url]]
+    })
+  }).then(response => {
+    chrome.downloads.cancel(downloadItem.id);
+  }).catch(error => {
+
+  });
+}

@@ -11,11 +11,11 @@ import os
 import json
 
 class DownloadThread(threading.Thread):
-    def __init__(self, app, url, progress_bar, speed_label, pause_button, actionrow):
+    def __init__(self, app, url, progress_bar, speed_label, pause_button, actionrow, download):
         threading.Thread.__init__(self)
         self.api = app.api
         self.downloaddir = app.appconf["download_directory"]
-        self.download = None
+        self.download = download
         self.url = url
         self.speed_label = speed_label
         self.stop_event = threading.Event()
@@ -45,13 +45,15 @@ class DownloadThread(threading.Thread):
                 pass
             self.pause_button.hide()
             self.progress_bar.hide()
-        elif not (self.is_valid_url()):
-            try:
-                GLib.idle_add(self.show_message(_("This is not a valid URL.")))
-                print("Error: Not a valid url.")
-            except:
-                print("Error: Couldn't display 'not a valid url' error, for some reason.")
+            return
         else:
+            if not (self.is_valid_url()):
+                try:
+                    GLib.idle_add(self.show_message(_("This is not a valid URL.")))
+                    print("Error: Not a valid url.")
+                except:
+                    print("Error: Couldn't display 'not a valid url' error, for some reason.")
+                return
             response = requests.head(self.url)
             if ((response.status_code == 401) and (self.auth == '1')):
                 if (self.url[0:7] == "http://"):
@@ -61,24 +63,28 @@ class DownloadThread(threading.Thread):
                 else:
                     self.url = self.auth_username + ":" + self.auth_password + "@" + self.url
                 print ("Authentication enabled.")
-            print(self.url)
-            self.download = self.api.add_uris([self.url])
-            downloadname = self.download.name
-            print("Download added.\n" + self.downloaddir + "\n" + self.url)
-            GLib.idle_add(self.update_header_pause_button)
-            while (self.cancelled == False):
-                try:
-                    self.download.update()
-                    GLib.idle_add(self.update_labels_and_things)
-                    if (self.download.is_complete):
-                        if os.path.exists(os.path.join(self.downloaddir,(self.download.gid + ".varia.json"))):
-                            os.remove(os.path.join(self.downloaddir,(self.download.gid + ".varia.json")))
-                        break
-                    elif (self.download.status == "error"):
-                        return
-                except:
+        print(self.url)
+        try:
+            if (self.download == None):
+                self.download = self.api.add_uris([self.url])
+        except:
+            pass
+        downloadname = self.download.name
+        print("Download added.\n" + self.downloaddir + "\n" + self.url)
+        GLib.idle_add(self.update_header_pause_button)
+        while (self.cancelled == False):
+            try:
+                self.download.update()
+                GLib.idle_add(self.update_labels_and_things)
+                if (self.download.is_complete):
+                    if os.path.exists(os.path.join(self.downloaddir,(self.download.gid + ".varia.json"))):
+                        os.remove(os.path.join(self.downloaddir,(self.download.gid + ".varia.json")))
+                    break
+                elif (self.download.status == "error"):
                     return
-                time.sleep(1)
+            except:
+                return
+            time.sleep(1)
 
     def update_header_pause_button(self):
         self.app.all_paused = False
@@ -134,16 +140,19 @@ class DownloadThread(threading.Thread):
 
     def stop(self, deletefiles):
         if self.download:
-            downloadgid = self.download.gid
-            downloadname = self.download.name
-            self.download.remove(force=True)
-            if not self.download.is_complete:
-                if (deletefiles == True):
-                    if os.path.exists(os.path.join(self.downloaddir,(downloadgid + ".varia.json"))):
-                        os.remove(os.path.join(self.downloaddir,(downloadgid + ".varia.json")))
-                    if os.path.exists(os.path.join(self.downloaddir, downloadname)):
-                        os.remove(os.path.join(self.downloaddir, downloadname))
-            print ("Download stopped.")
+            try:
+                downloadgid = self.download.gid
+                downloadname = self.download.name
+                self.download.remove(force=True)
+                if not self.download.is_complete:
+                    if (deletefiles == True):
+                        if os.path.exists(os.path.join(self.downloaddir,(downloadgid + ".varia.json"))):
+                            os.remove(os.path.join(self.downloaddir,(downloadgid + ".varia.json")))
+                        if os.path.exists(os.path.join(self.downloaddir, downloadname)):
+                            os.remove(os.path.join(self.downloaddir, downloadname))
+                print ("Download stopped.")
+            except:
+                pass
         self.stop_event.set()
 
     def save_state(self):
@@ -172,9 +181,9 @@ class DownloadThread(threading.Thread):
             return True
 
     @classmethod
-    def load_state(cls, app, filename, url, progress_bar, speed_label, pause_button, actionrow):
+    def load_state(cls, app, filename, url, progress_bar, speed_label, pause_button, actionrow, download):
         with open(os.path.join(app.appconf["download_directory"], filename), 'r') as f:
             state = json.load(f)
             os.remove(os.path.join(app.appconf["download_directory"], filename))
-        instance = cls(app, state['url'], progress_bar, speed_label, pause_button, actionrow)
+        instance = cls(app, state['url'], progress_bar, speed_label, pause_button, actionrow, None)
         return instance

@@ -8,7 +8,7 @@ def on_download_clicked(button, self, entry, DownloadThread):
     entry.set_text("")
     if url:
         objectlist = create_actionrow(self, url)
-        download_thread = DownloadThread(self, url, objectlist[0], objectlist[1], objectlist[2], objectlist[3])
+        download_thread = DownloadThread(self, url, objectlist[0], objectlist[1], objectlist[2], objectlist[3], None)
         self.downloads.append(download_thread)
         download_thread.start()
         self.filter_download_list("no", self.applied_filter)

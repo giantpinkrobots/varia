@@ -12,6 +12,7 @@ from pathlib import Path
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, GLib, Gio
+import requests
 
 from window.sidebar import window_create_sidebar
 from window.content import window_create_content
@@ -19,6 +20,7 @@ from download.actionrow import create_actionrow, on_pause_clicked, on_stop_click
 from download.thread import DownloadThread
 from download.communicate import set_speed_limit, set_aria2c_download_directory, set_aria2c_download_simultaneous_amount
 from initiate import initiate
+from download.listen import listen_to_aria2
 
 class MainWindow(Gtk.Window):
     def __init__(self, variaapp, appdir, appconf, *args, **kwargs):
@@ -26,6 +28,8 @@ class MainWindow(Gtk.Window):
 
         self.appdir = appdir
         self.appconf = appconf
+        self.set_hide_on_close(True)
+        self.connect("close-request", self.exitProgram)
 
         # Set up variables and all:
         aria2_connection_successful = initiate(self)
@@ -56,13 +60,16 @@ class MainWindow(Gtk.Window):
         # Set the maximum simultaneous download amount from appconf:
         set_aria2c_download_simultaneous_amount(self)
 
+        thread = threading.Thread(target=listen_to_aria2(self))
+        thread.start()
+
         # Load incomplete downloads:
         for filename in os.listdir(self.appconf["download_directory"]):
             if filename.endswith('.varia.json'):
                 with open(os.path.join(self.appconf["download_directory"], filename), 'r') as f:
                     state = json.load(f)
                 objectlist = create_actionrow(self, state['url'])
-                download_thread = DownloadThread.load_state(self, filename, state['url'], objectlist[0], objectlist[1], objectlist[2], objectlist[3])
+                download_thread = DownloadThread.load_state(self, filename, state['url'], objectlist[0], objectlist[1], objectlist[2], objectlist[3], None)
                 self.downloads.append(download_thread)
                 download_thread.start()
 
@@ -137,15 +144,18 @@ class MainWindow(Gtk.Window):
                     speed_label_text_first_digit = download_thread.speed_label.get_text()[0]
                 except:
                     speed_label_text_first_digit = "0"
-                if (speed_label_text_first_digit.isdigit()):
-                    download_speed = (float(download_thread.speed_label.get_text().split(" ")[4]))
-                    if (download_thread.speed_label.get_text().split(" ")[5] == _("GB/s")):
-                        download_speed = download_speed * 1024 * 1024 * 1024
-                    elif (download_thread.speed_label.get_text().split(" ")[5] == _("MB/s")):
-                        download_speed = download_speed * 1024 * 1024
-                    elif (download_thread.speed_label.get_text().split(" ")[5] == _("KB/s")):
-                        download_speed = download_speed * 1024
-                    total_download_speed = total_download_speed + download_speed
+                try:
+                    if (speed_label_text_first_digit.isdigit()):
+                        download_speed = (float(download_thread.speed_label.get_text().split(" ")[4]))
+                        if (download_thread.speed_label.get_text().split(" ")[5] == _("GB/s")):
+                            download_speed = download_speed * 1024 * 1024 * 1024
+                        elif (download_thread.speed_label.get_text().split(" ")[5] == _("MB/s")):
+                            download_speed = download_speed * 1024 * 1024
+                        elif (download_thread.speed_label.get_text().split(" ")[5] == _("KB/s")):
+                            download_speed = download_speed * 1024
+                        total_download_speed = total_download_speed + download_speed
+                except:
+                    continue
             if (total_download_speed == 0):
                 total_download_speed_label.set_text("0" + _(" B/s"))
             elif (total_download_speed < 1024):
@@ -207,12 +217,48 @@ class MainWindow(Gtk.Window):
         print("Config saved")
 
     def exitProgram(self, app):
+        self.hide()
+        self.set_sensitive(False)
         self.terminating = True
         self.all_paused = False
-        self.pause_all("no")
+
         if (self.appconf['remote'] == '0'):
+            self.pause_all("no")
             self.api.client.shutdown()
-        self.destroy()
+
+            exiting_dialog = Adw.MessageDialog()
+            exiting_dialog_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=25)
+            exiting_dialog.set_child(exiting_dialog_box)
+            exiting_dialog_box.set_margin_top(30)
+            exiting_dialog_box.set_margin_bottom(30)
+            exiting_dialog_spinner = Gtk.Spinner()
+            exiting_dialog_spinner.set_size_request(30, 30)
+            exiting_dialog_spinner.start()
+            exiting_dialog_box.append(exiting_dialog_spinner)
+            exiting_dialog_label = Gtk.Label(label=_("Exiting Varia..."))
+            exiting_dialog_label.get_style_context().add_class("title-1")
+            exiting_dialog_box.append(exiting_dialog_label)
+            exiting_dialog.set_transient_for(self)
+            GLib.idle_add(exiting_dialog.show)
+
+            GLib.timeout_add(3000, self.aria2c_exiting_check, app)
+
+        else:
+            self.destroy()
+
+    def aria2c_exiting_check(self, app):
+        json_request = {
+            "jsonrpc": "2.0",
+            "id": "1",
+            "method": "aria2.tellActive",
+            "params":["token:" + self.appconf['remote_secret']]
+        }
+        try:
+            response = requests.post(self.aria2cLocation + '/jsonrpc', headers={'Content-Type': 'application/json'}, data=json.dumps(json_request))
+        except:
+            self.destroy()
+            return
+        GLib.timeout_add(20, self.aria2c_exiting_check, app)
 
 class MyApp(Adw.Application):
     def __init__(self, appdir, appconf, **kwargs):
@@ -266,8 +312,8 @@ def main(version, aria2cexec):
     app = MyApp(appdir, appconf, application_id="io.github.giantpinkrobots.varia")
     try:
         app.run(arguments)
-    finally:
-        app.win.exitProgram(app)
+    except:
+        pass
 
 if ((__name__ == '__main__') and (os.name == 'nt')):
     sys.exit(main(variaVersion, "aria2c"))

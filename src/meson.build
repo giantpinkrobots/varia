@@ -44,6 +44,7 @@ varia_sources_download = [
   'download/actionrow.py',
   'download/thread.py',
   'download/communicate.py',
+  'download/listen.py',
 ]
 
 install_data(varia_sources, install_dir: moduledir)

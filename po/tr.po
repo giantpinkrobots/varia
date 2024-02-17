@@ -195,6 +195,9 @@ msgstr "Yetkilendirme başarısız oldu."
 msgid "Failed to open directory."
 msgstr "Dizin açılamadı."
 
+msgid "Exiting Varia..."
+msgstr "Varia'dan çıkılıyor..."
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
