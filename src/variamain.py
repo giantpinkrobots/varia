@@ -23,13 +23,14 @@ from initiate import initiate
 from download.listen import listen_to_aria2
 
 class MainWindow(Gtk.Window):
-    def __init__(self, variaapp, appdir, appconf, *args, **kwargs):
+    def __init__(self, variaapp, appdir, appconf, aria2c_subprocess, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.appdir = appdir
         self.appconf = appconf
+        self.aria2c_subprocess = aria2c_subprocess
         self.set_hide_on_close(True)
-        self.connect("close-request", self.exitProgram)
+        self.connect("close-request", self.exitProgram, variaapp)
 
         # Set up variables and all:
         aria2_connection_successful = initiate(self)
@@ -216,10 +217,26 @@ class MainWindow(Gtk.Window):
             json.dump(self.appconf, f)
         print("Config saved")
 
-    def exitProgram(self, app):
-        self.hide()
-        self.set_sensitive(False)
+    def exitProgram(self, app, variaapp):
         self.terminating = True
+
+        if (len(self.downloads) > 0):
+            active_downloads = False
+            for download_thread in self.downloads:
+                try:
+                    download_thread.download.update()
+                    if ((download_thread.download.status == "active") or (download_thread.download.status == "waiting")):
+                        active_downloads = True
+                except:
+                    pass
+            if (active_downloads == True):
+                self.hide()
+                notification = Gio.Notification.new(_("Varia"))
+                notification.set_body(_("Continuing the downloads in the background."))
+                variaapp.send_notification(None, notification)
+                return
+
+        self.set_sensitive(False)
         self.all_paused = False
 
         if (self.appconf['remote'] == '0'):
@@ -241,32 +258,29 @@ class MainWindow(Gtk.Window):
             exiting_dialog.set_transient_for(self)
             GLib.idle_add(exiting_dialog.show)
 
-            GLib.timeout_add(3000, self.aria2c_exiting_check, app)
+            GLib.timeout_add(3000, self.aria2c_exiting_check, app, 0)
 
         else:
             self.destroy()
 
-    def aria2c_exiting_check(self, app):
-        json_request = {
-            "jsonrpc": "2.0",
-            "id": "1",
-            "method": "aria2.tellActive",
-            "params":["token:" + self.appconf['remote_secret']]
-        }
-        try:
-            response = requests.post(self.aria2cLocation + '/jsonrpc', headers={'Content-Type': 'application/json'}, data=json.dumps(json_request))
-        except:
+    def aria2c_exiting_check(self, app, counter):
+        print(counter)
+        if ((counter < 15) and (self.aria2c_subprocess.poll() is None)):
+            counter += 1
+            GLib.timeout_add(250, self.aria2c_exiting_check, app, counter)
+        else:
+            self.aria2c_subprocess.terminate()
+            self.aria2c_subprocess.wait()
             self.destroy()
-            return
-        GLib.timeout_add(20, self.aria2c_exiting_check, app)
+        return
 
 class MyApp(Adw.Application):
-    def __init__(self, appdir, appconf, **kwargs):
+    def __init__(self, appdir, appconf, aria2c_subprocess, **kwargs):
         super().__init__(**kwargs)
-        self.connect('activate', self.on_activate, appdir, appconf)
+        self.connect('activate', self.on_activate, appdir, appconf, aria2c_subprocess)
 
-    def on_activate(self, app, appdir, appconf):
-        self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf)
+    def on_activate(self, app, appdir, appconf, aria2c_subprocess):
+        self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf, aria2c_subprocess=aria2c_subprocess)
         self.win.present()
 
 def main(version, aria2cexec):
@@ -301,15 +315,15 @@ def main(version, aria2cexec):
 
     if (appconf['remote'] == '0'):
         if (os.name == 'nt'):
-            subprocess.Popen([aria2cexec, "--enable-rpc", "--rpc-listen-port=6801"], shell=True)
+            aria2c_subprocess = subprocess.Popen([aria2cexec, "--enable-rpc", "--rpc-listen-port=6801"], shell=True)
         else:
-            subprocess.Popen([aria2cexec, "--enable-rpc", "--rpc-listen-port=6801"])
+            aria2c_subprocess = subprocess.Popen([aria2cexec, "--enable-rpc", "--rpc-listen-port=6801"])
 
     arguments = sys.argv
     if (len(arguments) > 1):
         arguments = arguments[:-1]
 
-    app = MyApp(appdir, appconf, application_id="io.github.giantpinkrobots.varia")
+    app = MyApp(appdir, appconf, aria2c_subprocess, application_id="io.github.giantpinkrobots.varia")
     try:
         app.run(arguments)
     except:
