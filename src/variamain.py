@@ -313,6 +313,7 @@ def main(version, aria2cexec):
         with open(os.path.join(appdir, 'varia.conf'), 'w') as f:
             json.dump(appconf, f)
 
+    aria2c_subprocess = None
     if (appconf['remote'] == '0'):
         if (os.name == 'nt'):
             aria2c_subprocess = subprocess.Popen([aria2cexec, "--enable-rpc", "--rpc-listen-port=6801", "--follow-torrent=mem"], shell=True)

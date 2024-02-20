@@ -82,7 +82,6 @@ class DownloadThread(threading.Thread):
         GLib.idle_add(self.set_filename_label)
         while (self.cancelled == False):
             try:
-                self.pause_button.show()
                 self.download.update()
                 GLib.idle_add(self.update_labels_and_things)
                 if ((self.download.is_complete) and (self.download.is_metadata == False)):
