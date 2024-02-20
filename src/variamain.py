@@ -70,7 +70,7 @@ class MainWindow(Gtk.Window):
                 with open(os.path.join(self.appconf["download_directory"], filename), 'r') as f:
                     state = json.load(f)
                 objectlist = create_actionrow(self, state['url'])
-                download_thread = DownloadThread.load_state(self, filename, state['url'], objectlist[0], objectlist[1], objectlist[2], objectlist[3], None)
+                download_thread = DownloadThread.load_state(self, filename, state['url'], objectlist[0], objectlist[1], objectlist[2], objectlist[3], objectlist[4], None)
                 self.downloads.append(download_thread)
                 download_thread.start()
 
@@ -315,9 +315,9 @@ def main(version, aria2cexec):
 
     if (appconf['remote'] == '0'):
         if (os.name == 'nt'):
-            aria2c_subprocess = subprocess.Popen([aria2cexec, "--enable-rpc", "--rpc-listen-port=6801"], shell=True)
+            aria2c_subprocess = subprocess.Popen([aria2cexec, "--enable-rpc", "--rpc-listen-port=6801", "--follow-torrent=mem"], shell=True)
         else:
-            aria2c_subprocess = subprocess.Popen([aria2cexec, "--enable-rpc", "--rpc-listen-port=6801"])
+            aria2c_subprocess = subprocess.Popen([aria2cexec, "--enable-rpc", "--rpc-listen-port=6801", "--follow-torrent=mem"])
 
     arguments = sys.argv
     if (len(arguments) > 1):

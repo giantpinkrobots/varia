@@ -8,13 +8,12 @@ def on_download_clicked(button, self, entry, DownloadThread):
     entry.set_text("")
     if url:
         objectlist = create_actionrow(self, url)
-        download_thread = DownloadThread(self, url, objectlist[0], objectlist[1], objectlist[2], objectlist[3], None)
+        download_thread = DownloadThread(self, url, objectlist[0], objectlist[1], objectlist[2], objectlist[3], objectlist[4], None)
         self.downloads.append(download_thread)
         download_thread.start()
         self.filter_download_list("no", self.applied_filter)
 
-def create_actionrow(self, url):
-    filename = url.split("/")[-1].split("?")[0]
+def create_actionrow(self, filename):
     filename_shortened = filename[:40]
     if (filename != filename_shortened):
         filename_shortened = filename_shortened + "..."
@@ -68,7 +67,7 @@ def create_actionrow(self, url):
     self.download_list.append(download_item)
     download_item.index = len(self.downloads)-1
 
-    return [progress_bar, speed_label, self.pause_buttons[len(self.pause_buttons)-1], download_item]
+    return [progress_bar, speed_label, self.pause_buttons[len(self.pause_buttons)-1], download_item, filename_label]
 
 def on_pause_clicked(button, self, pause_button, download_item):
     self.all_paused = False
