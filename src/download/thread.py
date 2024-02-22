@@ -11,7 +11,7 @@ import os
 import json
 
 class DownloadThread(threading.Thread):
-    def __init__(self, app, url, progress_bar, speed_label, pause_button, actionrow, filename_label, download):
+    def __init__(self, app, url, progress_bar, speed_label, pause_button, actionrow, filename_label, download, downloadname):
         threading.Thread.__init__(self)
         self.api = app.api
         self.downloaddir = app.appconf["download_directory"]
@@ -28,6 +28,7 @@ class DownloadThread(threading.Thread):
         self.filename_label = filename_label
         self.app = app
         self.cancelled = False
+        self.downloadname = downloadname
 
     def is_valid_url(self):
         try:
@@ -68,8 +69,12 @@ class DownloadThread(threading.Thread):
                             self.url = self.auth_username + ":" + self.auth_password + "@" + self.url
                         print ("Authentication enabled.")
 
+            print(self.downloadname)
             try:
-                self.download = self.api.add_uris([self.url])
+                if (self.downloadname == None):
+                    self.download = self.api.add_uris([self.url])
+                else:
+                    self.download = self.api.add_uris([self.url], options={"out": self.downloadname})
             except:
                 pass
 
@@ -176,7 +181,7 @@ class DownloadThread(threading.Thread):
                 return
             state = {
                 'url': self.url,
-                'downloaded': self.download.completed_length,
+                'filename': self.download.name
             }
             with open(os.path.join(self.downloaddir, f'{self.download.gid}.varia.json'), 'w') as f:
                 json.dump(state, f)
@@ -193,9 +198,9 @@ class DownloadThread(threading.Thread):
             return True
 
     @classmethod
-    def load_state(cls, app, filename, url, progress_bar, speed_label, pause_button, actionrow, filename_label, download):
+    def load_state(cls, app, filename, url, progress_bar, speed_label, pause_button, actionrow, filename_label, download, downloadname):
         with open(os.path.join(app.appconf["download_directory"], filename), 'r') as f:
             state = json.load(f)
             os.remove(os.path.join(app.appconf["download_directory"], filename))
-        instance = cls(app, state['url'], progress_bar, speed_label, pause_button, actionrow, filename_label, None)
+        instance = cls(app, state['url'], progress_bar, speed_label, pause_button, actionrow, filename_label, None, downloadname)
         return instance

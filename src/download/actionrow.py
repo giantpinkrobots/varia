@@ -8,7 +8,7 @@ def on_download_clicked(button, self, entry, DownloadThread):
     entry.set_text("")
     if url:
         objectlist = create_actionrow(self, url)
-        download_thread = DownloadThread(self, url, objectlist[0], objectlist[1], objectlist[2], objectlist[3], objectlist[4], None)
+        download_thread = DownloadThread(self, url, objectlist[0], objectlist[1], objectlist[2], objectlist[3], objectlist[4], None, None)
         self.downloads.append(download_thread)
         download_thread.start()
         self.filter_download_list("no", self.applied_filter)
@@ -71,7 +71,7 @@ def create_actionrow(self, filename):
 
 def on_pause_clicked(button, self, pause_button, download_item):
     self.all_paused = False
-    download_thread = self.downloads[download_item.index+1]
+    download_thread = self.downloads[download_item.index]
     if download_thread.download.is_paused:
         download_thread.resume()
         image = Gtk.Image.new()
@@ -86,7 +86,7 @@ def on_pause_clicked(button, self, pause_button, download_item):
         image = Gtk.Image.new()
         image.set_from_icon_name("media-playback-start-symbolic")
         pause_button.set_child(image)
-    download_thread.save_state()
+        download_thread.save_state()
 
     all_paused = True
     for download_thread in self.downloads:

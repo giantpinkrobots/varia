@@ -24,6 +24,10 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     hamburger_button.set_icon_name("open-menu-symbolic")
     hamburger_menu_model = Gio.Menu()
 
+    background_action = Gio.SimpleAction.new("background_mode", None)
+    background_action.connect("activate", background_mode, self, variaapp)
+    variaapp.add_action(background_action)
+
     cancel_all_action = Gio.SimpleAction.new("cancel_all_downloads", None)
     cancel_all_action.connect("activate", self.stop_all)
     variaapp.add_action(cancel_all_action)
@@ -35,6 +39,9 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     downloads_folder_action = Gio.SimpleAction.new("about", None)
     downloads_folder_action.connect("activate", show_about, self, variaVersion)
     variaapp.add_action(downloads_folder_action)
+
+    hamburger_menu_item_background = Gio.MenuItem.new(_("Background Mode"), "app.background_mode")
+    #hamburger_menu_model.append_item(hamburger_menu_item_background)
 
     hamburger_menu_item_cancel_all = Gio.MenuItem.new(_("Cancel All"), "app.cancel_all_downloads")
     hamburger_menu_model.append_item(hamburger_menu_item_cancel_all)
@@ -127,6 +134,9 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     sidebar_box.append(sidebar_content_box)
 
     self.overlay_split_view.set_sidebar(sidebar_box)
+
+def background_mode(app, variaapp1, self, variaapp):
+    self.exitProgram(app=app, variaapp=variaapp, background=True)
 
 def show_about(app, variaapp, self, variaVersion):
     dialog = Adw.AboutWindow(transient_for=self)

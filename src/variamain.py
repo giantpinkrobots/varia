@@ -1,4 +1,5 @@
 variaVersion = "v2024.2.6"
+is_running = False
 
 import gi
 import sys
@@ -13,6 +14,9 @@ gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, GLib, Gio
 import requests
+import signal
+import dbus
+import dbus.mainloop.glib
 
 from window.sidebar import window_create_sidebar
 from window.content import window_create_content
@@ -23,56 +27,66 @@ from initiate import initiate
 from download.listen import listen_to_aria2
 
 class MainWindow(Gtk.Window):
-    def __init__(self, variaapp, appdir, appconf, aria2c_subprocess, *args, **kwargs):
+    def __init__(self, variaapp, appdir, appconf, aria2c_subprocess, is_running, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.appdir = appdir
-        self.appconf = appconf
-        self.aria2c_subprocess = aria2c_subprocess
-        self.set_hide_on_close(True)
-        self.connect("close-request", self.exitProgram, variaapp)
+        if (is_running == False):
+            self.set_hide_on_close(True)
+            self.connect('close-request', self.exitProgram, variaapp, False)
 
-        # Set up variables and all:
-        aria2_connection_successful = initiate(self)
+            self.appdir = appdir
+            self.appconf = appconf
+            self.aria2c_subprocess = aria2c_subprocess
 
-        if (aria2_connection_successful == -1):
-            return
+            # Set up variables and all:
+            aria2_connection_successful = initiate(self)
 
-        # Create window contents:
-        window_create_sidebar(self, variaapp, DownloadThread, variaVersion)
-        window_create_content(self, threading)
+            if (aria2_connection_successful == -1):
+                return
 
-        # Check if the download path still exists:
-        if not (os.path.exists(self.appconf["download_directory"])):
-            self.appconf["download_directory"] = GLib.get_user_special_dir(GLib.USER_DIRECTORY_DOWNLOAD)
-            self.save_appconf()
+            # Create window contents:
+            window_create_sidebar(self, variaapp, DownloadThread, variaVersion)
+            window_create_content(self, threading)
 
-        # Set download speed limit from appconf:
-        if ((self.appconf["download_speed_limit_enabled"] == "1") and (self.appconf["download_speed_limit"][:-1] != "0")):
-            set_speed_limit(self, self.appconf["download_speed_limit"])
+            # Check if the download path still exists:
+            if not (os.path.exists(self.appconf["download_directory"])):
+                self.appconf["download_directory"] = GLib.get_user_special_dir(GLib.USER_DIRECTORY_DOWNLOAD)
+                self.save_appconf()
 
-        # Set download speed limit from appconf:
-        if ((self.appconf["download_speed_limit_enabled"] == "1") and (self.appconf["download_speed_limit"][:-1] != "0")):
-            set_speed_limit(self, self.appconf["download_speed_limit"])
+            # Set download speed limit from appconf:
+            if ((self.appconf["download_speed_limit_enabled"] == "1") and (self.appconf["download_speed_limit"][:-1] != "0")):
+                set_speed_limit(self, self.appconf["download_speed_limit"])
 
-        # Set download directory from appconf:
-        set_aria2c_download_directory(self)
+            # Set download speed limit from appconf:
+            if ((self.appconf["download_speed_limit_enabled"] == "1") and (self.appconf["download_speed_limit"][:-1] != "0")):
+                set_speed_limit(self, self.appconf["download_speed_limit"])
 
-        # Set the maximum simultaneous download amount from appconf:
-        set_aria2c_download_simultaneous_amount(self)
+            # Set download directory from appconf:
+            set_aria2c_download_directory(self)
 
-        thread = threading.Thread(target=listen_to_aria2(self))
-        thread.start()
+            # Set the maximum simultaneous download amount from appconf:
+            set_aria2c_download_simultaneous_amount(self)
 
-        # Load incomplete downloads:
-        for filename in os.listdir(self.appconf["download_directory"]):
-            if filename.endswith('.varia.json'):
-                with open(os.path.join(self.appconf["download_directory"], filename), 'r') as f:
-                    state = json.load(f)
-                objectlist = create_actionrow(self, state['url'])
-                download_thread = DownloadThread.load_state(self, filename, state['url'], objectlist[0], objectlist[1], objectlist[2], objectlist[3], objectlist[4], None)
-                self.downloads.append(download_thread)
-                download_thread.start()
+            # Listen to aria2c:
+            thread = threading.Thread(target=listen_to_aria2(self))
+            thread.start()
+
+            # Load incomplete downloads:
+            default_state = {"url": None, "filename": None}
+
+            for filename in os.listdir(self.appconf["download_directory"]):
+                if filename.endswith('.varia.json'):
+
+                    with open(os.path.join(self.appconf["download_directory"], filename), 'r') as f:
+                        loaded_state = json.load(f)
+
+                    state = {**default_state, **loaded_state}
+                    objectlist = create_actionrow(self, state['url'])
+                    download_thread = DownloadThread.load_state(self, filename, state['url'], objectlist[0], objectlist[1], objectlist[2], objectlist[3], objectlist[4], None, state['filename'])
+                    self.downloads.append(download_thread)
+                    download_thread.start()
+
+            is_running = True
 
     def filter_download_list(self, button, filter_mode):
         if (button != "no"):
@@ -173,11 +187,12 @@ class MainWindow(Gtk.Window):
         if (self.all_paused == False):
             for download_thread in self.downloads:
                 download_thread.pause()
-                download_thread.save_state()
 
                 pause_button_images.append(Gtk.Image.new())
                 pause_button_images[i].set_from_icon_name("media-playback-start-symbolic")
                 self.pause_buttons[i].set_child(pause_button_images[i])
+
+                download_thread.save_state()
 
                 i += 1
             if ((header_pause_content != "no") and (i > 0)):
@@ -217,24 +232,15 @@ class MainWindow(Gtk.Window):
             json.dump(self.appconf, f)
         print("Config saved")
 
-    def exitProgram(self, app, variaapp):
-        self.terminating = True
+    def exitProgram(self, app, variaapp, background):
+        if (background == True):
+            self.hide()
+            notification = Gio.Notification.new(_("Varia"))
+            notification.set_body(_("Continuing the downloads in the background.\nDo not quit Varia directly through the Background Apps section."))
+            variaapp.send_notification(None, notification)
+            return
 
-        if (len(self.downloads) > 0):
-            active_downloads = False
-            for download_thread in self.downloads:
-                try:
-                    download_thread.download.update()
-                    if ((download_thread.download.status == "active") or (download_thread.download.status == "waiting")):
-                        active_downloads = True
-                except:
-                    pass
-            if (active_downloads == True):
-                self.hide()
-                notification = Gio.Notification.new(_("Varia"))
-                notification.set_body(_("Continuing the downloads in the background."))
-                variaapp.send_notification(None, notification)
-                return
+        self.terminating = True
 
         self.set_sensitive(False)
         self.all_paused = False
@@ -265,7 +271,7 @@ class MainWindow(Gtk.Window):
 
     def aria2c_exiting_check(self, app, counter):
         print(counter)
-        if ((counter < 15) and (self.aria2c_subprocess.poll() is None)):
+        if ((counter < 20) and (self.aria2c_subprocess.poll() is None)):
             counter += 1
             GLib.timeout_add(250, self.aria2c_exiting_check, app, counter)
         else:
@@ -275,12 +281,12 @@ class MainWindow(Gtk.Window):
         return
 
 class MyApp(Adw.Application):
-    def __init__(self, appdir, appconf, aria2c_subprocess, **kwargs):
+    def __init__(self, appdir, appconf, aria2c_subprocess, is_running, **kwargs):
         super().__init__(**kwargs)
         self.connect('activate', self.on_activate, appdir, appconf, aria2c_subprocess)
 
     def on_activate(self, app, appdir, appconf, aria2c_subprocess):
-        self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf, aria2c_subprocess=aria2c_subprocess)
+        self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf, aria2c_subprocess=aria2c_subprocess, is_running=is_running)
         self.win.present()
 
 def main(version, aria2cexec):
@@ -324,7 +330,7 @@ def main(version, aria2cexec):
     if (len(arguments) > 1):
         arguments = arguments[:-1]
 
-    app = MyApp(appdir, appconf, aria2c_subprocess, application_id="io.github.giantpinkrobots.varia")
+    app = MyApp(appdir, appconf, aria2c_subprocess, is_running, application_id="io.github.giantpinkrobots.varia")
     try:
         app.run(arguments)
     except:
@@ -332,4 +338,3 @@ def main(version, aria2cexec):
 
 if ((__name__ == '__main__') and (os.name == 'nt')):
     sys.exit(main(variaVersion, "aria2c"))
-
