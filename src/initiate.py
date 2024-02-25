@@ -80,4 +80,3 @@ def initiate(self):
 
 def on_dialog_dismiss(dialog, response_id):
     dialog.destroy()
-    sys.exit()
