@@ -32,7 +32,7 @@ class MainWindow(Gtk.Window):
 
         if (is_running == False):
             self.set_hide_on_close(True)
-            self.connect('close-request', self.exitProgram, variaapp, False)
+            self.connect('close-request', self.exitProgram, variaapp, False, True)
 
             self.appdir = appdir
             self.appconf = appconf
@@ -221,7 +221,10 @@ class MainWindow(Gtk.Window):
                 self.download_list.remove(child)
                 child = next_child
             for download_thread in self.downloads:
-                download_thread.stop(True)
+                deletefiles = True
+                if ((download_thread.download.is_torrent) and (download_thread.download.seeder)):
+                    deletefiles = False
+                download_thread.stop(deletefiles)
                 self.downloads.remove(download_thread)
         self.header_pause_content.set_icon_name("media-playback-pause-symbolic")
         self.header_pause_content.set_label(_("Pause All"))
@@ -232,11 +235,11 @@ class MainWindow(Gtk.Window):
             json.dump(self.appconf, f)
         print("Config saved")
 
-    def exitProgram(self, app, variaapp, background):
+    def exitProgram(self, app, variaapp, background, show_exit_window):
         if (background == True):
             self.hide()
-            notification = Gio.Notification.new(_("Varia"))
-            notification.set_body(_("Continuing the downloads in the background.\nDo not quit Varia directly through the Background Apps section."))
+            notification = Gio.Notification.new(_("Background Mode"))
+            notification.set_body(_("Continuing the downloads in the background."))
             variaapp.send_notification(None, notification)
             return
 
@@ -249,45 +252,57 @@ class MainWindow(Gtk.Window):
             self.pause_all("no")
             self.api.client.shutdown()
 
-            exiting_dialog = Adw.MessageDialog()
-            exiting_dialog_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=25)
-            exiting_dialog.set_child(exiting_dialog_box)
-            exiting_dialog_box.set_margin_top(30)
-            exiting_dialog_box.set_margin_bottom(30)
-            exiting_dialog_spinner = Gtk.Spinner()
-            exiting_dialog_spinner.set_size_request(30, 30)
-            exiting_dialog_spinner.start()
-            exiting_dialog_box.append(exiting_dialog_spinner)
-            exiting_dialog_label = Gtk.Label(label=_("Exiting Varia..."))
-            exiting_dialog_label.get_style_context().add_class("title-1")
-            exiting_dialog_box.append(exiting_dialog_label)
-            exiting_dialog.set_transient_for(self)
-            GLib.idle_add(exiting_dialog.show)
+            if (show_exit_window == True):
+                exiting_dialog = Adw.MessageDialog()
+                exiting_dialog_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=25)
+                exiting_dialog.set_child(exiting_dialog_box)
+                exiting_dialog_box.set_margin_top(30)
+                exiting_dialog_box.set_margin_bottom(30)
+                exiting_dialog_spinner = Gtk.Spinner()
+                exiting_dialog_spinner.set_size_request(30, 30)
+                exiting_dialog_spinner.start()
+                exiting_dialog_box.append(exiting_dialog_spinner)
+                exiting_dialog_label = Gtk.Label(label=_("Exiting Varia..."))
+                exiting_dialog_label.get_style_context().add_class("title-1")
+                exiting_dialog_box.append(exiting_dialog_label)
+                exiting_dialog.set_transient_for(self)
+                GLib.idle_add(exiting_dialog.show)
 
-            GLib.timeout_add(3000, self.aria2c_exiting_check, app, 0)
+            GLib.timeout_add(3000, self.aria2c_exiting_check, app, 0, variaapp)
 
         else:
             self.destroy()
+            variaapp.quit()
 
-    def aria2c_exiting_check(self, app, counter):
+    def aria2c_exiting_check(self, app, counter, variaapp):
         print(counter)
         if ((counter < 20) and (self.aria2c_subprocess.poll() is None)):
             counter += 1
-            GLib.timeout_add(250, self.aria2c_exiting_check, app, counter)
+            GLib.timeout_add(250, self.aria2c_exiting_check, app, counter, variaapp)
         else:
             self.aria2c_subprocess.terminate()
             self.aria2c_subprocess.wait()
             self.destroy()
+            variaapp.quit()
         return
+
+    def quit_action_received(self, variaapp):
+        self.exitProgram(variaapp, variaapp, False, False)
 
 class MyApp(Adw.Application):
     def __init__(self, appdir, appconf, aria2c_subprocess, is_running, **kwargs):
         super().__init__(**kwargs)
         self.connect('activate', self.on_activate, appdir, appconf, aria2c_subprocess)
+        quit_action = Gio.SimpleAction.new("quit", None)
+        quit_action.connect("activate", self.quit_action)
+        self.add_action(quit_action)
 
     def on_activate(self, app, appdir, appconf, aria2c_subprocess):
         self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf, aria2c_subprocess=aria2c_subprocess, is_running=is_running)
         self.win.present()
+
+    def quit_action(self, action, parameter):
+        self.win.quit_action_received(self)
 
 def main(version, aria2cexec):
     if "FLATPAK_ID" in os.environ:
@@ -338,3 +353,5 @@ def main(version, aria2cexec):
 
 if ((__name__ == '__main__') and (os.name == 'nt')):
     sys.exit(main(variaVersion, "aria2c"))
+
+kill_now = False

@@ -102,8 +102,11 @@ def on_pause_clicked(button, self, pause_button, download_item):
 def on_stop_clicked(button, self, download_item):
     index = download_item.index
     download_thread = self.downloads[index+1]
+    deletefiles = True
+    if ((download_thread.download.is_torrent) and (download_thread.download.seeder)):
+        deletefiles = False
     try:
-        download_thread.stop(True)
+        download_thread.stop(deletefiles)
     except:
         pass
     self.download_list.remove(download_item)

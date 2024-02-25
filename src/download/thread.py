@@ -94,6 +94,9 @@ class DownloadThread(threading.Thread):
                     if os.path.exists(os.path.join(self.downloaddir,(self.download.gid + ".varia.json"))):
                         os.remove(os.path.join(self.downloaddir,(self.download.gid + ".varia.json")))
                     break
+                elif ((self.download.is_torrent) and (self.download.seeder)):
+                    print('Torrent complete, seeding: ' + self.download.gid)
+                    break
                 elif (self.download.status == "error"):
                     return
             except:
@@ -114,6 +117,11 @@ class DownloadThread(threading.Thread):
 
     def update_labels_and_things(self):
         self.progress_bar.set_fraction(self.download.progress / 100)
+
+        if ((self.download.is_torrent) and (self.download.seeder)):
+            GLib.idle_add(self.show_message(_("Seeding torrent")))
+            return
+
         download_speed_mb = (self.download.download_speed / 1024 / 1024)
         if int(str(download_speed_mb)[0]) == 0:
             download_speed_kb = (self.download.download_speed / 1024)

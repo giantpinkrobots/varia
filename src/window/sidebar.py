@@ -41,7 +41,7 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     variaapp.add_action(downloads_folder_action)
 
     hamburger_menu_item_background = Gio.MenuItem.new(_("Background Mode"), "app.background_mode")
-    #hamburger_menu_model.append_item(hamburger_menu_item_background)
+    hamburger_menu_model.append_item(hamburger_menu_item_background)
 
     hamburger_menu_item_cancel_all = Gio.MenuItem.new(_("Cancel All"), "app.cancel_all_downloads")
     hamburger_menu_model.append_item(hamburger_menu_item_cancel_all)
@@ -136,7 +136,7 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     self.overlay_split_view.set_sidebar(sidebar_box)
 
 def background_mode(app, variaapp1, self, variaapp):
-    self.exitProgram(app=app, variaapp=variaapp, background=True)
+    self.exitProgram(app=app, variaapp=variaapp, background=True, show_exit_window=True)
 
 def show_about(app, variaapp, self, variaVersion):
     dialog = Adw.AboutWindow(transient_for=self)
