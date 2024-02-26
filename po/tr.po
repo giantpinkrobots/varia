@@ -213,6 +213,12 @@ msgstr "Uzak İndirme Dizini"
 msgid "Exiting Varia..."
 msgstr "Varia'dan çıkılıyor..."
 
+msgid "Background Mode"
+msgstr "Arka Plan Modu"
+
+msgid "Continuing the downloads in the background."
+msgstr "İndirmeler arka planda devam ediyor."
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"

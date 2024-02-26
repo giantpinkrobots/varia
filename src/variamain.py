@@ -233,6 +233,7 @@ class MainWindow(Gtk.Window):
             notification = Gio.Notification.new(_("Background Mode"))
             notification.set_body(_("Continuing the downloads in the background."))
             variaapp.send_notification(None, notification)
+            print('Background mode')
         else:
             self.terminating = True
 
@@ -284,7 +285,8 @@ class MainWindow(Gtk.Window):
             return
 
     def quit_action_received(self, variaapp):
-        self.exitProgram(variaapp, variaapp, False, False)
+        if (self.terminating == False):
+            self.exitProgram(variaapp, variaapp, False, False)
 
 class MyApp(Adw.Application):
     def __init__(self, appdir, appconf, aria2c_subprocess, **kwargs):
@@ -297,11 +299,11 @@ class MyApp(Adw.Application):
     def on_activate(self, app, appdir, appconf, aria2c_subprocess):
         if not hasattr(self, 'win'):
             self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf, aria2c_subprocess=aria2c_subprocess)
-        self.win.present()
+        if (self.win.terminating == False):
+            self.win.present()
 
     def quit_action(self, action, parameter):
-        if (self.win.self.terminating == False):
-            self.win.quit_action_received(self)
+        self.win.quit_action_received(self)
 
 def main(version, aria2cexec):
     if "FLATPAK_ID" in os.environ:
