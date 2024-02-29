@@ -195,6 +195,30 @@ msgstr "Yetkilendirme başarısız oldu."
 msgid "Failed to open directory."
 msgstr "Dizin açılamadı."
 
+msgid "Remote Mode"
+msgstr "Uzaktan Kontrol Modu"
+
+msgid "Remote aria2 IP"
+msgstr "Uzak aria2 IP'si"
+
+msgid "Remote aria2 Port"
+msgstr "Uzak aria2 Port'u"
+
+msgid "Remote aria2 RPC Secret"
+msgstr "Uzak aria2 RPC Şifresi"
+
+msgid "Remote Download Location"
+msgstr "Uzak İndirme Dizini"
+
+msgid "Exiting Varia..."
+msgstr "Varia'dan çıkılıyor..."
+
+msgid "Background Mode"
+msgstr "Arka Plan Modu"
+
+msgid "Continuing the downloads in the background."
+msgstr "İndirmeler arka planda devam ediyor."
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"

@@ -12,5 +12,4 @@ then
 		exit
 	fi
 fi
-$aria2cexec --enable-rpc --rpc-listen-port=6801 &
-$pythonexec $pkgdatadir/../../bin/varia-py.py
+$pythonexec $pkgdatadir/../../bin/varia-py.py "$aria2cexec"

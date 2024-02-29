@@ -31,7 +31,6 @@
 			"buildsystem" : "autotools",
 			"config-opts": [
 				"--without-libxml2",
-				"--without-libexpat",
 				"--without-sqlite3",
 				"--without-appletls",
 				"--without-gnutls",
@@ -42,13 +41,10 @@
 				"--without-cppunit",
 				"--without-libz",
 				"--without-libcunit",
-				"--without-libssl",
-				"--without-libuv",
 				"--without-libcares",
 				"--without-libaria2",
 				"--disable-nls",
 				"--with-openssl",
-				"--disable-bittorrent",
 				"--disable-ftp"
 			],
 			"sources" : [
