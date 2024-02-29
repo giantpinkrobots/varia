@@ -9,6 +9,7 @@ import textwrap
 import time
 import os
 import json
+from gettext import gettext as _
 
 class DownloadThread(threading.Thread):
     def __init__(self, app, url, progress_bar, speed_label, pause_button, actionrow, filename_label, download, downloadname):

@@ -2,6 +2,7 @@ import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, GLib, Gio
+from gettext import gettext as _
 
 def window_create_content(self, threading):
     content_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)

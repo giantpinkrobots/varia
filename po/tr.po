@@ -219,6 +219,9 @@ msgstr "Arka Plan Modu"
 msgid "Continuing the downloads in the background."
 msgstr "İndirmeler arka planda devam ediyor."
 
+msgid "Browser Extension"
+msgstr "Tarayıcı Uzantısı"
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"

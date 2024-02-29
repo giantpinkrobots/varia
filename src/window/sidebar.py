@@ -4,6 +4,7 @@ import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, GLib, Gio
+from gettext import gettext as _
 
 from window.preferences import show_preferences
 from download.actionrow import on_download_clicked
@@ -41,7 +42,8 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     variaapp.add_action(downloads_folder_action)
 
     hamburger_menu_item_background = Gio.MenuItem.new(_("Background Mode"), "app.background_mode")
-    hamburger_menu_model.append_item(hamburger_menu_item_background)
+    if (os.name != 'nt'):
+        hamburger_menu_model.append_item(hamburger_menu_item_background)
 
     hamburger_menu_item_cancel_all = Gio.MenuItem.new(_("Cancel All"), "app.cancel_all_downloads")
     hamburger_menu_model.append_item(hamburger_menu_item_cancel_all)

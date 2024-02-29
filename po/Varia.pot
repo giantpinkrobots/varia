@@ -215,6 +215,9 @@ msgstr ""
 msgid "Continuing the downloads in the background."
 msgstr ""
 
+msgid "Browser Extension"
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
