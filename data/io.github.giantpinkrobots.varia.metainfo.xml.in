@@ -38,7 +38,7 @@ Varia utilizes GTK4 and Libadwaita to provide a easy to use interface that integ
 </screenshots>
 
 <releases>
-<release version="v2024.2.29" date="2024-02-29">
+<release version="v2024.2.29-1" date="2024-03-01">
 <description translatable="yes">
 <p>- Support for Firefox and Chromium extension.</p>
 <p>- Initial torrenting support.</p>
