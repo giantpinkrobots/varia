@@ -2,6 +2,7 @@ import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw
+from gettext import gettext as _
 
 def on_download_clicked(button, self, entry, DownloadThread):
     url = entry.get_text()

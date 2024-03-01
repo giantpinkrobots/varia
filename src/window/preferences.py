@@ -2,6 +2,7 @@ import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, GLib, Gio
+from gettext import gettext as _
 
 from download.communicate import set_speed_limit, set_aria2c_download_directory, set_aria2c_download_simultaneous_amount
 
@@ -11,10 +12,35 @@ def show_preferences(button, self, app):
 
     page = Adw.PreferencesPage(title=_("Preferences"))
     preferences.add(page)
+    group_extensions = Adw.PreferencesGroup()
+    page.add(group_extensions)
     group_1 = Adw.PreferencesGroup()
     page.add(group_1)
     group_2 = Adw.PreferencesGroup()
     page.add(group_2)
+
+    # Browser extensions section:
+
+    browser_extension_actionrow = Adw.ActionRow()
+    browser_extension_actionrow.set_title(_("Browser Extension"))
+
+    browser_extension_firefox_button = Gtk.Button(label="Firefox")
+    browser_extension_firefox_button.set_halign(Gtk.Align.START)
+    browser_extension_firefox_button.set_valign(Gtk.Align.CENTER)
+    browser_extension_chrome_button = Gtk.Button(label="Chrome")
+    browser_extension_chrome_button.set_halign(Gtk.Align.START)
+    browser_extension_chrome_button.set_valign(Gtk.Align.CENTER)
+
+    browser_extension_firefox_button.connect("clicked", lambda clicked: on_extension_selected(self, preferences, 'firefox'))
+    browser_extension_chrome_button.connect("clicked", lambda clicked: on_extension_selected(self, preferences, 'chrome'))
+
+    browser_extension_buttons_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=4)
+    browser_extension_buttons_box.append(browser_extension_firefox_button)
+    browser_extension_buttons_box.append(browser_extension_chrome_button)
+
+    browser_extension_actionrow.add_suffix(browser_extension_buttons_box)
+
+    group_extensions.add(browser_extension_actionrow)
 
     # Basic settings:
 
@@ -233,6 +259,13 @@ def speed_limit_text_filter(entry, self):
     if (new_text != text):
         GLib.idle_add(entry.set_text, new_text)
         GLib.idle_add(entry.set_position, -1)
+
+def on_extension_selected(self, prefswindow, browser):
+    if (browser == 'firefox'):
+        link = 'https://addons.mozilla.org/firefox/addon/varia-integrator/'
+    else:
+        link = 'https://chrome.google.com/webstore/detail/dacakhfljjhgdfdlgjpabkkjhbpcmiff'
+    Gio.AppInfo.launch_default_for_uri(link)
 
 def on_download_directory_change(self, prefswindow, actionrow):
     Gtk.FileDialog().select_folder(None, None, on_download_directory_selected, self, prefswindow, actionrow)

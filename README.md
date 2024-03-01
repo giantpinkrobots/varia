@@ -40,6 +40,9 @@ You can get Varia via the [AUR](https://aur.archlinux.org/packages/varia) as wel
 ### Windows (experimental)
 You can find a *highly experimental* build of Varia in the releases section. But keep in mind, it will have bugs.
 
+## Browser Extension
+Download it for [Firefox](https://addons.mozilla.org/firefox/addon/varia-integrator/) or [Chrome](https://chrome.google.com/webstore/detail/dacakhfljjhgdfdlgjpabkkjhbpcmiff).
+
 ## Building
 
 There are two branches here: 'main' and 'next'. 'next' is where the feature developments for the next version happen.
@@ -102,7 +105,8 @@ pip install pyinstaller
 ```
 pacman -S mingw-w64-x86_64-python-pillow
 ```
-- Copy variamain.py, varia.spec and icon.ico to the home directory of your MSYS2 install. variamain.py is in /src, varia.spec and icon.ico is in /windows.
+- Copy the contents of the /src folder to the home directory of your MSYS2 install.
+- Copy varia.spec and icon.ico from the /windows directory to the home directory of your MSYS2 install.
 - Run the pyinstaller command:
 ```
 pyinstaller varia.spec

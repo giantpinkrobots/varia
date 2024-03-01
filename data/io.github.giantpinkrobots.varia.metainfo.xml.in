@@ -38,11 +38,12 @@ Varia utilizes GTK4 and Libadwaita to provide a easy to use interface that integ
 </screenshots>
 
 <releases>
-<release version="v2024.2.6" date="2024-02-06">
+<release version="v2024.2.29" date="2024-02-29">
 <description translatable="yes">
-<p>- Varia now has a brand new icon.</p>
-<p>- The sidebar now hosts buttons for all downloads, downloads in progress and completed downloads.</p>
-<p>- A setting for adjusting the simultaneous download amount was added.</p>
+<p>- Support for Firefox and Chromium extension.</p>
+<p>- Initial torrenting support.</p>
+<p>- Remote mode that allows connection to a remote aria2 instance.</p>
+<p>- Background mode that allows the window to be hidden while still downloading.</p>
 <p>- Bug fixes and adjustments.</p>
 </description>
 </release>
