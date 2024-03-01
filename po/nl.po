@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2023-12-01 12:56+0100\n"
+"PO-Revision-Date: 2024-02-29 14:02+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.4.1\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -46,6 +46,18 @@ msgstr ""
 msgid "This is not a valid URL."
 msgstr "De url is ongeldig."
 
+#: src/variamain.py:125
+msgid "All"
+msgstr "Alles"
+
+#: src/variamain.py:137
+msgid "In Progress"
+msgstr "In behandeling"
+
+#: src/variamain.py:148
+msgid "Completed"
+msgstr "Afgerond"
+
 #: src/variamain.py:171
 msgid "About Varia"
 msgstr "Over Varia"
@@ -59,8 +71,8 @@ msgid "Download"
 msgstr "Downloaden"
 
 #: src/variamain.py:184
-msgid "Open Downloads Folder"
-msgstr "Downloadsmap openen"
+msgid "Open Download Folder"
+msgstr "Downloadmap openen"
 
 #: src/variamain.py:196
 msgid "Speed Limit"
@@ -82,11 +94,24 @@ msgstr "Snelheidslimiet instellen"
 msgid "Cancel All"
 msgstr "Alles afbreken"
 
+#: src/variamain.py:235
+#| msgid "MB/s"
+msgid "/s"
+msgstr "/s"
+
+#: src/variamain.py:238
+msgid "No limit"
+msgstr "Ongelimiteerd"
+
 #: src/variamain.py:274
 msgid "Download complete."
 msgstr "Het downloaden is voltooid."
 
 #: src/variamain.py:276
+msgid "Download speed is limited."
+msgstr "De downloadsnelheid is gelimiteerd."
+
+#: src/variamain.py:277
 msgid "An error occurred:"
 msgstr "Er is een fout opgetreden:"
 
@@ -114,25 +139,92 @@ msgstr " KB/s"
 msgid " B/s"
 msgstr " B/s"
 
+#: src/variamain.py:404
+msgid "Simultaneous Download Amount"
+msgstr "Aantal gelijktijdige downloads"
+
 #: src/variamain.py:410
 msgid "Resume All"
 msgstr "Alles hervatten"
 
 #: src/variamain.py:443
 msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
-msgstr "Een op aria2 gebaseerde downloadbeheerder met GKT4 en Libadwaita."
+msgstr "Een op aria2 gebaseerde downloadbeheerder met GTK4 en Libadwaita."
 
 #: src/variamain.py:777
 msgid "This application relies on the following pieces of software:"
 msgstr "Deze toepassing is afhankelijk van de volgende software:"
 
 #: src/variamain.py:777
-msgid "The licenses of all of these pieces of software can be found in the dependencies_information directory in this application's app directory."
-msgstr "De licenties van al deze software zijn te vinden in de map ‘dependencies_information’ in de hoofdmap van deze toepassing."
+msgid ""
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
+msgstr ""
+"De licenties van al deze software zijn te vinden in de map "
+"‘dependencies_information’ in de hoofdmap van deze toepassing."
 
 #: src/variamain.py:449
 msgid "translator-credits"
 msgstr "Heimen Stoffels <vistausss@fastmail.com>"
+
+#: src/variamain.py:457
+msgid "Download Directory"
+msgstr "Downloadmap"
+
+#: src/variamain.py:460
+msgid "Change"
+msgstr "Wijzigen"
+
+#: src/variamain.py:463
+msgid "Speed limited"
+msgstr "Snelheid gelimiteerd"
+
+#: src/variamain.py:519
+msgid "Authentication"
+msgstr "Verificatie"
+
+#: src/variamain.py:532
+msgid "Username"
+msgstr "Gebruikersnaam"
+
+#: src/variamain.py:534
+msgid "Password"
+msgstr "Wachtwoord"
+
+#: src/variamain.py:554
+msgid "Authorization failed."
+msgstr "De verificatie is mislukt."
+
+#: src/variamain.py:806
+msgid "Failed to open directory."
+msgstr "De map kan niet worden geopend."
+
+msgid "Remote Mode"
+msgstr "Op afstand"
+
+msgid "Remote aria2 IP"
+msgstr "Extern aria2-ip-adres"
+
+msgid "Remote aria2 Port"
+msgstr "Externe aria2-poort"
+
+msgid "Remote aria2 RPC Secret"
+msgstr "Extern aria2-rpc-geheim"
+
+msgid "Remote Download Location"
+msgstr "Externe downloadlocatie"
+
+msgid "Exiting Varia..."
+msgstr "Bezig met afsluiten…"
+
+msgid "Background Mode"
+msgstr "Achtergrondmodus"
+
+msgid "Continuing the downloads in the background."
+msgstr "Het downloaden wordt op de achtergrond voortgezet."
+
+msgid "Browser Extension"
+msgstr "Browserextensie"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
