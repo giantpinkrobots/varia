@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Varia\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2023-12-07 11:34+0300\n"
+"PO-Revision-Date: 2024-03-01 16:14+0300\n"
 "Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 3.4.1\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -47,6 +47,18 @@ msgstr ""
 #: src/variamain.py:45
 msgid "This is not a valid URL."
 msgstr "Это неправильный URL-адрес."
+
+#: src/variamain.py:125
+msgid "All"
+msgstr "Все"
+
+#: src/variamain.py:137
+msgid "In Progress"
+msgstr "В процессе"
+
+#: src/variamain.py:148
+msgid "Completed"
+msgstr "Завершено"
 
 #: src/variamain.py:171
 msgid "About Varia"
@@ -128,6 +140,10 @@ msgstr " Кбайт/с"
 msgid " B/s"
 msgstr " Байт/с"
 
+#: src/variamain.py:404
+msgid "Simultaneous Download Amount"
+msgstr "Количество одновременных загрузок"
+
 #: src/variamain.py:410
 msgid "Resume All"
 msgstr "Возобновить все"
@@ -141,8 +157,12 @@ msgid "This application relies on the following pieces of software:"
 msgstr "Это приложение использует следующие части программного обеспечения:"
 
 #: src/variamain.py:777
-msgid "The licenses of all of these pieces of software can be found in the dependencies_information directory in this application's app directory."
-msgstr "Лицензии всех этих программных продуктов можно найти в каталоге dependencies_information в этом приложении."
+msgid ""
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
+msgstr ""
+"Лицензии всех этих программных продуктов можно найти в каталоге "
+"dependencies_information в этом приложении."
 
 #: src/variamain.py:449
 msgid "translator-credits"
@@ -175,6 +195,37 @@ msgstr "Пароль"
 #: src/variamain.py:554
 msgid "Authorization failed."
 msgstr "Авторизация не удалась."
+
+#: src/variamain.py:806
+msgid "Failed to open directory."
+msgstr "Не удалось открыть каталог."
+
+msgid "Remote Mode"
+msgstr "Удаленный режим"
+
+msgid "Remote aria2 IP"
+msgstr "Удаленный IP aria2"
+
+msgid "Remote aria2 Port"
+msgstr "Удаленный порт aria2"
+
+msgid "Remote aria2 RPC Secret"
+msgstr "Удаленный RPC Secret aria2"
+
+msgid "Remote Download Location"
+msgstr "Удаленное расположение загрузки"
+
+msgid "Exiting Varia..."
+msgstr "Выход из Varia..."
+
+msgid "Background Mode"
+msgstr "Фоновый режим"
+
+msgid "Continuing the downloads in the background."
+msgstr "Продолжение загрузки в фоновом режиме."
+
+msgid "Browser Extension"
+msgstr "Расширение для браузера"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
