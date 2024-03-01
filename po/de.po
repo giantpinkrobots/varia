@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2024-02-10 17:04+0100\n"
+"PO-Revision-Date: 2024-03-01 01:12+0100\n"
 "Last-Translator: Philipp Kiemle <philipp.kiemle@gmail.com>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -199,6 +199,30 @@ msgstr "Legitimierung fehlgeschlagen."
 #: src/variamain.py:806
 msgid "Failed to open directory."
 msgstr "Öffnen des Verzeichnisses fehlgeschlagen."
+
+msgid "Remote Mode"
+msgstr "Entfernter Modus"
+
+msgid "Remote aria2 IP"
+msgstr "Entfernte aria2-IP"
+
+msgid "Remote aria2 Port"
+msgstr "Entfernter aria2-Port"
+
+msgid "Remote aria2 RPC Secret"
+msgstr "Entferntes aria2-RPC-Geheimnis"
+
+msgid "Remote Download Location"
+msgstr "Entfernter Download-Ort"
+
+msgid "Exiting Varia..."
+msgstr "Varia verlassen …"
+
+msgid "Background Mode"
+msgstr "Hintergrundmodus"
+
+msgid "Continuing the downloads in the background."
+msgstr "Downloads werden im Hintergrund weitergeführt."
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
