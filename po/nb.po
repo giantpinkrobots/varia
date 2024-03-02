@@ -1,0 +1,245 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-30 03:17+0300\n"
+"PO-Revision-Date: 2024-03-01 19:46+0100\n"
+"Last-Translator: Brage <bragefuglseth@gnome.org>\n"
+"Language-Team: \n"
+"Language: nb\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.2\n"
+
+#. Translators: Do NOT translate or localize the application name.
+#: data/io.github.giantpinkrobots.varia.desktop.in:4
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:3
+msgid "Varia"
+msgstr "Varia"
+
+#. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
+#: data/io.github.giantpinkrobots.varia.desktop.in:11
+msgid "varia;aria;download;manager;"
+msgstr "aria2;nedlasting;nedlastning;last ned;"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
+msgid "Download manager based on aria2"
+msgstr "Last ned store filer"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
+msgid ""
+"Varia is a download manager based on aria2 that utilizes GTK4 and Libadwaita "
+"to provide a easy to use interface that integrates well with the GNOME "
+"desktop."
+msgstr ""
+"Varia er et enkelt nedlastingsverktøy som lar deg få tak i filer fra nettet. "
+"Last ned filer raskt takket være aria2-rammeverket, hold styr på flere "
+"nedlastinger på en gang, og se hva som har blitt lastet ned tidligere."
+
+#: src/variamain.py:45
+msgid "This is not a valid URL."
+msgstr "Ugyldig adresse"
+
+#: src/variamain.py:125
+msgid "All"
+msgstr "Alt"
+
+#: src/variamain.py:137
+msgid "In Progress"
+msgstr "Pågående"
+
+#: src/variamain.py:148
+msgid "Completed"
+msgstr "Fullført"
+
+#: src/variamain.py:171
+msgid "About Varia"
+msgstr "Om Varia"
+
+#: src/variamain.py:177
+msgid "URL"
+msgstr "Nettadresse"
+
+#: src/variamain.py:178
+msgid "Download"
+msgstr "Last ned"
+
+#: src/variamain.py:184
+msgid "Open Download Folder"
+msgstr "Åpne nedlastingsmappe"
+
+#: src/variamain.py:196
+msgid "Speed Limit"
+msgstr "Hastighetsgrense"
+
+#: src/variamain.py:203 src/variamain.py:423
+msgid "Pause All"
+msgstr "Stans alt"
+
+#: src/variamain.py:212
+msgid "Speed"
+msgstr "Hastighet"
+
+#: src/variamain.py:215
+msgid "Set Speed Limit"
+msgstr "Velg hastighetsgrense"
+
+#: src/variamain.py:216
+msgid "Cancel All"
+msgstr "Avbryt alt"
+
+#: src/variamain.py:235
+msgid "/s"
+msgstr "/s"
+
+#: src/variamain.py:238
+msgid "No limit"
+msgstr "Ingen grense"
+
+#: src/variamain.py:274
+msgid "Download complete."
+msgstr "Nedlasting fullført"
+
+#: src/variamain.py:276
+msgid "Download speed is limited."
+msgstr "Nedlastingshastighet begrenset"
+
+#: src/variamain.py:277
+msgid "An error occurred:"
+msgstr "Noe gikk galt:"
+
+#: src/variamain.py:292
+msgid "MB/s"
+msgstr "MB/s"
+
+#: src/variamain.py:294
+msgid "KB/s"
+msgstr "kB/s"
+
+#: src/variamain.py:298
+msgid "0 B/s"
+msgstr "0 B/s"
+
+#: src/variamain.py:300
+msgid " MB/s"
+msgstr " MB/s"
+
+#: src/variamain.py:302
+msgid " KB/s"
+msgstr " kB/s"
+
+#: src/variamain.py:304
+msgid " B/s"
+msgstr " B/s"
+
+#: src/variamain.py:404
+msgid "Simultaneous Download Amount"
+msgstr "Antall parallelle nedlastinger"
+
+#: src/variamain.py:410
+msgid "Resume All"
+msgstr "Fortsett alt"
+
+#: src/variamain.py:443
+msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
+msgstr ""
+"Varia er et enkelt nedlastingsverktøy som lar deg få tak i filer fra nettet. "
+"Last ned filer raskt takket være aria2-rammeverket, hold styr på flere "
+"nedlastinger på en gang, og se hva som har blitt lastet ned tidligere."
+
+#: src/variamain.py:777
+msgid "This application relies on the following pieces of software:"
+msgstr "Appen er bygget på denne programvaren:"
+
+#: src/variamain.py:777
+msgid ""
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
+msgstr ""
+"Lisensene til alt dette ligger i «dependencies_information» i appens mappe "
+"på systemet."
+
+#: src/variamain.py:449
+msgid "translator-credits"
+msgstr "Brage Fuglseth https://bragefuglseth.dev"
+
+#: src/variamain.py:457
+msgid "Download Directory"
+msgstr "Nedlastingsmappe"
+
+#: src/variamain.py:460
+msgid "Change"
+msgstr "Endre"
+
+#: src/variamain.py:463
+msgid "Speed limited"
+msgstr "Hastighet begrenset"
+
+#: src/variamain.py:519
+msgid "Authentication"
+msgstr "Autentisering"
+
+#: src/variamain.py:532
+msgid "Username"
+msgstr "Brukernavn"
+
+#: src/variamain.py:534
+msgid "Password"
+msgstr "Passord"
+
+#: src/variamain.py:554
+msgid "Authorization failed."
+msgstr "Autentisering mislyktes"
+
+#: src/variamain.py:806
+msgid "Failed to open directory."
+msgstr "Åpning av mappe mislyktes"
+
+msgid "Remote Mode"
+msgstr "Fjernmodus"
+
+msgid "Remote aria2 IP"
+msgstr "Ekstern aria2-IP"
+
+msgid "Remote aria2 Port"
+msgstr "Ekstern aria2-port"
+
+msgid "Remote aria2 RPC Secret"
+msgstr "Ekstern aria2-RPC-kode"
+
+msgid "Remote Download Location"
+msgstr "Ekstern nedlastingsplassering"
+
+msgid "Exiting Varia..."
+msgstr "Avslutter…"
+
+msgid "Background Mode"
+msgstr "Bakgrunnsmodus"
+
+msgid "Continuing the downloads in the background."
+msgstr "Fortsett nedlastinger når appen er lukket"
+
+msgid "Browser Extension"
+msgstr "Nettleserutvidelser"
+
+#: src/gtk/help-overlay.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Generelt"
+
+#: src/gtk/help-overlay.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Vis tastatursnarveier"
+
+#: src/gtk/help-overlay.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Avslutt"
