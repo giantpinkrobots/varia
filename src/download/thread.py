@@ -70,14 +70,15 @@ class DownloadThread(threading.Thread):
                             self.url = self.auth_username + ":" + self.auth_password + "@" + self.url
                         print ("Authentication enabled.")
 
+                try:
+                    if (self.downloadname == None):
+                        self.download = self.api.add_uris([self.url])
+                    else:
+                        self.download = self.api.add_uris([self.url], options={"out": self.downloadname})
+                except:
+                    pass
+
             print(self.downloadname)
-            try:
-                if (self.downloadname == None):
-                    self.download = self.api.add_uris([self.url])
-                else:
-                    self.download = self.api.add_uris([self.url], options={"out": self.downloadname})
-            except:
-                pass
 
         except:
             pass
@@ -105,7 +106,10 @@ class DownloadThread(threading.Thread):
             time.sleep(1)
 
     def set_filename_label(self):
-        self.filename_label.set_text(self.download.name[:40])
+        filename_shortened = self.download.name[:40]
+        if (self.download.name != filename_shortened):
+            filename_shortened = filename_shortened + "..."
+        self.filename_label.set_text(filename_shortened)
 
     def update_header_pause_button(self):
         self.app.all_paused = False
