@@ -10,7 +10,7 @@ from gi.repository import Gtk, Adw, GLib
 from gettext import gettext as _
 
 def initiate(self):
-    self.downloaddir = GLib.get_user_special_dir(GLib.USER_DIRECTORY_DOWNLOAD)
+    self.downloaddir = self.appconf["download_directory"]
 
     self.applied_filter = "show_all"
 

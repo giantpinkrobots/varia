@@ -14,6 +14,21 @@
 <url type="vcs-browser">https://github.com/giantpinkrobots/varia</url>
 <url type="translate">https://github.com/giantpinkrobots/varia/tree/main/po</url>
 
+<languages>
+<lang>en_US</lang>
+<lang>de_DE</lang>
+<lang>it_IT</lang>
+<lang>nl_NL</lang>
+<lang>oc_FR</lang>
+<lang>pt_BR</lang>
+<lang>ru_RU</lang>
+<lang>tr_TR</lang>
+<lang>uk_UA</lang>
+<lang>fr_FR</lang>
+<lang>zh_TW</lang>
+<lang>nb_NO</lang>
+</languages>
+
 <description>
 <p>
 Varia is a download manager for all your download needs. It can download multiple files at once very quickly with aria2.
@@ -38,7 +53,7 @@ Varia utilizes GTK4 and Libadwaita to provide a easy to use interface that integ
 </screenshots>
 
 <releases>
-<release version="v2024.2.29" date="2024-02-29">
+<release version="v2024.2.29-2" date="2024-03-03">
 <description translatable="yes">
 <p>- Support for Firefox and Chromium extension.</p>
 <p>- Initial torrenting support.</p>

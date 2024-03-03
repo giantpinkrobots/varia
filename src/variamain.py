@@ -1,4 +1,4 @@
-variaVersion = "v2024.2.29"
+variaVersion = "v2024.2.29-2"
 
 import gi
 import sys
@@ -44,7 +44,10 @@ class MainWindow(Gtk.Window):
 
         # Check if the download path still exists:
         if not (os.path.exists(self.appconf["download_directory"])):
-            self.appconf["download_directory"] = GLib.get_user_special_dir(GLib.USER_DIRECTORY_DOWNLOAD)
+            if (os.path.exists(GLib.get_user_special_dir(GLib.USER_DIRECTORY_DOWNLOAD))):
+                self.appconf["download_directory"] = GLib.get_user_special_dir(GLib.USER_DIRECTORY_DOWNLOAD)
+            else:
+                self.appconf["download_directory"] = GLib.get_user_special_dir(GLib.USER_DIRECTORY_HOME)
             self.save_appconf()
 
         # Set download speed limit from appconf:
@@ -312,6 +315,16 @@ def main(version, aria2cexec):
         appdir = os.path.join(os.path.expanduser('~'), '.varia')
         if not os.path.exists(appdir):
             os.makedirs(appdir)
+    
+    download_directory = ''
+    
+    try:
+        if (os.path.exists(GLib.get_user_special_dir(GLib.USER_DIRECTORY_DOWNLOAD))):
+            download_directory = GLib.get_user_special_dir(GLib.USER_DIRECTORY_DOWNLOAD)
+        else:
+            download_directory = GLib.get_user_special_dir(GLib.USER_DIRECTORY_HOME)
+    except:
+        download_directory = GLib.get_user_special_dir(GLib.USER_DIRECTORY_HOME)
 
     appconf = {
         'download_speed_limit_enabled': '0',
@@ -319,7 +332,7 @@ def main(version, aria2cexec):
         'auth': '0',
         'auth_username': '',
         'auth_password': '',
-        'download_directory': GLib.get_user_special_dir(GLib.USER_DIRECTORY_DOWNLOAD),
+        'download_directory': download_directory,
         'download_simultaneous_amount': '5',
         'remote': '0',
         'remote_protocol': 'https://',

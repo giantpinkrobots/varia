@@ -47,11 +47,15 @@ def create_actionrow(self, filename):
 
     button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
 
-    self.pause_buttons.append(Gtk.Button.new_from_icon_name("media-playback-pause-symbolic"))
-    self.pause_buttons[len(self.pause_buttons)-1].connect("clicked", on_pause_clicked, self, self.pause_buttons[len(self.pause_buttons)-1], download_item)
-    button_box.append(self.pause_buttons[len(self.pause_buttons)-1])
+    pause_button = Gtk.Button.new_from_icon_name("media-playback-pause-symbolic")
+    pause_button.set_valign(Gtk.Align.CENTER)
+    pause_button.connect("clicked", on_pause_clicked, self, pause_button, download_item)
+
+    self.pause_buttons.append(pause_button)
+    button_box.append(pause_button)
 
     stop_button = Gtk.Button.new_from_icon_name("process-stop-symbolic")
+    stop_button.set_valign(Gtk.Align.CENTER)
     stop_button.connect("clicked", on_stop_clicked, self, download_item)
     button_box.append(stop_button)
 
@@ -71,7 +75,6 @@ def create_actionrow(self, filename):
     return [progress_bar, speed_label, self.pause_buttons[len(self.pause_buttons)-1], download_item, filename_label]
 
 def on_pause_clicked(button, self, pause_button, download_item):
-    self.all_paused = False
     download_thread = self.downloads[download_item.index]
     if download_thread.download.is_paused:
         download_thread.resume()
@@ -89,16 +92,18 @@ def on_pause_clicked(button, self, pause_button, download_item):
         pause_button.set_child(image)
         download_thread.save_state()
 
-    all_paused = True
-    for download_thread in self.downloads:
-        if (download_thread.download):
-            if (download_thread.download.is_paused) == False:
-                all_paused = False
-    if (all_paused == True):
-        self.all_paused = True
-        self.header_pause_content.set_icon_name("media-playback-start-symbolic")
-        self.header_pause_content.set_label(_("Resume All"))
-        self.header_pause_button.set_sensitive(True)
+        all_paused = True
+
+        for download_thread in self.downloads:
+            if (download_thread.download):
+                if (download_thread.download.is_paused) == False:
+                    all_paused = False
+
+        if (all_paused == True):
+            self.all_paused = True
+            self.header_pause_content.set_icon_name("media-playback-start-symbolic")
+            self.header_pause_content.set_label(_("Resume All"))
+            self.header_pause_button.set_sensitive(True)
 
 def on_stop_clicked(button, self, download_item):
     index = download_item.index
