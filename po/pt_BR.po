@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2023-12-01 15:08-0300\n"
-"Last-Translator: Tiago Lucas Flach <tiagolucas9830@gmail.com>\n"
+"PO-Revision-Date: 2024-03-09 21:12-0300\n"
+"Last-Translator: Luiz Lima\n"
 "Language-Team: \n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.4\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -38,13 +38,25 @@ msgid ""
 "to provide a easy to use interface that integrates well with the GNOME "
 "desktop."
 msgstr ""
-"Varia é um gerenciador de downloads baseado  aria2 que utiliza GTK4 e "
+"Varia é um gerenciador de downloads baseado aria2 que utiliza GTK4 e "
 "Libadwaita para fornecer uma interface fácil de usar que se integra bem ao "
 "desktop GNOME."
 
 #: src/variamain.py:45
 msgid "This is not a valid URL."
 msgstr "Este não é um URL válido."
+
+#: src/variamain.py:125
+msgid "All"
+msgstr "Todos"
+
+#: src/variamain.py:137
+msgid "In Progress"
+msgstr "Em Progesso"
+
+#: src/variamain.py:148
+msgid "Completed"
+msgstr "Completo"
 
 #: src/variamain.py:171
 msgid "About Varia"
@@ -59,8 +71,8 @@ msgid "Download"
 msgstr "Download"
 
 #: src/variamain.py:184
-msgid "Open Downloads Folder"
-msgstr "Abra a Pasta de Downloads"
+msgid "Open Download Folder"
+msgstr "Abrir a Pasta de Downloads"
 
 #: src/variamain.py:196
 msgid "Speed Limit"
@@ -82,11 +94,23 @@ msgstr "Definir Limite de Velocidade"
 msgid "Cancel All"
 msgstr "Cancelar Tudo"
 
+#: src/variamain.py:235
+msgid "/s"
+msgstr "/s"
+
+#: src/variamain.py:238
+msgid "No limit"
+msgstr "Sem Limites"
+
 #: src/variamain.py:274
 msgid "Download complete."
 msgstr "Download completo."
 
 #: src/variamain.py:276
+msgid "Download speed is limited."
+msgstr "Velocidade de download está limitada."
+
+#: src/variamain.py:277
 msgid "An error occurred:"
 msgstr "Um erro ocorreu:"
 
@@ -112,7 +136,11 @@ msgstr " KB/s"
 
 #: src/variamain.py:304
 msgid " B/s"
-msgstr " KB/s"
+msgstr " B/s"
+
+#: src/variamain.py:404
+msgid "Simultaneous Download Amount"
+msgstr "Quantidade de Downloads em Simultâneo"
 
 #: src/variamain.py:410
 msgid "Resume All"
@@ -120,19 +148,82 @@ msgstr "Continuar Todos"
 
 #: src/variamain.py:443
 msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
-msgstr "gerenciador de download baseado em aria2 utilizando GTK4 e Libadwaita."
+msgstr "Gerenciador de download baseado em aria2 utilizando GTK4 e Libadwaita."
 
 #: src/variamain.py:777
 msgid "This application relies on the following pieces of software:"
 msgstr "Este aplicativo depende dos seguintes softwares:"
 
 #: src/variamain.py:777
-msgid "The licenses of all of these pieces of software can be found in the dependencies_information directory in this application's app directory."
-msgstr "As licenças de todos esses softwares podem ser encontradas no diretório dependencies_information no diretório app deste aplicativo."
+msgid ""
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
+msgstr ""
+"As licenças de todos esses softwares podem ser encontradas no diretório "
+"dependencies_information no diretório app deste aplicativo."
 
 #: src/variamain.py:449
 msgid "translator-credits"
 msgstr "Tiago Lucas Flach <tiagolucas9830@gmail.com>"
+
+#: src/variamain.py:457
+msgid "Download Directory"
+msgstr "Diretório de Download"
+
+#: src/variamain.py:460
+msgid "Change"
+msgstr "Mudar"
+
+#: src/variamain.py:463
+msgid "Speed limited"
+msgstr "Limite de Velocidade"
+
+#: src/variamain.py:519
+msgid "Authentication"
+msgstr "Autenticação"
+
+#: src/variamain.py:532
+msgid "Username"
+msgstr "Nome de Usuário"
+
+#: src/variamain.py:534
+msgid "Password"
+msgstr "Senha"
+
+#: src/variamain.py:554
+msgid "Authorization failed."
+msgstr "Autorização mal sucedida."
+
+#: src/variamain.py:806
+msgid "Failed to open directory."
+msgstr "Falha ao abrir diretório."
+
+msgid "Remote Mode"
+msgstr "Modo Remoto"
+
+msgid "Remote aria2 IP"
+msgstr "IP de aria2 remoto"
+
+msgid "Remote aria2 Port"
+msgstr "Porta de aria2 remoto"
+
+msgid "Remote aria2 RPC Secret"
+msgstr "RPC Secret de aria2 remoto"
+
+msgid "Remote Download Location"
+msgstr "Localização de Download Remota"
+
+msgid "Exiting Varia..."
+msgstr "Fechando Varia..."
+
+msgid "Background Mode"
+msgstr "Modo em segundo plano"
+
+msgid "Continuing the downloads in the background."
+msgstr "Continuando downloads em segundo plano."
+
+msgid "Browser Extension"
+msgstr "Extensão de Navegador"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
