@@ -65,7 +65,7 @@ class MainWindow(Adw.ApplicationWindow):
         set_aria2c_download_simultaneous_amount(self)
 
         # Listen to aria2c:
-        thread = threading.Thread(target=listen_to_aria2(self))
+        thread = threading.Thread(target=listen_to_aria2(self, variaapp))
         thread.start()
 
         # Load incomplete downloads:

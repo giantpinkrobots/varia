@@ -49,6 +49,7 @@ def create_actionrow(self, filename):
 
     pause_button = Gtk.Button.new_from_icon_name("media-playback-pause-symbolic")
     pause_button.set_valign(Gtk.Align.CENTER)
+    pause_button.get_style_context().add_class("circular")
     pause_button.connect("clicked", on_pause_clicked, self, pause_button, download_item)
 
     self.pause_buttons.append(pause_button)
@@ -56,6 +57,7 @@ def create_actionrow(self, filename):
 
     stop_button = Gtk.Button.new_from_icon_name("process-stop-symbolic")
     stop_button.set_valign(Gtk.Align.CENTER)
+    stop_button.get_style_context().add_class("circular")
     stop_button.connect("clicked", on_stop_clicked, self, download_item)
     button_box.append(stop_button)
 
@@ -70,7 +72,7 @@ def create_actionrow(self, filename):
     box_2.append(progress_bar)
 
     self.download_list.append(download_item)
-    download_item.index = len(self.downloads)-1
+    download_item.index = len(self.downloads)
 
     return [progress_bar, speed_label, self.pause_buttons[len(self.pause_buttons)-1], download_item, filename_label]
 
@@ -94,10 +96,9 @@ def on_pause_clicked(button, self, pause_button, download_item):
 
         all_paused = True
 
-        for download_thread in self.downloads:
-            if (download_thread.download):
-                if (download_thread.download.is_paused) == False:
-                    all_paused = False
+        for download_thread in self.downloads.copy():
+            if (download_thread.download) and (download_thread.is_alive()) and (download_thread.download.is_paused == False):
+                all_paused = False
 
         if (all_paused == True):
             self.all_paused = True
@@ -107,7 +108,7 @@ def on_pause_clicked(button, self, pause_button, download_item):
 
 def on_stop_clicked(button, self, download_item):
     index = download_item.index
-    download_thread = self.downloads[index+1]
+    download_thread = self.downloads[index]
     deletefiles = True
     if (download_thread.download) and ((download_thread.download.is_torrent) and (download_thread.download.seeder)):
         deletefiles = False

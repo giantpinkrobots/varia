@@ -218,6 +218,21 @@ msgstr ""
 msgid "Browser Extension"
 msgstr ""
 
+msgid "Shutdown on Completion"
+msgstr ""
+
+msgid "Varia is about to shut down your computer."
+msgstr ""
+
+msgid "Press Cancel to cancel and disable."
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Warning"
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"

@@ -78,5 +78,9 @@ def initiate(self):
     self.pause_buttons = []
     self.all_paused = False
 
+    self.shutdown_mode = False
+    self.shutdown_dialog_raised = False
+    self.shutdown_id = ""
+
 def on_dialog_dismiss(dialog, response_id):
     dialog.destroy()

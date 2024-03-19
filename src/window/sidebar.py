@@ -5,6 +5,7 @@ gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, GLib, Gio
 from gettext import gettext as _
+import textwrap
 
 from window.preferences import show_preferences
 from download.actionrow import on_download_clicked
@@ -41,10 +42,10 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     downloads_folder_action.connect("activate", show_about, self, variaVersion)
     variaapp.add_action(downloads_folder_action)
 
-    shutdown_action = Gio.SimpleAction.new("shutdown_on_completion", None)
-    shutdown_action.connect("activate", shutdown_on_completion, self)
-    shutdown_action.set_enabled(False)
-    variaapp.add_action(shutdown_action)
+    self.shutdown_action = Gio.SimpleAction.new("shutdown_on_completion", None)
+    self.shutdown_action.connect("activate", shutdown_on_completion, self)
+    self.shutdown_action.set_enabled(False)
+    variaapp.add_action(self.shutdown_action)
 
     hamburger_menu_item_background = Gio.MenuItem.new(_("Background Mode"), "app.background_mode")
     if (os.name != 'nt'):
@@ -119,9 +120,10 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     sidebar_expanding_box = Gtk.Box()
     Gtk.Widget.set_vexpand(sidebar_expanding_box, True)
 
+    self.sidebar_shutdown_mode_label = Gtk.Label()
     self.sidebar_remote_mode_label = Gtk.Label()
     if (self.appconf['remote'] == '1'):
-        self.sidebar_remote_mode_label.set_text(_("Remote Mode"))
+        self.sidebar_remote_mode_label.set_text(textwrap.fill(_("Remote Mode"), 23))
     self.sidebar_speed_limited_label = Gtk.Label()
 
     sidebar_content_box.set_margin_start(6)
@@ -139,6 +141,7 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     sidebar_content_box.append(sidebar_separator)
     sidebar_content_box.append(sidebar_filter_buttons_box)
     sidebar_content_box.append(sidebar_expanding_box)
+    sidebar_content_box.append(self.sidebar_shutdown_mode_label)
     sidebar_content_box.append(self.sidebar_remote_mode_label)
     sidebar_content_box.append(self.sidebar_speed_limited_label)
     sidebar_box.append(sidebar_content_box)
@@ -190,4 +193,9 @@ def open_downloads_folder(self, app, variaapp, appconf):
         subprocess.Popen(["xdg-open", appconf["download_directory"]])
 
 def shutdown_on_completion(self, app, variaapp):
-    print("sus")
+    if (variaapp.shutdown_mode == False):
+        variaapp.shutdown_mode = True
+        variaapp.sidebar_remote_mode_label.set_text(textwrap.fill(_("Shutdown on Completion"), 23))
+    else:
+        variaapp.shutdown_mode = False
+        variaapp.sidebar_remote_mode_label.set_text("")
