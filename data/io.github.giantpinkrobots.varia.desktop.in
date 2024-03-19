@@ -1,12 +1,12 @@
 [Desktop Entry]
 # Translators: Do NOT translate or localize the application name.
 Name=Varia
-Comment=Download files quickly and efficiently
+Comment=Download files and torrents quickly
 Exec=varia
 Icon=io.github.giantpinkrobots.varia
 Terminal=false
 Type=Application
 Categories=Network
 # Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
-Keywords=varia;aria;download;manager;
+Keywords=varia;aria;download;manager;torrent;
 StartupNotify=true

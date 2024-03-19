@@ -109,7 +109,7 @@ def on_stop_clicked(button, self, download_item):
     index = download_item.index
     download_thread = self.downloads[index+1]
     deletefiles = True
-    if ((download_thread.download.is_torrent) and (download_thread.download.seeder)):
+    if (download_thread.download) and ((download_thread.download.is_torrent) and (download_thread.download.seeder)):
         deletefiles = False
     try:
         download_thread.stop(deletefiles)

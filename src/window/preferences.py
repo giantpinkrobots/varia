@@ -7,8 +7,7 @@ from gettext import gettext as _
 from download.communicate import set_speed_limit, set_aria2c_download_directory, set_aria2c_download_simultaneous_amount
 
 def show_preferences(button, self, app):
-    preferences = Adw.PreferencesWindow(transient_for=self)
-    preferences.set_search_enabled(False)
+    preferences = Adw.PreferencesDialog()
 
     page = Adw.PreferencesPage(title=_("Preferences"))
     preferences.add(page)
@@ -248,7 +247,7 @@ def show_preferences(button, self, app):
 
     group_2.add(remote_aria2_expander_box)
 
-    preferences.present()
+    preferences.present(self)
 
 def speed_limit_text_filter(entry, self):
     text = entry.get_text()
@@ -278,14 +277,12 @@ def on_download_directory_selected(dialog, result, self, prefswindow, actionrow)
         set_aria2c_download_directory(self)
         actionrow.set_subtitle(self.appconf["download_directory"])
     except:
-        error_dialog = Adw.MessageDialog()
+        error_dialog = Adw.AlertDialog()
         error_dialog.set_body(_("Failed to open directory."))
         error_dialog.add_response("ok",  _("OK"))
         error_dialog.set_default_response("ok")
         error_dialog.set_close_response("ok")
-        error_dialog.set_transient_for(prefswindow)
-        error_dialog.connect("response", on_dialog_dismiss, self)
-        error_dialog.show()
+        error_dialog.present(prefswindow)
 
 def on_switch_speed_limit(switch, state, self, preferencesWindow):
     if state:
@@ -382,14 +379,9 @@ def on_switch_remote(switch, state, self, preferencesWindow):
     restart_varia_dialog(preferencesWindow)
 
 def restart_varia_dialog(preferencesWindow):
-    dialog = Adw.MessageDialog()
+    dialog = Adw.AlertDialog()
     dialog.set_body(_("Please restart Varia to apply the change."))
     dialog.add_response("ok",  _("OK"))
     dialog.set_default_response("ok")
     dialog.set_close_response("ok")
-    dialog.set_transient_for(preferencesWindow)
-    dialog.connect("response", on_dialog_dismiss)
-    dialog.show()
-
-def on_dialog_dismiss(dialog, response_id):
-    dialog.destroy()
+    dialog.present(preferencesWindow)

@@ -17,9 +17,9 @@ def listen_to_aria2(self):
                 self.downloads.remove(frontend_download_item)
 
         try:
-            downloads_in_frontend = set(download_item.download.info_hash for download_item in self.downloads.copy())
+            downloads_in_frontend = set(download_item.download.gid for download_item in self.downloads.copy())
             for download_item_to_be_added in self.api.get_downloads():
-                if ((download_item_to_be_added.info_hash not in downloads_in_frontend) and (download_item_to_be_added.is_metadata == False) and (download_item_to_be_added.is_complete == False)):
+                if ((download_item_to_be_added.gid not in downloads_in_frontend) and (download_item_to_be_added.is_metadata == False) and (download_item_to_be_added.is_complete == False)):
                     if not download_item_to_be_added.is_torrent:
                         print('Download added directly to aria2c, adding it to the UI: ' + download_item_to_be_added.files[0].uris[0]["uri"])
                     add_download_to_ui(self, download_item_to_be_added)

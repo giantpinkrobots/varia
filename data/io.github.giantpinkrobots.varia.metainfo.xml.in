@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
 <name>Varia</name>
-<summary>Download files quickly and efficiently</summary>
+<summary>Download files and torrents</summary>
 <id>io.github.giantpinkrobots.varia</id>
 
 <metadata_license>FSFAP</metadata_license>
@@ -27,14 +27,20 @@
 <lang>fr_FR</lang>
 <lang>zh_TW</lang>
 <lang>nb_NO</lang>
+<lang>ja_JP</lang>
 </languages>
+
+<branding>
+<color type="primary" scheme_preference="light">#75A3DC</color>
+<color type="primary" scheme_preference="dark">#242424</color>
+</branding>
 
 <description>
 <p>
-Varia is a download manager for all your download needs. It can download multiple files at once very quickly with aria2.
+Varia is a download manager for all your download needs. It can download regular files and torrents, and do it very quickly.
 </p>
 <p>
-Varia utilizes GTK4 and Libadwaita to provide a easy to use interface that integrates well with the GNOME desktop.
+Using Varia is very easy and straightforward, and with its aria2 backend it can potentially increase the speed of your downloads. It can integrate with Firefox or Chrome/ium through a browser extension, configured to your liking, and even support a remote aria2 instance on another computer.
 </p>
 </description>
 

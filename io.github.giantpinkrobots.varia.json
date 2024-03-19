@@ -1,17 +1,18 @@
 {
 	"app-id" : "io.github.giantpinkrobots.varia",
 	"runtime" : "org.gnome.Platform",
-	"runtime-version" : "45",
+	"runtime-version" : "master",
 	"sdk" : "org.gnome.Sdk",
 	"command" : "varia",
-	"//": "Justifications for the permissions: This program utilizes aria2c, and aria2c requires the networking permission and the xdg-download directory in order to download files.",
+	"//": "Justifications for the permissions: This program utilizes aria2c, and aria2c requires the networking permission and the xdg-download directory in order to download files. It also has a 'shut down once all downloads are completed' feature that requires access to org.freedesktop.login1.",
 	"finish-args" : [
 		"--share=network",
 		"--share=ipc",
 		"--socket=fallback-x11",
 		"--device=dri",
 		"--socket=wayland",
-		"--filesystem=xdg-download"
+		"--filesystem=xdg-download",
+		"--system-talk-name=org.freedesktop.login1"
 	],
 	"cleanup" : [
 		"/include",

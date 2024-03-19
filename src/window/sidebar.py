@@ -41,6 +41,11 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     downloads_folder_action.connect("activate", show_about, self, variaVersion)
     variaapp.add_action(downloads_folder_action)
 
+    shutdown_action = Gio.SimpleAction.new("shutdown_on_completion", None)
+    shutdown_action.connect("activate", shutdown_on_completion, self)
+    shutdown_action.set_enabled(False)
+    variaapp.add_action(shutdown_action)
+
     hamburger_menu_item_background = Gio.MenuItem.new(_("Background Mode"), "app.background_mode")
     if (os.name != 'nt'):
         hamburger_menu_model.append_item(hamburger_menu_item_background)
@@ -50,6 +55,9 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
 
     hamburger_menu_item_open_downloads_folder = Gio.MenuItem.new(_("Open Download Folder"), "app.downloads_folder")
     hamburger_menu_model.append_item(hamburger_menu_item_open_downloads_folder)
+
+    hamburger_menu_item_shutdown = Gio.MenuItem.new(_("Shutdown on Completion"), "app.shutdown_on_completion")
+    hamburger_menu_model.append_item(hamburger_menu_item_shutdown)
 
     hamburger_menu_item_about = Gio.MenuItem.new(_("About Varia"), "app.about")
     hamburger_menu_model.append_item(hamburger_menu_item_about)
@@ -138,10 +146,10 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     self.overlay_split_view.set_sidebar(sidebar_box)
 
 def background_mode(app, variaapp1, self, variaapp):
-    self.exitProgram(app=app, variaapp=variaapp, background=True, show_exit_window=True)
+    self.exitProgram(app=app, variaapp=variaapp, background=True)
 
 def show_about(app, variaapp, self, variaVersion):
-    dialog = Adw.AboutWindow(transient_for=self)
+    dialog = Adw.AboutDialog()
     dialog.set_application_name("Varia")
     dialog.set_version(variaVersion)
     dialog.set_developer_name("Giant Pink Robots!")
@@ -172,10 +180,14 @@ def show_about(app, variaapp, self, variaVersion):
         <li>Tiny UI adjustments.</li>
         <li>Russian translation updates.</li>
         <li>New Norwegian (Bokmål) translation.</li></ul>''')
-    dialog.show()
+
+    dialog.present(self)
 
 def open_downloads_folder(self, app, variaapp, appconf):
     if (os.name == 'nt'):
         os.startfile(appconf["download_directory"])
     else:
         subprocess.Popen(["xdg-open", appconf["download_directory"]])
+
+def shutdown_on_completion(self, app, variaapp):
+    print("sus")
