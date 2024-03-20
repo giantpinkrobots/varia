@@ -1,4 +1,4 @@
-variaVersion = "v2024.2.29-2"
+variaVersion = "v2024.3.20"
 
 import gi
 import sys
@@ -22,11 +22,11 @@ from download.communicate import set_speed_limit, set_aria2c_download_directory,
 from initiate import initiate
 from download.listen import listen_to_aria2
 
-class MainWindow(Gtk.Window):
+class MainWindow(Adw.ApplicationWindow):
     def __init__(self, variaapp, appdir, appconf, aria2c_subprocess, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.set_hide_on_close(True)
-        self.connect('close-request', self.exitProgram, variaapp, False, True)
+        self.connect('close-request', self.exitProgram, variaapp, False)
 
         self.appdir = appdir
         self.appconf = appconf
@@ -65,7 +65,7 @@ class MainWindow(Gtk.Window):
         set_aria2c_download_simultaneous_amount(self)
 
         # Listen to aria2c:
-        thread = threading.Thread(target=listen_to_aria2(self))
+        thread = threading.Thread(target=listen_to_aria2(self, variaapp))
         thread.start()
 
         # Load incomplete downloads:
@@ -230,7 +230,7 @@ class MainWindow(Gtk.Window):
             json.dump(self.appconf, f)
         print("Config saved")
 
-    def exitProgram(self, app, variaapp, background, show_exit_window):
+    def exitProgram(self, app, variaapp, background):
         if (background == True):
             self.hide()
             notification = Gio.Notification.new(_("Background Mode"))
@@ -247,7 +247,8 @@ class MainWindow(Gtk.Window):
                 self.pause_all("no")
                 self.api.client.shutdown()
 
-                if (show_exit_window == True):
+                if (self.is_visible() == True):
+                    self.hide()
                     exiting_dialog = Adw.MessageDialog()
                     exiting_dialog_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=25)
                     exiting_dialog.set_child(exiting_dialog_box)
@@ -289,7 +290,7 @@ class MainWindow(Gtk.Window):
 
     def quit_action_received(self, variaapp):
         if (self.terminating == False):
-            self.exitProgram(variaapp, variaapp, False, False)
+            self.exitProgram(variaapp, variaapp, False)
 
 class MyApp(Adw.Application):
     def __init__(self, appdir, appconf, aria2c_subprocess, **kwargs):

@@ -64,7 +64,6 @@ def initiate(self):
 
     self.set_default_size(800, 600)
     self.set_size_request(650, 450)
-    self.set_titlebar(Gtk.Box())
 
     self.total_download_speed = ""
     self.terminating = False
@@ -73,11 +72,15 @@ def initiate(self):
     Gtk.Settings.get_default().set_property("gtk-icon-theme-name", "Adwaita")
 
     self.overlay_split_view = Adw.OverlaySplitView.new()
-    self.set_child(child=self.overlay_split_view)
+    self.set_content(self.overlay_split_view)
 
     self.downloads = []
     self.pause_buttons = []
     self.all_paused = False
+
+    self.shutdown_mode = False
+    self.shutdown_dialog_raised = False
+    self.shutdown_id = ""
 
 def on_dialog_dismiss(dialog, response_id):
     dialog.destroy()
