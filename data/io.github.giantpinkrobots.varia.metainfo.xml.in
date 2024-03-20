@@ -59,12 +59,11 @@ Using Varia is very easy and straightforward, and with its aria2 backend it can 
 </screenshots>
 
 <releases>
-<release version="v2024.2.29-2" date="2024-03-03">
+<release version="v2024.3.20" date="2024-03-20">
 <description translatable="yes">
-<p>- Support for Firefox and Chromium extension.</p>
-<p>- Initial torrenting support.</p>
-<p>- Remote mode that allows connection to a remote aria2 instance.</p>
-<p>- Background mode that allows the window to be hidden while still downloading.</p>
+<p>- Shutdown after completion option added.</p>
+<p>- Update to GNOME 46 and Libadwaita 1.5.</p>
+<p>- Japanese language support.</p>
 <p>- Bug fixes and adjustments.</p>
 </description>
 </release>

@@ -167,22 +167,12 @@ def show_about(app, variaapp, self, variaVersion):
     dialog.set_application_icon("io.github.giantpinkrobots.varia")
     dialog.set_translator_credits(_("translator-credits"))
     dialog.set_artists(["Jakub Steiner"])
-    dialog.set_release_notes_version("v2024.2.29-2")
-    dialog.set_release_notes('''<p>v2024.2.29:</p>
-        <ul><li>Support for Firefox and Chromium extension.</li>
-        <li>Initial torrenting support.</li>
-        <li>Remote mode that allows connection to a remote aria2 instance.</li>
-        <li>Background mode that allows the window to be hidden while still downloading.</li>
-        <li>Bug fixes and adjustments.</li></ul>
-        <p>v2024.2.29-1:</p>
-        <ul><li>Hotfix: an error that prevented the app from running in the Flathub release.</li>
-        <li>German translation updates.</li>
-        <li>Dutch translation updates.</li></ul>
-        <p>v2024.2.29-2:</p>
-        <ul><li>Hotfix: an error in the browser extension integration.</li>
-        <li>Tiny UI adjustments.</li>
-        <li>Russian translation updates.</li>
-        <li>New Norwegian (Bokmål) translation.</li></ul>''')
+    dialog.set_release_notes_version("v2024.3.20")
+    dialog.set_release_notes('''<p>v2024.3.20:</p>
+        <ul><li>Shutdown after completion option added.</li>
+        <li>Update to GNOME 46 and Libadwaita 1.5.</li>
+        <li>Japanese language support.</li>
+        <li>Bug fixes and adjustments.</li></ul>''')
 
     dialog.present(self)
 

@@ -1,4 +1,4 @@
-variaVersion = "v2024.2.29-2"
+variaVersion = "v2024.3.20"
 
 import gi
 import sys
