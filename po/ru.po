@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Varia\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2024-03-01 16:14+0300\n"
+"PO-Revision-Date: 2024-03-21 16:00+0300\n"
 "Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -226,6 +226,21 @@ msgstr "Продолжение загрузки в фоновом режиме."
 
 msgid "Browser Extension"
 msgstr "Расширение для браузера"
+
+msgid "Shutdown on Completion"
+msgstr "Выключить устройство после завершения"
+
+msgid "Varia is about to shut down your computer."
+msgstr "Varia собирается выключить ваш компьютер."
+
+msgid "Press Cancel to cancel and disable."
+msgstr "Нажмите "Отменить" для отмены и отключения."
+
+msgid "Cancel"
+msgstr "Отменить"
+
+msgid "Warning"
+msgstr "Предупреждение"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
