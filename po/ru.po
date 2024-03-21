@@ -234,7 +234,7 @@ msgid "Varia is about to shut down your computer."
 msgstr "Varia собирается выключить ваш компьютер."
 
 msgid "Press Cancel to cancel and disable."
-msgstr "Нажмите "Отменить" для отмены и отключения."
+msgstr "Нажмите Отменить для отмены и отключения."
 
 msgid "Cancel"
 msgstr "Отменить"
