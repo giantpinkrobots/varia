@@ -87,6 +87,9 @@ class DownloadThread(threading.Thread):
         print("Download added. | " + self.download.gid + "\n" + self.downloaddir + "\n" + self.url)
         GLib.idle_add(self.update_header_pause_button)
         GLib.idle_add(self.set_filename_label)
+
+        self.app.filter_download_list("no", self.app.applied_filter)
+
         while (self.cancelled == False):
             try:
                 self.download.update()

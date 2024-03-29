@@ -12,7 +12,6 @@ def on_download_clicked(button, self, entry, DownloadThread):
         download_thread = DownloadThread(self, url, objectlist[0], objectlist[1], objectlist[2], objectlist[3], objectlist[4], None, None)
         self.downloads.append(download_thread)
         download_thread.start()
-        self.filter_download_list("no", self.applied_filter)
 
 def create_actionrow(self, filename):
     filename_shortened = filename[:40]

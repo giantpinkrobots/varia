@@ -138,9 +138,9 @@ def show_preferences(button, self, app):
     password_entry.set_text(self.appconf["auth_password"])
 
     if ((self.appconf["auth_username"] != "") and (self.appconf["auth_password"] != "")):
-        auth_expander_switch.set_sensitive(True)
+        auth_expander_switch.set_active(True)
     else:
-        auth_expander_switch.set_sensitive(False)
+        auth_expander_switch.set_active(False)
 
     if (self.appconf["auth"] == "1"):
         auth_expander_switch.set_active("active")
@@ -168,10 +168,18 @@ def show_preferences(button, self, app):
     simultaneous_download_amount_unit_names_box.set_selected(int(self.appconf["download_simultaneous_amount"])- 1)
     simultaneous_download_amount_unit_names_box.connect("notify::selected", on_simultaneous_download_amount_changed, self)
 
+    start_in_background = Adw.SwitchRow()
+    start_in_background.set_title(_("Start in Background Mode"))
+    start_in_background.connect("notify::active", on_start_in_background, self, preferences)
+
+    if (self.appconf["default_mode"] == "background"):
+        start_in_background.set_active("active")
+
     group_1.add(download_directory_actionrow)
     group_1.add(speed_limit_expander_box)
     group_1.add(auth_expander)
     group_1.add(simultaneous_download_amount_unit_names_box)
+    group_1.add(start_in_background)
 
     # Advanced settings:
 
@@ -319,6 +327,14 @@ def on_speed_limit_changed(self, speed, speed_type, switch):
         switch.set_sensitive(False)
     else:
         switch.set_sensitive(True)
+
+    self.save_appconf()
+
+def on_start_in_background(switch, state, self, preferencesWindow):
+    if state:
+        self.appconf["default_mode"] = "background"
+    else:
+        self.appconf["default_mode"] = "visible"
 
     self.save_appconf()
 

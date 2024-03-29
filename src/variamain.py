@@ -83,36 +83,64 @@ class MainWindow(Adw.ApplicationWindow):
                 self.downloads.append(download_thread)
                 download_thread.start()
 
+        # Start in background mode if it was enabled in preferences:
+        if (self.appconf["default_mode"] == "background"):
+            self.exitProgram(app=self, variaapp=variaapp, background=True)
+
     def filter_download_list(self, button, filter_mode):
         if (button != "no"):
             self.filter_button_show_all.set_active(False)
             self.filter_button_show_downloading.set_active(False)
             self.filter_button_show_completed.set_active(False)
-        match filter_mode:
-            case "show_all":
-                self.applied_filter = "show_all"
-                for download_thread in self.downloads:
-                    download_thread.actionrow.show()
-                self.filter_button_show_all.set_active(True)
-            case "show_downloading":
+            self.filter_button_show_seeding.set_active(False)
+            self.filter_button_show_failed.set_active(False)
+
+        else:
+            filter_mode = self.applied_filter
+
+        if (filter_mode == "show_all"):
+            self.applied_filter = "show_all"
+            for download_thread in self.downloads:
+                download_thread.actionrow.show()
+            self.filter_button_show_all.set_active(True)
+
+        else:
+            for download_thread in self.downloads:
+                download_thread.actionrow.hide()
+
+            if (filter_mode == "show_downloading"):
                 self.applied_filter = "show_downloading"
                 for download_thread in self.downloads:
-                    print(download_thread.download.status)
-                    download_thread.actionrow.hide()
                     if (download_thread.download):
-                        if ((download_thread.download.status != "complete") and (download_thread.download.status != "error")):
+                        if (((download_thread.download.status == "waiting") or (download_thread.download.status == "active")) and (download_thread.download.seeder != True)):
                             download_thread.actionrow.show()
                     else:
                         download_thread.actionrow.show()
                 self.filter_button_show_downloading.set_active(True)
-            case "show_completed":
+
+            elif (filter_mode == "show_completed"):
                 self.applied_filter = "show_completed"
                 for download_thread in self.downloads:
-                    download_thread.actionrow.hide()
                     if (download_thread.download):
-                        if ((download_thread.download.status == "complete") or (download_thread.download.status == "error")):
+                        if (download_thread.download.status == "complete"):
                             download_thread.actionrow.show()
                 self.filter_button_show_completed.set_active(True)
+
+            elif (filter_mode == "show_seeding"):
+                self.applied_filter = "show_seeding"
+                for download_thread in self.downloads:
+                    if (download_thread.download):
+                        if (download_thread.download.seeder == True):
+                            download_thread.actionrow.show()
+                self.filter_button_show_seeding.set_active(True)
+
+            else:
+                self.applied_filter = "show_failed"
+                for download_thread in self.downloads:
+                    if (download_thread.download):
+                        if (download_thread.download.status == "error"):
+                            download_thread.actionrow.show()
+                self.filter_button_show_failed.set_active(True)
 
     def check_download_status(self):
         while (self.terminating == False):
@@ -235,6 +263,7 @@ class MainWindow(Adw.ApplicationWindow):
             self.hide()
             notification = Gio.Notification.new(_("Background Mode"))
             notification.set_body(_("Continuing the downloads in the background."))
+            notification.set_title(_("Background Mode")),
             variaapp.send_notification(None, notification)
             print('Background mode')
         else:
@@ -299,12 +328,14 @@ class MyApp(Adw.Application):
         quit_action = Gio.SimpleAction.new("quit", None)
         quit_action.connect("activate", self.quit_action)
         self.add_action(quit_action)
+        self.initiated = False
 
     def on_activate(self, app, appdir, appconf, aria2c_subprocess):
         if not hasattr(self, 'win'):
             self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf, aria2c_subprocess=aria2c_subprocess)
-        if (self.win.terminating == False):
+        if ((self.win.terminating == False) and ((appconf["default_mode"] == "visible") or (self.initiated == True))):
             self.win.present()
+        self.initiated = True
 
     def quit_action(self, action, parameter):
         self.win.quit_action_received(self)
@@ -340,7 +371,8 @@ def main(version, aria2cexec):
         'remote_ip': '',
         'remote_port': '',
         'remote_secret': '',
-        'remote_location': ''}
+        'remote_location': '',
+        'default_mode': 'visible'}
 
     if os.path.exists(os.path.join(appdir, 'varia.conf')):
         with open(os.path.join(appdir, 'varia.conf'), 'r') as f:
