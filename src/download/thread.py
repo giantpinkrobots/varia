@@ -10,6 +10,7 @@ import time
 import os
 import json
 from gettext import gettext as _
+from download.actionrow import on_pause_clicked
 
 class DownloadThread(threading.Thread):
     def __init__(self, app, url, progress_bar, speed_label, pause_button, actionrow, filename_label, download, downloadname):
@@ -72,9 +73,9 @@ class DownloadThread(threading.Thread):
 
                 try:
                     if (self.downloadname == None):
-                        self.download = self.api.add_uris([self.url])
+                        self.download = self.api.add_uris([self.url], options={"pause": "true"})
                     else:
-                        self.download = self.api.add_uris([self.url], options={"out": self.downloadname})
+                        self.download = self.api.add_uris([self.url], options={"out": self.downloadname, "pause": "true"})
                 except:
                     pass
 
@@ -83,13 +84,17 @@ class DownloadThread(threading.Thread):
         except:
             pass
 
+        if self.app.scheduler_currently_downloading == True:
+            self.download.resume()
+        else:
+            on_pause_clicked(self.app, self.app, self.pause_button, self.actionrow, True)
+
         downloadname = self.download.name
         print("Download added. | " + self.download.gid + "\n" + self.downloaddir + "\n" + self.url)
         GLib.idle_add(self.update_header_pause_button)
         GLib.idle_add(self.set_filename_label)
 
         self.app.filter_download_list("no", self.app.applied_filter)
-
         while (self.cancelled == False):
             try:
                 self.download.update()

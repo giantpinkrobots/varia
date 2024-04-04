@@ -16,7 +16,7 @@ function sendToAria2(downloadItem) {
       jsonrpc: '2.0',
       id: '1',
       method: 'aria2.addUri',
-      params: [[downloadItem.url]]
+      params: [[downloadItem.url], {"pause": "true"}]
     })
   }).then(response => {
     chrome.downloads.cancel(downloadItem.id);

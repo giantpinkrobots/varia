@@ -4,7 +4,8 @@ gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, GLib, Gio
 from gettext import gettext as _
 
-from download.communicate import set_speed_limit, set_aria2c_download_directory, set_aria2c_download_simultaneous_amount
+from download.communicate import set_speed_limit, set_aria2c_download_directory, set_aria2c_download_simultaneous_amount, set_aria2c_custom_global_option
+from window.scheduler import show_scheduler_dialog
 
 def show_preferences(button, self, app):
     preferences = Adw.PreferencesDialog()
@@ -41,7 +42,7 @@ def show_preferences(button, self, app):
 
     group_extensions.add(browser_extension_actionrow)
 
-    # Basic settings:
+    # Download directory:
 
     download_directory_actionrow = Adw.ActionRow()
     download_directory_actionrow.set_title(_("Download Directory"))
@@ -62,6 +63,8 @@ def show_preferences(button, self, app):
         download_directory_actionrow.add_suffix(download_directory_change_button)
     else:
         download_directory_actionrow.add_suffix(download_directory_change_remote_label)
+
+    # Speed limit:
 
     speed_limit_unit_names_dropdown = Gtk.DropDown.new_from_strings(["KB/s", "MB/s", "GB/s"])
     speed_limit_unit_names_dropdown.set_selected(0)
@@ -116,6 +119,8 @@ def show_preferences(button, self, app):
     speed_limit_expander_box.add_row(speed_limit_dropdown_box)
     speed_limit_expander_box.add_row(speed_limit_entry)
 
+    # Auth:
+
     auth_expander = Adw.ExpanderRow()
     auth_expander.set_title(_("Authentication"))
 
@@ -150,6 +155,8 @@ def show_preferences(button, self, app):
     auth_expander.add_row(username_entry)
     auth_expander.add_row(password_entry)
 
+    # Simultaneous download amount:
+
     simultaneous_download_amount_unit_names = Gio.ListStore.new(Gtk.StringObject)
     simultaneous_download_amount_unit_names.append(Gtk.StringObject.new(" 1"))
     simultaneous_download_amount_unit_names.append(Gtk.StringObject.new(" 2"))
@@ -168,20 +175,50 @@ def show_preferences(button, self, app):
     simultaneous_download_amount_unit_names_box.set_selected(int(self.appconf["download_simultaneous_amount"])- 1)
     simultaneous_download_amount_unit_names_box.connect("notify::selected", on_simultaneous_download_amount_changed, self)
 
+    # Start in background:
+
     start_in_background = Adw.SwitchRow()
     start_in_background.set_title(_("Start in Background Mode"))
-    start_in_background.connect("notify::active", on_start_in_background, self, preferences)
+    start_in_background.connect("notify::active", on_start_in_background, self)
 
     if (self.appconf["default_mode"] == "background"):
         start_in_background.set_active("active")
+
+    # Scheduler:
+
+    scheduler_actionrow = Adw.ActionRow()
+    scheduler_actionrow.set_title(_("Scheduler"))
+
+    scheduler_actionrow_edit_button = Gtk.Button(label=_("Change"))
+    scheduler_actionrow_edit_button.set_halign(Gtk.Align.START)
+    scheduler_actionrow_edit_button.set_valign(Gtk.Align.CENTER)
+    scheduler_actionrow_edit_button.get_style_context().add_class("suggested-action")
+
+    scheduler_actionrow_edit_button.connect("clicked", lambda clicked: show_scheduler_dialog(self, preferences, app, show_preferences))
+
+    scheduler_actionrow_buttons_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+    scheduler_actionrow_buttons_box.append(scheduler_actionrow_edit_button)
+
+    scheduler_actionrow.add_suffix(scheduler_actionrow_buttons_box)
+
+    # Remote time:
+
+    remote_time = Adw.SwitchRow()
+    remote_time.set_title(_("Remote Timestamp"))
+    remote_time.connect("notify::active", on_remote_time, self)
+
+    if (self.appconf["remote_time"] == "1"):
+        remote_time.set_active("active")
 
     group_1.add(download_directory_actionrow)
     group_1.add(speed_limit_expander_box)
     group_1.add(auth_expander)
     group_1.add(simultaneous_download_amount_unit_names_box)
+    group_1.add(scheduler_actionrow)
     group_1.add(start_in_background)
+    group_1.add(remote_time)
 
-    # Advanced settings:
+    # Remote aria2:
 
     remote_aria2_expander_box = Adw.ExpanderRow()
     remote_aria2_expander_box.set_title(_("Remote Mode"))
@@ -330,11 +367,23 @@ def on_speed_limit_changed(self, speed, speed_type, switch):
 
     self.save_appconf()
 
-def on_start_in_background(switch, state, self, preferencesWindow):
+def on_start_in_background(switch, state, self):
+    state = switch.get_active()
     if state:
         self.appconf["default_mode"] = "background"
     else:
         self.appconf["default_mode"] = "visible"
+
+    self.save_appconf()
+
+def on_remote_time(switch, state, self):
+    state = switch.get_active()
+    if state:
+        self.appconf["remote_time"] = "1"
+        set_aria2c_custom_global_option(self, "remote-time", "true")
+    else:
+        self.appconf["remote_time"] = "0"
+        set_aria2c_custom_global_option(self, "remote-time", "false")
 
     self.save_appconf()
 

@@ -71,10 +71,10 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     download_entry = Gtk.Entry()
     download_entry.set_placeholder_text(_("URL"))
 
-    download_button = Gtk.Button(label=_("Download"))
-    download_button.get_style_context().add_class("pill")
-    download_button.get_style_context().add_class("suggested-action")
-    download_button.connect("clicked", on_download_clicked, self, download_entry, DownloadThread)
+    self.download_button = Gtk.Button(label=_("Download"))
+    self.download_button.get_style_context().add_class("pill")
+    self.download_button.get_style_context().add_class("suggested-action")
+    self.download_button.connect("clicked", on_download_clicked, self, download_entry, DownloadThread)
 
     self.filter_button_show_all = Gtk.ToggleButton()
     self.filter_button_show_all.get_style_context().add_class('flat')
@@ -149,6 +149,7 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     if (self.appconf['remote'] == '1'):
         self.sidebar_remote_mode_label.set_text(textwrap.fill(_("Remote Mode"), 23))
     self.sidebar_speed_limited_label = Gtk.Label()
+    self.sidebar_scheduler_label = Gtk.Label()
 
     sidebar_content_box.set_margin_start(6)
     sidebar_content_box.set_margin_end(6)
@@ -163,13 +164,14 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     sidebar_filter_buttons_box.append(self.filter_button_show_failed)
 
     sidebar_content_box.append(download_entry)
-    sidebar_content_box.append(download_button)
+    sidebar_content_box.append(self.download_button)
     sidebar_content_box.append(sidebar_separator)
     sidebar_content_box.append(sidebar_filter_buttons_box)
     sidebar_content_box.append(sidebar_expanding_box)
     sidebar_content_box.append(self.sidebar_shutdown_mode_label)
     sidebar_content_box.append(self.sidebar_remote_mode_label)
     sidebar_content_box.append(self.sidebar_speed_limited_label)
+    sidebar_content_box.append(self.sidebar_scheduler_label)
     sidebar_box.append(sidebar_content_box)
 
     self.overlay_split_view.set_sidebar(sidebar_box)

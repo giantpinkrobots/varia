@@ -49,7 +49,7 @@ def create_actionrow(self, filename):
     pause_button = Gtk.Button.new_from_icon_name("media-playback-pause-symbolic")
     pause_button.set_valign(Gtk.Align.CENTER)
     pause_button.get_style_context().add_class("circular")
-    pause_button.connect("clicked", on_pause_clicked, self, pause_button, download_item)
+    pause_button.connect("clicked", on_pause_clicked, self, pause_button, download_item, False)
 
     self.pause_buttons.append(pause_button)
     button_box.append(pause_button)
@@ -75,9 +75,9 @@ def create_actionrow(self, filename):
 
     return [progress_bar, speed_label, self.pause_buttons[len(self.pause_buttons)-1], download_item, filename_label]
 
-def on_pause_clicked(button, self, pause_button, download_item):
+def on_pause_clicked(button, self, pause_button, download_item, force_pause):
     download_thread = self.downloads[download_item.index]
-    if download_thread.download.is_paused:
+    if download_thread.download.is_paused and force_pause == False:
         download_thread.resume()
         image = Gtk.Image.new()
         image.set_from_icon_name("media-playback-pause-symbolic")

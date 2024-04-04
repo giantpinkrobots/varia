@@ -18,9 +18,10 @@ from window.sidebar import window_create_sidebar
 from window.content import window_create_content
 from download.actionrow import create_actionrow, on_pause_clicked, on_stop_clicked
 from download.thread import DownloadThread
-from download.communicate import set_speed_limit, set_aria2c_download_directory, set_aria2c_download_simultaneous_amount
+from download.communicate import set_speed_limit, set_aria2c_download_directory, set_aria2c_download_simultaneous_amount, set_aria2c_custom_global_option
 from initiate import initiate
 from download.listen import listen_to_aria2
+from download.scheduler import schedule_downloads
 
 class MainWindow(Adw.ApplicationWindow):
     def __init__(self, variaapp, appdir, appconf, aria2c_subprocess, *args, **kwargs):
@@ -28,6 +29,7 @@ class MainWindow(Adw.ApplicationWindow):
         self.set_hide_on_close(True)
         self.connect('close-request', self.exitProgram, variaapp, False)
 
+        self.scheduler_currently_downloading = False
         self.appdir = appdir
         self.appconf = appconf
         self.aria2c_subprocess = aria2c_subprocess
@@ -41,6 +43,9 @@ class MainWindow(Adw.ApplicationWindow):
         # Create window contents:
         window_create_sidebar(self, variaapp, DownloadThread, variaVersion)
         window_create_content(self, threading)
+
+        if self.appconf["schedule_enabled"] == 1:
+            self.sidebar_scheduler_label.set_label(_("Scheduler enabled"))
 
         # Check if the download path still exists:
         if not (os.path.exists(self.appconf["download_directory"])):
@@ -64,8 +69,18 @@ class MainWindow(Adw.ApplicationWindow):
         # Set the maximum simultaneous download amount from appconf:
         set_aria2c_download_simultaneous_amount(self)
 
+        # Set the remote time setting:
+        if self.appconf["remote_time"] == "1":
+            set_aria2c_custom_global_option(self, "remote-time", "true")
+        else:
+            set_aria2c_custom_global_option(self, "remote-time", "false")
+
         # Listen to aria2c:
         thread = threading.Thread(target=listen_to_aria2(self, variaapp))
+        thread.start()
+
+        # Begin the scheduler:
+        thread = threading.Thread(target=schedule_downloads(self, True))
         thread.start()
 
         # Load incomplete downloads:
@@ -153,16 +168,19 @@ class MainWindow(Adw.ApplicationWindow):
                             download_thread.speed_label.set_text(_("Download complete."))
                             self.pause_buttons[i].hide()
                             self.filter_download_list("no", self.applied_filter)
+
                         elif (download_thread.download.status == "error") or (download_thread.download.status == "removed"):
                             download_thread.cancelled = True
+
                             if (download_thread.download.error_code == "24"):
                                 download_thread.speed_label.set_text(_("Authorization failed."))
+
                             else:
                                 download_thread.speed_label.set_text(_("An error occurred:") + " " + str(download_thread.download.error_code))
                             download_thread.stop(False)
+
                             self.pause_buttons[i].hide()
                             self.filter_download_list("no", self.applied_filter)
-
                 except:
                     self.pause_buttons[i].hide()
                     self.filter_download_list("no", self.applied_filter)
@@ -195,13 +213,15 @@ class MainWindow(Adw.ApplicationWindow):
                 except:
                     continue
             if (total_download_speed == 0):
-                total_download_speed_label.set_text("0" + _(" B/s"))
+                download_speed_text = "0" + _(" B/s")
             elif (total_download_speed < 1024):
-                total_download_speed_label.set_text(str(total_download_speed) + _(" B/s"))
+                download_speed_text = str(total_download_speed) + _(" B/s")
             elif ((total_download_speed >= 1024) and (total_download_speed < 1048576)):
-                total_download_speed_label.set_text(str(round(total_download_speed / 1024, 2)) + _(" KB/s"))
+                download_speed_text = str(round(total_download_speed / 1024, 2)) + _(" KB/s")
             else:
-                total_download_speed_label.set_text(str(round(total_download_speed / 1024 / 1024, 2)) + _(" MB/s"))
+                download_speed_text = str(round(total_download_speed / 1024 / 1024, 2)) + _(" MB/s")
+
+            total_download_speed_label.set_text(download_speed_text)
             time.sleep(1)
 
     def pause_all(self, header_pause_content):
@@ -372,7 +392,11 @@ def main(version, aria2cexec):
         'remote_port': '',
         'remote_secret': '',
         'remote_location': '',
-        'default_mode': 'visible'}
+        'schedule_enabled': '0',
+        'default_mode': 'visible',
+        'schedule_mode': 'inclusive',
+        'schedule': [],
+        'remote_time': '0'}
 
     if os.path.exists(os.path.join(appdir, 'varia.conf')):
         with open(os.path.join(appdir, 'varia.conf'), 'r') as f:

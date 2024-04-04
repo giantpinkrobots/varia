@@ -73,3 +73,17 @@ def set_aria2c_download_simultaneous_amount(self):
         if (download_thread.download):
             if (download_thread.return_gid() in downloads_that_will_restart):
                 download_thread.download.resume()
+
+def set_aria2c_custom_global_option(self, key, value):
+    token = "token:" + self.appconf['remote_secret']
+    json_request = {
+        "jsonrpc": "2.0",
+        "id": "1",
+        "method": "aria2.changeGlobalOption",
+        "params": [
+            token,
+            {key: value}
+        ]
+    }
+
+    response = requests.post(self.aria2cLocation + '/jsonrpc', headers={'Content-Type': 'application/json'}, data=json.dumps(json_request))
