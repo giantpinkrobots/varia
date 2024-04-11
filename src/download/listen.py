@@ -38,11 +38,17 @@ def listen_to_aria2(self, variaapp):
 
         if currently_downloading == True:
             self.shutdown_action.set_enabled(True)
+            self.exit_action.set_enabled(True)
         else:
             self.shutdown_action.set_enabled(False)
+            self.exit_action.set_enabled(False)
             if (self.shutdown_dialog_raised == False) and (self.shutdown_mode == True):
                 self.shutdown_dialog_raised = True
                 raise_shutdown_dialog(self, variaapp)
+
+            if (self.exit_mode == True):
+                initiate_app_exit(self, variaapp)
+
 
         GLib.timeout_add(2000, listen_to_aria2, self, variaapp)
 
@@ -93,3 +99,6 @@ def initiate_shutdown(variamain, shutdown_id):
                                        'org.freedesktop.login1.Manager', None)
         proxy.call_sync('PowerOff', GLib.Variant('(b)', (True,)), Gio.DBusCallFlags.NONE, -1, None)
         exit()
+
+def initiate_app_exit(variamain, variaapp):
+    variamain.exitProgram(variamain, variaapp, background=False)

@@ -47,6 +47,11 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     self.shutdown_action.set_enabled(False)
     variaapp.add_action(self.shutdown_action)
 
+    self.exit_action = Gio.SimpleAction.new("exit_on_completion", None)
+    self.exit_action.connect("activate", exit_on_completion, self)
+    self.exit_action.set_enabled(False)
+    variaapp.add_action(self.exit_action)
+
     hamburger_menu_item_background = Gio.MenuItem.new(_("Background Mode"), "app.background_mode")
     if (os.name != 'nt'):
         hamburger_menu_model.append_item(hamburger_menu_item_background)
@@ -57,8 +62,15 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     hamburger_menu_item_open_downloads_folder = Gio.MenuItem.new(_("Open Download Folder"), "app.downloads_folder")
     hamburger_menu_model.append_item(hamburger_menu_item_open_downloads_folder)
 
-    hamburger_menu_item_shutdown = Gio.MenuItem.new(_("Shutdown on Completion"), "app.shutdown_on_completion")
-    hamburger_menu_model.append_item(hamburger_menu_item_shutdown)
+    completion_submenu_model = Gio.Menu()
+
+    completion_submenu_item_exit = Gio.MenuItem.new(_("Exit on Completion"), "app.exit_on_completion")
+    completion_submenu_model.append_item(completion_submenu_item_exit)
+
+    completion_submenu_item_shutdown = Gio.MenuItem.new(_("Shutdown on Completion"), "app.shutdown_on_completion")
+    completion_submenu_model.append_item(completion_submenu_item_shutdown)
+
+    hamburger_menu_model.append_submenu("Completion Options", completion_submenu_model)
 
     hamburger_menu_item_about = Gio.MenuItem.new(_("About Varia"), "app.about")
     hamburger_menu_model.append_item(hamburger_menu_item_about)
@@ -213,7 +225,17 @@ def open_downloads_folder(self, app, variaapp, appconf):
 def shutdown_on_completion(self, app, variaapp):
     if (variaapp.shutdown_mode == False):
         variaapp.shutdown_mode = True
+        variaapp.exit_mode = False
         variaapp.sidebar_remote_mode_label.set_text(textwrap.fill(_("Shutdown on Completion"), 23))
     else:
         variaapp.shutdown_mode = False
+        variaapp.sidebar_remote_mode_label.set_text("")
+
+def exit_on_completion(self, app, variaapp):
+    if (variaapp.exit_mode == False):
+        variaapp.exit_mode = True
+        variaapp.shutdown_mode = False
+        variaapp.sidebar_remote_mode_label.set_text(textwrap.fill(_("Exit on Completion"), 23))
+    else:
+        variaapp.exit_mode = False
         variaapp.sidebar_remote_mode_label.set_text("")
