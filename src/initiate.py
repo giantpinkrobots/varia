@@ -82,5 +82,8 @@ def initiate(self):
     self.shutdown_dialog_raised = False
     self.shutdown_id = ""
 
+    self.exit_mode = False
+    self.exit_dialog_raised = False
+
 def on_dialog_dismiss(dialog, response_id):
     dialog.destroy()
