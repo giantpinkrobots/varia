@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Varia\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2024-03-21 16:00+0300\n"
+"PO-Revision-Date: 2024-04-25 1:50+0300\n"
 "Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -241,6 +241,66 @@ msgstr "Отменить"
 
 msgid "Warning"
 msgstr "Предупреждение"
+
+msgid "Monday"
+msgstr "Понедельник"
+
+msgid "Tuesday"
+msgstr "Вторник"
+
+msgid "Wednesday"
+msgstr "Среда"
+
+msgid "Thursday"
+msgstr "Четверг"
+
+msgid "Friday"
+msgstr "Пятница"
+
+msgid "Saturday"
+msgstr "Суббота"
+
+msgid "Sunday"
+msgstr "Воскресенье"
+
+msgid "Start (h/m):"
+msgstr "Начало (ч/м):"
+
+msgid "End (h/m):"
+msgstr "Конец (ч/м):"
+
+msgid "Scheduler enabled"
+msgstr "Планировщик включен"
+
+msgid "Scheduler"
+msgstr "Планировщик"
+
+msgid "Enabled"
+msgstr "Включено"
+
+msgid "Start downloading in these times"
+msgstr "Начать загрузку в это время"
+
+msgid "Stop downloading in these times"
+msgstr "Остановить загрузку в это время"
+
+msgid "Add Timespan"
+msgstr "Добавить временной интервал"
+
+msgid "Seeding"
+msgstr "Раздача"
+
+msgid "Failed"
+msgstr "Не удалось"
+
+msgid "Completion Options"
+msgstr "Параметры завершения"
+
+msgid "Exit on Completion"
+msgstr "Выйти после завершения"
+
+msgid "Varia is about to quit."
+msgstr "Приложение завершает работу."
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
