@@ -233,6 +233,66 @@ msgstr ""
 msgid "Warning"
 msgstr ""
 
+msgid "Monday"
+msgstr ""
+
+msgid "Tuesday"
+msgstr ""
+
+msgid "Wednesday"
+msgstr ""
+
+msgid "Thursday"
+msgstr ""
+
+msgid "Friday"
+msgstr ""
+
+msgid "Saturday"
+msgstr ""
+
+msgid "Sunday"
+msgstr ""
+
+msgid "Start (h/m):"
+msgstr ""
+
+msgid "End (h/m):"
+msgstr ""
+
+msgid "Scheduler enabled"
+msgstr ""
+
+msgid "Scheduler"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "Start downloading in these times"
+msgstr ""
+
+msgid "Stop downloading in these times"
+msgstr ""
+
+msgid "Add Timespan"
+msgstr ""
+
+msgid "Seeding"
+msgstr ""
+
+msgid "Failed"
+msgstr ""
+
+msgid "Completion Options"
+msgstr ""
+
+msgid "Exit on Completion"
+msgstr ""
+
+msgid "Varia is about to quit."
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"

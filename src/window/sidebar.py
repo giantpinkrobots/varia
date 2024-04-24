@@ -70,7 +70,7 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     completion_submenu_item_shutdown = Gio.MenuItem.new(_("Shutdown on Completion"), "app.shutdown_on_completion")
     completion_submenu_model.append_item(completion_submenu_item_shutdown)
 
-    hamburger_menu_model.append_submenu("Completion Options", completion_submenu_model)
+    hamburger_menu_model.append_submenu(_("Completion Options"), completion_submenu_model)
 
     hamburger_menu_item_about = Gio.MenuItem.new(_("About Varia"), "app.about")
     hamburger_menu_model.append_item(hamburger_menu_item_about)
@@ -207,12 +207,12 @@ def show_about(app, variaapp, self, variaVersion):
     dialog.set_application_icon("io.github.giantpinkrobots.varia")
     dialog.set_translator_credits(_("translator-credits"))
     dialog.set_artists(["Jakub Steiner"])
-    dialog.set_release_notes_version("v2024.3.20")
-    dialog.set_release_notes('''<p>v2024.3.20:</p>
-        <ul><li>Shutdown after completion option added.</li>
-        <li>Update to GNOME 46 and Libadwaita 1.5.</li>
-        <li>Japanese language support.</li>
-        <li>Bug fixes and adjustments.</li></ul>''')
+    dialog.set_release_notes_version("dev")
+    dialog.set_release_notes('''<p>dev</p>
+        <ul><li>Download scheduling: Start or stop downloading in given timespans.</li>
+        <li>Quit on completion option.</li>
+        <li>Spanish language support.</li>
+        <li>Persian language support.</li></ul>''')
 
     dialog.present(self)
 

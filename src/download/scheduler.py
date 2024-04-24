@@ -10,21 +10,7 @@ def schedule_downloads(self, previous_state):
         now_is_within_a_timespan = False
 
         for timespan in self.appconf['schedule']:
-            match timespan[0]:
-                case 'Monday':
-                    weekday = 0
-                case 'Tuesday':
-                    weekday = 1
-                case 'Wednesday':
-                    weekday = 2
-                case 'Thursday':
-                    weekday = 3
-                case 'Friday':
-                    weekday = 4
-                case 'Saturday':
-                    weekday = 5
-                case 'Sunday':
-                    weekday = 6
+            weekday = timespan[0]
 
             timespan_time_start = datetime.time(timespan[1], timespan[2])
             timespan_time_end = datetime.time(timespan[3], timespan[4])

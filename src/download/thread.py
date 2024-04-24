@@ -85,19 +85,21 @@ class DownloadThread(threading.Thread):
             pass
 
         if self.app.scheduler_currently_downloading == True:
-            self.download.resume()
+            if self.download.is_paused:
+                self.download.resume()
         else:
             on_pause_clicked(self.app, self.app, self.pause_button, self.actionrow, True)
 
         downloadname = self.download.name
         print("Download added. | " + self.download.gid + "\n" + self.downloaddir + "\n" + self.url)
         GLib.idle_add(self.update_header_pause_button)
-        GLib.idle_add(self.set_filename_label)
+        self.previous_filename = ""
 
         self.app.filter_download_list("no", self.app.applied_filter)
         while (self.cancelled == False):
             try:
                 self.download.update()
+                GLib.idle_add(self.set_filename_label)
                 GLib.idle_add(self.update_labels_and_things)
                 if ((self.download.is_complete) and (self.download.is_metadata == False)):
                     print('Download complete: ' + self.download.gid)
@@ -117,7 +119,9 @@ class DownloadThread(threading.Thread):
         filename_shortened = self.download.name[:40]
         if (self.download.name != filename_shortened):
             filename_shortened = filename_shortened + "..."
-        self.filename_label.set_text(filename_shortened)
+        if (filename_shortened != self.previous_filename):
+            self.filename_label.set_text(filename_shortened)
+            self.previous_filename = filename_shortened
 
     def update_header_pause_button(self):
         self.app.all_paused = False

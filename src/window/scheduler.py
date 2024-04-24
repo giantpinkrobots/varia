@@ -19,25 +19,11 @@ def add_timespan_clicked(button, self, timespans_box, day, start_h, start_m, end
 
     days_combobox = Gtk.ComboBoxText()
     all_days = [_("Monday"), _("Tuesday"), _("Wednesday"), _("Thursday"), _("Friday"), _("Saturday"), _("Sunday")]
+
     for day_in_days in all_days:
         days_combobox.append_text(day_in_days)
 
-    match day:
-        case 'Monday':
-            days_combobox.set_active(0)
-        case 'Tuesday':
-            days_combobox.set_active(1)
-        case 'Wednesday':
-            days_combobox.set_active(2)
-        case 'Thursday':
-            days_combobox.set_active(3)
-        case 'Friday':
-            days_combobox.set_active(4)
-        case 'Saturday':
-            days_combobox.set_active(5)
-        case 'Sunday':
-            days_combobox.set_active(6)
-
+    days_combobox.set_active(day)
     box.append(days_combobox)
 
     box_expanding_1 = Gtk.Box()
@@ -122,7 +108,7 @@ def save_schedule(preferencesDialog, self, switch_mode_1, switch_enabled, show_p
     timespan_appconf = []
 
     for item in self.timespans_list:
-        timespan_day = item['day'].get_active_text()
+        timespan_day = item['day'].get_active()
         timespan_start_h = item['start_h'].get_value_as_int()
         timespan_start_m = item['start_m'].get_value_as_int()
         timespan_end_h = item['end_h'].get_value_as_int()
@@ -215,7 +201,7 @@ def show_scheduler_dialog(self, preferencesWindow, variaapp, show_preferences):
     add_timespan_button = Gtk.Button(label=_("Add Timespan"))
     add_timespan_button.get_style_context().add_class("pill")
     add_timespan_button.get_style_context().add_class("suggested-action")
-    add_timespan_button.connect("clicked", add_timespan_clicked, self, timespans_box, 'Monday', 0, 0, 0, 0, switch_enabled)
+    add_timespan_button.connect("clicked", add_timespan_clicked, self, timespans_box, 0, 0, 0, 0, 0, switch_enabled)
     main_box.append(add_timespan_button)
 
     main_box.append(timespans_box)
