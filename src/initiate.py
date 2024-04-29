@@ -69,7 +69,6 @@ def initiate(self):
     self.terminating = False
 
     self.set_title("Varia")
-    Gtk.Settings.get_default().set_property("gtk-icon-theme-name", "Adwaita")
 
     self.overlay_split_view = Adw.OverlaySplitView.new()
     self.set_content(self.overlay_split_view)
@@ -87,3 +86,4 @@ def initiate(self):
 
 def on_dialog_dismiss(dialog, response_id):
     dialog.destroy()
+

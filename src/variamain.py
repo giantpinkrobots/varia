@@ -15,16 +15,16 @@ from gi.repository import Gtk, Adw, GLib, Gio
 import requests
 
 from window.sidebar import window_create_sidebar
-from window.content import window_create_content
+from window.content import window_create_content, create_status_page
 from download.actionrow import create_actionrow, on_pause_clicked, on_stop_clicked
 from download.thread import DownloadThread
-from download.communicate import set_speed_limit, set_aria2c_download_directory, set_aria2c_download_simultaneous_amount, set_aria2c_custom_global_option
+from download.communicate import set_speed_limit, set_aria2c_download_directory, set_aria2c_download_simultaneous_amount, set_aria2c_custom_global_option, set_aria2c_cookies
 from initiate import initiate
 from download.listen import listen_to_aria2
 from download.scheduler import schedule_downloads
 
 class MainWindow(Adw.ApplicationWindow):
-    def __init__(self, variaapp, appdir, appconf, aria2c_subprocess, *args, **kwargs):
+    def __init__(self, variaapp, appdir, appconf, aria2c_subprocess, aria2cexec, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.set_hide_on_close(True)
         self.connect('close-request', self.exitProgram, variaapp, False)
@@ -33,6 +33,7 @@ class MainWindow(Adw.ApplicationWindow):
         self.appdir = appdir
         self.appconf = appconf
         self.aria2c_subprocess = aria2c_subprocess
+        self.bindir = aria2cexec[:-6]
 
         # Set up variables and all:
         aria2_connection_successful = initiate(self)
@@ -74,6 +75,9 @@ class MainWindow(Adw.ApplicationWindow):
             set_aria2c_custom_global_option(self, "remote-time", "true")
         else:
             set_aria2c_custom_global_option(self, "remote-time", "false")
+
+        # Set cookies.txt:
+        set_aria2c_cookies(self)
 
         # Listen to aria2c:
         thread = threading.Thread(target=listen_to_aria2(self, variaapp))
@@ -272,6 +276,7 @@ class MainWindow(Adw.ApplicationWindow):
         self.header_pause_content.set_icon_name("media-playback-pause-symbolic")
         self.header_pause_content.set_label(_("Pause All"))
         self.header_pause_button.set_sensitive(False)
+        create_status_page(self, 0)
 
     def save_appconf(self):
         with open(os.path.join(self.appdir, 'varia.conf'), 'w') as f:
@@ -342,17 +347,17 @@ class MainWindow(Adw.ApplicationWindow):
             self.exitProgram(variaapp, variaapp, False)
 
 class MyApp(Adw.Application):
-    def __init__(self, appdir, appconf, aria2c_subprocess, **kwargs):
+    def __init__(self, appdir, appconf, aria2c_subprocess, aria2cexec, **kwargs):
         super().__init__(**kwargs)
-        self.connect('activate', self.on_activate, appdir, appconf, aria2c_subprocess)
+        self.connect('activate', self.on_activate, appdir, appconf, aria2c_subprocess, aria2cexec)
         quit_action = Gio.SimpleAction.new("quit", None)
         quit_action.connect("activate", self.quit_action)
         self.add_action(quit_action)
         self.initiated = False
 
-    def on_activate(self, app, appdir, appconf, aria2c_subprocess):
+    def on_activate(self, app, appdir, appconf, aria2c_subprocess, aria2cexec):
         if not hasattr(self, 'win'):
-            self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf, aria2c_subprocess=aria2c_subprocess)
+            self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf, aria2c_subprocess=aria2c_subprocess, aria2cexec=aria2cexec)
         if ((self.win.terminating == False) and ((appconf["default_mode"] == "visible") or (self.initiated == True))):
             self.win.present()
         self.initiated = True
@@ -396,7 +401,8 @@ def main(version, aria2cexec):
         'default_mode': 'visible',
         'schedule_mode': 'inclusive',
         'schedule': [],
-        'remote_time': '0'}
+        'remote_time': '0',
+        'cookies_txt': '0'}
 
     if os.path.exists(os.path.join(appdir, 'varia.conf')):
         with open(os.path.join(appdir, 'varia.conf'), 'r') as f:
@@ -416,7 +422,7 @@ def main(version, aria2cexec):
     if (len(arguments) > 1):
         arguments = arguments[:-1]
 
-    app = MyApp(appdir, appconf, aria2c_subprocess, application_id="io.github.giantpinkrobots.varia")
+    app = MyApp(appdir, appconf, aria2c_subprocess, aria2cexec, application_id="io.github.giantpinkrobots.varia")
     try:
         app.run(arguments)
     except:
@@ -424,3 +430,4 @@ def main(version, aria2cexec):
 
 if ((__name__ == '__main__') and (os.name == 'nt')):
     sys.exit(main(variaVersion, "aria2c"))
+

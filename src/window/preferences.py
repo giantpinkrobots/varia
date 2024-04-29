@@ -3,8 +3,9 @@ gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, GLib, Gio
 from gettext import gettext as _
+import os
 
-from download.communicate import set_speed_limit, set_aria2c_download_directory, set_aria2c_download_simultaneous_amount, set_aria2c_custom_global_option
+from download.communicate import set_speed_limit, set_aria2c_download_directory, set_aria2c_download_simultaneous_amount, set_aria2c_custom_global_option, set_aria2c_cookies
 from window.scheduler import show_scheduler_dialog
 
 def show_preferences(button, self, app):
@@ -12,11 +13,11 @@ def show_preferences(button, self, app):
 
     page = Adw.PreferencesPage(title=_("Preferences"))
     preferences.add(page)
-    group_extensions = Adw.PreferencesGroup()
+    group_extensions = Adw.PreferencesGroup(title=_("Browser Extension"))
     page.add(group_extensions)
-    group_1 = Adw.PreferencesGroup()
+    group_1 = Adw.PreferencesGroup(title=_("Basic Settings"))
     page.add(group_1)
-    group_2 = Adw.PreferencesGroup()
+    group_2 = Adw.PreferencesGroup(title=_("Advanced Settings"))
     page.add(group_2)
 
     # Browser extensions section:
@@ -119,41 +120,22 @@ def show_preferences(button, self, app):
     speed_limit_expander_box.add_row(speed_limit_dropdown_box)
     speed_limit_expander_box.add_row(speed_limit_entry)
 
-    # Auth:
+    # Scheduler:
 
-    auth_expander = Adw.ExpanderRow()
-    auth_expander.set_title(_("Authentication"))
+    scheduler_actionrow = Adw.ActionRow()
+    scheduler_actionrow.set_title(_("Scheduler"))
 
-    auth_expander_switch = Gtk.Switch()
-    auth_expander_switch.set_halign(Gtk.Align.START)
-    auth_expander_switch.set_valign(Gtk.Align.CENTER)
-    auth_expander_switch.connect("state-set", on_switch_auth, self, preferences)
+    scheduler_actionrow_edit_button = Gtk.Button(label=_("Change"))
+    scheduler_actionrow_edit_button.set_halign(Gtk.Align.START)
+    scheduler_actionrow_edit_button.set_valign(Gtk.Align.CENTER)
+    scheduler_actionrow_edit_button.get_style_context().add_class("suggested-action")
 
-    username_entry = Adw.EntryRow()
-    username_entry.set_title(_("Username"))
-    username_entry.set_show_apply_button(True)
-    username_entry.connect('apply', lambda entry: set_auth_credentials(self, username_entry, password_entry, auth_expander_switch))
+    scheduler_actionrow_edit_button.connect("clicked", lambda clicked: show_scheduler_dialog(self, preferences, app, show_preferences))
 
-    password_entry = Adw.PasswordEntryRow()
-    password_entry.set_title(_("Password"))
-    password_entry.set_show_apply_button(True)
-    password_entry.connect('apply', lambda entry: set_auth_credentials(self, username_entry, password_entry, auth_expander_switch))
+    scheduler_actionrow_buttons_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+    scheduler_actionrow_buttons_box.append(scheduler_actionrow_edit_button)
 
-    username_entry.set_text(self.appconf["auth_username"])
-    password_entry.set_text(self.appconf["auth_password"])
-
-    if ((self.appconf["auth_username"] != "") and (self.appconf["auth_password"] != "")):
-        auth_expander_switch.set_active(True)
-    else:
-        auth_expander_switch.set_active(False)
-
-    if (self.appconf["auth"] == "1"):
-        auth_expander_switch.set_active("active")
-
-    auth_expander.add_action(auth_expander_switch)
-
-    auth_expander.add_row(username_entry)
-    auth_expander.add_row(password_entry)
+    scheduler_actionrow.add_suffix(scheduler_actionrow_buttons_box)
 
     # Simultaneous download amount:
 
@@ -184,39 +166,13 @@ def show_preferences(button, self, app):
     if (self.appconf["default_mode"] == "background"):
         start_in_background.set_active("active")
 
-    # Scheduler:
-
-    scheduler_actionrow = Adw.ActionRow()
-    scheduler_actionrow.set_title(_("Scheduler"))
-
-    scheduler_actionrow_edit_button = Gtk.Button(label=_("Change"))
-    scheduler_actionrow_edit_button.set_halign(Gtk.Align.START)
-    scheduler_actionrow_edit_button.set_valign(Gtk.Align.CENTER)
-    scheduler_actionrow_edit_button.get_style_context().add_class("suggested-action")
-
-    scheduler_actionrow_edit_button.connect("clicked", lambda clicked: show_scheduler_dialog(self, preferences, app, show_preferences))
-
-    scheduler_actionrow_buttons_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
-    scheduler_actionrow_buttons_box.append(scheduler_actionrow_edit_button)
-
-    scheduler_actionrow.add_suffix(scheduler_actionrow_buttons_box)
-
-    # Remote time:
-
-    remote_time = Adw.SwitchRow()
-    remote_time.set_title(_("Remote Timestamp"))
-    remote_time.connect("notify::active", on_remote_time, self)
-
-    if (self.appconf["remote_time"] == "1"):
-        remote_time.set_active("active")
+    # Construct Group 1:
 
     group_1.add(download_directory_actionrow)
     group_1.add(speed_limit_expander_box)
-    group_1.add(auth_expander)
-    group_1.add(simultaneous_download_amount_unit_names_box)
     group_1.add(scheduler_actionrow)
+    group_1.add(simultaneous_download_amount_unit_names_box)
     group_1.add(start_in_background)
-    group_1.add(remote_time)
 
     # Remote aria2:
 
@@ -290,7 +246,96 @@ def show_preferences(button, self, app):
     remote_aria2_expander_box.add_row(remote_aria2_rpc_entry)
     remote_aria2_expander_box.add_row(remote_aria2_location_entry)
 
-    group_2.add(remote_aria2_expander_box)
+    # Remote time:
+
+    remote_time = Adw.SwitchRow()
+    remote_time.set_title(_("Remote Timestamp"))
+    remote_time.connect("notify::active", on_remote_time, self)
+
+    if (self.appconf["remote_time"] == "1"):
+        remote_time.set_active("active")
+
+    # Auth:
+
+    auth_expander = Adw.ExpanderRow()
+    auth_expander.set_title(_("Authentication"))
+
+    auth_expander_switch = Gtk.Switch()
+    auth_expander_switch.set_halign(Gtk.Align.START)
+    auth_expander_switch.set_valign(Gtk.Align.CENTER)
+    auth_expander_switch.connect("state-set", on_switch_auth, self, preferences)
+
+    username_entry = Adw.EntryRow()
+    username_entry.set_title(_("Username"))
+    username_entry.set_show_apply_button(True)
+    username_entry.connect('apply', lambda entry: set_auth_credentials(self, username_entry, password_entry, auth_expander_switch))
+
+    password_entry = Adw.PasswordEntryRow()
+    password_entry.set_title(_("Password"))
+    password_entry.set_show_apply_button(True)
+    password_entry.connect('apply', lambda entry: set_auth_credentials(self, username_entry, password_entry, auth_expander_switch))
+
+    username_entry.set_text(self.appconf["auth_username"])
+    password_entry.set_text(self.appconf["auth_password"])
+
+    if ((self.appconf["auth_username"] != "") and (self.appconf["auth_password"] != "")):
+        auth_expander_switch.set_active(True)
+    else:
+        auth_expander_switch.set_active(False)
+
+    if (self.appconf["auth"] == "1"):
+        auth_expander_switch.set_active("active")
+
+    auth_expander.add_action(auth_expander_switch)
+
+    auth_expander.add_row(username_entry)
+    auth_expander.add_row(password_entry)
+
+    # Cookies.txt:
+
+    cookies_txt_action = Adw.ActionRow()
+    cookies_txt_action.set_title(_("Use cookies.txt"))
+
+    cookies_txt_action_switch = Gtk.Switch()
+    cookies_txt_action_switch.set_halign(Gtk.Align.START)
+    cookies_txt_action_switch.set_valign(Gtk.Align.CENTER)
+    cookies_txt_action_switch.connect("state-set", on_switch_cookies_txt, self)
+
+    cookies_txt_import_button = Gtk.Button(label=_("Import cookies.txt"))
+    cookies_txt_import_button.set_halign(Gtk.Align.START)
+    cookies_txt_import_button.set_valign(Gtk.Align.CENTER)
+    cookies_txt_import_button.get_style_context().add_class("suggested-action")
+
+    cookies_txt_remove_button = Gtk.Button(label=_("Remove cookies.txt"))
+    cookies_txt_remove_button.set_halign(Gtk.Align.START)
+    cookies_txt_remove_button.set_valign(Gtk.Align.CENTER)
+    cookies_txt_remove_button.get_style_context().add_class("destructive-action")
+
+    cookies_txt_import_button.connect("clicked", lambda clicked: cookies_txt_import(self, True, cookies_txt_import_button, cookies_txt_remove_button, cookies_txt_action_switch))
+    cookies_txt_remove_button.connect("clicked", lambda clicked: cookies_txt_import(self, False, cookies_txt_import_button, cookies_txt_remove_button, cookies_txt_action_switch))
+
+    if os.path.exists(os.path.join(self.appdir, 'cookies.txt')):
+        cookies_txt_action_switch.set_sensitive(True)
+        cookies_txt_import_button.set_visible(False)
+        cookies_txt_remove_button.set_visible(True)
+    else:
+        cookies_txt_action_switch.set_sensitive(False)
+        cookies_txt_import_button.set_visible(True)
+        cookies_txt_remove_button.set_visible(False)
+
+    if (self.appconf["cookies_txt"] == "1"):
+        cookies_txt_action_switch.set_active("active")
+
+    cookies_txt_action.add_suffix(cookies_txt_import_button)
+    cookies_txt_action.add_suffix(cookies_txt_remove_button)
+    cookies_txt_action.add_suffix(cookies_txt_action_switch)
+
+    # Construct Group 2:
+
+    group_2.add(auth_expander)
+    group_2.add(remote_time)
+    group_2.add(cookies_txt_action)
+    group_2.add(cookies_txt_action)
 
     preferences.present(self)
 
@@ -443,6 +488,43 @@ def on_switch_remote(switch, state, self, preferencesWindow):
     self.save_appconf()
     restart_varia_dialog(preferencesWindow)
 
+def cookies_txt_import(self, do_import, cookies_txt_import_button, cookies_txt_remove_button, cookies_txt_action_switch):
+    if do_import == True:
+        file_filter = Gtk.FileFilter()
+        file_filter.add_pattern("*.txt")
+        dialog = Gtk.FileDialog(default_filter=file_filter)
+        dialog.open(self, None, on_cookies_txt_import, cookies_txt_import_button, cookies_txt_remove_button, cookies_txt_action_switch, self)
+    else:
+        os.remove(os.path.join(self.appdir, 'cookies.txt'))
+        cookies_txt_action_switch.set_active(False)
+        cookies_txt_action_switch.set_sensitive(False)
+        cookies_txt_import_button.set_visible(True)
+        cookies_txt_remove_button.set_visible(False)
+        self.appconf["cookies_txt"] = "0"
+        self.save_appconf()
+
+def on_cookies_txt_import(file_dialog, result, cookies_txt_import_button, cookies_txt_remove_button, cookies_txt_action_switch, self):
+    try:
+        file = file_dialog.open_finish(result).get_path()
+    except:
+        return
+    with open(file, 'r') as file:
+        data = file.read()
+    with open(os.path.join(self.appdir, 'cookies.txt'), 'w') as cookies_txt_file:
+        cookies_txt_file.write(data)
+    cookies_txt_action_switch.set_sensitive(True)
+    cookies_txt_import_button.set_visible(False)
+    cookies_txt_remove_button.set_visible(True)
+
+def on_switch_cookies_txt(switch, state, self):
+    state = switch.get_active()
+    if state:
+        self.appconf["cookies_txt"] = "1"
+    else:
+        self.appconf["cookies_txt"] = "0"
+    set_aria2c_cookies(self)
+    self.save_appconf()
+
 def restart_varia_dialog(preferencesWindow):
     dialog = Adw.AlertDialog()
     dialog.set_body(_("Please restart Varia to apply the change."))
@@ -450,3 +532,4 @@ def restart_varia_dialog(preferencesWindow):
     dialog.set_default_response("ok")
     dialog.set_close_response("ok")
     dialog.present(preferencesWindow)
+

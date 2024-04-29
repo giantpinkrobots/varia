@@ -3,6 +3,7 @@ gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw
 from gettext import gettext as _
+from window.content import create_status_page
 
 def on_download_clicked(button, self, entry, DownloadThread):
     url = entry.get_text()
@@ -73,6 +74,8 @@ def create_actionrow(self, filename):
     self.download_list.append(download_item)
     download_item.index = len(self.downloads)
 
+    create_status_page(self, 1)
+
     return [progress_bar, speed_label, self.pause_buttons[len(self.pause_buttons)-1], download_item, filename_label]
 
 def on_pause_clicked(button, self, pause_button, download_item, force_pause):
@@ -122,3 +125,4 @@ def on_stop_clicked(button, self, download_item):
         self.header_pause_content.set_icon_name("media-playback-pause-symbolic")
         self.header_pause_content.set_label(_("Pause All"))
         self.header_pause_button.set_sensitive(False)
+        create_status_page(self, 0)

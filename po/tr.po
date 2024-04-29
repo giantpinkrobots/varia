@@ -297,6 +297,27 @@ msgstr "İndirmeler Bittiğinde Çık"
 msgid "Varia is about to quit."
 msgstr "Varia birazdan kendini kapatacak."
 
+msgid "Preferences"
+msgstr "Seçenekler"
+
+msgid "Other"
+msgstr "Diğer"
+
+msgid "Basic Settings"
+msgstr "Basit Seçenekler"
+
+msgid "Advanced Settings"
+msgstr "Gelişmiş Seçenekler"
+
+msgid "Use cookies.txt"
+msgstr "cookies.txt Kullan"
+
+msgid "Import cookies.txt"
+msgstr "cookies.txt İçe Aktar"
+
+msgid "Remove cookies.txt"
+msgstr "cookies.txt'i Sil"
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"

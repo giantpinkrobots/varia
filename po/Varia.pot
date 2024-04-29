@@ -293,6 +293,27 @@ msgstr ""
 msgid "Varia is about to quit."
 msgstr ""
 
+msgid "Preferences"
+msgstr ""
+
+msgid "Other"
+msgstr ""
+
+msgid "Basic Settings"
+msgstr ""
+
+msgid "Advanced Settings"
+msgstr ""
+
+msgid "Use cookies.txt"
+msgstr ""
+
+msgid "Import cookies.txt"
+msgstr ""
+
+msgid "Remove cookies.txt"
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
