@@ -80,7 +80,7 @@ def set_aria2c_cookies(self):
     header_string = ""
     if self.appconf["cookies_txt"] == "1":
         cookie_jar = http.cookiejar.MozillaCookieJar(os.path.join(self.appdir, 'cookies.txt'))
-        cookie_jar.load()
+        cookie_jar.load(ignore_discard=True, ignore_expires=True)
         all_cookies = "; ".join([f"{item.name}={item.value}" for item in cookie_jar])
         header_string = "Cookie: " + all_cookies
     set_aria2c_custom_global_option(self, "header", header_string)

@@ -1,3 +1,9 @@
+chrome.runtime.onInstalled.addListener(function(details) {
+  if (details.reason === 'install') {
+    chrome.storage.sync.set({enabled: true});
+  }
+});
+
 chrome.downloads.onCreated.addListener(function(downloadItem) {
   chrome.storage.sync.get('enabled', function(data) {
     if (data.enabled) {

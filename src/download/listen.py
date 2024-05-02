@@ -20,21 +20,41 @@ def listen_to_aria2(self, variaapp):
             if frontend_download_item.download:
                 if (frontend_download_item.is_alive()):
                     currently_downloading = True
-                if ( ((frontend_download_item.download.is_metadata) or (frontend_download_item.download.name.endswith(".torrent"))) and (frontend_download_item.download.is_complete) ):
+                if (((frontend_download_item.download.is_metadata) or (frontend_download_item.download.name.endswith(".torrent"))) and (frontend_download_item.download.is_complete)):
                     frontend_download_item.cancelled = True
                     frontend_download_item.stop(True)
                     self.download_list.remove(frontend_download_item.actionrow)
                     self.downloads.remove(frontend_download_item)
 
-        try:
-            downloads_in_frontend = set(download_item.download.gid for download_item in self.downloads.copy())
-            for download_item_to_be_added in self.api.get_downloads():
-                if ((download_item_to_be_added.gid not in downloads_in_frontend) and (download_item_to_be_added.is_metadata == False) and (download_item_to_be_added.is_complete == False)):
-                    if not download_item_to_be_added.is_torrent:
-                        print('Download added directly to aria2c, adding it to the UI: ' + download_item_to_be_added.files[0].uris[0]["uri"])
-                    add_download_to_ui(self, download_item_to_be_added)
-        except:
-            pass
+        downloads_in_frontend_files = []
+        downloads_in_frontend_gids = []
+
+        for download_item in self.downloads.copy():
+            try:
+                downloads_in_frontend_gids.append(download_item.download.gid)
+            except:
+                GLib.timeout_add(2000, listen_to_aria2, self, variaapp)
+                return
+            try:
+                if (download_item.download.status == "active" or download_item.download.status == "waiting" or download_item.download.status == "paused"):
+                    downloads_in_frontend.append(download_item)
+                    for download_file in download_item.files:
+                        downloads_in_frontend_files.append(download_file)
+            except:
+                pass
+
+        downloads_in_frontend_files = set(downloads_in_frontend_files)
+
+        for download_item_to_be_added in self.api.get_downloads():
+            new_download_files = download_item_to_be_added.files
+
+            if ( (download_item_to_be_added.gid not in downloads_in_frontend_gids) # If the download wasn't already added
+                    and (download_item_to_be_added.is_metadata == False) # If the download isn't just metadata
+                    and (download_item_to_be_added.is_complete == False ) # If the download is not complete
+                    and ((any(item in new_download_files for item in downloads_in_frontend_files)) == False) ): # Make sure it's not a duplicate
+                if not download_item_to_be_added.is_torrent:
+                    print('Download added directly to aria2c, adding it to the UI: ' + download_item_to_be_added.files[0].uris[0]["uri"])
+                add_download_to_ui(self, download_item_to_be_added)
 
         if currently_downloading == True:
             self.shutdown_action.set_enabled(True)

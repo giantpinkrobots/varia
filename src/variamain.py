@@ -36,7 +36,7 @@ class MainWindow(Adw.ApplicationWindow):
         self.bindir = aria2cexec[:-6]
 
         # Set up variables and all:
-        aria2_connection_successful = initiate(self)
+        aria2_connection_successful = initiate(self, variaVersion)
 
         if (aria2_connection_successful == -1):
             return
