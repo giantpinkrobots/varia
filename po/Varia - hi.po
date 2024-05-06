@@ -1,0 +1,339 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Scrambled777 <weblate.scrambled777@simplelogin.com>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: varia\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-30 03:17+0300\n"
+"PO-Revision-Date: 2024-05-06 17:54+0530\n"
+"Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
+"Language-Team: Hindi\n"
+"Language: hi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Gtranslator 46.1\n"
+
+#. Translators: Do NOT translate or localize the application name.
+#: data/io.github.giantpinkrobots.varia.desktop.in:4
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:3
+msgid "Varia"
+msgstr "Varia"
+
+#. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
+#: data/io.github.giantpinkrobots.varia.desktop.in:11
+msgid "varia;aria;download;manager;"
+msgstr "varia;aria;डाउनलोड;प्रबंधक;"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
+msgid "Download manager based on aria2"
+msgstr "Aria2 पर आधारित डाउनलोड प्रबंधक"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
+msgid ""
+"Varia is a download manager based on aria2 that utilizes GTK4 and Libadwaita "
+"to provide a easy to use interface that integrates well with the GNOME "
+"desktop."
+msgstr ""
+"Varia aria2 पर आधारित डाउनलोड प्रबंधक है जो उपयोग में आसान इंटरफ़ेस प्रदान करने के लिए "
+"GTK4 और Livadwaita का उपयोग करता है जो GNOME डेस्कटॉप के साथ अच्छी तरह से एकीकृत "
+"होता है।"
+
+#: src/variamain.py:45
+msgid "This is not a valid URL."
+msgstr "यह मान्य URL नहीं है।"
+
+#: src/variamain.py:125
+msgid "All"
+msgstr "सभी"
+
+#: src/variamain.py:137
+msgid "In Progress"
+msgstr "प्रगति पर"
+
+#: src/variamain.py:148
+msgid "Completed"
+msgstr "पूर्ण"
+
+#: src/variamain.py:171
+msgid "About Varia"
+msgstr "Varia के बारे में"
+
+#: src/variamain.py:177
+msgid "URL"
+msgstr "URL"
+
+#: src/variamain.py:178
+msgid "Download"
+msgstr "डाउनलोड"
+
+#: src/variamain.py:184
+msgid "Open Download Folder"
+msgstr "डाउनलोड फोल्डर खोलें"
+
+#: src/variamain.py:196
+msgid "Speed Limit"
+msgstr "गति सीमा"
+
+#: src/variamain.py:203 src/variamain.py:423
+msgid "Pause All"
+msgstr "सभी विराम करें"
+
+#: src/variamain.py:212
+msgid "Speed"
+msgstr "गति"
+
+#: src/variamain.py:215
+msgid "Set Speed Limit"
+msgstr "गति सीमा तय करें"
+
+#: src/variamain.py:216
+msgid "Cancel All"
+msgstr "सभी रद्द करें"
+
+#: src/variamain.py:235
+msgid "/s"
+msgstr "/s"
+
+#: src/variamain.py:238
+msgid "No limit"
+msgstr "कोई सीमा नहीं"
+
+#: src/variamain.py:274
+msgid "Download complete."
+msgstr "डाउनलोड पूर्ण।"
+
+#: src/variamain.py:276
+msgid "Download speed is limited."
+msgstr "डाउनलोड गति सीमित है।"
+
+#: src/variamain.py:277
+msgid "An error occurred:"
+msgstr "एक त्रुटि हुई:"
+
+#: src/variamain.py:292
+msgid "MB/s"
+msgstr "MB/s"
+
+#: src/variamain.py:294
+msgid "KB/s"
+msgstr "KB/s"
+
+#: src/variamain.py:298
+msgid "0 B/s"
+msgstr "0 B/s"
+
+#: src/variamain.py:300
+msgid " MB/s"
+msgstr " MB/s"
+
+#: src/variamain.py:302
+msgid " KB/s"
+msgstr " KB/s"
+
+#: src/variamain.py:304
+msgid " B/s"
+msgstr " B/s"
+
+#: src/variamain.py:404
+msgid "Simultaneous Download Amount"
+msgstr "समकालिक डाउनलोड मात्रा"
+
+#: src/variamain.py:410
+msgid "Resume All"
+msgstr "सभी पुनः आरंभ करें"
+
+#: src/variamain.py:443
+msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
+msgstr "GTK4 और Libadwaita का उपयोग करने वाला aria2 आधारित डाउनलोड प्रबंधक।"
+
+#: src/variamain.py:777
+msgid "This application relies on the following pieces of software:"
+msgstr "यह अनुप्रयोग सॉफ्टवेयर के निम्नलिखित हिस्सों पर निर्भर करता है:"
+
+#: src/variamain.py:777
+msgid ""
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
+msgstr ""
+"सॉफ्टवेयर के इन सभी टुकड़ों के लाइसेंस इस अनुप्रयोग की ऐप निर्देशिका में "
+"dependency_information निर्देशिका में पाए जा सकते हैं।"
+
+#: src/variamain.py:449
+msgid "translator-credits"
+msgstr "Scrambled777 <weblate.scrambled777@simplelogin.com>"
+
+#: src/variamain.py:457
+msgid "Download Directory"
+msgstr "डाउनलोड निर्देशिका"
+
+#: src/variamain.py:460
+msgid "Change"
+msgstr "बदलें"
+
+#: src/variamain.py:463
+msgid "Speed limited"
+msgstr "गति नियंत्रित"
+
+#: src/variamain.py:519
+msgid "Authentication"
+msgstr "प्रमाणीकरण"
+
+#: src/variamain.py:532
+msgid "Username"
+msgstr "उपयोक्तानाम"
+
+#: src/variamain.py:534
+msgid "Password"
+msgstr "पासवर्ड"
+
+#: src/variamain.py:554
+msgid "Authorization failed."
+msgstr "प्रमाणीकरण विफल।"
+
+#: src/variamain.py:806
+msgid "Failed to open directory."
+msgstr "निर्देशिका खोलने में असफल।"
+
+msgid "Remote Mode"
+msgstr "रिमोट मोड"
+
+msgid "Remote aria2 IP"
+msgstr "रिमोट aria2 IP"
+
+msgid "Remote aria2 Port"
+msgstr "रिमोट aria2 पोर्ट"
+
+msgid "Remote aria2 RPC Secret"
+msgstr "रिमोट aria2 RPC सीक्रेट"
+
+msgid "Remote Download Location"
+msgstr "रिमोट डाउनलोड स्थान"
+
+msgid "Exiting Varia..."
+msgstr "Varia से बाहर निकल रहें हैं..."
+
+msgid "Background Mode"
+msgstr "पृष्ठभूमि मोड"
+
+msgid "Continuing the downloads in the background."
+msgstr "पृष्ठभूमि में डाउनलोड जारी रखना।"
+
+msgid "Browser Extension"
+msgstr "ब्राउज़र एक्सटेंशन"
+
+msgid "Shutdown on Completion"
+msgstr "समापन पर शटडाउन"
+
+msgid "Varia is about to shut down your computer."
+msgstr "Varia आपका कंप्यूटर बंद करने वाला है।"
+
+msgid "Press Cancel to cancel and disable."
+msgstr "रद्द करने और अक्षम करने के लिए रद्द करें दबाएं।"
+
+msgid "Cancel"
+msgstr "रद्द करें"
+
+msgid "Warning"
+msgstr "चेतावनी"
+
+msgid "Monday"
+msgstr "सोमवार"
+
+msgid "Tuesday"
+msgstr "मंगलवार"
+
+msgid "Wednesday"
+msgstr "बुधवार"
+
+msgid "Thursday"
+msgstr "गुरुवार"
+
+msgid "Friday"
+msgstr "शुक्रवार"
+
+msgid "Saturday"
+msgstr "शनिवार"
+
+msgid "Sunday"
+msgstr "रविवार"
+
+msgid "Start (h/m):"
+msgstr "प्रारंभ (h/m):"
+
+msgid "End (h/m):"
+msgstr "समाप्त (h/m):"
+
+msgid "Scheduler enabled"
+msgstr "अनुसूचक सक्षम"
+
+msgid "Scheduler"
+msgstr "अनुसूचक"
+
+msgid "Enabled"
+msgstr "सक्षम"
+
+msgid "Start downloading in these times"
+msgstr "इन समय में डाउनलोड करना प्रारंभ करें"
+
+msgid "Stop downloading in these times"
+msgstr "इन समय में डाउनलोड करना बंद करें"
+
+msgid "Add Timespan"
+msgstr "समय-अवधि जोड़ें"
+
+msgid "Seeding"
+msgstr "सीडिंग"
+
+msgid "Failed"
+msgstr "असफल"
+
+msgid "Completion Options"
+msgstr "समापन विकल्प"
+
+msgid "Exit on Completion"
+msgstr "समापन पर बाहर निकलें"
+
+msgid "Varia is about to quit."
+msgstr "Varia छोड़ने वाला है।"
+
+msgid "Preferences"
+msgstr "प्राथमिकताएं"
+
+msgid "Other"
+msgstr "अन्य"
+
+msgid "Basic Settings"
+msgstr "बुनियादी सेटिंग्स"
+
+msgid "Advanced Settings"
+msgstr "उन्नत सेटिंग्स"
+
+msgid "Use cookies.txt"
+msgstr "cookies.txt का प्रयोग करें"
+
+msgid "Import cookies.txt"
+msgstr "cookies.txt आयात करें"
+
+msgid "Remove cookies.txt"
+msgstr "cookies.txt हटाएं"
+
+#: src/gtk/help-overlay.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "सामान्य"
+
+#: src/gtk/help-overlay.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "शॉर्टकट दिखाएं"
+
+#: src/gtk/help-overlay.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "छोड़ें"
