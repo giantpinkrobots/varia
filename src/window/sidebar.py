@@ -207,12 +207,17 @@ def show_about(app, variaapp, self, variaVersion):
     dialog.set_application_icon("io.github.giantpinkrobots.varia")
     dialog.set_translator_credits(_("translator-credits"))
     dialog.set_artists(["Jakub Steiner"])
-    dialog.set_release_notes_version("dev")
-    dialog.set_release_notes('''<p>dev</p>
+    dialog.set_release_notes_version("v2024.5.7")
+    dialog.set_release_notes('''
         <ul><li>Download scheduling: Start or stop downloading in given timespans.</li>
+        <li>cookies.txt file import support.</li>
+        <li>Remote timestamp support.</li>
+        <li>Options to filter by seeding and failed downloads in the sidebar.</li>
         <li>Quit on completion option.</li>
+        <li>Start in background mode option.</li>
         <li>Spanish language support.</li>
-        <li>Persian language support.</li></ul>''')
+        <li>Persian language support.</li>
+        <li>Hindi language support.</li></ul>''')
 
     dialog.present(self)
 

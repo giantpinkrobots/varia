@@ -54,7 +54,7 @@ def listen_to_aria2(self, variaapp):
                     and ((any(item in new_download_files for item in downloads_in_frontend_files)) == False) ): # Make sure it's not a duplicate
                 if not download_item_to_be_added.is_torrent:
                     print('Download added directly to aria2c, adding it to the UI: ' + download_item_to_be_added.files[0].uris[0]["uri"])
-                add_download_to_ui(self, download_item_to_be_added)
+                add_download_to_ui(self, download_item_to_be_added, variaapp)
 
         if currently_downloading == True:
             self.shutdown_action.set_enabled(True)
@@ -73,11 +73,14 @@ def listen_to_aria2(self, variaapp):
 
         GLib.timeout_add(2000, listen_to_aria2, self, variaapp)
 
-def add_download_to_ui(self, download_item_to_be_added):
+def add_download_to_ui(self, download_item_to_be_added, variaapp):
     if download_item_to_be_added.is_torrent:
         download_item_url = "magnet:?xt=urn:btih:" + download_item_to_be_added.info_hash
     else:
         download_item_url = download_item_to_be_added.files[0].uris[0]["uri"].split("?")[0]
+
+    notification = Gio.Notification.new(download_item_to_be_added.name)
+    variaapp.send_notification(None, notification)
 
     objectlist = create_actionrow(self, download_item_url)
     download_thread = DownloadThread(self, download_item_url, *objectlist, download_item_to_be_added, None)

@@ -279,12 +279,12 @@ def show_preferences(button, self, app):
     password_entry.set_text(self.appconf["auth_password"])
 
     if ((self.appconf["auth_username"] != "") and (self.appconf["auth_password"] != "")):
-        auth_expander_switch.set_active(True)
+        auth_expander_switch.set_sensitive(True)
     else:
-        auth_expander_switch.set_active(False)
+        auth_expander_switch.set_sensitive(False)
 
     if (self.appconf["auth"] == "1"):
-        auth_expander_switch.set_active("active")
+        auth_expander_switch.set_active(True)
 
     auth_expander.add_action(auth_expander_switch)
 
