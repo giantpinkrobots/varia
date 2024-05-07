@@ -9,7 +9,7 @@ gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, GLib
 from gettext import gettext as _
 
-def initiate(self):
+def initiate(self, variaVersion):
     self.downloaddir = self.appconf["download_directory"]
 
     self.applied_filter = "show_all"
@@ -68,8 +68,11 @@ def initiate(self):
     self.total_download_speed = ""
     self.terminating = False
 
-    self.set_title("Varia")
-    Gtk.Settings.get_default().set_property("gtk-icon-theme-name", "Adwaita")
+    if ("dev" not in variaVersion):
+        self.set_title("Varia")
+    else:
+        self.set_title("Varia (dev)")
+        Gtk.Settings.get_default().set_property("gtk-icon-theme-name", "Adwaita")
 
     self.overlay_split_view = Adw.OverlaySplitView.new()
     self.set_content(self.overlay_split_view)
@@ -82,5 +85,9 @@ def initiate(self):
     self.shutdown_dialog_raised = False
     self.shutdown_id = ""
 
+    self.exit_mode = False
+    self.exit_dialog_raised = False
+
 def on_dialog_dismiss(dialog, response_id):
     dialog.destroy()
+

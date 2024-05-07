@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2023-11-30 03:18+0300\n"
+"PO-Revision-Date: 2024-4-24 14:18+0300\n"
 "Last-Translator: Giant Pink Robots! <giantpinkrobots@protonmail.com>\n"
 "Language-Team: \n"
 "Language: tr\n"
@@ -236,6 +236,87 @@ msgstr "Vazgeç"
 
 msgid "Warning"
 msgstr "Uyarı"
+
+msgid "Monday"
+msgstr "Pazartesi"
+
+msgid "Tuesday"
+msgstr "Salı"
+
+msgid "Wednesday"
+msgstr "Çarşamba"
+
+msgid "Thursday"
+msgstr "Perşembe"
+
+msgid "Friday"
+msgstr "Cuma"
+
+msgid "Saturday"
+msgstr "Cumartesi"
+
+msgid "Sunday"
+msgstr "Pazar"
+
+msgid "Start (h/m):"
+msgstr "Başlangıç (s/d):"
+
+msgid "End (h/m):"
+msgstr "Bitiş (s/d):"
+
+msgid "Scheduler enabled"
+msgstr "Zamanlayıcı aktif"
+
+msgid "Scheduler"
+msgstr "Zamanlayıcı"
+
+msgid "Enabled"
+msgstr "Aktif"
+
+msgid "Start downloading in these times"
+msgstr "Bu zamanlarda indir"
+
+msgid "Stop downloading in these times"
+msgstr "Bu zamanlarda indirme"
+
+msgid "Add Timespan"
+msgstr "Zaman Aralığı Ekle"
+
+msgid "Seeding"
+msgstr "Seed Ediliyor"
+
+msgid "Failed"
+msgstr "Başarısız"
+
+msgid "Completion Options"
+msgstr "Tamamlama Seçenekleri"
+
+msgid "Exit on Completion"
+msgstr "İndirmeler Bittiğinde Çık"
+
+msgid "Varia is about to quit."
+msgstr "Varia birazdan kendini kapatacak."
+
+msgid "Preferences"
+msgstr "Seçenekler"
+
+msgid "Other"
+msgstr "Diğer"
+
+msgid "Basic Settings"
+msgstr "Basit Seçenekler"
+
+msgid "Advanced Settings"
+msgstr "Gelişmiş Seçenekler"
+
+msgid "Use cookies.txt"
+msgstr "cookies.txt Kullan"
+
+msgid "Import cookies.txt"
+msgstr "cookies.txt İçe Aktar"
+
+msgid "Remove cookies.txt"
+msgstr "cookies.txt'i Sil"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

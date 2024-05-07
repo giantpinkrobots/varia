@@ -38,6 +38,7 @@ varia_sources_window = [
   'window/content.py',
   'window/sidebar.py',
   'window/preferences.py',
+  'window/scheduler.py',
 ]
 
 varia_sources_download = [
@@ -45,6 +46,7 @@ varia_sources_download = [
   'download/thread.py',
   'download/communicate.py',
   'download/listen.py',
+  'download/scheduler.py',
 ]
 
 install_data(varia_sources, install_dir: moduledir)

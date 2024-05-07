@@ -1,4 +1,4 @@
-variaVersion = "v2024.3.20"
+variaVersion = "v2024.5.7"
 
 import gi
 import sys
@@ -15,25 +15,28 @@ from gi.repository import Gtk, Adw, GLib, Gio
 import requests
 
 from window.sidebar import window_create_sidebar
-from window.content import window_create_content
+from window.content import window_create_content, create_status_page
 from download.actionrow import create_actionrow, on_pause_clicked, on_stop_clicked
 from download.thread import DownloadThread
-from download.communicate import set_speed_limit, set_aria2c_download_directory, set_aria2c_download_simultaneous_amount
+from download.communicate import set_speed_limit, set_aria2c_download_directory, set_aria2c_download_simultaneous_amount, set_aria2c_custom_global_option, set_aria2c_cookies
 from initiate import initiate
 from download.listen import listen_to_aria2
+from download.scheduler import schedule_downloads
 
 class MainWindow(Adw.ApplicationWindow):
-    def __init__(self, variaapp, appdir, appconf, aria2c_subprocess, *args, **kwargs):
+    def __init__(self, variaapp, appdir, appconf, aria2c_subprocess, aria2cexec, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.set_hide_on_close(True)
         self.connect('close-request', self.exitProgram, variaapp, False)
 
+        self.scheduler_currently_downloading = False
         self.appdir = appdir
         self.appconf = appconf
         self.aria2c_subprocess = aria2c_subprocess
+        self.bindir = aria2cexec[:-6]
 
         # Set up variables and all:
-        aria2_connection_successful = initiate(self)
+        aria2_connection_successful = initiate(self, variaVersion)
 
         if (aria2_connection_successful == -1):
             return
@@ -41,6 +44,9 @@ class MainWindow(Adw.ApplicationWindow):
         # Create window contents:
         window_create_sidebar(self, variaapp, DownloadThread, variaVersion)
         window_create_content(self, threading)
+
+        if self.appconf["schedule_enabled"] == 1:
+            self.sidebar_scheduler_label.set_label(_("Scheduler enabled"))
 
         # Check if the download path still exists:
         if not (os.path.exists(self.appconf["download_directory"])):
@@ -64,8 +70,21 @@ class MainWindow(Adw.ApplicationWindow):
         # Set the maximum simultaneous download amount from appconf:
         set_aria2c_download_simultaneous_amount(self)
 
+        # Set the remote time setting:
+        if self.appconf["remote_time"] == "1":
+            set_aria2c_custom_global_option(self, "remote-time", "true")
+        else:
+            set_aria2c_custom_global_option(self, "remote-time", "false")
+
+        # Set cookies.txt:
+        set_aria2c_cookies(self)
+
         # Listen to aria2c:
         thread = threading.Thread(target=listen_to_aria2(self, variaapp))
+        thread.start()
+
+        # Begin the scheduler:
+        thread = threading.Thread(target=schedule_downloads(self, True))
         thread.start()
 
         # Load incomplete downloads:
@@ -83,36 +102,64 @@ class MainWindow(Adw.ApplicationWindow):
                 self.downloads.append(download_thread)
                 download_thread.start()
 
+        # Start in background mode if it was enabled in preferences:
+        if (self.appconf["default_mode"] == "background"):
+            self.exitProgram(app=self, variaapp=variaapp, background=True)
+
     def filter_download_list(self, button, filter_mode):
         if (button != "no"):
             self.filter_button_show_all.set_active(False)
             self.filter_button_show_downloading.set_active(False)
             self.filter_button_show_completed.set_active(False)
-        match filter_mode:
-            case "show_all":
-                self.applied_filter = "show_all"
-                for download_thread in self.downloads:
-                    download_thread.actionrow.show()
-                self.filter_button_show_all.set_active(True)
-            case "show_downloading":
+            self.filter_button_show_seeding.set_active(False)
+            self.filter_button_show_failed.set_active(False)
+
+        else:
+            filter_mode = self.applied_filter
+
+        if (filter_mode == "show_all"):
+            self.applied_filter = "show_all"
+            for download_thread in self.downloads:
+                download_thread.actionrow.show()
+            self.filter_button_show_all.set_active(True)
+
+        else:
+            for download_thread in self.downloads:
+                download_thread.actionrow.hide()
+
+            if (filter_mode == "show_downloading"):
                 self.applied_filter = "show_downloading"
                 for download_thread in self.downloads:
-                    print(download_thread.download.status)
-                    download_thread.actionrow.hide()
                     if (download_thread.download):
-                        if ((download_thread.download.status != "complete") and (download_thread.download.status != "error")):
+                        if (((download_thread.download.status == "waiting") or (download_thread.download.status == "active")) and (download_thread.download.seeder != True)):
                             download_thread.actionrow.show()
                     else:
                         download_thread.actionrow.show()
                 self.filter_button_show_downloading.set_active(True)
-            case "show_completed":
+
+            elif (filter_mode == "show_completed"):
                 self.applied_filter = "show_completed"
                 for download_thread in self.downloads:
-                    download_thread.actionrow.hide()
                     if (download_thread.download):
-                        if ((download_thread.download.status == "complete") or (download_thread.download.status == "error")):
+                        if (download_thread.download.status == "complete"):
                             download_thread.actionrow.show()
                 self.filter_button_show_completed.set_active(True)
+
+            elif (filter_mode == "show_seeding"):
+                self.applied_filter = "show_seeding"
+                for download_thread in self.downloads:
+                    if (download_thread.download):
+                        if (download_thread.download.seeder == True):
+                            download_thread.actionrow.show()
+                self.filter_button_show_seeding.set_active(True)
+
+            else:
+                self.applied_filter = "show_failed"
+                for download_thread in self.downloads:
+                    if (download_thread.download):
+                        if (download_thread.download.status == "error"):
+                            download_thread.actionrow.show()
+                self.filter_button_show_failed.set_active(True)
 
     def check_download_status(self):
         while (self.terminating == False):
@@ -125,16 +172,19 @@ class MainWindow(Adw.ApplicationWindow):
                             download_thread.speed_label.set_text(_("Download complete."))
                             self.pause_buttons[i].hide()
                             self.filter_download_list("no", self.applied_filter)
+
                         elif (download_thread.download.status == "error") or (download_thread.download.status == "removed"):
                             download_thread.cancelled = True
+
                             if (download_thread.download.error_code == "24"):
                                 download_thread.speed_label.set_text(_("Authorization failed."))
+
                             else:
                                 download_thread.speed_label.set_text(_("An error occurred:") + " " + str(download_thread.download.error_code))
                             download_thread.stop(False)
+
                             self.pause_buttons[i].hide()
                             self.filter_download_list("no", self.applied_filter)
-
                 except:
                     self.pause_buttons[i].hide()
                     self.filter_download_list("no", self.applied_filter)
@@ -167,13 +217,15 @@ class MainWindow(Adw.ApplicationWindow):
                 except:
                     continue
             if (total_download_speed == 0):
-                total_download_speed_label.set_text("0" + _(" B/s"))
+                download_speed_text = "0" + _(" B/s")
             elif (total_download_speed < 1024):
-                total_download_speed_label.set_text(str(total_download_speed) + _(" B/s"))
+                download_speed_text = str(total_download_speed) + _(" B/s")
             elif ((total_download_speed >= 1024) and (total_download_speed < 1048576)):
-                total_download_speed_label.set_text(str(round(total_download_speed / 1024, 2)) + _(" KB/s"))
+                download_speed_text = str(round(total_download_speed / 1024, 2)) + _(" KB/s")
             else:
-                total_download_speed_label.set_text(str(round(total_download_speed / 1024 / 1024, 2)) + _(" MB/s"))
+                download_speed_text = str(round(total_download_speed / 1024 / 1024, 2)) + _(" MB/s")
+
+            total_download_speed_label.set_text(download_speed_text)
             time.sleep(1)
 
     def pause_all(self, header_pause_content):
@@ -224,6 +276,7 @@ class MainWindow(Adw.ApplicationWindow):
         self.header_pause_content.set_icon_name("media-playback-pause-symbolic")
         self.header_pause_content.set_label(_("Pause All"))
         self.header_pause_button.set_sensitive(False)
+        create_status_page(self, 0)
 
     def save_appconf(self):
         with open(os.path.join(self.appdir, 'varia.conf'), 'w') as f:
@@ -235,6 +288,7 @@ class MainWindow(Adw.ApplicationWindow):
             self.hide()
             notification = Gio.Notification.new(_("Background Mode"))
             notification.set_body(_("Continuing the downloads in the background."))
+            notification.set_title(_("Background Mode")),
             variaapp.send_notification(None, notification)
             print('Background mode')
         else:
@@ -293,18 +347,20 @@ class MainWindow(Adw.ApplicationWindow):
             self.exitProgram(variaapp, variaapp, False)
 
 class MyApp(Adw.Application):
-    def __init__(self, appdir, appconf, aria2c_subprocess, **kwargs):
+    def __init__(self, appdir, appconf, aria2c_subprocess, aria2cexec, **kwargs):
         super().__init__(**kwargs)
-        self.connect('activate', self.on_activate, appdir, appconf, aria2c_subprocess)
+        self.connect('activate', self.on_activate, appdir, appconf, aria2c_subprocess, aria2cexec)
         quit_action = Gio.SimpleAction.new("quit", None)
         quit_action.connect("activate", self.quit_action)
         self.add_action(quit_action)
+        self.initiated = False
 
-    def on_activate(self, app, appdir, appconf, aria2c_subprocess):
+    def on_activate(self, app, appdir, appconf, aria2c_subprocess, aria2cexec):
         if not hasattr(self, 'win'):
-            self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf, aria2c_subprocess=aria2c_subprocess)
-        if (self.win.terminating == False):
+            self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf, aria2c_subprocess=aria2c_subprocess, aria2cexec=aria2cexec)
+        if ((self.win.terminating == False) and ((appconf["default_mode"] == "visible") or (self.initiated == True))):
             self.win.present()
+        self.initiated = True
 
     def quit_action(self, action, parameter):
         self.win.quit_action_received(self)
@@ -340,7 +396,13 @@ def main(version, aria2cexec):
         'remote_ip': '',
         'remote_port': '',
         'remote_secret': '',
-        'remote_location': ''}
+        'remote_location': '',
+        'schedule_enabled': '0',
+        'default_mode': 'visible',
+        'schedule_mode': 'inclusive',
+        'schedule': [],
+        'remote_time': '0',
+        'cookies_txt': '0'}
 
     if os.path.exists(os.path.join(appdir, 'varia.conf')):
         with open(os.path.join(appdir, 'varia.conf'), 'r') as f:
@@ -360,7 +422,7 @@ def main(version, aria2cexec):
     if (len(arguments) > 1):
         arguments = arguments[:-1]
 
-    app = MyApp(appdir, appconf, aria2c_subprocess, application_id="io.github.giantpinkrobots.varia")
+    app = MyApp(appdir, appconf, aria2c_subprocess, aria2cexec, application_id="io.github.giantpinkrobots.varia")
     try:
         app.run(arguments)
     except:
@@ -368,3 +430,4 @@ def main(version, aria2cexec):
 
 if ((__name__ == '__main__') and (os.name == 'nt')):
     sys.exit(main(variaVersion, "aria2c"))
+

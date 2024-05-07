@@ -1,3 +1,9 @@
+chrome.runtime.onInstalled.addListener(function(details) {
+  if (details.reason === 'install') {
+    chrome.storage.sync.set({enabled: true});
+  }
+});
+
 chrome.downloads.onCreated.addListener(function(downloadItem) {
   chrome.storage.sync.get('enabled', function(data) {
     if (data.enabled) {
@@ -16,7 +22,7 @@ function sendToAria2(downloadItem) {
       jsonrpc: '2.0',
       id: '1',
       method: 'aria2.addUri',
-      params: [[downloadItem.url]]
+      params: [[downloadItem.url], {"pause": "true"}]
     })
   }).then(response => {
     chrome.downloads.cancel(downloadItem.id);

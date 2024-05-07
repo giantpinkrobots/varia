@@ -1,5 +1,7 @@
 import requests
 import json
+import http.cookiejar
+import os
 
 def set_speed_limit(self, download_limit):
     self.sidebar_speed_limited_label.set_text("")
@@ -73,3 +75,26 @@ def set_aria2c_download_simultaneous_amount(self):
         if (download_thread.download):
             if (download_thread.return_gid() in downloads_that_will_restart):
                 download_thread.download.resume()
+
+def set_aria2c_cookies(self):
+    header_string = ""
+    if self.appconf["cookies_txt"] == "1":
+        cookie_jar = http.cookiejar.MozillaCookieJar(os.path.join(self.appdir, 'cookies.txt'))
+        cookie_jar.load(ignore_discard=True, ignore_expires=True)
+        all_cookies = "; ".join([f"{item.name}={item.value}" for item in cookie_jar])
+        header_string = "Cookie: " + all_cookies
+    set_aria2c_custom_global_option(self, "header", header_string)
+
+def set_aria2c_custom_global_option(self, key, value):
+    token = "token:" + self.appconf['remote_secret']
+    json_request = {
+        "jsonrpc": "2.0",
+        "id": "1",
+        "method": "aria2.changeGlobalOption",
+        "params": [
+            token,
+            {key: value}
+        ]
+    }
+
+    response = requests.post(self.aria2cLocation + '/jsonrpc', headers={'Content-Type': 'application/json'}, data=json.dumps(json_request))

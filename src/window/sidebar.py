@@ -47,6 +47,11 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     self.shutdown_action.set_enabled(False)
     variaapp.add_action(self.shutdown_action)
 
+    self.exit_action = Gio.SimpleAction.new("exit_on_completion", None)
+    self.exit_action.connect("activate", exit_on_completion, self)
+    self.exit_action.set_enabled(False)
+    variaapp.add_action(self.exit_action)
+
     hamburger_menu_item_background = Gio.MenuItem.new(_("Background Mode"), "app.background_mode")
     if (os.name != 'nt'):
         hamburger_menu_model.append_item(hamburger_menu_item_background)
@@ -57,8 +62,15 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     hamburger_menu_item_open_downloads_folder = Gio.MenuItem.new(_("Open Download Folder"), "app.downloads_folder")
     hamburger_menu_model.append_item(hamburger_menu_item_open_downloads_folder)
 
-    hamburger_menu_item_shutdown = Gio.MenuItem.new(_("Shutdown on Completion"), "app.shutdown_on_completion")
-    hamburger_menu_model.append_item(hamburger_menu_item_shutdown)
+    completion_submenu_model = Gio.Menu()
+
+    completion_submenu_item_exit = Gio.MenuItem.new(_("Exit on Completion"), "app.exit_on_completion")
+    completion_submenu_model.append_item(completion_submenu_item_exit)
+
+    completion_submenu_item_shutdown = Gio.MenuItem.new(_("Shutdown on Completion"), "app.shutdown_on_completion")
+    completion_submenu_model.append_item(completion_submenu_item_shutdown)
+
+    hamburger_menu_model.append_submenu(_("Completion Options"), completion_submenu_model)
 
     hamburger_menu_item_about = Gio.MenuItem.new(_("About Varia"), "app.about")
     hamburger_menu_model.append_item(hamburger_menu_item_about)
@@ -71,10 +83,10 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     download_entry = Gtk.Entry()
     download_entry.set_placeholder_text(_("URL"))
 
-    download_button = Gtk.Button(label=_("Download"))
-    download_button.get_style_context().add_class("pill")
-    download_button.get_style_context().add_class("suggested-action")
-    download_button.connect("clicked", on_download_clicked, self, download_entry, DownloadThread)
+    self.download_button = Gtk.Button(label=_("Download"))
+    self.download_button.get_style_context().add_class("pill")
+    self.download_button.get_style_context().add_class("suggested-action")
+    self.download_button.connect("clicked", on_download_clicked, self, download_entry, DownloadThread)
 
     self.filter_button_show_all = Gtk.ToggleButton()
     self.filter_button_show_all.get_style_context().add_class('flat')
@@ -113,6 +125,30 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     self.filter_button_show_completed.set_child(filter_button_show_completed_box)
     self.filter_button_show_completed.connect("clicked", self.filter_download_list, "show_completed")
 
+    self.filter_button_show_seeding = Gtk.ToggleButton()
+    self.filter_button_show_seeding.get_style_context().add_class('flat')
+    filter_button_show_seeding_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    filter_button_show_seeding_box.set_margin_top(8)
+    filter_button_show_seeding_box.set_margin_bottom(8)
+    filter_button_show_seeding_box.append(Gtk.Image.new_from_icon_name("go-up-symbolic"))
+    filter_button_show_seeding_label = Gtk.Label(label=_("Seeding"))
+    filter_button_show_seeding_label.get_style_context().add_class('body')
+    filter_button_show_seeding_box.append(filter_button_show_seeding_label)
+    self.filter_button_show_seeding.set_child(filter_button_show_seeding_box)
+    self.filter_button_show_seeding.connect("clicked", self.filter_download_list, "show_seeding")
+
+    self.filter_button_show_failed = Gtk.ToggleButton()
+    self.filter_button_show_failed.get_style_context().add_class('flat')
+    filter_button_show_failed_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    filter_button_show_failed_box.set_margin_top(8)
+    filter_button_show_failed_box.set_margin_bottom(8)
+    filter_button_show_failed_box.append(Gtk.Image.new_from_icon_name("process-stop-symbolic"))
+    filter_button_show_failed_label = Gtk.Label(label=_("Failed"))
+    filter_button_show_failed_label.get_style_context().add_class('body')
+    filter_button_show_failed_box.append(filter_button_show_failed_label)
+    self.filter_button_show_failed.set_child(filter_button_show_failed_box)
+    self.filter_button_show_failed.connect("clicked", self.filter_download_list, "show_failed")
+
     sidebar_separator = Gtk.Separator()
     sidebar_separator.set_margin_top(8)
     sidebar_separator.set_margin_bottom(8)
@@ -125,6 +161,7 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     if (self.appconf['remote'] == '1'):
         self.sidebar_remote_mode_label.set_text(textwrap.fill(_("Remote Mode"), 23))
     self.sidebar_speed_limited_label = Gtk.Label()
+    self.sidebar_scheduler_label = Gtk.Label()
 
     sidebar_content_box.set_margin_start(6)
     sidebar_content_box.set_margin_end(6)
@@ -135,15 +172,18 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     sidebar_filter_buttons_box.append(self.filter_button_show_all)
     sidebar_filter_buttons_box.append(self.filter_button_show_downloading)
     sidebar_filter_buttons_box.append(self.filter_button_show_completed)
+    sidebar_filter_buttons_box.append(self.filter_button_show_seeding)
+    sidebar_filter_buttons_box.append(self.filter_button_show_failed)
 
     sidebar_content_box.append(download_entry)
-    sidebar_content_box.append(download_button)
+    sidebar_content_box.append(self.download_button)
     sidebar_content_box.append(sidebar_separator)
     sidebar_content_box.append(sidebar_filter_buttons_box)
     sidebar_content_box.append(sidebar_expanding_box)
     sidebar_content_box.append(self.sidebar_shutdown_mode_label)
     sidebar_content_box.append(self.sidebar_remote_mode_label)
     sidebar_content_box.append(self.sidebar_speed_limited_label)
+    sidebar_content_box.append(self.sidebar_scheduler_label)
     sidebar_box.append(sidebar_content_box)
 
     self.overlay_split_view.set_sidebar(sidebar_box)
@@ -167,12 +207,17 @@ def show_about(app, variaapp, self, variaVersion):
     dialog.set_application_icon("io.github.giantpinkrobots.varia")
     dialog.set_translator_credits(_("translator-credits"))
     dialog.set_artists(["Jakub Steiner"])
-    dialog.set_release_notes_version("v2024.3.20")
-    dialog.set_release_notes('''<p>v2024.3.20:</p>
-        <ul><li>Shutdown after completion option added.</li>
-        <li>Update to GNOME 46 and Libadwaita 1.5.</li>
-        <li>Japanese language support.</li>
-        <li>Bug fixes and adjustments.</li></ul>''')
+    dialog.set_release_notes_version("v2024.5.7")
+    dialog.set_release_notes('''
+        <ul><li>Download scheduling: Start or stop downloading in given timespans.</li>
+        <li>cookies.txt file import support.</li>
+        <li>Remote timestamp support.</li>
+        <li>Options to filter by seeding and failed downloads in the sidebar.</li>
+        <li>Quit on completion option.</li>
+        <li>Start in background mode option.</li>
+        <li>Spanish language support.</li>
+        <li>Persian language support.</li>
+        <li>Hindi language support.</li></ul>''')
 
     dialog.present(self)
 
@@ -185,7 +230,17 @@ def open_downloads_folder(self, app, variaapp, appconf):
 def shutdown_on_completion(self, app, variaapp):
     if (variaapp.shutdown_mode == False):
         variaapp.shutdown_mode = True
+        variaapp.exit_mode = False
         variaapp.sidebar_remote_mode_label.set_text(textwrap.fill(_("Shutdown on Completion"), 23))
     else:
         variaapp.shutdown_mode = False
+        variaapp.sidebar_remote_mode_label.set_text("")
+
+def exit_on_completion(self, app, variaapp):
+    if (variaapp.exit_mode == False):
+        variaapp.exit_mode = True
+        variaapp.shutdown_mode = False
+        variaapp.sidebar_remote_mode_label.set_text(textwrap.fill(_("Exit on Completion"), 23))
+    else:
+        variaapp.exit_mode = False
         variaapp.sidebar_remote_mode_label.set_text("")
