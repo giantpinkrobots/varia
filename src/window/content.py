@@ -3,6 +3,7 @@ gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, GLib, Gio
 from gettext import gettext as _
+import os
 
 def window_create_content(self, threading):
     content_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
@@ -37,9 +38,12 @@ def window_create_content(self, threading):
     header_bar.set_title_widget(header_box)
     content_box.append(header_bar)
 
-    self.status_page_widget = Adw.StatusPage(icon_name="io.github.giantpinkrobots.varia-symbolic")
-    self.status_page_widget.set_hexpand(True)
-    self.status_page_widget.set_vexpand(True)
+    if (os.name == 'nt'):
+        self.status_page_widget = Gtk.Box()
+    else:
+        self.status_page_widget = Adw.StatusPage(icon_name="io.github.giantpinkrobots.varia-symbolic")
+        self.status_page_widget.set_hexpand(True)
+        self.status_page_widget.set_vexpand(True)
 
     self.download_list_box = Gtk.Box()
     self.download_list = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
@@ -72,3 +76,4 @@ def create_status_page(self, mode):
     else:
         self.download_list_box.remove(self.status_page_widget)
         self.download_list_box.prepend(self.download_list)
+
