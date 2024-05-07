@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2024-03-21 14:28+0100\n"
+"PO-Revision-Date: 2024-05-07 16:11+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -239,6 +239,87 @@ msgstr "Annuleren"
 
 msgid "Warning"
 msgstr "Waarschuwing"
+
+msgid "Monday"
+msgstr "maandag"
+
+msgid "Tuesday"
+msgstr "dinsdag"
+
+msgid "Wednesday"
+msgstr "woensdag"
+
+msgid "Thursday"
+msgstr "donderdag"
+
+msgid "Friday"
+msgstr "vrijdag"
+
+msgid "Saturday"
+msgstr "zaterdag"
+
+msgid "Sunday"
+msgstr "zondag"
+
+msgid "Start (h/m):"
+msgstr "Begonnen op/om:"
+
+msgid "End (h/m):"
+msgstr "Afgerond op/om:"
+
+msgid "Scheduler enabled"
+msgstr "Planning ingeschakeld"
+
+msgid "Scheduler"
+msgstr "Planning"
+
+msgid "Enabled"
+msgstr "Ingeschakeld"
+
+msgid "Start downloading in these times"
+msgstr "Downloaden op bepaalde tijdstippen"
+
+msgid "Stop downloading in these times"
+msgstr "Downloaden onderbreken op bepaalde tijdstippen"
+
+msgid "Add Timespan"
+msgstr "Tijdspanne toevoegen"
+
+msgid "Seeding"
+msgstr "Bezig met seeden…"
+
+msgid "Failed"
+msgstr "Mislukt"
+
+msgid "Completion Options"
+msgstr "Afrondacties"
+
+msgid "Exit on Completion"
+msgstr "Afsluiten na afronden"
+
+msgid "Varia is about to quit."
+msgstr "Varia staat op het punt om te worden afgesloten."
+
+msgid "Preferences"
+msgstr "Voorkeuren"
+
+msgid "Other"
+msgstr "Overig"
+
+msgid "Basic Settings"
+msgstr "Algemene voorkeuren"
+
+msgid "Advanced Settings"
+msgstr "Geavanceerde voorkeuren"
+
+msgid "Use cookies.txt"
+msgstr "cookies.txt gebruiken"
+
+msgid "Import cookies.txt"
+msgstr "cookies.txt importeren"
+
+msgid "Remove cookies.txt"
+msgstr "cookies.txt verwijderen"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
