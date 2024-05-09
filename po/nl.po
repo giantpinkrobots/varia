@@ -319,7 +319,7 @@ msgid "Import cookies.txt"
 msgstr "cookies.txt importeren"
 
 msgid "Remove cookies.txt"
-msgstr "cookies.txt verwijderenhttps://github.com/Vistaus/varia.git"
+msgstr "cookies.txt verwijderen"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
