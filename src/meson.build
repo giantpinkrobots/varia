@@ -39,6 +39,7 @@ varia_sources_window = [
   'window/sidebar.py',
   'window/preferences.py',
   'window/scheduler.py',
+  'window/tray.py'
 ]
 
 varia_sources_download = [

@@ -23,11 +23,15 @@ from initiate import initiate
 from download.listen import listen_to_aria2
 from download.scheduler import schedule_downloads
 
+from window.tray import SystemTray
+
 class MainWindow(Adw.ApplicationWindow):
     def __init__(self, variaapp, appdir, appconf, aria2c_subprocess, aria2cexec, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.set_hide_on_close(True)
-        self.connect('close-request', self.exitProgram, variaapp, False)
+        self.connect('close-request', self.exitProgram, variaapp, True)
+
+        self.variaapp = variaapp
 
         self.scheduler_currently_downloading = False
         self.appdir = appdir
@@ -85,6 +89,10 @@ class MainWindow(Adw.ApplicationWindow):
 
         # Begin the scheduler:
         thread = threading.Thread(target=schedule_downloads(self, True))
+        thread.start()
+
+        self.tray = SystemTray(window=self)
+        thread = threading.Thread(target=self.tray.run())
         thread.start()
 
         # Load incomplete downloads:
@@ -283,6 +291,13 @@ class MainWindow(Adw.ApplicationWindow):
             json.dump(self.appconf, f)
         print("Config saved")
 
+    def trayExit(self):
+        notification = Gio.Notification.new(_("Exiting"))
+        notification.set_body(_("Exiting Varia."))
+        notification.set_title(_("Exit"))
+        self.variaapp.send_notification(None, notification)
+        self.exitProgram(self, self.variaapp, False)
+
     def exitProgram(self, app, variaapp, background):
         if (background == True):
             self.hide()
@@ -323,6 +338,7 @@ class MainWindow(Adw.ApplicationWindow):
                 GLib.timeout_add(3000, self.aria2c_exiting_check, app, 0, variaapp, exiting_dialog)
 
             else:
+                self.tray.exit()
                 self.destroy()
                 variaapp.quit()
 
@@ -337,6 +353,7 @@ class MainWindow(Adw.ApplicationWindow):
             if (exiting_dialog is not None):
                 exiting_dialog.destroy()
             self.destroy()
+            self.tray.exit()
             variaapp.quit()
             for thread in threading.enumerate():
                 print(thread.name)
