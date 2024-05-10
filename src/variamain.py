@@ -23,17 +23,39 @@ from initiate import initiate
 from download.listen import listen_to_aria2
 from download.scheduler import schedule_downloads
 
+import importlib.util
+
 class MainWindow(Adw.ApplicationWindow):
     def __init__(self, variaapp, appdir, appconf, aria2c_subprocess, aria2cexec, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.set_hide_on_close(True)
-        self.connect('close-request', self.exitProgram, variaapp, False)
 
+        self.variaapp = variaapp
+        self.appconf = appconf
         self.scheduler_currently_downloading = False
         self.appdir = appdir
-        self.appconf = appconf
         self.aria2c_subprocess = aria2c_subprocess
         self.bindir = aria2cexec[:-6]
+
+        # Check for PyQt6 as it is an optional dependency:
+        try:
+            qt_gui = importlib.util.find_spec("PyQt6.QtGui")
+            qt_widgets = importlib.util.find_spec("PyQt6.QtWidgets")
+            self.hasqt = qt_gui is not None and qt_widgets is not None
+        except ModuleNotFoundError:
+            self.hasqt = False
+
+        self.nudged = False
+
+        # Fix config if PyQt6 does not exist and the tray is enabled in the config:
+        if not self.hasqt and self.appconf["use_tray"] == "tray":
+            self.appconf["use_tray"] = "none"
+            self.save_appconf()
+
+        if appconf["use_tray"] == "tray":
+            self.connect('close-request', self.exitProgram, variaapp, True)
+        else:
+            self.connect('close-request', self.exitProgram, variaapp, False)
 
         # Set up variables and all:
         aria2_connection_successful = initiate(self, variaVersion)
@@ -86,6 +108,14 @@ class MainWindow(Adw.ApplicationWindow):
         # Begin the scheduler:
         thread = threading.Thread(target=schedule_downloads(self, True))
         thread.start()
+
+        # Start the system tray thread:
+        if appconf["use_tray"] == "tray":
+            from window.tray import SystemTray
+
+            self.tray = SystemTray(window=self)
+            thread = threading.Thread(target=self.tray.run())
+            thread.start()
 
         # Load incomplete downloads:
         default_state = {"url": None, "filename": None}
@@ -283,13 +313,22 @@ class MainWindow(Adw.ApplicationWindow):
             json.dump(self.appconf, f)
         print("Config saved")
 
+    def trayExit(self):
+        self.exitProgram(self, self.variaapp, False)
+
     def exitProgram(self, app, variaapp, background):
         if (background == True):
             self.hide()
-            notification = Gio.Notification.new(_("Background Mode"))
-            notification.set_body(_("Continuing the downloads in the background."))
-            notification.set_title(_("Background Mode")),
-            variaapp.send_notification(None, notification)
+            try:
+                self.tray.set_state(False)
+            except AttributeError:
+                pass
+            if not self.nudged:
+                notification = Gio.Notification.new(_("Background Mode"))
+                notification.set_body(_("Continuing the downloads in the background."))
+                notification.set_title(_("Background Mode")),
+                variaapp.send_notification(None, notification)
+                self.nudged = True
             print('Background mode')
         else:
             self.terminating = True
@@ -301,28 +340,29 @@ class MainWindow(Adw.ApplicationWindow):
                 self.pause_all("no")
                 self.api.client.shutdown()
 
-                if (self.is_visible() == True):
-                    self.hide()
-                    exiting_dialog = Adw.MessageDialog()
-                    exiting_dialog_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=25)
-                    exiting_dialog.set_child(exiting_dialog_box)
-                    exiting_dialog_box.set_margin_top(30)
-                    exiting_dialog_box.set_margin_bottom(30)
-                    exiting_dialog_spinner = Gtk.Spinner()
-                    exiting_dialog_spinner.set_size_request(30, 30)
-                    exiting_dialog_spinner.start()
-                    exiting_dialog_box.append(exiting_dialog_spinner)
-                    exiting_dialog_label = Gtk.Label(label=_("Exiting Varia..."))
-                    exiting_dialog_label.get_style_context().add_class("title-1")
-                    exiting_dialog_box.append(exiting_dialog_label)
-                    exiting_dialog.set_transient_for(self)
-                    GLib.idle_add(exiting_dialog.show)
-                else:
-                    exiting_dialog = None
+                self.hide()
+                exiting_dialog = Adw.MessageDialog()
+                exiting_dialog_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=25)
+                exiting_dialog.set_child(exiting_dialog_box)
+                exiting_dialog_box.set_margin_top(30)
+                exiting_dialog_box.set_margin_bottom(30)
+                exiting_dialog_spinner = Gtk.Spinner()
+                exiting_dialog_spinner.set_size_request(30, 30)
+                exiting_dialog_spinner.start()
+                exiting_dialog_box.append(exiting_dialog_spinner)
+                exiting_dialog_label = Gtk.Label(label=_("Exiting Varia..."))
+                exiting_dialog_label.get_style_context().add_class("title-1")
+                exiting_dialog_box.append(exiting_dialog_label)
+                exiting_dialog.set_transient_for(self)
+                GLib.idle_add(exiting_dialog.show)
 
                 GLib.timeout_add(3000, self.aria2c_exiting_check, app, 0, variaapp, exiting_dialog)
 
             else:
+                try:
+                    self.tray.exit()
+                except AttributeError:
+                    pass
                 self.destroy()
                 variaapp.quit()
 
@@ -337,6 +377,10 @@ class MainWindow(Adw.ApplicationWindow):
             if (exiting_dialog is not None):
                 exiting_dialog.destroy()
             self.destroy()
+            try:
+                self.tray.exit()
+            except AttributeError:
+                pass
             variaapp.quit()
             for thread in threading.enumerate():
                 print(thread.name)
@@ -399,6 +443,7 @@ def main(version, aria2cexec):
         'remote_location': '',
         'schedule_enabled': '0',
         'default_mode': 'visible',
+        'use_tray': 'tray',
         'schedule_mode': 'inclusive',
         'schedule': [],
         'remote_time': '0',
