@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2024-03-04 22:21+0900\n"
+"PO-Revision-Date: 2024-05-10 19:51+0900\n"
 "Last-Translator: Gnuey56 <gnuey56@proton.me>\n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -27,7 +27,7 @@ msgstr "Varia"
 #. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
 #: data/io.github.giantpinkrobots.varia.desktop.in:11
 msgid "varia;aria;download;manager;"
-msgstr "varia;aria;download;manager;"
+msgstr "varia;aria;download;manager;ダウンロード;マネージャー;"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
 msgid "Download manager based on aria2"
@@ -77,7 +77,7 @@ msgstr "ダウンロードフォルダを開く"
 
 #: src/variamain.py:196
 msgid "Speed Limit"
-msgstr "スピード制限"
+msgstr "速度制限"
 
 #: src/variamain.py:203 src/variamain.py:423
 msgid "Pause All"
@@ -85,11 +85,11 @@ msgstr "すべてを一時停止"
 
 #: src/variamain.py:212
 msgid "Speed"
-msgstr "スピード"
+msgstr "速度"
 
 #: src/variamain.py:215
 msgid "Set Speed Limit"
-msgstr "スピード制限を設定"
+msgstr "速度制限を設定"
 
 #: src/variamain.py:216
 msgid "Cancel All"
@@ -109,7 +109,7 @@ msgstr "ダウンロードが完了しました。"
 
 #: src/variamain.py:276
 msgid "Download speed is limited."
-msgstr "ダウンロードスピードが制限されています。"
+msgstr "ダウンロード速度が制限されています。"
 
 #: src/variamain.py:277
 msgid "An error occurred:"
@@ -178,7 +178,7 @@ msgstr "変更"
 
 #: src/variamain.py:463
 msgid "Speed limited"
-msgstr "スピードが制限されています"
+msgstr "速度が制限されています"
 
 #: src/variamain.py:519
 msgid "Authentication"
@@ -216,7 +216,7 @@ msgid "Remote Download Location"
 msgstr "リモートのダウンロード場所"
 
 msgid "Exiting Varia..."
-msgstr "Varia を終了しています..."
+msgstr "Varia を終了中..."
 
 msgid "Background Mode"
 msgstr "バックグラウンドモード"
@@ -226,6 +226,102 @@ msgstr "バックグラウンドでダウンロードを続けます。"
 
 msgid "Browser Extension"
 msgstr "ブラウザ拡張機能"
+
+msgid "Shutdown on Completion"
+msgstr "完了時にシャットダウンする"
+
+msgid "Varia is about to shut down your computer."
+msgstr "Varia はこのコンピューターをシャットダウンしようとしています。"
+
+msgid "Press Cancel to cancel and disable."
+msgstr "キャンセルを押して取り消しできます。"
+
+msgid "Cancel"
+msgstr "キャンセル"
+
+msgid "Warning"
+msgstr "警告"
+
+msgid "Monday"
+msgstr "月曜日"
+
+msgid "Tuesday"
+msgstr "火曜日"
+
+msgid "Wednesday"
+msgstr "水曜日"
+
+msgid "Thursday"
+msgstr "木曜日"
+
+msgid "Friday"
+msgstr "金曜日"
+
+msgid "Saturday"
+msgstr "土曜日"
+
+msgid "Sunday"
+msgstr "日曜日"
+
+msgid "Start (h/m):"
+msgstr "開始 (時/分):"
+
+msgid "End (h/m):"
+msgstr "終了 (時/分):"
+
+msgid "Scheduler enabled"
+msgstr "スケジューラーが有効になっています"
+
+msgid "Scheduler"
+msgstr "スケジューラー"
+
+msgid "Enabled"
+msgstr "有効"
+
+msgid "Start downloading in these times"
+msgstr "これらの時間にダウンロードを開始する"
+
+msgid "Stop downloading in these times"
+msgstr "これらの時間にダウンロードを終了する"
+
+msgid "Add Timespan"
+msgstr "タイムスパンを追加"
+
+msgid "Seeding"
+msgstr "シード中"
+
+msgid "Failed"
+msgstr "失敗"
+
+msgid "Completion Options"
+msgstr "ダウンロード完了時のオプション"
+
+msgid "Exit on Completion"
+msgstr "完了時に終了する"
+
+msgid "Varia is about to quit."
+msgstr "Varia は終了しようとしています。"
+
+msgid "Preferences"
+msgstr "設定"
+
+msgid "Other"
+msgstr "その他"
+
+msgid "Basic Settings"
+msgstr "基本設定"
+
+msgid "Advanced Settings"
+msgstr "詳細設定"
+
+msgid "Use cookies.txt"
+msgstr "cookies.txt を使用"
+
+msgid "Import cookies.txt"
+msgstr "cookies.txt をインポート"
+
+msgid "Remove cookies.txt"
+msgstr "cookies.txt を削除"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
