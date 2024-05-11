@@ -42,6 +42,8 @@ class MainWindow(Adw.ApplicationWindow):
         qt_widgets = importlib.util.find_spec("PyQt6.QtWidgets")
         self.hasqt = qt_gui is not None and qt_widgets is not None
 
+        self.nudged = False
+
         # Fix config if PyQt6 does not exist and the tray is enabled in the config:
         if not self.hasqt and self.appconf["use_tray"] == "tray":
             self.appconf["use_tray"] = "none"
@@ -309,10 +311,6 @@ class MainWindow(Adw.ApplicationWindow):
         print("Config saved")
 
     def trayExit(self):
-        notification = Gio.Notification.new(_("Exiting"))
-        notification.set_body(_("Exiting Varia."))
-        notification.set_title(_("Exit"))
-        self.variaapp.send_notification(None, notification)
         self.exitProgram(self, self.variaapp, False)
 
     def exitProgram(self, app, variaapp, background):
@@ -322,10 +320,12 @@ class MainWindow(Adw.ApplicationWindow):
                 self.tray.set_state(False)
             except AttributeError:
                 pass
-            notification = Gio.Notification.new(_("Background Mode"))
-            notification.set_body(_("Continuing the downloads in the background."))
-            notification.set_title(_("Background Mode")),
-            variaapp.send_notification(None, notification)
+            if not self.nudged:
+                notification = Gio.Notification.new(_("Background Mode"))
+                notification.set_body(_("Continuing the downloads in the background."))
+                notification.set_title(_("Background Mode")),
+                variaapp.send_notification(None, notification)
+                self.nudged = True
             print('Background mode')
         else:
             self.terminating = True
