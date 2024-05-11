@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Varia\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2024-04-25 1:50+0300\n"
+"PO-Revision-Date: 2024-05-12 01:15+0300\n"
 "Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -143,6 +143,9 @@ msgstr " Байт/с"
 #: src/variamain.py:404
 msgid "Simultaneous Download Amount"
 msgstr "Количество одновременных загрузок"
+
+msgid "Start in Background Mode"
+msgstr "Запуск в фоновом режиме"
 
 #: src/variamain.py:410
 msgid "Resume All"
@@ -301,6 +304,27 @@ msgstr "Выйти после завершения"
 
 msgid "Varia is about to quit."
 msgstr "Приложение завершает работу."
+
+msgid "Preferences"
+msgstr "Настройки"
+
+msgid "Other"
+msgstr "Другое"
+
+msgid "Basic Settings"
+msgstr "Базовые настройки"
+
+msgid "Advanced Settings"
+msgstr "Дополнительные настройки"
+
+msgid "Use cookies.txt"
+msgstr "Использовать cookies.txt"
+
+msgid "Import cookies.txt"
+msgstr "Импортировать cookies.txt"
+
+msgid "Remove cookies.txt"
+msgstr "Удалить cookies.txt"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
