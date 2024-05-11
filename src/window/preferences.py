@@ -166,6 +166,21 @@ def show_preferences(button, self, app):
     if (self.appconf["default_mode"] == "background"):
         start_in_background.set_active("active")
 
+    # Tray:
+
+    tray = Adw.SwitchRow()
+    tray.set_title(_("Use System Tray"))
+    tray.connect("notify::active", on_use_system_tray, self, preferences)
+
+    if self.hasqt:
+        tray.set_sensitive(True)
+    else:
+        tray.set_sensitive(False)
+        tray.set_subtitle(_("Please install PyQt6 to use the system tray"))
+
+    if self.appconf["use_tray"] == "tray":
+        tray.set_active("active")
+
     # Construct Group 1:
 
     group_1.add(download_directory_actionrow)
@@ -173,6 +188,7 @@ def show_preferences(button, self, app):
     group_1.add(scheduler_actionrow)
     group_1.add(simultaneous_download_amount_unit_names_box)
     group_1.add(start_in_background)
+    group_1.add(tray)
 
     # Remote aria2:
 
@@ -418,6 +434,18 @@ def on_start_in_background(switch, state, self):
         self.appconf["default_mode"] = "background"
     else:
         self.appconf["default_mode"] = "visible"
+
+    self.save_appconf()
+
+def on_use_system_tray(switch, state, self, preferencesWindow):
+    state = switch.get_active()
+    if state:
+        if self.appconf["use_tray"] == "none":
+            restart_varia_dialog(preferencesWindow)
+        self.appconf["use_tray"] = "tray"
+    else:
+        self.appconf["use_tray"] = "none"
+        restart_varia_dialog(preferencesWindow)
 
     self.save_appconf()
 

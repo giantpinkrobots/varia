@@ -32,6 +32,9 @@ class SystemTray:
             self.window.show()
         self.app.exec()
 
+    def set_state(self, state):
+        self.shown = state
+
     def exit(self):
         self.app.quit()
 
