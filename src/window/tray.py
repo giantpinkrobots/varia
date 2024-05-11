@@ -1,6 +1,8 @@
 from PyQt6.QtGui import QIcon, QAction
 from PyQt6.QtWidgets import QApplication, QSystemTrayIcon, QMenu
 
+from gettext import gettext as _
+
 
 class SystemTray:
     def __init__(self, window):
@@ -16,7 +18,7 @@ class SystemTray:
         tray.setVisible(True)
 
         menu = QMenu()
-        self.quit_action = QAction("Quit Varia")
+        self.quit_action = QAction(_("Quit Varia"))
         self.quit_action.triggered.connect(lambda: self.window.trayExit())
         menu.addAction(self.quit_action)
 
