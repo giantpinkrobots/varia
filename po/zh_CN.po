@@ -1,0 +1,336 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-30 03:17+0300\n"
+"PO-Revision-Date: 2024-05-17 22:47+0800\n"
+"Last-Translator: Red Guard <redg@disroot.org>\n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.4\n"
+
+#. Translators: Do NOT translate or localize the application name.
+#: data/io.github.giantpinkrobots.varia.desktop.in:4
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:3
+msgid "Varia"
+msgstr "Varia"
+
+#. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
+#: data/io.github.giantpinkrobots.varia.desktop.in:11
+msgid "varia;aria;download;manager;"
+msgstr "varia;aria;download;manager;"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
+msgid "Download manager based on aria2"
+msgstr "基于 aria2 的下载管理器"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
+msgid ""
+"Varia is a download manager based on aria2 that utilizes GTK4 and Libadwaita "
+"to provide a easy to use interface that integrates well with the GNOME "
+"desktop."
+msgstr ""
+"Varia 是一个基于 aria2 的下载管理器，并使用 GTK4 和 Libadwaita 以提供易用的界"
+"面和与 GNOME 桌面的良好集成。"
+
+#: src/variamain.py:45
+msgid "This is not a valid URL."
+msgstr "这不是合法的 URL。"
+
+#: src/variamain.py:125
+msgid "All"
+msgstr "所有"
+
+#: src/variamain.py:137
+msgid "In Progress"
+msgstr "未完成"
+
+#: src/variamain.py:148
+msgid "Completed"
+msgstr "已完成"
+
+#: src/variamain.py:171
+msgid "About Varia"
+msgstr "关于 Varia"
+
+#: src/variamain.py:177
+msgid "URL"
+msgstr "URL"
+
+#: src/variamain.py:178
+msgid "Download"
+msgstr "下载"
+
+#: src/variamain.py:184
+msgid "Open Download Folder"
+msgstr "打开下载目录"
+
+#: src/variamain.py:196
+msgid "Speed Limit"
+msgstr "速度限制"
+
+#: src/variamain.py:203 src/variamain.py:423
+msgid "Pause All"
+msgstr "暂停所有下载"
+
+#: src/variamain.py:212
+msgid "Speed"
+msgstr "速度"
+
+#: src/variamain.py:215
+msgid "Set Speed Limit"
+msgstr "设置限速"
+
+#: src/variamain.py:216
+msgid "Cancel All"
+msgstr "取消所有下载"
+
+#: src/variamain.py:235
+msgid "/s"
+msgstr "/s"
+
+#: src/variamain.py:238
+msgid "No limit"
+msgstr "无限制"
+
+#: src/variamain.py:274
+msgid "Download complete."
+msgstr "下载完成。"
+
+#: src/variamain.py:276
+msgid "Download speed is limited."
+msgstr "下载速度被限制。"
+
+#: src/variamain.py:277
+msgid "An error occurred:"
+msgstr "发生了一个错误："
+
+#: src/variamain.py:292
+msgid "MB/s"
+msgstr "MB/s"
+
+#: src/variamain.py:294
+msgid "KB/s"
+msgstr "KB/s"
+
+#: src/variamain.py:298
+msgid "0 B/s"
+msgstr "0 B/s"
+
+#: src/variamain.py:300
+msgid " MB/s"
+msgstr " MB/s"
+
+#: src/variamain.py:302
+msgid " KB/s"
+msgstr " KB/s"
+
+#: src/variamain.py:304
+msgid " B/s"
+msgstr " B/s"
+
+#: src/variamain.py:404
+msgid "Simultaneous Download Amount"
+msgstr "并发下载数"
+
+#: src/variamain.py:410
+msgid "Resume All"
+msgstr "恢复所有下载"
+
+#: src/variamain.py:443
+msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
+msgstr "使用 GTK4 和 Libadwaita, 基于 aria2 的下载管理器。"
+
+#: src/variamain.py:777
+msgid "This application relies on the following pieces of software:"
+msgstr "此应用依赖以下软件："
+
+#: src/variamain.py:777
+msgid ""
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
+msgstr ""
+"所有这些软件的许可证都可以在此应用程序的应用程序目录的 "
+"dependencies_information 目录中找到。"
+
+#: src/variamain.py:449
+msgid "translator-credits"
+msgstr "Red Guard <redg@disroot.org>"
+
+#: src/variamain.py:457
+msgid "Download Directory"
+msgstr "下载目录"
+
+#: src/variamain.py:460
+msgid "Change"
+msgstr "更改"
+
+#: src/variamain.py:463
+msgid "Speed limited"
+msgstr "限速"
+
+#: src/variamain.py:519
+msgid "Authentication"
+msgstr "身份验证"
+
+#: src/variamain.py:532
+msgid "Username"
+msgstr "用户名"
+
+#: src/variamain.py:534
+msgid "Password"
+msgstr "密码"
+
+#: src/variamain.py:554
+msgid "Authorization failed."
+msgstr "验证失败"
+
+#: src/variamain.py:806
+msgid "Failed to open directory."
+msgstr "打开文件夹失败。"
+
+msgid "Remote Mode"
+msgstr "远程模式"
+
+msgid "Remote aria2 IP"
+msgstr "远程 aria2 IP"
+
+msgid "Remote aria2 Port"
+msgstr "远程 aria2 端口"
+
+msgid "Remote aria2 RPC Secret"
+msgstr "远程 aria2 RPC 密钥"
+
+msgid "Remote Download Location"
+msgstr "远程下载位置"
+
+msgid "Exiting Varia..."
+msgstr "Varia 正在退出..."
+
+msgid "Background Mode"
+msgstr "后台模式"
+
+msgid "Continuing the downloads in the background."
+msgstr "在后台继续下载。"
+
+msgid "Browser Extension"
+msgstr "浏览器扩展"
+
+msgid "Shutdown on Completion"
+msgstr "完成时关机"
+
+msgid "Varia is about to shut down your computer."
+msgstr "Varia 即将关闭您的计算机。"
+
+msgid "Press Cancel to cancel and disable."
+msgstr "按取消取消并禁用。"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Warning"
+msgstr "警告"
+
+msgid "Monday"
+msgstr "星期一"
+
+msgid "Tuesday"
+msgstr "星期二"
+
+msgid "Wednesday"
+msgstr "星期三"
+
+msgid "Thursday"
+msgstr "星期四"
+
+msgid "Friday"
+msgstr "星期五"
+
+msgid "Saturday"
+msgstr "星期六"
+
+msgid "Sunday"
+msgstr "星期天"
+
+msgid "Start (h/m):"
+msgstr "开始（h/m）："
+
+msgid "End (h/m):"
+msgstr "结束（h/m）："
+
+msgid "Scheduler enabled"
+msgstr "调度器已启用"
+
+msgid "Scheduler"
+msgstr "调度器"
+
+msgid "Enabled"
+msgstr "已启用"
+
+msgid "Start downloading in these times"
+msgstr "在这些时间开始下载"
+
+msgid "Stop downloading in these times"
+msgstr "在这些时间停止下载"
+
+msgid "Add Timespan"
+msgstr "添加时间跨度"
+
+msgid "Seeding"
+msgstr "作种"
+
+msgid "Failed"
+msgstr "失败"
+
+msgid "Completion Options"
+msgstr "完成选项"
+
+msgid "Exit on Completion"
+msgstr "完成时退出"
+
+msgid "Varia is about to quit."
+msgstr "Varia 即将退出。"
+
+msgid "Preferences"
+msgstr "设定"
+
+msgid "Other"
+msgstr "其他"
+
+msgid "Basic Settings"
+msgstr "基础设置"
+
+msgid "Advanced Settings"
+msgstr "高级设置"
+
+msgid "Use cookies.txt"
+msgstr "使用 cookies.txt"
+
+msgid "Import cookies.txt"
+msgstr "导入 cookies.txt"
+
+msgid "Remove cookies.txt"
+msgstr "删除 cookies.txt"
+
+#: src/gtk/help-overlay.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "通用"
+
+#: src/gtk/help-overlay.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "显示快捷方式"
+
+#: src/gtk/help-overlay.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "退出"
