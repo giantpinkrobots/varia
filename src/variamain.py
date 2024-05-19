@@ -38,9 +38,12 @@ class MainWindow(Adw.ApplicationWindow):
         self.bindir = aria2cexec[:-6]
 
         # Check for PyQt6 as it is an optional dependency:
-        qt_gui = importlib.util.find_spec("PyQt6.QtGui")
-        qt_widgets = importlib.util.find_spec("PyQt6.QtWidgets")
-        self.hasqt = qt_gui is not None and qt_widgets is not None
+        try:
+            qt_gui = importlib.util.find_spec("PyQt6.QtGui")
+            qt_widgets = importlib.util.find_spec("PyQt6.QtWidgets")
+            self.hasqt = qt_gui is not None and qt_widgets is not None
+        except ModuleNotFoundError:
+            self.hasqt = False
 
         self.nudged = False
 
