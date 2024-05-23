@@ -16,6 +16,7 @@ class SystemTray:
 
         tray = QSystemTrayIcon(icon=icon, parent=self.app)
         tray.setVisible(True)
+        tray.setToolTip(_("Varia"))
 
         menu = QMenu()
         self.quit_action = QAction(_("Quit Varia"))
