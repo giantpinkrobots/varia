@@ -1,0 +1,257 @@
+# Czech translation
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-30 03:17+0300\n"
+"PO-Revision-Date: 2024-03-29 16:50-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.2\n"
+
+#. Translators: Do NOT translate or localize the application name.
+#: data/io.github.giantpinkrobots.varia.desktop.in:4
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:3
+msgid "Varia"
+msgstr "Varia"
+
+#. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
+#: data/io.github.giantpinkrobots.varia.desktop.in:11
+msgid "varia;aria;download;manager;"
+msgstr "varia;aria;descargar;administrador;"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
+msgid "Download manager based on aria2"
+msgstr "Administrador de descargas basado en aria2"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
+msgid ""
+"Varia is a download manager based on aria2 that utilizes GTK4 and Libadwaita "
+"to provide a easy to use interface that integrates well with the GNOME "
+"desktop."
+msgstr ""
+"Varia es un gestor de descargas basado en aria2 que utiliza GTK4 y "
+"Libadwaita para proporcionar una interfaz fácil de usar que se integra bien "
+"con el escritorio GNOME."
+
+#: src/variamain.py:45
+msgid "This is not a valid URL"
+msgstr "Toto není plattná URL"
+
+#: src/variamain.py:125
+msgid "All"
+msgstr "Vše"
+
+#: src/variamain.py:137
+msgid "In Progress"
+msgstr "Probíhá"
+
+#: src/variamain.py:148
+msgid "Completed"
+msgstr "Hotovo"
+
+#: src/variamain.py:171
+msgid "About Varia"
+msgstr "Informace o VARIA"
+
+#: src/variamain.py:177
+msgid "URL"
+msgstr "URL"
+
+#: src/variamain.py:178
+msgid "Download"
+msgstr "Stažení"
+
+#: src/variamain.py:184
+msgid "Open Download Folder"
+msgstr "Otevřít složku stahování"
+
+#: src/variamain.py:196
+msgid "Speed Limit"
+msgstr "Límite de velocidad"
+
+#: src/variamain.py:203 src/variamain.py:423
+msgid "Pause All"
+msgstr "Pausa Todo"
+
+#: src/variamain.py:212
+msgid "Speed"
+msgstr "Velocidad"
+
+#: src/variamain.py:215
+msgid "Set Speed Limit"
+msgstr "Fijar límite de velocidad"
+
+#: src/variamain.py:216
+msgid "Cancel All"
+msgstr "Cancelar todo"
+
+#: src/variamain.py:235
+msgid "/s"
+msgstr "/s"
+
+#: src/variamain.py:238
+msgid "No limit"
+msgstr "Sin límite"
+
+#: src/variamain.py:274
+msgid "Download complete."
+msgstr "Descarga completa."
+
+#: src/variamain.py:276
+msgid "Download speed is limited."
+msgstr "La velocidad de descarga está limitada."
+
+#: src/variamain.py:277
+msgid "An error occurred:"
+msgstr "Se ha producido un error:"
+
+#: src/variamain.py:292
+msgid "MB/s"
+msgstr "MB/s"
+
+#: src/variamain.py:294
+msgid "KB/s"
+msgstr "KB/s"
+
+#: src/variamain.py:298
+msgid "0 B/s"
+msgstr "0 B/s"
+
+#: src/variamain.py:300
+msgid " MB/s"
+msgstr " MB/s"
+
+#: src/variamain.py:302
+msgid " KB/s"
+msgstr " KB/s"
+
+#: src/variamain.py:304
+msgid " B/s"
+msgstr " B/s"
+
+#: src/variamain.py:404
+msgid "Simultaneous Download Amount"
+msgstr "Número de descargas simultáneas"
+
+#: src/variamain.py:410
+msgid "Resume All"
+msgstr "Reanudar todo"
+
+#: src/variamain.py:443
+msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
+msgstr ""
+"administrador de descargas basado en aria2 que utiliza GTK4 y Libadwaita."
+
+#: src/variamain.py:777
+msgid "This application relies on the following pieces of software:"
+msgstr "Esta aplicación se basa en los siguientes programas:"
+
+#: src/variamain.py:777
+msgid ""
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
+msgstr ""
+"Las licencias de todas estas piezas de software se encuentran en el "
+"directorio dependencies_information del directorio app de esta aplicación."
+
+#: src/variamain.py:449
+msgid "translator-credits"
+msgstr "Haggen88"
+
+#: src/variamain.py:457
+msgid "Download Directory"
+msgstr "Directorio de descargas"
+
+#: src/variamain.py:460
+msgid "Change"
+msgstr "Cambiar"
+
+#: src/variamain.py:463
+msgid "Speed limited"
+msgstr "Velocidad limitada"
+
+#: src/variamain.py:519
+msgid "Authentication"
+msgstr "Autenticación"
+
+#: src/variamain.py:532
+msgid "Username"
+msgstr "Nombre de usuario"
+
+#: src/variamain.py:534
+msgid "Password"
+msgstr "Contraseña"
+
+#: src/variamain.py:554
+msgid "Authorization failed."
+msgstr "Autorización fallida."
+
+#: src/variamain.py:806
+msgid "Failed to open directory."
+msgstr "Error al abrir el directorio."
+
+msgid "Remote Mode"
+msgstr "Modo remoto"
+
+msgid "Remote aria2 IP"
+msgstr "Aria2-IP remota"
+
+msgid "Remote aria2 Port"
+msgstr "Aria2-Puerto remoto"
+
+msgid "Remote aria2 RPC Secret"
+msgstr "Aria2-RPC Código Secreto"
+
+msgid "Remote Download Location"
+msgstr "Ubicación de descarga remota"
+
+msgid "Exiting Varia..."
+msgstr "Salir de Varia..."
+
+msgid "Background Mode"
+msgstr "Modo en segundo plano"
+
+msgid "Continuing the downloads in the background."
+msgstr "Continuando con las descargas en segundo plano."
+
+msgid "Browser Extension"
+msgstr "Extensión del navegador"
+
+msgid "Shutdown on Completion"
+msgstr "Apagado al finalizar"
+
+msgid "Varia is about to shut down your computer."
+msgstr "Varia está a punto de apagar tu ordenador."
+
+msgid "Press Cancel to cancel and disable."
+msgstr "Pulse Cancelar para cancelar y desactivar."
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Warning"
+msgstr "Advertencia"
+
+#: src/gtk/help-overlay.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "General"
+
+#: src/gtk/help-overlay.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Mostrar atajos"
+
+#: src/gtk/help-overlay.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Salir"
