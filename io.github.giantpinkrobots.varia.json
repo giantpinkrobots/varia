@@ -1,11 +1,11 @@
 {
-	"app-id" : "io.github.giantpinkrobots.varia",
-	"runtime" : "org.gnome.Platform",
-	"runtime-version" : "46",
-	"sdk" : "org.gnome.Sdk",
-	"command" : "varia",
+	"app-id": "io.github.giantpinkrobots.varia",
+	"runtime": "org.gnome.Platform",
+	"runtime-version": "46",
+	"sdk": "org.gnome.Sdk",
+	"command": "varia",
 	"//": "Justifications for the permissions: This program utilizes aria2c, and aria2c requires the networking permission and the xdg-download directory in order to download files. It also has a 'shut down once all downloads are completed' feature that requires access to org.freedesktop.login1.",
-	"finish-args" : [
+	"finish-args": [
 		"--share=network",
 		"--share=ipc",
 		"--socket=fallback-x11",
@@ -14,7 +14,7 @@
 		"--filesystem=xdg-download",
 		"--system-talk-name=org.freedesktop.login1"
 	],
-	"cleanup" : [
+	"cleanup": [
 		"/include",
 		"/lib/pkgconfig",
 		"/man",
@@ -25,11 +25,90 @@
 		"*.la",
 		"*.a"
 	],
-	"modules" : [
+	"modules": [
 		"./python3-aria2p.json",
 		{
-			"name" : "aria2",
-			"buildsystem" : "autotools",
+			"name": "qt6-qtbase",
+			"cleanup-platform": [
+				"/bin"
+			],
+			"buildsystem": "cmake-ninja",
+			"config-opts": [
+				"-DQT_DISABLE_RPATH=ON",
+				"-DBUILD_WITH_PCH=FALSE",
+				"-DQT_FEATURE_openssl_linked=ON",
+				"-DQT_FEATURE_system_sqlite=ON"
+			],
+			"sources": [
+				{
+					"type": "archive",
+					"url": "https://download.qt.io/official_releases/qt/6.7/6.7.0/submodules/qtbase-everywhere-src-6.7.0.tar.xz",
+					"sha256": "11b2e29e2e52fb0e3b453ea13bbe51a10fdff36e1c192d8868c5a40233b8b254",
+					"x-checker-data": {
+						"type": "anitya",
+						"project-id": 7927,
+						"stable-only": true,
+						"versions": {
+							"<": "6.8.0"
+						},
+						"url-template": "https://download.qt.io/official_releases/qt/6.7/$version/submodules/qtbase-everywhere-src-$version.tar.xz"
+					}
+				}
+			]
+		},
+		{
+			"name": "qt6-qtdeclarative",
+			"config-opts": [
+				"-DQT_TOOL_COMMAND_WRAPPER_PATH=env"
+			],
+			"buildsystem": "cmake-ninja",
+			"cleanup-platform": [
+				"/bin",
+				"lib/plugins/qmltooling"
+			],
+			"sources": [
+				{
+					"type": "archive",
+					"url": "https://download.qt.io/official_releases/qt/6.7/6.7.0/submodules/qtdeclarative-everywhere-src-6.7.0.tar.xz",
+					"sha256": "5a0c39579a74d7cca581162c866ed0887287d4f8d5abff7ab9492d4a58fa9e2c",
+					"x-checker-data": {
+						"type": "anitya",
+						"project-id": 7927,
+						"stable-only": true,
+						"versions": {
+							"<": "6.8.0"
+						},
+						"url-template": "https://download.qt.io/official_releases/qt/6.7/$version/submodules/qtdeclarative-everywhere-src-$version.tar.xz"
+					}
+				}
+			]
+		},
+		{
+			"name": "qt6-wayland",
+			"buildsystem": "cmake-ninja",
+			"cleanup-platform": [
+				"/bin"
+			],
+			"sources": [
+				{
+					"type": "archive",
+					"url": "https://download.qt.io/official_releases/qt/6.7/6.7.0/submodules/qtwayland-everywhere-src-6.7.0.tar.xz",
+					"sha256": "d73470e4217da388d8cd2a517ee8bb373853f33c569306e80f04397845157aea",
+					"x-checker-data": {
+						"type": "anitya",
+						"project-id": 7927,
+						"stable-only": true,
+						"versions": {
+							"<": "6.8.0"
+						},
+						"url-template": "https://download.qt.io/official_releases/qt/6.7/$version/submodules/qtwayland-everywhere-src-$version.tar.xz"
+					}
+				}
+			]
+		},
+		{
+			"name": "aria2",
+			"buildsystem": "autotools",
 			"config-opts": [
 				"--without-libxml2",
 				"--without-sqlite3",
@@ -48,24 +127,58 @@
 				"--with-openssl",
 				"--disable-ftp"
 			],
-			"sources" : [
+			"sources": [
 				{
-					"type" : "archive",
-					"url" : "https://github.com/aria2/aria2/releases/download/release-1.37.0/aria2-1.37.0.tar.xz",
-					"sha256" : "60a420ad7085eb616cb6e2bdf0a7206d68ff3d37fb5a956dc44242eb2f79b66b"
+					"type": "archive",
+					"url": "https://github.com/aria2/aria2/releases/download/release-1.37.0/aria2-1.37.0.tar.xz",
+					"sha256": "60a420ad7085eb616cb6e2bdf0a7206d68ff3d37fb5a956dc44242eb2f79b66b"
 				}
 			]
 		},
 		{
-            "name" : "varia",
-            "builddir" : true,
-            "buildsystem" : "meson",
-            "sources" : [
-                {
-                    "type" : "dir",
-                    "path" : "."
-                }
-            ]
-        }
+			"name": "pyside6",
+			"buildsystem": "simple",
+			"build-commands": [
+				"pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} pyside6_essentials --no-build-isolation",
+				"rm -rf ${FLATPAK_DEST}/bin/pyside6-{assistant,designer,linguist,lrelease,lupdate,qmllint}",
+				"rm -rf ${FLATPAK_DEST}/lib/python3.*/site-packages/PySide6/{assistant,designer,linguist,lrelease,lupdate,qmllint}",
+				"rm -rf ${FLATPAK_DEST}/lib/python3.*/site-packages/PySide6/{examples,Qt/qml,Qt/resources,Qt/translations/qtwebengine_locales}",
+				"rm -rf ${FLATPAK_DEST}/lib/python3.*/site-packages/PySide6/Qt/lib"
+			],
+			"sources": [
+				{
+					"type": "file",
+					"url": "https://files.pythonhosted.org/packages/d8/f7/7a8a0c3a87fc9a898a521ae34aea5806f71f7bef1a0e032a6d954550fcea/PySide6_Essentials-6.7.0-cp39-abi3-manylinux_2_28_x86_64.whl",
+					"sha256": "e013238fe40596b804068e34ac173514943a41bf8e5fbb4edfc7c30b00431bd5"
+				}
+			],
+			"modules": [
+				{
+					"name": "shiboken6",
+					"buildsystem": "simple",
+					"build-commands": [
+						"pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} shiboken6 --no-build-isolation"
+					],
+					"sources": [
+						{
+							"type": "file",
+							"url": "https://files.pythonhosted.org/packages/6a/05/a2f348685041495be25709f85ca30d9f79fdc4f3bcd4f8da8b980b1de071/shiboken6-6.7.0-cp39-abi3-manylinux_2_28_x86_64.whl",
+							"sha256": "7887ba7ecfddb09ee9966325c1e229a17f3f444b0257b77cb7838792287d3e05"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "varia",
+			"builddir": true,
+			"buildsystem": "meson",
+			"sources": [
+				{
+					"type": "dir",
+					"path": "."
+				}
+			]
+		}
 	]
 }
