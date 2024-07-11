@@ -1,22 +1,24 @@
-from PyQt6.QtGui import QIcon, QAction
-from PyQt6.QtWidgets import QApplication, QSystemTrayIcon, QMenu
-
+from PySide6.QtGui import QIcon, QAction
+from PySide6.QtWidgets import QApplication, QSystemTrayIcon, QMenu
+import os
 from gettext import gettext as _
 
 
 class SystemTray:
     def __init__(self, window):
-        self.app = QApplication([])
-        self.app.setQuitOnLastWindowClosed(False)
+        self.qapp = QApplication([])
+        self.qapp.setQuitOnLastWindowClosed(False)
 
         self.window = window
         self.shown = False
 
-        icon = QIcon.fromTheme("io.github.giantpinkrobots.varia")
+        if (os.name == 'nt'):
+            icon = QIcon(os.path.dirname(os.path.realpath(__file__)) + "/../icon.ico")
+        else:
+            icon = QIcon.fromTheme("io.github.giantpinkrobots.varia")
 
-        tray = QSystemTrayIcon(icon=icon, parent=self.app)
+        tray = QSystemTrayIcon(icon=icon, parent=self.qapp)
         tray.setVisible(True)
-        tray.setToolTip(_("Varia"))
 
         menu = QMenu()
         self.quit_action = QAction(_("Quit Varia"))
@@ -31,13 +33,13 @@ class SystemTray:
         if not self.window.appconf["default_mode"] == "background":
             self.shown = True
             self.window.show()
-        self.app.exec()
+        self.qapp.exec()
 
     def set_state(self, state):
         self.shown = state
 
     def exit(self):
-        self.app.quit()
+        self.qapp.quit()
 
     def _toggle_window(self):
         if not self.shown:

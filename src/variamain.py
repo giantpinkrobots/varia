@@ -37,25 +37,19 @@ class MainWindow(Adw.ApplicationWindow):
         self.aria2c_subprocess = aria2c_subprocess
         self.bindir = aria2cexec[:-6]
 
-        # Check for PyQt6 as it is an optional dependency:
-        try:
-            qt_gui = importlib.util.find_spec("PyQt6.QtGui")
-            qt_widgets = importlib.util.find_spec("PyQt6.QtWidgets")
-            self.hasqt = qt_gui is not None and qt_widgets is not None
-        except ModuleNotFoundError:
-            self.hasqt = False
+        # Check for PySide6 as it is an optional dependency:
+        qt_gui = importlib.util.find_spec("PySide6.QtGui")
+        qt_widgets = importlib.util.find_spec("PySide6.QtWidgets")
+        self.hasqt = qt_gui is not None and qt_widgets is not None
 
         self.nudged = False
 
-        # Fix config if PyQt6 does not exist and the tray is enabled in the config:
+        # Fix config if PySide6 does not exist and the tray is enabled in the config:
         if not self.hasqt and self.appconf["use_tray"] == "tray":
             self.appconf["use_tray"] = "none"
             self.save_appconf()
-
-        if appconf["use_tray"] == "tray":
-            self.connect('close-request', self.exitProgram, variaapp, True)
-        else:
-            self.connect('close-request', self.exitProgram, variaapp, False)
+            
+        self.connect('close-request', self.exitProgram, variaapp, False)
 
         # Set up variables and all:
         aria2_connection_successful = initiate(self, variaVersion)
@@ -111,11 +105,8 @@ class MainWindow(Adw.ApplicationWindow):
 
         # Start the system tray thread:
         if appconf["use_tray"] == "tray":
-            from window.tray import SystemTray
-
-            self.tray = SystemTray(window=self)
-            thread = threading.Thread(target=self.tray.run())
-            thread.start()
+            thread = threading.Thread(target=self.run_tray)
+            GLib.idle_add(thread.start)
 
         # Load incomplete downloads:
         default_state = {"url": None, "filename": None}
@@ -135,6 +126,12 @@ class MainWindow(Adw.ApplicationWindow):
         # Start in background mode if it was enabled in preferences:
         if (self.appconf["default_mode"] == "background"):
             self.exitProgram(app=self, variaapp=variaapp, background=True)
+    
+    def run_tray(self):
+        from window.tray import SystemTray
+        self.tray = SystemTray(window=self)
+        thread = threading.Thread(target=self.tray.run())
+        thread.start()
 
     def filter_download_list(self, button, filter_mode):
         if (button != "no"):

@@ -2,3 +2,6 @@
 .vscode
 _build
 .flatpak-builder
+src/window/__pycache__
+src/download/__pycache__
+src/__pycache__

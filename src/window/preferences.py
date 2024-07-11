@@ -176,7 +176,7 @@ def show_preferences(button, self, app):
         tray.set_sensitive(True)
     else:
         tray.set_sensitive(False)
-        tray.set_subtitle(_("Please install PyQt6 to use the system tray"))
+        tray.set_subtitle(_("Please install PySide6 to use the system tray"))
 
     if self.appconf["use_tray"] == "tray":
         tray.set_active("active")
