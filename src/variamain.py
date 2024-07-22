@@ -105,8 +105,7 @@ class MainWindow(Adw.ApplicationWindow):
 
         # Start the system tray thread:
         if appconf["use_tray"] == "tray":
-            thread = threading.Thread(target=self.run_tray)
-            GLib.idle_add(thread.start)
+            self.run_tray()
 
         # Load incomplete downloads:
         default_state = {"url": None, "filename": None}

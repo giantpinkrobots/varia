@@ -12,7 +12,8 @@
 		"--device=dri",
 		"--socket=wayland",
 		"--filesystem=xdg-download",
-		"--system-talk-name=org.freedesktop.login1"
+		"--system-talk-name=org.freedesktop.login1",
+	  	"--talk-name=org.kde.StatusNotifierWatcher"
 	],
 	"cleanup": [
 		"/include",
@@ -28,83 +29,83 @@
 	"modules": [
 		"./python3-aria2p.json",
 		{
-			"name": "qt6-qtbase",
-			"cleanup-platform": [
-				"/bin"
-			],
-			"buildsystem": "cmake-ninja",
-			"config-opts": [
-				"-DQT_DISABLE_RPATH=ON",
-				"-DBUILD_WITH_PCH=FALSE",
-				"-DQT_FEATURE_openssl_linked=ON",
-				"-DQT_FEATURE_system_sqlite=ON"
-			],
-			"sources": [
-				{
-					"type": "archive",
-					"url": "https://download.qt.io/official_releases/qt/6.7/6.7.0/submodules/qtbase-everywhere-src-6.7.0.tar.xz",
-					"sha256": "11b2e29e2e52fb0e3b453ea13bbe51a10fdff36e1c192d8868c5a40233b8b254",
-					"x-checker-data": {
-						"type": "anitya",
-						"project-id": 7927,
-						"stable-only": true,
-						"versions": {
-							"<": "6.8.0"
-						},
-						"url-template": "https://download.qt.io/official_releases/qt/6.7/$version/submodules/qtbase-everywhere-src-$version.tar.xz"
-					}
-				}
-			]
+		    "name": "qt6-qtbase",
+		    "cleanup-platform": [
+		        "/bin"
+		    ],
+		    "buildsystem": "cmake-ninja",
+		    "config-opts": [
+		        "-DQT_DISABLE_RPATH=ON",
+		        "-DBUILD_WITH_PCH=FALSE",
+		        "-DQT_FEATURE_openssl_linked=ON",
+		        "-DQT_FEATURE_system_sqlite=ON"
+		    ],
+		    "sources": [
+		        {
+		            "type": "archive",
+		            "url": "https://download.qt.io/official_releases/qt/6.7/6.7.2/submodules/qtbase-everywhere-src-6.7.2.tar.xz",
+		            "sha256": "c5f22a5e10fb162895ded7de0963328e7307611c688487b5d152c9ee64767599",
+		            "x-checker-data": {
+		                "type": "anitya",
+		                "project-id": 7927,
+		                "stable-only": true,
+		                "versions": {
+		                    "<": "6.8.0"
+		                },
+		                "url-template": "https://download.qt.io/official_releases/qt/6.7/$version/submodules/qtbase-everywhere-src-$version.tar.xz"
+		            }
+		        }
+		    ]
 		},
 		{
-			"name": "qt6-qtdeclarative",
-			"config-opts": [
-				"-DQT_TOOL_COMMAND_WRAPPER_PATH=env"
-			],
-			"buildsystem": "cmake-ninja",
-			"cleanup-platform": [
-				"/bin",
-				"lib/plugins/qmltooling"
-			],
-			"sources": [
-				{
-					"type": "archive",
-					"url": "https://download.qt.io/official_releases/qt/6.7/6.7.0/submodules/qtdeclarative-everywhere-src-6.7.0.tar.xz",
-					"sha256": "5a0c39579a74d7cca581162c866ed0887287d4f8d5abff7ab9492d4a58fa9e2c",
-					"x-checker-data": {
-						"type": "anitya",
-						"project-id": 7927,
-						"stable-only": true,
-						"versions": {
-							"<": "6.8.0"
-						},
-						"url-template": "https://download.qt.io/official_releases/qt/6.7/$version/submodules/qtdeclarative-everywhere-src-$version.tar.xz"
-					}
-				}
-			]
+		    "name": "qt6-qtdeclarative",
+		    "config-opts": [
+		        "-DQT_TOOL_COMMAND_WRAPPER_PATH=env"
+		    ],
+		    "buildsystem": "cmake-ninja",
+		    "cleanup-platform": [
+		        "/bin",
+		        "lib/plugins/qmltooling"
+		    ],
+		    "sources": [
+		        {
+		            "type": "archive",
+		            "url": "https://download.qt.io/official_releases/qt/6.7/6.7.2/submodules/qtdeclarative-everywhere-src-6.7.2.tar.xz",
+		            "sha256": "4c29cba1af8c42d425d8eb6e01bad24cb80f4b983d71eef566a0542dfdb9b999",
+		            "x-checker-data": {
+		                "type": "anitya",
+		                "project-id": 7927,
+		                "stable-only": true,
+		                "versions": {
+		                    "<": "6.8.0"
+		                },
+		                "url-template": "https://download.qt.io/official_releases/qt/6.7/$version/submodules/qtdeclarative-everywhere-src-$version.tar.xz"
+		            }
+		        }
+		    ]
 		},
 		{
-			"name": "qt6-wayland",
-			"buildsystem": "cmake-ninja",
-			"cleanup-platform": [
-				"/bin"
-			],
-			"sources": [
-				{
-					"type": "archive",
-					"url": "https://download.qt.io/official_releases/qt/6.7/6.7.0/submodules/qtwayland-everywhere-src-6.7.0.tar.xz",
-					"sha256": "d73470e4217da388d8cd2a517ee8bb373853f33c569306e80f04397845157aea",
-					"x-checker-data": {
-						"type": "anitya",
-						"project-id": 7927,
-						"stable-only": true,
-						"versions": {
-							"<": "6.8.0"
-						},
-						"url-template": "https://download.qt.io/official_releases/qt/6.7/$version/submodules/qtwayland-everywhere-src-$version.tar.xz"
-					}
-				}
-			]
+		    "name": "qt6-wayland",
+		    "buildsystem": "cmake-ninja",
+		    "cleanup-platform": [
+		        "/bin"
+		    ],
+		    "sources": [
+		        {
+		            "type": "archive",
+		            "url": "https://download.qt.io/official_releases/qt/6.7/6.7.2/submodules/qtwayland-everywhere-src-6.7.2.tar.xz",
+		            "sha256": "a2a057e1dd644bd44abb9990fecc194b2e25c2e0f39e81aa9fee4c1e5e2a8a5b",
+		            "x-checker-data": {
+		                "type": "anitya",
+		                "project-id": 7927,
+		                "stable-only": true,
+		                "versions": {
+		                    "<": "6.8.0"
+		                },
+		                "url-template": "https://download.qt.io/official_releases/qt/6.7/$version/submodules/qtwayland-everywhere-src-$version.tar.xz"
+		            }
+		        }
+		    ]
 		},
 		{
 			"name": "aria2",

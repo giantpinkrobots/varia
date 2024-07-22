@@ -3,7 +3,6 @@ from PySide6.QtWidgets import QApplication, QSystemTrayIcon, QMenu
 import os
 from gettext import gettext as _
 
-
 class SystemTray:
     def __init__(self, window):
         self.qapp = QApplication([])
@@ -12,12 +11,9 @@ class SystemTray:
         self.window = window
         self.shown = False
 
-        if (os.name == 'nt'):
-            icon = QIcon(os.path.dirname(os.path.realpath(__file__)) + "/../icon.ico")
-        else:
-            icon = QIcon.fromTheme("io.github.giantpinkrobots.varia")
+        trayicon = QIcon(os.path.dirname(os.path.realpath(__file__)) + "/../icon.ico")
 
-        tray = QSystemTrayIcon(icon=icon, parent=self.qapp)
+        tray = QSystemTrayIcon(icon=trayicon, parent=self.qapp, toolTip="Varia")
         tray.setVisible(True)
 
         menu = QMenu()
@@ -26,7 +22,6 @@ class SystemTray:
         menu.addAction(self.quit_action)
 
         tray.activated.connect(lambda: self._toggle_window())
-
         tray.setContextMenu(menu)
 
     def run(self):
@@ -48,3 +43,4 @@ class SystemTray:
         else:
             self.window.hide()
             self.shown = False
+
