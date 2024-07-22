@@ -32,6 +32,7 @@ configure_file(
 varia_sources = [
   'variamain.py',
   'initiate.py',
+  'icon.ico'
 ]
 
 varia_sources_window = [
