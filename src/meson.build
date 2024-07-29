@@ -32,6 +32,7 @@ configure_file(
 varia_sources = [
   'variamain.py',
   'initiate.py',
+  'icon.ico'
 ]
 
 varia_sources_window = [
@@ -39,6 +40,7 @@ varia_sources_window = [
   'window/sidebar.py',
   'window/preferences.py',
   'window/scheduler.py',
+  'window/tray.py'
 ]
 
 varia_sources_download = [
