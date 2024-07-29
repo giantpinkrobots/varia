@@ -1,0 +1,339 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# twlvnn kraftwerk <kraft_werk@tutanota.com>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: varia\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-30 03:17+0300\n"
+"PO-Revision-Date: 2024-07-06 13:05+0200\n"
+"Last-Translator: twlvnn kraftwerk <kraft_werk@tutanota.com>\n"
+"Language-Team: Bulgarian <dict-notifications@fsa-bg.org>\n"
+"Language: bg\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"X-Generator: Gtranslator 46.1\n"
+
+#. Translators: Do NOT translate or localize the application name.
+#: data/io.github.giantpinkrobots.varia.desktop.in:4
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:3
+msgid "Varia"
+msgstr "Varia"
+
+#. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
+#: data/io.github.giantpinkrobots.varia.desktop.in:11
+msgid "varia;aria;download;manager;"
+msgstr "мениджър за изтегляне;изтегляне;мениджър;"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
+msgid "Download manager based on aria2"
+msgstr "Мениджър за изтегляне основан на aria2"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
+msgid ""
+"Varia is a download manager based on aria2 that utilizes GTK4 and Libadwaita "
+"to provide a easy to use interface that integrates well with the GNOME "
+"desktop."
+msgstr ""
+"„Varia“ е мениджър за изтегляне основан на aria2, който използва GTK4 и "
+"Libadwaita, за да осигури лесен за използване потребителски интерфейс, който "
+"се интегрира добре с GNOME работната среда."
+
+#: src/variamain.py:45
+msgid "This is not a valid URL."
+msgstr "Това не е правилен адрес."
+
+#: src/variamain.py:125
+msgid "All"
+msgstr "Всички"
+
+#: src/variamain.py:137
+msgid "In Progress"
+msgstr "Изпълнява се"
+
+#: src/variamain.py:148
+msgid "Completed"
+msgstr "Завършено"
+
+#: src/variamain.py:171
+msgid "About Varia"
+msgstr "Относно „Varia“"
+
+#: src/variamain.py:177
+msgid "URL"
+msgstr "URL адрес, или само адрес"
+
+#: src/variamain.py:178
+msgid "Download"
+msgstr "Изтегляне"
+
+#: src/variamain.py:184
+msgid "Open Download Folder"
+msgstr "Отваряне на изтеглянията"
+
+#: src/variamain.py:196
+msgid "Speed Limit"
+msgstr "Ограничение на скоростта"
+
+#: src/variamain.py:203 src/variamain.py:423
+msgid "Pause All"
+msgstr "Пауза на всички"
+
+#: src/variamain.py:212
+msgid "Speed"
+msgstr "Скорост"
+
+#: src/variamain.py:215
+msgid "Set Speed Limit"
+msgstr "Задаване на ограничение на скоростта"
+
+#: src/variamain.py:216
+msgid "Cancel All"
+msgstr "Отменяне на всички"
+
+#: src/variamain.py:235
+msgid "/s"
+msgstr "/с"
+
+#: src/variamain.py:238
+msgid "No limit"
+msgstr "Без ограничение"
+
+#: src/variamain.py:274
+msgid "Download complete."
+msgstr "Изтеглянето завърши."
+
+#: src/variamain.py:276
+msgid "Download speed is limited."
+msgstr "Скоростта на изтегляне е ограничена."
+
+#: src/variamain.py:277
+msgid "An error occurred:"
+msgstr "Възникна грешка:"
+
+#: src/variamain.py:292
+msgid "MB/s"
+msgstr "МБ/с"
+
+#: src/variamain.py:294
+msgid "KB/s"
+msgstr "КБ/с"
+
+#: src/variamain.py:298
+msgid "0 B/s"
+msgstr "0 Б/с"
+
+#: src/variamain.py:300
+msgid " MB/s"
+msgstr "МБ/с"
+
+#: src/variamain.py:302
+msgid " KB/s"
+msgstr "КБ/с"
+
+#: src/variamain.py:304
+msgid " B/s"
+msgstr "Б/с"
+
+#: src/variamain.py:404
+msgid "Simultaneous Download Amount"
+msgstr "Количество едновременни изтегляния"
+
+#: src/variamain.py:410
+msgid "Resume All"
+msgstr "Пускане на всички"
+
+#: src/variamain.py:443
+msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
+msgstr "Мениджър за изтегляне основан на aria2, използващ GTK4 и Libadwaita."
+
+#: src/variamain.py:777
+msgid "This application relies on the following pieces of software:"
+msgstr "Това приложение разчита на следния софтуер:"
+
+#: src/variamain.py:777
+msgid ""
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
+msgstr ""
+"Лицензите на целия този софтуер можете да намерите в папката "
+"„dependencies_information“ в папката „app“ на това приложение."
+
+#: src/variamain.py:449
+msgid "translator-credits"
+msgstr "twlvnn kraftwerk <kraft_werk@tutanota.com>"
+
+#: src/variamain.py:457
+msgid "Download Directory"
+msgstr "Папка за изтегляне"
+
+#: src/variamain.py:460
+msgid "Change"
+msgstr "Променяне"
+
+#: src/variamain.py:463
+msgid "Speed limited"
+msgstr "Скоростта е ограничена"
+
+#: src/variamain.py:519
+msgid "Authentication"
+msgstr "Удостоверяване"
+
+#: src/variamain.py:532
+msgid "Username"
+msgstr "Потребителско име"
+
+#: src/variamain.py:534
+msgid "Password"
+msgstr "Парола"
+
+#: src/variamain.py:554
+msgid "Authorization failed."
+msgstr "Упълномощяването е неуспешно."
+
+#: src/variamain.py:806
+msgid "Failed to open directory."
+msgstr "Папката не може да бъде отворена."
+
+msgid "Remote Mode"
+msgstr "Режим „Дистанционно“"
+
+msgid "Remote aria2 IP"
+msgstr "Отдалечено aria2 IP"
+
+msgid "Remote aria2 Port"
+msgstr "Отдалечен aria2 порт"
+
+msgid "Remote aria2 RPC Secret"
+msgstr "Отдалечен aria2 RPC Secret"
+
+msgid "Remote Download Location"
+msgstr "Отдалечено място за изтегляне"
+
+msgid "Exiting Varia..."
+msgstr "Спиране на „Varia“…"
+
+msgid "Background Mode"
+msgstr "Фонов режим"
+
+msgid "Continuing the downloads in the background."
+msgstr "Продължаване на изтеглянето във фонов режим."
+
+msgid "Browser Extension"
+msgstr "Браузър разширение"
+
+msgid "Shutdown on Completion"
+msgstr "Изключване при завършване"
+
+msgid "Varia is about to shut down your computer."
+msgstr "„Varia“ ще изключи компютъра ви."
+
+msgid "Press Cancel to cancel and disable."
+msgstr "Натиснете „Отказване“, за да откажете и изключите."
+
+msgid "Cancel"
+msgstr "Отказване"
+
+msgid "Warning"
+msgstr "Предупреждение"
+
+msgid "Monday"
+msgstr "Понеделник"
+
+msgid "Tuesday"
+msgstr "Вторник"
+
+msgid "Wednesday"
+msgstr "Сряда"
+
+msgid "Thursday"
+msgstr "Четвъртък"
+
+msgid "Friday"
+msgstr "Петък"
+
+msgid "Saturday"
+msgstr "Събота"
+
+msgid "Sunday"
+msgstr "Неделя"
+
+msgid "Start (h/m):"
+msgstr "Начало (ч/м):"
+
+msgid "End (h/m):"
+msgstr "Край (ч/м):"
+
+msgid "Scheduler enabled"
+msgstr "Scheduler е активиран"
+
+msgid "Scheduler"
+msgstr "Scheduler"
+
+msgid "Enabled"
+msgstr "Активирано"
+
+msgid "Start downloading in these times"
+msgstr "Стартиране на изтеглянето по това време"
+
+msgid "Stop downloading in these times"
+msgstr "Спиране на изтеглянето по това време"
+
+msgid "Add Timespan"
+msgstr "Добавяне на времеви интервал"
+
+msgid "Seeding"
+msgstr "Разпръскване"
+
+msgid "Failed"
+msgstr "Неуспешен"
+
+msgid "Completion Options"
+msgstr "Настройки за завършване"
+
+msgid "Exit on Completion"
+msgstr "Спиране на програмата при завършване"
+
+msgid "Varia is about to quit."
+msgstr "„Varia“ ще спре."
+
+msgid "Preferences"
+msgstr "Настройки"
+
+msgid "Other"
+msgstr "Друго"
+
+msgid "Basic Settings"
+msgstr "Основни настройки"
+
+msgid "Advanced Settings"
+msgstr "Допълнителни настройки"
+
+msgid "Use cookies.txt"
+msgstr "Използване на бисквитки.txt"
+
+msgid "Import cookies.txt"
+msgstr "Внасяне на бисквитки.txt"
+
+msgid "Remove cookies.txt"
+msgstr "Премахване на бисквитки.txt"
+
+#: src/gtk/help-overlay.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Общи"
+
+#: src/gtk/help-overlay.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Показване на клавишните комбинации"
+
+#: src/gtk/help-overlay.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Спиране на програмата"
