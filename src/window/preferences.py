@@ -166,20 +166,14 @@ def show_preferences(button, self, app):
     if (self.appconf["default_mode"] == "background"):
         start_in_background.set_active("active")
 
-    # Tray:
+    # System Tray:
 
-    tray = Adw.SwitchRow()
-    tray.set_title(_("Use System Tray"))
-    tray.connect("notify::active", on_use_system_tray, self, preferences)
+    use_tray = Adw.SwitchRow()
+    use_tray.set_title(_("Use System Tray"))
+    use_tray.connect("notify::active", on_use_system_tray, self, preferences)
 
-    if self.hasqt:
-        tray.set_sensitive(True)
-    else:
-        tray.set_sensitive(False)
-        tray.set_subtitle(_("Please install PySide6 to use the system tray"))
-
-    if self.appconf["use_tray"] == "tray":
-        tray.set_active("active")
+    if (self.appconf["use_tray"] == "true"):
+        use_tray.set_active("active")
 
     # Construct Group 1:
 
@@ -188,7 +182,7 @@ def show_preferences(button, self, app):
     group_1.add(scheduler_actionrow)
     group_1.add(simultaneous_download_amount_unit_names_box)
     group_1.add(start_in_background)
-    group_1.add(tray)
+    group_1.add(use_tray)
 
     # Remote aria2:
 
@@ -440,11 +434,11 @@ def on_start_in_background(switch, state, self):
 def on_use_system_tray(switch, state, self, preferencesWindow):
     state = switch.get_active()
     if state:
-        if self.appconf["use_tray"] == "none":
+        if self.appconf["use_tray"] == "false":
             restart_varia_dialog(preferencesWindow)
-        self.appconf["use_tray"] = "tray"
+        self.appconf["use_tray"] = "true"
     else:
-        self.appconf["use_tray"] = "none"
+        self.appconf["use_tray"] = "false"
         restart_varia_dialog(preferencesWindow)
 
     self.save_appconf()
@@ -560,4 +554,3 @@ def restart_varia_dialog(preferencesWindow):
     dialog.set_default_response("ok")
     dialog.set_close_response("ok")
     dialog.present(preferencesWindow)
-

@@ -1,0 +1,9 @@
+[package]
+name = "varia-tray"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+dbus = "0.9.7"
+gettext-rs = { version = "0.7.1", features = ["gettext-system"] }
+ksni = "0.2.2"
