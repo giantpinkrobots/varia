@@ -14,7 +14,7 @@ pub struct VariaTray<'a> {
 
 impl<'a> ksni::Tray for VariaTray<'a> {
     fn icon_name(&self) -> String {
-        "io.github.giantpinkrobots.varia".into()
+        "io.github.giantpinkrobots.varia-symbolic".into()
     }
     fn title(&self) -> String {
         gettext("Varia")

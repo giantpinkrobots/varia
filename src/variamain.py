@@ -99,11 +99,13 @@ class MainWindow(Adw.ApplicationWindow):
         # Start the system tray if it is being used:
         if self.appconf['use_tray'] == 'true':
             import tray_server
-            # I have no clue why this works in this order, but it does.
-            self.tray_process = subprocess.Popen([self.trayexec, self.localedir])
+            import asyncio
 
-            self.tray_server = tray_server.TrayServerRunner(variaapp=self)
-            thread = threading.Thread(target=self.tray_server.run())
+            def run_tray_server():
+                self.tray_server = tray_server.TrayServerRunner(variaapp=self)
+                asyncio.run(self.tray_server.run())
+
+            thread = threading.Thread(target=run_tray_server)
             thread.start()
 
         # Load incomplete downloads:
@@ -323,7 +325,7 @@ class MainWindow(Adw.ApplicationWindow):
                 self.api.client.shutdown()
 
                 try:
-                    self.tray_server.exit()
+                    self.tray_thread.exit()
                 except AttributeError:
                     pass
 

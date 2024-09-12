@@ -3,8 +3,17 @@
 	"runtime": "org.gnome.Platform",
 	"runtime-version": "46",
 	"sdk": "org.gnome.Sdk",
+	"sdk-extensions": [
+        	"org.freedesktop.Sdk.Extension.rust-stable"
+    	],
 	"command": "varia",
-	"//": "Justifications for the permissions: This program utilizes aria2c, and aria2c requires the networking permission and the xdg-download directory in order to download files. It also has a 'shut down once all downloads are completed' feature that requires access to org.freedesktop.login1.",
+	"build-options" : {
+		"append-path" : "/usr/lib/sdk/rust-stable/bin",
+		"build-args" : [
+		    "--share=network"
+		]
+	},
+	"//": "Justifications for the permissions: This program utilizes aria2c, and aria2c requires the networking permission and the xdg-download directory in order to download files. It also has a 'shut down once all downloads are completed' feature that requires access to org.freedesktop.login1. org.kde.* is needed for the tray icon functionality.",
 	"finish-args": [
 		"--share=network",
 		"--share=ipc",
@@ -13,7 +22,7 @@
 		"--socket=wayland",
 		"--filesystem=xdg-download",
 		"--system-talk-name=org.freedesktop.login1",
-	  	"--talk-name=org.kde.StatusNotifierWatcher"
+		"--own-name=org.kde.*"
 	],
 	"cleanup": [
 		"/include",
@@ -28,85 +37,7 @@
 	],
 	"modules": [
 		"./python3-aria2p.json",
-		{
-		    "name": "qt6-qtbase",
-		    "cleanup-platform": [
-		        "/bin"
-		    ],
-		    "buildsystem": "cmake-ninja",
-		    "config-opts": [
-		        "-DQT_DISABLE_RPATH=ON",
-		        "-DBUILD_WITH_PCH=FALSE",
-		        "-DQT_FEATURE_openssl_linked=ON",
-		        "-DQT_FEATURE_system_sqlite=ON"
-		    ],
-		    "sources": [
-		        {
-		            "type": "archive",
-		            "url": "https://download.qt.io/official_releases/qt/6.7/6.7.2/submodules/qtbase-everywhere-src-6.7.2.tar.xz",
-		            "sha256": "c5f22a5e10fb162895ded7de0963328e7307611c688487b5d152c9ee64767599",
-		            "x-checker-data": {
-		                "type": "anitya",
-		                "project-id": 7927,
-		                "stable-only": true,
-		                "versions": {
-		                    "<": "6.8.0"
-		                },
-		                "url-template": "https://download.qt.io/official_releases/qt/6.7/$version/submodules/qtbase-everywhere-src-$version.tar.xz"
-		            }
-		        }
-		    ]
-		},
-		{
-		    "name": "qt6-qtdeclarative",
-		    "config-opts": [
-		        "-DQT_TOOL_COMMAND_WRAPPER_PATH=env"
-		    ],
-		    "buildsystem": "cmake-ninja",
-		    "cleanup-platform": [
-		        "/bin",
-		        "lib/plugins/qmltooling"
-		    ],
-		    "sources": [
-		        {
-		            "type": "archive",
-		            "url": "https://download.qt.io/official_releases/qt/6.7/6.7.2/submodules/qtdeclarative-everywhere-src-6.7.2.tar.xz",
-		            "sha256": "4c29cba1af8c42d425d8eb6e01bad24cb80f4b983d71eef566a0542dfdb9b999",
-		            "x-checker-data": {
-		                "type": "anitya",
-		                "project-id": 7927,
-		                "stable-only": true,
-		                "versions": {
-		                    "<": "6.8.0"
-		                },
-		                "url-template": "https://download.qt.io/official_releases/qt/6.7/$version/submodules/qtdeclarative-everywhere-src-$version.tar.xz"
-		            }
-		        }
-		    ]
-		},
-		{
-		    "name": "qt6-wayland",
-		    "buildsystem": "cmake-ninja",
-		    "cleanup-platform": [
-		        "/bin"
-		    ],
-		    "sources": [
-		        {
-		            "type": "archive",
-		            "url": "https://download.qt.io/official_releases/qt/6.7/6.7.2/submodules/qtwayland-everywhere-src-6.7.2.tar.xz",
-		            "sha256": "a2a057e1dd644bd44abb9990fecc194b2e25c2e0f39e81aa9fee4c1e5e2a8a5b",
-		            "x-checker-data": {
-		                "type": "anitya",
-		                "project-id": 7927,
-		                "stable-only": true,
-		                "versions": {
-		                    "<": "6.8.0"
-		                },
-		                "url-template": "https://download.qt.io/official_releases/qt/6.7/$version/submodules/qtwayland-everywhere-src-$version.tar.xz"
-		            }
-		        }
-		    ]
-		},
+		"./python3-dbus-next.json",
 		{
 			"name": "aria2",
 			"buildsystem": "autotools",
@@ -133,40 +64,6 @@
 					"type": "archive",
 					"url": "https://github.com/aria2/aria2/releases/download/release-1.37.0/aria2-1.37.0.tar.xz",
 					"sha256": "60a420ad7085eb616cb6e2bdf0a7206d68ff3d37fb5a956dc44242eb2f79b66b"
-				}
-			]
-		},
-		{
-			"name": "pyside6",
-			"buildsystem": "simple",
-			"build-commands": [
-				"pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} pyside6_essentials --no-build-isolation",
-				"rm -rf ${FLATPAK_DEST}/bin/pyside6-{assistant,designer,linguist,lrelease,lupdate,qmllint}",
-				"rm -rf ${FLATPAK_DEST}/lib/python3.*/site-packages/PySide6/{assistant,designer,linguist,lrelease,lupdate,qmllint}",
-				"rm -rf ${FLATPAK_DEST}/lib/python3.*/site-packages/PySide6/{examples,Qt/qml,Qt/resources,Qt/translations/qtwebengine_locales}",
-				"rm -rf ${FLATPAK_DEST}/lib/python3.*/site-packages/PySide6/Qt/lib"
-			],
-			"sources": [
-				{
-					"type": "file",
-					"url": "https://files.pythonhosted.org/packages/d8/f7/7a8a0c3a87fc9a898a521ae34aea5806f71f7bef1a0e032a6d954550fcea/PySide6_Essentials-6.7.0-cp39-abi3-manylinux_2_28_x86_64.whl",
-					"sha256": "e013238fe40596b804068e34ac173514943a41bf8e5fbb4edfc7c30b00431bd5"
-				}
-			],
-			"modules": [
-				{
-					"name": "shiboken6",
-					"buildsystem": "simple",
-					"build-commands": [
-						"pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} shiboken6 --no-build-isolation"
-					],
-					"sources": [
-						{
-							"type": "file",
-							"url": "https://files.pythonhosted.org/packages/6a/05/a2f348685041495be25709f85ca30d9f79fdc4f3bcd4f8da8b980b1de071/shiboken6-6.7.0-cp39-abi3-manylinux_2_28_x86_64.whl",
-							"sha256": "7887ba7ecfddb09ee9966325c1e229a17f3f444b0257b77cb7838792287d3e05"
-						}
-					]
 				}
 			]
 		},
