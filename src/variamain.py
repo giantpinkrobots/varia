@@ -380,8 +380,8 @@ def main(version, aria2cexec):
             download_directory = GLib.get_user_special_dir(GLib.USER_DIRECTORY_DOWNLOAD)
         else:
             download_directory = GLib.get_user_special_dir(GLib.USER_DIRECTORY_HOME)
-    except:
-        download_directory = GLib.get_user_special_dir(GLib.USER_DIRECTORY_HOME)
+    except AttributeError:
+        download_directory = os.path.expanduser("~")
 
     appconf = {
         'download_speed_limit_enabled': '0',
