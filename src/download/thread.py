@@ -155,11 +155,11 @@ class DownloadThread(threading.Thread):
         if int(str(download_speed_mb)[0]) == 0:
             download_speed_kb = (self.download.download_speed / 1024)
             if int(str(download_speed_kb)[0]) == 0:
-                self.speed_label.set_text(f"{round(self.download.progress)}%  |  {round(self.download.download_speed, 2)} B/s | {download_hours}:{download_minutes}:{download_seconds} Remaining")
+                self.speed_label.set_text(f"{round(self.download.progress)}%  |  {round(self.download.download_speed, 2)} {_(' B/s')}  |  {download_hours}:{download_minutes}:{download_seconds} {_('remaining')}")
             else:
-                self.speed_label.set_text(f"{round(self.download.progress)}%  |  {round(self.download.download_speed / 1024, 2)} KB/s | {download_hours}:{download_minutes}:{download_seconds} Remaining")
+                self.speed_label.set_text(f"{round(self.download.progress)}%  |  {round(self.download.download_speed / 1024, 2)} {_(' KB/s')}  |  {download_hours}:{download_minutes}:{download_seconds} {_('remaining')}")
         else:
-            self.speed_label.set_text(f"{round(self.download.progress)}%  |  {round(self.download.download_speed / 1024 / 1024, 2)} MB/s | {download_hours}:{download_minutes}:{download_seconds} Remaining")
+            self.speed_label.set_text(f"{round(self.download.progress)}%  |  {round(self.download.download_speed / 1024 / 1024, 2)} {_(' MB/s')}  |  {download_hours}:{download_minutes}:{download_seconds} {_('remaining')}")
 
     def pause(self):
         if self.download:
