@@ -1,5 +1,6 @@
 variaVersion = "v2024.5.7"
 
+from inspect import Attribute
 import gi
 import sys
 from gettext import gettext as _
@@ -8,6 +9,7 @@ import json
 import os
 import threading
 import subprocess
+import signal
 from pathlib import Path
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
@@ -23,17 +25,24 @@ from initiate import initiate
 from download.listen import listen_to_aria2
 from download.scheduler import schedule_downloads
 
+
 class MainWindow(Adw.ApplicationWindow):
-    def __init__(self, variaapp, appdir, appconf, aria2c_subprocess, aria2cexec, *args, **kwargs):
+    def __init__(self, variaapp, appdir, appconf, aria2c_subprocess, aria2cexec, trayexec, localedir, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.set_hide_on_close(True)
-        self.connect('close-request', self.exitProgram, variaapp, False)
 
+        self.variaapp = variaapp
+        self.appconf = appconf
         self.scheduler_currently_downloading = False
         self.appdir = appdir
-        self.appconf = appconf
         self.aria2c_subprocess = aria2c_subprocess
+        self.trayexec = trayexec
+        self.localedir = localedir
         self.bindir = aria2cexec[:-6]
+
+        self.nudged = False
+
+        self.connect('close-request', self.exitProgram, variaapp, False)
 
         # Set up variables and all:
         aria2_connection_successful = initiate(self, variaVersion)
@@ -86,6 +95,18 @@ class MainWindow(Adw.ApplicationWindow):
         # Begin the scheduler:
         thread = threading.Thread(target=schedule_downloads(self, True))
         thread.start()
+
+        # Start the system tray if it is being used:
+        if self.appconf['use_tray'] == 'true':
+            import tray_server
+            import asyncio
+
+            def run_tray_server():
+                self.tray_server = tray_server.TrayServerRunner(variaapp=self)
+                asyncio.run(self.tray_server.run())
+
+            thread = threading.Thread(target=run_tray_server)
+            thread.start()
 
         # Load incomplete downloads:
         default_state = {"url": None, "filename": None}
@@ -286,10 +307,12 @@ class MainWindow(Adw.ApplicationWindow):
     def exitProgram(self, app, variaapp, background):
         if (background == True):
             self.hide()
-            notification = Gio.Notification.new(_("Background Mode"))
-            notification.set_body(_("Continuing the downloads in the background."))
-            notification.set_title(_("Background Mode")),
-            variaapp.send_notification(None, notification)
+            if not self.nudged:
+                notification = Gio.Notification.new(_("Background Mode"))
+                notification.set_body(_("Continuing the downloads in the background."))
+                notification.set_title(_("Background Mode")),
+                variaapp.send_notification(None, notification)
+                self.nudged = True
             print('Background mode')
         else:
             self.terminating = True
@@ -301,24 +324,31 @@ class MainWindow(Adw.ApplicationWindow):
                 self.pause_all("no")
                 self.api.client.shutdown()
 
-                if (self.is_visible() == True):
-                    self.hide()
-                    exiting_dialog = Adw.MessageDialog()
-                    exiting_dialog_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=25)
-                    exiting_dialog.set_child(exiting_dialog_box)
-                    exiting_dialog_box.set_margin_top(30)
-                    exiting_dialog_box.set_margin_bottom(30)
-                    exiting_dialog_spinner = Gtk.Spinner()
-                    exiting_dialog_spinner.set_size_request(30, 30)
-                    exiting_dialog_spinner.start()
-                    exiting_dialog_box.append(exiting_dialog_spinner)
-                    exiting_dialog_label = Gtk.Label(label=_("Exiting Varia..."))
-                    exiting_dialog_label.get_style_context().add_class("title-1")
-                    exiting_dialog_box.append(exiting_dialog_label)
-                    exiting_dialog.set_transient_for(self)
-                    GLib.idle_add(exiting_dialog.show)
-                else:
-                    exiting_dialog = None
+                try:
+                    self.tray_thread.exit()
+                except AttributeError:
+                    pass
+
+                try:
+                    self.tray_process.send_signal(signal.SIGINT)
+                except AttributeError:
+                    pass
+
+                self.hide()
+                exiting_dialog = Adw.MessageDialog()
+                exiting_dialog_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=25)
+                exiting_dialog.set_child(exiting_dialog_box)
+                exiting_dialog_box.set_margin_top(30)
+                exiting_dialog_box.set_margin_bottom(30)
+                exiting_dialog_spinner = Gtk.Spinner()
+                exiting_dialog_spinner.set_size_request(30, 30)
+                exiting_dialog_spinner.start()
+                exiting_dialog_box.append(exiting_dialog_spinner)
+                exiting_dialog_label = Gtk.Label(label=_("Exiting Varia..."))
+                exiting_dialog_label.get_style_context().add_class("title-1")
+                exiting_dialog_box.append(exiting_dialog_label)
+                exiting_dialog.set_transient_for(self)
+                GLib.idle_add(exiting_dialog.show)
 
                 GLib.timeout_add(3000, self.aria2c_exiting_check, app, 0, variaapp, exiting_dialog)
 
@@ -337,7 +367,6 @@ class MainWindow(Adw.ApplicationWindow):
             if (exiting_dialog is not None):
                 exiting_dialog.destroy()
             self.destroy()
-            variaapp.quit()
             for thread in threading.enumerate():
                 print(thread.name)
             return
@@ -347,17 +376,17 @@ class MainWindow(Adw.ApplicationWindow):
             self.exitProgram(variaapp, variaapp, False)
 
 class MyApp(Adw.Application):
-    def __init__(self, appdir, appconf, aria2c_subprocess, aria2cexec, **kwargs):
+    def __init__(self, appdir, appconf, aria2c_subprocess, aria2cexec, trayexec, localedir, **kwargs):
         super().__init__(**kwargs)
-        self.connect('activate', self.on_activate, appdir, appconf, aria2c_subprocess, aria2cexec)
+        self.connect('activate', self.on_activate, appdir, appconf, aria2c_subprocess, aria2cexec, trayexec, localedir)
         quit_action = Gio.SimpleAction.new("quit", None)
         quit_action.connect("activate", self.quit_action)
         self.add_action(quit_action)
         self.initiated = False
 
-    def on_activate(self, app, appdir, appconf, aria2c_subprocess, aria2cexec):
+    def on_activate(self, app, appdir, appconf, aria2c_subprocess, aria2cexec, trayexec, localedir):
         if not hasattr(self, 'win'):
-            self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf, aria2c_subprocess=aria2c_subprocess, aria2cexec=aria2cexec)
+            self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf, aria2c_subprocess=aria2c_subprocess, aria2cexec=aria2cexec, trayexec=trayexec, localedir=localedir)
         if ((self.win.terminating == False) and ((appconf["default_mode"] == "visible") or (self.initiated == True))):
             self.win.present()
         self.initiated = True
@@ -365,16 +394,16 @@ class MyApp(Adw.Application):
     def quit_action(self, action, parameter):
         self.win.quit_action_received(self)
 
-def main(version, aria2cexec):
+def main(version, aria2cexec, trayexec, localedir):
     if "FLATPAK_ID" in os.environ:
         appdir = os.path.join('/var', 'data')
     else:
         appdir = os.path.join(os.path.expanduser('~'), '.varia')
         if not os.path.exists(appdir):
             os.makedirs(appdir)
-    
+
     download_directory = ''
-    
+
     try:
         if (os.path.exists(GLib.get_user_special_dir(GLib.USER_DIRECTORY_DOWNLOAD))):
             download_directory = GLib.get_user_special_dir(GLib.USER_DIRECTORY_DOWNLOAD)
@@ -399,6 +428,7 @@ def main(version, aria2cexec):
         'remote_location': '',
         'schedule_enabled': '0',
         'default_mode': 'visible',
+        'use_tray': 'true',
         'schedule_mode': 'inclusive',
         'schedule': [],
         'remote_time': '0',
@@ -422,7 +452,7 @@ def main(version, aria2cexec):
     if (len(arguments) > 1):
         arguments = arguments[:-1]
 
-    app = MyApp(appdir, appconf, aria2c_subprocess, aria2cexec, application_id="io.github.giantpinkrobots.varia")
+    app = MyApp(appdir, appconf, aria2c_subprocess, aria2cexec, trayexec, localedir, application_id="io.github.giantpinkrobots.varia")
     try:
         app.run(arguments)
     except:
@@ -430,4 +460,3 @@ def main(version, aria2cexec):
 
 if ((__name__ == '__main__') and (os.name == 'nt')):
     sys.exit(main(variaVersion, "aria2c"))
-

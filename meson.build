@@ -1,7 +1,11 @@
-project('varia',
-          version: 'v2024.5.7',
-    meson_version: '>= 0.62.0',
-  default_options: [ 'warning_level=2', 'werror=false', ],
+project(
+  'varia',
+  version: 'v2024.5.7',
+  meson_version: '>= 0.62.0',
+  default_options: [
+    'warning_level=2',
+    'werror=false',
+  ],
 )
 
 pkgdatadir = get_option('prefix') / get_option('datadir') / meson.project_name()
@@ -10,16 +14,17 @@ moduledir = pkgdatadir / 'varia'
 i18n = import('i18n')
 gnome = import('gnome')
 
-
-
 subdir('data')
 subdir('src')
+subdir('src-tray')
 subdir('po')
 
 install_subdir('dependencies_information', install_dir: moduledir)
 
-gnome.post_install(
-     glib_compile_schemas: true,
+if build_machine.system() == 'linux'
+  gnome.post_install(
+    glib_compile_schemas: true,
     gtk_update_icon_cache: true,
-  update_desktop_database: true,
-)
+    update_desktop_database: true,
+  )
+endif

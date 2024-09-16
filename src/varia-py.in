@@ -12,6 +12,8 @@ VERSION = '@VERSION@'
 pkgdatadir = '@pkgdatadir@'
 localedir = '@localedir@'
 
+trayexec = pkgdatadir + '/varia/tray/varia-tray'
+
 sys.path.insert(1, pkgdatadir)
 signal.signal(signal.SIGINT, signal.SIG_DFL)
 gettext.install('varia', localedir)
@@ -33,4 +35,4 @@ if __name__ == '__main__':
 	mymodule_dir = os.path.join(pkgdatadir, 'varia')
 	sys.path.append( mymodule_dir )
 	from variamain import main
-	sys.exit(main(VERSION, aria2cexec))
+	sys.exit(main(VERSION, aria2cexec, trayexec, localedir))

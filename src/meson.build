@@ -17,7 +17,7 @@ configure_file(
   configuration: conf,
   install: true,
   install_dir: get_option('bindir'),
-  install_mode: 'r-xr-xr-x'
+  install_mode: 'r-xr-xr-x',
 )
 
 configure_file(
@@ -26,12 +26,14 @@ configure_file(
   configuration: conf,
   install: true,
   install_dir: get_option('bindir'),
-  install_mode: 'r-xr-xr-x'
+  install_mode: 'r-xr-xr-x',
 )
 
 varia_sources = [
-  'variamain.py',
+  'variamain.py', 
   'initiate.py',
+  'tray_server.py',
+  'icon.ico'
 ]
 
 varia_sources_window = [
