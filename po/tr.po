@@ -318,6 +318,15 @@ msgstr "cookies.txt İçe Aktar"
 msgid "Remove cookies.txt"
 msgstr "cookies.txt'i Sil"
 
+msgid "remaining"
+msgstr "kaldı"
+
+msgid "Start in Background Mode"
+msgstr "Arkaplan Modunda Başlat"
+
+msgid "Remote Timestamp"
+msgstr "Uzak Zaman Damgası"
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
