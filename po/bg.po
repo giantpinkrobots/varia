@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: varia\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2024-07-06 13:05+0200\n"
+"PO-Revision-Date: 2024-09-22 12:29+0200\n"
 "Last-Translator: twlvnn kraftwerk <kraft_werk@tutanota.com>\n"
 "Language-Team: Bulgarian <dict-notifications@fsa-bg.org>\n"
 "Language: bg\n"
@@ -322,6 +322,15 @@ msgstr "Внасяне на бисквитки.txt"
 
 msgid "Remove cookies.txt"
 msgstr "Премахване на бисквитки.txt"
+
+msgid "remaining"
+msgstr "остава"
+
+msgid "Start in Background Mode"
+msgstr "Стартиране във фонов режим"
+
+msgid "Remote Timestamp"
+msgstr "Дата на отдалеченото място"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
