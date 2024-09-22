@@ -14,8 +14,6 @@ def initiate(self, variaVersion):
 
     self.applied_filter = "show_all"
 
-    remote_successful = False
-
     if (self.appconf['remote'] == '1'):
         self.aria2cLocation = self.appconf['remote_protocol'] + self.appconf['remote_ip'] + ':' + self.appconf['remote_port']
         token = "token:" + self.appconf['remote_secret']
@@ -29,7 +27,7 @@ def initiate(self, variaVersion):
             response = requests.post(self.aria2cLocation + '/jsonrpc', headers={'Content-Type': 'application/json'}, data=json.dumps(json_request))
             print(response)
             if (response.status_code == 200):
-                remote_successful = True
+                self.remote_successful = True
                 self.api = aria2p.API(
                     aria2p.Client(
                         host=self.appconf['remote_protocol'] + self.appconf['remote_ip'],
@@ -41,16 +39,16 @@ def initiate(self, variaVersion):
             pass
 
     if (self.appconf['remote'] == '1'):
-        if (remote_successful == False):
+        if (self.remote_successful == False):
             self.appconf["remote"] = "0"
             self.save_appconf()
-            dialog = Adw.MessageDialog()
+            dialog = Adw.AlertDialog()
             dialog.set_body(_("Couldn't connect to remote aria2c instance. Disabling remote mode. Please restart Varia."))
             dialog.add_response("ok",  _("OK"))
             dialog.set_default_response("ok")
             dialog.set_close_response("ok")
-            dialog.connect("response", on_dialog_dismiss)
-            dialog.show()
+            dialog.connect("response", on_dialog_dismiss, self)
+            dialog.present()
             return -1
     else:
         self.api = aria2p.API(
@@ -88,6 +86,6 @@ def initiate(self, variaVersion):
     self.exit_mode = False
     self.exit_dialog_raised = False
 
-def on_dialog_dismiss(dialog, response_id):
-    dialog.destroy()
-
+def on_dialog_dismiss(dialog, response_id, self):
+    dialog.force_close()
+    self.destroy()

@@ -1,23 +1,22 @@
-# Turkish translations for varia package.
-# Copyright (C) 2023 varia'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the varia package.
-#
-# Sabri Ünal <libreajans@gmail.com>, 2023.
+# Chinese translation for Varia.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# lumingzh <lumingzh@qq.com>, 2024.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: varia main\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2024-4-24 14:18+0300\n"
-"Last-Translator: Giant Pink Robots! <giantpinkrobots@protonmail.com>\n"
-"Language-Team: \n"
-"Language: tr\n"
+"PO-Revision-Date: 2024-09-22 17:57+0800\n"
+"Last-Translator: lumingzh <lumingzh@qq.com>\n"
+"Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.1\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Gtranslator 46.1\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -28,11 +27,11 @@ msgstr "Varia"
 #. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
 #: data/io.github.giantpinkrobots.varia.desktop.in:11
 msgid "varia;aria;download;manager;"
-msgstr "varia;aria;download;manager;indirme;yöneticisi;"
+msgstr "varia;aria;download;manager;下载;管理器;bt;bittorrent;"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
 msgid "Download manager based on aria2"
-msgstr "Aria2 tabanlı indirme yöneticisi"
+msgstr "基于 aria2 的下载管理器"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
 msgid ""
@@ -40,28 +39,28 @@ msgid ""
 "to provide a easy to use interface that integrates well with the GNOME "
 "desktop."
 msgstr ""
-"Varia, GNOME masaüstü ile iyi tümleşen kullanımı kolay arayüz sağlamak için "
-"GTK4 ve Libadwaita kullanan aria2 tabanlı bir indirme yöneticisidir."
+"Varia 是一个基于 aria2 的下载管理器，利用 GTK4 和 Libadwaita 提供了与 GNOME "
+"桌面良好集成的易用界面。"
 
 #: src/variamain.py:45
 msgid "This is not a valid URL."
-msgstr "URL geçersiz."
+msgstr "这不是有效的 URL。"
 
 #: src/variamain.py:125
 msgid "All"
-msgstr "Hepsi"
+msgstr "全部"
 
 #: src/variamain.py:137
 msgid "In Progress"
-msgstr "Devam Edenler"
+msgstr "进行中"
 
 #: src/variamain.py:148
 msgid "Completed"
-msgstr "Tamamlananlar"
+msgstr "已完成"
 
 #: src/variamain.py:171
 msgid "About Varia"
-msgstr "Varia Hakkında"
+msgstr "关于 Varia"
 
 #: src/variamain.py:177
 msgid "URL"
@@ -69,31 +68,31 @@ msgstr "URL"
 
 #: src/variamain.py:178
 msgid "Download"
-msgstr "İndir"
+msgstr "下载"
 
 #: src/variamain.py:184
 msgid "Open Download Folder"
-msgstr "İndirme Klasörünü Aç"
+msgstr "打开下载文件夹"
 
 #: src/variamain.py:196
 msgid "Speed Limit"
-msgstr "Hız Sınırı"
+msgstr "速度限制"
 
 #: src/variamain.py:203 src/variamain.py:423
 msgid "Pause All"
-msgstr "Tümünü Duraklat"
+msgstr "全部暂停"
 
 #: src/variamain.py:212
 msgid "Speed"
-msgstr "Hız"
+msgstr "速度"
 
 #: src/variamain.py:215
 msgid "Set Speed Limit"
-msgstr "Hız Sınırı Koy"
+msgstr "设定速度限制"
 
 #: src/variamain.py:216
 msgid "Cancel All"
-msgstr "Tümünü İptal Et"
+msgstr "全部取消"
 
 #: src/variamain.py:235
 msgid "/s"
@@ -101,19 +100,19 @@ msgstr "/s"
 
 #: src/variamain.py:238
 msgid "No limit"
-msgstr "Limit yok"
+msgstr "无限制"
 
 #: src/variamain.py:274
 msgid "Download complete."
-msgstr "İndirme tamamlandı."
+msgstr "下载完成。"
 
 #: src/variamain.py:276
 msgid "Download speed is limited."
-msgstr "İndirme hızı sınırlandı."
+msgstr "已限制下载速度。"
 
 #: src/variamain.py:277
 msgid "An error occurred:"
-msgstr "Hata oluştu:"
+msgstr "发生了错误："
 
 #: src/variamain.py:292
 msgid "MB/s"
@@ -141,203 +140,207 @@ msgstr " B/s"
 
 #: src/variamain.py:404
 msgid "Simultaneous Download Amount"
-msgstr "Aynı Anda İndirme Sayısı"
+msgstr "同时下载数量"
 
 #: src/variamain.py:410
 msgid "Resume All"
-msgstr "Tümünü Sürdür"
+msgstr "全部恢复"
 
 #: src/variamain.py:443
 msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
-msgstr "GTK4 ve Libadwaita kullanan aria2 tabanlı indirme yöneticisi."
+msgstr "基于 aria2 使用 GTK4 和 Libadwaita 的下载管理器。"
 
 #: src/variamain.py:777
 msgid "This application relies on the following pieces of software:"
-msgstr "Bu uygulama aşağıdaki yazılımlara dayanır:"
+msgstr "该应用程序依赖于下列软件："
 
 #: src/variamain.py:777
-msgid "The licenses of all of these pieces of software can be found in the dependencies_information directory in this application's app directory."
-msgstr "Tüm bu yazılımlara ait lisanslar, uygulama dizinindeki dependencies_information dizininde bulunabilir."
+msgid ""
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
+msgstr ""
+"所有这些软件的许可证可以在该应用程序应用目录里的 dependencies_information 目"
+"录找到。"
 
 #: src/variamain.py:449
 msgid "translator-credits"
-msgstr "Sabri Ünal <libreajans@gmail.com>\nGiant Pink Robots! <giantpinkrobots@protonmail.com>"
+msgstr "lumingzh <lumingzh@qq.com>, 2024"
 
 #: src/variamain.py:457
 msgid "Download Directory"
-msgstr "İndirme Klasörü"
+msgstr "下载目录"
 
 #: src/variamain.py:460
 msgid "Change"
-msgstr "Değiştir"
+msgstr "更改"
 
 #: src/variamain.py:463
 msgid "Speed limited"
-msgstr "Hız sınırlı"
+msgstr "已限制速度"
 
 #: src/variamain.py:519
 msgid "Authentication"
-msgstr "Kimlik Doğrulama"
+msgstr "认证"
 
 #: src/variamain.py:532
 msgid "Username"
-msgstr "Kullanıcı Adı"
+msgstr "用户名"
 
 #: src/variamain.py:534
 msgid "Password"
-msgstr "Şifre"
+msgstr "密码"
 
 #: src/variamain.py:554
 msgid "Authorization failed."
-msgstr "Yetkilendirme başarısız oldu."
+msgstr "认证失败。"
 
 #: src/variamain.py:806
 msgid "Failed to open directory."
-msgstr "Dizin açılamadı."
+msgstr "打开目录失败。"
 
 msgid "Remote Mode"
-msgstr "Uzaktan Kontrol Modu"
+msgstr "远程模式"
 
 msgid "Remote aria2 IP"
-msgstr "Uzak aria2 IP'si"
+msgstr "远程 aria2 IP"
 
 msgid "Remote aria2 Port"
-msgstr "Uzak aria2 Port'u"
+msgstr "远程 aria2 端口"
 
 msgid "Remote aria2 RPC Secret"
-msgstr "Uzak aria2 RPC Şifresi"
+msgstr "远程 aria2 RPC 安全"
 
 msgid "Remote Download Location"
-msgstr "Uzak İndirme Dizini"
+msgstr "远程下载位置"
 
 msgid "Exiting Varia..."
-msgstr "Varia'dan çıkılıyor..."
+msgstr "正在退出 Varia…"
 
 msgid "Background Mode"
-msgstr "Arka Plan Modu"
+msgstr "后台模式"
 
 msgid "Continuing the downloads in the background."
-msgstr "İndirmeler arka planda devam ediyor."
+msgstr "在后台继续下载。"
 
 msgid "Browser Extension"
-msgstr "Tarayıcı Uzantısı"
+msgstr "浏览器扩展"
 
 msgid "Shutdown on Completion"
-msgstr "İndirmeler Bittiğinde Bilgisayarı Kapat"
+msgstr "完成时关机"
 
 msgid "Varia is about to shut down your computer."
-msgstr "Varia birazdan bilgisayarınızı kapatacak."
+msgstr "Varia 即将关闭您的计算机。"
 
 msgid "Press Cancel to cancel and disable."
-msgstr "İptal edip devre dışı bırakmak için Vazgeç'e basın."
+msgstr "按“取消”以取消和禁用。"
 
 msgid "Cancel"
-msgstr "Vazgeç"
+msgstr "取消"
 
 msgid "Warning"
-msgstr "Uyarı"
+msgstr "警告"
 
 msgid "Monday"
-msgstr "Pazartesi"
+msgstr "星期一"
 
 msgid "Tuesday"
-msgstr "Salı"
+msgstr "星期二"
 
 msgid "Wednesday"
-msgstr "Çarşamba"
+msgstr "星期三"
 
 msgid "Thursday"
-msgstr "Perşembe"
+msgstr "星期四"
 
 msgid "Friday"
-msgstr "Cuma"
+msgstr "星期五"
 
 msgid "Saturday"
-msgstr "Cumartesi"
+msgstr "星期六"
 
 msgid "Sunday"
-msgstr "Pazar"
+msgstr "星期日"
 
 msgid "Start (h/m):"
-msgstr "Başlangıç (s/d):"
+msgstr "开始（h/m）："
 
 msgid "End (h/m):"
-msgstr "Bitiş (s/d):"
+msgstr "结束（h/m）："
 
 msgid "Scheduler enabled"
-msgstr "Zamanlayıcı aktif"
+msgstr "调度程序已启用"
 
 msgid "Scheduler"
-msgstr "Zamanlayıcı"
+msgstr "调度程序"
 
 msgid "Enabled"
-msgstr "Aktif"
+msgstr "已启用"
 
 msgid "Start downloading in these times"
-msgstr "Bu zamanlarda indir"
+msgstr "在这些时间开始下载"
 
 msgid "Stop downloading in these times"
-msgstr "Bu zamanlarda indirme"
+msgstr "在这些时间停止下载"
 
 msgid "Add Timespan"
-msgstr "Zaman Aralığı Ekle"
+msgstr "添加时间间隔"
 
 msgid "Seeding"
-msgstr "Seed Ediliyor"
+msgstr "正在做种"
 
 msgid "Failed"
-msgstr "Başarısız"
+msgstr "已失败"
 
 msgid "Completion Options"
-msgstr "Tamamlama Seçenekleri"
+msgstr "完成选项"
 
 msgid "Exit on Completion"
-msgstr "İndirmeler Bittiğinde Çık"
+msgstr "完成时退出"
 
 msgid "Varia is about to quit."
-msgstr "Varia birazdan kendini kapatacak."
+msgstr "Varia 即将退出。"
 
 msgid "Preferences"
-msgstr "Seçenekler"
+msgstr "首选项"
 
 msgid "Other"
-msgstr "Diğer"
+msgstr "其它"
 
 msgid "Basic Settings"
-msgstr "Basit Seçenekler"
+msgstr "基础设置"
 
 msgid "Advanced Settings"
-msgstr "Gelişmiş Seçenekler"
+msgstr "高级设置"
 
 msgid "Use cookies.txt"
-msgstr "cookies.txt Kullan"
+msgstr "使用 cookies.txt"
 
 msgid "Import cookies.txt"
-msgstr "cookies.txt İçe Aktar"
+msgstr "导入 cookies.txt"
 
 msgid "Remove cookies.txt"
-msgstr "cookies.txt'i Sil"
+msgstr "移除 cookies.txt"
 
 msgid "remaining"
-msgstr "kaldı"
+msgstr "剩余时间"
 
 msgid "Start in Background Mode"
-msgstr "Arkaplan Modunda Başlat"
+msgstr "以后台模式启动"
 
 msgid "Remote Timestamp"
-msgstr "Uzak Zaman Damgası"
+msgstr "远程时间戳"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
-msgstr "Genel"
+msgstr "常规"
 
 #: src/gtk/help-overlay.ui:14
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
-msgstr "Kısayolları Göster"
+msgstr "显示快捷键"
 
 #: src/gtk/help-overlay.ui:20
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr "Çık"
+msgstr "退出"

@@ -1,4 +1,4 @@
-variaVersion = "v2024.5.7"
+variaVersion = "dev"
 
 import gi
 import sys
@@ -26,7 +26,6 @@ from download.scheduler import schedule_downloads
 class MainWindow(Adw.ApplicationWindow):
     def __init__(self, variaapp, appdir, appconf, aria2c_subprocess, aria2cexec, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.set_hide_on_close(True)
         self.connect('close-request', self.exitProgram, variaapp, False)
 
         self.scheduler_currently_downloading = False
@@ -34,6 +33,7 @@ class MainWindow(Adw.ApplicationWindow):
         self.appconf = appconf
         self.aria2c_subprocess = aria2c_subprocess
         self.bindir = aria2cexec[:-6]
+        self.remote_successful = False
 
         # Set up variables and all:
         aria2_connection_successful = initiate(self, variaVersion)
@@ -291,40 +291,41 @@ class MainWindow(Adw.ApplicationWindow):
             notification.set_title(_("Background Mode")),
             variaapp.send_notification(None, notification)
             print('Background mode')
+
         else:
             self.terminating = True
-
-            self.set_sensitive(False)
             self.all_paused = False
 
-            if (self.appconf['remote'] == '0'):
+            if (self.remote_successful == False):
                 self.pause_all("no")
                 self.api.client.shutdown()
 
-                if (self.is_visible() == True):
-                    self.hide()
-                    exiting_dialog = Adw.MessageDialog()
-                    exiting_dialog_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=25)
-                    exiting_dialog.set_child(exiting_dialog_box)
-                    exiting_dialog_box.set_margin_top(30)
-                    exiting_dialog_box.set_margin_bottom(30)
-                    exiting_dialog_spinner = Gtk.Spinner()
-                    exiting_dialog_spinner.set_size_request(30, 30)
-                    exiting_dialog_spinner.start()
-                    exiting_dialog_box.append(exiting_dialog_spinner)
-                    exiting_dialog_label = Gtk.Label(label=_("Exiting Varia..."))
-                    exiting_dialog_label.get_style_context().add_class("title-1")
-                    exiting_dialog_box.append(exiting_dialog_label)
-                    exiting_dialog.set_transient_for(self)
-                    GLib.idle_add(exiting_dialog.show)
-                else:
-                    exiting_dialog = None
+                if (self.is_visible() == False):
+                    self.show()
+                
+                exiting_dialog = Adw.AlertDialog()
+                exiting_dialog_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=25)
+                exiting_dialog.set_child(exiting_dialog_box)
+                exiting_dialog_box.set_margin_top(30)
+                exiting_dialog_box.set_margin_bottom(30)
+                exiting_dialog_box.set_margin_start(60)
+                exiting_dialog_box.set_margin_end(60)
+                exiting_dialog_spinner = Adw.Spinner()
+                exiting_dialog_spinner.set_size_request(30, 30)
+                exiting_dialog_box.append(exiting_dialog_spinner)
+                exiting_dialog_label = Gtk.Label(label=_("Exiting Varia..."))
+                exiting_dialog_label.get_style_context().add_class("title-1")
+                exiting_dialog_box.append(exiting_dialog_label)
+                exiting_dialog.set_can_close(False)
+                GLib.idle_add(exiting_dialog.present, self)
 
                 GLib.timeout_add(3000, self.aria2c_exiting_check, app, 0, variaapp, exiting_dialog)
 
             else:
                 self.destroy()
                 variaapp.quit()
+        
+        return True
 
     def aria2c_exiting_check(self, app, counter, variaapp, exiting_dialog):
         print(counter)
@@ -335,7 +336,7 @@ class MainWindow(Adw.ApplicationWindow):
             self.aria2c_subprocess.terminate()
             self.aria2c_subprocess.wait()
             if (exiting_dialog is not None):
-                exiting_dialog.destroy()
+                exiting_dialog.force_close()
             self.destroy()
             variaapp.quit()
             for thread in threading.enumerate():
@@ -358,8 +359,13 @@ class MyApp(Adw.Application):
     def on_activate(self, app, appdir, appconf, aria2c_subprocess, aria2cexec):
         if not hasattr(self, 'win'):
             self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf, aria2c_subprocess=aria2c_subprocess, aria2cexec=aria2cexec)
-        if ((self.win.terminating == False) and ((appconf["default_mode"] == "visible") or (self.initiated == True))):
-            self.win.present()
+        
+        try:
+            if ((self.win.terminating == False) and ((appconf["default_mode"] == "visible") or (self.initiated == True))):
+                self.win.present()
+        except:
+            return -1
+        
         self.initiated = True
 
     def quit_action(self, action, parameter):
@@ -380,8 +386,8 @@ def main(version, aria2cexec):
             download_directory = GLib.get_user_special_dir(GLib.USER_DIRECTORY_DOWNLOAD)
         else:
             download_directory = GLib.get_user_special_dir(GLib.USER_DIRECTORY_HOME)
-    except:
-        download_directory = GLib.get_user_special_dir(GLib.USER_DIRECTORY_HOME)
+    except AttributeError:
+        download_directory = os.path.expanduser("~")
 
     appconf = {
         'download_speed_limit_enabled': '0',
