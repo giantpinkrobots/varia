@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Varia\n"
-"Report-Msgid-Bugs-To: https://github.com/giantpinkrobots/varia/issues\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2024-08-10 01:12+0300\n"
+"PO-Revision-Date: 2024-09-22 14:32+0300\n"
 "Last-Translator: volkov <volkovissocool@gmail.com>\n"
 "Language-Team: volkov <volkovissocool@gmail.com>\n"
 "Language: uk\n"
@@ -325,6 +325,15 @@ msgstr "Імпортувати cookies.txt"
 
 msgid "Remove cookies.txt"
 msgstr "Видалити cookies.txt"
+
+msgid "remaining"
+msgstr "залишилося"
+
+msgid "Start in Background Mode"
+msgstr "Запускати у задньому фоні"
+
+msgid "Remote Timestamp"
+msgstr "Віддалені позначки часу"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
