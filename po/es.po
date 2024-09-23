@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2024-03-29 16:50-0300\n"
+"PO-Revision-Date: 2024-09-23 11:35-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -240,6 +240,96 @@ msgstr "Cancelar"
 
 msgid "Warning"
 msgstr "Advertencia"
+
+msgid "Monday"
+msgstr "Lunes"
+
+msgid "Tuesday"
+msgstr "Martes"
+
+msgid "Wednesday"
+msgstr "Miércoles"
+
+msgid "Thursday"
+msgstr "Jueves"
+
+msgid "Friday"
+msgstr "Viernes"
+
+msgid "Saturday"
+msgstr "Sábado"
+
+msgid "Sunday"
+msgstr "Domingo"
+
+msgid "Start (h/m):"
+msgstr "Inicio (h/m):"
+
+msgid "End (h/m):"
+msgstr "Fin (h/m):"
+
+msgid "Scheduler enabled"
+msgstr "Planificador activado"
+
+msgid "Scheduler"
+msgstr "Planificador"
+
+msgid "Enabled"
+msgstr "Activado"
+
+msgid "Start downloading in these times"
+msgstr "Empezar a descargar en estos tiempos"
+
+msgid "Stop downloading in these times"
+msgstr "Dejar de descargar en estos tiempos"
+
+msgid "Add Timespan"
+msgstr "Añadir intervalo de tiempo"
+
+msgid "Seeding"
+msgstr "Compartiendo"
+
+msgid "Failed"
+msgstr "Fallido"
+
+msgid "Completion Options"
+msgstr "Opciones de finalización"
+
+msgid "Exit on Completion"
+msgstr "Salir al finalizar"
+
+msgid "Varia is about to quit."
+msgstr "Varia está a punto de salir."
+
+msgid "Preferences"
+msgstr "Preferencias"
+
+msgid "Other"
+msgstr "Otras"
+
+msgid "Basic Settings"
+msgstr "Configuración básica"
+
+msgid "Advanced Settings"
+msgstr "Configuración avanzada"
+
+msgid "Use cookies.txt"
+msgstr "Utilizar cookies.txt"
+
+msgid "Import cookies.txt"
+msgstr "Importar cookies.txt"
+
+msgid "Remove cookies.txt"
+msgstr "Eliminar cookies.txt"
+
+msgid "remaining"
+msgstr "restante"
+
+msgid "Start in Background Mode"
+msgstr "Iniciar en segundo plano"
+
+msgid "Remote Timestamp"
+msgstr "Marca de tiempo remota"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
