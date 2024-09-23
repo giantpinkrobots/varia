@@ -1,21 +1,21 @@
 # Ukrainian translation for Varia.
-# Copyright (C) 2023 THE Varia's COPYRIGHT HOLDER
+# Copyright (C) 2024 THE Varia's COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# volkov <volkovissocool@gmail.com>, 2023.
+# volkov <volkovissocool@gmail.com>, 2024.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: Varia\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2023-12-08 15:49+0200\n"
+"PO-Revision-Date: 2024-09-22 14:32+0300\n"
 "Last-Translator: volkov <volkovissocool@gmail.com>\n"
-"Language-Team: \n"
+"Language-Team: volkov <volkovissocool@gmail.com>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.4\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -26,7 +26,9 @@ msgstr ""
 #. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
 #: data/io.github.giantpinkrobots.varia.desktop.in:11
 msgid "varia;aria;download;manager;"
-msgstr "varia;aria;download;manager;завантажувач;скачати;зберегти;варія;арія;"
+msgstr ""
+"varia;aria;download;manager;torrent;завантажувач;скачати;зберегти;варія;арія;"
+"закачати;торрент;"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
 msgid "Download manager based on aria2"
@@ -45,6 +47,18 @@ msgstr ""
 #: src/variamain.py:45
 msgid "This is not a valid URL."
 msgstr "Це не правильна URL-адреса."
+
+#: src/variamain.py:125
+msgid "All"
+msgstr "Усі"
+
+#: src/variamain.py:137
+msgid "In Progress"
+msgstr "В процесі"
+
+#: src/variamain.py:148
+msgid "Completed"
+msgstr "Завершено"
 
 #: src/variamain.py:171
 msgid "About Varia"
@@ -126,6 +140,10 @@ msgstr " КБ/с"
 msgid " B/s"
 msgstr " Б/с"
 
+#: src/variamain.py:404
+msgid "Simultaneous Download Amount"
+msgstr "Кількість одночасних завантажень"
+
 #: src/variamain.py:410
 msgid "Resume All"
 msgstr "Відновити всі"
@@ -141,8 +159,12 @@ msgid "This application relies on the following pieces of software:"
 msgstr "Цей додаток покладається на наступне програмне забезпечення:"
 
 #: src/variamain.py:777
-msgid "The licenses of all of these pieces of software can be found in the dependencies_information directory in this application's app directory."
-msgstr "Знайти ліцензії усього перерахованого програмного забезпечення можна у теці 'dependencies_information' цього додатку."
+msgid ""
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
+msgstr ""
+"Знайти ліцензії усього перерахованого програмного забезпечення можна у теці "
+"'dependencies_information' цього додатку."
 
 #: src/variamain.py:449
 msgid "translator-credits"
@@ -175,6 +197,143 @@ msgstr "Пароль"
 #: src/variamain.py:554
 msgid "Authorization failed."
 msgstr "Не вдалося авторизуватися."
+
+#: src/variamain.py:806
+msgid "Failed to open directory."
+msgstr "Не вдалося відкрити теку."
+
+msgid "Remote Mode"
+msgstr "Віддалений режим"
+
+msgid "Remote aria2 IP"
+msgstr "Віддалений aria2 IP-адреса"
+
+msgid "Remote aria2 Port"
+msgstr "Віддалений aria2 Порт"
+
+# https://uk.wikipedia.org/wiki/%D0%92%D0%B8%D0%BA%D0%BB%D0%B8%D0%BA_%D0%B2%D1%96%D0%B4%D0%B4%D0%B0%D0%BB%D0%B5%D0%BD%D0%B8%D1%85_%D0%BF%D1%80%D0%BE%D1%86%D0%B5%D0%B4%D1%83%D1%80
+msgid "Remote aria2 RPC Secret"
+msgstr "Віддалений aria2 RPC секрет"
+
+msgid "Remote Download Location"
+msgstr "Розташування віддалених завантажень"
+
+msgid "Exiting Varia..."
+msgstr "Виходимо з Varia..."
+
+msgid "Background Mode"
+msgstr "Режим заднього фону"
+
+msgid "Continuing the downloads in the background."
+msgstr "Продовжувати завантаження у фоні."
+
+msgid "Browser Extension"
+msgstr "Розширення для браузеру"
+
+msgid "Shutdown on Completion"
+msgstr "Вимкнути комп'ютер при завершенні"
+
+msgid "Varia is about to shut down your computer."
+msgstr "Varia збирається вимкнути ваш комп'ютер."
+
+msgid "Press Cancel to cancel and disable."
+msgstr "Натисніть 'Скасувати', щоб скасувати."
+
+msgid "Cancel"
+msgstr "Скасувати"
+
+msgid "Warning"
+msgstr "Увага"
+
+msgid "Monday"
+msgstr "Понеділок"
+
+msgid "Tuesday"
+msgstr "Вівторок"
+
+msgid "Wednesday"
+msgstr "Середа"
+
+msgid "Thursday"
+msgstr "Четвер"
+
+msgid "Friday"
+msgstr "П'ятниця"
+
+msgid "Saturday"
+msgstr "Субота"
+
+msgid "Sunday"
+msgstr "Неділя"
+
+msgid "Start (h/m):"
+msgstr "Початок (год./хв.)"
+
+msgid "End (h/m):"
+msgstr "Кінець (год./хв.)"
+
+msgid "Scheduler enabled"
+msgstr "Планувальник увімкнено"
+
+msgid "Scheduler"
+msgstr "Планувальник"
+
+msgid "Enabled"
+msgstr "Увімкнено"
+
+msgid "Start downloading in these times"
+msgstr "Розпочати завантаження у ці часи"
+
+msgid "Stop downloading in these times"
+msgstr "Зупинити завантаження у ці часи"
+
+msgid "Add Timespan"
+msgstr "Додати проміжок часу"
+
+msgid "Seeding"
+msgstr "Роздається"
+
+msgid "Failed"
+msgstr "Не вдалося"
+
+msgid "Completion Options"
+msgstr "Налаштування завершення"
+
+msgid "Exit on Completion"
+msgstr "Закрити додаток при завершенні"
+
+msgid "Varia is about to quit."
+msgstr "Varia завершує роботу."
+
+msgid "Preferences"
+msgstr "Налаштування"
+
+msgid "Other"
+msgstr "Інше"
+
+msgid "Basic Settings"
+msgstr "Базові налаштування"
+
+msgid "Advanced Settings"
+msgstr "Налаштування для досвідчених"
+
+msgid "Use cookies.txt"
+msgstr "Використовувати cookies.txt"
+
+msgid "Import cookies.txt"
+msgstr "Імпортувати cookies.txt"
+
+msgid "Remove cookies.txt"
+msgstr "Видалити cookies.txt"
+
+msgid "remaining"
+msgstr "залишилося"
+
+msgid "Start in Background Mode"
+msgstr "Запускати у задньому фоні"
+
+msgid "Remote Timestamp"
+msgstr "Віддалені позначки часу"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
