@@ -1,7 +1,7 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# The Japanese translation of Varia.
+# Copyright (C) YEAR THE Varia'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Varia package.
+# Gnuey56 <gnuey56@proton.me>, 2024.
 #
 #, fuzzy
 msgid ""
@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2024-05-10 19:51+0900\n"
+"PO-Revision-Date: 2024-09-23 11:46+0900\n"
 "Last-Translator: Gnuey56 <gnuey56@proton.me>\n"
 "Language-Team: \n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.5\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -322,6 +322,15 @@ msgstr "cookies.txt をインポート"
 
 msgid "Remove cookies.txt"
 msgstr "cookies.txt を削除"
+
+msgid "remaining"
+msgstr "残り"
+
+msgid "Start in Background Mode"
+msgstr "バックグラウンドモードで開始"
+
+msgid "Remote Timestamp"
+msgstr "リモートのタイムスタンプ"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
