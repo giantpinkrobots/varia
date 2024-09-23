@@ -144,9 +144,6 @@ msgstr " Байт/с"
 msgid "Simultaneous Download Amount"
 msgstr "Количество одновременных загрузок"
 
-msgid "Start in Background Mode"
-msgstr "Запуск в фоновом режиме"
-
 #: src/variamain.py:410
 msgid "Resume All"
 msgstr "Возобновить все"
