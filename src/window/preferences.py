@@ -336,6 +336,7 @@ def show_preferences(button, self, app):
     group_2.add(remote_time)
     group_2.add(cookies_txt_action)
     group_2.add(cookies_txt_action)
+    group_2.add(remote_aria2_expander_box)
 
     preferences.present(self)
 
