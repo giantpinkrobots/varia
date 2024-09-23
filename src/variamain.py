@@ -91,14 +91,19 @@ class MainWindow(Adw.ApplicationWindow):
         default_state = {"url": None, "filename": None}
 
         for filename in os.listdir(self.appconf["download_directory"]):
-            if filename.endswith('.varia.json'):
+            if (filename.endswith('.varia.json')) or (filename.endswith('.varia')):
+                if (filename.endswith(".varia.json")):
+                    current_filename = filename.replace(".json", "")
+                    os.rename(os.path.join(self.appconf["download_directory"], filename), os.path.join(self.appconf["download_directory"], current_filename))
+                else:
+                    current_filename = filename
 
-                with open(os.path.join(self.appconf["download_directory"], filename), 'r') as f:
+                with open(os.path.join(self.appconf["download_directory"], current_filename), 'r') as f:
                     loaded_state = json.load(f)
 
                 state = {**default_state, **loaded_state}
                 objectlist = create_actionrow(self, state['url'])
-                download_thread = DownloadThread.load_state(self, filename, state['url'], objectlist[0], objectlist[1], objectlist[2], objectlist[3], objectlist[4], None, state['filename'])
+                download_thread = DownloadThread.load_state(self, current_filename, state['url'], objectlist[0], objectlist[1], objectlist[2], objectlist[3], objectlist[4], None, state['filename'])
                 self.downloads.append(download_thread)
                 download_thread.start()
 

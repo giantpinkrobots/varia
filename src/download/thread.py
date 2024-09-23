@@ -103,8 +103,8 @@ class DownloadThread(threading.Thread):
                 GLib.idle_add(self.update_labels_and_things)
                 if ((self.download.is_complete) and (self.download.is_metadata == False)):
                     print('Download complete: ' + self.download.gid)
-                    if os.path.exists(os.path.join(self.downloaddir,(self.download.gid + ".varia.json"))):
-                        os.remove(os.path.join(self.downloaddir,(self.download.gid + ".varia.json")))
+                    if os.path.exists(os.path.join(self.downloaddir,(self.download.gid + ".varia"))):
+                        os.remove(os.path.join(self.downloaddir,(self.download.gid + ".varia")))
                     break
                 elif ((self.download.is_torrent) and (self.download.seeder)):
                     print('Torrent complete, seeding: ' + self.download.gid)
@@ -200,8 +200,8 @@ class DownloadThread(threading.Thread):
                 self.download.remove(force=True)
                 if not self.download.is_complete:
                     if (deletefiles == True):
-                        if os.path.exists(os.path.join(self.downloaddir,(downloadgid + ".varia.json"))):
-                            os.remove(os.path.join(self.downloaddir,(downloadgid + ".varia.json")))
+                        if os.path.exists(os.path.join(self.downloaddir,(downloadgid + ".varia"))):
+                            os.remove(os.path.join(self.downloaddir,(downloadgid + ".varia")))
                         if os.path.exists(os.path.join(self.downloaddir, downloadname)):
                             os.remove(os.path.join(self.downloaddir, downloadname))
                 print ("Download stopped.")
@@ -220,7 +220,7 @@ class DownloadThread(threading.Thread):
                 'url': self.url,
                 'filename': self.download.name
             }
-            with open(os.path.join(self.downloaddir, f'{self.download.gid}.varia.json'), 'w') as f:
+            with open(os.path.join(self.downloaddir, f'{self.download.gid}.varia'), 'w') as f:
                 json.dump(state, f)
             print ("State saved for download.")
 
