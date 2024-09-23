@@ -1,3 +1,5 @@
+let startTime = Date.now();
+
 chrome.runtime.onInstalled.addListener(function(details) {
   if (details.reason === 'install') {
     chrome.storage.sync.set({enabled: true});
@@ -5,6 +7,11 @@ chrome.runtime.onInstalled.addListener(function(details) {
 });
 
 chrome.downloads.onCreated.addListener(function(downloadItem) {
+  var downloadTime = new Date(downloadItem.startTime).getTime();
+  if (downloadTime < startTime) {
+    return;
+  }
+
   chrome.storage.sync.get('enabled', function(data) {
     if (data.enabled) {
       sendToAria2(downloadItem);
