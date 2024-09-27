@@ -327,6 +327,9 @@ msgstr "Arkaplan Modunda Başlat"
 msgid "Remote Timestamp"
 msgstr "Uzak Zaman Damgası"
 
+msgid "Torrent"
+msgstr "Torrent"
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"

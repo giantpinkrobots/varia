@@ -425,9 +425,13 @@ def main(version, aria2cexec):
     aria2c_subprocess = None
     if (appconf['remote'] == '0'):
         if (os.name == 'nt'):
-            aria2c_subprocess = subprocess.Popen([aria2cexec, "--enable-rpc", "--rpc-listen-port=6801", "--follow-torrent=mem"], shell=True)
+            aria2c_subprocess = subprocess.Popen([aria2cexec, "--enable-rpc", "--rpc-listen-port=6801", "--follow-torrent=mem", "--allow-overwrite=true"], shell=True)
         else:
-            aria2c_subprocess = subprocess.Popen([aria2cexec, "--enable-rpc", "--rpc-listen-port=6801", "--follow-torrent=mem"])
+            if hasattr(os, 'posix_fallocate'):
+                print("fallocate enabled.")
+                aria2c_subprocess = subprocess.Popen([aria2cexec, "--enable-rpc", "--rpc-listen-port=6801", "--follow-torrent=mem", "--allow-overwrite=true", "--file-allocation=falloc"])
+            else:
+                aria2c_subprocess = subprocess.Popen([aria2cexec, "--enable-rpc", "--rpc-listen-port=6801", "--follow-torrent=mem", "--allow-overwrite=true"])
 
     arguments = sys.argv
     if (len(arguments) > 1):

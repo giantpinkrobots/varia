@@ -323,6 +323,9 @@ msgstr ""
 msgid "Remote Timestamp"
 msgstr ""
 
+msgid "Torrent"
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"

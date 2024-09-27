@@ -10,6 +10,7 @@ from window.scheduler import show_scheduler_dialog
 
 def show_preferences(button, self, app):
     preferences = Adw.PreferencesDialog()
+    preferences.set_search_enabled(True)
 
     page = Adw.PreferencesPage(title=_("Preferences"))
     preferences.add(page)
