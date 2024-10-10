@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Varia\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2024-09-22 13:45+0300\n"
+"PO-Revision-Date: 2024-10-10 18:43+0300\n"
 "Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Poedit 3.5\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -331,6 +331,9 @@ msgstr "Запуск в фоновом режиме"
 
 msgid "Remote Timestamp"
 msgstr "Удаленная временная метка"
+
+msgid "Torrent"
+msgstr "Торрент"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
