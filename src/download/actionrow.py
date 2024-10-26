@@ -58,6 +58,7 @@ def create_actionrow(self, filename):
     stop_button = Gtk.Button.new_from_icon_name("process-stop-symbolic")
     stop_button.set_valign(Gtk.Align.CENTER)
     stop_button.get_style_context().add_class("circular")
+    stop_button.get_style_context().add_class("destructive-action")
     stop_button.connect("clicked", on_stop_clicked, self, download_item)
     button_box.append(stop_button)
 

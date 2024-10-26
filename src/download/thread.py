@@ -1,16 +1,13 @@
 import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import Gtk, Adw, GLib, Gio
+from gi.repository import GLib
 import threading
-from urllib.parse import unquote, urlparse
+from urllib.parse import urlparse
 import requests
-import textwrap
 import time
 import os
 import json
-import datetime
-import http.cookiejar
 from gettext import gettext as _
 from download.actionrow import on_pause_clicked
 
@@ -51,14 +48,14 @@ class DownloadThread(threading.Thread):
                     GLib.idle_add(self.show_message("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⣤⣤⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⠟⠉⠉⠉⠉⠉⠉⠉⠙⠻⢶⣄⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣷⡀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⡟⠀⣠⣶⠛⠛⠛⠛⠛⠛⠳⣦⡀⠀⠘⣿⡄⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⠁⠀⢹⣿⣦⣀⣀⣀⣀⣀⣠⣼⡇⠀⠀⠸⣷⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡏⠀⠀⠀⠉⠛⠿⠿⠿⠿⠛⠋⠁⠀⠀⠀⠀⣿⡄⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⡇⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⣸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣧⠀\n⠀⠀⠀⠀⠀⠀⠀⢸⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⠀\n⠀⠀⠀⠀⠀⠀⠀⣾⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀\n⠀⠀⠀⠀⠀⠀⠀⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀\n⠀⠀⠀⠀⠀⠀⢰⣿⠀⠀⠀⠀⣠⡶⠶⠿⠿⠿⠿⢷⣦⠀⠀⠀⠀⠀⠀⠀⣿⠀\n⠀⠀⣀⣀⣀⠀⣸⡇⠀⠀⠀⠀⣿⡀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⠀⣿⠀\n⣠⡿⠛⠛⠛⠛⠻⠀⠀⠀⠀⠀⢸⣇⠀⠀⠀⠀⠀⠀⣿⠇⠀⠀⠀⠀⠀⠀⣿⠀\n⢻⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⡟⠀⠀⢀⣤⣤⣴⣿⠀⠀⠀⠀⠀⠀⠀⣿⠀\n⠈⠙⢷⣶⣦⣤⣤⣤⣴⣶⣾⠿⠛⠁⢀⣶⡟⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡟⠀\n⠀⠀⠀⠀⠉⠉⠉⠉⠉⠀⠀⠀⠀⠀⠈⣿⣆⡀⠀⠀⠀⠀⠀⠀⢀⣠⣴⡾⠃⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⠻⢿⣿⣾⣿⡿⠿⠟⠋⠁⠀⠀⠀"))
                 except:
                     pass
-                self.pause_button.hide()
-                self.progress_bar.hide()
+                GLib.idle_add(self.pause_button.set_visible, False)
+                GLib.idle_add(self.progress_bar.set_visible, False)
                 return
 
             if (self.url.startswith("magnet:") == False):
                 if not (self.is_valid_url()):
                     try:
-                        GLib.idle_add(self.show_message(_("This is not a valid URL.")))
+                        GLib.idle_add(self.show_message, _("This is not a valid URL."))
                         print("Error: Not a valid url.")
                     except:
                         print("Error: Couldn't display 'not a valid url' error, for some reason.")
@@ -89,8 +86,7 @@ class DownloadThread(threading.Thread):
                 self.download.resume()
         else:
             on_pause_clicked(self.app, self.app, self.pause_button, self.actionrow, True)
-
-        downloadname = self.download.name
+        
         print("Download added. | " + self.download.gid + "\n" + self.downloaddir + "\n" + self.url)
         GLib.idle_add(self.update_header_pause_button)
         self.previous_filename = ""
@@ -99,8 +95,8 @@ class DownloadThread(threading.Thread):
         while (self.cancelled == False):
             try:
                 self.download.update()
-                GLib.idle_add(self.set_filename_label)
-                GLib.idle_add(self.update_labels_and_things)
+                self.set_filename_label()
+                self.update_labels_and_things()
                 if ((self.download.is_complete) and (self.download.is_metadata == False)):
                     print('Download complete: ' + self.download.gid)
                     if os.path.exists(os.path.join(self.downloaddir,(self.download.gid + ".varia"))):
@@ -120,7 +116,7 @@ class DownloadThread(threading.Thread):
         if (self.download.name != filename_shortened):
             filename_shortened = filename_shortened + "..."
         if (filename_shortened != self.previous_filename):
-            self.filename_label.set_text(filename_shortened)
+            GLib.idle_add(self.filename_label.set_text, filename_shortened)
             self.previous_filename = filename_shortened
 
     def update_header_pause_button(self):
@@ -133,7 +129,7 @@ class DownloadThread(threading.Thread):
         self.speed_label.set_text(message)
 
     def update_labels_and_things(self):
-        self.progress_bar.set_fraction(self.download.progress / 100)
+        GLib.idle_add(self.progress_bar.set_fraction, self.download.progress / 100)
 
         if ((self.download.is_torrent) and (self.download.seeder)):
             GLib.idle_add(self.show_message(_("Seeding torrent")))
@@ -160,11 +156,11 @@ class DownloadThread(threading.Thread):
         if int(str(download_speed_mb)[0]) == 0:
             download_speed_kb = (self.download.download_speed / 1024)
             if int(str(download_speed_kb)[0]) == 0:
-                self.speed_label.set_text(f"{round(self.download.progress)}%  |  {round(self.download.download_speed, 2)} {_(' B/s')}  |  {download_remaining_string} {_('remaining')}")
+                GLib.idle_add(self.speed_label.set_text, f"{round(self.download.progress)}%  |  {round(self.download.download_speed, 2)} {_(' B/s')}  |  {download_remaining_string} {_('remaining')}")
             else:
-                self.speed_label.set_text(f"{round(self.download.progress)}%  |  {round(self.download.download_speed / 1024, 2)} {_(' KB/s')}  |  {download_remaining_string} {_('remaining')}")
+                GLib.idle_add(self.speed_label.set_text, f"{round(self.download.progress)}%  |  {round(self.download.download_speed / 1024, 2)} {_(' KB/s')}  |  {download_remaining_string} {_('remaining')}")
         else:
-            self.speed_label.set_text(f"{round(self.download.progress)}%  |  {round(self.download.download_speed / 1024 / 1024, 2)} {_(' MB/s')}  |  {download_remaining_string} {_('remaining')}")
+            GLib.idle_add(self.speed_label.set_text, f"{round(self.download.progress)}%  |  {round(self.download.download_speed / 1024 / 1024, 2)} {_(' MB/s')}  |  {download_remaining_string} {_('remaining')}")
 
     def pause(self):
         if self.download:
@@ -192,7 +188,7 @@ class DownloadThread(threading.Thread):
                         print ("Download paused.")
                     except:
                         try:
-                            self.speed_label.set_text(_("An error occurred:") + " " + self.download.error_message.split("status=")[1])
+                            GLib.idle_add(self.speed_label.set_text, _("An error occurred:") + " " + self.download.error_message.split("status=")[1])
                             print ("An error occurred when resuming. " + self.download.error_message.split("status=")[1])
                         except:
                             pass

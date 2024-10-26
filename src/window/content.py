@@ -1,12 +1,11 @@
 import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import Gtk, Adw, GLib, Gio
+from gi.repository import Gtk, Adw
 from gettext import gettext as _
-import os
 
 def window_create_content(self, threading):
-    content_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+    self.content_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
     header_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
 
     self.total_download_speed_label = Gtk.Label(label=self.total_download_speed)
@@ -33,18 +32,15 @@ def window_create_content(self, threading):
     header_box.append(header_expanding_box_1)
     header_box.append(header_button_box)
 
-    header_bar = Adw.HeaderBar()
-    header_bar.get_style_context().add_class('flat')
-    header_bar.set_title_widget(header_box)
-    content_box.append(header_bar)
-
-    if (os.name == 'nt'):
-        self.status_page_widget = Gtk.Box()
-    else:
-        self.status_page_widget = Adw.StatusPage(icon_name="io.github.giantpinkrobots.varia-symbolic")
-        self.status_page_widget.set_hexpand(True)
-        self.status_page_widget.set_vexpand(True)
-
+    self.header_bar = Adw.HeaderBar()
+    self.header_bar.get_style_context().add_class('flat')
+    self.header_bar.set_title_widget(header_box)
+    self.content_box.append(self.header_bar)
+    
+    self.status_page_widget = Adw.StatusPage(icon_name="io.github.giantpinkrobots.varia-symbolic")
+    self.status_page_widget.set_hexpand(True)
+    self.status_page_widget.set_vexpand(True)
+    
     self.download_list_box = Gtk.Box()
     self.download_list = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
     self.download_list.set_margin_start(6)
@@ -60,8 +56,8 @@ def window_create_content(self, threading):
     scrolled_window.set_child(self.download_list)
 
     self.download_list_box.append(scrolled_window)
-    content_box.append(self.download_list_box)
-    self.overlay_split_view.set_content(content_box)
+    self.content_box.append(self.download_list_box)
+    self.overlay_split_view.set_content(self.content_box)
 
     self.total_download_speed_calculator_thread = threading.Thread(target=self.total_download_speed_get, args=(self.downloads, self.total_download_speed_label))
     self.total_download_speed_calculator_thread.start()

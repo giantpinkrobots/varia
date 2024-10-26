@@ -7,19 +7,40 @@ import os
 
 from download.communicate import set_speed_limit, set_aria2c_download_directory, set_aria2c_download_simultaneous_amount, set_aria2c_custom_global_option, set_aria2c_cookies
 from window.scheduler import show_scheduler_dialog
+from window.updater import windows_updater
 
-def show_preferences(button, self, app):
-    preferences = Adw.PreferencesDialog()
+def show_preferences(button, self, app, variaVersion):
+    preferences = Adw.PreferencesDialog(title=_("Preferences"))
     preferences.set_search_enabled(True)
 
-    page = Adw.PreferencesPage(title=_("Preferences"))
+    page = Adw.PreferencesPage()
     preferences.add(page)
-    group_extensions = Adw.PreferencesGroup(title=_("Browser Extension"))
+    group_extensions = Adw.PreferencesGroup(title="Varia")
     page.add(group_extensions)
     group_1 = Adw.PreferencesGroup(title=_("Basic Settings"))
     page.add(group_1)
     group_2 = Adw.PreferencesGroup(title=_("Advanced Settings"))
     page.add(group_2)
+
+    # Updater section for Windows:
+
+    if (os.name == 'nt') and (os.path.exists("./updater-function-enabled")):
+        update_actionrow = Adw.SwitchRow()
+        update_actionrow.set_title(_("Automatically Check for Updates"))
+        update_actionrow.connect("notify::active", on_switch_auto_update_check, self)
+
+        update_button = Gtk.Button(label=_("Check Now"))
+        update_button.set_halign(Gtk.Align.START)
+        update_button.set_valign(Gtk.Align.CENTER)
+        update_button.get_style_context().add_class("suggested-action")
+        update_button.connect("clicked", lambda clicked: windows_updater(None, self, app, preferences, variaVersion, 1))
+
+        update_actionrow.add_suffix(update_button)
+
+        group_extensions.add(update_actionrow)
+        
+        if (self.appconf["check_for_updates_on_startup_enabled"] == '1'):
+            update_actionrow.set_active("active")
 
     # Browser extensions section:
 
@@ -29,7 +50,7 @@ def show_preferences(button, self, app):
     browser_extension_firefox_button = Gtk.Button(label="Firefox")
     browser_extension_firefox_button.set_halign(Gtk.Align.START)
     browser_extension_firefox_button.set_valign(Gtk.Align.CENTER)
-    browser_extension_chrome_button = Gtk.Button(label="Chrome")
+    browser_extension_chrome_button = Gtk.Button(label="Chrome, Edge, Opera...")
     browser_extension_chrome_button.set_halign(Gtk.Align.START)
     browser_extension_chrome_button.set_valign(Gtk.Align.CENTER)
 
@@ -41,7 +62,7 @@ def show_preferences(button, self, app):
     browser_extension_buttons_box.append(browser_extension_chrome_button)
 
     browser_extension_actionrow.add_suffix(browser_extension_buttons_box)
-
+    
     group_extensions.add(browser_extension_actionrow)
 
     # Download directory:
@@ -131,7 +152,7 @@ def show_preferences(button, self, app):
     scheduler_actionrow_edit_button.set_valign(Gtk.Align.CENTER)
     scheduler_actionrow_edit_button.get_style_context().add_class("suggested-action")
 
-    scheduler_actionrow_edit_button.connect("clicked", lambda clicked: show_scheduler_dialog(self, preferences, app, show_preferences))
+    scheduler_actionrow_edit_button.connect("clicked", lambda clicked: show_scheduler_dialog(self, preferences, app, show_preferences, variaVersion))
 
     scheduler_actionrow_buttons_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
     scheduler_actionrow_buttons_box.append(scheduler_actionrow_edit_button)
@@ -341,6 +362,18 @@ def show_preferences(button, self, app):
 
     preferences.present(self)
 
+def on_switch_auto_update_check(switch, state, self):
+    state = switch.get_active()
+    if state:
+        self.appconf["check_for_updates_on_startup_enabled"] = '1'
+    else:
+        self.appconf["check_for_updates_on_startup_enabled"] = '0'
+        if hasattr(self, 'update_available_banner'):
+            if self.update_available_banner != None:
+                self.update_available_banner.set_revealed(False)
+
+    self.save_appconf()
+
 def speed_limit_text_filter(entry, self):
     text = entry.get_text()
     new_text = ""
@@ -510,13 +543,14 @@ def on_cookies_txt_import(file_dialog, result, cookies_txt_import_button, cookie
         file = file_dialog.open_finish(result).get_path()
     except:
         return
-    with open(file, 'r') as file:
-        data = file.read()
-    with open(os.path.join(self.appdir, 'cookies.txt'), 'w') as cookies_txt_file:
-        cookies_txt_file.write(data)
-    cookies_txt_action_switch.set_sensitive(True)
-    cookies_txt_import_button.set_visible(False)
-    cookies_txt_remove_button.set_visible(True)
+    if file.endswith(".txt"):
+        with open(file, 'r') as file:
+            data = file.read()
+        with open(os.path.join(self.appdir, 'cookies.txt'), 'w') as cookies_txt_file:
+            cookies_txt_file.write(data)
+        cookies_txt_action_switch.set_sensitive(True)
+        cookies_txt_import_button.set_visible(False)
+        cookies_txt_remove_button.set_visible(True)
 
 def on_switch_cookies_txt(switch, state, self):
     state = switch.get_active()

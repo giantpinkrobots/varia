@@ -1,9 +1,5 @@
 import datetime
-import aria2p
 from gi.repository import GLib
-from download.communicate import set_aria2c_download_simultaneous_amount
-import requests
-import json
 
 def schedule_downloads(self, previous_state):
     if self.appconf["schedule_enabled"] == 1:

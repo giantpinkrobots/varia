@@ -1,7 +1,8 @@
 import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import Gtk, Adw, Gio
+from gi.repository import Gtk, Adw
+from gettext import gettext as _
 
 def add_timespan_clicked(button, self, timespans_box, day, start_h, start_m, end_h, end_m, switch_enabled):
     timespan_row = Adw.Bin()
@@ -92,7 +93,7 @@ def change_schedule_mode(switch, state, self, mode, switch_mode_1, switch_mode_2
         else:
             switch_mode_1.set_active(True)
 
-def save_schedule(preferencesDialog, self, switch_mode_1, switch_enabled, show_preferences, variaapp):
+def save_schedule(preferencesDialog, self, switch_mode_1, switch_enabled, show_preferences, variaapp, variaVersion):
     if switch_enabled.get_state():
         self.appconf["schedule_enabled"] = 1
         self.sidebar_scheduler_label.set_label(_("Scheduler enabled"))
@@ -118,7 +119,7 @@ def save_schedule(preferencesDialog, self, switch_mode_1, switch_enabled, show_p
 
     self.appconf["schedule"] = timespan_appconf
     self.save_appconf()
-    show_preferences('no', self, variaapp)
+    show_preferences('no', self, variaapp, variaVersion)
 
 def if_there_are_any_timespans(self, switch_enabled):
     if self.timespans_list == []:
@@ -128,7 +129,7 @@ def if_there_are_any_timespans(self, switch_enabled):
         self.sidebar_scheduler_label.set_label("")
         self.save_appconf()
 
-def show_scheduler_dialog(self, preferencesWindow, variaapp, show_preferences):
+def show_scheduler_dialog(self, preferencesWindow, variaapp, show_preferences, variaVersion):
     schedulerDialog = Adw.PreferencesDialog(title=_("Scheduler"))
     schedulerDialog.set_size_request(650, 450)
 
@@ -206,7 +207,7 @@ def show_scheduler_dialog(self, preferencesWindow, variaapp, show_preferences):
 
     main_box.append(timespans_box)
 
-    schedulerDialog.connect("closed", save_schedule, self, switch_mode_1, switch_enabled, show_preferences, variaapp)
+    schedulerDialog.connect("closed", save_schedule, self, switch_mode_1, switch_enabled, show_preferences, variaapp, variaVersion)
 
     # Build timespans from appconf:
     for item in self.appconf["schedule"]:

@@ -3,7 +3,7 @@ import subprocess
 import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import Gtk, Adw, GLib, Gio
+from gi.repository import Gtk, Adw, Gio
 from gettext import gettext as _
 import textwrap
 
@@ -20,7 +20,7 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
 
     preferences_button = Gtk.Button(tooltip_text=_("Preferences"))
     preferences_button.set_icon_name("emblem-system-symbolic")
-    preferences_button.connect("clicked", show_preferences, self, variaapp)
+    preferences_button.connect("clicked", show_preferences, self, variaapp, variaVersion)
 
     hamburger_button = Gtk.MenuButton(tooltip_text=_("Other"))
     hamburger_button.set_icon_name("open-menu-symbolic")
@@ -116,7 +116,7 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     box_add_download.append(add_torrent_button)
 
     frame_add_download = Gtk.Frame()
-    frame_add_download.set_margin_bottom(24)
+    frame_add_download.set_margin_bottom(8)
     frame_add_download.set_child(box_add_download)
 
     self.filter_button_show_all = Gtk.ToggleButton()
@@ -189,7 +189,6 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
 
     sidebar_content_box.set_margin_start(6)
     sidebar_content_box.set_margin_end(6)
-    sidebar_content_box.set_margin_top(6)
     sidebar_content_box.set_margin_bottom(6)
 
     sidebar_filter_buttons_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
@@ -227,7 +226,8 @@ def on_add_torrent(file_dialog, result, self):
         file = file_dialog.open_finish(result).get_path()
     except:
         return
-    self.api.add_torrent(file)
+    if file.endswith(".torrent"):
+        self.api.add_torrent(file)
 
 def background_mode(app, variaapp1, self, variaapp):
     self.exitProgram(app=app, variaapp=variaapp, background=True)

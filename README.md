@@ -37,8 +37,8 @@ This requires you to have Flatpak and the Flathub Flatpak repository installed o
 ### AUR (Arch Linux)
 You can get Varia via the [AUR](https://aur.archlinux.org/packages/varia) as well, but it is not distributed by me.
 
-### Windows (experimental)
-You can find a *highly experimental* build of Varia in the releases section. But keep in mind, it will have bugs.
+### Windows
+You can find amd64 builds of Varia in the Releases section in both installer and portable forms. The installer version is recommended and it includes an auto updater function.
 
 ## Browser Extension
 Download it for [Firefox](https://addons.mozilla.org/firefox/addon/varia-integrator/) or [Chrome](https://chrome.google.com/webstore/detail/dacakhfljjhgdfdlgjpabkkjhbpcmiff).
@@ -88,32 +88,16 @@ sudo meson install
 
 ### for Windows
 
-Windows support is experimental. Translations don't work yet.
-
 - [Get MSYS2.](https://www.msys2.org/)
-- Install dependencies on an MSYS2 shell:
+- Open the mingw64 shell in MSYS2 and update everything before continuing:
 ```
-pacman -S mingw-w64-x86_64-python
-pacman -S mingw-w64-x86_64-gtk4
-pacman -S mingw-w64-x86_64-libadwaita
-pacman -S mingw-w64-x86_64-python-gobject
-pacman -S mingw-w64-x86_64-python-pip
-pip install aria2p
-pip install pyinstaller
+pacman -Syyu
 ```
-- To have the icon applied properly you also need python-pillow, otherwise pyinstaller gives an error:
-```
-pacman -S mingw-w64-x86_64-python-pillow
-```
-- Copy the contents of the /src folder to the home directory of your MSYS2 install.
-- Copy varia.spec and icon.ico from the /windows directory to the home directory of your MSYS2 install.
-- Run the pyinstaller command:
-```
-pyinstaller varia.spec
-```
-- [You need to get a copy of aria2c.exe](https://github.com/aria2/aria2/releases) and paste it into the /dist/variamain folder that was created by pyinstaller.
+- Either clone Varia inside the shell or copy the folder to your MSYS2 home folder.
+- [You need to get a copy of aria2c.exe](https://github.com/aria2/aria2/releases) and paste it into the root of the folder.
+- Running 'build-for-windows.sh' will take care of the dependencies and everything else and build Varia WITHOUT the updater function. To enable the updater function you need to run the script with the '-u' argument. (or just create an empty file called 'updater-function-enabled' next to variamain.exe after completion)
 
-Running variamain.exe will start Varia.
+Varia will be built into src/dist/variamain. Main executable is variamain.exe.
 
 ## Contributing
 

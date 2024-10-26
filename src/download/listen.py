@@ -1,16 +1,13 @@
-import aria2p
-import requests
-import json
 import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import Gtk, Adw, GLib, Gio
+from gi.repository import Adw, GLib, Gio
 from download.actionrow import create_actionrow
 from download.thread import DownloadThread
-import threading
 import string
 import random
 import textwrap
+from gettext import gettext as _
 
 def listen_to_aria2(self, variaapp):
     if not (self.terminating) and not (self.shutdown_dialog_raised):
@@ -37,7 +34,6 @@ def listen_to_aria2(self, variaapp):
                 return
             try:
                 if (download_item.download.status == "active" or download_item.download.status == "waiting" or download_item.download.status == "paused"):
-                    downloads_in_frontend.append(download_item)
                     for download_file in download_item.files:
                         downloads_in_frontend_files.append(download_file)
             except:
@@ -86,7 +82,7 @@ def add_download_to_ui(self, download_item_to_be_added, variaapp):
     download_thread = DownloadThread(self, download_item_url, *objectlist, download_item_to_be_added, None)
     self.downloads.append(download_thread)
     download_thread.start()
-    download_thread.pause_button.show()
+    download_thread.pause_button.set_visible(True)
 
 def raise_shutdown_dialog(variamain, variaapp):
     while (True):
