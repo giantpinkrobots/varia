@@ -46,7 +46,7 @@ def window_create_content(self, threading):
     self.download_list.set_margin_start(6)
     self.download_list.set_margin_end(6)
     self.download_list.set_margin_bottom(6)
-    self.download_list.set_margin_top(6)
+    self.download_list.set_margin_top(1)
     self.download_list_box.set_hexpand(True)
     self.download_list_box.set_vexpand(True)
 

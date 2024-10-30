@@ -7,6 +7,7 @@ from download.thread import DownloadThread
 import string
 import random
 import textwrap
+import os
 from gettext import gettext as _
 
 def listen_to_aria2(self, variaapp):
@@ -113,11 +114,15 @@ def shutdown_dialog_cancel_pressed(dialog, response_id, variamain, variaapp):
 
 def initiate_shutdown(variamain, shutdown_id):
     if (variamain.shutdown_dialog_raised == True) and (shutdown_id == variamain.shutdown_id):
-        bus = Gio.bus_get_sync(Gio.BusType.SYSTEM, None)
-        proxy = Gio.DBusProxy.new_sync(bus, Gio.DBusProxyFlags.NONE, None,
-                                       'org.freedesktop.login1', '/org/freedesktop/login1',
-                                       'org.freedesktop.login1.Manager', None)
-        proxy.call_sync('PowerOff', GLib.Variant('(b)', (True,)), Gio.DBusCallFlags.NONE, -1, None)
+        if os.name == 'nt':
+            os.system('shutdown -s -t 0')
+        else:
+            bus = Gio.bus_get_sync(Gio.BusType.SYSTEM, None)
+            proxy = Gio.DBusProxy.new_sync(bus, Gio.DBusProxyFlags.NONE, None,
+                                        'org.freedesktop.login1', '/org/freedesktop/login1',
+                                        'org.freedesktop.login1.Manager', None)
+            proxy.call_sync('PowerOff', GLib.Variant('(b)', (True,)), Gio.DBusCallFlags.NONE, -1, None)
+            
         exit()
 
 def raise_exit_dialog(variamain, variaapp):

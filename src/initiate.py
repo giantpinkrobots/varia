@@ -67,14 +67,13 @@ def initiate(self, variaapp, variaVersion, first_run):
     self.terminating = False
 
     if ("dev" in variaVersion):
-        #self.get_style_context().add_class("devel")
+        self.get_style_context().add_class("devel")
         Gtk.Settings.get_default().set_property("gtk-icon-theme-name", "Adwaita")
 
     self.overlay_split_view = Adw.OverlaySplitView.new()
     self.set_content(self.overlay_split_view)
 
     self.downloads = []
-    self.pause_buttons = []
     self.all_paused = False
 
     self.shutdown_mode = False

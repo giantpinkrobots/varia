@@ -189,7 +189,7 @@ class MainWindow(Adw.ApplicationWindow):
                         if (download_thread.download.is_complete == 1):
                             download_thread.cancelled = True
                             download_thread.speed_label.set_text(_("Download complete."))
-                            GLib.idle_add(self.pause_buttons[i].set_visible, False)
+                            GLib.idle_add(download_thread.pause_button.set_visible, False)
                             self.filter_download_list("no", self.applied_filter)
 
                         elif (download_thread.download.status == "error") or (download_thread.download.status == "removed"):
@@ -202,10 +202,10 @@ class MainWindow(Adw.ApplicationWindow):
                                 download_thread.speed_label.set_text(_("An error occurred:") + " " + str(download_thread.download.error_code))
                             download_thread.stop(False)
 
-                            GLib.idle_add(self.pause_buttons[i].set_visible, False)
+                            GLib.idle_add(download_thread.pause_button.set_visible, False)
                             self.filter_download_list("no", self.applied_filter)
                 except:
-                    GLib.idle_add(self.pause_buttons[i].set_visible, False)
+                    GLib.idle_add(download_thread.pause_button.set_visible, False)
                     self.filter_download_list("no", self.applied_filter)
                     pass
                 i += 1
@@ -242,7 +242,7 @@ class MainWindow(Adw.ApplicationWindow):
 
                 pause_button_images.append(Gtk.Image.new())
                 pause_button_images[i].set_from_icon_name("media-playback-start-symbolic")
-                self.pause_buttons[i].set_child(pause_button_images[i])
+                download_thread.pause_button.set_child(pause_button_images[i])
 
                 download_thread.save_state()
 
@@ -257,7 +257,7 @@ class MainWindow(Adw.ApplicationWindow):
 
                 pause_button_images.append(Gtk.Image.new())
                 pause_button_images[i].set_from_icon_name("media-playback-pause-symbolic")
-                self.pause_buttons[i].set_child(pause_button_images[i])
+                download_thread.pause_button.set_child(pause_button_images[i])
 
                 i += 1
             if ((header_pause_content != "no") and (i > 0)):
