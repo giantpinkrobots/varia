@@ -15,7 +15,7 @@ def show_preferences(button, self, app, variaVersion):
 
     page = Adw.PreferencesPage()
     preferences.add(page)
-    group_extensions = Adw.PreferencesGroup(title="Varia")
+    group_extensions = Adw.PreferencesGroup()
     page.add(group_extensions)
     group_1 = Adw.PreferencesGroup(title=_("Basic Settings"))
     page.add(group_1)
@@ -161,23 +161,11 @@ def show_preferences(button, self, app, variaVersion):
 
     # Simultaneous download amount:
 
-    simultaneous_download_amount_unit_names = Gio.ListStore.new(Gtk.StringObject)
-    simultaneous_download_amount_unit_names.append(Gtk.StringObject.new(" 1"))
-    simultaneous_download_amount_unit_names.append(Gtk.StringObject.new(" 2"))
-    simultaneous_download_amount_unit_names.append(Gtk.StringObject.new(" 3"))
-    simultaneous_download_amount_unit_names.append(Gtk.StringObject.new(" 4"))
-    simultaneous_download_amount_unit_names.append(Gtk.StringObject.new(" 5"))
-    simultaneous_download_amount_unit_names.append(Gtk.StringObject.new(" 6"))
-    simultaneous_download_amount_unit_names.append(Gtk.StringObject.new(" 7"))
-    simultaneous_download_amount_unit_names.append(Gtk.StringObject.new(" 8"))
-    simultaneous_download_amount_unit_names.append(Gtk.StringObject.new(" 9"))
-    simultaneous_download_amount_unit_names.append(Gtk.StringObject.new(" 10"))
-
-    simultaneous_download_amount_unit_names_box = Adw.ComboRow()
-    simultaneous_download_amount_unit_names_box.set_model(simultaneous_download_amount_unit_names)
-    simultaneous_download_amount_unit_names_box.set_title(_("Simultaneous Download Amount"))
-    simultaneous_download_amount_unit_names_box.set_selected(int(self.appconf["download_simultaneous_amount"])- 1)
-    simultaneous_download_amount_unit_names_box.connect("notify::selected", on_simultaneous_download_amount_changed, self)
+    simultaneous_download_amount_spinrow = Adw.SpinRow(adjustment=Gtk.Adjustment(step_increment=1.0))
+    simultaneous_download_amount_spinrow.set_title(_("Simultaneous Download Amount"))
+    simultaneous_download_amount_spinrow.set_range(1.0, 15.0)
+    simultaneous_download_amount_spinrow.set_value(float(self.appconf["download_simultaneous_amount"]))
+    simultaneous_download_amount_spinrow.connect("changed", on_simultaneous_download_amount_changed, self)
 
     # Start in background:
 
@@ -193,7 +181,7 @@ def show_preferences(button, self, app, variaVersion):
     group_1.add(download_directory_actionrow)
     group_1.add(speed_limit_expander_box)
     group_1.add(scheduler_actionrow)
-    group_1.add(simultaneous_download_amount_unit_names_box)
+    group_1.add(simultaneous_download_amount_spinrow)
     group_1.add(start_in_background)
 
     # Remote aria2:
@@ -487,9 +475,9 @@ def set_auth_credentials(self, username_entry, password_entry, switch):
 
     self.save_appconf()
 
-def on_simultaneous_download_amount_changed(comborow, parameters, self):
-    self.appconf["download_simultaneous_amount"] = str(comborow.get_selected() + 1)
-    print(str(comborow.get_selected() + 1))
+def on_simultaneous_download_amount_changed(spinrow, self):
+    self.appconf["download_simultaneous_amount"] = str(int(spinrow.get_value()))
+    print(str(int(spinrow.get_value())))
     self.save_appconf()
 
     set_aria2c_download_simultaneous_amount(self)

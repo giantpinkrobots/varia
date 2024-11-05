@@ -1,7 +1,7 @@
 import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import Gtk, Adw
+from gi.repository import Gtk, Adw, Pango
 from gettext import gettext as _
 from window.content import create_status_page
 
@@ -15,10 +15,6 @@ def on_download_clicked(button, self, entry, DownloadThread):
         download_thread.start()
 
 def create_actionrow(self, filename):
-    filename_shortened = filename[:40]
-    if (filename != filename_shortened):
-        filename_shortened = filename_shortened + "..."
-
     download_item = Adw.Bin()
     style_context = download_item.get_style_context()
     style_context.add_class('card')
@@ -35,7 +31,8 @@ def create_actionrow(self, filename):
 
     download_item.set_child(box_2)
 
-    filename_label = Gtk.Label(label=filename_shortened)
+    filename_label = Gtk.Label(label=filename)
+    filename_label.set_ellipsize(Pango.EllipsizeMode.END)
     filename_label.set_halign(Gtk.Align.START)
     box.append(filename_label)
 
@@ -43,9 +40,11 @@ def create_actionrow(self, filename):
 
     speed_label = Gtk.Label()
     speed_label.set_halign(Gtk.Align.START)
+    speed_label.get_style_context().add_class("dim-label")
     box.append(speed_label)
 
     button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
+    button_box.set_margin_start(10)
 
     pause_button = Gtk.Button.new_from_icon_name("media-playback-pause-symbolic")
     pause_button.set_valign(Gtk.Align.CENTER)

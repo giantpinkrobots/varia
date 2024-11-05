@@ -95,7 +95,7 @@ class DownloadThread(threading.Thread):
         while (self.cancelled == False):
             try:
                 self.download.update()
-                self.set_filename_label()
+                GLib.idle_add(self.filename_label.set_text, self.download.name)
                 self.update_labels_and_things()
                 if ((self.download.is_complete) and (self.download.is_metadata == False)):
                     print('Download complete: ' + self.download.gid)
@@ -110,14 +110,6 @@ class DownloadThread(threading.Thread):
             except:
                 return
             time.sleep(1)
-
-    def set_filename_label(self):
-        filename_shortened = self.download.name[:40]
-        if (self.download.name != filename_shortened):
-            filename_shortened = filename_shortened + "..."
-        if (filename_shortened != self.previous_filename):
-            GLib.idle_add(self.filename_label.set_text, filename_shortened)
-            self.previous_filename = filename_shortened
 
     def update_header_pause_button(self):
         self.app.all_paused = False
@@ -156,11 +148,11 @@ class DownloadThread(threading.Thread):
         if int(str(download_speed_mb)[0]) == 0:
             download_speed_kb = (self.download.download_speed / 1024)
             if int(str(download_speed_kb)[0]) == 0:
-                GLib.idle_add(self.speed_label.set_text, f"{round(self.download.progress)}%  |  {round(self.download.download_speed, 2)} {_(' B/s')}  |  {download_remaining_string} {_('remaining')}")
+                GLib.idle_add(self.speed_label.set_text, f"{round(self.download.progress)}%  ·  {round(self.download.download_speed, 2)} {_(' B/s')}  ·  {download_remaining_string} {_('remaining')}")
             else:
-                GLib.idle_add(self.speed_label.set_text, f"{round(self.download.progress)}%  |  {round(self.download.download_speed / 1024, 2)} {_(' KB/s')}  |  {download_remaining_string} {_('remaining')}")
+                GLib.idle_add(self.speed_label.set_text, f"{round(self.download.progress)}%  ·  {round(self.download.download_speed / 1024, 2)} {_(' KB/s')}  ·  {download_remaining_string} {_('remaining')}")
         else:
-            GLib.idle_add(self.speed_label.set_text, f"{round(self.download.progress)}%  |  {round(self.download.download_speed / 1024 / 1024, 2)} {_(' MB/s')}  |  {download_remaining_string} {_('remaining')}")
+            GLib.idle_add(self.speed_label.set_text, f"{round(self.download.progress)}%  ·  {round(self.download.download_speed / 1024 / 1024, 2)} {_(' MB/s')}  ·  {download_remaining_string} {_('remaining')}")
 
     def pause(self):
         if self.download:
