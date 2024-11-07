@@ -31,6 +31,8 @@
 <lang>es_ES</lang>
 <lang>fa_IR</lang>
 <lang>hi_IN</lang>
+<lang>bg_BG</lang>
+<lang>zh_CN</lang>
 </languages>
 
 <branding>
@@ -85,17 +87,15 @@ Varia uses GTK4 and Libadwaita for the user interface and utilizes Aria2 for the
 </screenshots>
 
 <releases>
-<release version="v2024.5.7" date="2024-05-07">
+<release version="v2024.11.7" date="2024-11-07">
 <description translatable="yes">
-<ul><li>Download scheduling: Start or stop downloading in given timespans.</li>
-<li>cookies.txt file import support.</li>
-<li>Remote timestamp support.</li>
-<li>Options to filter by seeding and failed downloads in the sidebar.</li>
-<li>Quit on completion option.</li>
-<li>Start in background mode option.</li>
-<li>Spanish language support.</li>
-<li>Persian language support.</li>
-<li>Hindi language support.</li></ul>
+<ul><li>Support for opening .torrent files.</li>
+<li>Downloads now show the estimated time remaining.</li>
+<li>UI tweaks and fixes for a better layout.</li>
+<li>Remote mode option is available again.</li>
+<li>A lot of under the hood changes to fix bugs and improve performance.</li>
+<li>Update to the GNOME 47 runtime and new Libadwaita widgets.</li>
+<li>Support for Bulgarian and Chinese (China) languages.</li></ul>
 </description>
 </release>
 </releases>

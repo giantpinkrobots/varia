@@ -250,17 +250,18 @@ def show_about(app, variaapp, self, variaVersion):
     dialog.set_application_icon("io.github.giantpinkrobots.varia")
     dialog.set_translator_credits(_("translator-credits"))
     dialog.set_artists(["Jakub Steiner"])
-    dialog.set_release_notes_version("v2024.5.7")
+    dialog.set_release_notes_version("v2024.11.7")
     dialog.set_release_notes('''
-        <ul><li>Download scheduling: Start or stop downloading in given timespans.</li>
-        <li>cookies.txt file import support.</li>
-        <li>Remote timestamp support.</li>
-        <li>Options to filter by seeding and failed downloads in the sidebar.</li>
-        <li>Quit on completion option.</li>
-        <li>Start in background mode option.</li>
-        <li>Spanish language support.</li>
-        <li>Persian language support.</li>
-        <li>Hindi language support.</li></ul>''')
+        <ul><li>Support for opening .torrent files.</li>
+        <li>Downloads now show the estimated time remaining.</li>
+        <li>UI tweaks and fixes for a better layout.</li>
+        <li>Remote mode option is available again.</li>
+        <li>A lot of under the hood changes to fix bugs and improve performance.</li>
+        <li>Update to the GNOME 47 runtime and new Libadwaita widgets.</li>
+        <li>Support for Bulgarian and Chinese (China) languages.</li>
+        <li>(Only on Windows) Automatic update function.</li>
+        <li>(Only on Windows) Support for localization.</li>
+        <li>(Only on Windows) All icons are shown properly everywhere.</li></ul>''')
 
     dialog.present(self)
 

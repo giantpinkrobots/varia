@@ -35,24 +35,25 @@ def windows_updater(bannerButton, app, variaapp, parentWindow, variaVersion, mod
     else:
         checking_dialog = None
         
-    if os.path.exists("updater-all-releases.txt"):
-        os.remove("updater-all-releases.txt")
+    if os.path.exists(os.path.join(app.appdir, 'updater-all-releases.txt')):
+        os.remove(os.path.join(app.appdir, 'updater-all-releases.txt'))
     
     thread = threading.Thread(target=lambda: start_update_check(variaVersion, app, variaapp, checking_dialog, mode))
     thread.start()
 
 def start_update_check(variaVersion, app, variaapp, checking_dialog, mode):
+    print(os.path.join(app.appdir, 'updater-all-releases.txt'))
     process = subprocess.Popen(
-        [app.aria2cexec, '--quiet=true', '--console-log-level=warn', '--download-result=hide',
+        [os.path.join(os.getcwd(), app.aria2cexec), '--quiet=true', '--console-log-level=warn', '--download-result=hide',
          '--out=updater-all-releases.txt', 'https://api.github.com/repos/giantpinkrobots/varia/releases'],
-        text=True, shell=True
+        text=True, shell=True, cwd = app.appdir
     )
     
     process.wait()
     
-    if os.path.exists("updater-all-releases.txt"):
-        all_releases = open("updater-all-releases.txt").read()
-        os.remove("updater-all-releases.txt")
+    if os.path.exists(os.path.join(app.appdir, 'updater-all-releases.txt')):
+        all_releases = open(os.path.join(app.appdir, 'updater-all-releases.txt')).read()
+        os.remove(os.path.join(app.appdir, 'updater-all-releases.txt'))
     else:
         latest_name_for_windows = "failed"
     
@@ -63,6 +64,7 @@ def start_update_check(variaVersion, app, variaapp, checking_dialog, mode):
         except:
             print("Couldn't check for updates.")
             latest_name_for_windows = "failed"
+            break
 
         latest_name_for_windows = contents["name"]
         latest_windows_binary_url = 'https://github.com/giantpinkrobots/varia/releases/download/' + latest_name_for_windows + '/varia-windows-setup-amd64.exe'
