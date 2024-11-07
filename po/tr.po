@@ -318,6 +318,51 @@ msgstr "cookies.txt İçe Aktar"
 msgid "Remove cookies.txt"
 msgstr "cookies.txt'i Sil"
 
+msgid "remaining"
+msgstr "kaldı"
+
+msgid "Start in Background Mode"
+msgstr "Arkaplan Modunda Başlat"
+
+msgid "Remote Timestamp"
+msgstr "Uzak Zaman Damgası"
+
+msgid "Torrent"
+msgstr "Torrent"
+
+msgid "Checking for updates..."
+msgstr "Güncellemeler denetleniyor..."
+
+msgid "A new version of Varia is available. Do you want to update?"
+msgstr "Varia'nın yeni bir sürümü mevcut. Güncellemek ister misiniz?"
+
+msgid "Update available"
+msgstr "Güncelleme mevcut"
+
+msgid "Update"
+msgstr "Güncelle"
+
+msgid "Downloading update..."
+msgstr "Güncelleme indiriliyor..."
+
+msgid "Download failed."
+msgstr "İndirme başarısız."
+
+msgid "Yes"
+msgstr "Evet"
+
+msgid "No"
+msgstr "Hayır"
+
+msgid "Automatically Check for Updates"
+msgstr "Güncellemeleri Otomatik Olarak Kontrol Et"
+
+msgid "Check Now"
+msgstr "Şimdi Kontrol Et"
+
+msgid "Do you want to check for updates on startup?"
+msgstr "Uygulama başlangıcında güncelleme kontrolü yapılmasını ister misiniz?"
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"

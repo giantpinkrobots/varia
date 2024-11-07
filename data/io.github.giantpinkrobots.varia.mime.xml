@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="application/varia">
+    <comment>Varia Download Progress</comment>
+    <glob pattern="*.varia"/>
+    <generic-icon name="io.github.giantpinkrobots.varia.mime"/>
+  </mime-type>
+  <mime-type type="application/aria2">
+    <comment>Aria2 Download Progress</comment>
+    <glob pattern="*.aria2"/>
+    <generic-icon name="text-x-script"/>
+  </mime-type>
+</mime-info>
+
