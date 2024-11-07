@@ -118,21 +118,24 @@ p {
 }
 
 .linux-instructions {
-    max-height: 1000px;
     overflow: hidden;
     border-radius: 15px;
     background: #EBEBEB;
     padding: 20px;
     filter: drop-shadow(rgba(0, 0, 0, 0.5) 0rem 0.3rem 8px);
     width: 800px;
-    transition: max-height 0.5s ease-in-out, padding 0.25s ease-in-out, border-radius 0.25s ease-in-out;
-    margin: 5px;
+    transition: transform 0.25s ease-in-out, padding 0.25s ease-in-out, max-height 0.25s ease-in-out;
+    transform: scaleY(1);
+    transform-origin: top;
+    display: block;
+    max-height: 1000px;
 }
 
 .linux-instructions.hidden {
-    max-height: 0;
+    transform: scaleY(0);
+    display: hidden;
+    max-height: 0px;
     padding: 0px;
-    border-radius: 0px;
 }
 
 @media (prefers-color-scheme: dark) {

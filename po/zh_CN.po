@@ -1,21 +1,22 @@
-# SOME DESCRIPTIVE TITLE.
+# Chinese translation for Varia.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# lumingzh <lumingzh@qq.com>, 2024.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: varia main\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2024-09-23 11:35-0300\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: es\n"
+"PO-Revision-Date: 2024-09-22 17:57+0800\n"
+"Last-Translator: lumingzh <lumingzh@qq.com>\n"
+"Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.4.4\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Gtranslator 46.1\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -26,11 +27,11 @@ msgstr "Varia"
 #. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
 #: data/io.github.giantpinkrobots.varia.desktop.in:11
 msgid "varia;aria;download;manager;"
-msgstr "varia;aria;descargar;administrador;"
+msgstr "varia;aria;download;manager;下载;管理器;bt;bittorrent;"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
 msgid "Download manager based on aria2"
-msgstr "Administrador de descargas basado en aria2"
+msgstr "基于 aria2 的下载管理器"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
 msgid ""
@@ -38,29 +39,28 @@ msgid ""
 "to provide a easy to use interface that integrates well with the GNOME "
 "desktop."
 msgstr ""
-"Varia es un gestor de descargas basado en aria2 que utiliza GTK4 y "
-"Libadwaita para proporcionar una interfaz fácil de usar que se integra bien "
-"con el escritorio GNOME."
+"Varia 是一个基于 aria2 的下载管理器，利用 GTK4 和 Libadwaita 提供了与 GNOME "
+"桌面良好集成的易用界面。"
 
 #: src/variamain.py:45
 msgid "This is not a valid URL."
-msgstr "Esta no es una URL válida."
+msgstr "这不是有效的 URL。"
 
 #: src/variamain.py:125
 msgid "All"
-msgstr "Todas"
+msgstr "全部"
 
 #: src/variamain.py:137
 msgid "In Progress"
-msgstr "En curso"
+msgstr "进行中"
 
 #: src/variamain.py:148
 msgid "Completed"
-msgstr "Terminadas"
+msgstr "已完成"
 
 #: src/variamain.py:171
 msgid "About Varia"
-msgstr "Acerca de Varia"
+msgstr "关于 Varia"
 
 #: src/variamain.py:177
 msgid "URL"
@@ -68,31 +68,31 @@ msgstr "URL"
 
 #: src/variamain.py:178
 msgid "Download"
-msgstr "Descargar"
+msgstr "下载"
 
 #: src/variamain.py:184
 msgid "Open Download Folder"
-msgstr "Abrir carpeta de descargas"
+msgstr "打开下载文件夹"
 
 #: src/variamain.py:196
 msgid "Speed Limit"
-msgstr "Límite de velocidad"
+msgstr "速度限制"
 
 #: src/variamain.py:203 src/variamain.py:423
 msgid "Pause All"
-msgstr "Pausa Todo"
+msgstr "全部暂停"
 
 #: src/variamain.py:212
 msgid "Speed"
-msgstr "Velocidad"
+msgstr "速度"
 
 #: src/variamain.py:215
 msgid "Set Speed Limit"
-msgstr "Fijar límite de velocidad"
+msgstr "设定速度限制"
 
 #: src/variamain.py:216
 msgid "Cancel All"
-msgstr "Cancelar todo"
+msgstr "全部取消"
 
 #: src/variamain.py:235
 msgid "/s"
@@ -100,19 +100,19 @@ msgstr "/s"
 
 #: src/variamain.py:238
 msgid "No limit"
-msgstr "Sin límite"
+msgstr "无限制"
 
 #: src/variamain.py:274
 msgid "Download complete."
-msgstr "Descarga completa."
+msgstr "下载完成。"
 
 #: src/variamain.py:276
 msgid "Download speed is limited."
-msgstr "La velocidad de descarga está limitada."
+msgstr "已限制下载速度。"
 
 #: src/variamain.py:277
 msgid "An error occurred:"
-msgstr "Se ha producido un error:"
+msgstr "发生了错误："
 
 #: src/variamain.py:292
 msgid "MB/s"
@@ -140,208 +140,207 @@ msgstr " B/s"
 
 #: src/variamain.py:404
 msgid "Simultaneous Download Amount"
-msgstr "Número de descargas simultáneas"
+msgstr "同时下载数量"
 
 #: src/variamain.py:410
 msgid "Resume All"
-msgstr "Reanudar todo"
+msgstr "全部恢复"
 
 #: src/variamain.py:443
 msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
-msgstr ""
-"administrador de descargas basado en aria2 que utiliza GTK4 y Libadwaita."
+msgstr "基于 aria2 使用 GTK4 和 Libadwaita 的下载管理器。"
 
 #: src/variamain.py:777
 msgid "This application relies on the following pieces of software:"
-msgstr "Esta aplicación se basa en los siguientes programas:"
+msgstr "该应用程序依赖于下列软件："
 
 #: src/variamain.py:777
 msgid ""
 "The licenses of all of these pieces of software can be found in the "
 "dependencies_information directory in this application's app directory."
 msgstr ""
-"Las licencias de todas estas piezas de software se encuentran en el "
-"directorio dependencies_information del directorio app de esta aplicación."
+"所有这些软件的许可证可以在该应用程序应用目录里的 dependencies_information 目"
+"录找到。"
 
 #: src/variamain.py:449
 msgid "translator-credits"
-msgstr "Haggen88"
+msgstr "lumingzh <lumingzh@qq.com>, 2024"
 
 #: src/variamain.py:457
 msgid "Download Directory"
-msgstr "Directorio de descargas"
+msgstr "下载目录"
 
 #: src/variamain.py:460
 msgid "Change"
-msgstr "Cambiar"
+msgstr "更改"
 
 #: src/variamain.py:463
 msgid "Speed limited"
-msgstr "Velocidad limitada"
+msgstr "已限制速度"
 
 #: src/variamain.py:519
 msgid "Authentication"
-msgstr "Autenticación"
+msgstr "认证"
 
 #: src/variamain.py:532
 msgid "Username"
-msgstr "Nombre de usuario"
+msgstr "用户名"
 
 #: src/variamain.py:534
 msgid "Password"
-msgstr "Contraseña"
+msgstr "密码"
 
 #: src/variamain.py:554
 msgid "Authorization failed."
-msgstr "Autorización fallida."
+msgstr "认证失败。"
 
 #: src/variamain.py:806
 msgid "Failed to open directory."
-msgstr "Error al abrir el directorio."
+msgstr "打开目录失败。"
 
 msgid "Remote Mode"
-msgstr "Modo remoto"
+msgstr "远程模式"
 
 msgid "Remote aria2 IP"
-msgstr "Aria2-IP remota"
+msgstr "远程 aria2 IP"
 
 msgid "Remote aria2 Port"
-msgstr "Aria2-Puerto remoto"
+msgstr "远程 aria2 端口"
 
 msgid "Remote aria2 RPC Secret"
-msgstr "Aria2-RPC Código Secreto"
+msgstr "远程 aria2 RPC 安全"
 
 msgid "Remote Download Location"
-msgstr "Ubicación de descarga remota"
+msgstr "远程下载位置"
 
 msgid "Exiting Varia..."
-msgstr "Salir de Varia..."
+msgstr "正在退出 Varia…"
 
 msgid "Background Mode"
-msgstr "Modo en segundo plano"
+msgstr "后台模式"
 
 msgid "Continuing the downloads in the background."
-msgstr "Continuando con las descargas en segundo plano."
+msgstr "在后台继续下载。"
 
 msgid "Browser Extension"
-msgstr "Extensión del navegador"
+msgstr "浏览器扩展"
 
 msgid "Shutdown on Completion"
-msgstr "Apagado al finalizar"
+msgstr "完成时关机"
 
 msgid "Varia is about to shut down your computer."
-msgstr "Varia está a punto de apagar tu ordenador."
+msgstr "Varia 即将关闭您的计算机。"
 
 msgid "Press Cancel to cancel and disable."
-msgstr "Pulse Cancelar para cancelar y desactivar."
+msgstr "按“取消”以取消和禁用。"
 
 msgid "Cancel"
-msgstr "Cancelar"
+msgstr "取消"
 
 msgid "Warning"
-msgstr "Advertencia"
+msgstr "警告"
 
 msgid "Monday"
-msgstr "Lunes"
+msgstr "星期一"
 
 msgid "Tuesday"
-msgstr "Martes"
+msgstr "星期二"
 
 msgid "Wednesday"
-msgstr "Miércoles"
+msgstr "星期三"
 
 msgid "Thursday"
-msgstr "Jueves"
+msgstr "星期四"
 
 msgid "Friday"
-msgstr "Viernes"
+msgstr "星期五"
 
 msgid "Saturday"
-msgstr "Sábado"
+msgstr "星期六"
 
 msgid "Sunday"
-msgstr "Domingo"
+msgstr "星期日"
 
 msgid "Start (h/m):"
-msgstr "Inicio (h/m):"
+msgstr "开始（h/m）："
 
 msgid "End (h/m):"
-msgstr "Fin (h/m):"
+msgstr "结束（h/m）："
 
 msgid "Scheduler enabled"
-msgstr "Planificador activado"
+msgstr "调度程序已启用"
 
 msgid "Scheduler"
-msgstr "Planificador"
+msgstr "调度程序"
 
 msgid "Enabled"
-msgstr "Activado"
+msgstr "已启用"
 
 msgid "Start downloading in these times"
-msgstr "Empezar a descargar en estos tiempos"
+msgstr "在这些时间开始下载"
 
 msgid "Stop downloading in these times"
-msgstr "Dejar de descargar en estos tiempos"
+msgstr "在这些时间停止下载"
 
 msgid "Add Timespan"
-msgstr "Añadir intervalo de tiempo"
+msgstr "添加时间间隔"
 
 msgid "Seeding"
-msgstr "Compartiendo"
+msgstr "正在做种"
 
 msgid "Failed"
-msgstr "Fallido"
+msgstr "已失败"
 
 msgid "Completion Options"
-msgstr "Opciones de finalización"
+msgstr "完成选项"
 
 msgid "Exit on Completion"
-msgstr "Salir al finalizar"
+msgstr "完成时退出"
 
 msgid "Varia is about to quit."
-msgstr "Varia está a punto de salir."
+msgstr "Varia 即将退出。"
 
 msgid "Preferences"
-msgstr "Preferencias"
+msgstr "首选项"
 
 msgid "Other"
-msgstr "Otras"
+msgstr "其它"
 
 msgid "Basic Settings"
-msgstr "Configuración básica"
+msgstr "基础设置"
 
 msgid "Advanced Settings"
-msgstr "Configuración avanzada"
+msgstr "高级设置"
 
 msgid "Use cookies.txt"
-msgstr "Utilizar cookies.txt"
+msgstr "使用 cookies.txt"
 
 msgid "Import cookies.txt"
-msgstr "Importar cookies.txt"
+msgstr "导入 cookies.txt"
 
 msgid "Remove cookies.txt"
-msgstr "Eliminar cookies.txt"
+msgstr "移除 cookies.txt"
 
 msgid "remaining"
-msgstr "restante"
+msgstr "剩余时间"
 
 msgid "Start in Background Mode"
-msgstr "Iniciar en segundo plano"
+msgstr "以后台模式启动"
 
 msgid "Remote Timestamp"
-msgstr "Marca de tiempo remota"
+msgstr "远程时间戳"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
-msgstr "General"
+msgstr "常规"
 
 #: src/gtk/help-overlay.ui:14
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
-msgstr "Mostrar atajos"
+msgstr "显示快捷键"
 
 #: src/gtk/help-overlay.ui:20
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr "Salir"
+msgstr "退出"

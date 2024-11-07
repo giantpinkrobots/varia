@@ -3,7 +3,7 @@ import subprocess
 import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import Gtk, Adw, GLib, Gio
+from gi.repository import Gtk, Adw, Gio
 from gettext import gettext as _
 import textwrap
 
@@ -12,7 +12,7 @@ from download.actionrow import on_download_clicked
 
 def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     sidebar_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-    sidebar_content_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
+    sidebar_content_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
 
     header_bar = Adw.HeaderBar()
     header_bar.get_style_context().add_class('flat')
@@ -20,7 +20,7 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
 
     preferences_button = Gtk.Button(tooltip_text=_("Preferences"))
     preferences_button.set_icon_name("emblem-system-symbolic")
-    preferences_button.connect("clicked", show_preferences, self, variaapp)
+    preferences_button.connect("clicked", show_preferences, self, variaapp, variaVersion)
 
     hamburger_button = Gtk.MenuButton(tooltip_text=_("Other"))
     hamburger_button.set_icon_name("open-menu-symbolic")
@@ -80,13 +80,46 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     header_bar.pack_start(preferences_button)
     header_bar.pack_end(hamburger_button)
 
+    box_add_download = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
+    box_add_download.set_margin_start(8)
+    box_add_download.set_margin_end(8)
+    box_add_download.set_margin_top(8)
+    box_add_download.set_margin_bottom(8)
+
     download_entry = Gtk.Entry()
     download_entry.set_placeholder_text(_("URL"))
 
-    self.download_button = Gtk.Button(label=_("Download"))
-    self.download_button.get_style_context().add_class("pill")
+    self.download_button_icon = Gtk.Image.new_from_icon_name("folder-download-symbolic")
+    self.download_button_text = Gtk.Label(label=_("Download"))
+    download_button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+    download_button_box.append(self.download_button_icon)
+    download_button_box.append(self.download_button_text)
+
+    self.download_button = Gtk.Button()
+    self.download_button.set_child(download_button_box)
     self.download_button.get_style_context().add_class("suggested-action")
+    self.download_button.set_sensitive(False)
     self.download_button.connect("clicked", on_download_clicked, self, download_entry, DownloadThread)
+
+    download_entry.connect('changed', on_download_entry_changed, self.download_button)
+
+    torrent_button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+    torrent_button_box.append(Gtk.Image.new_from_icon_name("document-open-symbolic"))
+    torrent_button_box.append(Gtk.Label(label=_("Torrent")))
+
+    add_torrent_button = Gtk.Button()
+    add_torrent_button.get_style_context().add_class("suggested-action")
+    add_torrent_button.set_child(torrent_button_box)
+    add_torrent_button.connect("clicked", on_add_torrent_clicked, self)
+
+    box_add_download.append(download_entry)
+    box_add_download.append(self.download_button)
+    box_add_download.append(Gtk.Separator(margin_top=8, margin_bottom=8))
+    box_add_download.append(add_torrent_button)
+
+    frame_add_download = Gtk.Frame()
+    frame_add_download.set_margin_bottom(8)
+    frame_add_download.set_child(box_add_download)
 
     self.filter_button_show_all = Gtk.ToggleButton()
     self.filter_button_show_all.get_style_context().add_class('flat')
@@ -149,13 +182,6 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     self.filter_button_show_failed.set_child(filter_button_show_failed_box)
     self.filter_button_show_failed.connect("clicked", self.filter_download_list, "show_failed")
 
-    sidebar_separator = Gtk.Separator()
-    sidebar_separator.set_margin_top(8)
-    sidebar_separator.set_margin_bottom(8)
-
-    sidebar_expanding_box = Gtk.Box()
-    Gtk.Widget.set_vexpand(sidebar_expanding_box, True)
-
     self.sidebar_shutdown_mode_label = Gtk.Label()
     self.sidebar_remote_mode_label = Gtk.Label()
     if (self.appconf['remote'] == '1'):
@@ -165,7 +191,6 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
 
     sidebar_content_box.set_margin_start(6)
     sidebar_content_box.set_margin_end(6)
-    sidebar_content_box.set_margin_top(6)
     sidebar_content_box.set_margin_bottom(6)
 
     sidebar_filter_buttons_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
@@ -175,11 +200,9 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     sidebar_filter_buttons_box.append(self.filter_button_show_seeding)
     sidebar_filter_buttons_box.append(self.filter_button_show_failed)
 
-    sidebar_content_box.append(download_entry)
-    sidebar_content_box.append(self.download_button)
-    sidebar_content_box.append(sidebar_separator)
+    sidebar_content_box.append(frame_add_download)
     sidebar_content_box.append(sidebar_filter_buttons_box)
-    sidebar_content_box.append(sidebar_expanding_box)
+    sidebar_content_box.append(Gtk.Box(vexpand=True))
     sidebar_content_box.append(self.sidebar_shutdown_mode_label)
     sidebar_content_box.append(self.sidebar_remote_mode_label)
     sidebar_content_box.append(self.sidebar_speed_limited_label)
@@ -187,6 +210,26 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     sidebar_box.append(sidebar_content_box)
 
     self.overlay_split_view.set_sidebar(sidebar_box)
+
+def on_download_entry_changed(entry, download_button):
+    if entry.get_text() != "":
+        download_button.set_sensitive(True)
+    else:
+        download_button.set_sensitive(False)
+
+def on_add_torrent_clicked(self, variaapp):
+    file_filter = Gtk.FileFilter()
+    file_filter.add_pattern("*.torrent")
+    dialog = Gtk.FileDialog(default_filter=file_filter)
+    dialog.open(variaapp, None, on_add_torrent, variaapp)
+
+def on_add_torrent(file_dialog, result, self):
+    try:
+        file = file_dialog.open_finish(result).get_path()
+    except:
+        return
+    if file.endswith(".torrent"):
+        self.api.add_torrent(file)
 
 def background_mode(app, variaapp1, self, variaapp):
     self.exitProgram(app=app, variaapp=variaapp, background=True)
@@ -207,17 +250,18 @@ def show_about(app, variaapp, self, variaVersion):
     dialog.set_application_icon("io.github.giantpinkrobots.varia")
     dialog.set_translator_credits(_("translator-credits"))
     dialog.set_artists(["Jakub Steiner"])
-    dialog.set_release_notes_version("v2024.5.7")
+    dialog.set_release_notes_version("v2024.11.7")
     dialog.set_release_notes('''
-        <ul><li>Download scheduling: Start or stop downloading in given timespans.</li>
-        <li>cookies.txt file import support.</li>
-        <li>Remote timestamp support.</li>
-        <li>Options to filter by seeding and failed downloads in the sidebar.</li>
-        <li>Quit on completion option.</li>
-        <li>Start in background mode option.</li>
-        <li>Spanish language support.</li>
-        <li>Persian language support.</li>
-        <li>Hindi language support.</li></ul>''')
+        <ul><li>Support for opening .torrent files.</li>
+        <li>Downloads now show the estimated time remaining.</li>
+        <li>UI tweaks and fixes for a better layout.</li>
+        <li>Remote mode option is available again.</li>
+        <li>A lot of under the hood changes to fix bugs and improve performance.</li>
+        <li>Update to the GNOME 47 runtime and new Libadwaita widgets.</li>
+        <li>Support for Bulgarian and Chinese (China) languages.</li>
+        <li>(Only on Windows) Automatic update function.</li>
+        <li>(Only on Windows) Support for localization.</li>
+        <li>(Only on Windows) All icons are shown properly everywhere.</li></ul>''')
 
     dialog.present(self)
 

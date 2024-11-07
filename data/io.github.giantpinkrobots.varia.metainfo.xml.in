@@ -10,9 +10,9 @@
 <developer_name>Giant Pink Robots!</developer_name>
 
 <content_rating type="oars-1.1" />
-<url type="homepage">https://github.com/giantpinkrobots/varia</url>
+<url type="homepage">https://giantpinkrobots.github.io/varia</url>
 <url type="vcs-browser">https://github.com/giantpinkrobots/varia</url>
-<url type="translate">https://github.com/giantpinkrobots/varia/tree/main/po</url>
+<url type="translate">https://github.com/giantpinkrobots/varia/tree/next/po</url>
 
 <languages>
 <lang>en_US</lang>
@@ -31,19 +31,38 @@
 <lang>es_ES</lang>
 <lang>fa_IR</lang>
 <lang>hi_IN</lang>
+<lang>bg_BG</lang>
+<lang>zh_CN</lang>
 </languages>
 
 <branding>
-<color type="primary" scheme_preference="light">#E9F0F9</color>
-<color type="primary" scheme_preference="dark">#454545</color>
+<color type="primary" scheme_preference="light">#DBE8F5</color>
+<color type="primary" scheme_preference="dark">#010E1D</color>
 </branding>
 
 <description>
 <p>
 Varia is a download manager for all your download needs. It can download regular files and torrents, and do it very quickly.
 </p>
+<ul>
+<li>
+Download files and torrents quickly - potentially faster than your browser, continue incomplete downloads even after reboots
+</li>
+<li>
+Integrate with Firefox and Chrome (or any Chromium based browser) to redirect downloads
+</li>
+<li>
+Schedule downloads with a powerful scheduler allowing for custom timespans for each day of the week
+</li>
+<li>
+Download from protected areas with basic auth and cookies.txt import support
+</li>
+<li>
+Control a remote aria2 instance running on any server
+</li>
+</ul>
 <p>
-Using Varia is very easy and straightforward, and with its aria2 backend it can potentially increase the speed of your downloads. It can integrate with Firefox or Chrome/ium through a browser extension, configured to your liking, and even support a remote aria2 instance on another computer.
+Varia uses GTK4 and Libadwaita for the user interface and utilizes Aria2 for the downloads underneath. It is free software licensed under the Mozilla Public License 2.0. A list of dependencies can be viewed through the Legal section in the About Varia page.
 </p>
 </description>
 
@@ -68,17 +87,15 @@ Using Varia is very easy and straightforward, and with its aria2 backend it can 
 </screenshots>
 
 <releases>
-<release version="v2024.5.7" date="2024-05-07">
+<release version="v2024.11.7" date="2024-11-07">
 <description translatable="yes">
-<ul><li>Download scheduling: Start or stop downloading in given timespans.</li>
-<li>cookies.txt file import support.</li>
-<li>Remote timestamp support.</li>
-<li>Options to filter by seeding and failed downloads in the sidebar.</li>
-<li>Quit on completion option.</li>
-<li>Start in background mode option.</li>
-<li>Spanish language support.</li>
-<li>Persian language support.</li>
-<li>Hindi language support.</li></ul>
+<ul><li>Support for opening .torrent files.</li>
+<li>Downloads now show the estimated time remaining.</li>
+<li>UI tweaks and fixes for a better layout.</li>
+<li>Remote mode option is available again.</li>
+<li>A lot of under the hood changes to fix bugs and improve performance.</li>
+<li>Update to the GNOME 47 runtime and new Libadwaita widgets.</li>
+<li>Support for Bulgarian and Chinese (China) languages.</li></ul>
 </description>
 </release>
 </releases>
