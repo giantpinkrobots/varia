@@ -7,40 +7,18 @@ import os
 
 from download.communicate import set_speed_limit, set_aria2c_download_directory, set_aria2c_download_simultaneous_amount, set_aria2c_custom_global_option, set_aria2c_cookies
 from window.scheduler import show_scheduler_dialog
-from window.updater import windows_updater
 
-def show_preferences(button, self, app, variaVersion):
-    preferences = Adw.PreferencesDialog(title=_("Preferences"))
-    preferences.set_search_enabled(True)
+def show_preferences(button, self, app):
+    preferences = Adw.PreferencesDialog()
 
-    page = Adw.PreferencesPage()
+    page = Adw.PreferencesPage(title=_("Preferences"))
     preferences.add(page)
-    group_extensions = Adw.PreferencesGroup()
+    group_extensions = Adw.PreferencesGroup(title=_("Browser Extension"))
     page.add(group_extensions)
     group_1 = Adw.PreferencesGroup(title=_("Basic Settings"))
     page.add(group_1)
     group_2 = Adw.PreferencesGroup(title=_("Advanced Settings"))
     page.add(group_2)
-
-    # Updater section for Windows:
-
-    if (os.name == 'nt') and (os.path.exists("./updater-function-enabled")):
-        update_actionrow = Adw.SwitchRow()
-        update_actionrow.set_title(_("Automatically Check for Updates"))
-        update_actionrow.connect("notify::active", on_switch_auto_update_check, self)
-
-        update_button = Gtk.Button(label=_("Check Now"))
-        update_button.set_halign(Gtk.Align.START)
-        update_button.set_valign(Gtk.Align.CENTER)
-        update_button.get_style_context().add_class("suggested-action")
-        update_button.connect("clicked", lambda clicked: windows_updater(None, self, app, preferences, variaVersion, 1))
-
-        update_actionrow.add_suffix(update_button)
-
-        group_extensions.add(update_actionrow)
-        
-        if (self.appconf["check_for_updates_on_startup_enabled"] == '1'):
-            update_actionrow.set_active("active")
 
     # Browser extensions section:
 
@@ -50,7 +28,7 @@ def show_preferences(button, self, app, variaVersion):
     browser_extension_firefox_button = Gtk.Button(label="Firefox")
     browser_extension_firefox_button.set_halign(Gtk.Align.START)
     browser_extension_firefox_button.set_valign(Gtk.Align.CENTER)
-    browser_extension_chrome_button = Gtk.Button(label="Chrome, Edge, Opera...")
+    browser_extension_chrome_button = Gtk.Button(label="Chrome")
     browser_extension_chrome_button.set_halign(Gtk.Align.START)
     browser_extension_chrome_button.set_valign(Gtk.Align.CENTER)
 
@@ -62,7 +40,7 @@ def show_preferences(button, self, app, variaVersion):
     browser_extension_buttons_box.append(browser_extension_chrome_button)
 
     browser_extension_actionrow.add_suffix(browser_extension_buttons_box)
-    
+
     group_extensions.add(browser_extension_actionrow)
 
     # Download directory:
@@ -152,7 +130,7 @@ def show_preferences(button, self, app, variaVersion):
     scheduler_actionrow_edit_button.set_valign(Gtk.Align.CENTER)
     scheduler_actionrow_edit_button.get_style_context().add_class("suggested-action")
 
-    scheduler_actionrow_edit_button.connect("clicked", lambda clicked: show_scheduler_dialog(self, preferences, app, show_preferences, variaVersion))
+    scheduler_actionrow_edit_button.connect("clicked", lambda clicked: show_scheduler_dialog(self, preferences, app, show_preferences))
 
     scheduler_actionrow_buttons_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
     scheduler_actionrow_buttons_box.append(scheduler_actionrow_edit_button)
@@ -161,11 +139,23 @@ def show_preferences(button, self, app, variaVersion):
 
     # Simultaneous download amount:
 
-    simultaneous_download_amount_spinrow = Adw.SpinRow(adjustment=Gtk.Adjustment(step_increment=1.0))
-    simultaneous_download_amount_spinrow.set_title(_("Simultaneous Download Amount"))
-    simultaneous_download_amount_spinrow.set_range(1.0, 15.0)
-    simultaneous_download_amount_spinrow.set_value(float(self.appconf["download_simultaneous_amount"]))
-    simultaneous_download_amount_spinrow.connect("changed", on_simultaneous_download_amount_changed, self)
+    simultaneous_download_amount_unit_names = Gio.ListStore.new(Gtk.StringObject)
+    simultaneous_download_amount_unit_names.append(Gtk.StringObject.new(" 1"))
+    simultaneous_download_amount_unit_names.append(Gtk.StringObject.new(" 2"))
+    simultaneous_download_amount_unit_names.append(Gtk.StringObject.new(" 3"))
+    simultaneous_download_amount_unit_names.append(Gtk.StringObject.new(" 4"))
+    simultaneous_download_amount_unit_names.append(Gtk.StringObject.new(" 5"))
+    simultaneous_download_amount_unit_names.append(Gtk.StringObject.new(" 6"))
+    simultaneous_download_amount_unit_names.append(Gtk.StringObject.new(" 7"))
+    simultaneous_download_amount_unit_names.append(Gtk.StringObject.new(" 8"))
+    simultaneous_download_amount_unit_names.append(Gtk.StringObject.new(" 9"))
+    simultaneous_download_amount_unit_names.append(Gtk.StringObject.new(" 10"))
+
+    simultaneous_download_amount_unit_names_box = Adw.ComboRow()
+    simultaneous_download_amount_unit_names_box.set_model(simultaneous_download_amount_unit_names)
+    simultaneous_download_amount_unit_names_box.set_title(_("Simultaneous Download Amount"))
+    simultaneous_download_amount_unit_names_box.set_selected(int(self.appconf["download_simultaneous_amount"])- 1)
+    simultaneous_download_amount_unit_names_box.connect("notify::selected", on_simultaneous_download_amount_changed, self)
 
     # Start in background:
 
@@ -181,7 +171,7 @@ def show_preferences(button, self, app, variaVersion):
     group_1.add(download_directory_actionrow)
     group_1.add(speed_limit_expander_box)
     group_1.add(scheduler_actionrow)
-    group_1.add(simultaneous_download_amount_spinrow)
+    group_1.add(simultaneous_download_amount_unit_names_box)
     group_1.add(start_in_background)
 
     # Remote aria2:
@@ -346,21 +336,8 @@ def show_preferences(button, self, app, variaVersion):
     group_2.add(remote_time)
     group_2.add(cookies_txt_action)
     group_2.add(cookies_txt_action)
-    group_2.add(remote_aria2_expander_box)
 
     preferences.present(self)
-
-def on_switch_auto_update_check(switch, state, self):
-    state = switch.get_active()
-    if state:
-        self.appconf["check_for_updates_on_startup_enabled"] = '1'
-    else:
-        self.appconf["check_for_updates_on_startup_enabled"] = '0'
-        if hasattr(self, 'update_available_banner'):
-            if self.update_available_banner != None:
-                self.update_available_banner.set_revealed(False)
-
-    self.save_appconf()
 
 def speed_limit_text_filter(entry, self):
     text = entry.get_text()
@@ -475,9 +452,9 @@ def set_auth_credentials(self, username_entry, password_entry, switch):
 
     self.save_appconf()
 
-def on_simultaneous_download_amount_changed(spinrow, self):
-    self.appconf["download_simultaneous_amount"] = str(int(spinrow.get_value()))
-    print(str(int(spinrow.get_value())))
+def on_simultaneous_download_amount_changed(comborow, parameters, self):
+    self.appconf["download_simultaneous_amount"] = str(comborow.get_selected() + 1)
+    print(str(comborow.get_selected() + 1))
     self.save_appconf()
 
     set_aria2c_download_simultaneous_amount(self)
@@ -531,14 +508,13 @@ def on_cookies_txt_import(file_dialog, result, cookies_txt_import_button, cookie
         file = file_dialog.open_finish(result).get_path()
     except:
         return
-    if file.endswith(".txt"):
-        with open(file, 'r') as file:
-            data = file.read()
-        with open(os.path.join(self.appdir, 'cookies.txt'), 'w') as cookies_txt_file:
-            cookies_txt_file.write(data)
-        cookies_txt_action_switch.set_sensitive(True)
-        cookies_txt_import_button.set_visible(False)
-        cookies_txt_remove_button.set_visible(True)
+    with open(file, 'r') as file:
+        data = file.read()
+    with open(os.path.join(self.appdir, 'cookies.txt'), 'w') as cookies_txt_file:
+        cookies_txt_file.write(data)
+    cookies_txt_action_switch.set_sensitive(True)
+    cookies_txt_import_button.set_visible(False)
+    cookies_txt_remove_button.set_visible(True)
 
 def on_switch_cookies_txt(switch, state, self):
     state = switch.get_active()

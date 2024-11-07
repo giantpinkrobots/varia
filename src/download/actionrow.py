@@ -1,7 +1,7 @@
 import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import Gtk, Adw, Pango
+from gi.repository import Gtk, Adw
 from gettext import gettext as _
 from window.content import create_status_page
 
@@ -15,6 +15,10 @@ def on_download_clicked(button, self, entry, DownloadThread):
         download_thread.start()
 
 def create_actionrow(self, filename):
+    filename_shortened = filename[:40]
+    if (filename != filename_shortened):
+        filename_shortened = filename_shortened + "..."
+
     download_item = Adw.Bin()
     style_context = download_item.get_style_context()
     style_context.add_class('card')
@@ -31,8 +35,7 @@ def create_actionrow(self, filename):
 
     download_item.set_child(box_2)
 
-    filename_label = Gtk.Label(label=filename)
-    filename_label.set_ellipsize(Pango.EllipsizeMode.END)
+    filename_label = Gtk.Label(label=filename_shortened)
     filename_label.set_halign(Gtk.Align.START)
     box.append(filename_label)
 
@@ -40,23 +43,21 @@ def create_actionrow(self, filename):
 
     speed_label = Gtk.Label()
     speed_label.set_halign(Gtk.Align.START)
-    speed_label.get_style_context().add_class("dim-label")
     box.append(speed_label)
 
     button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
-    button_box.set_margin_start(10)
 
     pause_button = Gtk.Button.new_from_icon_name("media-playback-pause-symbolic")
     pause_button.set_valign(Gtk.Align.CENTER)
     pause_button.get_style_context().add_class("circular")
     pause_button.connect("clicked", on_pause_clicked, self, pause_button, download_item, False)
 
+    self.pause_buttons.append(pause_button)
     button_box.append(pause_button)
 
     stop_button = Gtk.Button.new_from_icon_name("process-stop-symbolic")
     stop_button.set_valign(Gtk.Align.CENTER)
     stop_button.get_style_context().add_class("circular")
-    stop_button.get_style_context().add_class("destructive-action")
     stop_button.connect("clicked", on_stop_clicked, self, download_item)
     button_box.append(stop_button)
 
@@ -75,7 +76,7 @@ def create_actionrow(self, filename):
 
     create_status_page(self, 1)
 
-    return [progress_bar, speed_label, pause_button, download_item, filename_label]
+    return [progress_bar, speed_label, self.pause_buttons[len(self.pause_buttons)-1], download_item, filename_label]
 
 def on_pause_clicked(button, self, pause_button, download_item, force_pause):
     download_thread = self.downloads[download_item.index]

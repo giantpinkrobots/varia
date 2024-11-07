@@ -1,8 +1,7 @@
 import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import Gtk, Adw
-from gettext import gettext as _
+from gi.repository import Gtk, Adw, Gio
 
 def add_timespan_clicked(button, self, timespans_box, day, start_h, start_m, end_h, end_m, switch_enabled):
     timespan_row = Adw.Bin()
@@ -12,10 +11,10 @@ def add_timespan_clicked(button, self, timespans_box, day, start_h, start_m, end
     switch_enabled.set_sensitive(True)
 
     box = Gtk.Box()
-    box.set_margin_start(5)
-    box.set_margin_end(5)
-    box.set_margin_top(5)
-    box.set_margin_bottom(5)
+    box.set_margin_start(10)
+    box.set_margin_end(10)
+    box.set_margin_top(10)
+    box.set_margin_bottom(10)
     timespan_row.set_child(box)
 
     days_combobox = Gtk.ComboBoxText()
@@ -31,9 +30,9 @@ def add_timespan_clicked(button, self, timespans_box, day, start_h, start_m, end
     Gtk.Widget.set_hexpand(box_expanding_1, True)
     box.append(box_expanding_1)
 
-    timespan_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4, halign=Gtk.Align.END)
-    start_timespan_box = Gtk.Box(spacing=2, halign=Gtk.Align.END)
-    end_timespan_box = Gtk.Box(spacing=2, halign=Gtk.Align.END)
+    timespan_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8, halign=Gtk.Align.END)
+    start_timespan_box = Gtk.Box(spacing=4, halign=Gtk.Align.END)
+    end_timespan_box = Gtk.Box(spacing=4, halign=Gtk.Align.END)
 
     start_timespan_label = Gtk.Label(label=_("Start (h/m):"))
     start_timespan_spin_h = Gtk.SpinButton.new_with_range(0, 23, 1)
@@ -93,7 +92,7 @@ def change_schedule_mode(switch, state, self, mode, switch_mode_1, switch_mode_2
         else:
             switch_mode_1.set_active(True)
 
-def save_schedule(preferencesDialog, self, switch_mode_1, switch_enabled, show_preferences, variaapp, variaVersion):
+def save_schedule(preferencesDialog, self, switch_mode_1, switch_enabled, show_preferences, variaapp):
     if switch_enabled.get_state():
         self.appconf["schedule_enabled"] = 1
         self.sidebar_scheduler_label.set_label(_("Scheduler enabled"))
@@ -119,7 +118,7 @@ def save_schedule(preferencesDialog, self, switch_mode_1, switch_enabled, show_p
 
     self.appconf["schedule"] = timespan_appconf
     self.save_appconf()
-    show_preferences('no', self, variaapp, variaVersion)
+    show_preferences('no', self, variaapp)
 
 def if_there_are_any_timespans(self, switch_enabled):
     if self.timespans_list == []:
@@ -129,9 +128,9 @@ def if_there_are_any_timespans(self, switch_enabled):
         self.sidebar_scheduler_label.set_label("")
         self.save_appconf()
 
-def show_scheduler_dialog(self, preferencesWindow, variaapp, show_preferences, variaVersion):
+def show_scheduler_dialog(self, preferencesWindow, variaapp, show_preferences):
     schedulerDialog = Adw.PreferencesDialog(title=_("Scheduler"))
-    schedulerDialog.set_follows_content_size(True)
+    schedulerDialog.set_size_request(650, 450)
 
     self.timespans_list = []
 
@@ -142,8 +141,7 @@ def show_scheduler_dialog(self, preferencesWindow, variaapp, show_preferences, v
     page.add(group_1)
 
     main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=12)
-    main_box.set_size_request(550, 350)
-    
+
     group_1.add(main_box)
 
     modes_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
@@ -199,18 +197,16 @@ def show_scheduler_dialog(self, preferencesWindow, variaapp, show_preferences, v
     main_box.append(separator_2)
 
     timespans_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
-    
+
     add_timespan_button = Gtk.Button(label=_("Add Timespan"))
-    add_timespan_button.set_halign(Gtk.Align.CENTER)
     add_timespan_button.get_style_context().add_class("pill")
     add_timespan_button.get_style_context().add_class("suggested-action")
     add_timespan_button.connect("clicked", add_timespan_clicked, self, timespans_box, 0, 0, 0, 0, 0, switch_enabled)
-
     main_box.append(add_timespan_button)
 
     main_box.append(timespans_box)
 
-    schedulerDialog.connect("closed", save_schedule, self, switch_mode_1, switch_enabled, show_preferences, variaapp, variaVersion)
+    schedulerDialog.connect("closed", save_schedule, self, switch_mode_1, switch_enabled, show_preferences, variaapp)
 
     # Build timespans from appconf:
     for item in self.appconf["schedule"]:

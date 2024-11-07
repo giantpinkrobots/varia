@@ -1,34 +1,26 @@
-<center>
-<p><img src="https://raw.githubusercontent.com/giantpinkrobots/varia/main/windows/icon.ico" width=200 /></p>
+<p align="center"><img src="https://raw.githubusercontent.com/giantpinkrobots/varia/main/windows/icon.ico" width=200 /></p>
+<h1 align="center">Varia</h1>
+<h3 align="center">Download manager based on aria2</h3>
 
-# Varia
-
-<h3>Download manager based on aria2</h3>
-
-<h3><a href="https://giantpinkrobots.github.io/varia">🌐 Homepage</a></h3>
+<h3 align="center"><a href="https://giantpinkrobots.github.io/varia">Homepage</a></h3>
 
 <br>
 
-| Download for Linux | Download for Windows | Browser Extension |
-| -------- | ------- | ------- |
-| [⬇ Flathub](https://flathub.org/apps/io.github.giantpinkrobots.varia) | [⬇ Installer](https://github.com/giantpinkrobots/varia/releases/download/v2024.11.7/varia-windows-setup-amd64.exe) | [❖ Firefox](https://addons.mozilla.org/firefox/addon/varia-integrator/) |
-| [⬇ AUR (unofficial)](https://aur.archlinux.org/packages/varia) | [⬇ Portable](https://github.com/giantpinkrobots/varia/releases/download/v2024.11.7/varia-windows-portable-amd64.zip) | [❖ Chrome](https://chrome.google.com/webstore/detail/dacakhfljjhgdfdlgjpabkkjhbpcmiff) |
+<p align="center"><a href="https://flathub.org/apps/io.github.giantpinkrobots.varia"><img src="https://dl.flathub.org/assets/badges/flathub-badge-i-en.svg" width=250 /></a></p>
 
 <br>
+
+<p align="center">
+  
+![](https://img.shields.io/github/commits-since/giantpinkrobots/varia/latest/main?label=commits%20since%20latest%20release)  ![](https://img.shields.io/github/forks/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/stars/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/watchers/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/issues/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/issues-closed/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/issues-pr/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/issues-pr-closed/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/license/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/followers/giantpinkrobots.svg?style=social&label=Follow&maxAge=2592000)
+
+</p>
 
 Varia is a simple download manager that conforms to the latest Libadwaita design guidelines, integrating nicely with GNOME. It uses the amazing aria2 to handle the downloads.
-
-</center>
 
 <p float="left" align="middle">
   <img src="https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-1.png" width=400 />
   <img src="https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-2.png" width=400 />
-</p>
-
-<p>
-  
-![](https://img.shields.io/github/commits-since/giantpinkrobots/varia/latest/main?label=commits%20since%20latest%20release)  ![](https://img.shields.io/github/forks/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/stars/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/watchers/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/issues/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/issues-closed/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/issues-pr/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/issues-pr-closed/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/license/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/followers/giantpinkrobots.svg?style=social&label=Follow&maxAge=2592000)
-
 </p>
 
 It supports basic functionality like continuing incomplete downloads from the previous session upon startup, pausing/cancelling all downloads at once, setting a speed limit, authentication with a username/password, setting the simultaneous download amount and setting the download directory.
@@ -45,8 +37,8 @@ This requires you to have Flatpak and the Flathub Flatpak repository installed o
 ### AUR (Arch Linux)
 You can get Varia via the [AUR](https://aur.archlinux.org/packages/varia) as well, but it is not distributed by me.
 
-### Windows
-You can find amd64 builds of Varia in the Releases section in both installer and portable forms. The installer version is recommended and it includes an auto updater function.
+### Windows (experimental)
+You can find a *highly experimental* build of Varia in the releases section. But keep in mind, it will have bugs.
 
 ## Browser Extension
 Download it for [Firefox](https://addons.mozilla.org/firefox/addon/varia-integrator/) or [Chrome](https://chrome.google.com/webstore/detail/dacakhfljjhgdfdlgjpabkkjhbpcmiff).
@@ -96,16 +88,32 @@ sudo meson install
 
 ### for Windows
 
-- [Get MSYS2.](https://www.msys2.org/)
-- Open the mingw64 shell in MSYS2 and update everything before continuing:
-```
-pacman -Syyu
-```
-- Either clone Varia inside the shell or copy the folder to your MSYS2 home folder.
-- [You need to get a copy of aria2c.exe](https://github.com/aria2/aria2/releases) and paste it into the root of the folder.
-- Running 'build-for-windows.sh' will take care of the dependencies and everything else and build Varia WITHOUT the updater function. To enable the updater function you need to run the script with the '-u' argument. (or just create an empty file called 'updater-function-enabled' next to variamain.exe after completion)
+Windows support is experimental. Translations don't work yet.
 
-Varia will be built into src/dist/variamain. Main executable is variamain.exe.
+- [Get MSYS2.](https://www.msys2.org/)
+- Install dependencies on an MSYS2 shell:
+```
+pacman -S mingw-w64-x86_64-python
+pacman -S mingw-w64-x86_64-gtk4
+pacman -S mingw-w64-x86_64-libadwaita
+pacman -S mingw-w64-x86_64-python-gobject
+pacman -S mingw-w64-x86_64-python-pip
+pip install aria2p
+pip install pyinstaller
+```
+- To have the icon applied properly you also need python-pillow, otherwise pyinstaller gives an error:
+```
+pacman -S mingw-w64-x86_64-python-pillow
+```
+- Copy the contents of the /src folder to the home directory of your MSYS2 install.
+- Copy varia.spec and icon.ico from the /windows directory to the home directory of your MSYS2 install.
+- Run the pyinstaller command:
+```
+pyinstaller varia.spec
+```
+- [You need to get a copy of aria2c.exe](https://github.com/aria2/aria2/releases) and paste it into the /dist/variamain folder that was created by pyinstaller.
+
+Running variamain.exe will start Varia.
 
 ## Contributing
 

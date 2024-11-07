@@ -1,14 +1,16 @@
+import aria2p
+import requests
+import json
 import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import Adw, GLib, Gio
+from gi.repository import Gtk, Adw, GLib, Gio
 from download.actionrow import create_actionrow
 from download.thread import DownloadThread
+import threading
 import string
 import random
 import textwrap
-import os
-from gettext import gettext as _
 
 def listen_to_aria2(self, variaapp):
     if not (self.terminating) and not (self.shutdown_dialog_raised):
@@ -35,6 +37,7 @@ def listen_to_aria2(self, variaapp):
                 return
             try:
                 if (download_item.download.status == "active" or download_item.download.status == "waiting" or download_item.download.status == "paused"):
+                    downloads_in_frontend.append(download_item)
                     for download_file in download_item.files:
                         downloads_in_frontend_files.append(download_file)
             except:
@@ -83,7 +86,7 @@ def add_download_to_ui(self, download_item_to_be_added, variaapp):
     download_thread = DownloadThread(self, download_item_url, *objectlist, download_item_to_be_added, None)
     self.downloads.append(download_thread)
     download_thread.start()
-    download_thread.pause_button.set_visible(True)
+    download_thread.pause_button.show()
 
 def raise_shutdown_dialog(variamain, variaapp):
     while (True):
@@ -114,15 +117,11 @@ def shutdown_dialog_cancel_pressed(dialog, response_id, variamain, variaapp):
 
 def initiate_shutdown(variamain, shutdown_id):
     if (variamain.shutdown_dialog_raised == True) and (shutdown_id == variamain.shutdown_id):
-        if os.name == 'nt':
-            os.system('shutdown -s -t 0')
-        else:
-            bus = Gio.bus_get_sync(Gio.BusType.SYSTEM, None)
-            proxy = Gio.DBusProxy.new_sync(bus, Gio.DBusProxyFlags.NONE, None,
-                                        'org.freedesktop.login1', '/org/freedesktop/login1',
-                                        'org.freedesktop.login1.Manager', None)
-            proxy.call_sync('PowerOff', GLib.Variant('(b)', (True,)), Gio.DBusCallFlags.NONE, -1, None)
-            
+        bus = Gio.bus_get_sync(Gio.BusType.SYSTEM, None)
+        proxy = Gio.DBusProxy.new_sync(bus, Gio.DBusProxyFlags.NONE, None,
+                                       'org.freedesktop.login1', '/org/freedesktop/login1',
+                                       'org.freedesktop.login1.Manager', None)
+        proxy.call_sync('PowerOff', GLib.Variant('(b)', (True,)), Gio.DBusCallFlags.NONE, -1, None)
         exit()
 
 def raise_exit_dialog(variamain, variaapp):

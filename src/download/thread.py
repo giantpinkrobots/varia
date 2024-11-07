@@ -1,13 +1,15 @@
 import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import GLib
+from gi.repository import Gtk, Adw, GLib, Gio
 import threading
-from urllib.parse import urlparse
+from urllib.parse import unquote, urlparse
 import requests
+import textwrap
 import time
 import os
 import json
+import http.cookiejar
 from gettext import gettext as _
 from download.actionrow import on_pause_clicked
 
@@ -44,18 +46,17 @@ class DownloadThread(threading.Thread):
         if (self.download == None):
             if (self.url == "sus"):
                 try:
-                    # Lol nice - Caleb (N0tACyb0rg)
                     GLib.idle_add(self.show_message("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⣤⣤⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⠟⠉⠉⠉⠉⠉⠉⠉⠙⠻⢶⣄⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣷⡀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⡟⠀⣠⣶⠛⠛⠛⠛⠛⠛⠳⣦⡀⠀⠘⣿⡄⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⠁⠀⢹⣿⣦⣀⣀⣀⣀⣀⣠⣼⡇⠀⠀⠸⣷⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡏⠀⠀⠀⠉⠛⠿⠿⠿⠿⠛⠋⠁⠀⠀⠀⠀⣿⡄⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⡇⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⣸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣧⠀\n⠀⠀⠀⠀⠀⠀⠀⢸⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⠀\n⠀⠀⠀⠀⠀⠀⠀⣾⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀\n⠀⠀⠀⠀⠀⠀⠀⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀\n⠀⠀⠀⠀⠀⠀⢰⣿⠀⠀⠀⠀⣠⡶⠶⠿⠿⠿⠿⢷⣦⠀⠀⠀⠀⠀⠀⠀⣿⠀\n⠀⠀⣀⣀⣀⠀⣸⡇⠀⠀⠀⠀⣿⡀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⠀⣿⠀\n⣠⡿⠛⠛⠛⠛⠻⠀⠀⠀⠀⠀⢸⣇⠀⠀⠀⠀⠀⠀⣿⠇⠀⠀⠀⠀⠀⠀⣿⠀\n⢻⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⡟⠀⠀⢀⣤⣤⣴⣿⠀⠀⠀⠀⠀⠀⠀⣿⠀\n⠈⠙⢷⣶⣦⣤⣤⣤⣴⣶⣾⠿⠛⠁⢀⣶⡟⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡟⠀\n⠀⠀⠀⠀⠉⠉⠉⠉⠉⠀⠀⠀⠀⠀⠈⣿⣆⡀⠀⠀⠀⠀⠀⠀⢀⣠⣴⡾⠃⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⠻⢿⣿⣾⣿⡿⠿⠟⠋⠁⠀⠀⠀"))
                 except:
                     pass
-                GLib.idle_add(self.pause_button.set_visible, False)
-                GLib.idle_add(self.progress_bar.set_visible, False)
+                self.pause_button.hide()
+                self.progress_bar.hide()
                 return
 
             if (self.url.startswith("magnet:") == False):
                 if not (self.is_valid_url()):
                     try:
-                        GLib.idle_add(self.show_message, _("This is not a valid URL."))
+                        GLib.idle_add(self.show_message(_("This is not a valid URL.")))
                         print("Error: Not a valid url.")
                     except:
                         print("Error: Couldn't display 'not a valid url' error, for some reason.")
@@ -86,7 +87,8 @@ class DownloadThread(threading.Thread):
                 self.download.resume()
         else:
             on_pause_clicked(self.app, self.app, self.pause_button, self.actionrow, True)
-        
+
+        downloadname = self.download.name
         print("Download added. | " + self.download.gid + "\n" + self.downloaddir + "\n" + self.url)
         GLib.idle_add(self.update_header_pause_button)
         self.previous_filename = ""
@@ -95,12 +97,12 @@ class DownloadThread(threading.Thread):
         while (self.cancelled == False):
             try:
                 self.download.update()
-                GLib.idle_add(self.filename_label.set_text, self.download.name)
-                self.update_labels_and_things()
+                GLib.idle_add(self.set_filename_label)
+                GLib.idle_add(self.update_labels_and_things)
                 if ((self.download.is_complete) and (self.download.is_metadata == False)):
                     print('Download complete: ' + self.download.gid)
-                    if os.path.exists(os.path.join(self.downloaddir,(self.download.gid + ".varia"))):
-                        os.remove(os.path.join(self.downloaddir,(self.download.gid + ".varia")))
+                    if os.path.exists(os.path.join(self.downloaddir,(self.download.gid + ".varia.json"))):
+                        os.remove(os.path.join(self.downloaddir,(self.download.gid + ".varia.json")))
                     break
                 elif ((self.download.is_torrent) and (self.download.seeder)):
                     print('Torrent complete, seeding: ' + self.download.gid)
@@ -110,6 +112,14 @@ class DownloadThread(threading.Thread):
             except:
                 return
             time.sleep(1)
+
+    def set_filename_label(self):
+        filename_shortened = self.download.name[:40]
+        if (self.download.name != filename_shortened):
+            filename_shortened = filename_shortened + "..."
+        if (filename_shortened != self.previous_filename):
+            self.filename_label.set_text(filename_shortened)
+            self.previous_filename = filename_shortened
 
     def update_header_pause_button(self):
         self.app.all_paused = False
@@ -121,38 +131,21 @@ class DownloadThread(threading.Thread):
         self.speed_label.set_text(message)
 
     def update_labels_and_things(self):
-        GLib.idle_add(self.progress_bar.set_fraction, self.download.progress / 100)
+        self.progress_bar.set_fraction(self.download.progress / 100)
 
         if ((self.download.is_torrent) and (self.download.seeder)):
             GLib.idle_add(self.show_message(_("Seeding torrent")))
             return
 
         download_speed_mb = (self.download.download_speed / 1024 / 1024)
-
-        download_delta = self.download.eta
-
-        download_seconds = download_delta.total_seconds()
-        download_seconds = abs(int(download_seconds))
-        download_hours, download_seconds = divmod(download_seconds, 3600)
-        download_minutes, download_seconds = divmod(download_seconds, 60)
-
-        download_hours = str(download_hours).zfill(2)
-        download_minutes = str(download_minutes).zfill(2)
-        download_seconds = str(download_seconds).zfill(2)
-
-        if self.download.download_speed == 0:
-            download_remaining_string = "∞"
-        else:
-            download_remaining_string = f"{download_hours}:{download_minutes}:{download_seconds}"
-
         if int(str(download_speed_mb)[0]) == 0:
             download_speed_kb = (self.download.download_speed / 1024)
             if int(str(download_speed_kb)[0]) == 0:
-                GLib.idle_add(self.speed_label.set_text, f"{round(self.download.progress)}%  ·  {round(self.download.download_speed, 2)} {_(' B/s')}  ·  {download_remaining_string} {_('remaining')}")
+                self.speed_label.set_text(f"{round(self.download.progress)}%  |  {round(self.download.download_speed, 2)} B/s")
             else:
-                GLib.idle_add(self.speed_label.set_text, f"{round(self.download.progress)}%  ·  {round(self.download.download_speed / 1024, 2)} {_(' KB/s')}  ·  {download_remaining_string} {_('remaining')}")
+                self.speed_label.set_text(f"{round(self.download.progress)}%  |  {round(self.download.download_speed / 1024, 2)} KB/s")
         else:
-            GLib.idle_add(self.speed_label.set_text, f"{round(self.download.progress)}%  ·  {round(self.download.download_speed / 1024 / 1024, 2)} {_(' MB/s')}  ·  {download_remaining_string} {_('remaining')}")
+            self.speed_label.set_text(f"{round(self.download.progress)}%  |  {round(self.download.download_speed / 1024 / 1024, 2)} MB/s")
 
     def pause(self):
         if self.download:
@@ -180,7 +173,7 @@ class DownloadThread(threading.Thread):
                         print ("Download paused.")
                     except:
                         try:
-                            GLib.idle_add(self.speed_label.set_text, _("An error occurred:") + " " + self.download.error_message.split("status=")[1])
+                            self.speed_label.set_text(_("An error occurred:") + " " + self.download.error_message.split("status=")[1])
                             print ("An error occurred when resuming. " + self.download.error_message.split("status=")[1])
                         except:
                             pass
@@ -193,8 +186,8 @@ class DownloadThread(threading.Thread):
                 self.download.remove(force=True)
                 if not self.download.is_complete:
                     if (deletefiles == True):
-                        if os.path.exists(os.path.join(self.downloaddir,(downloadgid + ".varia"))):
-                            os.remove(os.path.join(self.downloaddir,(downloadgid + ".varia")))
+                        if os.path.exists(os.path.join(self.downloaddir,(downloadgid + ".varia.json"))):
+                            os.remove(os.path.join(self.downloaddir,(downloadgid + ".varia.json")))
                         if os.path.exists(os.path.join(self.downloaddir, downloadname)):
                             os.remove(os.path.join(self.downloaddir, downloadname))
                 print ("Download stopped.")
@@ -213,7 +206,7 @@ class DownloadThread(threading.Thread):
                 'url': self.url,
                 'filename': self.download.name
             }
-            with open(os.path.join(self.downloaddir, f'{self.download.gid}.varia'), 'w') as f:
+            with open(os.path.join(self.downloaddir, f'{self.download.gid}.varia.json'), 'w') as f:
                 json.dump(state, f)
             print ("State saved for download.")
 
@@ -234,3 +227,4 @@ class DownloadThread(threading.Thread):
             os.remove(os.path.join(app.appconf["download_directory"], filename))
         instance = cls(app, state['url'], progress_bar, speed_label, pause_button, actionrow, filename_label, None, downloadname)
         return instance
+

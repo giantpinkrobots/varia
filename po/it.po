@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2024-08-24 17:20+0100\n"
-"Last-Translator: Neko the gamer <gvgpcocd5@mozmail.com>\n"
+"PO-Revision-Date: 2024-01-26 17:31+0100\n"
+"Last-Translator: Albano Battistella <albanobattistella@gmail.com>\n"
 "Language-Team: Italian <LL@li.org>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -25,11 +25,11 @@ msgstr "Varia"
 #. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
 #: data/io.github.giantpinkrobots.varia.desktop.in:11
 msgid "varia;aria;download;manager;"
-msgstr "varia;aria;download;gestore;"
+msgstr ""
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
 msgid "Download manager based on aria2"
-msgstr "Gestore download basato su aria2"
+msgstr "Gestore di download basato su aria2"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
 msgid ""
@@ -45,18 +45,6 @@ msgstr ""
 msgid "This is not a valid URL."
 msgstr "Questo non è un URL valido."
 
-#: src/variamain.py:125
-msgid "All"
-msgstr "Tutti"
-
-#: src/variamain.py:137
-msgid "In Progress"
-msgstr "In corso"
-
-#: src/variamain.py:148
-msgid "Completed"
-msgstr "Completati"
-
 #: src/variamain.py:171
 msgid "About Varia"
 msgstr "Informazioni su Varia"
@@ -67,23 +55,23 @@ msgstr "URL"
 
 #: src/variamain.py:178
 msgid "Download"
-msgstr "Scarica"
+msgstr "Download"
 
 #: src/variamain.py:184
 msgid "Open Download Folder"
-msgstr "Apri cartella download"
+msgstr "Apri la cartella di download"
 
 #: src/variamain.py:196
 msgid "Speed Limit"
-msgstr "Limite velocità"
+msgstr "Limite di velocità"
 
 #: src/variamain.py:203 src/variamain.py:423
 msgid "Pause All"
-msgstr "Metti in pausa tutti"
+msgstr "Metti tutto in pausa"
 
 #: src/variamain.py:212
 msgid "Speed"
-msgstr "Velocità"
+msgstr "vELOCITÀ"
 
 #: src/variamain.py:215
 msgid "Set Speed Limit"
@@ -91,7 +79,7 @@ msgstr "Imposta limite di velocità"
 
 #: src/variamain.py:216
 msgid "Cancel All"
-msgstr "Cancella tutti"
+msgstr "Annulla tutto"
 
 #: src/variamain.py:235
 msgid "/s"
@@ -103,11 +91,11 @@ msgstr "Nessun limite"
 
 #: src/variamain.py:274
 msgid "Download complete."
-msgstr "Download completato."
+msgstr "Download completo."
 
 #: src/variamain.py:276
 msgid "Download speed is limited."
-msgstr "La velocità del download è limitata"
+msgstr "La velocità di download è limitata."
 
 #: src/variamain.py:277
 msgid "An error occurred:"
@@ -137,39 +125,33 @@ msgstr " KB/s"
 msgid " B/s"
 msgstr " B/s"
 
-#: src/variamain.py:404
-msgid "Simultaneous Download Amount"
-msgstr "Quantità di download simultanei"
-
 #: src/variamain.py:410
 msgid "Resume All"
-msgstr "Riprendi tutti"
+msgstr "Riprendi tutto"
 
 #: src/variamain.py:443
 msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
-msgstr "Gestore di download basato su aria2 e utilizza GTK4 con Libadwaita"
+msgstr "Gestore di download basato su aria2 che utilizza GTK4 e Libadwaita."
 
 #: src/variamain.py:777
 msgid "This application relies on the following pieces of software:"
-msgstr "Questa applicazione dipende dai seguenti software:"
+msgstr "Questa applicazione si basa sui seguenti software:"
 
 #: src/variamain.py:777
 msgid "The licenses of all of these pieces of software can be found in the dependencies_information directory in this application's app directory."
-msgstr "Le licenze di tutti questi software si trovano nella cartella dependencies_information nella cartella dell'app di questa applicazione."
+msgstr "Le licenze di tutti questi software si trovano nella directory dependencies_information nella directory dell'app di questa applicazione."
 
 #: src/variamain.py:449
 msgid "translator-credits"
-msgstr ""
-"Albano Battistella <albanobattistella@gmail.com>\n"
-"Neko the gamer <gvgpcocd5@mozmail.com>"
+msgstr "Albano Battistella <albanobattistella@gmail.com>"
 
 #: src/variamain.py:457
 msgid "Download Directory"
-msgstr "Cartella download"
+msgstr "Directory di download"
 
 #: src/variamain.py:460
 msgid "Change"
-msgstr "Cambia"
+msgstr "Modifica"
 
 #: src/variamain.py:463
 msgid "Speed limited"
@@ -181,147 +163,20 @@ msgstr "Autenticazione"
 
 #: src/variamain.py:532
 msgid "Username"
-msgstr "Nome utente"
+msgstr "Nome Utente"
 
 #: src/variamain.py:534
 msgid "Password"
-msgstr "Password"
+msgstr "Passwrd"
 
 #: src/variamain.py:554
 msgid "Authorization failed."
 msgstr "Autorizzazione fallita."
 
-#: src/variamain.py:806
-msgid "Failed to open directory."
-msgstr "Impossibile aprire la cartella"
-
-msgid "Remote Mode"
-msgstr "Nodo remoto"
-
-msgid "Remote aria2 IP"
-msgstr "IP remoto aria2"
-
-msgid "Remote aria2 Port"
-msgstr "Porta remota aria2"
-
-msgid "Remote aria2 RPC Secret"
-msgstr "Segreto RPC remoto aria2"
-
-msgid "Remote Download Location"
-msgstr "Posizione download remota"
-
-msgid "Exiting Varia..."
-msgstr "Uscendo da Varia..."
-
-msgid "Background Mode"
-msgstr "Modalità in background"
-
-msgid "Continuing the downloads in the background."
-msgstr "Continua i download in background."
-
-msgid "Browser Extension"
-msgstr "Estensione browser"
-
-msgid "Shutdown on Completion"
-msgstr "Spegni a download completato"
-
-msgid "Varia is about to shut down your computer."
-msgstr "Varia sta per spegnere il tuo computer."
-
-msgid "Press Cancel to cancel and disable."
-msgstr "Premi annulla per annullare e disattivare."
-
-msgid "Cancel"
-msgstr "Annulla"
-
-msgid "Warning"
-msgstr "Attenzione"
-
-msgid "Monday"
-msgstr "Lunedì"
-
-msgid "Tuesday"
-msgstr "Martedì"
-
-msgid "Wednesday"
-msgstr "Mercoledì"
-
-msgid "Thursday"
-msgstr "Giovedì"
-
-msgid "Friday"
-msgstr "Venerdì"
-
-msgid "Saturday"
-msgstr "Sabato"
-
-msgid "Sunday"
-msgstr "Domenica"
-
-msgid "Start (h/m):"
-msgstr "Inizio (h/m):"
-
-msgid "End (h/m):"
-msgstr "Fine (h/m):"
-
-msgid "Scheduler enabled"
-msgstr "Scheduler attivato"
-
-msgid "Scheduler"
-msgstr "Scheduler"
-
-msgid "Enabled"
-msgstr "Attivato"
-
-msgid "Start downloading in these times"
-msgstr "Inizia a scaricare in questo periodo"
-
-msgid "Stop downloading in these times"
-msgstr "Smetti di scaricare in questo periodo"
-
-msgid "Add Timespan"
-msgstr "Aggiungi tempo"
-
-msgid "Seeding"
-msgstr "In seeding"
-
-msgid "Failed"
-msgstr "Falliti"
-
-msgid "Completion Options"
-msgstr "Opzioni completamento"
-
-msgid "Exit on Completion"
-msgstr "Esci al completamento"
-
-msgid "Varia is about to quit."
-msgstr "Varia sta per uscire."
-
-msgid "Preferences"
-msgstr "Preferenze"
-
-msgid "Other"
-msgstr "Altro"
-
-msgid "Basic Settings"
-msgstr "Impostazioni base"
-
-msgid "Advanced Settings"
-msgstr "Impostazioni avanzate"
-
-msgid "Use cookies.txt"
-msgstr "Usa cookies.txt"
-
-msgid "Import cookies.txt"
-msgstr "Importa cookies.txt"
-
-msgid "Remove cookies.txt"
-msgstr "Rimuovi cookies.txt"
-
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
-msgstr "Generali"
+msgstr "Generale"
 
 #: src/gtk/help-overlay.ui:14
 msgctxt "shortcut window"
