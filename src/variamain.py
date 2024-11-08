@@ -1,4 +1,4 @@
-variaVersion = "v2024.11.7"
+variaVersion = "v2024.11.7-1"
 
 import gi
 import sys
@@ -331,7 +331,7 @@ class MainWindow(Adw.ApplicationWindow):
                 variaapp.quit()
 
                 if self.update_executable != None:
-                    os.system(self.update_executable)
+                    subprocess.Popen([self.update_executable, "/SILENT", "SUPPRESSMSGBOXES", "SP-", "/NOICONS", "/MERGETASKS=\"!desktopicon\"", "&&", os.path.join(os.getcwd(), "variamain.exe")], shell=True)
         
         return True
 
@@ -351,7 +351,7 @@ class MainWindow(Adw.ApplicationWindow):
                 print(thread.name)
             
             if self.update_executable != None:
-                os.system(self.update_executable)
+                subprocess.Popen([self.update_executable, "/SILENT", "SUPPRESSMSGBOXES", "SP-", "/NOICONS", "/MERGETASKS=\"!desktopicon\"", "&&", os.path.join(os.getcwd(), "variamain.exe")], shell=True)
 
             return
 
