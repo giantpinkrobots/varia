@@ -31,18 +31,29 @@ h2 {
     font-family: 'Cantarell var';
     font-size: 175%;
     color: #241f31;
+    line-height: 0;
 }
 
 h3 {
     font-family: 'Cantarell var';
+    font-size: 120%;
+    color: #777188;
+    width: 65%;
+    line-height: 15px;
+}
+
+h4 {
+    font-family: 'Cantarell var';
     font-size: 75%;
     color: #241f31;
+    width: 65%;
 }
 
 p {
     font-family: 'Cantarell var';
     font-size: 150%;
     color: #241f31;
+    width: 65%;
 }
 
 .pill-button {
@@ -58,7 +69,7 @@ p {
     filter: drop-shadow(rgba(0, 0, 0, 0.5) 0rem 0rem 8px);
     transition: all 0.25s;
     transition-timing-function: ease-out;
-    display: block;
+    display: inline-block;
 }
 
 .pill-button-linux {
@@ -123,7 +134,7 @@ p {
     background: #EBEBEB;
     padding: 20px;
     filter: drop-shadow(rgba(0, 0, 0, 0.5) 0rem 0.3rem 8px);
-    width: 800px;
+    width: 65%;
     transition: transform 0.25s ease-in-out, padding 0.25s ease-in-out, max-height 0.25s ease-in-out;
     transform: scaleY(1);
     transform-origin: top;
@@ -136,6 +147,11 @@ p {
     display: hidden;
     max-height: 0px;
     padding: 0px;
+}
+
+.screenshot {
+    width: 100%;
+    height: auto;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -156,8 +172,12 @@ p {
         color: #62a0ea;
     }
 
-    h2, h3, p {
+    h2, h4, p {
         color: #f6f5f4;
+    }
+
+    h3 {
+        color: #858585;
     }
 
     hr.solid {

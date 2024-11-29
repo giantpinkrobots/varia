@@ -70,9 +70,6 @@ Varia uses GTK4 and Libadwaita for the user interface and utilizes Aria2 for the
 <translation type="gettext">varia</translation>
 <screenshots>
 <screenshot type="default">
-<image>https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-1.png</image>
-</screenshot>
-<screenshot>
 <image>https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-2.png</image>
 </screenshot>
 <screenshot>
