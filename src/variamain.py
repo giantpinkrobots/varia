@@ -1,4 +1,4 @@
-variaVersion = "v2024.11.7-1"
+variaVersion = "dev"
 
 import gi
 import sys
@@ -17,7 +17,7 @@ if os.name != 'nt':
     from gettext import gettext as _
 
 class MainWindow(Adw.ApplicationWindow):
-    def __init__(self, variaapp, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, *args, **kwargs):
+    def __init__(self, variaapp, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ytdlpexec, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
         from window.sidebar import window_create_sidebar
@@ -40,6 +40,7 @@ class MainWindow(Adw.ApplicationWindow):
         self.aria2cexec = aria2cexec
         self.remote_successful = False
         self.update_executable = None
+        self.ytdlpexec = ytdlpexec
 
         # Set up variables and all:
         aria2_connection_successful = initiate(self, variaapp, variaVersion, first_run)
@@ -360,17 +361,17 @@ class MainWindow(Adw.ApplicationWindow):
             self.exitProgram(variaapp, variaapp, False)
 
 class MyApp(Adw.Application):
-    def __init__(self, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, **kwargs):
+    def __init__(self, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ytdlpexec, **kwargs):
         super().__init__(**kwargs)
-        self.connect('activate', self.on_activate, appdir, appconf, first_run, aria2c_subprocess, aria2cexec)
+        self.connect('activate', self.on_activate, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ytdlpexec)
         quit_action = Gio.SimpleAction.new("quit", None)
         quit_action.connect("activate", self.quit_action)
         self.add_action(quit_action)
         self.initiated = False
 
-    def on_activate(self, app, appdir, appconf, first_run, aria2c_subprocess, aria2cexec):
+    def on_activate(self, app, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ytdlpexec):
         if not hasattr(self, 'win'):
-            self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf, first_run=first_run, aria2c_subprocess=aria2c_subprocess, aria2cexec=aria2cexec)
+            self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf, first_run=first_run, aria2c_subprocess=aria2c_subprocess, aria2cexec=aria2cexec, ytdlpexec=ytdlpexec)
         
         try:
             if ((self.win.terminating == False) and ((appconf["default_mode"] == "visible") or (self.initiated == True))):
@@ -383,7 +384,7 @@ class MyApp(Adw.Application):
     def quit_action(self, action, parameter):
         self.win.quit_action_received(self)
 
-def main(version, aria2cexec):
+def main(version, aria2cexec, ytdlpexec):
     if "FLATPAK_ID" in os.environ:
         appdir = os.path.join('/var', 'data')
     else:
@@ -446,9 +447,9 @@ def main(version, aria2cexec):
 
     arguments = sys.argv
     if (len(arguments) > 1):
-        arguments = arguments[:-1]
+        arguments = arguments[:-2]
 
-    app = MyApp(appdir, appconf, first_run, aria2c_subprocess, aria2cexec, application_id="io.github.giantpinkrobots.varia")
+    app = MyApp(appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ytdlpexec, application_id="io.github.giantpinkrobots.varia")
     app.run(arguments),
 
 if ((__name__ == '__main__') and (os.name == 'nt')):
@@ -465,4 +466,4 @@ if ((__name__ == '__main__') and (os.name == 'nt')):
     gettext.gettext = translation.gettext
     from gettext import gettext as _
     
-    sys.exit(main(variaVersion, "aria2c"))
+    sys.exit(main(variaVersion, "aria2c", "yt-dlp"))

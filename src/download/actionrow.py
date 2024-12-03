@@ -4,18 +4,23 @@ gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, Pango
 from gettext import gettext as _
 from window.content import create_status_page
+import subprocess
 
-def on_download_clicked(button, self, entry, DownloadThread):
-    url = entry.get_text()
-    entry.set_text("")
+def on_download_clicked(button, self, entry, DownloadThread, downloadname):
+    if isinstance(entry, str):
+        url = entry
+    else:
+        url = entry.get_text()
+        entry.set_text("")
     if url:
         objectlist = create_actionrow(self, url)
-        download_thread = DownloadThread(self, url, objectlist[0], objectlist[1], objectlist[2], objectlist[3], objectlist[4], None, None)
+        download_thread = DownloadThread(self, url, objectlist[0], objectlist[1], objectlist[2], objectlist[3], objectlist[4], None, downloadname)
         self.downloads.append(download_thread)
         download_thread.start()
 
 def create_actionrow(self, filename):
     download_item = Adw.Bin()
+
     style_context = download_item.get_style_context()
     style_context.add_class('card')
 

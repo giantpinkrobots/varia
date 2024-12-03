@@ -2,14 +2,16 @@
 pythonexec='@PYTHON@'
 pkgdatadir='@pkgdatadir@'
 aria2cexec=$pkgdatadir/../../bin/aria2c
-if !(test -f $aria2cexec;)
+ytdlpexec=$pkgdatadir/../../bin/yt-dlp
+if !(test -f $aria2cexec;) || !(test -f $ytdlpexec;)
 then
-	echo "Probably not a Flatpak environment. Trying to find the system's aria2c..."
+	echo "Probably not a Flatpak environment. Trying to find the system's aria2c and yt-dlp..."
 	aria2cexec=$(which aria2c)
-	if !(test -f $aria2cexec;)
+	ytdlpexec=$(which yt-dlp)
+	if !(test -f $aria2cexec;) || !(test -f $ytdlpexec;)
 	then
-		echo "aria2c not found. Exiting."
+		echo "aria2c and/or yt-dlp not found. Exiting."
 		exit
 	fi
 fi
-$pythonexec $pkgdatadir/../../bin/varia-py.py "$aria2cexec"
+$pythonexec $pkgdatadir/../../bin/varia-py.py "$aria2cexec" "$ytdlpexec"

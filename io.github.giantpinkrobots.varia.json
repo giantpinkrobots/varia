@@ -27,6 +27,7 @@
     ],
     "modules" : [
         "./python3-aria2p.json",
+        "./python3-yt-dlp.json",
         {
             "name" : "aria2",
             "buildsystem" : "autotools",
