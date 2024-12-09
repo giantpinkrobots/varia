@@ -360,6 +360,42 @@ msgstr ""
 msgid "Do you want to check for updates on startup?"
 msgstr ""
 
+msgid "File"
+msgstr ""
+
+msgid "Video"
+msgstr ""
+
+msgid "Download Video"
+msgstr ""
+
+msgid "Video and audio"
+msgstr ""
+
+msgid "Video only"
+msgstr ""
+
+msgid "Audio only"
+msgstr ""
+
+msgid "Framerate:"
+msgstr ""
+
+msgid "Checking video..."
+msgstr ""
+
+msgid "Starting download..."
+msgstr ""
+
+msgid "Your IP address may be being blocked. If you have an active VPN connection that might be the cause, or you can try importing your browser's cookies through a cookies.txt file."
+msgstr ""
+
+msgid "The video platform may not be supported."
+msgstr ""
+
+msgid "This will disable the video download functionality and cancel all current video downloads."
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"

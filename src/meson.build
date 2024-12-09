@@ -48,6 +48,7 @@ varia_sources_download = [
   'download/communicate.py',
   'download/listen.py',
   'download/scheduler.py',
+  'download/videos.py',
 ]
 
 install_data(varia_sources, install_dir: moduledir)

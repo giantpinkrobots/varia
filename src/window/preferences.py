@@ -188,6 +188,7 @@ def show_preferences(button, self, app, variaVersion):
 
     remote_aria2_expander_box = Adw.ExpanderRow()
     remote_aria2_expander_box.set_title(_("Remote Mode"))
+    remote_aria2_expander_box.set_subtitle(_("This will disable the video download functionality and cancel all current video downloads."))
 
     remote_aria2_expander_switch = Gtk.Switch()
     remote_aria2_expander_switch.set_halign(Gtk.Align.START)

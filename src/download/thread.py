@@ -9,10 +9,10 @@ import time
 import os
 import json
 from gettext import gettext as _
-from download.actionrow import on_pause_clicked
+from download.actionrow import on_pause_clicked, on_stop_clicked
 
 class DownloadThread(threading.Thread):
-    def __init__(self, app, url, progress_bar, speed_label, pause_button, actionrow, filename_label, download, downloadname):
+    def __init__(self, app, url, progress_bar, speed_label, pause_button, actionrow, filename_label, download, downloadname, audio_stream_gid):
         threading.Thread.__init__(self)
         self.api = app.api
         self.downloaddir = app.appconf["download_directory"]
@@ -30,6 +30,7 @@ class DownloadThread(threading.Thread):
         self.app = app
         self.cancelled = False
         self.downloadname = downloadname
+        self.audio_stream_gid = audio_stream_gid
 
     def is_valid_url(self):
         try:
@@ -159,35 +160,46 @@ class DownloadThread(threading.Thread):
             if self.download.is_paused == False:
                 try:
                     self.download.pause()
+
+                    if self.audio_stream_gid is not None:
+                        audio_stream_thread = self.get_audio_stream_thread()
+                        print(audio_stream_thread)
+                        if audio_stream_thread:
+                            audio_stream_thread.pause()
+                            audio_stream_thread.save_state()
+
                     print ("Download paused.")
                 except:
-                    try:
-                        self.download.pause([self.download.gid])
-                        print ("Download paused.")
-                    except:
-                        self.stop(False)
-                        print ("Something went wrong when pausing. Stopping download without removing files.")
+                    self.stop(False)
+                    print ("Something went wrong when pausing. Stopping download without removing files.")
 
     def resume(self):
         if self.download:
             if self.download.is_paused == True:
                 try:
                     self.download.resume()
+
+                    if self.audio_stream_gid is not None:
+                        audio_stream_thread = self.get_audio_stream_thread()
+                        if audio_stream_thread:
+                            audio_stream_thread.resume()
+
                     print ("Download resumed.")
                 except:
                     try:
-                        self.download.pause([self.download.gid])
-                        print ("Download paused.")
+                        GLib.idle_add(self.speed_label.set_text, _("An error occurred:") + " " + self.download.error_message.split("status=")[1])
+                        print ("An error occurred when resuming. " + self.download.error_message.split("status=")[1])
                     except:
-                        try:
-                            GLib.idle_add(self.speed_label.set_text, _("An error occurred:") + " " + self.download.error_message.split("status=")[1])
-                            print ("An error occurred when resuming. " + self.download.error_message.split("status=")[1])
-                        except:
-                            pass
+                        pass
 
     def stop(self, deletefiles):
         if self.download:
             try:
+                if self.audio_stream_gid is not None:
+                    audio_stream_thread = self.get_audio_stream_thread()
+                    if audio_stream_thread:
+                        on_stop_clicked(None, self.app, audio_stream_thread.actionrow)
+
                 downloadgid = self.download.gid
                 downloadname = self.download.name
                 self.download.remove(force=True)
@@ -197,6 +209,7 @@ class DownloadThread(threading.Thread):
                             os.remove(os.path.join(self.downloaddir,(downloadgid + ".varia")))
                         if os.path.exists(os.path.join(self.downloaddir, downloadname)):
                             os.remove(os.path.join(self.downloaddir, downloadname))
+
                 print ("Download stopped.")
             except:
                 pass
@@ -209,10 +222,14 @@ class DownloadThread(threading.Thread):
             except:
                 print ("Couldn't update the status of the download. Skipping state saving.")
                 return
+            
             state = {
                 'url': self.url,
-                'filename': self.download.name
+                'filename': self.download.name,
             }
+            if self.audio_stream_gid is not None:
+                state['audio-track'] = self.audio_stream_gid
+
             with open(os.path.join(self.downloaddir, f'{self.download.gid}.varia'), 'w') as f:
                 json.dump(state, f)
             print ("State saved for download.")
@@ -226,9 +243,18 @@ class DownloadThread(threading.Thread):
             return False
         else:
             return True
+    
+    def get_audio_stream_thread(self):
+        audio_stream_thread = None
+        for download_thread in self.app.downloads:
+            if download_thread.download.gid == self.audio_stream_gid:
+                audio_stream_thread = download_thread
+                break
+        
+        return audio_stream_thread
 
     @classmethod
-    def load_state(cls, app, filename, url, progress_bar, speed_label, pause_button, actionrow, filename_label, download, downloadname):
+    def load_state(cls, app, filename, url, progress_bar, speed_label, pause_button, actionrow, filename_label, download, downloadname, audio_stream_gid):
         with open(os.path.join(app.appconf["download_directory"], filename), 'r') as f:
             state = json.load(f)
             os.remove(os.path.join(app.appconf["download_directory"], filename))

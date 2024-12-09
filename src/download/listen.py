@@ -79,8 +79,8 @@ def add_download_to_ui(self, download_item_to_be_added, variaapp):
     notification = Gio.Notification.new(download_item_to_be_added.name)
     variaapp.send_notification(None, notification)
 
-    objectlist = create_actionrow(self, download_item_url)
-    download_thread = DownloadThread(self, download_item_url, *objectlist, download_item_to_be_added, None)
+    objectlist = create_actionrow(self, download_item_url, True)
+    download_thread = DownloadThread(self, download_item_url, *objectlist, download_item_to_be_added, None, None)
     self.downloads.append(download_thread)
     download_thread.start()
     download_thread.pause_button.set_visible(True)

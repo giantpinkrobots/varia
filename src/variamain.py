@@ -102,9 +102,11 @@ class MainWindow(Adw.ApplicationWindow):
                 windows_updater(None, self, variaapp, None, variaVersion, 0)
 
         # Load incomplete downloads:
-        default_state = {"url": None, "filename": None}
+        default_state = {"url": None, "filename": None, "gid": None}
 
-        for filename in os.listdir(self.appconf["download_directory"]):
+        download_dicts = []
+
+        for filename in sorted(os.listdir(self.appconf["download_directory"])):
             if (os.path.isdir(filename) == False) and ( (filename.endswith('.varia.json')) or (filename.endswith('.varia')) ):
                 if (filename.endswith(".varia.json")):
                     current_filename = filename.replace(".json", "")
@@ -114,13 +116,56 @@ class MainWindow(Adw.ApplicationWindow):
 
                 with open(os.path.join(self.appconf["download_directory"], current_filename), 'r') as f:
                     loaded_state = json.load(f)
+                    loaded_state["gid"] = current_filename[0:-6]
+                    state = {**default_state, **loaded_state}
+                    download_dicts.append(state)
 
-                print(filename)
-                state = {**default_state, **loaded_state}
-                objectlist = create_actionrow(self, state['url'])
-                download_thread = DownloadThread.load_state(self, current_filename, state['url'], objectlist[0], objectlist[1], objectlist[2], objectlist[3], objectlist[4], None, state['filename'])
-                self.downloads.append(download_thread)
-                GLib.idle_add(download_thread.start)
+                print(current_filename)
+                os.remove(os.path.join(self.appconf["download_directory"], current_filename))
+        
+        video_download_dicts = []
+        video_download = []
+        
+        for loaded_download in download_dicts.copy():
+            if "audio-track" in loaded_download.keys():
+                
+                for loaded_download1 in download_dicts:
+                    if loaded_download["audio-track"] == loaded_download1["gid"]:
+                        video_download = [loaded_download, loaded_download1]
+                        break
+                
+                download_dicts.remove(loaded_download)
+                download_dicts.remove(loaded_download1)
+
+                video_download_dicts.append(video_download)
+
+        def create_download(state, download_filename, audio_stream_gid, actionrow_show):
+            objectlist = create_actionrow(self, state['url'], actionrow_show)
+            #download_thread = DownloadThread.load_state(self, current_filename, state['url'], objectlist[0], objectlist[1], objectlist[2], objectlist[3], objectlist[4], None, state['filename'], audio_stream_gid)
+            download_thread = DownloadThread(self, state['url'], objectlist[0], objectlist[1], objectlist[2], objectlist[3], objectlist[4], None, download_filename, audio_stream_gid)
+            self.downloads.append(download_thread)
+            GLib.idle_add(download_thread.start)
+            return download_thread
+        
+        def create_all_video_downloads(video_download_dicts):
+            for video_download in video_download_dicts:
+                audio_stream_thread = create_download(video_download[1], video_download[1]["filename"], None, False)
+                print(audio_stream_thread)
+                audio_stream_gid = None
+                
+                while audio_stream_gid == None:
+                    try:
+                        audio_stream_gid = audio_stream_thread.return_gid()
+                    except:
+                        pass
+
+                create_download(video_download[0], video_download[0]["filename"], audio_stream_gid, True)
+        
+        for regular_download in download_dicts:
+            create_download(regular_download, regular_download["filename"], None, True)
+        
+        thread = threading.Thread(target=lambda: create_all_video_downloads(video_download_dicts))
+        thread.start()
 
         # Start in background mode if it was enabled in preferences:
         if (self.appconf["default_mode"] == "background"):
@@ -140,7 +185,7 @@ class MainWindow(Adw.ApplicationWindow):
         if (filter_mode == "show_all"):
             self.applied_filter = "show_all"
             for download_thread in self.downloads:
-                download_thread.actionrow.set_visible(True)
+                download_thread.actionrow.set_visible(download_thread.actionrow.is_visible)
             self.filter_button_show_all.set_active(True)
 
         else:
@@ -152,9 +197,7 @@ class MainWindow(Adw.ApplicationWindow):
                 for download_thread in self.downloads:
                     if (download_thread.download):
                         if (((download_thread.download.status == "waiting") or (download_thread.download.status == "active")) and (download_thread.download.seeder != True)):
-                            download_thread.actionrow.set_visible(True)
-                    else:
-                        download_thread.actionrow.set_visible(True)
+                            download_thread.actionrow.set_visible(download_thread.actionrow.is_visible)
                 self.filter_button_show_downloading.set_active(True)
 
             elif (filter_mode == "show_completed"):
@@ -162,7 +205,7 @@ class MainWindow(Adw.ApplicationWindow):
                 for download_thread in self.downloads:
                     if (download_thread.download):
                         if (download_thread.download.status == "complete"):
-                            download_thread.actionrow.set_visible(True)
+                            download_thread.actionrow.set_visible(download_thread.actionrow.is_visible)
                 self.filter_button_show_completed.set_active(True)
 
             elif (filter_mode == "show_seeding"):
@@ -170,7 +213,7 @@ class MainWindow(Adw.ApplicationWindow):
                 for download_thread in self.downloads:
                     if (download_thread.download):
                         if (download_thread.download.seeder == True):
-                            download_thread.actionrow.set_visible(True)
+                            download_thread.actionrow.set_visible(download_thread.actionrow.is_visible)
                 self.filter_button_show_seeding.set_active(True)
 
             else:
@@ -178,7 +221,7 @@ class MainWindow(Adw.ApplicationWindow):
                 for download_thread in self.downloads:
                     if (download_thread.download):
                         if (download_thread.download.status == "error"):
-                            download_thread.actionrow.set_visible(True)
+                            download_thread.actionrow.set_visible(download_thread.actionrow.is_visible)
                 self.filter_button_show_failed.set_active(True)
 
     def check_download_status(self):
