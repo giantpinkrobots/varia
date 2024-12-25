@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: varia\n"
+"Project-Id-Version: Varia\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2024-09-22 12:29+0200\n"
+"PO-Revision-Date: 2024-12-25 16:16+0200\n"
 "Last-Translator: twlvnn kraftwerk <kraft_werk@tutanota.com>\n"
 "Language-Team: Bulgarian <dict-notifications@fsa-bg.org>\n"
 "Language: bg\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Gtranslator 46.1\n"
+"X-Generator: Gtranslator 47.1\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -194,7 +194,7 @@ msgstr "Парола"
 
 #: src/variamain.py:554
 msgid "Authorization failed."
-msgstr "Упълномощяването е неуспешно."
+msgstr "Упълномощаването е неуспешно."
 
 #: src/variamain.py:806
 msgid "Failed to open directory."
@@ -331,6 +331,45 @@ msgstr "Стартиране във фонов режим"
 
 msgid "Remote Timestamp"
 msgstr "Дата на отдалеченото място"
+
+msgid "Torrent"
+msgstr "Торент"
+
+# Updater
+msgid "Checking for updates..."
+msgstr "Проверяване за обновления..."
+
+msgid "A new version of Varia is available. Do you want to update?"
+msgstr ""
+"Има нова версия на „Varia“, която е налична за инсталиране. Искате ли да "
+"обновите?"
+
+msgid "Update available"
+msgstr "Налично е обновление"
+
+msgid "Update"
+msgstr "Обновяване"
+
+msgid "Downloading update..."
+msgstr "Изтегляне на обновлението..."
+
+msgid "Download failed."
+msgstr "Изтеглянето е неуспешно."
+
+msgid "Yes"
+msgstr "Да"
+
+msgid "No"
+msgstr "Не"
+
+msgid "Automatically Check for Updates"
+msgstr "Автоматично проверяване за обновления"
+
+msgid "Check Now"
+msgstr "Проверяване"
+
+msgid "Do you want to check for updates on startup?"
+msgstr "Искате ли да се проверява за обновления при стартиране?"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
