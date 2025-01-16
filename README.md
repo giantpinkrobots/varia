@@ -1,4 +1,4 @@
-### *Important for translators: There's now a Weblate instance for Varia, please refer to [the contributing page](https://github.com/giantpinkrobots/varia/blob/main/CONTRIBUTING.md).*
+### *Important for translators: There's now a Weblate instance for Varia, please refer to [the contributing page](https://github.com/giantpinkrobots/varia/blob/next/CONTRIBUTING.md).*
 
 <br>
 
