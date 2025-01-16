@@ -5,8 +5,8 @@ import gi
 import requests
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import Gtk, Adw
-from gettext import gettext as _
+from gi.repository import Gtk, Adw, Gio, Gdk
+from stringstorage import gettext as _
 
 def initiate(self, variaapp, variaVersion, first_run):
     self.downloaddir = self.appconf["download_directory"]
@@ -60,18 +60,58 @@ def initiate(self, variaapp, variaVersion, first_run):
         self.aria2cLocation = "http://localhost:6801"
 
     self.set_title("Varia")
-    self.set_default_size(800, 600)
-    self.set_size_request(650, 450)
+    self.set_default_size(self.appconf["window_size"][0], self.appconf["window_size"][1])
+    self.set_size_request(400, 250) # Copy of this exists in scheduler.py
 
     self.total_download_speed = ""
     self.terminating = False
 
-    if ("dev" in variaVersion):
-        self.get_style_context().add_class("devel")
-        Gtk.Settings.get_default().set_property("gtk-icon-theme-name", "Adwaita")
+    Gtk.Settings.get_default().set_property("gtk-icon-theme-name", "Adwaita")
 
+    if ("dev" in variaVersion):
+        self.add_css_class("devel")
+
+    # DragDrop area that covers the entire window for torrent files
+    self.drop_target = Gtk.DropTarget.new(Gio.File, Gdk.DragAction.COPY)
+    self.drop_target.connect("enter", self.on_drag_enter)
+    self.drop_target.connect("leave", self.on_drag_leave, 250)
+    self.drop_target.connect("drop", self.on_file_drop)
+    self.add_controller(self.drop_target)
+
+    self.root_window_overlay = Gtk.Overlay()
     self.overlay_split_view = Adw.OverlaySplitView.new()
-    self.set_content(self.overlay_split_view)
+    self.root_window_overlay.set_child(self.overlay_split_view)
+    self.set_content(self.root_window_overlay)
+
+    self.drag_drop_status_page = Adw.StatusPage()
+    self.drag_drop_status_page.set_icon_name("document-send-symbolic")
+    self.drag_drop_status_page.set_title(_("Torrent"))
+    self.drag_drop_status_page.add_css_class("drag_drop_status_page")
+    self.drag_drop_revealer = Gtk.Revealer()
+    self.drag_drop_revealer.set_transition_type(Gtk.RevealerTransitionType.CROSSFADE)
+    self.drag_drop_revealer.set_child(self.drag_drop_status_page)
+
+    drag_drop_status_page_class_css = """
+        .drag_drop_status_page {
+            background-color: color-mix(in srgb, var(--accent-bg-color) 90%, transparent);
+        }
+
+        .drag_drop_status_page_success {
+            background-color: color-mix(in srgb, var(--success-color) 90%, transparent);
+        }
+
+        .drag_drop_status_page_error {
+            background-color: color-mix(in srgb, var(--error-color) 90%, transparent);
+        } """
+
+    drag_drop_status_page_class_css_provider = Gtk.CssProvider()
+    drag_drop_status_page_class_css_provider.load_from_data(drag_drop_status_page_class_css)
+
+    Gtk.StyleContext.add_provider_for_display(
+        Gdk.Display.get_default(),
+        drag_drop_status_page_class_css_provider,
+        Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+    )
 
     self.downloads = []
     self.all_paused = False

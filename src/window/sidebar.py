@@ -1,22 +1,22 @@
 import os
 import subprocess
-import threading
 import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import Gtk, Adw, Gio, GLib
-from gettext import gettext as _
+from gi.repository import Gtk, Adw, Gio
+from stringstorage import gettext as _
 import textwrap
 
 from window.preferences import show_preferences
 from download.actionrow import on_download_clicked
+from download.videos import on_video_clicked
 
-def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
+def window_create_sidebar(self, variaapp, variaVersion):
     sidebar_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
     sidebar_content_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
 
     header_bar = Adw.HeaderBar()
-    header_bar.get_style_context().add_class('flat')
+    header_bar.add_css_class('flat')
     sidebar_box.append(header_bar)
 
     preferences_button = Gtk.Button(tooltip_text=_("Preferences"))
@@ -98,21 +98,21 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
 
     self.download_button = Gtk.Button()
     self.download_button.set_child(download_button_box)
-    self.download_button.get_style_context().add_class("suggested-action")
+    self.download_button.add_css_class("suggested-action")
     self.download_button.set_sensitive(False)
-    self.download_button.connect("clicked", on_download_clicked, self, download_entry, DownloadThread, None)
+    self.download_button.connect("clicked", on_download_clicked, self, download_entry, None, None, "regular", None, False, self.appconf["download_directory"])
 
     self.video_button_icon = Gtk.Image.new_from_icon_name("emblem-videos-symbolic")
-    self.video_button_text = Gtk.Label(label=_("Video Download"))
+    self.video_button_text = Gtk.Label(label=_("Video / Audio"))
     video_button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
     video_button_box.append(self.video_button_icon)
     video_button_box.append(self.video_button_text)
 
     self.video_button = Gtk.Button()
     self.video_button.set_child(video_button_box)
-    self.video_button.get_style_context().add_class("suggested-action")
+    self.video_button.add_css_class("suggested-action")
     self.video_button.set_sensitive(False)
-    self.video_button.connect("clicked", on_video_clicked, self, download_entry, DownloadThread, variaapp)
+    self.video_button.connect("clicked", on_video_clicked, self, download_entry)
 
     download_entry.connect('changed', on_download_entry_changed, self.download_button, self.video_button)
 
@@ -121,7 +121,7 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     torrent_button_box.append(Gtk.Label(label=_("Torrent")))
 
     add_torrent_button = Gtk.Button()
-    add_torrent_button.get_style_context().add_class("suggested-action")
+    add_torrent_button.add_css_class("suggested-action")
     add_torrent_button.set_child(torrent_button_box)
     add_torrent_button.connect("clicked", on_add_torrent_clicked, self)
 
@@ -136,62 +136,62 @@ def window_create_sidebar(self, variaapp, DownloadThread, variaVersion):
     frame_add_download.set_child(box_add_download)
 
     self.filter_button_show_all = Gtk.ToggleButton()
-    self.filter_button_show_all.get_style_context().add_class('flat')
+    self.filter_button_show_all.add_css_class('flat')
     filter_button_show_all_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     filter_button_show_all_box.set_margin_top(8)
     filter_button_show_all_box.set_margin_bottom(8)
     filter_button_show_all_box.append(Gtk.Image.new_from_icon_name("switch-off-symbolic"))
     filter_button_show_all_label = Gtk.Label(label=_("All"))
-    filter_button_show_all_label.get_style_context().add_class('body')
+    filter_button_show_all_label.add_css_class('body')
     filter_button_show_all_box.append(filter_button_show_all_label)
     self.filter_button_show_all.set_child(filter_button_show_all_box)
     self.filter_button_show_all.set_active(True)
     self.filter_button_show_all.connect("clicked", self.filter_download_list, "show_all")
 
     self.filter_button_show_downloading = Gtk.ToggleButton()
-    self.filter_button_show_downloading.get_style_context().add_class('flat')
+    self.filter_button_show_downloading.add_css_class('flat')
     filter_button_show_downloading_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     filter_button_show_downloading_box.set_margin_top(8)
     filter_button_show_downloading_box.set_margin_bottom(8)
     filter_button_show_downloading_box.append(Gtk.Image.new_from_icon_name("content-loading-symbolic"))
     filter_button_show_downloading_label = Gtk.Label(label=_("In Progress"))
-    filter_button_show_downloading_label.get_style_context().add_class('body')
+    filter_button_show_downloading_label.add_css_class('body')
     filter_button_show_downloading_box.append(filter_button_show_downloading_label)
     self.filter_button_show_downloading.set_child(filter_button_show_downloading_box)
     self.filter_button_show_downloading.connect("clicked", self.filter_download_list, "show_downloading")
 
     self.filter_button_show_completed = Gtk.ToggleButton()
-    self.filter_button_show_completed.get_style_context().add_class('flat')
+    self.filter_button_show_completed.add_css_class('flat')
     filter_button_show_completed_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     filter_button_show_completed_box.set_margin_top(8)
     filter_button_show_completed_box.set_margin_bottom(8)
     filter_button_show_completed_box.append(Gtk.Image.new_from_icon_name("emblem-ok-symbolic"))
     filter_button_show_completed_label = Gtk.Label(label=_("Completed"))
-    filter_button_show_completed_label.get_style_context().add_class('body')
+    filter_button_show_completed_label.add_css_class('body')
     filter_button_show_completed_box.append(filter_button_show_completed_label)
     self.filter_button_show_completed.set_child(filter_button_show_completed_box)
     self.filter_button_show_completed.connect("clicked", self.filter_download_list, "show_completed")
 
     self.filter_button_show_seeding = Gtk.ToggleButton()
-    self.filter_button_show_seeding.get_style_context().add_class('flat')
+    self.filter_button_show_seeding.add_css_class('flat')
     filter_button_show_seeding_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     filter_button_show_seeding_box.set_margin_top(8)
     filter_button_show_seeding_box.set_margin_bottom(8)
     filter_button_show_seeding_box.append(Gtk.Image.new_from_icon_name("go-up-symbolic"))
     filter_button_show_seeding_label = Gtk.Label(label=_("Seeding"))
-    filter_button_show_seeding_label.get_style_context().add_class('body')
+    filter_button_show_seeding_label.add_css_class('body')
     filter_button_show_seeding_box.append(filter_button_show_seeding_label)
     self.filter_button_show_seeding.set_child(filter_button_show_seeding_box)
     self.filter_button_show_seeding.connect("clicked", self.filter_download_list, "show_seeding")
 
     self.filter_button_show_failed = Gtk.ToggleButton()
-    self.filter_button_show_failed.get_style_context().add_class('flat')
+    self.filter_button_show_failed.add_css_class('flat')
     filter_button_show_failed_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     filter_button_show_failed_box.set_margin_top(8)
     filter_button_show_failed_box.set_margin_bottom(8)
     filter_button_show_failed_box.append(Gtk.Image.new_from_icon_name("process-stop-symbolic"))
     filter_button_show_failed_label = Gtk.Label(label=_("Failed"))
-    filter_button_show_failed_label.get_style_context().add_class('body')
+    filter_button_show_failed_label.add_css_class('body')
     filter_button_show_failed_box.append(filter_button_show_failed_label)
     self.filter_button_show_failed.set_child(filter_button_show_failed_box)
     self.filter_button_show_failed.connect("clicked", self.filter_download_list, "show_failed")
@@ -233,176 +233,6 @@ def on_download_entry_changed(entry, download_button, video_button):
         download_button.set_sensitive(False)
         video_button.set_sensitive(False)
 
-def on_video_clicked(button, self, entry, DownloadThread, variaapp):
-    url = entry.get_text()
-    entry.set_text("")
-
-    # Show loading screen
-    loading_dialog = Adw.AlertDialog()
-    loading_dialog_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=25)
-    loading_dialog.set_child(loading_dialog_box)
-    loading_dialog_box.set_margin_top(30)
-    loading_dialog_box.set_margin_bottom(30)
-    loading_dialog_box.set_margin_start(60)
-    loading_dialog_box.set_margin_end(60)
-    loading_dialog_spinner = Adw.Spinner()
-    loading_dialog_spinner.set_size_request(30, 30)
-    loading_dialog_box.append(loading_dialog_spinner)
-    loading_dialog_label = Gtk.Label(label=_("Checking video..."))
-    loading_dialog_label.get_style_context().add_class("title-1")
-    loading_dialog_box.append(loading_dialog_label)
-    loading_dialog.set_can_close(False)
-    loading_dialog.present(self)
-
-    def ytdlp_startsubprocess():
-        ytdlp_subprocess = subprocess.Popen(["yt-dlp", "--print", "title", "-F", url], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-        ytdlp_subprocess.wait()
-
-        quality_options = []
-        video_title = ""
-        while True:
-            process_return_code = ytdlp_subprocess.poll()
-            if process_return_code is not None:
-                stdout, stderr = ytdlp_subprocess.communicate()
-                if process_return_code == 0:
-                    i = 0
-                    options_list_length = len(stdout.split('\n'))
-
-                    for line in stdout.split('\n'):
-
-                        if i == options_list_length - 2:
-                            video_title = line
-
-                        elif line.strip() and line[0].isdigit():
-                            line = line.split(" ")
-                            
-                            while "" in line:
-                                line.remove("")
-
-                            new_quality_option = []
-                            new_quality_option.append(line[0])
-                            new_quality_option.append(line[1])
-                            new_quality_option.append(line[2])
-
-                            if line[2] == "audio":
-                                new_quality_option.append("audio")
-                            else:
-                                new_quality_option.append(line[3])
-                            
-                            video_filesize = ""
-
-                            if line[line.index("|") + 1].startswith("~") or line[line.index("|") + 1].startswith("≈"):
-                                video_filesize = line[line.index("|") + 1]
-                                if len(line[line.index("|") + 1]) == 1:
-                                    video_filesize += line[line.index("|") + 2]
-
-                            elif line[line.index("|") + 1][0].isnumeric():
-                                video_filesize = line[line.index("|") + 1]
-                            
-                            new_quality_option.append(video_filesize)
-                            
-                            quality_options.append(new_quality_option)
-                        
-                        i += 1
-
-                break
-        
-        GLib.idle_add(loading_dialog.set_can_close, True)
-        GLib.idle_add(loading_dialog.close)
-
-        if len(quality_options) > 0:
-            # Show video download options
-            video_download_options_preferences_dialog = Adw.PreferencesDialog(title=_("Download Video"))
-            page = Adw.PreferencesPage()
-            video_download_options_preferences_dialog.add(page)
-            print(video_title)
-            group = Adw.PreferencesGroup(title="\"" + video_title + "\"")
-            page.add(group)
-
-            i = 0
-            for video_option in quality_options:
-                video_option_actionrow = Adw.ActionRow()
-
-                if video_option[2] == "audio":
-                    if video_option[4] == "":
-                        video_option_actionrow.set_title(_("Audio only"))
-                    else:
-                        video_option_actionrow.set_title(_("Audio only") + "  ·  " + video_option[4])
-
-                    video_option_actionrow.set_subtitle(video_option[1])
-                else:
-                    if video_option[4] == "":
-                        video_option_actionrow.set_title(_("Video"))
-                    else:
-                        video_option_actionrow.set_title(_("Video") + "  ·  " + video_option[4])
-
-                    if video_option[3] == "audio":
-                        video_option_actionrow.set_subtitle(video_option[1] + "  ·  " + video_option[2])
-                    else:
-                        video_option_actionrow.set_subtitle(video_option[1] + "  ·  " + video_option[2] + "  ·  " + video_option[3] + "fps")
-                
-                video_download_button = Gtk.Button(label=_("Download"))
-                video_download_button.get_style_context().add_class("suggested-action")
-                video_download_button.set_halign(Gtk.Align.START)
-                video_download_button.set_valign(Gtk.Align.CENTER)
-                video_download_button.connect("clicked", lambda clicked, video_format=video_option[0], download_name=video_title, download_extension=video_option[1]: on_video_option_download_clicked(self, video_download_options_preferences_dialog, video_option_actionrow, video_format, download_name, download_extension, url, DownloadThread))
-                video_option_actionrow.add_suffix(video_download_button)
-
-                group.add(video_option_actionrow)
-                i += 1
-            
-            GLib.idle_add(video_download_options_preferences_dialog.present, self)
-
-        return
-    
-    thread = threading.Thread(target=lambda: ytdlp_startsubprocess())
-    thread.start()
-
-def on_video_option_download_clicked(self, prefswindow, actionrow, video_format, download_name, download_extension, url, DownloadThread):
-    prefswindow.close()
-    print(url)
-    print(video_format)
-
-    loading_dialog = Adw.AlertDialog()
-    loading_dialog_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=25)
-    loading_dialog.set_child(loading_dialog_box)
-    loading_dialog_box.set_margin_top(30)
-    loading_dialog_box.set_margin_bottom(30)
-    loading_dialog_box.set_margin_start(60)
-    loading_dialog_box.set_margin_end(60)
-    loading_dialog_spinner = Adw.Spinner()
-    loading_dialog_spinner.set_size_request(30, 30)
-    loading_dialog_box.append(loading_dialog_spinner)
-    loading_dialog_label = Gtk.Label(label=_("Starting download..."))
-    loading_dialog_label.get_style_context().add_class("title-1")
-    loading_dialog_box.append(loading_dialog_label)
-    loading_dialog.set_can_close(False)
-    loading_dialog.present(self)
-
-    def ytdlp_startsubprocess():
-        ytdlp_subprocess = subprocess.Popen(["yt-dlp", "-f", video_format, "-g", url], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-        ytdlp_subprocess.wait()
-
-        video_download_link = ""
-        while True:
-            process_return_code = ytdlp_subprocess.poll()
-            if process_return_code is not None:
-                stdout, stderr = ytdlp_subprocess.communicate()
-                if process_return_code == 0:
-                    video_download_link = stdout
-                break
-                
-        if video_download_link != "":
-            on_download_clicked(None, self, video_download_link, DownloadThread, download_name + "." + download_extension)
-        
-        GLib.idle_add(loading_dialog.set_can_close, True)
-        GLib.idle_add(loading_dialog.close)
-        
-        return
-
-    thread = threading.Thread(target=lambda: ytdlp_startsubprocess())
-    thread.start()
-
 def on_add_torrent_clicked(self, variaapp):
     file_filter = Gtk.FileFilter()
     file_filter.add_pattern("*.torrent")
@@ -421,6 +251,11 @@ def background_mode(app, variaapp1, self, variaapp):
     self.exitProgram(app=app, variaapp=variaapp, background=True)
 
 def show_about(app, variaapp, self, variaVersion):
+    if self.overlay_split_view.get_show_sidebar() and \
+        self.overlay_split_view.get_collapsed():
+
+        self.overlay_split_view.set_show_sidebar(False)
+
     dialog = Adw.AboutDialog()
     dialog.set_application_name("Varia")
     dialog.set_version(variaVersion)
@@ -430,7 +265,7 @@ def show_about(app, variaapp, self, variaVersion):
     dialog.set_website("https://giantpinkrobots.github.io/varia")
     dialog.set_issue_url("https://github.com/giantpinkrobots/varia/issues")
     dialog.set_copyright("2023 Giant Pink Robots!\n\n" + _("This application relies on the following pieces of software:") +
-        "\n\n- aria2\n- GTK4\n- Libadwaita\n- Meson\n- OpenSSL\n- Python-appdirs\n- Python-aria2p\n- Python-certifi\n- Python-charset-normalizer\n- Python-gettext\n- Python-idna\n- Python-loguru\n- Python-requests\n- Python-setuptools\n- Python-urllib3\n- Python-websocket-client\n\n" +
+        "\n\n- aria2\n- yt-dlp\n- FFmpeg\n- GTK4\n- Libadwaita\n- Meson\n- OpenSSL\n- Python-appdirs\n- Python-aria2p\n- Python-certifi\n- Python-charset-normalizer\n- Python-gettext\n- Python-idna\n- Python-loguru\n- Python-requests\n- Python-setuptools\n- Python-urllib3\n- Python-websocket-client\n\n" +
         _("The licenses of all of these pieces of software can be found in the dependencies_information directory in this application's app directory."))
     dialog.set_developers(["Giant Pink Robots! (@giantpinkrobots) https://github.com/giantpinkrobots"])
     dialog.set_application_icon("io.github.giantpinkrobots.varia")

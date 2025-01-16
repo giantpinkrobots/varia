@@ -42,17 +42,23 @@
 
 <description>
 <p>
-Varia is a download manager for all your download needs. It can download regular files and torrents, and do it very quickly.
+Varia is better than your browser at downloading stuff.
+</p>
+<p>
+Supporting videos and torrents on top of just regular files, and with a variety of advanced features wrapped inside an easy to understand interface, Varia is both quite powerful and dead simple to use:
 </p>
 <ul>
 <li>
-Download files and torrents quickly - potentially faster than your browser, continue incomplete downloads even after reboots
+Download anything you want quickly - potentially faster than your browser, continue incomplete downloads even after reboots
 </li>
 <li>
-Integrate with Firefox and Chrome (or any Chromium based browser) to redirect downloads
+Download video and audio from thousands of websites (anything supported by yt-dlp) including YouTube, TikTok, Twitter etc
 </li>
 <li>
-Schedule downloads with a powerful scheduler allowing for custom timespans for each day of the week
+Integrate with Firefox and Chrome (or any Chromium based browser like Brave or Opera) to redirect downloads
+</li>
+<li>
+Schedule downloads with a powerful scheduler function allowing for custom timespans for each day of the week
 </li>
 <li>
 Download from protected areas with basic auth and cookies.txt import support
@@ -62,7 +68,7 @@ Control a remote aria2 instance running on any server
 </li>
 </ul>
 <p>
-Varia uses GTK4 and Libadwaita for the user interface and utilizes Aria2 for the downloads underneath. It is free software licensed under the Mozilla Public License 2.0. A list of dependencies can be viewed through the Legal section in the About Varia page.
+Varia uses GTK4 and Libadwaita for the user interface and utilizes Aria2 for the downloads underneath, as well as yt-dlp for videos. It is free software licensed under the Mozilla Public License 2.0. A list of dependencies can be viewed through the Legal section in the About Varia page.
 </p>
 </description>
 

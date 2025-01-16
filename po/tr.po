@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the varia package.
 #
 # Sabri Ünal <libreajans@gmail.com>, 2023.
+# Giant Pink Robots! <giantpinkrobots@protonmail.com>, 2023.
 #
 msgid ""
 msgstr ""
@@ -282,6 +283,7 @@ msgstr "Bu zamanlarda indirme"
 msgid "Add Timespan"
 msgstr "Zaman Aralığı Ekle"
 
+#: When a download is currently seeding:
 msgid "Seeding"
 msgstr "Seed Ediliyor"
 
@@ -289,7 +291,7 @@ msgid "Failed"
 msgstr "Başarısız"
 
 msgid "Completion Options"
-msgstr "Tamamlama Seçenekleri"
+msgstr "Tamamlama Ayarları"
 
 msgid "Exit on Completion"
 msgstr "İndirmeler Bittiğinde Çık"
@@ -298,16 +300,16 @@ msgid "Varia is about to quit."
 msgstr "Varia birazdan kendini kapatacak."
 
 msgid "Preferences"
-msgstr "Seçenekler"
+msgstr "Ayarlar"
 
 msgid "Other"
 msgstr "Diğer"
 
 msgid "Basic Settings"
-msgstr "Basit Seçenekler"
+msgstr "Basit Ayarlar"
 
 msgid "Advanced Settings"
-msgstr "Gelişmiş Seçenekler"
+msgstr "Gelişmiş Ayarlar"
 
 msgid "Use cookies.txt"
 msgstr "cookies.txt Kullan"
@@ -362,6 +364,81 @@ msgstr "Şimdi Kontrol Et"
 
 msgid "Do you want to check for updates on startup?"
 msgstr "Uygulama başlangıcında güncelleme kontrolü yapılmasını ister misiniz?"
+
+msgid "File"
+msgstr "Dosya"
+
+msgid "Video / Audio"
+msgstr "Video / Ses"
+
+msgid "Video and audio"
+msgstr "Video ve ses"
+
+msgid "Video only"
+msgstr "Yalnızca video"
+
+msgid "Audio only"
+msgstr "Yalnızca ses"
+
+#: Relating to video download:
+msgid "Framerate:"
+msgstr "Kare hızı:"
+
+#: Relating to video download:
+msgid "Bitrate:"
+msgstr "Bit hızı:"
+
+msgid "Checking video..."
+msgstr "Video kontrol ediliyor..."
+
+msgid "No video or audio streams found"
+msgstr "Video veya ses kaynağı bulunamadı"
+
+msgid "Starting download..."
+msgstr "İndirme başlatılıyor..."
+
+msgid "The video platform may not be supported or you may be being blocked by the platform. If you have an active VPN connection that might be the cause, or you can try importing your browser's cookies through a cookies.txt file."
+msgstr "Video platformu desteklenmiyor olabilir veya platform tarafından engelleniyor olabilirsiniz.. Aktif bir VPN bağlantınız varsa ondan dolayı olabilir, veya tarayıcı çerezlerini cookies.txt dosyası olarak içe aktarmayı deneyebilirsiniz."
+
+msgid "This will disable the video download functionality."
+msgstr "Bu seçenek video indirme fonksiyonu devre dışı bırakır."
+
+#: Relating to video download progress where it says "Part 1/2" - {indicator} is replaced by "1/2" or "2/2" (don't translate {indicator})
+msgid "Part {indicator}"
+msgstr ""
+
+msgid "Simultaneous download limit exceeded, waiting."
+msgstr "Aynı anda indirme limiti aşıldı, bekliyor."
+
+#: The way percentages will be shown, like 10% or %10 depending on the language (don't translate {number}, just move it if needed)
+msgid "{number}%"
+msgstr "%{number}"
+
+msgid "Allow Seeding"
+msgstr "Seed Etmeye İzin Ver"
+
+msgid "Seeding Ratio Limit"
+msgstr "Seed Oranı Limiti"
+
+msgid "Torrent Settings"
+msgstr "Torrent Ayarları"
+
+msgid "Custom Download Directory for Torrents"
+msgstr "Torrentlere Özel İndirme Klasörü"
+
+#: When the user attempts to disable seeding
+msgid "As torrenting relies on people seeding data, disabling seeding is very much frowned upon and may result in you getting throttled or banned by certain clients and trackers. Clients are usually expected to seed at least as much as they download (a ratio of 1). You may want to consider limiting your seeding ratio instead."
+msgstr "Torrent sistemi verileri seed eden kişiler sayesinde çalıştığından dolayı seeding işlemini devre dışı bırakmak hoş karşılanmaz ve bazı istemciler ve tracker'lar tarafından hızınızın düşürülmesine veya engellenmenize neden olabilir. İstemcilerden genellikle indirdikleri kadar yükleme yapmaları (1:1 oran) beklenir. Bunun yerine seed oranınızı sınırlamayı düşünebilirsiniz."
+
+msgid "Cancel Seeding"
+msgstr "Seed Etmeyi Devre Dışı Bırak"
+
+# Save button
+msgid "Save"
+msgstr "Kaydet"
+
+msgid "Show Menu"
+msgstr "Menüyü Göster"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

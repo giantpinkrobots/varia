@@ -2,25 +2,38 @@ import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, GLib, Gio
-from gettext import gettext as _
+from stringstorage import gettext as _
 import os
+from math import floor
 
-from download.communicate import set_speed_limit, set_aria2c_download_directory, set_aria2c_download_simultaneous_amount, set_aria2c_custom_global_option, set_aria2c_cookies
+from download.communicate import set_speed_limit, set_aria2c_download_directory, set_aria2c_custom_global_option, set_aria2c_cookies
 from window.scheduler import show_scheduler_dialog
 from window.updater import windows_updater
 
 def show_preferences(button, self, app, variaVersion):
+    if self.overlay_split_view.get_show_sidebar() and \
+        self.overlay_split_view.get_collapsed():
+
+        self.overlay_split_view.set_show_sidebar(False)
+
     preferences = Adw.PreferencesDialog(title=_("Preferences"))
     preferences.set_search_enabled(True)
 
-    page = Adw.PreferencesPage()
-    preferences.add(page)
+    page_1 = Adw.PreferencesPage(title=_("Basic Settings"), icon_name="folder-download-symbolic")
+    page_2 = Adw.PreferencesPage(title=_("Torrent Settings"), icon_name="network-computer-symbolic")
+    page_3 = Adw.PreferencesPage(title=_("Advanced Settings"), icon_name="content-loading-symbolic")
+    preferences.add(page_1)
+    preferences.add(page_2)
+    preferences.add(page_3)
     group_extensions = Adw.PreferencesGroup()
-    page.add(group_extensions)
-    group_1 = Adw.PreferencesGroup(title=_("Basic Settings"))
-    page.add(group_1)
-    group_2 = Adw.PreferencesGroup(title=_("Advanced Settings"))
-    page.add(group_2)
+    group_1 = Adw.PreferencesGroup()
+    group_2 = Adw.PreferencesGroup()
+    group_3 = Adw.PreferencesGroup()
+
+    page_1.add(group_extensions)
+    page_1.add(group_1)
+    page_2.add(group_3)
+    page_3.add(group_2)
 
     # Updater section for Windows:
 
@@ -32,7 +45,7 @@ def show_preferences(button, self, app, variaVersion):
         update_button = Gtk.Button(label=_("Check Now"))
         update_button.set_halign(Gtk.Align.START)
         update_button.set_valign(Gtk.Align.CENTER)
-        update_button.get_style_context().add_class("suggested-action")
+        update_button.add_css_class("suggested-action")
         update_button.connect("clicked", lambda clicked: windows_updater(None, self, app, preferences, variaVersion, 1))
 
         update_actionrow.add_suffix(update_button)
@@ -73,10 +86,10 @@ def show_preferences(button, self, app, variaVersion):
         download_directory_actionrow.set_subtitle(self.appconf["download_directory"])
 
     download_directory_change_button = Gtk.Button(label=_("Change"))
-    download_directory_change_button.get_style_context().add_class("suggested-action")
+    download_directory_change_button.add_css_class("suggested-action")
     download_directory_change_button.set_halign(Gtk.Align.START)
     download_directory_change_button.set_valign(Gtk.Align.CENTER)
-    download_directory_change_button.connect("clicked", lambda clicked: on_download_directory_change(self, preferences, download_directory_actionrow))
+    download_directory_change_button.connect("clicked", lambda clicked: on_download_directory_change(self, "download_directory", preferences, download_directory_actionrow))
 
     download_directory_change_remote_label = Gtk.Label(label=_("Remote Mode"))
     download_directory_change_remote_label.set_halign(Gtk.Align.START)
@@ -108,7 +121,7 @@ def show_preferences(button, self, app, variaVersion):
     speed_limit_entry.connect('changed', speed_limit_text_filter, self)
     speed_limit_entry.connect('apply', lambda clicked: on_speed_limit_changed(self, speed_limit_entry, speed_limit_unit_names_dropdown, speed_limit_expander_switch))
 
-    if (self.appconf["download_speed_limit"] != "0"):
+    if (self.appconf["download_speed_limit"][0] != "0"):
         speed_limit_expander_switch.set_sensitive(True)
         speed_limit_entry.set_text(self.appconf["download_speed_limit"][:-1])
         match (self.appconf["download_speed_limit"][-1]):
@@ -150,7 +163,7 @@ def show_preferences(button, self, app, variaVersion):
     scheduler_actionrow_edit_button = Gtk.Button(label=_("Change"))
     scheduler_actionrow_edit_button.set_halign(Gtk.Align.START)
     scheduler_actionrow_edit_button.set_valign(Gtk.Align.CENTER)
-    scheduler_actionrow_edit_button.get_style_context().add_class("suggested-action")
+    scheduler_actionrow_edit_button.add_css_class("suggested-action")
 
     scheduler_actionrow_edit_button.connect("clicked", lambda clicked: show_scheduler_dialog(self, preferences, app, show_preferences, variaVersion))
 
@@ -163,7 +176,7 @@ def show_preferences(button, self, app, variaVersion):
 
     simultaneous_download_amount_spinrow = Adw.SpinRow(adjustment=Gtk.Adjustment(step_increment=1.0))
     simultaneous_download_amount_spinrow.set_title(_("Simultaneous Download Amount"))
-    simultaneous_download_amount_spinrow.set_range(1.0, 15.0)
+    simultaneous_download_amount_spinrow.set_range(1.0, 20.0)
     simultaneous_download_amount_spinrow.set_value(float(self.appconf["download_simultaneous_amount"]))
     simultaneous_download_amount_spinrow.connect("changed", on_simultaneous_download_amount_changed, self)
 
@@ -188,6 +201,7 @@ def show_preferences(button, self, app, variaVersion):
 
     remote_aria2_expander_box = Adw.ExpanderRow()
     remote_aria2_expander_box.set_title(_("Remote Mode"))
+    remote_aria2_expander_box.set_subtitle(_("This will disable the video download functionality."))
 
     remote_aria2_expander_switch = Gtk.Switch()
     remote_aria2_expander_switch.set_halign(Gtk.Align.START)
@@ -314,12 +328,12 @@ def show_preferences(button, self, app, variaVersion):
     cookies_txt_import_button = Gtk.Button(label=_("Import cookies.txt"))
     cookies_txt_import_button.set_halign(Gtk.Align.START)
     cookies_txt_import_button.set_valign(Gtk.Align.CENTER)
-    cookies_txt_import_button.get_style_context().add_class("suggested-action")
+    cookies_txt_import_button.add_css_class("suggested-action")
 
     cookies_txt_remove_button = Gtk.Button(label=_("Remove cookies.txt"))
     cookies_txt_remove_button.set_halign(Gtk.Align.START)
     cookies_txt_remove_button.set_valign(Gtk.Align.CENTER)
-    cookies_txt_remove_button.get_style_context().add_class("destructive-action")
+    cookies_txt_remove_button.add_css_class("destructive-action")
 
     cookies_txt_import_button.connect("clicked", lambda clicked: cookies_txt_import(self, True, cookies_txt_import_button, cookies_txt_remove_button, cookies_txt_action_switch))
     cookies_txt_remove_button.connect("clicked", lambda clicked: cookies_txt_import(self, False, cookies_txt_import_button, cookies_txt_remove_button, cookies_txt_action_switch))
@@ -347,6 +361,72 @@ def show_preferences(button, self, app, variaVersion):
     group_2.add(cookies_txt_action)
     group_2.add(cookies_txt_action)
     group_2.add(remote_aria2_expander_box)
+
+    # Enable or disable seeding:
+
+    seeding_enabled_switchrow = Adw.SwitchRow()
+    seeding_enabled_switchrow.set_title(_("Allow Seeding"))
+    seeding_enabled_switchrow.connect("notify::active", on_switch_torrent_seeding, self)
+
+    if (self.appconf["torrent_seeding_enabled"] == "1"):
+        seeding_enabled_switchrow.set_active("active")
+    
+    # Set seeding ratio limit:
+
+    seeding_ratio_limit_switch = Gtk.Switch()
+    seeding_ratio_limit_switch.set_halign(Gtk.Align.START)
+    seeding_ratio_limit_switch.set_valign(Gtk.Align.CENTER)
+    seeding_ratio_limit_switch.connect("state-set", on_switch_torrent_seeding_ratio_limit, self)
+
+    seeding_ratio_limit_spinrow = Adw.SpinRow(adjustment=Gtk.Adjustment(step_increment=0.1))
+    seeding_ratio_limit_spinrow.set_digits(1)
+    seeding_ratio_limit_spinrow.set_title(_("Seeding Ratio Limit"))
+    seeding_ratio_limit_spinrow.set_range(0.1, 100000.0)
+    seeding_ratio_limit_spinrow.set_value(float(self.appconf["torrent_seeding_ratio"][1]))
+    seeding_ratio_limit_spinrow.connect("changed", on_torrent_seeding_ratio_limit_change, self)
+    seeding_ratio_limit_spinrow.add_suffix(seeding_ratio_limit_switch)
+
+    if (self.appconf["torrent_seeding_ratio"][1] == True):
+        seeding_ratio_limit_switch.set_active("active")
+    
+    # Custom download directory for torrents:
+
+    torrent_download_directory_actionrow = Adw.ActionRow()
+    torrent_download_directory_actionrow.set_title(_("Custom Download Directory for Torrents"))
+    if (self.appconf["remote"] == "0"):
+        torrent_download_directory_actionrow.set_subtitle(self.appconf["torrent_download_directory"])
+
+    torrent_download_directory_switch = Gtk.Switch()
+    torrent_download_directory_switch.set_halign(Gtk.Align.START)
+    torrent_download_directory_switch.set_valign(Gtk.Align.CENTER)
+    torrent_download_directory_switch.connect("state-set", on_switch_custom_torrent_download_directory, self)
+
+    torrent_download_directory_change_button = Gtk.Button(label=_("Change"))
+    torrent_download_directory_change_button.add_css_class("suggested-action")
+    torrent_download_directory_change_button.set_halign(Gtk.Align.START)
+    torrent_download_directory_change_button.set_valign(Gtk.Align.CENTER)
+    torrent_download_directory_change_button.connect("clicked", lambda clicked: on_download_directory_change(self, "torrent_download_directory", preferences, torrent_download_directory_actionrow))
+
+    torrent_download_directory_change_remote_label = Gtk.Label(label=_("Remote Mode"))
+    torrent_download_directory_change_remote_label.set_halign(Gtk.Align.START)
+    torrent_download_directory_change_remote_label.set_valign(Gtk.Align.CENTER)
+
+    if self.appconf["torrent_download_directory_custom_enabled"] == "1":
+        torrent_download_directory_switch.set_active("active")
+
+    if (self.appconf["remote"] == "0"):
+        torrent_download_directory_actionrow.add_suffix(torrent_download_directory_change_button)
+        torrent_download_directory_actionrow.add_suffix(torrent_download_directory_switch)
+    else:
+        torrent_download_directory_actionrow.add_suffix(torrent_download_directory_change_remote_label)
+        torrent_download_directory_actionrow.add_suffix(torrent_download_directory_switch)
+        torrent_download_directory_switch.set_sensitive(False)
+    
+    # Construct Group 3:
+
+    group_3.add(seeding_enabled_switchrow)
+    group_3.add(seeding_ratio_limit_spinrow)
+    group_3.add(torrent_download_directory_actionrow)
 
     preferences.present(self)
 
@@ -379,23 +459,28 @@ def on_extension_selected(self, prefswindow, browser):
         link = 'https://chrome.google.com/webstore/detail/dacakhfljjhgdfdlgjpabkkjhbpcmiff'
     Gio.AppInfo.launch_default_for_uri(link)
 
-def on_download_directory_change(self, prefswindow, actionrow):
-    Gtk.FileDialog().select_folder(None, None, on_download_directory_selected, self, prefswindow, actionrow)
+def on_download_directory_change(self, directory_to_be_changed, prefswindow, actionrow):
+    Gtk.FileDialog().select_folder(None, None, on_download_directory_selected, directory_to_be_changed, self, prefswindow, actionrow)
 
-def on_download_directory_selected(dialog, result, self, prefswindow, actionrow):
+def on_download_directory_selected(dialog, result, directory_to_be_changed, self, prefswindow, actionrow):
     try:
         folder = dialog.select_folder_finish(result)
-        self.appconf["download_directory"] = folder.get_path()
+        self.appconf[directory_to_be_changed] = folder.get_path()
         self.save_appconf()
-        set_aria2c_download_directory(self)
-        actionrow.set_subtitle(self.appconf["download_directory"])
-    except:
-        error_dialog = Adw.AlertDialog()
-        error_dialog.set_body(_("Failed to open directory."))
-        error_dialog.add_response("ok",  _("OK"))
-        error_dialog.set_default_response("ok")
-        error_dialog.set_close_response("ok")
-        error_dialog.present(prefswindow)
+
+        if directory_to_be_changed == "download_directory": # If what's being changed is the regular download directory and not the torrent download directory
+            set_aria2c_download_directory(self)
+
+        actionrow.set_subtitle(self.appconf[directory_to_be_changed])
+
+    except GLib.GError as exception:
+        if (exception.domain == 'gtk-dialog-error-quark' and exception.code == 2) == False: # If there was an actual issue instead of the user just dismissing the dialog
+            error_dialog = Adw.AlertDialog()
+            error_dialog.set_body(_("Failed to open directory."))
+            error_dialog.add_response("ok",  _("OK"))
+            error_dialog.set_default_response("ok")
+            error_dialog.set_close_response("ok")
+            error_dialog.present(prefswindow)
 
 def on_switch_speed_limit(switch, state, self, preferencesWindow):
     if state:
@@ -410,22 +495,22 @@ def on_speed_limit_changed(self, speed, speed_type, switch):
     speed = speed.get_text()
     if (speed == ""):
         speed = "0"
+    
+    speed = str(int(speed))
 
-    if (speed != "0"):
-        speed_type = speed_type.get_selected()
-        print(speed_type)
-        match speed_type:
-            case 0:
-                download_limit = speed + "K"
-            case 1:
-                download_limit = speed + "M"
-            case 2:
-                download_limit = speed + "G"
-    else:
-        download_limit = speed
+    speed_type = speed_type.get_selected()
+    match speed_type:
+        case 0:
+            download_limit = speed + "K"
+        case 1:
+            download_limit = speed + "M"
+        case 2:
+            download_limit = speed + "G"
 
     set_speed_limit(self, download_limit)
     self.appconf['download_speed_limit'] = download_limit
+
+    print(self.appconf["download_speed_limit"])
 
     if ((self.appconf["download_speed_limit"] == "0K") or (self.appconf["download_speed_limit"] == "0M") or (self.appconf["download_speed_limit"] == "0G")):
         switch.set_active(False)
@@ -480,7 +565,8 @@ def on_simultaneous_download_amount_changed(spinrow, self):
     print(str(int(spinrow.get_value())))
     self.save_appconf()
 
-    set_aria2c_download_simultaneous_amount(self)
+    #set_aria2c_download_simultaneous_amount(self)
+    set_aria2c_custom_global_option(self, "max-concurrent-downloads", str(self.appconf["download_simultaneous_amount"]))
 
 def set_remote(self, remote_protocol, remote_ip, remote_port, remote_secret, remote_location, switch, preferencesWindow):
     if (remote_protocol.get_selected() == 0):
@@ -547,6 +633,83 @@ def on_switch_cookies_txt(switch, state, self):
     else:
         self.appconf["cookies_txt"] = "0"
     set_aria2c_cookies(self)
+    self.save_appconf()
+
+def on_switch_torrent_seeding(switch, state, self):
+    state = switch.get_active()
+    if state:
+        self.appconf["torrent_seeding_enabled"] = "1"
+        set_aria2c_custom_global_option(self, "seed-time", "0")
+        set_aria2c_custom_global_option(self, "bt-seed-unverified", "true")
+        set_aria2c_custom_global_option(self, "bt-enable-lpd", "true")
+        set_aria2c_custom_global_option(self, "enable-dht", "true")
+        set_aria2c_custom_global_option(self, "enable-dht6", "true")
+        
+    else:
+        def dialog_response_handle(dialog, response_id, self, dialog_checkbutton, switch):
+            if response_id == "disable":
+                if dialog_checkbutton.get_active() == True:
+                    self.appconf["torrent_seeding_disable_warning_dont_show"] = "1"
+                
+                disable_torrent_seeding(self)
+            
+            elif response_id == "cancel":
+                switch.set_active(True)
+
+        def disable_torrent_seeding(self):
+            self.appconf["torrent_seeding_enabled"] = "0"
+            set_aria2c_custom_global_option(self, "seed-time", "")
+            set_aria2c_custom_global_option(self, "bt-seed-unverified", "false")
+            set_aria2c_custom_global_option(self, "bt-enable-lpd", "false")
+            set_aria2c_custom_global_option(self, "enable-dht", "false")
+            set_aria2c_custom_global_option(self, "enable-dht6", "false")
+            self.save_appconf()
+        
+        if self.appconf["torrent_seeding_disable_warning_dont_show"] == "1":
+            disable_torrent_seeding(self)
+        
+        else:
+            dialog = Adw.AlertDialog()
+            dialog.set_heading(_("Warning"))
+            dialog.set_body(_("As torrenting relies on people seeding data, disabling seeding is very much frowned upon and may result in you getting throttled or banned by certain clients and trackers. Clients are usually expected to seed at least as much as they download (a ratio of 1). You may want to consider limiting your seeding ratio instead."))
+            dialog_checkbutton = Gtk.CheckButton.new_with_label(_("Don't show again"))
+            dialog_checkbutton.set_halign(Gtk.Align.CENTER)
+            dialog.set_extra_child(dialog_checkbutton)
+            dialog.add_response("disable",  _("Disable Seeding"))
+            dialog.add_response("cancel",  _("Cancel"))
+            dialog.set_default_response("cancel")
+            dialog.set_close_response("cancel")
+            dialog.set_response_appearance("disable", Adw.ResponseAppearance.DESTRUCTIVE)
+            dialog.connect("response", dialog_response_handle, self, dialog_checkbutton, switch)
+            dialog.present(self)
+
+def on_torrent_seeding_ratio_limit_change(spinrow, self):
+    self.appconf["torrent_seeding_ratio"][1] = str(floor(spinrow.get_value() * 10) / 10)
+    self.save_appconf()
+
+    if self.appconf["torrent_seeding_ratio"][0] == True:
+        set_aria2c_custom_global_option(self, "seed-ratio", self.appconf["torrent_seeding_ratio"][1])
+
+def on_switch_torrent_seeding_ratio_limit(switch, state, self):
+    state = switch.get_active()
+    if state:
+        self.appconf["torrent_seeding_ratio"][0] = True
+        set_aria2c_custom_global_option(self, "seed-ratio", self.appconf["torrent_seeding_ratio"][1])
+        
+    else:
+        self.appconf["torrent_seeding_ratio"][0] = False
+        set_aria2c_custom_global_option(self, "seed-ratio", "0")
+
+    self.save_appconf()
+
+def on_switch_custom_torrent_download_directory(switch, state, self):
+    state = switch.get_active()
+    if state:
+        self.appconf["torrent_download_directory_custom_enabled"] = "1"
+    
+    else:
+        self.appconf["torrent_download_directory_custom_enabled"] = "0"
+    
     self.save_appconf()
 
 def restart_varia_dialog(preferencesWindow):
