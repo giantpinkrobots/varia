@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2024-09-23 11:35-0300\n"
+"PO-Revision-Date: 2024-12-26 23:01-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -330,6 +330,43 @@ msgstr "Iniciar en segundo plano"
 
 msgid "Remote Timestamp"
 msgstr "Marca de tiempo remota"
+
+msgid "Torrent"
+msgstr "Torrent"
+
+# Updater
+msgid "Checking for updates..."
+msgstr "Comprobando las actualizaciones..."
+
+msgid "A new version of Varia is available. Do you want to update?"
+msgstr "Ya está disponible una nueva versión de Varia. ¿Quieres actualizarte?"
+
+msgid "Update available"
+msgstr "Actualización disponible"
+
+msgid "Update"
+msgstr "Actualizar"
+
+msgid "Downloading update..."
+msgstr "Descargando actualización..."
+
+msgid "Download failed."
+msgstr "Descarga fallida"
+
+msgid "Yes"
+msgstr "Si"
+
+msgid "No"
+msgstr "No"
+
+msgid "Automatically Check for Updates"
+msgstr "Comprobación automática de actualizaciones"
+
+msgid "Check Now"
+msgstr "Comprobar ahora"
+
+msgid "Do you want to check for updates on startup?"
+msgstr "¿Quiere comprobar si hay actualizaciones al iniciar?"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
