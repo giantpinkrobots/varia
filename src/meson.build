@@ -32,6 +32,7 @@ configure_file(
 varia_sources = [
   'variamain.py',
   'initiate.py',
+  'stringstorage.py',
 ]
 
 varia_sources_window = [

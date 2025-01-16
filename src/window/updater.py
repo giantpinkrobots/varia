@@ -2,7 +2,7 @@ import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, GLib
-from gettext import gettext as _
+from stringstorage import gettext as _
 import json
 import threading
 import os
@@ -27,7 +27,7 @@ def windows_updater(bannerButton, app, variaapp, parentWindow, variaVersion, mod
         checking_dialog_spinner.set_size_request(30, 30)
         checking_dialog_box.append(checking_dialog_spinner)
         checking_dialog_label = Gtk.Label(label=_("Checking for updates..."))
-        checking_dialog_label.get_style_context().add_class("title-1")
+        checking_dialog_label.add_css_class("title-1")
         checking_dialog_box.append(checking_dialog_label)
         checking_dialog.set_can_close(False)
         checking_dialog.present(app)
@@ -128,7 +128,7 @@ def update_pressed(dialog, response_id, latest_windows_binary_url, latest_name_f
         update_downloading_dialog_box.append(update_downloading_dialog_spinner)
 
         update_downloading_dialog_label = Gtk.Label(label=_("Downloading update..."))
-        update_downloading_dialog_label.get_style_context().add_class("title-1")
+        update_downloading_dialog_label.add_css_class("title-1")
         update_downloading_dialog_box.append(update_downloading_dialog_label)
 
         update_downloading_dialog_progress_bar = Gtk.ProgressBar()

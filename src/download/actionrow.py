@@ -2,40 +2,31 @@ import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, Pango
-from gettext import gettext as _
-from window.content import create_status_page
+from stringstorage import gettext as _
+from download.thread import DownloadThread
+import json
 
-def on_download_clicked(button, self, entry, DownloadThread, downloadname, actionrow_show, audio_stream_gid):
+def on_download_clicked(button, self, entry, downloadname, download, mode, video_options, paused, dir):
     if isinstance(entry, str):
         url = entry
     else:
         url = entry.get_text()
         entry.set_text("")
     
-    if actionrow_show == False:
-        is_audio_stream = True
-    else:
-        is_audio_stream = False
-    
-    download_thread_gid = None
+    if isinstance(video_options, str):
+        video_options = json.loads(video_options)
 
     if url:
-        objectlist = create_actionrow(self, url, actionrow_show)
-        download_thread = DownloadThread(self, url, objectlist[0], objectlist[1], objectlist[2], objectlist[3], objectlist[4], None, downloadname, audio_stream_gid)
+        download_item = create_actionrow(self, url)
+        download_thread = DownloadThread(self, url, download_item, downloadname, download, mode, video_options, paused, dir)
+        download_item.download_thread = download_thread
         self.downloads.append(download_thread)
         download_thread.start()
 
-        while download_thread_gid == None:
-            download_thread_gid = download_thread.return_gid()
-    
-    return download_thread_gid
-
-def create_actionrow(self, filename, show):
+def create_actionrow(self, filename):
     download_item = Adw.Bin()
-    download_item.is_visible = show
 
-    style_context = download_item.get_style_context()
-    style_context.add_class('card')
+    download_item.add_css_class('card')
 
     box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
     box_1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
@@ -57,24 +48,29 @@ def create_actionrow(self, filename, show):
     progress_bar = Gtk.ProgressBar()
 
     speed_label = Gtk.Label()
+    speed_label.set_ellipsize(Pango.EllipsizeMode.END)
     speed_label.set_halign(Gtk.Align.START)
-    speed_label.get_style_context().add_class("dim-label")
+    speed_label.add_css_class("dim-label")
     box.append(speed_label)
 
     button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
     button_box.set_margin_start(10)
 
-    pause_button = Gtk.Button.new_from_icon_name("media-playback-pause-symbolic")
+    pause_button_icon = Gtk.Image.new()
+    pause_button_icon.set_from_icon_name("media-playback-pause-symbolic")
+
+    pause_button = Gtk.Button.new()
+    pause_button.set_child(pause_button_icon)
     pause_button.set_valign(Gtk.Align.CENTER)
-    pause_button.get_style_context().add_class("circular")
-    pause_button.connect("clicked", on_pause_clicked, self, pause_button, download_item, False)
+    pause_button.add_css_class("circular")
+    pause_button.connect("clicked", on_pause_clicked, self, pause_button, download_item, False, True)
 
     button_box.append(pause_button)
 
     stop_button = Gtk.Button.new_from_icon_name("process-stop-symbolic")
     stop_button.set_valign(Gtk.Align.CENTER)
-    stop_button.get_style_context().add_class("circular")
-    stop_button.get_style_context().add_class("destructive-action")
+    stop_button.add_css_class("circular")
+    stop_button.add_css_class("destructive-action")
     stop_button.connect("clicked", on_stop_clicked, self, download_item)
     button_box.append(stop_button)
 
@@ -88,58 +84,35 @@ def create_actionrow(self, filename, show):
     box_2.append(box_1)
     box_2.append(progress_bar)
 
-    self.download_list.append(download_item)
-    download_item.index = len(self.downloads)
+    self.download_list.prepend(download_item)
 
-    create_status_page(self, 1)
+    self.content_root_overlay.remove_overlay(self.status_page_widget)
 
-    return [progress_bar, speed_label, pause_button, download_item, filename_label]
+    download_item.progress_bar = progress_bar
+    download_item.speed_label = speed_label
+    download_item.pause_button = pause_button
+    download_item.filename_label = filename_label
 
-def on_pause_clicked(button, self, pause_button, download_item, force_pause):
-    download_thread = self.downloads[download_item.index]
-    if download_thread.download.is_paused and force_pause == False:
-        download_thread.resume()
-        image = Gtk.Image.new()
-        image.set_from_icon_name("media-playback-pause-symbolic")
-        pause_button.set_child(image)
-        self.all_paused = False
-        self.header_pause_content.set_icon_name("media-playback-pause-symbolic")
-        self.header_pause_content.set_label(_("Pause All"))
-        self.header_pause_button.set_sensitive(True)
+    return download_item
+
+def on_pause_clicked(button, self, pause_button, download_item, force_pause, run_pause_function):
+
+    if download_item.download_thread.return_is_paused() and force_pause == False:
+        download_item.download_thread.resume()
+
     else:
-        download_thread.pause()
-        image = Gtk.Image.new()
-        image.set_from_icon_name("media-playback-start-symbolic")
-        pause_button.set_child(image)
-        download_thread.save_state()
-
-        all_paused = True
-
-        for download_thread in self.downloads.copy():
-            if (download_thread.download) and (download_thread.is_alive()) and (download_thread.download.is_paused == False):
-                all_paused = False
-
-        if (all_paused == True):
-            self.all_paused = True
-            self.header_pause_content.set_icon_name("media-playback-start-symbolic")
-            self.header_pause_content.set_label(_("Resume All"))
-            self.header_pause_button.set_sensitive(True)
+        if run_pause_function:
+            download_item.download_thread.pause(False)
 
 def on_stop_clicked(button, self, download_item):
-    index = download_item.index
-    download_thread = self.downloads[index]
-    deletefiles = True
-    if (download_thread.download) and ((download_thread.download.is_torrent) and (download_thread.download.seeder)):
-        deletefiles = False
-    try:
-        download_thread.stop(deletefiles)
-    except:
-        pass
+    download_item.download_thread.stop(download_item.download_thread.is_complete == False)
     self.download_list.remove(download_item)
-    if (download_item in self.downloads):
-        self.downloads.remove(download_item)
+    if (download_item.download_thread in self.downloads):
+        self.downloads.remove(download_item.download_thread)
     if (self.download_list.get_first_child() == None):
         self.header_pause_content.set_icon_name("media-playback-pause-symbolic")
         self.header_pause_content.set_label(_("Pause All"))
         self.header_pause_button.set_sensitive(False)
-        create_status_page(self, 0)
+        self.content_root_overlay.add_overlay(self.status_page_widget)
+    download_item.download_thread = None
+    download_item = None

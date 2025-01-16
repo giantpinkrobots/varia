@@ -1,6 +1,6 @@
 import datetime
 from gi.repository import Gtk, GLib
-from gettext import gettext as _
+from stringstorage import gettext as _
 
 def schedule_downloads(self, previous_state):
     if self.appconf["schedule_enabled"] == 1:
@@ -34,13 +34,13 @@ def schedule_downloads(self, previous_state):
     if previous_state != self.scheduler_currently_downloading:
         if self.scheduler_currently_downloading == True:
             self.download_button_icon.set_from_icon_name("folder-download-symbolic")
-            self.download_button_text.set_label(_("Download"))
+            self.video_button_icon.set_from_icon_name("emblem-videos-symbolic")
             self.all_paused = True
             self.pause_all(self.header_pause_content)
 
         else:
-            self.download_button_icon.set_from_icon_name("alarmt-symbolic")
-            self.download_button_text.set_label(_("Schedule"))
+            self.download_button_icon.set_from_icon_name("alarm-symbolic")
+            self.video_button_icon.set_from_icon_name("alarm-symbolic")
             self.all_paused = False
             self.pause_all(self.header_pause_content)
 
