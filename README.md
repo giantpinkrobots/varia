@@ -37,6 +37,12 @@ Varia is a simple download manager that conforms to the latest Libadwaita design
 
 </p>
 
+<a href="https://hosted.weblate.org/engage/varia/">
+<img src="https://hosted.weblate.org/widget/varia/multi-auto.svg" alt="Translation status" />
+</a>
+
+<br><br>
+
 It supports basic functionality like continuing incomplete downloads from the previous session upon startup, pausing/cancelling all downloads at once, setting a speed limit, authentication with a username/password, setting the simultaneous download amount and setting the download directory.
 
 ## Get Varia
