@@ -53,15 +53,8 @@ def window_create_sidebar(self, variaapp, variaVersion):
     self.exit_action.set_enabled(False)
     variaapp.add_action(self.exit_action)
 
-    hamburger_menu_item_background = Gio.MenuItem.new(_("Background Mode"), "app.background_mode")
-    if (os.name != 'nt'):
-        hamburger_menu_model.append_item(hamburger_menu_item_background)
-
     hamburger_menu_item_cancel_all = Gio.MenuItem.new(_("Cancel All"), "app.cancel_all_downloads")
     hamburger_menu_model.append_item(hamburger_menu_item_cancel_all)
-
-    hamburger_menu_item_open_downloads_folder = Gio.MenuItem.new(_("Open Download Folder"), "app.downloads_folder")
-    hamburger_menu_model.append_item(hamburger_menu_item_open_downloads_folder)
 
     completion_submenu_model = Gio.Menu()
 
@@ -72,6 +65,13 @@ def window_create_sidebar(self, variaapp, variaVersion):
     completion_submenu_model.append_item(completion_submenu_item_shutdown)
 
     hamburger_menu_model.append_submenu(_("Completion Options"), completion_submenu_model)
+
+    hamburger_menu_item_open_downloads_folder = Gio.MenuItem.new(_("Open Download Folder"), "app.downloads_folder")
+    hamburger_menu_model.append_item(hamburger_menu_item_open_downloads_folder)
+
+    hamburger_menu_item_background = Gio.MenuItem.new(_("Background Mode"), "app.background_mode")
+    if (os.name != 'nt'):
+        hamburger_menu_model.append_item(hamburger_menu_item_background)
 
     hamburger_menu_item_about = Gio.MenuItem.new(_("About Varia"), "app.about")
     hamburger_menu_model.append_item(hamburger_menu_item_about)

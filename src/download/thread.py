@@ -103,6 +103,10 @@ class DownloadThread(threading.Thread):
         print(self.downloadname)
         GLib.idle_add(self.update_header_pause_button)
 
+        # Enable "Exit on Completion" and "Shutdown on Completion" options
+        self.app.shutdown_action.set_enabled(True)
+        self.app.exit_action.set_enabled(True)
+
         # Regular download, use aria2p:
         if self.mode == "regular":
 
@@ -520,6 +524,20 @@ class DownloadThread(threading.Thread):
             
             if os.path.exists(self.state_file):
                 os.remove(self.state_file)
+        
+        # Disable "Exit on Completion" and "Shutdown on Completion" options if no downloads are left
+        if len(self.app.downloads) == 0:
+            self.app.shutdown_action.set_enabled(False)
+            self.app.exit_action.set_enabled(False)
+
+            from download.listen import raise_exit_dialog, raise_shutdown_dialog
+            if (self.shutdown_dialog_raised == False) and (self.shutdown_mode == True):
+                self.shutdown_dialog_raised = True
+                raise_shutdown_dialog(self, self.app)
+
+            if (self.exit_mode == True) and (self.exit_dialog_raised == False):
+                self.exit_dialog_raised = True
+                raise_exit_dialog(self, self.app)
         
         self.download_temp_files.clear()
         self.download = None
