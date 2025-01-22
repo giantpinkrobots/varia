@@ -69,21 +69,6 @@ def listen_to_aria2(self, variaapp):
                     print('Download added directly to aria2c, adding it to the UI: ' + download_item_to_be_added.files[0].uris[0]["uri"])
                 add_download_to_ui(self, download_item_to_be_added, variaapp)
 
-        if currently_downloading == True:
-            self.shutdown_action.set_enabled(True)
-            self.exit_action.set_enabled(True)
-        else:
-            self.shutdown_action.set_enabled(False)
-            self.exit_action.set_enabled(False)
-            if (self.shutdown_dialog_raised == False) and (self.shutdown_mode == True):
-                self.shutdown_dialog_raised = True
-                raise_shutdown_dialog(self, variaapp)
-
-            if (self.exit_mode == True) and (self.exit_dialog_raised == False):
-                self.exit_dialog_raised = True
-                raise_exit_dialog(self, variaapp)
-
-
         GLib.timeout_add(2000, listen_to_aria2, self, variaapp)
 
 def deal_with_simultaneous_download_limit(self):

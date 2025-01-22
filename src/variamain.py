@@ -45,6 +45,7 @@ class MainWindow(Adw.ApplicationWindow):
         self.remote_successful = False
         self.update_executable = None
         self.ffmpegexec = ffmpegexec
+        self.variaapp = variaapp
 
         # Set up variables and all:
         aria2_connection_successful = initiate(self, variaapp, variaVersion, first_run)
