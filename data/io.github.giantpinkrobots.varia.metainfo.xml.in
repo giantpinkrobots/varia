@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
 <name>Varia</name>
-<summary>Download files and torrents</summary>
+<summary>Download files, videos and torrents</summary>
 <id>io.github.giantpinkrobots.varia</id>
 
 <metadata_license>FSFAP</metadata_license>
@@ -12,7 +12,7 @@
 <content_rating type="oars-1.1" />
 <url type="homepage">https://giantpinkrobots.github.io/varia</url>
 <url type="vcs-browser">https://github.com/giantpinkrobots/varia</url>
-<url type="translate">https://github.com/giantpinkrobots/varia/tree/next/po</url>
+<url type="translate">https://hosted.weblate.org/projects/varia/glossary/</url>
 
 <languages>
 <lang>en_US</lang>
@@ -76,6 +76,9 @@ Varia uses GTK4 and Libadwaita for the user interface and utilizes Aria2 for the
 <translation type="gettext">varia</translation>
 <screenshots>
 <screenshot type="default">
+<image>https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-1.png</image>
+</screenshot>
+<screenshot>
 <image>https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-2.png</image>
 </screenshot>
 <screenshot>
@@ -90,15 +93,15 @@ Varia uses GTK4 and Libadwaita for the user interface and utilizes Aria2 for the
 </screenshots>
 
 <releases>
-<release version="v2024.11.7" date="2024-11-07">
+<release version="v2025.1.24" date="2025-01-24">
 <description translatable="yes">
-<ul><li>Support for opening .torrent files.</li>
-<li>Downloads now show the estimated time remaining.</li>
-<li>UI tweaks and fixes for a better layout.</li>
-<li>Remote mode option is available again.</li>
-<li>A lot of under the hood changes to fix bugs and improve performance.</li>
-<li>Update to the GNOME 47 runtime and new Libadwaita widgets.</li>
-<li>Support for Bulgarian and Chinese (China) languages.</li></ul>
+<ul><li>Support for downloading videos and audio from links using yt-dlp.</li>
+<li>Adaptive layout for smaller window sizes and mobile devices.</li>
+<li>Support for dragging and dropping .torrent files.</li>
+<li>New settings to limit or disable torrent seeding, as well as setting a custom torrent download directory.</li>
+<li>Download states are saved upon addition so they're kept if the app crashes.</li>
+<li>Paused downloads stay paused upon restart of the app.</li>
+<li>Fixes for better performance and bug fixes.</li></ul>
 </description>
 </release>
 </releases>

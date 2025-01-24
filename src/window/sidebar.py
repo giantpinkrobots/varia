@@ -53,8 +53,15 @@ def window_create_sidebar(self, variaapp, variaVersion):
     self.exit_action.set_enabled(False)
     variaapp.add_action(self.exit_action)
 
+    hamburger_menu_item_background = Gio.MenuItem.new(_("Background Mode"), "app.background_mode")
+    if (os.name != 'nt'):
+        hamburger_menu_model.append_item(hamburger_menu_item_background)
+
     hamburger_menu_item_cancel_all = Gio.MenuItem.new(_("Cancel All"), "app.cancel_all_downloads")
     hamburger_menu_model.append_item(hamburger_menu_item_cancel_all)
+
+    hamburger_menu_item_open_downloads_folder = Gio.MenuItem.new(_("Open Download Folder"), "app.downloads_folder")
+    hamburger_menu_model.append_item(hamburger_menu_item_open_downloads_folder)
 
     completion_submenu_model = Gio.Menu()
 
@@ -65,13 +72,6 @@ def window_create_sidebar(self, variaapp, variaVersion):
     completion_submenu_model.append_item(completion_submenu_item_shutdown)
 
     hamburger_menu_model.append_submenu(_("Completion Options"), completion_submenu_model)
-
-    hamburger_menu_item_open_downloads_folder = Gio.MenuItem.new(_("Open Download Folder"), "app.downloads_folder")
-    hamburger_menu_model.append_item(hamburger_menu_item_open_downloads_folder)
-
-    hamburger_menu_item_background = Gio.MenuItem.new(_("Background Mode"), "app.background_mode")
-    if (os.name != 'nt'):
-        hamburger_menu_model.append_item(hamburger_menu_item_background)
 
     hamburger_menu_item_about = Gio.MenuItem.new(_("About Varia"), "app.about")
     hamburger_menu_model.append_item(hamburger_menu_item_about)
@@ -271,18 +271,15 @@ def show_about(app, variaapp, self, variaVersion):
     dialog.set_application_icon("io.github.giantpinkrobots.varia")
     dialog.set_translator_credits(_("translator-credits"))
     dialog.set_artists(["Jakub Steiner"])
-    dialog.set_release_notes_version("v2024.11.7")
+    dialog.set_release_notes_version("v2025.1.24")
     dialog.set_release_notes('''
-        <ul><li>Support for opening .torrent files.</li>
-        <li>Downloads now show the estimated time remaining.</li>
-        <li>UI tweaks and fixes for a better layout.</li>
-        <li>Remote mode option is available again.</li>
-        <li>A lot of under the hood changes to fix bugs and improve performance.</li>
-        <li>Update to the GNOME 47 runtime and new Libadwaita widgets.</li>
-        <li>Support for Bulgarian and Chinese (China) languages.</li>
-        <li>(Only on Windows) Automatic update function.</li>
-        <li>(Only on Windows) Support for localization.</li>
-        <li>(Only on Windows) All icons are shown properly everywhere.</li></ul>''')
+        <ul><li>Support for downloading videos and audio from links using yt-dlp.</li>
+        <li>Adaptive layout for smaller window sizes and mobile devices.</li>
+        <li>Support for dragging and dropping .torrent files.</li>
+        <li>New settings to limit or disable torrent seeding, as well as setting a custom torrent download directory.</li>
+        <li>Download states are saved upon addition so they're kept if the app crashes.</li>
+        <li>Paused downloads stay paused upon restart of the app.</li>
+        <li>Fixes for better performance and bug fixes.</li></ul>''')
 
     dialog.present(self)
 

@@ -19,6 +19,13 @@ gettext.install('varia', localedir)
 aria2cexec = sys.argv[1]
 ffmpegexec = sys.argv[2]
 
+if len(sys.argv) > 3:
+	snap_dir = sys.argv[3]
+	localedir = os.path.join(snap_dir, 'usr/share/locale')
+
+else:
+	snap_dir = None
+
 try:
 	locale.bindtextdomain('varia', localedir)
 	locale.textdomain('varia')
@@ -31,7 +38,13 @@ except:
 	print('Cannot load translations.')
 
 if __name__ == '__main__':
-	mymodule_dir = os.path.join(pkgdatadir, 'varia')
+	if snap_dir != None:
+		mymodule_dir = os.path.join(snap_dir, 'usr/share/varia/varia')
+
+	else:
+		mymodule_dir = os.path.join(pkgdatadir, 'varia')
+
 	sys.path.append( mymodule_dir )
+	os.listdir(mymodule_dir)
 	from variamain import main
 	sys.exit(main(VERSION, aria2cexec, ffmpegexec))

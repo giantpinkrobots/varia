@@ -1,11 +1,13 @@
 #!/bin/bash
 pythonexec='@PYTHON@'
 pkgdatadir='@pkgdatadir@'
+
 aria2cexec=$pkgdatadir/../../bin/aria2c
 ffmpegexec=$pkgdatadir/../../bin/ffmpeg
+
 if !(test -f $aria2cexec;) || !(test -f $ffmpegexec;)
 then
-	echo "Probably not a Flatpak environment. Trying to find the system's aria2c and ffmpeg..."
+	echo "Trying to find the system's aria2c and ffmpeg..."
 	aria2cexec=$(which aria2c)
 	ffmpegexec=$(which ffmpeg)
 	if !(test -f $aria2cexec;) || !(test -f $ffmpegexec;)
@@ -14,4 +16,10 @@ then
 		exit
 	fi
 fi
-$pythonexec $pkgdatadir/../../bin/varia-py.py "$aria2cexec" "$ffmpegexec"
+
+if [ -z "$SNAP" ];
+then
+	$pythonexec $pkgdatadir/../../bin/varia-py.py "$aria2cexec" "$ffmpegexec"
+else
+	python3 $SNAP/usr/bin/varia-py.py "$aria2cexec" "$ffmpegexec" "$SNAP"
+fi
