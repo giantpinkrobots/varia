@@ -9,26 +9,29 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2023-12-13 17:59+0300\n"
-"Last-Translator: bluekillwood <>\n"
-"Language-Team: French <>\n"
+"PO-Revision-Date: 2025-01-17 14:21+0000\n"
+"Last-Translator: Prefill add-on <noreply-addon-prefill@weblate.org>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/varia/glossary/fr/"
+">\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: Gtranslator 45.3\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:3
+#, fuzzy
 msgid "Varia"
-msgstr ""
+msgstr "Varia"
 
 #. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
 #: data/io.github.giantpinkrobots.varia.desktop.in:11
+#, fuzzy
 msgid "varia;aria;download;manager;"
-msgstr ""
+msgstr "varia;aria;download;manager;"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
 msgid "Download manager based on aria2"
@@ -47,6 +50,18 @@ msgstr ""
 #: src/variamain.py:45
 msgid "This is not a valid URL."
 msgstr "Ce n'est pas une URL valide"
+
+#: src/variamain.py:125
+msgid "All"
+msgstr ""
+
+#: src/variamain.py:137
+msgid "In Progress"
+msgstr ""
+
+#: src/variamain.py:148
+msgid "Completed"
+msgstr ""
 
 #: src/variamain.py:171
 msgid "About Varia"
@@ -128,65 +143,354 @@ msgstr " Kb/s"
 msgid " B/s"
 msgstr " b/s"
 
+#: src/variamain.py:404
+msgid "Simultaneous Download Amount"
+msgstr ""
+
 #: src/variamain.py:410
 msgid "Resume All"
 msgstr "Tout reprendre"
 
 #: src/variamain.py:443
 msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
-msgstr "gestionnaire de téléchargement basé sur aria2 utilisant GTK4 et Libadwaita"
+msgstr ""
+"gestionnaire de téléchargement basé sur aria2 utilisant GTK4 et Libadwaita"
 
 #: src/variamain.py:777
+#, fuzzy
 msgid "This application relies on the following pieces of software:"
-msgstr ""
+msgstr "This application relies on the following pieces of software:"
 
 #: src/variamain.py:777
-msgid "The licenses of all of these pieces of software can be found in the dependencies_information directory in this application's app directory."
+#, fuzzy
+msgid ""
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
 msgstr ""
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
 
 #: src/variamain.py:449
 msgid "translator-credits"
 msgstr "bluekillwood"
 
 #: src/variamain.py:457
+#, fuzzy
 msgid "Download Directory"
-msgstr ""
+msgstr "Download Directory"
 
 #: src/variamain.py:460
+#, fuzzy
 msgid "Change"
-msgstr ""
+msgstr "Change"
 
 #: src/variamain.py:463
+#, fuzzy
 msgid "Speed limited"
-msgstr ""
+msgstr "Speed limited"
 
 #: src/variamain.py:519
+#, fuzzy
 msgid "Authentication"
-msgstr ""
+msgstr "Authentication"
 
 #: src/variamain.py:532
+#, fuzzy
 msgid "Username"
-msgstr ""
+msgstr "Username"
 
 #: src/variamain.py:534
+#, fuzzy
 msgid "Password"
-msgstr ""
+msgstr "Password"
 
 #: src/variamain.py:554
+#, fuzzy
 msgid "Authorization failed."
+msgstr "Authorization failed."
+
+#: src/variamain.py:806
+msgid "Failed to open directory."
+msgstr ""
+
+msgid "Remote Mode"
+msgstr ""
+
+msgid "Remote aria2 IP"
+msgstr ""
+
+msgid "Remote aria2 Port"
+msgstr ""
+
+msgid "Remote aria2 RPC Secret"
+msgstr ""
+
+msgid "Remote Download Location"
+msgstr ""
+
+msgid "Exiting Varia..."
+msgstr ""
+
+msgid "Background Mode"
+msgstr ""
+
+msgid "Continuing the downloads in the background."
+msgstr ""
+
+msgid "Browser Extension"
+msgstr ""
+
+msgid "Shutdown on Completion"
+msgstr ""
+
+msgid "Varia is about to shut down your computer."
+msgstr ""
+
+msgid "Press Cancel to cancel and disable."
+msgstr ""
+
+#, fuzzy
+#| msgid "Cancel All"
+msgid "Cancel"
+msgstr "Tout annuler"
+
+msgid "Warning"
+msgstr ""
+
+msgid "Monday"
+msgstr ""
+
+msgid "Tuesday"
+msgstr ""
+
+msgid "Wednesday"
+msgstr ""
+
+msgid "Thursday"
+msgstr ""
+
+msgid "Friday"
+msgstr ""
+
+msgid "Saturday"
+msgstr ""
+
+msgid "Sunday"
+msgstr ""
+
+msgid "Start (h/m):"
+msgstr ""
+
+msgid "End (h/m):"
+msgstr ""
+
+msgid "Scheduler enabled"
+msgstr ""
+
+msgid "Scheduler"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "Start downloading in these times"
+msgstr ""
+
+msgid "Stop downloading in these times"
+msgstr ""
+
+msgid "Add Timespan"
+msgstr ""
+
+#: When a download is currently seeding:
+msgid "Seeding"
+msgstr ""
+
+msgid "Failed"
+msgstr ""
+
+msgid "Completion Options"
+msgstr ""
+
+msgid "Exit on Completion"
+msgstr ""
+
+msgid "Varia is about to quit."
+msgstr ""
+
+msgid "Preferences"
+msgstr ""
+
+msgid "Other"
+msgstr ""
+
+msgid "Basic Settings"
+msgstr ""
+
+msgid "Advanced Settings"
+msgstr ""
+
+msgid "Use cookies.txt"
+msgstr ""
+
+msgid "Import cookies.txt"
+msgstr ""
+
+msgid "Remove cookies.txt"
+msgstr ""
+
+msgid "remaining"
+msgstr ""
+
+msgid "Start in Background Mode"
+msgstr ""
+
+msgid "Remote Timestamp"
+msgstr ""
+
+msgid "Torrent"
+msgstr ""
+
+# Updater
+msgid "Checking for updates..."
+msgstr ""
+
+msgid "A new version of Varia is available. Do you want to update?"
+msgstr ""
+
+msgid "Update available"
+msgstr ""
+
+msgid "Update"
+msgstr ""
+
+#, fuzzy
+#| msgid "Download complete."
+msgid "Downloading update..."
+msgstr "Téléchargement terminé"
+
+#, fuzzy
+#| msgid "Download complete."
+msgid "Download failed."
+msgstr "Téléchargement terminé"
+
+msgid "Yes"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+msgid "Automatically Check for Updates"
+msgstr ""
+
+msgid "Check Now"
+msgstr ""
+
+msgid "Do you want to check for updates on startup?"
+msgstr ""
+
+msgid "File"
+msgstr ""
+
+msgid "Video / Audio"
+msgstr ""
+
+msgid "Video and audio"
+msgstr ""
+
+msgid "Video only"
+msgstr ""
+
+msgid "Audio only"
+msgstr ""
+
+#: Relating to video download:
+msgid "Framerate:"
+msgstr ""
+
+#: Relating to video download:
+msgid "Bitrate:"
+msgstr ""
+
+msgid "Checking video..."
+msgstr ""
+
+msgid "No video or audio streams found"
+msgstr ""
+
+msgid "Starting download..."
+msgstr ""
+
+msgid ""
+"The video platform may not be supported or you may be being blocked by the "
+"platform. If you have an active VPN connection that might be the cause, or "
+"you can try importing your browser's cookies through a cookies.txt file."
+msgstr ""
+
+msgid "This will disable the video download functionality."
+msgstr ""
+
+#: Relating to video download progress where it says "Part 1/2" - {indicator}
+#: is replaced by "1/2" or "2/2" (don't translate {indicator})
+msgid "Part {indicator}"
+msgstr ""
+
+msgid "Simultaneous download limit exceeded, waiting."
+msgstr ""
+
+#: The way percentages will be shown, like 10% or %10 depending on the language
+#: (don't translate {number}, just move it if needed)
+msgid "{number}%"
+msgstr ""
+
+msgid "Allow Seeding"
+msgstr ""
+
+#, fuzzy
+#| msgid "Speed Limit"
+msgid "Seeding Ratio Limit"
+msgstr "Limite de vitesse"
+
+msgid "Torrent Settings"
+msgstr ""
+
+#, fuzzy
+msgid "Custom Download Directory for Torrents"
+msgstr "Download Directory"
+
+#: When the user attempts to disable seeding
+msgid ""
+"As torrenting relies on people seeding data, disabling seeding is very much "
+"frowned upon and may result in you getting throttled or banned by certain "
+"clients and trackers. Clients are usually expected to seed at least as much "
+"as they download (a ratio of 1). You may want to consider limiting your "
+"seeding ratio instead."
+msgstr ""
+
+msgid "Cancel Seeding"
+msgstr ""
+
+# Save button
+msgid "Save"
+msgstr ""
+
+msgid "Show Menu"
 msgstr ""
 
 #: src/gtk/help-overlay.ui:11
+#, fuzzy
 msgctxt "shortcut window"
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: src/gtk/help-overlay.ui:14
+#, fuzzy
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
-msgstr ""
+msgstr "Show Shortcuts"
 
 #: src/gtk/help-overlay.ui:20
+#, fuzzy
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr ""
+msgstr "Quit"

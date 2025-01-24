@@ -38,8 +38,8 @@ msgid ""
 "desktop."
 msgstr ""
 "Varia è un download manager basato su aria2 che utilizza GTK4 e Libadwaita "
-"per fornire un'interfaccia facile da usare che si integri bene con il desktop "
-"GNOME."
+"per fornire un'interfaccia facile da usare che si integri bene con il "
+"desktop GNOME."
 
 #: src/variamain.py:45
 msgid "This is not a valid URL."
@@ -154,8 +154,12 @@ msgid "This application relies on the following pieces of software:"
 msgstr "Questa applicazione dipende dai seguenti software:"
 
 #: src/variamain.py:777
-msgid "The licenses of all of these pieces of software can be found in the dependencies_information directory in this application's app directory."
-msgstr "Le licenze di tutti questi software si trovano nella cartella dependencies_information nella cartella dell'app di questa applicazione."
+msgid ""
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
+msgstr ""
+"Le licenze di tutti questi software si trovano nella cartella "
+"dependencies_information nella cartella dell'app di questa applicazione."
 
 #: src/variamain.py:449
 msgid "translator-credits"
@@ -282,6 +286,7 @@ msgstr "Smetti di scaricare in questo periodo"
 msgid "Add Timespan"
 msgstr "Aggiungi tempo"
 
+#: When a download is currently seeding:
 msgid "Seeding"
 msgstr "In seeding"
 
@@ -317,6 +322,157 @@ msgstr "Importa cookies.txt"
 
 msgid "Remove cookies.txt"
 msgstr "Rimuovi cookies.txt"
+
+#, fuzzy
+#| msgid "Warning"
+msgid "remaining"
+msgstr "Attenzione"
+
+#, fuzzy
+#| msgid "Background Mode"
+msgid "Start in Background Mode"
+msgstr "Modalità in background"
+
+msgid "Remote Timestamp"
+msgstr ""
+
+msgid "Torrent"
+msgstr ""
+
+# Updater
+msgid "Checking for updates..."
+msgstr ""
+
+msgid "A new version of Varia is available. Do you want to update?"
+msgstr ""
+
+msgid "Update available"
+msgstr ""
+
+msgid "Update"
+msgstr ""
+
+#, fuzzy
+#| msgid "Download complete."
+msgid "Downloading update..."
+msgstr "Download completato."
+
+#, fuzzy
+#| msgid "Download complete."
+msgid "Download failed."
+msgstr "Download completato."
+
+msgid "Yes"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+msgid "Automatically Check for Updates"
+msgstr ""
+
+msgid "Check Now"
+msgstr ""
+
+msgid "Do you want to check for updates on startup?"
+msgstr ""
+
+msgid "File"
+msgstr ""
+
+msgid "Video / Audio"
+msgstr ""
+
+msgid "Video and audio"
+msgstr ""
+
+msgid "Video only"
+msgstr ""
+
+msgid "Audio only"
+msgstr ""
+
+#: Relating to video download:
+msgid "Framerate:"
+msgstr ""
+
+#: Relating to video download:
+msgid "Bitrate:"
+msgstr ""
+
+msgid "Checking video..."
+msgstr ""
+
+msgid "No video or audio streams found"
+msgstr ""
+
+msgid "Starting download..."
+msgstr ""
+
+msgid ""
+"The video platform may not be supported or you may be being blocked by the "
+"platform. If you have an active VPN connection that might be the cause, or "
+"you can try importing your browser's cookies through a cookies.txt file."
+msgstr ""
+
+msgid "This will disable the video download functionality."
+msgstr ""
+
+#: Relating to video download progress where it says "Part 1/2" - {indicator}
+#: is replaced by "1/2" or "2/2" (don't translate {indicator})
+msgid "Part {indicator}"
+msgstr ""
+
+#, fuzzy
+#| msgid "Simultaneous Download Amount"
+msgid "Simultaneous download limit exceeded, waiting."
+msgstr "Quantità di download simultanei"
+
+#: The way percentages will be shown, like 10% or %10 depending on the language
+#: (don't translate {number}, just move it if needed)
+msgid "{number}%"
+msgstr ""
+
+#, fuzzy
+#| msgid "Seeding"
+msgid "Allow Seeding"
+msgstr "In seeding"
+
+#, fuzzy
+#| msgid "Speed Limit"
+msgid "Seeding Ratio Limit"
+msgstr "Limite velocità"
+
+#, fuzzy
+#| msgid "Advanced Settings"
+msgid "Torrent Settings"
+msgstr "Impostazioni avanzate"
+
+#, fuzzy
+#| msgid "Download Directory"
+msgid "Custom Download Directory for Torrents"
+msgstr "Cartella download"
+
+#: When the user attempts to disable seeding
+msgid ""
+"As torrenting relies on people seeding data, disabling seeding is very much "
+"frowned upon and may result in you getting throttled or banned by certain "
+"clients and trackers. Clients are usually expected to seed at least as much "
+"as they download (a ratio of 1). You may want to consider limiting your "
+"seeding ratio instead."
+msgstr ""
+
+#, fuzzy
+#| msgid "Seeding"
+msgid "Cancel Seeding"
+msgstr "In seeding"
+
+# Save button
+msgid "Save"
+msgstr ""
+
+msgid "Show Menu"
+msgstr ""
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

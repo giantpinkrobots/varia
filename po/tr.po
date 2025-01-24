@@ -10,15 +10,16 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2024-4-24 14:18+0300\n"
+"PO-Revision-Date: 2025-01-17 14:21+0000\n"
 "Last-Translator: Giant Pink Robots! <giantpinkrobots@protonmail.com>\n"
-"Language-Team: \n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/varia/glossary/"
+"tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -157,12 +158,18 @@ msgid "This application relies on the following pieces of software:"
 msgstr "Bu uygulama aşağıdaki yazılımlara dayanır:"
 
 #: src/variamain.py:777
-msgid "The licenses of all of these pieces of software can be found in the dependencies_information directory in this application's app directory."
-msgstr "Tüm bu yazılımlara ait lisanslar, uygulama dizinindeki dependencies_information dizininde bulunabilir."
+msgid ""
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
+msgstr ""
+"Tüm bu yazılımlara ait lisanslar, uygulama dizinindeki "
+"dependencies_information dizininde bulunabilir."
 
 #: src/variamain.py:449
 msgid "translator-credits"
-msgstr "Sabri Ünal <libreajans@gmail.com>\nGiant Pink Robots! <giantpinkrobots@protonmail.com>"
+msgstr ""
+"Sabri Ünal <libreajans@gmail.com>\n"
+"Giant Pink Robots! <giantpinkrobots@protonmail.com>"
 
 #: src/variamain.py:457
 msgid "Download Directory"
@@ -397,20 +404,29 @@ msgstr "Video veya ses kaynağı bulunamadı"
 msgid "Starting download..."
 msgstr "İndirme başlatılıyor..."
 
-msgid "The video platform may not be supported or you may be being blocked by the platform. If you have an active VPN connection that might be the cause, or you can try importing your browser's cookies through a cookies.txt file."
-msgstr "Video platformu desteklenmiyor olabilir veya platform tarafından engelleniyor olabilirsiniz.. Aktif bir VPN bağlantınız varsa ondan dolayı olabilir, veya tarayıcı çerezlerini cookies.txt dosyası olarak içe aktarmayı deneyebilirsiniz."
+msgid ""
+"The video platform may not be supported or you may be being blocked by the "
+"platform. If you have an active VPN connection that might be the cause, or "
+"you can try importing your browser's cookies through a cookies.txt file."
+msgstr ""
+"Video platformu desteklenmiyor olabilir veya platform tarafından "
+"engelleniyor olabilirsiniz.. Aktif bir VPN bağlantınız varsa ondan dolayı "
+"olabilir, veya tarayıcı çerezlerini cookies.txt dosyası olarak içe aktarmayı "
+"deneyebilirsiniz."
 
 msgid "This will disable the video download functionality."
 msgstr "Bu seçenek video indirme fonksiyonu devre dışı bırakır."
 
-#: Relating to video download progress where it says "Part 1/2" - {indicator} is replaced by "1/2" or "2/2" (don't translate {indicator})
+#: Relating to video download progress where it says "Part 1/2" - {indicator}
+#: is replaced by "1/2" or "2/2" (don't translate {indicator})
 msgid "Part {indicator}"
-msgstr ""
+msgstr "Kısım {indicator}"
 
 msgid "Simultaneous download limit exceeded, waiting."
 msgstr "Aynı anda indirme limiti aşıldı, bekliyor."
 
-#: The way percentages will be shown, like 10% or %10 depending on the language (don't translate {number}, just move it if needed)
+#: The way percentages will be shown, like 10% or %10 depending on the language
+#: (don't translate {number}, just move it if needed)
 msgid "{number}%"
 msgstr "%{number}"
 
@@ -427,8 +443,18 @@ msgid "Custom Download Directory for Torrents"
 msgstr "Torrentlere Özel İndirme Klasörü"
 
 #: When the user attempts to disable seeding
-msgid "As torrenting relies on people seeding data, disabling seeding is very much frowned upon and may result in you getting throttled or banned by certain clients and trackers. Clients are usually expected to seed at least as much as they download (a ratio of 1). You may want to consider limiting your seeding ratio instead."
-msgstr "Torrent sistemi verileri seed eden kişiler sayesinde çalıştığından dolayı seeding işlemini devre dışı bırakmak hoş karşılanmaz ve bazı istemciler ve tracker'lar tarafından hızınızın düşürülmesine veya engellenmenize neden olabilir. İstemcilerden genellikle indirdikleri kadar yükleme yapmaları (1:1 oran) beklenir. Bunun yerine seed oranınızı sınırlamayı düşünebilirsiniz."
+msgid ""
+"As torrenting relies on people seeding data, disabling seeding is very much "
+"frowned upon and may result in you getting throttled or banned by certain "
+"clients and trackers. Clients are usually expected to seed at least as much "
+"as they download (a ratio of 1). You may want to consider limiting your "
+"seeding ratio instead."
+msgstr ""
+"Torrent sistemi verileri seed eden kişiler sayesinde çalıştığından dolayı "
+"seeding işlemini devre dışı bırakmak hoş karşılanmaz ve bazı istemciler ve "
+"tracker'lar tarafından hızınızın düşürülmesine veya engellenmenize neden "
+"olabilir. İstemcilerden genellikle indirdikleri kadar yükleme yapmaları (1:1 "
+"oran) beklenir. Bunun yerine seed oranınızı sınırlamayı düşünebilirsiniz."
 
 msgid "Cancel Seeding"
 msgstr "Seed Etmeyi Devre Dışı Bırak"
