@@ -92,6 +92,12 @@ Varia uses GTK4 and Libadwaita for the user interface and utilizes Aria2 for the
 </screenshot>
 </screenshots>
 
+<recommends>
+<control>keyboard</control>
+<control>pointing</control>
+<control>touch</control>
+</recommends>
+
 <releases>
 <release version="v2025.1.24" date="2025-01-24">
 <description translatable="yes">
