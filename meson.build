@@ -1,6 +1,6 @@
 project('varia',
-          version: 'v2024.11.7',
-    meson_version: '>= 0.62.0',
+          version: 'v2025.1.24',
+    meson_version: '>= 0.61.0',
   default_options: [ 'warning_level=2', 'werror=false', ],
 )
 

@@ -1,0 +1,125 @@
+name: varia
+base: core24
+version: 'v2025.1.24'
+summary: Download files, videos and torrents
+description: |
+  Varia is a file, video and torrent downloader based on aria2 and yt-dlp
+
+grade: stable
+confinement: strict
+
+slots:
+  dbus-varia:
+    interface: dbus
+    bus: session
+    name: io.github.giantpinkrobots.varia
+
+parts:
+  python-packages:
+    plugin: python
+    source: .
+    python-packages:
+      - yt-dlp
+      - aria2p
+    build-packages:
+      - python3-pip
+      - python3-setuptools
+    stage-packages:
+      - python3
+
+  aria2:
+    plugin: autotools
+    source: https://github.com/aria2/aria2/releases/download/release-1.37.0/aria2-1.37.0.tar.xz
+    source-checksum: sha256/60a420ad7085eb616cb6e2bdf0a7206d68ff3d37fb5a956dc44242eb2f79b66b
+    override-build: |
+      ./configure \
+        --without-libxml2 \
+        --without-sqlite3 \
+        --without-appletls \
+        --without-gnutls \
+        --without-libgmp \
+        --without-libnettle \
+        --without-libgcrypt \
+        --without-libssh2 \
+        --without-cppunit \
+        --without-libz \
+        --without-libcunit \
+        --without-libcares \
+        --without-libaria2 \
+        --disable-nls \
+        --with-openssl \
+        --disable-ftp \
+        --prefix=$SNAPCRAFT_PART_INSTALL
+      make
+      make install
+    build-packages:
+      - build-essential
+      - autoconf
+      - automake
+      - libssl-dev
+      - pkg-config
+
+  ffmpeg:
+    plugin: autotools
+    source: https://ffmpeg.org/releases/ffmpeg-7.1.tar.xz
+    source-checksum: sha256/40973d44970dbc83ef302b0609f2e74982be2d85916dd2ee7472d30678a7abe6
+    override-build: |
+      ./configure \
+        --disable-debug \
+        --disable-devices \
+        --disable-doc \
+        --disable-ffplay \
+        --disable-static \
+        --enable-gnutls \
+        --enable-libmp3lame \
+        --enable-libopus \
+        --enable-libvorbis \
+        --enable-shared \
+        --prefix=$SNAPCRAFT_PART_INSTALL
+      make
+      make install
+    build-packages:
+      - build-essential
+      - libgnutls28-dev
+      - libmp3lame-dev
+      - libopus-dev
+      - libvorbis-dev
+      - yasm
+
+  varia:
+    plugin: meson
+    source: .
+    parse-info: [usr/local/share/metainfo/io.github.giantpinkrobots.varia.metainfo.xml]
+    build-packages:
+      - meson
+      - ninja-build
+      - gettext
+      - libglib2.0-dev
+      - libgtk-4-dev
+      - desktop-file-utils
+    stage-packages:
+      - libssl-dev
+      - libc6
+      - libstdc++6
+    organize:
+      usr/local: usr
+    override-prime: |
+      craftctl default
+      sed -i 's|Icon=.*|Icon=/usr/share/icons/hicolor/scalable/apps/io.github.giantpinkrobots.varia.svg|' usr/share/applications/io.github.giantpinkrobots.varia.desktop
+
+apps:
+  varia:
+    extensions: [gnome]
+    command: usr/bin/varia
+    slots:
+      - dbus-varia
+    plugs:
+      - network
+      - home
+      - wayland
+      - x11
+      - desktop
+      - desktop-legacy
+      - shutdown
+    desktop: usr/share/applications/io.github.giantpinkrobots.varia.desktop
+    common-id: io.github.giantpinkrobots.varia.desktop

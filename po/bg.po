@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: varia\n"
+"Project-Id-Version: Varia\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2024-09-22 12:29+0200\n"
+"PO-Revision-Date: 2024-12-25 16:16+0200\n"
 "Last-Translator: twlvnn kraftwerk <kraft_werk@tutanota.com>\n"
 "Language-Team: Bulgarian <dict-notifications@fsa-bg.org>\n"
 "Language: bg\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Gtranslator 46.1\n"
+"X-Generator: Gtranslator 47.1\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -194,7 +194,7 @@ msgstr "Парола"
 
 #: src/variamain.py:554
 msgid "Authorization failed."
-msgstr "Упълномощяването е неуспешно."
+msgstr "Упълномощаването е неуспешно."
 
 #: src/variamain.py:806
 msgid "Failed to open directory."
@@ -287,6 +287,7 @@ msgstr "Спиране на изтеглянето по това време"
 msgid "Add Timespan"
 msgstr "Добавяне на времеви интервал"
 
+#: When a download is currently seeding:
 msgid "Seeding"
 msgstr "Разпръскване"
 
@@ -331,6 +332,145 @@ msgstr "Стартиране във фонов режим"
 
 msgid "Remote Timestamp"
 msgstr "Дата на отдалеченото място"
+
+msgid "Torrent"
+msgstr "Торент"
+
+# Updater
+msgid "Checking for updates..."
+msgstr "Проверяване за обновления..."
+
+msgid "A new version of Varia is available. Do you want to update?"
+msgstr ""
+"Има нова версия на „Varia“, която е налична за инсталиране. Искате ли да "
+"обновите?"
+
+msgid "Update available"
+msgstr "Налично е обновление"
+
+msgid "Update"
+msgstr "Обновяване"
+
+msgid "Downloading update..."
+msgstr "Изтегляне на обновлението..."
+
+msgid "Download failed."
+msgstr "Изтеглянето е неуспешно."
+
+msgid "Yes"
+msgstr "Да"
+
+msgid "No"
+msgstr "Не"
+
+msgid "Automatically Check for Updates"
+msgstr "Автоматично проверяване за обновления"
+
+msgid "Check Now"
+msgstr "Проверяване"
+
+msgid "Do you want to check for updates on startup?"
+msgstr "Искате ли да се проверява за обновления при стартиране?"
+
+msgid "File"
+msgstr ""
+
+msgid "Video / Audio"
+msgstr ""
+
+msgid "Video and audio"
+msgstr ""
+
+msgid "Video only"
+msgstr ""
+
+msgid "Audio only"
+msgstr ""
+
+#: Relating to video download:
+msgid "Framerate:"
+msgstr ""
+
+#: Relating to video download:
+msgid "Bitrate:"
+msgstr ""
+
+# Updater
+#, fuzzy
+#| msgid "Checking for updates..."
+msgid "Checking video..."
+msgstr "Проверяване за обновления..."
+
+msgid "No video or audio streams found"
+msgstr ""
+
+msgid "Starting download..."
+msgstr ""
+
+msgid ""
+"The video platform may not be supported or you may be being blocked by the "
+"platform. If you have an active VPN connection that might be the cause, or "
+"you can try importing your browser's cookies through a cookies.txt file."
+msgstr ""
+
+msgid "This will disable the video download functionality."
+msgstr ""
+
+#: Relating to video download progress where it says "Part 1/2" - {indicator}
+#: is replaced by "1/2" or "2/2" (don't translate {indicator})
+msgid "Part {indicator}"
+msgstr ""
+
+#, fuzzy
+#| msgid "Simultaneous Download Amount"
+msgid "Simultaneous download limit exceeded, waiting."
+msgstr "Количество едновременни изтегляния"
+
+#: The way percentages will be shown, like 10% or %10 depending on the language
+#: (don't translate {number}, just move it if needed)
+msgid "{number}%"
+msgstr ""
+
+#, fuzzy
+#| msgid "Seeding"
+msgid "Allow Seeding"
+msgstr "Разпръскване"
+
+#, fuzzy
+#| msgid "Speed Limit"
+msgid "Seeding Ratio Limit"
+msgstr "Ограничение на скоростта"
+
+#, fuzzy
+#| msgid "Torrent"
+msgid "Torrent Settings"
+msgstr "Торент"
+
+#, fuzzy
+#| msgid "Download Directory"
+msgid "Custom Download Directory for Torrents"
+msgstr "Папка за изтегляне"
+
+#: When the user attempts to disable seeding
+msgid ""
+"As torrenting relies on people seeding data, disabling seeding is very much "
+"frowned upon and may result in you getting throttled or banned by certain "
+"clients and trackers. Clients are usually expected to seed at least as much "
+"as they download (a ratio of 1). You may want to consider limiting your "
+"seeding ratio instead."
+msgstr ""
+
+#, fuzzy
+#| msgid "Seeding"
+msgid "Cancel Seeding"
+msgstr "Разпръскване"
+
+# Save button
+msgid "Save"
+msgstr ""
+
+msgid "Show Menu"
+msgstr ""
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

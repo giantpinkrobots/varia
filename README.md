@@ -1,9 +1,16 @@
+### *Important for translators: There's now a Weblate instance for Varia, please refer to [the contributing page](https://github.com/giantpinkrobots/varia/blob/next/CONTRIBUTING.md).*
+
+<br>
+
+# 
+<br>
+
 <center>
 <p><img src="https://raw.githubusercontent.com/giantpinkrobots/varia/main/windows/icon.ico" width=200 /></p>
 
 # Varia
 
-<h3>Download manager based on aria2</h3>
+<h3>Quick and efficient download manager</h3>
 
 <h3><a href="https://giantpinkrobots.github.io/varia">🌐 Homepage</a></h3>
 
@@ -11,18 +18,17 @@
 
 | Download for Linux | Download for Windows | Browser Extension |
 | -------- | ------- | ------- |
-| [⬇ Flathub](https://flathub.org/apps/io.github.giantpinkrobots.varia) | [⬇ Installer](https://github.com/giantpinkrobots/varia/releases/download/v2024.11.7-1/varia-windows-setup-amd64.exe) | [❖ Firefox](https://addons.mozilla.org/firefox/addon/varia-integrator/) |
-| [⬇ AUR (unofficial)](https://aur.archlinux.org/packages/varia) | [⬇ Portable](https://github.com/giantpinkrobots/varia/releases/download/v2024.11.7-1/varia-windows-portable-amd64.zip) | [❖ Chrome](https://chrome.google.com/webstore/detail/dacakhfljjhgdfdlgjpabkkjhbpcmiff) |
+| [⬇ Flathub](https://flathub.org/apps/io.github.giantpinkrobots.varia) | [⬇ Installer](https://github.com/giantpinkrobots/varia/releases/download/v2025.1.24/varia-windows-setup-amd64.exe) | [❖ Firefox](https://addons.mozilla.org/firefox/addon/varia-integrator/) |
+| [⬇ AUR (unofficial)](https://aur.archlinux.org/packages/varia) | [⬇ Portable](https://github.com/giantpinkrobots/varia/releases/download/v2025.1.24/varia-windows-portable-amd64.zip) | [❖ Chrome](https://chrome.google.com/webstore/detail/dacakhfljjhgdfdlgjpabkkjhbpcmiff) |
 
 <br>
 
-Varia is a simple download manager that conforms to the latest Libadwaita design guidelines, integrating nicely with GNOME. It uses the amazing aria2 to handle the downloads.
+Varia is a simple download manager that conforms to the latest Libadwaita design guidelines, integrating nicely with GNOME. It utilizes aria2 and yt-dlp to handle regular files, torrents and video/audio stream downloads.
 
 </center>
 
 <p float="left" align="middle">
   <img src="https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-1.png" width=400 />
-  <img src="https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-2.png" width=400 />
 </p>
 
 <p>
@@ -30,6 +36,12 @@ Varia is a simple download manager that conforms to the latest Libadwaita design
 ![](https://img.shields.io/github/commits-since/giantpinkrobots/varia/latest/main?label=commits%20since%20latest%20release)  ![](https://img.shields.io/github/forks/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/stars/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/watchers/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/issues/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/issues-closed/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/issues-pr/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/issues-pr-closed/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/license/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/followers/giantpinkrobots.svg?style=social&label=Follow&maxAge=2592000)
 
 </p>
+
+<a href="https://hosted.weblate.org/engage/varia/">
+<img src="https://hosted.weblate.org/widget/varia/multi-auto.svg" alt="Translation status" />
+</a>
+
+<br><br>
 
 It supports basic functionality like continuing incomplete downloads from the previous session upon startup, pausing/cancelling all downloads at once, setting a speed limit, authentication with a username/password, setting the simultaneous download amount and setting the download directory.
 
@@ -68,21 +80,24 @@ To build Varia without Flatpak or GNOME Builder though, you'll need:
 - Libadwaita
 - gettext
 - aria2 and the aria2p python package.
+- yt-dlp python package
+- FFmpeg (without GPL is okay)
 
 To install the ones besides aria2p on some Linux systems:
 ```
 Ubuntu, Debian, Mint etc:
-sudo apt install meson ninja-build aria2 python-setuptools libgtk-4-dev libadwaita-1-0 gettext
+sudo apt install meson ninja-build aria2 python-setuptools libgtk-4-dev libadwaita-1-0 gettext ffmpeg
 
 Fedora, RHEL etc:
-sudo dnf install meson ninja-build aria2 python-setuptools gtk4-devel libadwaita gettext
+sudo dnf install meson ninja-build aria2 python-setuptools gtk4-devel libadwaita gettext ffmpeg
 
 Arch, EndeavourOS, Manjaro etc:
-sudo pacman -S meson aria2 python-setuptools gtk4 libadwaita gettext
+sudo pacman -S meson aria2 python-setuptools gtk4 libadwaita gettext ffmpeg
 ```
-To install aria2p using pip (your distro probably doesn't have it in its repos - it's on the AUR for Arch):
+To install aria2p and yt-dlp using pip (your distro probably doesn't have them in its repos - they're on the AUR for Arch):
 ```
 pip install aria2p
+pip install yt-dlp
 ```
 Then, you can use meson commands to build Varia:
 ```
@@ -117,6 +132,8 @@ Varia will be built into src/dist/variamain. Main executable is variamain.exe.
 
 But, it also relies on the following pieces of software and libraries:
 - aria2
+- yt-dlp
+- FFmpeg
 - OpenSSL
 - aria2p
 - GTK4

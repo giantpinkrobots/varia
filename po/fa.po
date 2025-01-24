@@ -3,31 +3,34 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2024-04-04 21:16+0330\n"
-"Last-Translator: Mohammad Ostadi <mrostd@gmail.com>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2025-01-17 14:21+0000\n"
+"Last-Translator: Prefill add-on <noreply-addon-prefill@weblate.org>\n"
+"Language-Team: Persian <https://hosted.weblate.org/projects/varia/glossary/"
+"fa/>\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.4.2\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:3
+#, fuzzy
 msgid "Varia"
-msgstr ""
+msgstr "Varia"
 
 #. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
 #: data/io.github.giantpinkrobots.varia.desktop.in:11
+#, fuzzy
 msgid "varia;aria;download;manager;"
-msgstr ""
+msgstr "varia;aria;download;manager;"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
 msgid "Download manager based on aria2"
@@ -239,6 +242,239 @@ msgstr "لغو"
 
 msgid "Warning"
 msgstr "هشدار"
+
+msgid "Monday"
+msgstr ""
+
+msgid "Tuesday"
+msgstr ""
+
+msgid "Wednesday"
+msgstr ""
+
+msgid "Thursday"
+msgstr ""
+
+msgid "Friday"
+msgstr ""
+
+msgid "Saturday"
+msgstr ""
+
+msgid "Sunday"
+msgstr ""
+
+msgid "Start (h/m):"
+msgstr ""
+
+msgid "End (h/m):"
+msgstr ""
+
+msgid "Scheduler enabled"
+msgstr ""
+
+msgid "Scheduler"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "Start downloading in these times"
+msgstr ""
+
+msgid "Stop downloading in these times"
+msgstr ""
+
+msgid "Add Timespan"
+msgstr ""
+
+#: When a download is currently seeding:
+msgid "Seeding"
+msgstr ""
+
+msgid "Failed"
+msgstr ""
+
+msgid "Completion Options"
+msgstr ""
+
+#, fuzzy
+#| msgid "Shutdown on Completion"
+msgid "Exit on Completion"
+msgstr "خاموش شدن پس از اتمام"
+
+#, fuzzy
+#| msgid "Varia is about to shut down your computer."
+msgid "Varia is about to quit."
+msgstr "Varia در شرف خاموش کردن رایانه شما است."
+
+msgid "Preferences"
+msgstr ""
+
+msgid "Other"
+msgstr ""
+
+msgid "Basic Settings"
+msgstr ""
+
+msgid "Advanced Settings"
+msgstr ""
+
+msgid "Use cookies.txt"
+msgstr ""
+
+msgid "Import cookies.txt"
+msgstr ""
+
+msgid "Remove cookies.txt"
+msgstr ""
+
+#, fuzzy
+#| msgid "Warning"
+msgid "remaining"
+msgstr "هشدار"
+
+#, fuzzy
+#| msgid "Background Mode"
+msgid "Start in Background Mode"
+msgstr "حالت پس‌زمینه"
+
+msgid "Remote Timestamp"
+msgstr ""
+
+msgid "Torrent"
+msgstr ""
+
+# Updater
+msgid "Checking for updates..."
+msgstr ""
+
+msgid "A new version of Varia is available. Do you want to update?"
+msgstr ""
+
+msgid "Update available"
+msgstr ""
+
+msgid "Update"
+msgstr ""
+
+#, fuzzy
+#| msgid "Download complete."
+msgid "Downloading update..."
+msgstr "بارگیری تکمیل شد."
+
+#, fuzzy
+#| msgid "Download complete."
+msgid "Download failed."
+msgstr "بارگیری تکمیل شد."
+
+msgid "Yes"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+msgid "Automatically Check for Updates"
+msgstr ""
+
+msgid "Check Now"
+msgstr ""
+
+msgid "Do you want to check for updates on startup?"
+msgstr ""
+
+msgid "File"
+msgstr ""
+
+msgid "Video / Audio"
+msgstr ""
+
+msgid "Video and audio"
+msgstr ""
+
+msgid "Video only"
+msgstr ""
+
+msgid "Audio only"
+msgstr ""
+
+#: Relating to video download:
+msgid "Framerate:"
+msgstr ""
+
+#: Relating to video download:
+msgid "Bitrate:"
+msgstr ""
+
+msgid "Checking video..."
+msgstr ""
+
+msgid "No video or audio streams found"
+msgstr ""
+
+msgid "Starting download..."
+msgstr ""
+
+msgid ""
+"The video platform may not be supported or you may be being blocked by the "
+"platform. If you have an active VPN connection that might be the cause, or "
+"you can try importing your browser's cookies through a cookies.txt file."
+msgstr ""
+
+msgid "This will disable the video download functionality."
+msgstr ""
+
+#: Relating to video download progress where it says "Part 1/2" - {indicator}
+#: is replaced by "1/2" or "2/2" (don't translate {indicator})
+msgid "Part {indicator}"
+msgstr ""
+
+#, fuzzy
+#| msgid "Simultaneous Download Amount"
+msgid "Simultaneous download limit exceeded, waiting."
+msgstr "مقدار بارگیری همزمان"
+
+#: The way percentages will be shown, like 10% or %10 depending on the language
+#: (don't translate {number}, just move it if needed)
+msgid "{number}%"
+msgstr ""
+
+msgid "Allow Seeding"
+msgstr ""
+
+#, fuzzy
+#| msgid "Speed Limit"
+msgid "Seeding Ratio Limit"
+msgstr "محدودیت سرعت"
+
+msgid "Torrent Settings"
+msgstr ""
+
+#, fuzzy
+#| msgid "Download Directory"
+msgid "Custom Download Directory for Torrents"
+msgstr "شاخهٔ بارگیری"
+
+#: When the user attempts to disable seeding
+msgid ""
+"As torrenting relies on people seeding data, disabling seeding is very much "
+"frowned upon and may result in you getting throttled or banned by certain "
+"clients and trackers. Clients are usually expected to seed at least as much "
+"as they download (a ratio of 1). You may want to consider limiting your "
+"seeding ratio instead."
+msgstr ""
+
+#, fuzzy
+#| msgid "Cancel"
+msgid "Cancel Seeding"
+msgstr "لغو"
+
+# Save button
+msgid "Save"
+msgstr ""
+
+msgid "Show Menu"
+msgstr ""
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

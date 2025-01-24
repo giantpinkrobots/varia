@@ -27,6 +27,7 @@
     ],
     "modules" : [
         "./python3-aria2p.json",
+        "./python3-yt-dlp.json",
         {
             "name" : "aria2",
             "buildsystem" : "autotools",
@@ -53,6 +54,31 @@
                     "type" : "archive",
                     "url" : "https://github.com/aria2/aria2/releases/download/release-1.37.0/aria2-1.37.0.tar.xz",
                     "sha256" : "60a420ad7085eb616cb6e2bdf0a7206d68ff3d37fb5a956dc44242eb2f79b66b"
+                }
+            ]
+        },
+        {
+            "name": "ffmpeg",
+            "config-opts": [
+                "--disable-debug",
+                "--disable-devices",
+                "--disable-doc",
+                "--disable-ffplay",
+                "--disable-static",
+                "--enable-gnutls",
+                "--enable-libmp3lame",
+                "--enable-libopus",
+                "--enable-libvorbis",
+                "--enable-shared"
+            ],
+            "cleanup": [
+                "/share/ffmpeg"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://ffmpeg.org/releases/ffmpeg-7.1.tar.xz",
+                    "sha256": "40973d44970dbc83ef302b0609f2e74982be2d85916dd2ee7472d30678a7abe6"
                 }
             ]
         },

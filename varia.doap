@@ -1,0 +1,28 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/"
+         xmlns:gnome="http://api.gnome.org/doap-extensions#"
+         xmlns="http://usefulinc.com/ns/doap#">
+
+  <name xml:lang="en">Varia</name>
+  <shortdesc xml:lang="en">Download files, videos and torrents</shortdesc>
+  <homepage rdf:resource="https://giantpinkrobots.github.io/varia/" />
+  <bug-database rdf:resource="https://github.com/giantpinkrobots/varia/issues" />
+
+  <programming-language>Python</programming-language>
+  <platform>GTK 4</platform>
+  <platform>Libadwaita</platform>
+
+  <maintainer>
+    <foaf:Person>
+      <foaf:name>Giant Pink Robots!</foaf:name>
+      <foaf:mbox rdf:resource="mailto:giantpinkrobots@protonmail.com" />
+      <foaf:account>
+        <foaf:OnlineAccount>
+          <foaf:accountServiceHomepage rdf:resource="https://github.com"/>
+          <foaf:accountName>giantpinkrobots</foaf:accountName>
+        </foaf:OnlineAccount>
+      </foaf:account>
+    </foaf:Person>
+  </maintainer>
+</Project>
