@@ -286,6 +286,7 @@ msgstr "Dejar de descargar en estos tiempos"
 msgid "Add Timespan"
 msgstr "Añadir intervalo de tiempo"
 
+#: When a download is currently seeding:
 msgid "Seeding"
 msgstr "Compartiendo"
 
@@ -367,6 +368,106 @@ msgstr "Comprobar ahora"
 
 msgid "Do you want to check for updates on startup?"
 msgstr "¿Quiere comprobar si hay actualizaciones al iniciar?"
+
+msgid "File"
+msgstr ""
+
+msgid "Video / Audio"
+msgstr ""
+
+msgid "Video and audio"
+msgstr ""
+
+msgid "Video only"
+msgstr ""
+
+msgid "Audio only"
+msgstr ""
+
+#: Relating to video download:
+msgid "Framerate:"
+msgstr ""
+
+#: Relating to video download:
+msgid "Bitrate:"
+msgstr ""
+
+# Updater
+#, fuzzy
+#| msgid "Checking for updates..."
+msgid "Checking video..."
+msgstr "Comprobando las actualizaciones..."
+
+msgid "No video or audio streams found"
+msgstr ""
+
+msgid "Starting download..."
+msgstr ""
+
+msgid ""
+"The video platform may not be supported or you may be being blocked by the "
+"platform. If you have an active VPN connection that might be the cause, or "
+"you can try importing your browser's cookies through a cookies.txt file."
+msgstr ""
+
+msgid "This will disable the video download functionality."
+msgstr ""
+
+#: Relating to video download progress where it says "Part 1/2" - {indicator}
+#: is replaced by "1/2" or "2/2" (don't translate {indicator})
+msgid "Part {indicator}"
+msgstr ""
+
+#, fuzzy
+#| msgid "Simultaneous Download Amount"
+msgid "Simultaneous download limit exceeded, waiting."
+msgstr "Número de descargas simultáneas"
+
+#: The way percentages will be shown, like 10% or %10 depending on the language
+#: (don't translate {number}, just move it if needed)
+msgid "{number}%"
+msgstr ""
+
+#, fuzzy
+#| msgid "Seeding"
+msgid "Allow Seeding"
+msgstr "Compartiendo"
+
+#, fuzzy
+#| msgid "Speed Limit"
+msgid "Seeding Ratio Limit"
+msgstr "Límite de velocidad"
+
+#, fuzzy
+#| msgid "Torrent"
+msgid "Torrent Settings"
+msgstr "Torrent"
+
+#, fuzzy
+#| msgid "Download Directory"
+msgid "Custom Download Directory for Torrents"
+msgstr "Directorio de descargas"
+
+#: When the user attempts to disable seeding
+msgid ""
+"As torrenting relies on people seeding data, disabling seeding is very much "
+"frowned upon and may result in you getting throttled or banned by certain "
+"clients and trackers. Clients are usually expected to seed at least as much "
+"as they download (a ratio of 1). You may want to consider limiting your "
+"seeding ratio instead."
+msgstr ""
+
+#, fuzzy
+#| msgid "Seeding"
+msgid "Cancel Seeding"
+msgstr "Compartiendo"
+
+# Save button
+msgid "Save"
+msgstr ""
+
+msgid "Show Menu"
+msgstr ""
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

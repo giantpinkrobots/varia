@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: varia main\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2024-09-22 17:57+0800\n"
-"Last-Translator: lumingzh <lumingzh@qq.com>\n"
-"Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
+"PO-Revision-Date: 2025-01-21 15:00+0000\n"
+"Last-Translator: E Infantry <y13558552630@gmail.com>\n"
+"Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
+"projects/varia/glossary/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 46.1\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -285,6 +286,7 @@ msgstr "在这些时间停止下载"
 msgid "Add Timespan"
 msgstr "添加时间间隔"
 
+#: When a download is currently seeding:
 msgid "Seeding"
 msgstr "正在做种"
 
@@ -329,6 +331,132 @@ msgstr "以后台模式启动"
 
 msgid "Remote Timestamp"
 msgstr "远程时间戳"
+
+msgid "Torrent"
+msgstr "磁力"
+
+# Updater
+msgid "Checking for updates..."
+msgstr "检查更新"
+
+msgid "A new version of Varia is available. Do you want to update?"
+msgstr "本软件有可用更新。是否更新？"
+
+msgid "Update available"
+msgstr "可用的更新"
+
+msgid "Update"
+msgstr "更新"
+
+msgid "Downloading update..."
+msgstr "下载更新中......"
+
+msgid "Download failed."
+msgstr "下载失败。"
+
+msgid "Yes"
+msgstr "是"
+
+msgid "No"
+msgstr "否"
+
+msgid "Automatically Check for Updates"
+msgstr "自动检查更新"
+
+msgid "Check Now"
+msgstr "现在检测"
+
+msgid "Do you want to check for updates on startup?"
+msgstr "是否在启动时检测更新？"
+
+msgid "File"
+msgstr "文件"
+
+msgid "Video / Audio"
+msgstr "视频/音频"
+
+msgid "Video and audio"
+msgstr "音视频"
+
+msgid "Video only"
+msgstr "仅视频"
+
+msgid "Audio only"
+msgstr "仅音频"
+
+#: Relating to video download:
+msgid "Framerate:"
+msgstr ""
+
+#: Relating to video download:
+msgid "Bitrate:"
+msgstr "比特率"
+
+msgid "Checking video..."
+msgstr "检测视频中..."
+
+msgid "No video or audio streams found"
+msgstr "未检测到视频或音频流媒体"
+
+msgid "Starting download..."
+msgstr "开始下载中..."
+
+msgid ""
+"The video platform may not be supported or you may be being blocked by the "
+"platform. If you have an active VPN connection that might be the cause, or "
+"you can try importing your browser's cookies through a cookies.txt file."
+msgstr ""
+
+msgid "This will disable the video download functionality."
+msgstr ""
+
+#: Relating to video download progress where it says "Part 1/2" - {indicator}
+#: is replaced by "1/2" or "2/2" (don't translate {indicator})
+msgid "Part {indicator}"
+msgstr ""
+
+#, fuzzy
+#| msgid "Simultaneous Download Amount"
+msgid "Simultaneous download limit exceeded, waiting."
+msgstr "同时下载数量"
+
+#: The way percentages will be shown, like 10% or %10 depending on the language
+#: (don't translate {number}, just move it if needed)
+msgid "{number}%"
+msgstr ""
+
+#, fuzzy
+#| msgid "Seeding"
+msgid "Allow Seeding"
+msgstr "正在做种"
+
+msgid "Seeding Ratio Limit"
+msgstr "做种速度限制"
+
+msgid "Torrent Settings"
+msgstr "高级磁力设置"
+
+msgid "Custom Download Directory for Torrents"
+msgstr "自定义磁力下载目录"
+
+#: When the user attempts to disable seeding
+msgid ""
+"As torrenting relies on people seeding data, disabling seeding is very much "
+"frowned upon and may result in you getting throttled or banned by certain "
+"clients and trackers. Clients are usually expected to seed at least as much "
+"as they download (a ratio of 1). You may want to consider limiting your "
+"seeding ratio instead."
+msgstr ""
+
+msgid "Cancel Seeding"
+msgstr "取消做种"
+
+# Save button
+msgid "Save"
+msgstr "保存"
+
+msgid "Show Menu"
+msgstr ""
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

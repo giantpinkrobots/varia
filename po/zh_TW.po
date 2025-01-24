@@ -37,7 +37,9 @@ msgid ""
 "Varia is a download manager based on aria2 that utilizes GTK4 and Libadwaita "
 "to provide a easy to use interface that integrates well with the GNOME "
 "desktop."
-msgstr "Varia 基於 aria2 且使用 GTK4 與 Libadwaita 以提供易用介面，並與 Gnome 良好整合的下載管理員"
+msgstr ""
+"Varia 基於 aria2 且使用 GTK4 與 Libadwaita 以提供易用介面，並與 Gnome 良好整"
+"合的下載管理員"
 
 #: src/variamain.py:45
 msgid "This is not a valid URL."
@@ -152,7 +154,9 @@ msgid "This application relies on the following pieces of software:"
 msgstr "這程式需依賴以下幾款軟體："
 
 #: src/variamain.py:777
-msgid "The licenses of all of these pieces of software can be found in the dependencies_information directory in this application's app directory."
+msgid ""
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
 msgstr "全部協議可在此程式路徑中的 dependencies_information 內找到。"
 
 #: src/variamain.py:449
@@ -186,6 +190,277 @@ msgstr "密碼"
 #: src/variamain.py:554
 msgid "Authorization failed."
 msgstr "驗證失敗。"
+
+#: src/variamain.py:806
+msgid "Failed to open directory."
+msgstr ""
+
+msgid "Remote Mode"
+msgstr ""
+
+msgid "Remote aria2 IP"
+msgstr ""
+
+msgid "Remote aria2 Port"
+msgstr ""
+
+msgid "Remote aria2 RPC Secret"
+msgstr ""
+
+msgid "Remote Download Location"
+msgstr ""
+
+msgid "Exiting Varia..."
+msgstr ""
+
+msgid "Background Mode"
+msgstr ""
+
+msgid "Continuing the downloads in the background."
+msgstr ""
+
+msgid "Browser Extension"
+msgstr ""
+
+msgid "Shutdown on Completion"
+msgstr ""
+
+msgid "Varia is about to shut down your computer."
+msgstr ""
+
+msgid "Press Cancel to cancel and disable."
+msgstr ""
+
+#, fuzzy
+#| msgid "Cancel All"
+msgid "Cancel"
+msgstr "全部取消"
+
+msgid "Warning"
+msgstr ""
+
+msgid "Monday"
+msgstr ""
+
+msgid "Tuesday"
+msgstr ""
+
+msgid "Wednesday"
+msgstr ""
+
+msgid "Thursday"
+msgstr ""
+
+msgid "Friday"
+msgstr ""
+
+msgid "Saturday"
+msgstr ""
+
+msgid "Sunday"
+msgstr ""
+
+msgid "Start (h/m):"
+msgstr ""
+
+msgid "End (h/m):"
+msgstr ""
+
+msgid "Scheduler enabled"
+msgstr ""
+
+msgid "Scheduler"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "Start downloading in these times"
+msgstr ""
+
+msgid "Stop downloading in these times"
+msgstr ""
+
+msgid "Add Timespan"
+msgstr ""
+
+#: When a download is currently seeding:
+msgid "Seeding"
+msgstr ""
+
+msgid "Failed"
+msgstr ""
+
+msgid "Completion Options"
+msgstr ""
+
+msgid "Exit on Completion"
+msgstr ""
+
+msgid "Varia is about to quit."
+msgstr ""
+
+msgid "Preferences"
+msgstr ""
+
+msgid "Other"
+msgstr ""
+
+msgid "Basic Settings"
+msgstr ""
+
+msgid "Advanced Settings"
+msgstr ""
+
+msgid "Use cookies.txt"
+msgstr ""
+
+msgid "Import cookies.txt"
+msgstr ""
+
+msgid "Remove cookies.txt"
+msgstr ""
+
+msgid "remaining"
+msgstr ""
+
+msgid "Start in Background Mode"
+msgstr ""
+
+msgid "Remote Timestamp"
+msgstr ""
+
+msgid "Torrent"
+msgstr ""
+
+# Updater
+msgid "Checking for updates..."
+msgstr ""
+
+msgid "A new version of Varia is available. Do you want to update?"
+msgstr ""
+
+msgid "Update available"
+msgstr ""
+
+msgid "Update"
+msgstr ""
+
+#, fuzzy
+#| msgid "Download complete."
+msgid "Downloading update..."
+msgstr "下載完成。"
+
+#, fuzzy
+#| msgid "Download complete."
+msgid "Download failed."
+msgstr "下載完成。"
+
+msgid "Yes"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+msgid "Automatically Check for Updates"
+msgstr ""
+
+msgid "Check Now"
+msgstr ""
+
+msgid "Do you want to check for updates on startup?"
+msgstr ""
+
+msgid "File"
+msgstr ""
+
+msgid "Video / Audio"
+msgstr ""
+
+msgid "Video and audio"
+msgstr ""
+
+msgid "Video only"
+msgstr ""
+
+msgid "Audio only"
+msgstr ""
+
+#: Relating to video download:
+msgid "Framerate:"
+msgstr ""
+
+#: Relating to video download:
+msgid "Bitrate:"
+msgstr ""
+
+msgid "Checking video..."
+msgstr ""
+
+msgid "No video or audio streams found"
+msgstr ""
+
+msgid "Starting download..."
+msgstr ""
+
+msgid ""
+"The video platform may not be supported or you may be being blocked by the "
+"platform. If you have an active VPN connection that might be the cause, or "
+"you can try importing your browser's cookies through a cookies.txt file."
+msgstr ""
+
+msgid "This will disable the video download functionality."
+msgstr ""
+
+#: Relating to video download progress where it says "Part 1/2" - {indicator}
+#: is replaced by "1/2" or "2/2" (don't translate {indicator})
+msgid "Part {indicator}"
+msgstr ""
+
+#, fuzzy
+#| msgid "Simultaneous Download Amount"
+msgid "Simultaneous download limit exceeded, waiting."
+msgstr "同時下載數量"
+
+#: The way percentages will be shown, like 10% or %10 depending on the language
+#: (don't translate {number}, just move it if needed)
+msgid "{number}%"
+msgstr ""
+
+msgid "Allow Seeding"
+msgstr ""
+
+#, fuzzy
+#| msgid "Speed Limit"
+msgid "Seeding Ratio Limit"
+msgstr "限速"
+
+msgid "Torrent Settings"
+msgstr ""
+
+#, fuzzy
+#| msgid "Download Directory"
+msgid "Custom Download Directory for Torrents"
+msgstr "下載路徑"
+
+#: When the user attempts to disable seeding
+msgid ""
+"As torrenting relies on people seeding data, disabling seeding is very much "
+"frowned upon and may result in you getting throttled or banned by certain "
+"clients and trackers. Clients are usually expected to seed at least as much "
+"as they download (a ratio of 1). You may want to consider limiting your "
+"seeding ratio instead."
+msgstr ""
+
+msgid "Cancel Seeding"
+msgstr ""
+
+# Save button
+msgid "Save"
+msgstr ""
+
+msgid "Show Menu"
+msgstr ""
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
