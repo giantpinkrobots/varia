@@ -1,0 +1,599 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the varia package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: varia\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-27 22:56-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Translators: Do NOT translate or localize the application name.
+#: data/io.github.giantpinkrobots.varia.desktop.in:3
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:3
+msgid "Varia"
+msgstr ""
+
+#: data/io.github.giantpinkrobots.varia.desktop.in:4
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
+msgid "Download files, videos and torrents"
+msgstr ""
+
+#. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
+#: data/io.github.giantpinkrobots.varia.desktop.in:11
+msgid "varia;aria;download;manager;torrent;bittorrent;video;audio;media;ytdlp;YouTube;downloader"
+msgstr ""
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:10
+msgid "Giant Pink Robots!"
+msgstr ""
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:44
+msgid "Varia is better than your browser at downloading stuff."
+msgstr ""
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:47
+msgid ""
+"Supporting videos and torrents on top of just regular files, and with a "
+"variety of advanced features wrapped inside an easy to understand interface, "
+"Varia is both quite powerful and dead simple to use:"
+msgstr ""
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:51
+msgid ""
+"Download anything you want quickly - potentially faster than your browser, "
+"continue incomplete downloads even after reboots"
+msgstr ""
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:54
+msgid ""
+"Download video and audio from thousands of websites (anything supported by "
+"yt-dlp) including YouTube, TikTok, Twitter etc"
+msgstr ""
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:57
+msgid ""
+"Integrate with Firefox and Chrome (or any Chromium based browser like Brave "
+"or Opera) to redirect downloads"
+msgstr ""
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:60
+msgid ""
+"Schedule downloads with a powerful scheduler function allowing for custom "
+"timespans for each day of the week"
+msgstr ""
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:63
+msgid ""
+"Download from protected areas with basic auth and cookies.txt import support"
+msgstr ""
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:66
+msgid "Control a remote aria2 instance running on any server"
+msgstr ""
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:70
+msgid ""
+"Varia uses GTK4 and Libadwaita for the user interface and utilizes Aria2 for "
+"the downloads underneath, as well as yt-dlp for videos. It is free software "
+"licensed under the Mozilla Public License 2.0. A list of dependencies can be "
+"viewed through the Legal section in the About Varia page."
+msgstr ""
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:104
+msgid "Support for downloading videos and audio from links using yt-dlp."
+msgstr ""
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:105
+msgid "Adaptive layout for smaller window sizes and mobile devices."
+msgstr ""
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:106
+msgid "Support for dragging and dropping .torrent files."
+msgstr ""
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:107
+msgid ""
+"New settings to limit or disable torrent seeding, as well as setting a "
+"custom torrent download directory."
+msgstr ""
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:108
+msgid ""
+"Download states are saved upon addition so they're kept if the app crashes."
+msgstr ""
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:109
+msgid "Paused downloads stay paused upon restart of the app."
+msgstr ""
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:110
+msgid "Fixes for better performance and bug fixes."
+msgstr ""
+
+#: src/initiate.py:45
+msgid ""
+"Couldn't connect to remote aria2c instance. Disabling remote mode. Please "
+"restart Varia."
+msgstr ""
+
+#: src/initiate.py:46 src/download/videos.py:322 src/window/preferences.py:480
+#: src/window/preferences.py:718 src/window/updater.py:179
+msgid "OK"
+msgstr ""
+
+#: src/initiate.py:88 src/window/sidebar.py:121
+msgid "Torrent"
+msgstr ""
+
+#: src/initiate.py:128
+msgid "Do you want to check for updates on startup?"
+msgstr ""
+
+#: src/initiate.py:129 src/window/updater.py:94
+msgid "Yes"
+msgstr ""
+
+#: src/initiate.py:130 src/window/updater.py:95
+msgid "No"
+msgstr ""
+
+#: src/variamain.py:60 src/window/scheduler.py:109
+msgid "Scheduler enabled"
+msgstr ""
+
+#: src/variamain.py:316 src/variamain.py:318 src/download/thread.py:279
+msgid " B/s"
+msgstr ""
+
+#: src/variamain.py:320 src/download/thread.py:281
+msgid " KB/s"
+msgstr ""
+
+#: src/variamain.py:322 src/download/thread.py:283
+msgid " MB/s"
+msgstr ""
+
+#: src/variamain.py:338 src/window/content.py:145
+msgid "Resume All"
+msgstr ""
+
+#: src/variamain.py:347 src/variamain.py:364 src/download/actionrow.py:114
+#: src/download/thread.py:236 src/window/content.py:27
+#: src/window/content.py:150
+msgid "Pause All"
+msgstr ""
+
+#: src/variamain.py:380 src/variamain.py:382 src/window/sidebar.py:56
+msgid "Background Mode"
+msgstr ""
+
+#: src/variamain.py:381
+msgid "Continuing the downloads in the background."
+msgstr ""
+
+#: src/variamain.py:413
+msgid "Exiting Varia..."
+msgstr ""
+
+#: src/download/communicate.py:10
+msgid "Speed limited"
+msgstr ""
+
+#: src/download/listen.py:107
+msgid "Simultaneous download limit exceeded, waiting."
+msgstr ""
+
+#: src/download/listen.py:151 src/download/listen.py:185
+#: src/window/preferences.py:673
+msgid "Warning"
+msgstr ""
+
+#: src/download/listen.py:152 src/download/listen.py:156
+msgid "Varia is about to shut down your computer."
+msgstr ""
+
+#: src/download/listen.py:156 src/download/listen.py:190
+msgid "Press Cancel to cancel and disable."
+msgstr ""
+
+#: src/download/listen.py:157 src/download/listen.py:191
+#: src/window/preferences.py:679
+msgid "Cancel"
+msgstr ""
+
+#: src/download/listen.py:186 src/download/listen.py:190
+msgid "Varia is about to quit."
+msgstr ""
+
+#: src/download/thread.py:88
+msgid "This is not a valid URL."
+msgstr ""
+
+#: src/download/thread.py:208
+msgid "Starting download..."
+msgstr ""
+
+#: src/download/thread.py:218 src/download/thread.py:436
+#: src/download/thread.py:602 src/download/videos.py:315
+msgid "An error occurred:"
+msgstr ""
+
+#: src/download/thread.py:256
+msgid "Seeding torrent"
+msgstr ""
+
+#: src/download/thread.py:274 src/download/thread.py:324
+#, python-brace-format
+msgid "{number}%"
+msgstr ""
+
+#: src/download/thread.py:359 src/download/thread.py:361
+#, python-brace-format
+msgid "Part {indicator}"
+msgstr ""
+
+#: src/download/thread.py:363
+msgid "remaining"
+msgstr ""
+
+#: src/download/thread.py:583
+msgid "Download complete."
+msgstr ""
+
+#: src/download/thread.py:599
+msgid "Authorization failed."
+msgstr ""
+
+#: src/download/videos.py:28
+msgid "Checking video..."
+msgstr ""
+
+#: src/download/videos.py:177 src/download/videos.py:182
+#: src/download/videos.py:266
+msgid "Video and audio"
+msgstr ""
+
+#: src/download/videos.py:186 src/download/videos.py:191
+#: src/download/videos.py:218
+msgid "Video only"
+msgstr ""
+
+#: src/download/videos.py:195 src/download/videos.py:200
+#: src/download/videos.py:244
+msgid "Audio only"
+msgstr ""
+
+#: src/download/videos.py:205 src/window/sidebar.py:94
+msgid "Download"
+msgstr ""
+
+#: src/download/videos.py:230 src/download/videos.py:252
+#: src/download/videos.py:280
+msgid "Bitrate:"
+msgstr ""
+
+#: src/download/videos.py:302
+msgid "No video or audio streams found"
+msgstr ""
+
+#: src/download/videos.py:316
+msgid ""
+"The video platform may not be supported or you may be being blocked by the "
+"platform. If you have an active VPN connection that might be the cause, or "
+"you can try importing your browser's cookies through a cookies.txt file."
+msgstr ""
+
+#: src/window/content.py:51
+msgid "Show Menu"
+msgstr ""
+
+#: src/window/preferences.py:19 src/window/sidebar.py:22
+msgid "Preferences"
+msgstr ""
+
+#: src/window/preferences.py:22
+msgid "Basic Settings"
+msgstr ""
+
+#: src/window/preferences.py:23
+msgid "Torrent Settings"
+msgstr ""
+
+#: src/window/preferences.py:24
+msgid "Advanced Settings"
+msgstr ""
+
+#: src/window/preferences.py:42
+msgid "Automatically Check for Updates"
+msgstr ""
+
+#: src/window/preferences.py:45
+msgid "Check Now"
+msgstr ""
+
+#: src/window/preferences.py:61
+msgid "Browser Extension"
+msgstr ""
+
+#: src/window/preferences.py:84
+msgid "Download Directory"
+msgstr ""
+
+#: src/window/preferences.py:88 src/window/preferences.py:163
+#: src/window/preferences.py:404
+msgid "Change"
+msgstr ""
+
+#: src/window/preferences.py:94 src/window/preferences.py:203
+#: src/window/preferences.py:410 src/window/sidebar.py:202
+msgid "Remote Mode"
+msgstr ""
+
+#: src/window/preferences.py:110
+msgid "Speed Limit"
+msgstr ""
+
+#: src/window/preferences.py:118
+msgid "Speed"
+msgstr ""
+
+#: src/window/preferences.py:161 src/window/scheduler.py:149
+msgid "Scheduler"
+msgstr ""
+
+#: src/window/preferences.py:178
+msgid "Simultaneous Download Amount"
+msgstr ""
+
+#: src/window/preferences.py:186
+msgid "Start in Background Mode"
+msgstr ""
+
+#: src/window/preferences.py:204
+msgid "This will disable the video download functionality."
+msgstr ""
+
+#: src/window/preferences.py:243
+msgid "Remote aria2 IP"
+msgstr ""
+
+#: src/window/preferences.py:248
+msgid "Remote aria2 Port"
+msgstr ""
+
+#: src/window/preferences.py:253
+msgid "Remote aria2 RPC Secret"
+msgstr ""
+
+#: src/window/preferences.py:258
+msgid "Remote Download Location"
+msgstr ""
+
+#: src/window/preferences.py:276
+msgid "Remote Timestamp"
+msgstr ""
+
+#: src/window/preferences.py:285
+msgid "Authentication"
+msgstr ""
+
+#: src/window/preferences.py:293
+msgid "Username"
+msgstr ""
+
+#: src/window/preferences.py:298
+msgid "Password"
+msgstr ""
+
+#: src/window/preferences.py:321
+msgid "Use cookies.txt"
+msgstr ""
+
+#: src/window/preferences.py:328
+msgid "Import cookies.txt"
+msgstr ""
+
+#: src/window/preferences.py:333
+msgid "Remove cookies.txt"
+msgstr ""
+
+#: src/window/preferences.py:368
+msgid "Allow Seeding"
+msgstr ""
+
+#: src/window/preferences.py:383
+msgid "Seeding Ratio Limit"
+msgstr ""
+
+#: src/window/preferences.py:395
+msgid "Custom Download Directory for Torrents"
+msgstr ""
+
+#: src/window/preferences.py:479
+msgid "Failed to open directory."
+msgstr ""
+
+#: src/window/preferences.py:674
+msgid ""
+"As torrenting relies on people seeding data, disabling seeding is very much "
+"frowned upon and may result in you getting throttled or banned by certain "
+"clients and trackers. Clients are usually expected to seed at least as much "
+"as they download (a ratio of 1). You may want to consider limiting your "
+"seeding ratio instead."
+msgstr ""
+
+#: src/window/preferences.py:675
+msgid "Don't show again"
+msgstr ""
+
+#: src/window/preferences.py:678
+msgid "Disable Seeding"
+msgstr ""
+
+#: src/window/preferences.py:717
+msgid "Please restart Varia to apply the change."
+msgstr ""
+
+#: src/window/scheduler.py:24
+msgid "Monday"
+msgstr ""
+
+#: src/window/scheduler.py:24
+msgid "Tuesday"
+msgstr ""
+
+#: src/window/scheduler.py:24
+msgid "Wednesday"
+msgstr ""
+
+#: src/window/scheduler.py:24
+msgid "Thursday"
+msgstr ""
+
+#: src/window/scheduler.py:24
+msgid "Friday"
+msgstr ""
+
+#: src/window/scheduler.py:24
+msgid "Saturday"
+msgstr ""
+
+#: src/window/scheduler.py:24
+msgid "Sunday"
+msgstr ""
+
+#: src/window/scheduler.py:51
+msgid "Start (h/m):"
+msgstr ""
+
+#: src/window/scheduler.py:56
+msgid "End (h/m):"
+msgstr ""
+
+#: src/window/scheduler.py:175
+msgid "Enabled"
+msgstr ""
+
+#: src/window/scheduler.py:188
+msgid "Start downloading in these times"
+msgstr ""
+
+#: src/window/scheduler.py:199
+msgid "Stop downloading in these times"
+msgstr ""
+
+#: src/window/scheduler.py:225
+msgid "Add Timespan"
+msgstr ""
+
+#: src/window/scheduler.py:235
+msgid "Save"
+msgstr ""
+
+#: src/window/sidebar.py:26
+msgid "Other"
+msgstr ""
+
+#: src/window/sidebar.py:60
+msgid "Cancel All"
+msgstr ""
+
+#: src/window/sidebar.py:63
+msgid "Open Download Folder"
+msgstr ""
+
+#: src/window/sidebar.py:68 src/window/sidebar.py:305
+msgid "Exit on Completion"
+msgstr ""
+
+#: src/window/sidebar.py:71 src/window/sidebar.py:296
+msgid "Shutdown on Completion"
+msgstr ""
+
+#: src/window/sidebar.py:74
+msgid "Completion Options"
+msgstr ""
+
+#: src/window/sidebar.py:76
+msgid "About Varia"
+msgstr ""
+
+#: src/window/sidebar.py:91
+msgid "URL"
+msgstr ""
+
+#: src/window/sidebar.py:106
+msgid "Video / Audio"
+msgstr ""
+
+#: src/window/sidebar.py:144
+msgid "All"
+msgstr ""
+
+#: src/window/sidebar.py:157
+msgid "In Progress"
+msgstr ""
+
+#: src/window/sidebar.py:169
+msgid "Completed"
+msgstr ""
+
+#: src/window/sidebar.py:181
+msgid "Seeding"
+msgstr ""
+
+#: src/window/sidebar.py:193
+msgid "Failed"
+msgstr ""
+
+#: src/window/sidebar.py:264
+msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
+msgstr ""
+
+#: src/window/sidebar.py:267
+msgid "This application relies on the following pieces of software:"
+msgstr ""
+
+#: src/window/sidebar.py:269
+msgid ""
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
+msgstr ""
+
+#: src/window/sidebar.py:272
+msgid "translator-credits"
+msgstr ""
+
+#: src/window/updater.py:29
+msgid "Checking for updates..."
+msgstr ""
+
+#: src/window/updater.py:93
+msgid "A new version of Varia is available. Do you want to update?"
+msgstr ""
+
+#: src/window/updater.py:102
+msgid "Update available"
+msgstr ""
+
+#: src/window/updater.py:103
+msgid "Update"
+msgstr ""
+
+#: src/window/updater.py:130
+msgid "Downloading update..."
+msgstr ""
+
+#: src/window/updater.py:178
+msgid "Download failed."
+msgstr ""
