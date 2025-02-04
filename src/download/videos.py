@@ -312,8 +312,8 @@ def on_video_clicked(button, self, entry):
         else:
             # Show error dialog if something went wrong
             error_body = (
-                f"{_("An error occurred:")}\n\n"
-                f"{_("The video platform may not be supported or you may be being blocked by the platform. If you have an active VPN connection that might be the cause, or you can try importing your browser's cookies through a cookies.txt file.")}\n\n\n"
+                f'{_("An error occurred:")}\n\n'
+                f'{_("The video platform may not be supported or you may be being blocked by the platform. If you have an active VPN connection that might be the cause, or you can try importing your browsers cookies through a cookies.txt file.")}\n\n\n'
                 "────────────────────────────\n\n\n"
                 f"{self.escape_special_characters(ytdlp_error)}"
             )
