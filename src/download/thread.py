@@ -215,7 +215,7 @@ class DownloadThread(threading.Thread):
                     self.video_stop_event.clear()
                     self.cancelled = True
                 except Exception as e:
-                    GLib.idle_add(self.speed_label.set_text, f"{_("An error occurred:")} {self.app.escape_special_characters(str(e))}")
+                    GLib.idle_add(self.speed_label.set_text, f'{_("An error occurred:")} {self.app.escape_special_characters(str(e))}')
                     self.video_stop_event.clear()
                     self.cancelled = True
                     GLib.idle_add(self.set_failed, None)
