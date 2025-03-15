@@ -40,11 +40,13 @@ except:
 if __name__ == '__main__':
 	if snap_dir != None:
 		mymodule_dir = os.path.join(snap_dir, 'usr/share/varia/varia')
+		issnap = True
 
 	else:
 		mymodule_dir = os.path.join(pkgdatadir, 'varia')
+		issnap = False
 
 	sys.path.append( mymodule_dir )
 	os.listdir(mymodule_dir)
 	from variamain import main
-	sys.exit(main(VERSION, aria2cexec, ffmpegexec))
+	sys.exit(main(VERSION, aria2cexec, ffmpegexec, issnap))

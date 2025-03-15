@@ -1,7 +1,7 @@
 {
     "id" : "io.github.giantpinkrobots.varia",
     "runtime" : "org.gnome.Platform",
-    "runtime-version" : "47",
+    "runtime-version" : "48beta",
     "sdk" : "org.gnome.Sdk",
     "command" : "varia",
     "//" : "Justifications for the permissions: This program utilizes aria2c, and aria2c requires the networking permission and the xdg-download directory in order to download files. It also has a 'shut down once all downloads are completed' feature that requires access to org.freedesktop.login1.",

@@ -23,7 +23,7 @@ if os.name != 'nt':
     from stringstorage import gettext as _
 
 class MainWindow(Adw.ApplicationWindow):
-    def __init__(self, variaapp, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, *args, **kwargs):
+    def __init__(self, variaapp, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, issnap, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
         from window.sidebar import window_create_sidebar
@@ -47,7 +47,7 @@ class MainWindow(Adw.ApplicationWindow):
         self.ffmpegexec = ffmpegexec
 
         # Set up variables and all:
-        aria2_connection_successful = initiate(self, variaapp, variaVersion, first_run)
+        aria2_connection_successful = initiate(self, variaapp, variaVersion, first_run, issnap)
 
         if (aria2_connection_successful == -1):
             return
@@ -454,17 +454,17 @@ class MainWindow(Adw.ApplicationWindow):
             self.exitProgram(variaapp, variaapp, False)
 
 class MyApp(Adw.Application):
-    def __init__(self, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, **kwargs):
+    def __init__(self, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, issnap, **kwargs):
         super().__init__(**kwargs)
-        self.connect('activate', self.on_activate, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec)
+        self.connect('activate', self.on_activate, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, issnap)
         quit_action = Gio.SimpleAction.new("quit", None)
         quit_action.connect("activate", self.quit_action)
         self.add_action(quit_action)
         self.initiated = False
 
-    def on_activate(self, app, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec):
+    def on_activate(self, app, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, issnap):
         if not hasattr(self, 'win'):
-            self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf, first_run=first_run, aria2c_subprocess=aria2c_subprocess, aria2cexec=aria2cexec, ffmpegexec=ffmpegexec)
+            self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf, first_run=first_run, aria2c_subprocess=aria2c_subprocess, aria2cexec=aria2cexec, ffmpegexec=ffmpegexec, issnap=issnap)
         
         try:
             if ((self.win.terminating == False) and ((appconf["default_mode"] == "visible") or (self.initiated == True))):
@@ -477,7 +477,7 @@ class MyApp(Adw.Application):
     def quit_action(self, action, parameter):
         self.win.quit_action_received(self)
 
-def main(version, aria2cexec, ffmpegexec):
+def main(version, aria2cexec, ffmpegexec, issnap):
     if "FLATPAK_ID" in os.environ:
         appdir = os.path.join('/var', 'data')
     else:
@@ -549,7 +549,7 @@ def main(version, aria2cexec, ffmpegexec):
     arguments = sys.argv
     if (len(arguments) > 1):
         arguments = arguments[:-3]
-    app = MyApp(appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, application_id="io.github.giantpinkrobots.varia")
+    app = MyApp(appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, issnap, application_id="io.github.giantpinkrobots.varia")
     app.run(arguments)
 
 if ((__name__ == '__main__') and (os.name == 'nt')):
@@ -568,4 +568,4 @@ if ((__name__ == '__main__') and (os.name == 'nt')):
 
     from stringstorage import gettext as _
     
-    sys.exit(main(variaVersion, os.path.join(os.getcwd(), "aria2c.exe"), os.path.join(os.getcwd(), "ffmpeg.exe")))
+    sys.exit(main(variaVersion, os.path.join(os.getcwd(), "aria2c.exe"), os.path.join(os.getcwd(), "ffmpeg.exe"), False))

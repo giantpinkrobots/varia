@@ -76,18 +76,23 @@ Varia uses GTK4 and Libadwaita for the user interface and utilizes Aria2 for the
 <translation type="gettext">varia</translation>
 <screenshots>
 <screenshot type="default">
+<caption>Main window</caption>
 <image>https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-1.png</image>
 </screenshot>
 <screenshot>
+<caption>Video/audio download dialog</caption>
 <image>https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-2.png</image>
 </screenshot>
 <screenshot>
+<caption>Scheduler setting dialog</caption>
 <image>https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-3.png</image>
 </screenshot>
 <screenshot>
+<caption>Preferences dialog</caption>
 <image>https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-4.png</image>
 </screenshot>
 <screenshot>
+<caption>Main window in dark mode</caption>
 <image>https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-5.png</image>
 </screenshot>
 </screenshots>

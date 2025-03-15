@@ -252,8 +252,11 @@ class DownloadThread(threading.Thread):
             speed = self.download.download_speed
             self.speed = speed
 
-            if ((self.download.is_torrent) and (self.download.seeder)):
-                GLib.idle_add(self.show_message(_("Seeding torrent")))
+            if self.download.is_torrent and self.download.seeder:
+                if self.app.appconf["torrent_seeding_enabled"] == "1":
+                    GLib.idle_add(self.show_message(_("Seeding torrent")))
+                else:
+                    GLib.idle_add(self.set_complete)
                 return
             
             download_delta = self.download.eta
@@ -461,7 +464,10 @@ class DownloadThread(threading.Thread):
                 downloadname = self.download.name
                 istorrent = self.download.is_torrent
 
-                self.download.remove(force=True)
+                try:
+                    self.download.remove(force=True)
+                except:
+                    print('Download couldn\'t be removed, probably already removed.')
 
                 if (deletefiles == True):
                     if os.path.exists(os.path.join(self.app.appconf["download_directory"], (downloadgid + ".varia"))):

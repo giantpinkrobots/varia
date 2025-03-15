@@ -65,18 +65,24 @@ def on_video_clicked(button, self, entry):
             uploader_name = data.get("uploader", "?")
 
             for fmt in data.get("formats", []):
-
+                print(fmt)
                 # If filesize is only approximate, take that as filesize
-                if fmt.get("filesize_approx", 0) != 0:
+                if fmt.get("filesize", 0) == 0 and fmt.get("filesize_approx", 0) != 0:
                     fmt["filesize"] = fmt["filesize_approx"]
 
+                if fmt.get("filesize", 0) == 0:
+                    fmt["filesize"] = 0
+
                 # Throw out unnecessary formats
-                if fmt.get("ext") == "mhtml" or fmt.get("filesize", 0) == 0:
+                if fmt.get("ext") == "mhtml":
                     continue
                 
                 # Video only
                 elif fmt["audio_ext"] == "none":
-                    if fmt.get("vbr", 0) != 0:
+                    bitrate = fmt.get("vbr", 0)
+                    if bitrate == 0 and fmt.get("tbr", 0) != 0:
+                        bitrate = fmt.get("tbr", 0)
+                    if bitrate != 0:
                         video_formats.append({
                             "id": fmt["format_id"],
                             "ext": fmt["ext"],
@@ -84,23 +90,27 @@ def on_video_clicked(button, self, entry):
                             "framerate": fmt.get("fps", None),
                             "filesize": fmt["filesize"],
                             "url": fmt["url"],
-                            "bitrate": fmt["vbr"],
+                            "bitrate": bitrate,
                         })
+                    print(fmt)
 
                 # Audio only
                 elif fmt["video_ext"] == "none":
-                    if fmt.get("abr", 0) != 0:
+                    bitrate = fmt.get("abr", 0)
+                    if bitrate == 0 and fmt.get("tbr", 0) != 0:
+                        bitrate = fmt.get("tbr", 0)
+                    if bitrate != 0:
                         audio_formats.append({
                             "id": fmt["format_id"],
                             "ext": fmt["ext"],
-                            "bitrate": fmt["abr"],
+                            "bitrate": bitrate,
                             "filesize": fmt["filesize"],
                             "url": fmt["url"],
                         })
 
                 # Video and audio
                 elif fmt["video_ext"] != "none" and fmt["audio_ext"] != "none":
-                    if fmt.get("vbr", 0) != 0 and fmt.get("abr", 0) != 0:
+                    if fmt.get("tbr", 0) != 0:
                         combined_formats.append({
                             "id": fmt["format_id"],
                             "ext": fmt["ext"],
@@ -108,8 +118,7 @@ def on_video_clicked(button, self, entry):
                             "framerate": fmt.get("fps", None),
                             "filesize": fmt["filesize"],
                             "url": fmt["url"],
-                            "bitrate-video": fmt["vbr"],
-                            "bitrate-audio": fmt["abr"],
+                            "bitrate": fmt.get("tbr", 0)
                         })
 
             # Match the video-only streams with the appropriate audio-only streams
@@ -130,7 +139,7 @@ def on_video_clicked(button, self, entry):
             # Add combined formats to the matched formats list
             for combined in combined_formats:
                 combined_size_bytes = combined["filesize"]
-                bitrate = str(combined["bitrate-video"]) + " - " + str(combined["bitrate-audio"])
+                bitrate = combined["bitrate"]
                 matched_formats.append([combined, None, combined_size_bytes, bitrate])
             
             # Sort the lists based on their filesize, from biggest to smallest
@@ -225,7 +234,10 @@ def on_video_clicked(button, self, entry):
                 if video_only_format["ext"] is not None:
                     actionrow_subtitle = video_only_format["ext"]
                 if video_only_format["filesize"] is not None:
-                    actionrow_subtitle += "  ·  " + str(format_filesize(video_only_format["filesize"]))
+                    formatted_filesize = str(format_filesize(video_only_format["filesize"]))
+                    if '0.00' in formatted_filesize:
+                        formatted_filesize = '?'
+                    actionrow_subtitle += "  ·  " + formatted_filesize
                 if video_only_format["bitrate"] is not None:
                     actionrow_subtitle += "  ·  " + _("Bitrate:") + " " + str(format_filesize(video_only_format["bitrate"]))
                 
@@ -247,7 +259,10 @@ def on_video_clicked(button, self, entry):
                 if audio_only_format["ext"] is not None:
                     actionrow_subtitle = audio_only_format["ext"]
                 if audio_only_format["filesize"] is not None:
-                    actionrow_subtitle += "  ·  " + str(format_filesize(audio_only_format["filesize"]))
+                    formatted_filesize = str(format_filesize(audio_only_format["filesize"]))
+                    if '0.00' in formatted_filesize:
+                        formatted_filesize = '?'
+                    actionrow_subtitle += "  ·  " + formatted_filesize
                 if audio_only_format["bitrate"] is not None:
                     actionrow_subtitle += "  ·  " + _("Bitrate:") + " " + str(format_filesize(audio_only_format["bitrate"]))
                 
@@ -273,7 +288,10 @@ def on_video_clicked(button, self, entry):
                 if complete_format[0]["ext"] is not None:
                     actionrow_subtitle = complete_format[0]["ext"]
                 if complete_format[2] is not None:
-                    actionrow_subtitle += "  ·  " + format_filesize(complete_format[2])
+                    formatted_filesize = str(format_filesize(complete_format[2]))
+                    if '0.00' in formatted_filesize:
+                        formatted_filesize = '?'
+                    actionrow_subtitle += "  ·  " + formatted_filesize
                 if complete_format[4] == True:
                     actionrow_subtitle += "?"
                 if complete_format[3] is not None:

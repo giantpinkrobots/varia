@@ -8,7 +8,7 @@ gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, Gio, Gdk
 from stringstorage import gettext as _
 
-def initiate(self, variaapp, variaVersion, first_run):
+def initiate(self, variaapp, variaVersion, first_run, issnap):
     self.downloaddir = self.appconf["download_directory"]
 
     self.applied_filter = "show_all"
@@ -131,6 +131,14 @@ def initiate(self, variaapp, variaVersion, first_run):
         dialog.set_response_appearance("yes", Adw.ResponseAppearance.SUGGESTED)
         dialog.connect("response", set_auto_updates, self, variaapp, variaVersion)
         dialog.set_close_response("no")
+        dialog.present(self)
+
+    elif issnap and first_run:
+        dialog = Adw.AlertDialog()
+        dialog.set_body(_("You are using Varia as a Snap package. To be able to use the shutdown on completion option you must first give Varia the related permission. To do this, open a terminal window and execute this command and then restart Varia:") + "\n\n$ sudo snap connect varia:shutdown")
+        dialog.add_response("ok",  _("OK"))
+        dialog.set_response_appearance("ok", Adw.ResponseAppearance.SUGGESTED)
+        dialog.set_close_response("ok")
         dialog.present(self)
 
 def set_auto_updates(dialog, response_id, self, variaapp, variaVersion):
