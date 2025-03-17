@@ -22,7 +22,7 @@ def listen_to_aria2(self, variaapp):
                         currently_downloading = True
                     
                     # Handle .torrent files:
-                    if (frontend_download_item.download.is_metadata or frontend_download_item.download.name.endswith(".torrent")) and frontend_download_item.download.is_complete:
+                    if self.appconf["torrent_enabled"] == "1" and (frontend_download_item.download.is_metadata or frontend_download_item.download.name.endswith(".torrent")) and frontend_download_item.download.is_complete:
 
                         if frontend_download_item.download.is_metadata == False: # Is .torrent file and not metadata
                             torrent_file_path = os.path.join(frontend_download_item.downloaddir, frontend_download_item.downloadname)

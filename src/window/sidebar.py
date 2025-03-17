@@ -116,20 +116,28 @@ def window_create_sidebar(self, variaapp, variaVersion):
 
     download_entry.connect('changed', on_download_entry_changed, self.download_button, self.video_button)
 
-    torrent_button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
-    torrent_button_box.append(Gtk.Image.new_from_icon_name("document-open-symbolic"))
-    torrent_button_box.append(Gtk.Label(label=_("Torrent")))
+    self.add_torrent_button = Gtk.Button()
+    self.add_torrent_button.connect("clicked", on_add_torrent_clicked, self)
 
-    add_torrent_button = Gtk.Button()
-    add_torrent_button.add_css_class("suggested-action")
-    add_torrent_button.set_child(torrent_button_box)
-    add_torrent_button.connect("clicked", on_add_torrent_clicked, self)
+    if (self.appconf['torrent_enabled'] == '1'):
+        self.torrent_button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+        self.torrent_button_box.append(Gtk.Image.new_from_icon_name("document-open-symbolic"))
+        self.torrent_button_box.append(Gtk.Label(label=_("Torrent")))
+        self.add_torrent_button.add_css_class("suggested-action")
+        self.add_torrent_button.set_sensitive(True)
+
+    else:
+        self.torrent_button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+        self.torrent_button_box.append(Gtk.Label(label=_("Torrenting Disabled")))
+        self.add_torrent_button.set_sensitive(False)
+
+    self.add_torrent_button.set_child(self.torrent_button_box)
 
     box_add_download.append(download_entry)
     box_add_download.append(self.download_button)
     box_add_download.append(self.video_button)
     box_add_download.append(Gtk.Separator(margin_top=8, margin_bottom=8))
-    box_add_download.append(add_torrent_button)
+    box_add_download.append(self.add_torrent_button)
 
     frame_add_download = Gtk.Frame()
     frame_add_download.set_margin_bottom(8)

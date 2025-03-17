@@ -73,10 +73,22 @@ def initiate(self, variaapp, variaVersion, first_run, issnap):
 
     # DragDrop area that covers the entire window for torrent files
     self.drop_target = Gtk.DropTarget.new(Gio.File, Gdk.DragAction.COPY)
-    self.drop_target.connect("enter", self.on_drag_enter)
-    self.drop_target.connect("leave", self.on_drag_leave, 250)
-    self.drop_target.connect("drop", self.on_file_drop)
     self.add_controller(self.drop_target)
+
+    def set_drop_target(enable):
+        if enable:
+            self.drag_drop_enter_handler_id = self.drop_target.connect("enter", self.on_drag_enter)
+            self.drag_drop_leave_handler_id = self.drop_target.connect("leave", self.on_drag_leave, 250)
+            self.drag_drop_drop_handler_id = self.drop_target.connect("drop", self.on_file_drop)
+
+        else:
+            self.drop_target.disconnect(self.drag_drop_enter_handler_id)
+            self.drop_target.disconnect(self.drag_drop_leave_handler_id)
+            self.drop_target.disconnect(self.drag_drop_drop_handler_id)
+
+    self.set_drop_target = set_drop_target
+
+    self.set_drop_target(True)
 
     self.root_window_overlay = Gtk.Overlay()
     self.overlay_split_view = Adw.OverlaySplitView.new()

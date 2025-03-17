@@ -29,9 +29,11 @@ def show_preferences(button, self, app, variaVersion):
     group_1 = Adw.PreferencesGroup()
     group_2 = Adw.PreferencesGroup()
     group_3 = Adw.PreferencesGroup()
+    group_4 = Adw.PreferencesGroup()
 
     page_1.add(group_extensions)
     page_1.add(group_1)
+    page_2.add(group_4)
     page_2.add(group_3)
     page_3.add(group_2)
 
@@ -201,7 +203,7 @@ def show_preferences(button, self, app, variaVersion):
 
     remote_aria2_expander_box = Adw.ExpanderRow()
     remote_aria2_expander_box.set_title(_("Remote Mode"))
-    remote_aria2_expander_box.set_subtitle(_("This will disable the video download functionality."))
+    remote_aria2_expander_box.set_subtitle(_("This will disable the video download functionality.") + "\n" + _("The browser extension will not work when Remote Mode is enabled."))
 
     remote_aria2_expander_switch = Gtk.Switch()
     remote_aria2_expander_switch.set_halign(Gtk.Align.START)
@@ -362,14 +364,26 @@ def show_preferences(button, self, app, variaVersion):
     group_2.add(cookies_txt_action)
     group_2.add(remote_aria2_expander_box)
 
+    # Enable or disable torrenting:
+
+    torrent_enabled_switchrow = Adw.SwitchRow()
+    torrent_enabled_switchrow.set_title(_("Enable Torrenting"))
+    torrent_enabled_switchrow.set_subtitle(_("Disabling torrenting will prevent new torrents from being added. It will not stop current torrent instances."))
+
+    if (self.appconf["torrent_enabled"] == "1"):
+        torrent_enabled_switchrow.set_active("active")
+
+    torrent_enabled_switchrow.connect("notify::active", on_switch_torrent, self)
+
     # Enable or disable seeding:
 
     seeding_enabled_switchrow = Adw.SwitchRow()
     seeding_enabled_switchrow.set_title(_("Allow Seeding"))
-    seeding_enabled_switchrow.connect("notify::active", on_switch_torrent_seeding, self)
 
     if (self.appconf["torrent_seeding_enabled"] == "1"):
         seeding_enabled_switchrow.set_active("active")
+
+    seeding_enabled_switchrow.connect("notify::active", on_switch_torrent_seeding, self)
     
     # Set seeding ratio limit:
 
@@ -422,11 +436,21 @@ def show_preferences(button, self, app, variaVersion):
         torrent_download_directory_actionrow.add_suffix(torrent_download_directory_switch)
         torrent_download_directory_switch.set_sensitive(False)
     
-    # Construct Group 3:
+    # Construct Group 4 and 3:
 
-    group_3.add(seeding_enabled_switchrow)
-    group_3.add(seeding_ratio_limit_spinrow)
-    group_3.add(torrent_download_directory_actionrow)
+    group_4.add(torrent_enabled_switchrow)
+
+    self.group_3_options = []
+    self.group_3_options.append(seeding_enabled_switchrow)
+    self.group_3_options.append(seeding_ratio_limit_spinrow)
+    self.group_3_options.append(torrent_download_directory_actionrow)
+
+    for option in self.group_3_options:
+        group_3.add(option)
+
+    # Set all group 3 settings insensitive if torrenting is disabled:
+
+    torrent_settings_set_sensitive(self)
 
     preferences.present(self)
 
@@ -634,6 +658,41 @@ def on_switch_cookies_txt(switch, state, self):
         self.appconf["cookies_txt"] = "0"
     set_aria2c_cookies(self)
     self.save_appconf()
+
+def torrent_settings_set_sensitive(self):
+    if self.appconf["torrent_enabled"] == "1":
+        for option in self.group_3_options:
+            option.set_sensitive(True)
+
+    else:
+        for option in self.group_3_options:
+            option.set_sensitive(False)
+
+def on_switch_torrent(switch, state, self):
+    state = switch.get_active()
+    if state:
+        self.appconf["torrent_enabled"] = "1"
+        self.set_drop_target(True)
+
+        self.torrent_button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+        self.torrent_button_box.append(Gtk.Image.new_from_icon_name("document-open-symbolic"))
+        self.torrent_button_box.append(Gtk.Label(label=_("Torrent")))
+        self.add_torrent_button.add_css_class("suggested-action")
+        self.add_torrent_button.set_sensitive(True)
+
+    else:
+        self.appconf["torrent_enabled"] = "0"
+        self.set_drop_target(False)
+
+        self.torrent_button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+        self.torrent_button_box.append(Gtk.Label(label=_("Torrenting Disabled")))
+        self.add_torrent_button.remove_css_class("suggested-action")
+        self.add_torrent_button.set_sensitive(False)
+
+    self.add_torrent_button.set_child(self.torrent_button_box)
+
+    self.save_appconf()
+    torrent_settings_set_sensitive(self)
 
 def on_switch_torrent_seeding(switch, state, self):
     state = switch.get_active()

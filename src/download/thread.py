@@ -55,6 +55,8 @@ class DownloadThread(threading.Thread):
         self.is_complete = False
         self.paused = paused
 
+        self.retry = False
+
     def is_valid_url(self):
         try:
             result = urlparse(self.url)
@@ -78,9 +80,18 @@ class DownloadThread(threading.Thread):
         download_options = {}
 
         if self.url.startswith("magnet:"):
-            download_options["dir"] = self.app.appconf["torrent_download_directory"]
-            download_options["follow_torrent"] = "true"
-            self.downloaddir = self.app.appconf["torrent_download_directory"]
+            if self.app.appconf["torrent_enabled"] == "1":
+                download_options["dir"] = self.app.appconf["torrent_download_directory"]
+                download_options["follow_torrent"] = "true"
+                self.downloaddir = self.app.appconf["torrent_download_directory"]
+
+            else:
+                try:
+                    GLib.idle_add(self.show_message, _("Torrenting is disabled."))
+                    print("Error: Can't add magnet link because torrenting is disabled.")
+                except:
+                    pass
+                return
 
         else:
             if not (self.is_valid_url()):
@@ -131,7 +142,8 @@ class DownloadThread(threading.Thread):
 
             self.app.filter_download_list("no", self.app.applied_filter)
 
-            self.save_state(False)
+            if self.retry == False:
+                self.save_state(False)
 
             download_began = False
 
@@ -153,8 +165,6 @@ class DownloadThread(threading.Thread):
                     self.update_labels_and_things(None)
                     if ((self.download.is_complete) and (self.download.is_metadata == False)):
                         print('Download complete: ' + self.download.gid)
-                        if os.path.exists(os.path.join(self.downloaddir,(self.download.gid + ".varia"))):
-                            os.remove(os.path.join(self.downloaddir,(self.download.gid + ".varia")))
                         GLib.idle_add(self.set_complete)
                         break
                     elif ((self.download.is_torrent) and (self.download.seeder)):
@@ -184,6 +194,9 @@ class DownloadThread(threading.Thread):
             video_options_final['continuedl'] = True
             video_options_final['ffmpeg_location'] = self.app.ffmpegexec
 
+            if self.app.appconf["remote_time"] == "0": # Don't take the video's timestamp if Remote Time is disabled
+                video_options_final['no-mtime'] = True
+
             if self.app.appconf["cookies_txt"] == "1":
                 video_options_final['cookiefile'] = os.path.join(self.app.appdir, 'cookies.txt')
             
@@ -194,7 +207,8 @@ class DownloadThread(threading.Thread):
 
             GLib.idle_add(self.filename_label.set_text, self.downloadname)
 
-            self.save_state(False)
+            if self.retry == False:
+                self.save_state(False)
             
             if self.app.appconf["schedule_enabled"] == 1 and self.app.scheduler_currently_downloading == False:
                 self.pause(False)
@@ -457,6 +471,24 @@ class DownloadThread(threading.Thread):
         
         check_for_all_paused(self.app)
 
+    def video_remove_temp_files(self):
+        if "temp_files" in self.video_options:
+            stored_download_temp_files = json.loads(self.video_options["temp_files"])
+            print("stored temp")
+            print(stored_download_temp_files)
+
+            for stored_video_temp_file in stored_download_temp_files:
+                if stored_video_temp_file not in self.download_temp_files:
+                    self.download_temp_files.append(stored_video_temp_file)
+
+        for file_path in self.download_temp_files:
+            if os.path.exists(file_path):
+                try:
+                    os.remove(file_path)
+
+                except Exception as e:
+                    pass
+
     def stop(self, deletefiles):
         if self.download:
             if self.mode == "regular":
@@ -509,21 +541,8 @@ class DownloadThread(threading.Thread):
                 if hasattr(self, "youtubedl_thread"):
                     ctypes.pythonapi.PyThreadState_SetAsyncExc(ctypes.c_long(self.youtubedl_thread.ident), ctypes.py_object(SystemExit))
 
-                if "temp_files" in self.video_options:
-                    stored_download_temp_files = json.loads(self.video_options["temp_files"])
-                    print("stored temp")
-                    print(stored_download_temp_files)
-                    for stored_video_temp_file in stored_download_temp_files:
-                        if stored_video_temp_file not in self.download_temp_files:
-                            self.download_temp_files.append(stored_video_temp_file)
+                self.video_remove_temp_files()
 
-                for file_path in self.download_temp_files:
-                    if os.path.exists(file_path):
-                        try:
-                            os.remove(file_path)
-                        except Exception as e:
-                            pass
-            
             if os.path.exists(self.state_file):
                 os.remove(self.state_file)
         
@@ -593,6 +612,18 @@ class DownloadThread(threading.Thread):
         self.progress_bar.set_fraction(1)
         self.progress_bar.add_css_class("success")
         self.is_complete = True
+
+        if self.mode == "regular":
+            is_seeding = self.download.is_torrent and self.download.seeder
+
+            if is_seeding == False and os.path.exists(os.path.join(self.downloaddir,(self.download.gid + ".varia"))):
+                os.remove(os.path.join(self.downloaddir,(self.download.gid + ".varia")))
+
+        elif self.mode == "video":
+            self.video_remove_temp_files()
+
+        if os.path.exists(self.state_file):
+            os.remove(self.state_file)
     
     def set_failed(self, fraction):
         if fraction is not None:
@@ -607,6 +638,6 @@ class DownloadThread(threading.Thread):
         else:
             self.speed_label.set_text(_("An error occurred:") + " " + str(self.download.error_code))
 
-        self.stop(False)
-        GLib.idle_add(self.pause_button.set_visible, False)
+        #self.stop(False)
+        GLib.idle_add(self.pause_button.set_retry_mode, self.pause_button, self.app, self)
         self.app.filter_download_list("no", self.app.applied_filter)

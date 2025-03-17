@@ -1,4 +1,4 @@
-variaVersion = "v2025.1.24"
+variaVersion = "dev"
 
 import ctypes
 import gi
@@ -522,7 +522,8 @@ def main(version, aria2cexec, ffmpegexec, issnap):
         'torrent_seeding_disable_warning_dont_show': '0',
         'torrent_seeding_ratio': [False, '1.0'],
         'torrent_download_directory_custom_enabled': '0',
-        'torrent_download_directory': download_directory}
+        'torrent_download_directory': download_directory,
+        'torrent_enabled': '1'}
 
     if os.path.exists(os.path.join(appdir, 'varia.conf')):
         first_run = False
@@ -535,16 +536,44 @@ def main(version, aria2cexec, ffmpegexec, issnap):
             json.dump(appconf, f)
 
     aria2c_subprocess = None
+
+    aria2_config = [
+        "--enable-rpc",
+        "--rpc-listen-port=6801",
+        "--follow-torrent=false",
+        "--allow-overwrite=false",
+        "--auto-file-renaming=true",
+        "--min-split-size=1M",
+        "--http-accept-gzip=true",
+        "--disk-cache=128M",
+        "--bt-enable-lpd=true",
+        "--bt-hash-check-seed=true",
+        "--enable-peer-exchange=true",
+        "--enable-dht=true",
+        "--enable-dht6=true",
+        "--peer-agent=Transmission/3.00", # Some people block aria2's native user agent id because it
+                                          # doesn't do any seeding by default. Thus here we change it
+        "--peer-id-prefix=-TR3000-",      # to mimic Transmission instead.
+        "--split=32",
+        "--max-connection-per-server=16",
+        "--bt-max-peers=250",
+        "--bt-request-peer-speed-limit=5M",
+        "--bt-tracker-connect-timeout=10",
+        "--bt-tracker-interval=30",
+        "--bt-save-metadata=true"]
+
     if (appconf['remote'] == '0'):
         if (os.name == 'nt'):
-            aria2c_subprocess = subprocess.Popen([aria2cexec, "--enable-rpc", "--rpc-listen-port=6801", "--follow-torrent=false", "--allow-overwrite=false", "--auto-file-renaming=true"], shell=True)
+            aria2c_subprocess = subprocess.Popen([aria2cexec] + aria2_config, shell=True)
 
         else:
             if hasattr(os, 'posix_fallocate'):
+                aria2_config.append("--file-allocation=falloc") # Set fallocate on Linux for better performance
                 print("fallocate enabled.")
-                aria2c_subprocess = subprocess.Popen([aria2cexec, "--enable-rpc", "--rpc-listen-port=6801", "--follow-torrent=false", "--allow-overwrite=false", "--auto-file-renaming=true", "--file-allocation=falloc"])
+                aria2c_subprocess = subprocess.Popen([aria2cexec] + aria2_config)
+
             else:
-                aria2c_subprocess = subprocess.Popen([aria2cexec, "--enable-rpc", "--rpc-listen-port=6801", "--follow-torrent=false", "--allow-overwrite=false", "--auto-file-renaming=true"])
+                aria2c_subprocess = subprocess.Popen([aria2cexec] + aria2_config)
 
     arguments = sys.argv
     if (len(arguments) > 1):

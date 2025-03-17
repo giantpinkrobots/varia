@@ -1,7 +1,7 @@
 {
     "id" : "io.github.giantpinkrobots.varia",
     "runtime" : "org.gnome.Platform",
-    "runtime-version" : "48beta",
+    "runtime-version" : "48",
     "sdk" : "org.gnome.Sdk",
     "command" : "varia",
     "//" : "Justifications for the permissions: This program utilizes aria2c, and aria2c requires the networking permission and the xdg-download directory in order to download files. It also has a 'shut down once all downloads are completed' feature that requires access to org.freedesktop.login1.",
@@ -58,8 +58,8 @@
             ]
         },
         {
-            "name": "ffmpeg",
-            "config-opts": [
+            "name" : "ffmpeg",
+            "config-opts" : [
                 "--disable-debug",
                 "--disable-devices",
                 "--disable-doc",
@@ -71,14 +71,14 @@
                 "--enable-libvorbis",
                 "--enable-shared"
             ],
-            "cleanup": [
+            "cleanup" : [
                 "/share/ffmpeg"
             ],
-            "sources": [
+            "sources" : [
                 {
-                    "type": "archive",
-                    "url": "https://ffmpeg.org/releases/ffmpeg-7.1.tar.xz",
-                    "sha256": "40973d44970dbc83ef302b0609f2e74982be2d85916dd2ee7472d30678a7abe6"
+                    "type" : "archive",
+                    "url" : "https://ffmpeg.org/releases/ffmpeg-7.1.tar.xz",
+                    "sha256" : "40973d44970dbc83ef302b0609f2e74982be2d85916dd2ee7472d30678a7abe6"
                 }
             ]
         },
@@ -91,7 +91,13 @@
                     "type" : "dir",
                     "path" : "."
                 }
+            ],
+            "config-opts" : [
+                "--libdir=lib"
             ]
         }
-    ]
+    ],
+    "build-options" : {
+        "env" : {        }
+    }
 }

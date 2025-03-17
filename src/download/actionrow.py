@@ -1,7 +1,7 @@
 import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import Gtk, Adw, Pango
+from gi.repository import Gtk, Adw, Pango, GLib
 from stringstorage import gettext as _
 from download.thread import DownloadThread
 import json
@@ -63,7 +63,8 @@ def create_actionrow(self, filename):
     pause_button.set_child(pause_button_icon)
     pause_button.set_valign(Gtk.Align.CENTER)
     pause_button.add_css_class("circular")
-    pause_button.connect("clicked", on_pause_clicked, self, pause_button, download_item, False, True)
+    pause_button.connect_handler_id = pause_button.connect("clicked", on_pause_clicked, self, pause_button, download_item, False, True)
+    pause_button.set_retry_mode = pause_button_set_retry_mode
 
     button_box.append(pause_button)
 
@@ -116,3 +117,22 @@ def on_stop_clicked(button, self, download_item):
         self.content_root_overlay.add_overlay(self.status_page_widget)
     download_item.download_thread = None
     download_item = None
+
+def pause_button_set_retry_mode(button, self, download_item):
+    GLib.idle_add(button.set_icon_name, "arrow-circular-top-right-symbolic")
+    button.disconnect(button.connect_handler_id)
+    button.connect_handler_id = button.connect("clicked", pause_button_on_retry_clicked, self, download_item)
+
+def pause_button_on_retry_clicked(button, self, download_item):
+    GLib.idle_add(button.set_icon_name, "media-playback-pause-symbolic")
+    button.disconnect(button.connect_handler_id)
+    button.connect_handler_id = button.connect("clicked", on_pause_clicked, self, button, download_item, False, True)
+
+    GLib.idle_add(download_item.speed_label.set_text, "")
+    GLib.idle_add(download_item.progress_bar.remove_css_class, "error")
+    GLib.idle_add(download_item.progress_bar.set_fraction, 0)
+
+    download_item.cancelled = False
+    download_item.retry = True
+    download_item.run()
+    self.filter_download_list("no", self.applied_filter)
