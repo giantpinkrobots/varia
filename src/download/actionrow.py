@@ -23,6 +23,9 @@ def on_download_clicked(button, self, entry, downloadname, download, mode, video
         self.downloads.append(download_thread)
         download_thread.start()
 
+        if paused == False:
+            self.all_paused = False
+
 def create_actionrow(self, filename):
     download_item = Adw.Bin()
 
@@ -35,15 +38,25 @@ def create_actionrow(self, filename):
     box_2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
     box_2.set_margin_start(10)
     box_2.set_margin_end(10)
-    box_2.set_margin_top(10)
+    box_2.set_margin_top(8)
     box_2.set_margin_bottom(10)
 
     download_item.set_child(box_2)
 
+    percentage_and_filename_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+
+    percentage_label = Gtk.Label(label=_("{number}%").replace("{number}", "0"))
+    percentage_label.set_halign(Gtk.Align.START)
+    percentage_label.add_css_class("dim-label")
+    percentage_label.set_margin_end(5)
+    percentage_and_filename_box.append(percentage_label)
+
     filename_label = Gtk.Label(label=filename)
     filename_label.set_ellipsize(Pango.EllipsizeMode.END)
     filename_label.set_halign(Gtk.Align.START)
-    box.append(filename_label)
+    percentage_and_filename_box.append(filename_label)
+
+    box.append(percentage_and_filename_box)
 
     progress_bar = Gtk.ProgressBar()
 
@@ -89,6 +102,7 @@ def create_actionrow(self, filename):
 
     self.content_root_overlay.remove_overlay(self.status_page_widget)
 
+    download_item.percentage_label = percentage_label
     download_item.progress_bar = progress_bar
     download_item.speed_label = speed_label
     download_item.pause_button = pause_button

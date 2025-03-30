@@ -2,7 +2,7 @@ import ctypes
 import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import GLib, Gtk
+from gi.repository import GLib
 import threading
 from urllib.parse import urlparse
 import requests
@@ -27,6 +27,7 @@ class DownloadThread(threading.Thread):
         self.auth = app.appconf["auth"]
         self.auth_username = app.appconf["auth_username"]
         self.auth_password = app.appconf["auth_password"]
+        self.percentage_label = actionrow.percentage_label
         self.progress_bar = actionrow.progress_bar
         self.pause_button = actionrow.pause_button
         self.actionrow = actionrow
@@ -37,6 +38,7 @@ class DownloadThread(threading.Thread):
         self.mode = mode
         self.speed = 0
         self.paused_because_exceeds_limit = False
+        self.total_file_size_text = ""
         
         self.video_options = video_options
         if self.video_options == None:
@@ -112,7 +114,6 @@ class DownloadThread(threading.Thread):
                 print ("Authentication enabled.")
 
         print(self.downloadname)
-        GLib.idle_add(self.update_header_pause_button)
 
         # Regular download, use aria2p:
         if self.mode == "regular":
@@ -151,6 +152,11 @@ class DownloadThread(threading.Thread):
                 try:
                     self.download.update()
 
+                    try:
+                        self.total_file_size_text = self.download.total_length_string(True) # Get human readable format
+                    except:
+                        pass
+
                     if download_began == False and self.download.is_active:
                         self.pause_button.get_child().set_from_icon_name("media-playback-pause-symbolic")
                         download_began = True
@@ -187,6 +193,9 @@ class DownloadThread(threading.Thread):
             
             else:
                 self.pause(False)
+
+            self.total_file_size_text = self.video_options['filesize_to_show']
+            del self.video_options['filesize_to_show'] # filesize_to_show key not needed by yt_dlp, only needed in gui
 
             video_options_final = self.video_options.copy()
             video_options_final['progress_hooks'] = [self.update_labels_and_things]
@@ -244,12 +253,6 @@ class DownloadThread(threading.Thread):
             self.cancelled = True
             return
 
-    def update_header_pause_button(self):
-        self.app.all_paused = False
-        self.app.header_pause_content.set_icon_name("media-playback-pause-symbolic")
-        self.app.header_pause_content.set_label(_("Pause All"))
-        self.app.header_pause_button.set_sensitive(True)
-
     def show_message(self, message):
         self.speed_label.set_text(message)
 
@@ -258,7 +261,7 @@ class DownloadThread(threading.Thread):
         self.speed = 0
         progress = self.video_download_progress_previous
         download_remaining_string = "∞"
-        speed_label_text_percentage = ""
+        percentage_label_text = ""
         speed_label_text_speed = ""
 
         if self.mode == "regular":
@@ -288,7 +291,7 @@ class DownloadThread(threading.Thread):
             if speed != 0:
                 download_remaining_string = f"{download_hours}:{download_minutes}:{download_seconds}"
             
-            speed_label_text_percentage = _("{number}%").replace("{number}", str(round(progress)))
+            percentage_label_text = _("{number}%").replace("{number}", str(round(progress)))
             
             if int(str(download_speed_mb)[0]) == 0:
                 download_speed_kb = (speed / 1024)
@@ -338,7 +341,7 @@ class DownloadThread(threading.Thread):
                     speed = re.sub(r'(\d)([A-Za-z])', r'\1 \2', speed)
 
                     speed_label_text_speed = speed
-                    speed_label_text_percentage = _("{number}%").replace("{number}", str(progress))
+                    percentage_label_text = _("{number}%").replace("{number}", str(progress))
                     progress = float(progress)
 
                     speed_bytes = 0
@@ -377,12 +380,13 @@ class DownloadThread(threading.Thread):
                 elif self.video_download_stage == 1:
                     speed_label_text = _("Part {indicator}").replace("{indicator}", "2 / 2") + "  ·  "
 
-        speed_label_text = f"{speed_label_text}{speed_label_text_percentage}  ·  {speed_label_text_speed}  ·  {download_remaining_string} {_('remaining')}"
+        speed_label_text = f"{speed_label_text}{self.total_file_size_text}  ·  {speed_label_text_speed}  ·  {download_remaining_string} {_('remaining')}"
 
         GLib.idle_add(self.progress_bar.set_fraction, progress / 100)
 
         if self.is_complete == False:
             GLib.idle_add(self.speed_label.set_text, speed_label_text)
+            GLib.idle_add(self.percentage_label.set_text, percentage_label_text)
 
     def pause(self, change_pause_button_icon):
         if self.download:

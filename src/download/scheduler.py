@@ -36,13 +36,13 @@ def schedule_downloads(self, previous_state):
             self.download_button_icon.set_from_icon_name("folder-download-symbolic")
             self.video_button_icon.set_from_icon_name("emblem-videos-symbolic")
             self.all_paused = True
-            self.pause_all(self.header_pause_content)
+            self.pause_all()
 
         else:
             self.download_button_icon.set_from_icon_name("alarm-symbolic")
             self.video_button_icon.set_from_icon_name("alarm-symbolic")
             self.all_paused = False
-            self.pause_all(self.header_pause_content)
+            self.pause_all()
 
     previous_state = self.scheduler_currently_downloading
 

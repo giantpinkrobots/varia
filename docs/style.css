@@ -1,11 +1,4 @@
-@font-face {
-    font-family: "Cantarell var";
-    font-weight: 100 900;
-    font-display: swap;
-    font-style: normal;
-    font-named-instance: "Regular";
-    src: url("./Cantarell-VF.otf") format("opentype");
-}
+@import url("https://rsms.me/inter/inter.css");
 
 hr.solid {
     border: 1px solid #deddda;
@@ -16,26 +9,26 @@ div[name='logo'] {
 }
 
 body {
-    font-family: 'Cantarell var';
+    font-family: 'Inter';
     background-color: #f6f5f4;
 }
 
 h1 {
-    font-family: 'Cantarell var', bold;
+    font-family: 'Inter', bold;
     font-size: 500%;
     color: #1c71d8;
     line-height: 0;
 }
 
 h2 {
-    font-family: 'Cantarell var';
+    font-family: 'Inter';
     font-size: 175%;
     color: #241f31;
     line-height: 0;
 }
 
 h3 {
-    font-family: 'Cantarell var';
+    font-family: 'Inter';
     font-size: 120%;
     color: #777188;
     width: 65%;
@@ -43,14 +36,14 @@ h3 {
 }
 
 h4 {
-    font-family: 'Cantarell var';
+    font-family: 'Inter';
     font-size: 75%;
     color: #241f31;
     width: 65%;
 }
 
 p {
-    font-family: 'Cantarell var';
+    font-family: 'Inter';
     font-size: 150%;
     color: #241f31;
     width: 65%;
@@ -63,7 +56,7 @@ p {
     text-decoration: none;
     cursor: pointer;
     border-radius: 100px;
-    font-family: 'Cantarell var';
+    font-family: 'Inter';
     font-weight: bold;
     font-size: 110%;
     filter: drop-shadow(rgba(0, 0, 0, 0.5) 0rem 0rem 8px);

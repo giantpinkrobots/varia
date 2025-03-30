@@ -164,6 +164,9 @@ class MainWindow(Adw.ApplicationWindow):
         for download in download_dicts:
             on_download_clicked(None, self, download["url"], download["filename"], None, download["type"], download["video_options"], download["paused"], download["dir"])
 
+        if len(download_dicts) > 0:
+            self.check_all_paused() # Set Pause All / Resume All button
+
         # Start in background mode if it was enabled in preferences:
         if (self.appconf["default_mode"] == "background"):
             self.exitProgram(app=self, variaapp=variaapp, background=True)
@@ -325,27 +328,33 @@ class MainWindow(Adw.ApplicationWindow):
 
             time.sleep(0.5)
 
-    def pause_all(self, header_pause_content):
-        i = 0
-        pause_button_images = []
-        if (self.all_paused == False):
-            for download_thread in self.downloads:
-                download_thread.pause(False)
-                i += 1
+    def pause_all(self):
+        if len(self.downloads) > 0:
+            if self.all_paused:
+                for download_thread in self.downloads:
+                    download_thread.resume()
 
-            if ((header_pause_content is not None) and (i > 0)):
-                header_pause_content.set_icon_name("media-playback-start-symbolic")
-                header_pause_content.set_label(_("Resume All"))
-            self.all_paused = True
+            else:
+                for download_thread in self.downloads:
+                    download_thread.pause(False)
+
+            self.check_all_paused()
+
+    def check_all_paused(self):
+        self.all_paused = True
+
+        for download_thread in self.downloads:
+            if download_thread.paused == False:
+                self.all_paused = False
+
+        if self.all_paused:
+            GLib.idle_add(self.header_pause_content.set_icon_name, "media-playback-start-symbolic")
+            GLib.idle_add(self.header_pause_content.set_label, _("Resume All"))
+            print("All downloads are paused")
+
         else:
-            for download_thread in self.downloads:
-                download_thread.resume()
-                i += 1
-
-            if ((header_pause_content is not None) and (i > 0)):
-                header_pause_content.set_icon_name("media-playback-pause-symbolic")
-                header_pause_content.set_label(_("Pause All"))
-            self.all_paused = False
+            GLib.idle_add(self.header_pause_content.set_icon_name, "media-playback-pause-symbolic")
+            GLib.idle_add(self.header_pause_content.set_label, _("Pause All"))
 
     def stop_all(self, app, variaapp):
         while (self.downloads != []):
@@ -388,7 +397,7 @@ class MainWindow(Adw.ApplicationWindow):
             self.all_paused = False
 
             if (self.remote_successful == False):
-                self.pause_all(None)
+                self.pause_all()
                 self.api.client.shutdown()
 
                 if (self.is_visible() == False):

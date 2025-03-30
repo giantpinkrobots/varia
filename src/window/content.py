@@ -28,7 +28,7 @@ def window_create_content(self):
     self.header_pause_button = Gtk.Button()
     self.header_pause_button.set_sensitive(False)
     self.header_pause_button.set_child(self.header_pause_content)
-    self.header_pause_button.connect("clicked", lambda button: self.pause_all(self.header_pause_content))
+    self.header_pause_button.connect("clicked", lambda button: self.pause_all())
     
     header_expanding_box_1 = Gtk.Box()
     header_expanding_box_1.set_hexpand(True)
@@ -136,8 +136,9 @@ def check_for_all_paused(self):
     all_paused = True
 
     for download_item in self.downloads.copy():
-        if (download_item.download) and (download_item.is_alive()) and (download_item.return_is_paused() == False):
+        if download_item.paused == False:
             all_paused = False
+            break
 
     if all_paused:
         self.all_paused = True
@@ -146,6 +147,7 @@ def check_for_all_paused(self):
         self.header_pause_button.set_sensitive(True)
     
     else:
+        self.all_paused = False
         self.header_pause_content.set_icon_name("media-playback-pause-symbolic")
         self.header_pause_content.set_label(_("Pause All"))
         self.header_pause_button.set_sensitive(True)

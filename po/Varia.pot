@@ -456,6 +456,9 @@ msgstr ""
 msgid "Torrenting is disabled."
 msgstr ""
 
+msgid "Unknown filesize"
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
