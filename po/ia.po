@@ -2,38 +2,37 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# bluekillwood <>, 2023.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-02-12 14:02+0000\n"
-"Last-Translator: Naxoméga <naxomegaxrxz@gmail.com>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/varia/varia/fr/>\n"
-"Language: fr\n"
+"PO-Revision-Date: 2025-02-06 15:02+0000\n"
+"Last-Translator: \"Emilio S.\" <emism.translations@gmail.com>\n"
+"Language-Team: Interlingua <https://hosted.weblate.org/projects/varia/varia/"
+"ia/>\n"
+"Language: ia\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.10-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:3
-#, fuzzy
 msgid "Varia"
 msgstr "Varia"
 
 #. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
 #: data/io.github.giantpinkrobots.varia.desktop.in:11
 msgid "varia;aria;download;manager;"
-msgstr "varia;aria;téléchargement;gestionnaire;"
+msgstr "varia;aria;discargamento;gestor;"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
 msgid "Download manager based on aria2"
-msgstr "Gestionnaire de téléchargement basé sur aria2"
+msgstr ""
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
 msgid ""
@@ -41,29 +40,26 @@ msgid ""
 "to provide a easy to use interface that integrates well with the GNOME "
 "desktop."
 msgstr ""
-"Varia est un gestionnaire de téléchargement basé sur aria2 qui utilise GTK4 "
-"et Libadwaita pour fournir une interface simple d'utilisation qui s'intègre "
-"bien avec l'environnement Gnome"
 
 #: src/variamain.py:45
 msgid "This is not a valid URL."
-msgstr "Ce n'est pas une URL valide"
+msgstr ""
 
 #: src/variamain.py:125
 msgid "All"
-msgstr "Tous"
+msgstr "Toto"
 
 #: src/variamain.py:137
 msgid "In Progress"
-msgstr "En cours"
+msgstr ""
 
 #: src/variamain.py:148
 msgid "Completed"
-msgstr "Terminé"
+msgstr ""
 
 #: src/variamain.py:171
 msgid "About Varia"
-msgstr "À propos de Varia"
+msgstr ""
 
 #: src/variamain.py:177
 msgid "URL"
@@ -71,380 +67,370 @@ msgstr "URL"
 
 #: src/variamain.py:178
 msgid "Download"
-msgstr "Téléchargement"
+msgstr ""
 
 #: src/variamain.py:184
 msgid "Open Download Folder"
-msgstr "Ouvrir le dossier des téléchargeemnts"
+msgstr ""
 
 #: src/variamain.py:196
 msgid "Speed Limit"
-msgstr "Limite de vitesse"
+msgstr ""
 
 #: src/variamain.py:203 src/variamain.py:423
 msgid "Pause All"
-msgstr "Tout mettre en pause"
+msgstr ""
 
 #: src/variamain.py:212
 msgid "Speed"
-msgstr "Vitesse"
+msgstr ""
 
 #: src/variamain.py:215
 msgid "Set Speed Limit"
-msgstr "Définir la limite de vitesse"
+msgstr ""
 
 #: src/variamain.py:216
 msgid "Cancel All"
-msgstr "Tout annuler"
+msgstr ""
 
 #: src/variamain.py:235
 msgid "/s"
-msgstr "/s"
+msgstr ""
 
 #: src/variamain.py:238
 msgid "No limit"
-msgstr "Pas de limite"
+msgstr ""
 
 #: src/variamain.py:274
 msgid "Download complete."
-msgstr "Téléchargement terminé"
+msgstr ""
 
 #: src/variamain.py:276
 msgid "Download speed is limited."
-msgstr "La vitesse de téléchargement est limitée"
+msgstr ""
 
 #: src/variamain.py:277
 msgid "An error occurred:"
-msgstr "Une erreur est survenue :"
+msgstr ""
 
 #: src/variamain.py:292
 msgid "MB/s"
-msgstr "Mo/s"
+msgstr ""
 
 #: src/variamain.py:294
 msgid "KB/s"
-msgstr "Ko/s"
+msgstr ""
 
 #: src/variamain.py:298
 msgid "0 B/s"
-msgstr "0 o/s"
+msgstr ""
 
 #: src/variamain.py:300
 msgid " MB/s"
-msgstr " Mo/s"
+msgstr ""
 
 #: src/variamain.py:302
 msgid " KB/s"
-msgstr " Kb/s"
+msgstr ""
 
 #: src/variamain.py:304
 msgid " B/s"
-msgstr " b/s"
+msgstr ""
 
 #: src/variamain.py:404
 msgid "Simultaneous Download Amount"
-msgstr "Nombre de téléchargements simultanés"
+msgstr ""
 
 #: src/variamain.py:410
 msgid "Resume All"
-msgstr "Tout reprendre"
+msgstr ""
 
 #: src/variamain.py:443
 msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
 msgstr ""
-"gestionnaire de téléchargement basé sur aria2 utilisant GTK4 et Libadwaita"
 
 #: src/variamain.py:777
 msgid "This application relies on the following pieces of software:"
-msgstr "Cette application s'appuie sur les logiciels suivants :"
+msgstr ""
 
 #: src/variamain.py:777
 msgid ""
 "The licenses of all of these pieces of software can be found in the "
 "dependencies_information directory in this application's app directory."
 msgstr ""
-"La licence de tout ces logiciels peut être trouvé dans le dossier "
-"dependencies_information dans le dossier d'installation de l'application."
 
+# This is for the credits section. Replace this string with your own information so you'll be credited for your work.
 #: src/variamain.py:449
 msgid "translator-credits"
-msgstr "Naxomega"
+msgstr ""
 
 #: src/variamain.py:457
 msgid "Download Directory"
-msgstr "Dossier des téléchargements"
+msgstr ""
 
 #: src/variamain.py:460
 msgid "Change"
-msgstr "Changer"
+msgstr ""
 
 #: src/variamain.py:463
 msgid "Speed limited"
-msgstr "Vitesse limitée"
+msgstr ""
 
 #: src/variamain.py:519
 msgid "Authentication"
-msgstr "Authentification"
+msgstr ""
 
 #: src/variamain.py:532
 msgid "Username"
-msgstr "Nom d'utilisateur"
+msgstr "Nomine de usator"
 
 #: src/variamain.py:534
 msgid "Password"
-msgstr "Mot de passe"
+msgstr ""
 
 #: src/variamain.py:554
 msgid "Authorization failed."
-msgstr "Echec."
+msgstr ""
 
 #: src/variamain.py:806
 msgid "Failed to open directory."
-msgstr "L'accès au dossier à echoué."
+msgstr ""
 
 msgid "Remote Mode"
-msgstr "Téléchargement à distance"
+msgstr ""
 
 msgid "Remote aria2 IP"
-msgstr "IP aria2 distante"
+msgstr ""
 
 msgid "Remote aria2 Port"
-msgstr "Port aria2 distant"
+msgstr ""
 
 msgid "Remote aria2 RPC Secret"
-msgstr "Ticket RPC secret aria2 distant"
+msgstr ""
 
 msgid "Remote Download Location"
-msgstr "Dossier de téléchargement distant"
+msgstr ""
 
 msgid "Exiting Varia..."
-msgstr "Fermeture de Varia..."
+msgstr ""
 
 msgid "Background Mode"
-msgstr "Exécution en arrière-plan"
+msgstr ""
 
 msgid "Continuing the downloads in the background."
-msgstr "Les téléchargements sont toujours en cours..."
+msgstr ""
 
 msgid "Browser Extension"
-msgstr "Extension de navigateur"
+msgstr ""
 
 msgid "Shutdown on Completion"
-msgstr "Eteindre quand les téléchargements sont terminés"
+msgstr ""
 
 msgid "Varia is about to shut down your computer."
-msgstr "Varia est sur le point d'éteindre votre ordinateur."
+msgstr ""
 
 msgid "Press Cancel to cancel and disable."
 msgstr ""
-"Appuyez sur annuler pour annuler extinction et désactiver cette "
-"fonctionnalité."
 
 msgid "Cancel"
-msgstr "Annuler"
+msgstr ""
 
 msgid "Warning"
-msgstr "Attention"
+msgstr ""
 
 msgid "Monday"
-msgstr "Lundi"
+msgstr ""
 
 msgid "Tuesday"
-msgstr "Mardi"
+msgstr ""
 
 msgid "Wednesday"
-msgstr "Mercredi"
+msgstr ""
 
 msgid "Thursday"
-msgstr "Jeudi"
+msgstr ""
 
 msgid "Friday"
-msgstr "Vendredi"
+msgstr ""
 
 msgid "Saturday"
-msgstr "Samedi"
+msgstr ""
 
 msgid "Sunday"
-msgstr "Dimanche"
+msgstr ""
 
 msgid "Start (h/m):"
-msgstr "Démarrage (heure/minute) :"
+msgstr ""
 
 msgid "End (h/m):"
-msgstr "Fin (heure/minute) :"
+msgstr ""
 
 msgid "Scheduler enabled"
-msgstr "Planification activée"
+msgstr ""
 
 msgid "Scheduler"
-msgstr "Planification"
+msgstr ""
 
 msgid "Enabled"
-msgstr "Activé"
+msgstr ""
 
 msgid "Start downloading in these times"
-msgstr "Lancer le(s) téléchargement(s) à ces horaires"
+msgstr ""
 
 msgid "Stop downloading in these times"
-msgstr "Stopper le(s) téléchargement(s) à ces horaires"
+msgstr ""
 
 msgid "Add Timespan"
-msgstr "Ajouter une horaire"
+msgstr ""
 
 #: When a download is currently seeding:
 msgid "Seeding"
-msgstr "Envoi"
+msgstr ""
 
 msgid "Failed"
-msgstr "Echec"
+msgstr ""
 
 msgid "Completion Options"
-msgstr "Actions lors de la réussite des téléchargments"
+msgstr ""
 
 msgid "Exit on Completion"
-msgstr "Fermer Varia"
+msgstr ""
 
 msgid "Varia is about to quit."
-msgstr "Varia est sur le point d'être fermée."
+msgstr ""
 
 msgid "Preferences"
-msgstr "Préférences"
+msgstr ""
 
 msgid "Other"
-msgstr "Autres"
+msgstr ""
 
 msgid "Basic Settings"
-msgstr "Général"
+msgstr ""
 
 msgid "Advanced Settings"
-msgstr "Avancés"
+msgstr "Configurationes avantiate"
 
 msgid "Use cookies.txt"
-msgstr "Utiliser cookies.txt"
+msgstr "Usar cookies.txt"
 
 msgid "Import cookies.txt"
-msgstr "Importer cookies.txt"
+msgstr ""
 
 msgid "Remove cookies.txt"
-msgstr "Enlever cookies.txt"
+msgstr ""
 
 msgid "remaining"
-msgstr "restant"
+msgstr ""
 
 msgid "Start in Background Mode"
-msgstr "Démarrer en arrière-plan"
+msgstr ""
 
 msgid "Remote Timestamp"
-msgstr "Horaires à distance"
+msgstr ""
 
 msgid "Torrent"
-msgstr "Torrent"
+msgstr ""
 
 # Updater
 msgid "Checking for updates..."
-msgstr "Recherche de mises à jour..."
+msgstr ""
 
 msgid "A new version of Varia is available. Do you want to update?"
 msgstr ""
-"Une nouvelle version de Varia est disponible, voulez-vous l'installer ?"
 
 msgid "Update available"
-msgstr "Mise à jour disponible"
+msgstr "Actualisation disponibile"
 
 msgid "Update"
-msgstr "Mise à jour"
+msgstr "Actualisar"
 
 msgid "Downloading update..."
-msgstr "Téléchargement de la mise à jour..."
+msgstr ""
 
 msgid "Download failed."
-msgstr "Echec du téléchargement."
+msgstr ""
 
 msgid "Yes"
-msgstr "Oui"
+msgstr "Si"
 
 msgid "No"
-msgstr "Non"
+msgstr ""
 
 msgid "Automatically Check for Updates"
-msgstr "Rechercher automatiquement des mises à jour"
+msgstr ""
 
 msgid "Check Now"
-msgstr "Rechercher manuellement"
+msgstr ""
 
 msgid "Do you want to check for updates on startup?"
 msgstr ""
-"Voulez-vous que Varia recherche des mises à jour lors de son démarrage ?"
 
 msgid "File"
-msgstr "Fichier"
+msgstr ""
 
 msgid "Video / Audio"
-msgstr "Vidéo / Audio"
+msgstr ""
 
 msgid "Video and audio"
-msgstr "Vidéo et audio"
+msgstr ""
 
 msgid "Video only"
-msgstr "Vidéo seulement"
+msgstr ""
 
 msgid "Audio only"
-msgstr "Audio seulement"
+msgstr ""
 
 #: Relating to video download:
 msgid "Framerate:"
-msgstr "Fréquence d'images :"
+msgstr ""
 
 #: Relating to video download:
 msgid "Bitrate:"
-msgstr "Débit Binaire (Bitrate) :"
+msgstr ""
 
 msgid "Checking video..."
-msgstr "Recherche de la vidéo..."
+msgstr ""
 
 msgid "No video or audio streams found"
-msgstr "Aucun flux vidéo ou audio trouvé"
+msgstr ""
 
 msgid "Starting download..."
-msgstr "Démarrage du téléchargement..."
+msgstr ""
 
 msgid ""
 "The video platform may not be supported or you may be being blocked by the "
 "platform. If you have an active VPN connection that might be the cause, or "
 "you can try importing your browser's cookies through a cookies.txt file."
 msgstr ""
-"Le fournisseur de la vidéo n'est pas supporté ou elle vous a bloqué. Si vous "
-"avez un VPN actif, essayez de le désactiver, si vous n'en avez pas, essayez "
-"d'importer le fichier \"cookies.txt\" de votre navigateur web."
 
 msgid "This will disable the video download functionality."
-msgstr "Cela désactivera le téléchargement des vidéos."
+msgstr ""
 
 #: Relating to video download progress where it says "Part 1/2" - {indicator}
 #: is replaced by "1/2" or "2/2" (don't translate {indicator})
 msgid "Part {indicator}"
-msgstr "Partie {indicator}"
+msgstr ""
 
 msgid "Simultaneous download limit exceeded, waiting."
 msgstr ""
-"La limite du nombre de téléchargements simultanés est atteinte, en attente..."
 
 #: The way percentages will be shown, like 10% or %10 depending on the language
 #: (don't translate {number}, just move it if needed)
 msgid "{number}%"
-msgstr "{number}%"
+msgstr ""
 
 msgid "Allow Seeding"
-msgstr "Autoriser l'envoi de données"
+msgstr ""
 
 msgid "Seeding Ratio Limit"
-msgstr "Limite de vitesse de l'envoi de données"
+msgstr ""
 
 msgid "Torrent Settings"
-msgstr "Torrent"
+msgstr ""
 
 msgid "Custom Download Directory for Torrents"
-msgstr "Dossier de téléchargement des torrents"
+msgstr ""
 
 #: When the user attempts to disable seeding
 msgid ""
@@ -454,22 +440,16 @@ msgid ""
 "as they download (a ratio of 1). You may want to consider limiting your "
 "seeding ratio instead."
 msgstr ""
-"Le téléchargements de fichier via torrents s'appuie sur le fait que chaque "
-"personne ayant téléchargé le fichier l'envoie à son tour. En désactivant "
-"l'envoi de données, vous vous verrez probablement limité(e) ou banni(e) des "
-"téléchargements torrent. Les clients sont généralement attendus d'envoyer au "
-"moins ce qu'ils téléchargent (Ratio de 1). Vpus devriez baisser votre ratio "
-"d'envoi à la place."
 
 msgid "Cancel Seeding"
-msgstr "Annuler l'envoi"
+msgstr ""
 
 # Save button
 msgid "Save"
-msgstr "Sauvegarder"
+msgstr "Salvar"
 
 msgid "Show Menu"
-msgstr "Voir le menu"
+msgstr "Monstrar menu"
 
 msgid "OK"
 msgstr ""
@@ -481,10 +461,8 @@ msgid ""
 "this, open a terminal window and execute this command and then restart Varia:"
 msgstr ""
 
-#, fuzzy
-#| msgid "Torrent Settings"
 msgid "Enable Torrenting"
-msgstr "Torrent"
+msgstr ""
 
 msgid "The browser extension will not work when Remote Mode is enabled."
 msgstr ""
@@ -503,14 +481,14 @@ msgstr ""
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
-msgstr "Général"
+msgstr "General"
 
 #: src/gtk/help-overlay.ui:14
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
-msgstr "Voir les raccourcis"
+msgstr "Monstrar commandos curte"
 
 #: src/gtk/help-overlay.ui:20
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr "Quitter"
+msgstr "Quitar"

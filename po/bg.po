@@ -9,15 +9,16 @@ msgstr ""
 "Project-Id-Version: Varia\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2024-12-25 16:16+0200\n"
-"Last-Translator: twlvnn kraftwerk <kraft_werk@tutanota.com>\n"
-"Language-Team: Bulgarian <dict-notifications@fsa-bg.org>\n"
+"PO-Revision-Date: 2025-03-17 14:04+0000\n"
+"Last-Translator: Любомир Василев <lyubomirv@gmx.com>\n"
+"Language-Team: Bulgarian <https://hosted.weblate.org/projects/varia/varia/bg/"
+">\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Gtranslator 47.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -28,7 +29,7 @@ msgstr "Varia"
 #. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
 #: data/io.github.giantpinkrobots.varia.desktop.in:11
 msgid "varia;aria;download;manager;"
-msgstr "мениджър за изтегляне;изтегляне;мениджър;"
+msgstr "varia;aria;изтегляне;изтегляния,сваляне,сваляния;мениджър;управление;"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
 msgid "Download manager based on aria2"
@@ -373,83 +374,75 @@ msgid "Do you want to check for updates on startup?"
 msgstr "Искате ли да се проверява за обновления при стартиране?"
 
 msgid "File"
-msgstr ""
+msgstr "Файл"
 
 msgid "Video / Audio"
-msgstr ""
+msgstr "Видео / Аудио"
 
 msgid "Video and audio"
-msgstr ""
+msgstr "Видео и аудио"
 
 msgid "Video only"
-msgstr ""
+msgstr "Само видео"
 
 msgid "Audio only"
-msgstr ""
+msgstr "Само аудио"
 
 #: Relating to video download:
 msgid "Framerate:"
-msgstr ""
+msgstr "Честота на кадрите:"
 
 #: Relating to video download:
 msgid "Bitrate:"
-msgstr ""
+msgstr "Побитова скорост:"
 
 # Updater
-#, fuzzy
-#| msgid "Checking for updates..."
 msgid "Checking video..."
-msgstr "Проверяване за обновления..."
+msgstr "Проверяване на видеото…"
 
 msgid "No video or audio streams found"
-msgstr ""
+msgstr "Няма намерени видео или аудио потоци"
 
 msgid "Starting download..."
-msgstr ""
+msgstr "Начало на свалянето…"
 
 msgid ""
 "The video platform may not be supported or you may be being blocked by the "
 "platform. If you have an active VPN connection that might be the cause, or "
 "you can try importing your browser's cookies through a cookies.txt file."
 msgstr ""
+"Източникът на видеото може да не се поддържа или да имате забрана за "
+"ползването му. Ако в момента имате връзка чрез ВЧМ, може това да е "
+"проблемът. Може да опитате и да внесете бисквитките от браузъра си чрез файл "
+"cookies.txt."
 
 msgid "This will disable the video download functionality."
-msgstr ""
+msgstr "Това ще изключи функционалността за сваляне на видео."
 
 #: Relating to video download progress where it says "Part 1/2" - {indicator}
 #: is replaced by "1/2" or "2/2" (don't translate {indicator})
 msgid "Part {indicator}"
-msgstr ""
+msgstr "Част {indicator}"
 
-#, fuzzy
-#| msgid "Simultaneous Download Amount"
 msgid "Simultaneous download limit exceeded, waiting."
-msgstr "Количество едновременни изтегляния"
+msgstr "Превишено е ограничението за едновременни сваляния. Изчаква се."
 
 #: The way percentages will be shown, like 10% or %10 depending on the language
 #: (don't translate {number}, just move it if needed)
 msgid "{number}%"
-msgstr ""
+msgstr "{number}%"
 
-#, fuzzy
-#| msgid "Seeding"
 msgid "Allow Seeding"
-msgstr "Разпръскване"
+msgstr "Разрешаване на качването"
 
-#, fuzzy
-#| msgid "Speed Limit"
 msgid "Seeding Ratio Limit"
-msgstr "Ограничение на скоростта"
+msgstr "Ограничение на коефициента на качване"
 
-#, fuzzy
-#| msgid "Torrent"
 msgid "Torrent Settings"
-msgstr "Торент"
+msgstr "Настройки за торентите"
 
-#, fuzzy
-#| msgid "Download Directory"
 msgid "Custom Download Directory for Torrents"
-msgstr "Папка за изтегляне"
+msgstr "Персонализирана папка за сваляне на торенти"
 
 #: When the user attempts to disable seeding
 msgid ""
@@ -459,17 +452,54 @@ msgid ""
 "as they download (a ratio of 1). You may want to consider limiting your "
 "seeding ratio instead."
 msgstr ""
+"Тъй като торентите разчитат на това хората да качват данни, а не само да "
+"свалят, на изключването на качването не се гледа с добро око и за това може "
+"да получите забрана или скоростта на сваляне да Ви бъде намалена от "
+"определени клиенти или сървъри. Клиентите обикновено се очаква да качат поне "
+"толкова данни, колкото са и свалили (коефициент 1). Друг вариант е само да "
+"ограничите коефициента си на качване."
 
-#, fuzzy
-#| msgid "Seeding"
 msgid "Cancel Seeding"
-msgstr "Разпръскване"
+msgstr "Отказване на качването"
 
 # Save button
 msgid "Save"
-msgstr ""
+msgstr "Запазване"
 
 msgid "Show Menu"
+msgstr "Показване на менюто"
+
+msgid "OK"
+msgstr "Добре"
+
+# Snap version permission warning
+msgid ""
+"You are using Varia as a Snap package. To be able to use the shutdown on "
+"completion option you must first give Varia the related permission. To do "
+"this, open a terminal window and execute this command and then restart Varia:"
+msgstr ""
+"Вие използвате Varia като пакет от Snap. Ако искате да използвате функцията "
+"за изключване на компютъра при завършване на свалянето, трябва първо да "
+"дадете на Varia съответното разрешение. За да направите това, отворете "
+"терминала и изпълнете тази команда, а след това рестартирайте Varia:"
+
+#, fuzzy
+#| msgid "Torrent Settings"
+msgid "Enable Torrenting"
+msgstr "Настройки за торентите"
+
+msgid "The browser extension will not work when Remote Mode is enabled."
+msgstr ""
+
+msgid ""
+"Disabling torrenting will prevent new torrents from being added. It will not "
+"stop current torrent instances."
+msgstr ""
+
+msgid "Torrenting is disabled."
+msgstr ""
+
+msgid "Unknown filesize"
 msgstr ""
 
 #: src/gtk/help-overlay.ui:11

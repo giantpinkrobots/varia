@@ -8,14 +8,16 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2024-03-04 09:32+0100\n"
-"Last-Translator: Quentin PAGÈS\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2025-01-25 23:18+0000\n"
+"Last-Translator: Quentin PAGÈS <quentinantonin@free.fr>\n"
+"Language-Team: Occitan <https://hosted.weblate.org/projects/varia/glossary/"
+"oc/>\n"
 "Language: oc\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.4.2\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -241,34 +243,34 @@ msgid "Cancel"
 msgstr "Tot anullar"
 
 msgid "Warning"
-msgstr ""
+msgstr "Avertiment"
 
 msgid "Monday"
-msgstr ""
+msgstr "Diluns"
 
 msgid "Tuesday"
-msgstr ""
+msgstr "Dimars"
 
 msgid "Wednesday"
-msgstr ""
+msgstr "Dimècres"
 
 msgid "Thursday"
-msgstr ""
+msgstr "Dijòus"
 
 msgid "Friday"
-msgstr ""
+msgstr "Divendres"
 
 msgid "Saturday"
-msgstr ""
+msgstr "Dissabte"
 
 msgid "Sunday"
-msgstr ""
+msgstr "Dimenge"
 
 msgid "Start (h/m):"
-msgstr ""
+msgstr "Debuta (h/m) :"
 
 msgid "End (h/m):"
-msgstr ""
+msgstr "Fin (h/m) :"
 
 msgid "Scheduler enabled"
 msgstr ""
@@ -277,7 +279,7 @@ msgid "Scheduler"
 msgstr ""
 
 msgid "Enabled"
-msgstr ""
+msgstr "Activat"
 
 msgid "Start downloading in these times"
 msgstr ""
@@ -293,22 +295,22 @@ msgid "Seeding"
 msgstr ""
 
 msgid "Failed"
-msgstr ""
+msgstr "Fracàs"
 
 msgid "Completion Options"
 msgstr ""
 
 msgid "Exit on Completion"
-msgstr ""
+msgstr "Atudat en acabant"
 
 msgid "Varia is about to quit."
 msgstr ""
 
 msgid "Preferences"
-msgstr ""
+msgstr "Preferéncias"
 
 msgid "Other"
-msgstr ""
+msgstr "Autre"
 
 msgid "Basic Settings"
 msgstr ""
@@ -317,27 +319,25 @@ msgid "Advanced Settings"
 msgstr ""
 
 msgid "Use cookies.txt"
-msgstr ""
+msgstr "Utilizar cookies.txt"
 
 msgid "Import cookies.txt"
-msgstr ""
+msgstr "Importar cookies.txt"
 
 msgid "Remove cookies.txt"
 msgstr ""
 
 msgid "remaining"
-msgstr ""
+msgstr "demorant"
 
-#, fuzzy
-#| msgid "Background Mode"
 msgid "Start in Background Mode"
-msgstr "Mòde rèireplan"
+msgstr "Aviat en mòde rèireplan"
 
 msgid "Remote Timestamp"
 msgstr ""
 
 msgid "Torrent"
-msgstr ""
+msgstr "Torrent"
 
 # Updater
 msgid "Checking for updates..."
@@ -350,44 +350,40 @@ msgid "Update available"
 msgstr ""
 
 msgid "Update"
-msgstr ""
+msgstr "Actualizar"
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Downloading update..."
-msgstr "Telecargament acabat."
+msgstr "Telecargament de l'actualizacion..."
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Download failed."
-msgstr "Telecargament acabat."
+msgstr "Fracàs del telecargament."
 
 msgid "Yes"
-msgstr ""
+msgstr "Òc"
 
 msgid "No"
-msgstr ""
+msgstr "Non"
 
 msgid "Automatically Check for Updates"
 msgstr ""
 
 msgid "Check Now"
-msgstr ""
+msgstr "Verificar ara"
 
 msgid "Do you want to check for updates on startup?"
 msgstr ""
 
 msgid "File"
-msgstr ""
+msgstr "Fichièr"
 
 msgid "Video / Audio"
-msgstr ""
+msgstr "Vidèo/ Àudio"
 
 msgid "Video and audio"
-msgstr ""
+msgstr "Vidèo e àudio"
 
 msgid "Video only"
-msgstr ""
+msgstr "Vidèo solament"
 
 msgid "Audio only"
 msgstr ""
@@ -407,7 +403,7 @@ msgid "No video or audio streams found"
 msgstr ""
 
 msgid "Starting download..."
-msgstr ""
+msgstr "Lançament del telecargament"
 
 msgid ""
 "The video platform may not be supported or you may be being blocked by the "
@@ -442,7 +438,7 @@ msgid "Seeding Ratio Limit"
 msgstr "Velocitat limit"
 
 msgid "Torrent Settings"
-msgstr ""
+msgstr "Paramètres de Torrent"
 
 #, fuzzy
 #| msgid "Download Directory"
@@ -463,9 +459,38 @@ msgstr ""
 
 # Save button
 msgid "Save"
-msgstr ""
+msgstr "Enregistrar"
 
 msgid "Show Menu"
+msgstr "Mostrar lo menú"
+
+msgid "OK"
+msgstr ""
+
+# Snap version permission warning
+msgid ""
+"You are using Varia as a Snap package. To be able to use the shutdown on "
+"completion option you must first give Varia the related permission. To do "
+"this, open a terminal window and execute this command and then restart Varia:"
+msgstr ""
+
+#, fuzzy
+#| msgid "Torrent Settings"
+msgid "Enable Torrenting"
+msgstr "Paramètres de Torrent"
+
+msgid "The browser extension will not work when Remote Mode is enabled."
+msgstr ""
+
+msgid ""
+"Disabling torrenting will prevent new torrents from being added. It will not "
+"stop current torrent instances."
+msgstr ""
+
+msgid "Torrenting is disabled."
+msgstr ""
+
+msgid "Unknown filesize"
 msgstr ""
 
 #: src/gtk/help-overlay.ui:11

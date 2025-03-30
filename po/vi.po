@@ -2,38 +2,37 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# bluekillwood <>, 2023.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-02-12 14:02+0000\n"
-"Last-Translator: Naxoméga <naxomegaxrxz@gmail.com>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/varia/varia/fr/>\n"
-"Language: fr\n"
+"PO-Revision-Date: 2025-02-23 07:04+0000\n"
+"Last-Translator: Tô Huy <tohuy2008@gmail.com>\n"
+"Language-Team: Vietnamese <https://hosted.weblate.org/projects/varia/varia/"
+"vi/>\n"
+"Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.10.1-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:3
-#, fuzzy
 msgid "Varia"
 msgstr "Varia"
 
 #. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
 #: data/io.github.giantpinkrobots.varia.desktop.in:11
 msgid "varia;aria;download;manager;"
-msgstr "varia;aria;téléchargement;gestionnaire;"
+msgstr "varia;aria;download;manager;"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
 msgid "Download manager based on aria2"
-msgstr "Gestionnaire de téléchargement basé sur aria2"
+msgstr "Trình quản lý tải xuống dựa trên aria2"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
 msgid ""
@@ -41,29 +40,28 @@ msgid ""
 "to provide a easy to use interface that integrates well with the GNOME "
 "desktop."
 msgstr ""
-"Varia est un gestionnaire de téléchargement basé sur aria2 qui utilise GTK4 "
-"et Libadwaita pour fournir une interface simple d'utilisation qui s'intègre "
-"bien avec l'environnement Gnome"
+"Varia là trình quản lý tải xuống được dựa trên aria2 tối ưu GTK4 và "
+"Libadwaita để tạo nên một giao diện dễ sử dụng và tích hợp tốt với GNOME."
 
 #: src/variamain.py:45
 msgid "This is not a valid URL."
-msgstr "Ce n'est pas une URL valide"
+msgstr "URL không hợp lệ."
 
 #: src/variamain.py:125
 msgid "All"
-msgstr "Tous"
+msgstr "Tất cả"
 
 #: src/variamain.py:137
 msgid "In Progress"
-msgstr "En cours"
+msgstr "Đang Trong Quá Trình Tải Xuống"
 
 #: src/variamain.py:148
 msgid "Completed"
-msgstr "Terminé"
+msgstr "Đã Tải Xong"
 
 #: src/variamain.py:171
 msgid "About Varia"
-msgstr "À propos de Varia"
+msgstr "Thông tin về Varia"
 
 #: src/variamain.py:177
 msgid "URL"
@@ -71,31 +69,31 @@ msgstr "URL"
 
 #: src/variamain.py:178
 msgid "Download"
-msgstr "Téléchargement"
+msgstr "Tải xuống"
 
 #: src/variamain.py:184
 msgid "Open Download Folder"
-msgstr "Ouvrir le dossier des téléchargeemnts"
+msgstr "Mở Thư mục Download"
 
 #: src/variamain.py:196
 msgid "Speed Limit"
-msgstr "Limite de vitesse"
+msgstr "Giới Hạn Tốc Độ Tải Xuống"
 
 #: src/variamain.py:203 src/variamain.py:423
 msgid "Pause All"
-msgstr "Tout mettre en pause"
+msgstr "Dừng Tất Cả"
 
 #: src/variamain.py:212
 msgid "Speed"
-msgstr "Vitesse"
+msgstr "Tốc độ"
 
 #: src/variamain.py:215
 msgid "Set Speed Limit"
-msgstr "Définir la limite de vitesse"
+msgstr "Giới hạn tốc độ tải xuống"
 
 #: src/variamain.py:216
 msgid "Cancel All"
-msgstr "Tout annuler"
+msgstr "Hủy Tất Cả"
 
 #: src/variamain.py:235
 msgid "/s"
@@ -103,331 +101,326 @@ msgstr "/s"
 
 #: src/variamain.py:238
 msgid "No limit"
-msgstr "Pas de limite"
+msgstr "Không giới hạn"
 
 #: src/variamain.py:274
 msgid "Download complete."
-msgstr "Téléchargement terminé"
+msgstr "Tải xuống hoàn thành."
 
 #: src/variamain.py:276
 msgid "Download speed is limited."
-msgstr "La vitesse de téléchargement est limitée"
+msgstr "Tốc độ tải xuống đã bị giới hạn."
 
 #: src/variamain.py:277
 msgid "An error occurred:"
-msgstr "Une erreur est survenue :"
+msgstr "Có lỗi xảy ra:"
 
 #: src/variamain.py:292
 msgid "MB/s"
-msgstr "Mo/s"
+msgstr "MB/s"
 
 #: src/variamain.py:294
 msgid "KB/s"
-msgstr "Ko/s"
+msgstr "KB/s"
 
 #: src/variamain.py:298
 msgid "0 B/s"
-msgstr "0 o/s"
+msgstr "0 B/s"
 
 #: src/variamain.py:300
 msgid " MB/s"
-msgstr " Mo/s"
+msgstr " MB/s"
 
 #: src/variamain.py:302
 msgid " KB/s"
-msgstr " Kb/s"
+msgstr " KB/s"
 
 #: src/variamain.py:304
 msgid " B/s"
-msgstr " b/s"
+msgstr " B/s"
 
 #: src/variamain.py:404
 msgid "Simultaneous Download Amount"
-msgstr "Nombre de téléchargements simultanés"
+msgstr "Số lượng tải xuống đồng thời"
 
 #: src/variamain.py:410
 msgid "Resume All"
-msgstr "Tout reprendre"
+msgstr "Tiếp tục tất cả"
 
 #: src/variamain.py:443
 msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
-msgstr ""
-"gestionnaire de téléchargement basé sur aria2 utilisant GTK4 et Libadwaita"
+msgstr "Trình tải xuống dựa vào aria2 tối ưu GTK4 và Libadwaita."
 
 #: src/variamain.py:777
 msgid "This application relies on the following pieces of software:"
-msgstr "Cette application s'appuie sur les logiciels suivants :"
+msgstr "Ứng dụng này dựa trên những phần mềm sau:"
 
 #: src/variamain.py:777
 msgid ""
 "The licenses of all of these pieces of software can be found in the "
 "dependencies_information directory in this application's app directory."
 msgstr ""
-"La licence de tout ces logiciels peut être trouvé dans le dossier "
-"dependencies_information dans le dossier d'installation de l'application."
+"Chính sách của những phần mềm có thể tìm thấy ở đường dẫn "
+"dependencies_information ở trong thư mục chứa ứng dụng này."
 
+# This is for the credits section. Replace this string with your own information so you'll be credited for your work.
 #: src/variamain.py:449
 msgid "translator-credits"
-msgstr "Naxomega"
+msgstr "Tô Huy from Viet Nam with luv 🤍"
 
 #: src/variamain.py:457
 msgid "Download Directory"
-msgstr "Dossier des téléchargements"
+msgstr "Thư mục tải xuống"
 
 #: src/variamain.py:460
 msgid "Change"
-msgstr "Changer"
+msgstr "Thay đổi"
 
 #: src/variamain.py:463
 msgid "Speed limited"
-msgstr "Vitesse limitée"
+msgstr "Tốc độ bị giới hạn"
 
 #: src/variamain.py:519
 msgid "Authentication"
-msgstr "Authentification"
+msgstr "Xác thực"
 
 #: src/variamain.py:532
 msgid "Username"
-msgstr "Nom d'utilisateur"
+msgstr "Tên người dùng"
 
 #: src/variamain.py:534
 msgid "Password"
-msgstr "Mot de passe"
+msgstr "Mật khẩu"
 
 #: src/variamain.py:554
 msgid "Authorization failed."
-msgstr "Echec."
+msgstr "Không thể xác thực."
 
 #: src/variamain.py:806
 msgid "Failed to open directory."
-msgstr "L'accès au dossier à echoué."
+msgstr "Không thể mở thư mục."
 
 msgid "Remote Mode"
-msgstr "Téléchargement à distance"
+msgstr "Chế độ từ xa"
 
 msgid "Remote aria2 IP"
-msgstr "IP aria2 distante"
+msgstr "Địa chỉ IP aria2 từ xa"
 
 msgid "Remote aria2 Port"
-msgstr "Port aria2 distant"
+msgstr "Cổng aria2 từ xa"
 
 msgid "Remote aria2 RPC Secret"
-msgstr "Ticket RPC secret aria2 distant"
+msgstr "Mã RPC Secret aria2 từ xa"
 
 msgid "Remote Download Location"
-msgstr "Dossier de téléchargement distant"
+msgstr "Vị trí tải xuống từ xa"
 
 msgid "Exiting Varia..."
-msgstr "Fermeture de Varia..."
+msgstr "Đang thoát Varia..."
 
 msgid "Background Mode"
-msgstr "Exécution en arrière-plan"
+msgstr "Chế độ dưới nền"
 
 msgid "Continuing the downloads in the background."
-msgstr "Les téléchargements sont toujours en cours..."
+msgstr "Đang tiếp tục tải xuống ở dưới nền."
 
 msgid "Browser Extension"
-msgstr "Extension de navigateur"
+msgstr "Trình mở rộng của trình duyệt"
 
 msgid "Shutdown on Completion"
-msgstr "Eteindre quand les téléchargements sont terminés"
+msgstr "Tắt máy sau khi hoàn thành"
 
 msgid "Varia is about to shut down your computer."
-msgstr "Varia est sur le point d'éteindre votre ordinateur."
+msgstr "Varia đang chuẩn bị tắt máy."
 
 msgid "Press Cancel to cancel and disable."
-msgstr ""
-"Appuyez sur annuler pour annuler extinction et désactiver cette "
-"fonctionnalité."
+msgstr "Nhấn Dừng để dừng và vô hiệu hóa."
 
 msgid "Cancel"
-msgstr "Annuler"
+msgstr "Dừng"
 
 msgid "Warning"
-msgstr "Attention"
+msgstr "Cảnh báo"
 
 msgid "Monday"
-msgstr "Lundi"
+msgstr "Thứ Hai"
 
 msgid "Tuesday"
-msgstr "Mardi"
+msgstr "Thứ Ba"
 
 msgid "Wednesday"
-msgstr "Mercredi"
+msgstr "Thứ Tư"
 
 msgid "Thursday"
-msgstr "Jeudi"
+msgstr "Thứ Năm"
 
 msgid "Friday"
-msgstr "Vendredi"
+msgstr "Thứ Sáu"
 
 msgid "Saturday"
-msgstr "Samedi"
+msgstr "Thứ Bảy"
 
 msgid "Sunday"
-msgstr "Dimanche"
+msgstr "Chủ Nhật"
 
 msgid "Start (h/m):"
-msgstr "Démarrage (heure/minute) :"
+msgstr "Bắt đầu (h/m):"
 
 msgid "End (h/m):"
-msgstr "Fin (heure/minute) :"
+msgstr "Kết thúc (h/m):"
 
 msgid "Scheduler enabled"
-msgstr "Planification activée"
+msgstr "Lên lịch đã bật"
 
 msgid "Scheduler"
-msgstr "Planification"
+msgstr "Lên lịch"
 
 msgid "Enabled"
-msgstr "Activé"
+msgstr "Bật"
 
 msgid "Start downloading in these times"
-msgstr "Lancer le(s) téléchargement(s) à ces horaires"
+msgstr "Bắt đầu tải xuống ở lần này"
 
 msgid "Stop downloading in these times"
-msgstr "Stopper le(s) téléchargement(s) à ces horaires"
+msgstr "Tạm dừng tải xuống ở lần này"
 
 msgid "Add Timespan"
-msgstr "Ajouter une horaire"
+msgstr "Thêm Thời lượng"
 
 #: When a download is currently seeding:
 msgid "Seeding"
-msgstr "Envoi"
+msgstr "Seeding"
 
 msgid "Failed"
-msgstr "Echec"
+msgstr "Thất bại"
 
 msgid "Completion Options"
-msgstr "Actions lors de la réussite des téléchargments"
+msgstr "Tùy chọn sau khi hoàn thành"
 
 msgid "Exit on Completion"
-msgstr "Fermer Varia"
+msgstr "Thoát khi Hoàn thành"
 
 msgid "Varia is about to quit."
-msgstr "Varia est sur le point d'être fermée."
+msgstr "Varia đang chuẩn bị thoát."
 
 msgid "Preferences"
-msgstr "Préférences"
+msgstr "Tùy chọn"
 
 msgid "Other"
-msgstr "Autres"
+msgstr "Khác"
 
 msgid "Basic Settings"
-msgstr "Général"
+msgstr "Cài đặt cơ bản"
 
 msgid "Advanced Settings"
-msgstr "Avancés"
+msgstr "Cài đặt nâng cao"
 
 msgid "Use cookies.txt"
-msgstr "Utiliser cookies.txt"
+msgstr "Sử dụng cookies.txt"
 
 msgid "Import cookies.txt"
-msgstr "Importer cookies.txt"
+msgstr "Nhập cookies.txt"
 
 msgid "Remove cookies.txt"
-msgstr "Enlever cookies.txt"
+msgstr "Xóa cookies.txt"
 
 msgid "remaining"
-msgstr "restant"
+msgstr "còn lại"
 
 msgid "Start in Background Mode"
-msgstr "Démarrer en arrière-plan"
+msgstr "Bắt đầu trong chế độ nền"
 
 msgid "Remote Timestamp"
-msgstr "Horaires à distance"
+msgstr "Mốc thời gian từ xa"
 
 msgid "Torrent"
 msgstr "Torrent"
 
 # Updater
 msgid "Checking for updates..."
-msgstr "Recherche de mises à jour..."
+msgstr "Đang kiểm tra bản cập nhật mới..."
 
 msgid "A new version of Varia is available. Do you want to update?"
-msgstr ""
-"Une nouvelle version de Varia est disponible, voulez-vous l'installer ?"
+msgstr "Đã có phiên bản mới của Varia. Bạn có muốn cập nhật không?"
 
 msgid "Update available"
-msgstr "Mise à jour disponible"
+msgstr "Cập nhật khả dụng"
 
 msgid "Update"
-msgstr "Mise à jour"
+msgstr "Cập nhật"
 
 msgid "Downloading update..."
-msgstr "Téléchargement de la mise à jour..."
+msgstr "Đang tải xuống bản cập nhật..."
 
 msgid "Download failed."
-msgstr "Echec du téléchargement."
+msgstr "Tải xuống thất bại."
 
 msgid "Yes"
-msgstr "Oui"
+msgstr "Có"
 
 msgid "No"
-msgstr "Non"
+msgstr "Không"
 
 msgid "Automatically Check for Updates"
-msgstr "Rechercher automatiquement des mises à jour"
+msgstr "Tự động kiếm tra bản cập nhật mới"
 
 msgid "Check Now"
-msgstr "Rechercher manuellement"
+msgstr "Kiếm tra ngay bây giờ"
 
 msgid "Do you want to check for updates on startup?"
-msgstr ""
-"Voulez-vous que Varia recherche des mises à jour lors de son démarrage ?"
+msgstr "Bạn có muốn kiếm tra bản cập nhật ngay khi khởi động?"
 
 msgid "File"
-msgstr "Fichier"
+msgstr "File"
 
 msgid "Video / Audio"
-msgstr "Vidéo / Audio"
+msgstr "Video / Âm thanh"
 
 msgid "Video and audio"
-msgstr "Vidéo et audio"
+msgstr "Video và âm thanh"
 
 msgid "Video only"
-msgstr "Vidéo seulement"
+msgstr "Chỉ video"
 
 msgid "Audio only"
-msgstr "Audio seulement"
+msgstr "Chỉ âm thanh"
 
 #: Relating to video download:
 msgid "Framerate:"
-msgstr "Fréquence d'images :"
+msgstr "Framerate:"
 
 #: Relating to video download:
 msgid "Bitrate:"
-msgstr "Débit Binaire (Bitrate) :"
+msgstr "Bitrate:"
 
 msgid "Checking video..."
-msgstr "Recherche de la vidéo..."
+msgstr "Đang kiểm tra video..."
 
 msgid "No video or audio streams found"
-msgstr "Aucun flux vidéo ou audio trouvé"
+msgstr "Không có luồng video hoặc âm thanh được tìm thấy"
 
 msgid "Starting download..."
-msgstr "Démarrage du téléchargement..."
+msgstr "Đang bắt đầu tải xuống..."
 
 msgid ""
 "The video platform may not be supported or you may be being blocked by the "
 "platform. If you have an active VPN connection that might be the cause, or "
 "you can try importing your browser's cookies through a cookies.txt file."
 msgstr ""
-"Le fournisseur de la vidéo n'est pas supporté ou elle vous a bloqué. Si vous "
-"avez un VPN actif, essayez de le désactiver, si vous n'en avez pas, essayez "
-"d'importer le fichier \"cookies.txt\" de votre navigateur web."
+"Trình xem video không hỗ trợ hoặc đã bị chặn. Nếu bạn đang bật VPN thì có "
+"thể sẽ bị ảnh hưởng hoặc bạn có thể thử nhập cookies từ trình duyệt của bạn "
+"bằng file cookies.txt."
 
 msgid "This will disable the video download functionality."
-msgstr "Cela désactivera le téléchargement des vidéos."
+msgstr "Trình tải xuống video sẽ bị vô hiệu hóa."
 
 #: Relating to video download progress where it says "Part 1/2" - {indicator}
 #: is replaced by "1/2" or "2/2" (don't translate {indicator})
 msgid "Part {indicator}"
-msgstr "Partie {indicator}"
+msgstr "Phần {indicator}"
 
 msgid "Simultaneous download limit exceeded, waiting."
-msgstr ""
-"La limite du nombre de téléchargements simultanés est atteinte, en attente..."
+msgstr "Số luồng tải xuống đồng thời vượt quá giới hạn, vui lòng chờ."
 
 #: The way percentages will be shown, like 10% or %10 depending on the language
 #: (don't translate {number}, just move it if needed)
@@ -435,16 +428,16 @@ msgid "{number}%"
 msgstr "{number}%"
 
 msgid "Allow Seeding"
-msgstr "Autoriser l'envoi de données"
+msgstr "Cho phép Seeding"
 
 msgid "Seeding Ratio Limit"
-msgstr "Limite de vitesse de l'envoi de données"
+msgstr "Giới hạn tỉ lệ Seeding"
 
 msgid "Torrent Settings"
-msgstr "Torrent"
+msgstr "Cài đặt Torrent"
 
 msgid "Custom Download Directory for Torrents"
-msgstr "Dossier de téléchargement des torrents"
+msgstr "Đường dẫn tải xuống tùy chỉnh cho Torrents"
 
 #: When the user attempts to disable seeding
 msgid ""
@@ -454,22 +447,20 @@ msgid ""
 "as they download (a ratio of 1). You may want to consider limiting your "
 "seeding ratio instead."
 msgstr ""
-"Le téléchargements de fichier via torrents s'appuie sur le fait que chaque "
-"personne ayant téléchargé le fichier l'envoie à son tour. En désactivant "
-"l'envoi de données, vous vous verrez probablement limité(e) ou banni(e) des "
-"téléchargements torrent. Les clients sont généralement attendus d'envoyer au "
-"moins ce qu'ils téléchargent (Ratio de 1). Vpus devriez baisser votre ratio "
-"d'envoi à la place."
+"Torrent dự vào dữ liệu của người dùng, tắt seeding là không thể chấp nhận và "
+"có thể sẽ bị ban bởi một số clients hoặc trackers. Clients thường sẽ seed ít "
+"nhất bằng tỉ lệ họ tải xuống (thường là 1). Thay vì thế bạn có thể giới hạn "
+"tỉ lệ seeding."
 
 msgid "Cancel Seeding"
-msgstr "Annuler l'envoi"
+msgstr "Dừng Seeding"
 
 # Save button
 msgid "Save"
-msgstr "Sauvegarder"
+msgstr "Lưu"
 
 msgid "Show Menu"
-msgstr "Voir le menu"
+msgstr "Hiện Menu"
 
 msgid "OK"
 msgstr ""
@@ -484,7 +475,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Torrent Settings"
 msgid "Enable Torrenting"
-msgstr "Torrent"
+msgstr "Cài đặt Torrent"
 
 msgid "The browser extension will not work when Remote Mode is enabled."
 msgstr ""
@@ -503,14 +494,14 @@ msgstr ""
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
-msgstr "Général"
+msgstr "Chung"
 
 #: src/gtk/help-overlay.ui:14
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
-msgstr "Voir les raccourcis"
+msgstr "Hiện Shortcuts"
 
 #: src/gtk/help-overlay.ui:20
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr "Quitter"
+msgstr "Thoát"

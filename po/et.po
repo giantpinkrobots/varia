@@ -2,38 +2,39 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# bluekillwood <>, 2023.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-02-12 14:02+0000\n"
-"Last-Translator: Naxoméga <naxomegaxrxz@gmail.com>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/varia/varia/fr/>\n"
-"Language: fr\n"
+"PO-Revision-Date: 2025-03-18 15:01+0000\n"
+"Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
+"Language-Team: Estonian <https://hosted.weblate.org/projects/varia/varia/et/"
+">\n"
+"Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:3
-#, fuzzy
 msgid "Varia"
 msgstr "Varia"
 
 #. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
 #: data/io.github.giantpinkrobots.varia.desktop.in:11
 msgid "varia;aria;download;manager;"
-msgstr "varia;aria;téléchargement;gestionnaire;"
+msgstr ""
+"varia;aria;download;manager;allalaadimine;allalaadimiste haldus;"
+"allalaadimishaldur;laadi alla;lae alla;"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
 msgid "Download manager based on aria2"
-msgstr "Gestionnaire de téléchargement basé sur aria2"
+msgstr "Allalaadimiste haldur, mis põhineb aria2 tarvikul"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
 msgid ""
@@ -41,393 +42,391 @@ msgid ""
 "to provide a easy to use interface that integrates well with the GNOME "
 "desktop."
 msgstr ""
-"Varia est un gestionnaire de téléchargement basé sur aria2 qui utilise GTK4 "
-"et Libadwaita pour fournir une interface simple d'utilisation qui s'intègre "
-"bien avec l'environnement Gnome"
+"Varia on aria2 tarvikul põhinev allalaadimishaldur, mis mugava ja lihtsa "
+"kasutaliidese jaoks kasutab GTK4 ja Libadwaita teeke ning lõimub sujuvalt "
+"GNOME'i töölauaga."
 
 #: src/variamain.py:45
 msgid "This is not a valid URL."
-msgstr "Ce n'est pas une URL valide"
+msgstr "See pole korrektne võrguaadress."
 
 #: src/variamain.py:125
 msgid "All"
-msgstr "Tous"
+msgstr "Kõik"
 
 #: src/variamain.py:137
 msgid "In Progress"
-msgstr "En cours"
+msgstr "Töös"
 
 #: src/variamain.py:148
 msgid "Completed"
-msgstr "Terminé"
+msgstr "Valmis"
 
 #: src/variamain.py:171
 msgid "About Varia"
-msgstr "À propos de Varia"
+msgstr "Rakenduse teave: Varia"
 
 #: src/variamain.py:177
 msgid "URL"
-msgstr "URL"
+msgstr "Võrguaadress"
 
 #: src/variamain.py:178
 msgid "Download"
-msgstr "Téléchargement"
+msgstr "Laadi alla"
 
 #: src/variamain.py:184
 msgid "Open Download Folder"
-msgstr "Ouvrir le dossier des téléchargeemnts"
+msgstr "Ava allalaadimiste kaust"
 
 #: src/variamain.py:196
 msgid "Speed Limit"
-msgstr "Limite de vitesse"
+msgstr "Võrgukiiruse piirang"
 
 #: src/variamain.py:203 src/variamain.py:423
 msgid "Pause All"
-msgstr "Tout mettre en pause"
+msgstr "Peata kõik"
 
 #: src/variamain.py:212
 msgid "Speed"
-msgstr "Vitesse"
+msgstr "Kiirus"
 
 #: src/variamain.py:215
 msgid "Set Speed Limit"
-msgstr "Définir la limite de vitesse"
+msgstr "Määra võrgukiiruse piirang"
 
 #: src/variamain.py:216
 msgid "Cancel All"
-msgstr "Tout annuler"
+msgstr "Katkesta kõik"
 
 #: src/variamain.py:235
 msgid "/s"
-msgstr "/s"
+msgstr "/sek"
 
 #: src/variamain.py:238
 msgid "No limit"
-msgstr "Pas de limite"
+msgstr "Piirang puudub"
 
 #: src/variamain.py:274
 msgid "Download complete."
-msgstr "Téléchargement terminé"
+msgstr "Allalaadimine lõppes."
 
 #: src/variamain.py:276
 msgid "Download speed is limited."
-msgstr "La vitesse de téléchargement est limitée"
+msgstr "Allalaadimiskiirus on piiratud."
 
 #: src/variamain.py:277
 msgid "An error occurred:"
-msgstr "Une erreur est survenue :"
+msgstr "Tekkis viga:"
 
 #: src/variamain.py:292
 msgid "MB/s"
-msgstr "Mo/s"
+msgstr "MB/sek"
 
 #: src/variamain.py:294
 msgid "KB/s"
-msgstr "Ko/s"
+msgstr "KB/sek"
 
 #: src/variamain.py:298
 msgid "0 B/s"
-msgstr "0 o/s"
+msgstr "0 B/sek"
 
 #: src/variamain.py:300
 msgid " MB/s"
-msgstr " Mo/s"
+msgstr " MB/sek"
 
 #: src/variamain.py:302
 msgid " KB/s"
-msgstr " Kb/s"
+msgstr " KB/sek"
 
 #: src/variamain.py:304
 msgid " B/s"
-msgstr " b/s"
+msgstr " B/sek"
 
 #: src/variamain.py:404
 msgid "Simultaneous Download Amount"
-msgstr "Nombre de téléchargements simultanés"
+msgstr "Samaaegseid allalaadimisi"
 
 #: src/variamain.py:410
 msgid "Resume All"
-msgstr "Tout reprendre"
+msgstr "Jätka kõikide allalaadimist"
 
 #: src/variamain.py:443
 msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
 msgstr ""
-"gestionnaire de téléchargement basé sur aria2 utilisant GTK4 et Libadwaita"
+"aria2 tarvikul põhinev ning GTK4 ja Libadwaita teeke kasutav "
+"allalaadimishaldur."
 
 #: src/variamain.py:777
 msgid "This application relies on the following pieces of software:"
-msgstr "Cette application s'appuie sur les logiciels suivants :"
+msgstr "See rakendus kasutab järgnevaid tarkvarakomponente:"
 
 #: src/variamain.py:777
 msgid ""
 "The licenses of all of these pieces of software can be found in the "
 "dependencies_information directory in this application's app directory."
 msgstr ""
-"La licence de tout ces logiciels peut être trouvé dans le dossier "
-"dependencies_information dans le dossier d'installation de l'application."
+"Näidatud tarkvara litsentsid leiduvad rakenduse paigalduskausta "
+"dependencies_information alamkaustas."
 
+# This is for the credits section. Replace this string with your own information so you'll be credited for your work.
 #: src/variamain.py:449
 msgid "translator-credits"
-msgstr "Naxomega"
+msgstr "Priit Jõerüüt 2025"
 
 #: src/variamain.py:457
 msgid "Download Directory"
-msgstr "Dossier des téléchargements"
+msgstr "Allalaadimiste kaust"
 
 #: src/variamain.py:460
 msgid "Change"
-msgstr "Changer"
+msgstr "Muuda"
 
 #: src/variamain.py:463
 msgid "Speed limited"
-msgstr "Vitesse limitée"
+msgstr "Võrgukiiruse piirang"
 
 #: src/variamain.py:519
 msgid "Authentication"
-msgstr "Authentification"
+msgstr "Autentimine"
 
 #: src/variamain.py:532
 msgid "Username"
-msgstr "Nom d'utilisateur"
+msgstr "Kasutajanimi"
 
 #: src/variamain.py:534
 msgid "Password"
-msgstr "Mot de passe"
+msgstr "Salasõna"
 
 #: src/variamain.py:554
 msgid "Authorization failed."
-msgstr "Echec."
+msgstr "Autoriseerimine ei õnnestunud."
 
 #: src/variamain.py:806
 msgid "Failed to open directory."
-msgstr "L'accès au dossier à echoué."
+msgstr "Kausta avamine ei õnnestunud."
 
 msgid "Remote Mode"
-msgstr "Téléchargement à distance"
+msgstr "Kaughaldus"
 
 msgid "Remote aria2 IP"
-msgstr "IP aria2 distante"
+msgstr "aria2 kaugseadme ip-aadress"
 
 msgid "Remote aria2 Port"
-msgstr "Port aria2 distant"
+msgstr "aria2 kaugseadme port"
 
 msgid "Remote aria2 RPC Secret"
-msgstr "Ticket RPC secret aria2 distant"
+msgstr "aria2 kaugseadme RPC saladus"
 
 msgid "Remote Download Location"
-msgstr "Dossier de téléchargement distant"
+msgstr "Allalaadimiskaust kaugseadmes"
 
 msgid "Exiting Varia..."
-msgstr "Fermeture de Varia..."
+msgstr "Sulgeme Varia..."
 
 msgid "Background Mode"
-msgstr "Exécution en arrière-plan"
+msgstr "Taustarežiim"
 
 msgid "Continuing the downloads in the background."
-msgstr "Les téléchargements sont toujours en cours..."
+msgstr "Jätkame allalaadimisi taustal."
 
 msgid "Browser Extension"
-msgstr "Extension de navigateur"
+msgstr "Brauseri lisamoodul"
 
 msgid "Shutdown on Completion"
-msgstr "Eteindre quand les téléchargements sont terminés"
+msgstr "Allalaadimise lõppemisel lülita välja"
 
 msgid "Varia is about to shut down your computer."
-msgstr "Varia est sur le point d'éteindre votre ordinateur."
+msgstr "Varia on lülitamas sinu arvutit välja."
 
 msgid "Press Cancel to cancel and disable."
-msgstr ""
-"Appuyez sur annuler pour annuler extinction et désactiver cette "
-"fonctionnalité."
+msgstr "Tühistamiseks ja edaspidiseks vältimiseks vajuta nuppu „Katkesta“."
 
 msgid "Cancel"
-msgstr "Annuler"
+msgstr "Katkesta"
 
 msgid "Warning"
-msgstr "Attention"
+msgstr "Hoiatus"
 
 msgid "Monday"
-msgstr "Lundi"
+msgstr "Esmaspäeval"
 
 msgid "Tuesday"
-msgstr "Mardi"
+msgstr "Teisipäeval"
 
 msgid "Wednesday"
-msgstr "Mercredi"
+msgstr "Kolmapäeval"
 
 msgid "Thursday"
-msgstr "Jeudi"
+msgstr "Neljapäeval"
 
 msgid "Friday"
-msgstr "Vendredi"
+msgstr "Reedel"
 
 msgid "Saturday"
-msgstr "Samedi"
+msgstr "Laupäeval"
 
 msgid "Sunday"
-msgstr "Dimanche"
+msgstr "Pühapäeval"
 
 msgid "Start (h/m):"
-msgstr "Démarrage (heure/minute) :"
+msgstr "Alusta (t/m):"
 
 msgid "End (h/m):"
-msgstr "Fin (heure/minute) :"
+msgstr "Lõpeta (t/m):"
 
 msgid "Scheduler enabled"
-msgstr "Planification activée"
+msgstr "Ajahaldus on kasutusel"
 
 msgid "Scheduler"
-msgstr "Planification"
+msgstr "Ajastamine"
 
 msgid "Enabled"
-msgstr "Activé"
+msgstr "Kasutusel"
 
 msgid "Start downloading in these times"
-msgstr "Lancer le(s) téléchargement(s) à ces horaires"
+msgstr "Alusta allalaadimist näidatud aegadel"
 
 msgid "Stop downloading in these times"
-msgstr "Stopper le(s) téléchargement(s) à ces horaires"
+msgstr "Lõpeta allalaadimine näidatud aegadel"
 
 msgid "Add Timespan"
-msgstr "Ajouter une horaire"
+msgstr "Lisa ajavahemik"
 
 #: When a download is currently seeding:
 msgid "Seeding"
-msgstr "Envoi"
+msgstr "Edasijagamisel"
 
 msgid "Failed"
-msgstr "Echec"
+msgstr "Ei õnnestunud"
 
 msgid "Completion Options"
-msgstr "Actions lors de la réussite des téléchargments"
+msgstr "Allalaadimise lõppemisel"
 
 msgid "Exit on Completion"
-msgstr "Fermer Varia"
+msgstr "Sulge rakendus"
 
 msgid "Varia is about to quit."
-msgstr "Varia est sur le point d'être fermée."
+msgstr "Varia on lõpetamas oma tööd."
 
 msgid "Preferences"
-msgstr "Préférences"
+msgstr "Eelistused"
 
 msgid "Other"
-msgstr "Autres"
+msgstr "Muud"
 
 msgid "Basic Settings"
-msgstr "Général"
+msgstr "Põhiseadistused"
 
 msgid "Advanced Settings"
-msgstr "Avancés"
+msgstr "Täiendavad seadistused"
 
 msgid "Use cookies.txt"
-msgstr "Utiliser cookies.txt"
+msgstr "Kasuta cookies.txt faili"
 
 msgid "Import cookies.txt"
-msgstr "Importer cookies.txt"
+msgstr "Impordi cookies.txt"
 
 msgid "Remove cookies.txt"
-msgstr "Enlever cookies.txt"
+msgstr "Eemalda cookies.txt"
 
 msgid "remaining"
-msgstr "restant"
+msgstr "aega jäänud"
 
 msgid "Start in Background Mode"
-msgstr "Démarrer en arrière-plan"
+msgstr "Käivitamisel jää taustale"
 
 msgid "Remote Timestamp"
-msgstr "Horaires à distance"
+msgstr "Kasuta välise teenuse ajatemplit"
 
 msgid "Torrent"
 msgstr "Torrent"
 
 # Updater
 msgid "Checking for updates..."
-msgstr "Recherche de mises à jour..."
+msgstr "Kontrollime uuendusi..."
 
 msgid "A new version of Varia is available. Do you want to update?"
-msgstr ""
-"Une nouvelle version de Varia est disponible, voulez-vous l'installer ?"
+msgstr "Varia uus versioon on saadaval. Kas sa soovid rakendust uuendada?"
 
 msgid "Update available"
-msgstr "Mise à jour disponible"
+msgstr "Uus versioon on saadaval"
 
 msgid "Update"
-msgstr "Mise à jour"
+msgstr "Uuenda"
 
 msgid "Downloading update..."
-msgstr "Téléchargement de la mise à jour..."
+msgstr "Laadime uuendust alla..."
 
 msgid "Download failed."
-msgstr "Echec du téléchargement."
+msgstr "Allalaadimine ei õnnestunud."
 
 msgid "Yes"
-msgstr "Oui"
+msgstr "Jah"
 
 msgid "No"
-msgstr "Non"
+msgstr "Ei"
 
 msgid "Automatically Check for Updates"
-msgstr "Rechercher automatiquement des mises à jour"
+msgstr "Kontrolli uuendusi automaatselt"
 
 msgid "Check Now"
-msgstr "Rechercher manuellement"
+msgstr "Kontrolli kohe"
 
 msgid "Do you want to check for updates on startup?"
-msgstr ""
-"Voulez-vous que Varia recherche des mises à jour lors de son démarrage ?"
+msgstr "Kas sa soovid rakenduse käivitamisel kontrollida uuenduste olemasolu?"
 
 msgid "File"
-msgstr "Fichier"
+msgstr "Fail"
 
 msgid "Video / Audio"
-msgstr "Vidéo / Audio"
+msgstr "Video / Heli"
 
 msgid "Video and audio"
-msgstr "Vidéo et audio"
+msgstr "Video ja heli"
 
 msgid "Video only"
-msgstr "Vidéo seulement"
+msgstr "Ainult video"
 
 msgid "Audio only"
-msgstr "Audio seulement"
+msgstr "Ainult heli"
 
 #: Relating to video download:
 msgid "Framerate:"
-msgstr "Fréquence d'images :"
+msgstr "Kaadrisagedus:"
 
 #: Relating to video download:
 msgid "Bitrate:"
-msgstr "Débit Binaire (Bitrate) :"
+msgstr "Bitikiirus:"
 
 msgid "Checking video..."
-msgstr "Recherche de la vidéo..."
+msgstr "Kontrollime videot..."
 
 msgid "No video or audio streams found"
-msgstr "Aucun flux vidéo ou audio trouvé"
+msgstr "Ei leidunud video- ega heliriba"
 
 msgid "Starting download..."
-msgstr "Démarrage du téléchargement..."
+msgstr "Alustame allalaadimist…"
 
 msgid ""
 "The video platform may not be supported or you may be being blocked by the "
 "platform. If you have an active VPN connection that might be the cause, or "
 "you can try importing your browser's cookies through a cookies.txt file."
 msgstr ""
-"Le fournisseur de la vidéo n'est pas supporté ou elle vous a bloqué. Si vous "
-"avez un VPN actif, essayez de le désactiver, si vous n'en avez pas, essayez "
-"d'importer le fichier \"cookies.txt\" de votre navigateur web."
+"Selle videoplatvormi tugi kas puudub või platvorm blokeerib sinu arvuti ip-"
+"aadressi. Kui kasutad VPN-ühendust, siis võib ka see olukorra põhjustada. "
+"Ühe lahendusena võid proovida importida oma veebibrauseri küpsised cookies."
+"txt faili abil."
 
 msgid "This will disable the video download functionality."
-msgstr "Cela désactivera le téléchargement des vidéos."
+msgstr "Sellega eemaldad kasutuselt video allalaadimise funktsionaalsuse."
 
 #: Relating to video download progress where it says "Part 1/2" - {indicator}
 #: is replaced by "1/2" or "2/2" (don't translate {indicator})
 msgid "Part {indicator}"
-msgstr "Partie {indicator}"
+msgstr "Osa {indicator}"
 
 msgid "Simultaneous download limit exceeded, waiting."
-msgstr ""
-"La limite du nombre de téléchargements simultanés est atteinte, en attente..."
+msgstr "Samaaegselt lubatud allalaadimiste piir on käes. Nüüd ootame natuke."
 
 #: The way percentages will be shown, like 10% or %10 depending on the language
 #: (don't translate {number}, just move it if needed)
@@ -435,16 +434,16 @@ msgid "{number}%"
 msgstr "{number}%"
 
 msgid "Allow Seeding"
-msgstr "Autoriser l'envoi de données"
+msgstr "Luba edasijagamine"
 
 msgid "Seeding Ratio Limit"
-msgstr "Limite de vitesse de l'envoi de données"
+msgstr "Edasijagamise suhtarvu piir"
 
 msgid "Torrent Settings"
-msgstr "Torrent"
+msgstr "Torrenti seadistused"
 
 msgid "Custom Download Directory for Torrents"
-msgstr "Dossier de téléchargement des torrents"
+msgstr "Eraldi kaust torrentite allalaadimiseks"
 
 #: When the user attempts to disable seeding
 msgid ""
@@ -454,25 +453,25 @@ msgid ""
 "as they download (a ratio of 1). You may want to consider limiting your "
 "seeding ratio instead."
 msgstr ""
-"Le téléchargements de fichier via torrents s'appuie sur le fait que chaque "
-"personne ayant téléchargé le fichier l'envoie à son tour. En désactivant "
-"l'envoi de données, vous vous verrez probablement limité(e) ou banni(e) des "
-"téléchargements torrent. Les clients sont généralement attendus d'envoyer au "
-"moins ce qu'ils téléchargent (Ratio de 1). Vpus devriez baisser votre ratio "
-"d'envoi à la place."
+"Torrenti kasutamine eeldab, et kõik osalejad ka jagavad andmeid edasi ning "
+"selle väljalülitamist võidakse pahaks panna ja näiteks piirata sulle "
+"jagatavate andmete laadimiskiirust või mõnede klientide ning serverite puhul "
+"lausa ühendus blokeerida.Tavaliselt eeldatakse, et kliendid jagada edasi "
+"samapalju andmeid, kui laadivad alla (suhtarv 1). Aga vastavalt sinu "
+"konkreetsetele oludele võib sul olla vaja seda suhtarvu muuta."
 
 msgid "Cancel Seeding"
-msgstr "Annuler l'envoi"
+msgstr "Katkesta edasijagamine"
 
 # Save button
 msgid "Save"
-msgstr "Sauvegarder"
+msgstr "Salvesta"
 
 msgid "Show Menu"
-msgstr "Voir le menu"
+msgstr "Näita menüüd"
 
 msgid "OK"
-msgstr ""
+msgstr "Sobib"
 
 # Snap version permission warning
 msgid ""
@@ -480,22 +479,25 @@ msgid ""
 "completion option you must first give Varia the related permission. To do "
 "this, open a terminal window and execute this command and then restart Varia:"
 msgstr ""
+"Sa kasutad Variat Snapi paketina. Kui soovid, et saaksid peala allalaadimist "
+"arvuti kinni panna, siis palun anna Variale vastavad õigused. Selleks ava "
+"terminali aken, käivita alljärgnev käsk ning seejärel käivita Varia uuesti:"
 
-#, fuzzy
-#| msgid "Torrent Settings"
 msgid "Enable Torrenting"
-msgstr "Torrent"
+msgstr "Luba torrenti kasutamine"
 
 msgid "The browser extension will not work when Remote Mode is enabled."
-msgstr ""
+msgstr "Brauseri laiendus ei toimi, kui kaughaldus on kasutusel."
 
 msgid ""
 "Disabling torrenting will prevent new torrents from being added. It will not "
 "stop current torrent instances."
 msgstr ""
+"Torrentite töötluse väljalülitamine takistab vaid uute torrentite lisamist, "
+"kuid ei lõpeta pooleliolevaid torrentipõhiseid allalaadimisi."
 
 msgid "Torrenting is disabled."
-msgstr ""
+msgstr "Torrentipõhine allalaadimine pole kasutusel."
 
 msgid "Unknown filesize"
 msgstr ""
@@ -503,14 +505,14 @@ msgstr ""
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
-msgstr "Général"
+msgstr "Üldised"
 
 #: src/gtk/help-overlay.ui:14
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
-msgstr "Voir les raccourcis"
+msgstr "Näita kiirklahve"
 
 #: src/gtk/help-overlay.ui:20
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr "Quitter"
+msgstr "Välju"
