@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Varia\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-03-17 14:04+0000\n"
+"PO-Revision-Date: 2025-03-31 13:16+0000\n"
 "Last-Translator: Любомир Василев <lyubomirv@gmx.com>\n"
 "Language-Team: Bulgarian <https://hosted.weblate.org/projects/varia/varia/bg/"
 ">\n"
@@ -131,15 +131,15 @@ msgstr "0 Б/с"
 
 #: src/variamain.py:300
 msgid " MB/s"
-msgstr "МБ/с"
+msgstr " МБ/с"
 
 #: src/variamain.py:302
 msgid " KB/s"
-msgstr "КБ/с"
+msgstr " КБ/с"
 
 #: src/variamain.py:304
 msgid " B/s"
-msgstr "Б/с"
+msgstr " Б/с"
 
 #: src/variamain.py:404
 msgid "Simultaneous Download Amount"
@@ -202,7 +202,7 @@ msgid "Failed to open directory."
 msgstr "Папката не може да бъде отворена."
 
 msgid "Remote Mode"
-msgstr "Режим „Дистанционно“"
+msgstr "Дистанционен режим"
 
 msgid "Remote aria2 IP"
 msgstr "Отдалечено aria2 IP"
@@ -271,13 +271,13 @@ msgid "End (h/m):"
 msgstr "Край (ч/м):"
 
 msgid "Scheduler enabled"
-msgstr "Scheduler е активиран"
+msgstr "Планирането е включено"
 
 msgid "Scheduler"
-msgstr "Scheduler"
+msgstr "Планиране"
 
 msgid "Enabled"
-msgstr "Активирано"
+msgstr "Включено"
 
 msgid "Start downloading in these times"
 msgstr "Стартиране на изтеглянето по това време"
@@ -483,24 +483,25 @@ msgstr ""
 "дадете на Varia съответното разрешение. За да направите това, отворете "
 "терминала и изпълнете тази команда, а след това рестартирайте Varia:"
 
-#, fuzzy
-#| msgid "Torrent Settings"
 msgid "Enable Torrenting"
-msgstr "Настройки за торентите"
+msgstr "Включване на торентите"
 
 msgid "The browser extension will not work when Remote Mode is enabled."
 msgstr ""
+"Добавката за браузъра няма да работи, когато е включен дистанционният режим."
 
 msgid ""
 "Disabling torrenting will prevent new torrents from being added. It will not "
 "stop current torrent instances."
 msgstr ""
+"Изключването на торентите ще забрани добавянето на нови торенти, но няма да "
+"спре текущите."
 
 msgid "Torrenting is disabled."
-msgstr ""
+msgstr "Торентите са изключени."
 
 msgid "Unknown filesize"
-msgstr ""
+msgstr "Неизвестен размер"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
