@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-01-25 23:18+0000\n"
+"PO-Revision-Date: 2025-03-31 13:16+0000\n"
 "Last-Translator: Quentin PAGÈS <quentinantonin@free.fr>\n"
-"Language-Team: Occitan <https://hosted.weblate.org/projects/varia/glossary/"
-"oc/>\n"
+"Language-Team: Occitan <https://hosted.weblate.org/projects/varia/varia/oc/>"
+"\n"
 "Language: oc\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -229,7 +229,7 @@ msgid "Browser Extension"
 msgstr "Extension per navegador"
 
 msgid "Shutdown on Completion"
-msgstr ""
+msgstr "Atudar un còp acabat"
 
 msgid "Varia is about to shut down your computer."
 msgstr ""
@@ -491,7 +491,7 @@ msgid "Torrenting is disabled."
 msgstr ""
 
 msgid "Unknown filesize"
-msgstr ""
+msgstr "Talha de fichièr desconeguda"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
