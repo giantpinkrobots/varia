@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-03-05 11:28+0100\n"
+"PO-Revision-Date: 2024-05-07 16:11+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -322,122 +322,135 @@ msgstr "cookies.txt importeren"
 msgid "Remove cookies.txt"
 msgstr "cookies.txt verwijderen"
 
+#, fuzzy
+#| msgid "Warning"
 msgid "remaining"
-msgstr "resterend"
+msgstr "Waarschuwing"
 
+#, fuzzy
+#| msgid "Background Mode"
 msgid "Start in Background Mode"
-msgstr "Opstarten op achtergrond"
+msgstr "Achtergrondmodus"
 
 msgid "Remote Timestamp"
-msgstr "Extern tijdstip"
+msgstr ""
 
 msgid "Torrent"
-msgstr "Torrent"
+msgstr ""
 
 # Updater
 msgid "Checking for updates..."
-msgstr "Bezig met controleren op updates…"
+msgstr ""
 
 msgid "A new version of Varia is available. Do you want to update?"
 msgstr ""
-"Er is een nieuwe versie van Varia beschikbaar. Wilt u deze installeren?"
 
 msgid "Update available"
-msgstr "Update beschikbaar"
+msgstr ""
 
 msgid "Update"
-msgstr "Bijwerken"
+msgstr ""
 
+#, fuzzy
+#| msgid "Download complete."
 msgid "Downloading update..."
-msgstr "Bezig met downloaden…"
+msgstr "Het downloaden is voltooid."
 
+#, fuzzy
+#| msgid "Download complete."
 msgid "Download failed."
-msgstr "Het downloaden is mislukt."
+msgstr "Het downloaden is voltooid."
 
 msgid "Yes"
-msgstr "Ja"
+msgstr ""
 
 msgid "No"
-msgstr "Nee"
+msgstr ""
 
 msgid "Automatically Check for Updates"
-msgstr "Automatisch controleren op updates"
+msgstr ""
 
 msgid "Check Now"
-msgstr "Nu controleren"
+msgstr ""
 
 msgid "Do you want to check for updates on startup?"
-msgstr "Wilt u na het opstarten controleren op updates?"
+msgstr ""
 
 msgid "File"
-msgstr "Bestand"
+msgstr ""
 
 msgid "Video / Audio"
-msgstr "Video/Audio"
+msgstr ""
 
 msgid "Video and audio"
-msgstr "Video en audio"
+msgstr ""
 
 msgid "Video only"
-msgstr "Alleen video"
+msgstr ""
 
 msgid "Audio only"
-msgstr "Alleen audio"
+msgstr ""
 
 #: Relating to video download:
 msgid "Framerate:"
-msgstr "Framesnelheid:"
+msgstr ""
 
 #: Relating to video download:
 msgid "Bitrate:"
-msgstr "Bitsnelheid:"
+msgstr ""
 
 msgid "Checking video..."
-msgstr "Bezig met videocontrole…"
+msgstr ""
 
 msgid "No video or audio streams found"
-msgstr "Er is geen video- of audiostream aangetroffen"
+msgstr ""
 
 msgid "Starting download..."
-msgstr "Bezig met starten…"
+msgstr ""
 
 msgid ""
 "The video platform may not be supported or you may be being blocked by the "
 "platform. If you have an active VPN connection that might be the cause, or "
 "you can try importing your browser's cookies through a cookies.txt file."
 msgstr ""
-"Het videoplatform wordt mogelijk niet ondersteund of heeft u geblokkeerd. "
-"Als u gebruikmaakt van een vpn-verbinding, kan dat mogelijk de oorzaak zijn. "
-"Wat ook kan is het importeren van browsercookies aan de hand van een "
-"cookies.txt-bestand."
 
 msgid "This will disable the video download functionality."
-msgstr "Hiermee worden videodownloads uitgeschakeld."
+msgstr ""
 
 #: Relating to video download progress where it says "Part 1/2" - {indicator}
 #: is replaced by "1/2" or "2/2" (don't translate {indicator})
 msgid "Part {indicator}"
-msgstr "Deel {indicator}"
+msgstr ""
 
+#, fuzzy
+#| msgid "Simultaneous Download Amount"
 msgid "Simultaneous download limit exceeded, waiting."
-msgstr "Het aantal gelijktijdige downloads is overschreden."
+msgstr "Aantal gelijktijdige downloads"
 
 #: The way percentages will be shown, like 10% or %10 depending on the language
 #: (don't translate {number}, just move it if needed)
 msgid "{number}%"
-msgstr "{number}%"
+msgstr ""
 
+#, fuzzy
+#| msgid "Seeding"
 msgid "Allow Seeding"
-msgstr "Seeden toestaan"
+msgstr "Bezig met seeden…"
 
+#, fuzzy
+#| msgid "Speed Limit"
 msgid "Seeding Ratio Limit"
-msgstr "Seedlimiet"
+msgstr "Snelheidslimiet"
 
+#, fuzzy
+#| msgid "Advanced Settings"
 msgid "Torrent Settings"
-msgstr "Torrentvoorkeuren"
+msgstr "Geavanceerde voorkeuren"
 
+#, fuzzy
+#| msgid "Download Directory"
 msgid "Custom Download Directory for Torrents"
-msgstr "Aangepaste torrentmap"
+msgstr "Downloadmap"
 
 #: When the user attempts to disable seeding
 msgid ""
@@ -447,20 +460,18 @@ msgid ""
 "as they download (a ratio of 1). You may want to consider limiting your "
 "seeding ratio instead."
 msgstr ""
-"Torrents zijn afhankelijk van seeders. Het uitschakelen hiervan wordt niet "
-"in dank afgenomen en kan leiden tot snelheidsbeperkingen of blokkades. Er "
-"wordt vanuit gegaan dat men minstens net zo veel seed als men downloadt (1-"
-"op-1-verhouding). Pas bij voorkeur uw seedlimiet aan."
 
+#, fuzzy
+#| msgid "Seeding"
 msgid "Cancel Seeding"
-msgstr "Seeden stoppen"
+msgstr "Bezig met seeden…"
 
 # Save button
 msgid "Save"
-msgstr "Opslaan"
+msgstr ""
 
 msgid "Show Menu"
-msgstr "Menu tonen"
+msgstr ""
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
