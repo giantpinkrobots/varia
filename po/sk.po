@@ -2,38 +2,36 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# bluekillwood <>, 2023.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-02-12 14:02+0000\n"
-"Last-Translator: Naxoméga <naxomegaxrxz@gmail.com>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/varia/varia/fr/>\n"
-"Language: fr\n"
+"PO-Revision-Date: 2025-03-31 13:16+0000\n"
+"Last-Translator: Peter Vančo <petervanco347@gmail.com>\n"
+"Language-Team: Slovak <https://hosted.weblate.org/projects/varia/varia/sk/>\n"
+"Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:3
-#, fuzzy
 msgid "Varia"
 msgstr "Varia"
 
 #. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
 #: data/io.github.giantpinkrobots.varia.desktop.in:11
 msgid "varia;aria;download;manager;"
-msgstr "varia;aria;téléchargement;gestionnaire;"
+msgstr "varia;aria;download;manager;stiahnuť;manažér;"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
 msgid "Download manager based on aria2"
-msgstr "Gestionnaire de téléchargement basé sur aria2"
+msgstr "Správca sťahovania postavený na aria2"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
 msgid ""
@@ -41,61 +39,61 @@ msgid ""
 "to provide a easy to use interface that integrates well with the GNOME "
 "desktop."
 msgstr ""
-"Varia est un gestionnaire de téléchargement basé sur aria2 qui utilise GTK4 "
-"et Libadwaita pour fournir une interface simple d'utilisation qui s'intègre "
-"bien avec l'environnement Gnome"
+"Varia je správca sťahovania postavený na aria2, ktorý využíva GTK4 a "
+"Libadwaita na poskytovanie intuitívneho rozhrania, ktoré sa bez problémov "
+"integruje s pracovnou plochou GNOME."
 
 #: src/variamain.py:45
 msgid "This is not a valid URL."
-msgstr "Ce n'est pas une URL valide"
+msgstr "Zadaná URL adresa nie je platná."
 
 #: src/variamain.py:125
 msgid "All"
-msgstr "Tous"
+msgstr "Všetky"
 
 #: src/variamain.py:137
 msgid "In Progress"
-msgstr "En cours"
+msgstr "Prebiehajúce"
 
 #: src/variamain.py:148
 msgid "Completed"
-msgstr "Terminé"
+msgstr "Dokončené"
 
 #: src/variamain.py:171
 msgid "About Varia"
-msgstr "À propos de Varia"
+msgstr "O aplikácii Varia"
 
 #: src/variamain.py:177
 msgid "URL"
-msgstr "URL"
+msgstr "Sem zadajte URL"
 
 #: src/variamain.py:178
 msgid "Download"
-msgstr "Téléchargement"
+msgstr "Stiahnuť"
 
 #: src/variamain.py:184
 msgid "Open Download Folder"
-msgstr "Ouvrir le dossier des téléchargeemnts"
+msgstr "Otvoriť priečinok Stiahnuté"
 
 #: src/variamain.py:196
 msgid "Speed Limit"
-msgstr "Limite de vitesse"
+msgstr "Limit rýchlosti"
 
 #: src/variamain.py:203 src/variamain.py:423
 msgid "Pause All"
-msgstr "Tout mettre en pause"
+msgstr "Pozastaviť všetky"
 
 #: src/variamain.py:212
 msgid "Speed"
-msgstr "Vitesse"
+msgstr "Rýchlosť"
 
 #: src/variamain.py:215
 msgid "Set Speed Limit"
-msgstr "Définir la limite de vitesse"
+msgstr "Nastaviť limit rýchlosti"
 
 #: src/variamain.py:216
 msgid "Cancel All"
-msgstr "Tout annuler"
+msgstr "Zrušiť všetky"
 
 #: src/variamain.py:235
 msgid "/s"
@@ -103,331 +101,327 @@ msgstr "/s"
 
 #: src/variamain.py:238
 msgid "No limit"
-msgstr "Pas de limite"
+msgstr "Bez limitu"
 
 #: src/variamain.py:274
 msgid "Download complete."
-msgstr "Téléchargement terminé"
+msgstr "Sťahovanie bolo dokončené."
 
 #: src/variamain.py:276
 msgid "Download speed is limited."
-msgstr "La vitesse de téléchargement est limitée"
+msgstr "Rýchlosť sťahovania je limitovaná."
 
 #: src/variamain.py:277
 msgid "An error occurred:"
-msgstr "Une erreur est survenue :"
+msgstr "Vyskytla sa chyba:"
 
 #: src/variamain.py:292
 msgid "MB/s"
-msgstr "Mo/s"
+msgstr "MB/s"
 
 #: src/variamain.py:294
 msgid "KB/s"
-msgstr "Ko/s"
+msgstr "KB/s"
 
 #: src/variamain.py:298
 msgid "0 B/s"
-msgstr "0 o/s"
+msgstr "0 B/s"
 
 #: src/variamain.py:300
 msgid " MB/s"
-msgstr " Mo/s"
+msgstr " MB/s"
 
 #: src/variamain.py:302
 msgid " KB/s"
-msgstr " Kb/s"
+msgstr " KB/s"
 
 #: src/variamain.py:304
 msgid " B/s"
-msgstr " b/s"
+msgstr " B/s"
 
 #: src/variamain.py:404
 msgid "Simultaneous Download Amount"
-msgstr "Nombre de téléchargements simultanés"
+msgstr "Počet súčasne prebiehajúcich sťahovaní"
 
 #: src/variamain.py:410
 msgid "Resume All"
-msgstr "Tout reprendre"
+msgstr "Obnoviť všetky"
 
 #: src/variamain.py:443
 msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
 msgstr ""
-"gestionnaire de téléchargement basé sur aria2 utilisant GTK4 et Libadwaita"
+"Správca sťahovania postavený na aria2, ktorý využíva GTK4 a Libadwaita."
 
 #: src/variamain.py:777
 msgid "This application relies on the following pieces of software:"
-msgstr "Cette application s'appuie sur les logiciels suivants :"
+msgstr "Táto aplikácia závisí od nasledujúcich komponentov softvéru:"
 
 #: src/variamain.py:777
 msgid ""
 "The licenses of all of these pieces of software can be found in the "
 "dependencies_information directory in this application's app directory."
 msgstr ""
-"La licence de tout ces logiciels peut être trouvé dans le dossier "
-"dependencies_information dans le dossier d'installation de l'application."
+"Licencie všetkých týchto softvérových komponentov sú uložené v priečinku "
+"dependencies_information tejto aplikácie."
 
+# This is for the credits section. Replace this string with your own information so you'll be credited for your work.
 #: src/variamain.py:449
 msgid "translator-credits"
-msgstr "Naxomega"
+msgstr "Peter Vančo"
 
 #: src/variamain.py:457
 msgid "Download Directory"
-msgstr "Dossier des téléchargements"
+msgstr "Priečinok na stiahnutie"
 
 #: src/variamain.py:460
 msgid "Change"
-msgstr "Changer"
+msgstr "Zmeniť"
 
 #: src/variamain.py:463
 msgid "Speed limited"
-msgstr "Vitesse limitée"
+msgstr "Limit rýchlosti"
 
 #: src/variamain.py:519
 msgid "Authentication"
-msgstr "Authentification"
+msgstr "Autentifikácia"
 
 #: src/variamain.py:532
 msgid "Username"
-msgstr "Nom d'utilisateur"
+msgstr "Používateľské meno"
 
 #: src/variamain.py:534
 msgid "Password"
-msgstr "Mot de passe"
+msgstr "Heslo"
 
 #: src/variamain.py:554
 msgid "Authorization failed."
-msgstr "Echec."
+msgstr "Autorizácia sa nepodarila."
 
 #: src/variamain.py:806
 msgid "Failed to open directory."
-msgstr "L'accès au dossier à echoué."
+msgstr "Priečinok sa nepodarilo otvoriť."
 
 msgid "Remote Mode"
-msgstr "Téléchargement à distance"
+msgstr "Vzdialený režim"
 
 msgid "Remote aria2 IP"
-msgstr "IP aria2 distante"
+msgstr "Vzdialená IP pre aria2"
 
 msgid "Remote aria2 Port"
-msgstr "Port aria2 distant"
+msgstr "Vzdialený Port pre aria2"
 
 msgid "Remote aria2 RPC Secret"
-msgstr "Ticket RPC secret aria2 distant"
+msgstr "Vzdialený RPC tajný kľúč pre aria2"
 
 msgid "Remote Download Location"
-msgstr "Dossier de téléchargement distant"
+msgstr "Vzdialená lokalita pre sťahovanie"
 
 msgid "Exiting Varia..."
-msgstr "Fermeture de Varia..."
+msgstr "Ukončuje sa Varia…"
 
 msgid "Background Mode"
-msgstr "Exécution en arrière-plan"
+msgstr "Režim na pozadí"
 
 msgid "Continuing the downloads in the background."
-msgstr "Les téléchargements sont toujours en cours..."
+msgstr "Pokračovanie v sťahovaní na pozadí."
 
 msgid "Browser Extension"
-msgstr "Extension de navigateur"
+msgstr "Rozšírenie prehliadača"
 
 msgid "Shutdown on Completion"
-msgstr "Eteindre quand les téléchargements sont terminés"
+msgstr "Vypnúť po dokončení"
 
 msgid "Varia is about to shut down your computer."
-msgstr "Varia est sur le point d'éteindre votre ordinateur."
+msgstr "Varia sa chystá vypnúť váš počítač."
 
 msgid "Press Cancel to cancel and disable."
-msgstr ""
-"Appuyez sur annuler pour annuler extinction et désactiver cette "
-"fonctionnalité."
+msgstr "Stlačte Zrušiť na zrušenie a vypnutie."
 
 msgid "Cancel"
-msgstr "Annuler"
+msgstr "Zrušiť"
 
 msgid "Warning"
-msgstr "Attention"
+msgstr "Upozornenie"
 
 msgid "Monday"
-msgstr "Lundi"
+msgstr "Pondelok"
 
 msgid "Tuesday"
-msgstr "Mardi"
+msgstr "Utorok"
 
 msgid "Wednesday"
-msgstr "Mercredi"
+msgstr "Streda"
 
 msgid "Thursday"
-msgstr "Jeudi"
+msgstr "Štvrtok"
 
 msgid "Friday"
-msgstr "Vendredi"
+msgstr "Piatok"
 
 msgid "Saturday"
-msgstr "Samedi"
+msgstr "Sobota"
 
 msgid "Sunday"
-msgstr "Dimanche"
+msgstr "Nedeľa"
 
 msgid "Start (h/m):"
-msgstr "Démarrage (heure/minute) :"
+msgstr "Začiatok (h/m):"
 
 msgid "End (h/m):"
-msgstr "Fin (heure/minute) :"
+msgstr "Koniec (h/m):"
 
 msgid "Scheduler enabled"
-msgstr "Planification activée"
+msgstr "Časovač je zapnutý"
 
 msgid "Scheduler"
-msgstr "Planification"
+msgstr "Časovač"
 
 msgid "Enabled"
-msgstr "Activé"
+msgstr "Zapnuté"
 
 msgid "Start downloading in these times"
-msgstr "Lancer le(s) téléchargement(s) à ces horaires"
+msgstr "Začať sťahovať v týchto časoch"
 
 msgid "Stop downloading in these times"
-msgstr "Stopper le(s) téléchargement(s) à ces horaires"
+msgstr "Zastaviť sťahovanie v týchto časoch"
 
 msgid "Add Timespan"
-msgstr "Ajouter une horaire"
+msgstr "Pridať časový interval"
 
 #: When a download is currently seeding:
 msgid "Seeding"
-msgstr "Envoi"
+msgstr "Seedujúce"
 
 msgid "Failed"
-msgstr "Echec"
+msgstr "Neúspešné"
 
 msgid "Completion Options"
-msgstr "Actions lors de la réussite des téléchargments"
+msgstr "Možnosti dokončenia"
 
 msgid "Exit on Completion"
-msgstr "Fermer Varia"
+msgstr "Ukončiť po dokončení"
 
 msgid "Varia is about to quit."
-msgstr "Varia est sur le point d'être fermée."
+msgstr "Varia sa chystá ukončiť."
 
 msgid "Preferences"
-msgstr "Préférences"
+msgstr "Možnosti"
 
 msgid "Other"
-msgstr "Autres"
+msgstr "Ostatné"
 
 msgid "Basic Settings"
-msgstr "Général"
+msgstr "Základné možnosti"
 
 msgid "Advanced Settings"
-msgstr "Avancés"
+msgstr "Pokročilé možnosti"
 
 msgid "Use cookies.txt"
-msgstr "Utiliser cookies.txt"
+msgstr "Použiť cookies.txt"
 
 msgid "Import cookies.txt"
-msgstr "Importer cookies.txt"
+msgstr "Načítať cookies.txt"
 
 msgid "Remove cookies.txt"
-msgstr "Enlever cookies.txt"
+msgstr "Odstrániť cookies.txt"
 
 msgid "remaining"
-msgstr "restant"
+msgstr "zostávajúci čas"
 
 msgid "Start in Background Mode"
-msgstr "Démarrer en arrière-plan"
+msgstr "Spustiť v režime na pozadí"
 
 msgid "Remote Timestamp"
-msgstr "Horaires à distance"
+msgstr "Vzdialená časová pečiatka"
 
 msgid "Torrent"
 msgstr "Torrent"
 
 # Updater
 msgid "Checking for updates..."
-msgstr "Recherche de mises à jour..."
+msgstr "Kontrolujú sa aktualizácie…"
 
 msgid "A new version of Varia is available. Do you want to update?"
-msgstr ""
-"Une nouvelle version de Varia est disponible, voulez-vous l'installer ?"
+msgstr "K dispozícii je nová verzia Varia. Chcete ju aktualizovať?"
 
 msgid "Update available"
-msgstr "Mise à jour disponible"
+msgstr "K dispozícii je aktualizácia"
 
 msgid "Update"
-msgstr "Mise à jour"
+msgstr "Aktualizovať"
 
 msgid "Downloading update..."
-msgstr "Téléchargement de la mise à jour..."
+msgstr "Sťahuje sa aktualizácia…"
 
 msgid "Download failed."
-msgstr "Echec du téléchargement."
+msgstr "Sťahovanie sa nepodarilo."
 
 msgid "Yes"
-msgstr "Oui"
+msgstr "Áno"
 
 msgid "No"
-msgstr "Non"
+msgstr "Nie"
 
 msgid "Automatically Check for Updates"
-msgstr "Rechercher automatiquement des mises à jour"
+msgstr "Automaticky kontrolovať aktualizácie"
 
 msgid "Check Now"
-msgstr "Rechercher manuellement"
+msgstr "Skontrolovať teraz"
 
 msgid "Do you want to check for updates on startup?"
-msgstr ""
-"Voulez-vous que Varia recherche des mises à jour lors de son démarrage ?"
+msgstr "Chcete kontrolovať aktualizácie pri spustení?"
 
 msgid "File"
-msgstr "Fichier"
+msgstr "Súbor"
 
 msgid "Video / Audio"
-msgstr "Vidéo / Audio"
+msgstr "Video / Zvuk"
 
 msgid "Video and audio"
-msgstr "Vidéo et audio"
+msgstr "Video a zvuk"
 
 msgid "Video only"
-msgstr "Vidéo seulement"
+msgstr "Iba video"
 
 msgid "Audio only"
-msgstr "Audio seulement"
+msgstr "Iba zvuk"
 
 #: Relating to video download:
 msgid "Framerate:"
-msgstr "Fréquence d'images :"
+msgstr "Frekvencia snímok:"
 
 #: Relating to video download:
 msgid "Bitrate:"
-msgstr "Débit Binaire (Bitrate) :"
+msgstr "Bitová rýchlosť:"
 
 msgid "Checking video..."
-msgstr "Recherche de la vidéo..."
+msgstr "Kontroluje sa video…"
 
 msgid "No video or audio streams found"
-msgstr "Aucun flux vidéo ou audio trouvé"
+msgstr "Nenašli sa žiadne dostupné video ani audio streamy"
 
 msgid "Starting download..."
-msgstr "Démarrage du téléchargement..."
+msgstr "Spustilo sa sťahovanie…"
 
 msgid ""
 "The video platform may not be supported or you may be being blocked by the "
 "platform. If you have an active VPN connection that might be the cause, or "
 "you can try importing your browser's cookies through a cookies.txt file."
 msgstr ""
-"Le fournisseur de la vidéo n'est pas supporté ou elle vous a bloqué. Si vous "
-"avez un VPN actif, essayez de le désactiver, si vous n'en avez pas, essayez "
-"d'importer le fichier \"cookies.txt\" de votre navigateur web."
+"Vaša video platforma nemusí byť podporovaná, alebo vás môže blokovať. "
+"Aktívne pripojenie cez VPN môže byť príčinou problému. Môžete skúsiť načítať "
+"cookies zo svojho prehliadača prostredníctvom súboru cookies.txt."
 
 msgid "This will disable the video download functionality."
-msgstr "Cela désactivera le téléchargement des vidéos."
+msgstr "Táto možnosť deaktivuje funkciu sťahovania videa."
 
 #: Relating to video download progress where it says "Part 1/2" - {indicator}
 #: is replaced by "1/2" or "2/2" (don't translate {indicator})
 msgid "Part {indicator}"
-msgstr "Partie {indicator}"
+msgstr "Časť {indicator}"
 
 msgid "Simultaneous download limit exceeded, waiting."
-msgstr ""
-"La limite du nombre de téléchargements simultanés est atteinte, en attente..."
+msgstr "Prekročený limit súčasného sťahovania, čakám."
 
 #: The way percentages will be shown, like 10% or %10 depending on the language
 #: (don't translate {number}, just move it if needed)
@@ -435,16 +429,16 @@ msgid "{number}%"
 msgstr "{number}%"
 
 msgid "Allow Seeding"
-msgstr "Autoriser l'envoi de données"
+msgstr "Zapnúť seedovanie"
 
 msgid "Seeding Ratio Limit"
-msgstr "Limite de vitesse de l'envoi de données"
+msgstr "Limit pomeru seedovania"
 
 msgid "Torrent Settings"
-msgstr "Torrent"
+msgstr "Torrent možnosti"
 
 msgid "Custom Download Directory for Torrents"
-msgstr "Dossier de téléchargement des torrents"
+msgstr "Vlastný priečinok na sťahovanie torrentov"
 
 #: When the user attempts to disable seeding
 msgid ""
@@ -454,25 +448,24 @@ msgid ""
 "as they download (a ratio of 1). You may want to consider limiting your "
 "seeding ratio instead."
 msgstr ""
-"Le téléchargements de fichier via torrents s'appuie sur le fait que chaque "
-"personne ayant téléchargé le fichier l'envoie à son tour. En désactivant "
-"l'envoi de données, vous vous verrez probablement limité(e) ou banni(e) des "
-"téléchargements torrent. Les clients sont généralement attendus d'envoyer au "
-"moins ce qu'ils téléchargent (Ratio de 1). Vpus devriez baisser votre ratio "
-"d'envoi à la place."
+"Torrentovanie závisí na tom, že ľudia seedujú dáta, preto zakázanie "
+"seedovania je veľmi neodporúčané a môže viesť k tomu, že vás niektorí "
+"klienti a trackery spomalia alebo zablokujú. Od používateľov sa zvyčajne "
+"očakáva, že budú seedovať aspoň toľko, koľko stiahli (pomer 1:1). Možno by "
+"ste mali zvážiť obmedzenie pomeru seedovania namiesto jeho úplného zakázania."
 
 msgid "Cancel Seeding"
-msgstr "Annuler l'envoi"
+msgstr "Zrušiť seedovanie"
 
 # Save button
 msgid "Save"
-msgstr "Sauvegarder"
+msgstr "Uložiť"
 
 msgid "Show Menu"
-msgstr "Voir le menu"
+msgstr "Zobraziť menu"
 
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 # Snap version permission warning
 msgid ""
@@ -480,37 +473,42 @@ msgid ""
 "completion option you must first give Varia the related permission. To do "
 "this, open a terminal window and execute this command and then restart Varia:"
 msgstr ""
+"Používate aplikáciu Varia ako Snap balík. Aby ste mohli využiť možnosť "
+"„Vypnutie po dokončení“, musíte aplikácii Varia najskôr udeliť potrebné "
+"povolenia. Ak to chcete urobiť, otvorte Terminál, zadajte tento príkaz a "
+"následne reštartujte aplikáciu Varia:"
 
-#, fuzzy
-#| msgid "Torrent Settings"
 msgid "Enable Torrenting"
-msgstr "Torrent"
+msgstr "Zapnúť torrentovanie"
 
 msgid "The browser extension will not work when Remote Mode is enabled."
 msgstr ""
+"Rozšírenie pre prehliadač nebude fungovať, keď je aktívny vzdialený režim."
 
 msgid ""
 "Disabling torrenting will prevent new torrents from being added. It will not "
 "stop current torrent instances."
 msgstr ""
+"Vypnutie torrentovania zabráni pridávaniu nových torrentov. Nezastaví však "
+"aktuálne bežiace torrenty."
 
 msgid "Torrenting is disabled."
-msgstr ""
+msgstr "Torrentovanie je vypnuté."
 
 msgid "Unknown filesize"
-msgstr ""
+msgstr "Neznáma veľkosť"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
-msgstr "Général"
+msgstr "Všeobecné"
 
 #: src/gtk/help-overlay.ui:14
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
-msgstr "Voir les raccourcis"
+msgstr "Zobraziť skratky"
 
 #: src/gtk/help-overlay.ui:20
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr "Quitter"
+msgstr "Ukončiť"

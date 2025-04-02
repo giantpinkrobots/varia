@@ -8,13 +8,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2024-08-24 17:20+0100\n"
-"Last-Translator: Neko the gamer <gvgpcocd5@mozmail.com>\n"
-"Language-Team: Italian <LL@li.org>\n"
+"PO-Revision-Date: 2025-01-28 01:15+0000\n"
+"Last-Translator: Alessandro Gorla <Ale.Gorla2002@gmail.com>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/varia/glossary/"
+"it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -43,7 +46,7 @@ msgstr ""
 
 #: src/variamain.py:45
 msgid "This is not a valid URL."
-msgstr "Questo non è un URL valido."
+msgstr "Questo URL è valido."
 
 #: src/variamain.py:125
 msgid "All"
@@ -158,14 +161,15 @@ msgid ""
 "The licenses of all of these pieces of software can be found in the "
 "dependencies_information directory in this application's app directory."
 msgstr ""
-"Le licenze di tutti questi software si trovano nella cartella "
+"Le licenze di tutti questi software si possono trovare nella cartella "
 "dependencies_information nella cartella dell'app di questa applicazione."
 
 #: src/variamain.py:449
 msgid "translator-credits"
 msgstr ""
 "Albano Battistella <albanobattistella@gmail.com>\n"
-"Neko the gamer <gvgpcocd5@mozmail.com>"
+"Neko the gamer <gvgpcocd5@mozmail.com>\n"
+"Gorlix"
 
 #: src/variamain.py:457
 msgid "Download Directory"
@@ -281,7 +285,7 @@ msgid "Start downloading in these times"
 msgstr "Inizia a scaricare in questo periodo"
 
 msgid "Stop downloading in these times"
-msgstr "Smetti di scaricare in questo periodo"
+msgstr "Smetti di scaricare in questo momento"
 
 msgid "Add Timespan"
 msgstr "Aggiungi tempo"
@@ -323,105 +327,101 @@ msgstr "Importa cookies.txt"
 msgid "Remove cookies.txt"
 msgstr "Rimuovi cookies.txt"
 
-#, fuzzy
-#| msgid "Warning"
 msgid "remaining"
-msgstr "Attenzione"
+msgstr "rimanenti"
 
-#, fuzzy
-#| msgid "Background Mode"
 msgid "Start in Background Mode"
-msgstr "Modalità in background"
+msgstr "Avvia in Modalità in background"
 
 msgid "Remote Timestamp"
-msgstr ""
+msgstr "Timestamp Remoto"
 
 msgid "Torrent"
-msgstr ""
+msgstr "Torrent"
 
 # Updater
 msgid "Checking for updates..."
-msgstr ""
+msgstr "Controllo degli aggiornamenti..."
 
 msgid "A new version of Varia is available. Do you want to update?"
-msgstr ""
+msgstr "È disponibile una nuova versione di Varia. Vuoi aggiornare?"
 
 msgid "Update available"
-msgstr ""
+msgstr "Aggiornamento disponibile"
 
 msgid "Update"
-msgstr ""
+msgstr "Aggiornamento"
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Downloading update..."
-msgstr "Download completato."
+msgstr "Download aggiornamento."
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Download failed."
-msgstr "Download completato."
+msgstr "Download fallito."
 
 msgid "Yes"
-msgstr ""
+msgstr "Si"
 
 msgid "No"
-msgstr ""
+msgstr "No"
 
 msgid "Automatically Check for Updates"
-msgstr ""
+msgstr "Verifica automatica degli aggiornamenti"
 
 msgid "Check Now"
-msgstr ""
+msgstr "Controlla Ora"
 
 msgid "Do you want to check for updates on startup?"
-msgstr ""
+msgstr "Vuoi verificare la presenza di aggiornamenti all'avvio?"
 
 msgid "File"
-msgstr ""
+msgstr "File"
 
 msgid "Video / Audio"
-msgstr ""
+msgstr "Video / Audio"
 
 msgid "Video and audio"
-msgstr ""
+msgstr "Video e audio"
 
 msgid "Video only"
-msgstr ""
+msgstr "Solo Video"
 
 msgid "Audio only"
-msgstr ""
+msgstr "Solo Audio"
 
 #: Relating to video download:
 msgid "Framerate:"
-msgstr ""
+msgstr "Framerate:"
 
 #: Relating to video download:
 msgid "Bitrate:"
-msgstr ""
+msgstr "Bitrate:"
 
 msgid "Checking video..."
-msgstr ""
+msgstr "Controllo del video..."
 
 msgid "No video or audio streams found"
-msgstr ""
+msgstr "Nessun flusso video o audio trovato"
 
 msgid "Starting download..."
-msgstr ""
+msgstr "Avvio del download..."
 
 msgid ""
 "The video platform may not be supported or you may be being blocked by the "
 "platform. If you have an active VPN connection that might be the cause, or "
 "you can try importing your browser's cookies through a cookies.txt file."
 msgstr ""
+"La piattaforma video potrebbe non essere supportata o essere bloccata dalla "
+"piattaforma. Se si dispone di una connessione VPN attiva, questa potrebbe "
+"essere la causa, oppure si può provare a importare i cookie del browser "
+"tramite un file cookies.txt."
 
 msgid "This will disable the video download functionality."
-msgstr ""
+msgstr "In questo modo si disattiva la funzionalità di download dei video."
 
 #: Relating to video download progress where it says "Part 1/2" - {indicator}
 #: is replaced by "1/2" or "2/2" (don't translate {indicator})
 msgid "Part {indicator}"
-msgstr ""
+msgstr "Parti {indicator}"
 
 #, fuzzy
 #| msgid "Simultaneous Download Amount"
@@ -431,27 +431,21 @@ msgstr "Quantità di download simultanei"
 #: The way percentages will be shown, like 10% or %10 depending on the language
 #: (don't translate {number}, just move it if needed)
 msgid "{number}%"
-msgstr ""
+msgstr "{number}%"
 
-#, fuzzy
-#| msgid "Seeding"
 msgid "Allow Seeding"
-msgstr "In seeding"
+msgstr "Consenti Seeding"
 
 #, fuzzy
 #| msgid "Speed Limit"
 msgid "Seeding Ratio Limit"
 msgstr "Limite velocità"
 
-#, fuzzy
-#| msgid "Advanced Settings"
 msgid "Torrent Settings"
-msgstr "Impostazioni avanzate"
+msgstr "Impostazioni Torrent"
 
-#, fuzzy
-#| msgid "Download Directory"
 msgid "Custom Download Directory for Torrents"
-msgstr "Cartella download"
+msgstr "Cartella di Download Personalizzata per i Torrent"
 
 #: When the user attempts to disable seeding
 msgid ""
@@ -461,17 +455,50 @@ msgid ""
 "as they download (a ratio of 1). You may want to consider limiting your "
 "seeding ratio instead."
 msgstr ""
+"Poiché il torrenting si basa sulla condivisione dei dati da parte degli "
+"utenti, la disattivazione della condivisione è molto disapprovata e può "
+"comportare il throttling o il divieto di accesso da parte di alcuni client e "
+"tracker. Di solito ci si aspetta che i client effettuino il seeding almeno "
+"nella misura in cui scaricano (un rapporto di 1). Si consiglia invece di "
+"limitare il rapporto di seeding."
 
-#, fuzzy
-#| msgid "Seeding"
 msgid "Cancel Seeding"
-msgstr "In seeding"
+msgstr "Cancella Seeding"
 
 # Save button
 msgid "Save"
-msgstr ""
+msgstr "Salva"
 
 msgid "Show Menu"
+msgstr "Mostra il Menu"
+
+msgid "OK"
+msgstr ""
+
+# Snap version permission warning
+msgid ""
+"You are using Varia as a Snap package. To be able to use the shutdown on "
+"completion option you must first give Varia the related permission. To do "
+"this, open a terminal window and execute this command and then restart Varia:"
+msgstr ""
+
+#, fuzzy
+#| msgid "Torrent Settings"
+msgid "Enable Torrenting"
+msgstr "Impostazioni Torrent"
+
+msgid "The browser extension will not work when Remote Mode is enabled."
+msgstr ""
+
+msgid ""
+"Disabling torrenting will prevent new torrents from being added. It will not "
+"stop current torrent instances."
+msgstr ""
+
+msgid "Torrenting is disabled."
+msgstr ""
+
+msgid "Unknown filesize"
 msgstr ""
 
 #: src/gtk/help-overlay.ui:11

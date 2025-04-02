@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: Varia\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2024-10-10 18:43+0300\n"
-"Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2025-03-21 04:41+0000\n"
+"Last-Translator: Aleksandr Melman <alexmelman88@gmail.com>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/varia/varia/ru/"
+">\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 3.5\n"
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -370,82 +371,74 @@ msgid "Do you want to check for updates on startup?"
 msgstr "Хотите ли вы проверять наличие обновлений при запуске?"
 
 msgid "File"
-msgstr ""
+msgstr "Файл"
 
 msgid "Video / Audio"
-msgstr ""
+msgstr "Видео / Аудио"
 
 msgid "Video and audio"
-msgstr ""
+msgstr "Видео и аудио"
 
 msgid "Video only"
-msgstr ""
+msgstr "Только видео"
 
 msgid "Audio only"
-msgstr ""
+msgstr "Только аудио"
 
 #: Relating to video download:
 msgid "Framerate:"
-msgstr ""
+msgstr "Частота кадров:"
 
 #: Relating to video download:
 msgid "Bitrate:"
-msgstr ""
+msgstr "Битрейт:"
 
-#, fuzzy
-#| msgid "Checking for updates..."
 msgid "Checking video..."
-msgstr "Проверка обновлений..."
+msgstr "Проверка видео..."
 
 msgid "No video or audio streams found"
-msgstr ""
+msgstr "Видео- или аудиопотоки не найдены"
 
 msgid "Starting download..."
-msgstr ""
+msgstr "Начало загрузки..."
 
 msgid ""
 "The video platform may not be supported or you may be being blocked by the "
 "platform. If you have an active VPN connection that might be the cause, or "
 "you can try importing your browser's cookies through a cookies.txt file."
 msgstr ""
+"Возможно, видеоплатформа не поддерживается или вы заблокированы платформой. "
+"Если у вас активное VPN-соединение, это может быть причиной, или вы можете "
+"попробовать импортировать файлы cookie вашего браузера через файл cookies."
+"txt."
 
 msgid "This will disable the video download functionality."
-msgstr ""
+msgstr "Это отключит функцию загрузки видео."
 
 #: Relating to video download progress where it says "Part 1/2" - {indicator}
 #: is replaced by "1/2" or "2/2" (don't translate {indicator})
 msgid "Part {indicator}"
-msgstr ""
+msgstr "Часть {indicator}"
 
-#, fuzzy
-#| msgid "Simultaneous Download Amount"
 msgid "Simultaneous download limit exceeded, waiting."
-msgstr "Количество одновременных загрузок"
+msgstr "Превышено ограничение одновременной загрузки, ожидание."
 
 #: The way percentages will be shown, like 10% or %10 depending on the language
 #: (don't translate {number}, just move it if needed)
 msgid "{number}%"
-msgstr ""
+msgstr "{number}%"
 
-#, fuzzy
-#| msgid "Seeding"
 msgid "Allow Seeding"
-msgstr "Раздача"
+msgstr "Разрешить раздачу"
 
-#, fuzzy
-#| msgid "Speed Limit"
 msgid "Seeding Ratio Limit"
-msgstr "Ограничение скорости"
+msgstr "Ограничение коэффициента раздачи"
 
-#, fuzzy
-#| msgid "Torrent"
 msgid "Torrent Settings"
-msgstr "Торрент"
+msgstr "Настройки торрента"
 
-#, fuzzy
-#| msgid "Download Directory"
 msgid "Custom Download Directory for Torrents"
-msgstr "Папка загрузки"
+msgstr "Пользовательская папка загрузки для торрентов"
 
 #: When the user attempts to disable seeding
 msgid ""
@@ -455,17 +448,54 @@ msgid ""
 "as they download (a ratio of 1). You may want to consider limiting your "
 "seeding ratio instead."
 msgstr ""
+"Поскольку торрент-система основана на том, что люди раздают данные, "
+"отключение раздачи очень не приветствуется и может привести к тому, что вы "
+"будете забанены некоторыми клиентами и трекерами. Обычно ожидается, что "
+"клиенты будут раздавать не меньше, чем скачивать (соотношение 1). Возможно, "
+"вы захотите ограничить коэффициент раздачи."
 
-#, fuzzy
-#| msgid "Seeding"
 msgid "Cancel Seeding"
-msgstr "Раздача"
+msgstr "Отменить раздачу"
 
 # Save button
 msgid "Save"
-msgstr ""
+msgstr "Сохранить"
 
 msgid "Show Menu"
+msgstr "Показать меню"
+
+msgid "OK"
+msgstr "Хорошо"
+
+# Snap version permission warning
+msgid ""
+"You are using Varia as a Snap package. To be able to use the shutdown on "
+"completion option you must first give Varia the related permission. To do "
+"this, open a terminal window and execute this command and then restart Varia:"
+msgstr ""
+"Вы используете Varia в Snap-пакете. Чтобы иметь возможность использовать "
+"опцию \"Выключить устройство после завершения\", вы должны сначала дать "
+"Varia соответствующие разрешения. Для этого откройте окно терминала и "
+"выполните эту команду, а затем перезапустите Varia:"
+
+msgid "Enable Torrenting"
+msgstr "Включить режим торрента"
+
+msgid "The browser extension will not work when Remote Mode is enabled."
+msgstr ""
+"Расширение для браузера не будет работать, если включен удаленный режим."
+
+msgid ""
+"Disabling torrenting will prevent new torrents from being added. It will not "
+"stop current torrent instances."
+msgstr ""
+"Отключение режима торрента предотвратит добавление новых торрентов. Это не "
+"остановит текущие торренты."
+
+msgid "Torrenting is disabled."
+msgstr "Режим торрента отключен."
+
+msgid "Unknown filesize"
 msgstr ""
 
 #: src/gtk/help-overlay.ui:11

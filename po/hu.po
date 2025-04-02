@@ -2,38 +2,38 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# bluekillwood <>, 2023.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-02-12 14:02+0000\n"
-"Last-Translator: Naxoméga <naxomegaxrxz@gmail.com>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/varia/varia/fr/>\n"
-"Language: fr\n"
+"PO-Revision-Date: 2025-03-28 18:22+0000\n"
+"Last-Translator: Zoltán Rózsa <rozsazoltan@users.noreply.hosted.weblate."
+"org>\n"
+"Language-Team: Hungarian <https://hosted.weblate.org/projects/varia/varia/hu/"
+">\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:3
-#, fuzzy
 msgid "Varia"
 msgstr "Varia"
 
 #. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
 #: data/io.github.giantpinkrobots.varia.desktop.in:11
 msgid "varia;aria;download;manager;"
-msgstr "varia;aria;téléchargement;gestionnaire;"
+msgstr "varia;aria;download;manager;"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
 msgid "Download manager based on aria2"
-msgstr "Gestionnaire de téléchargement basé sur aria2"
+msgstr "Letöltéskezelő aria2 alapján"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
 msgid ""
@@ -41,29 +41,29 @@ msgid ""
 "to provide a easy to use interface that integrates well with the GNOME "
 "desktop."
 msgstr ""
-"Varia est un gestionnaire de téléchargement basé sur aria2 qui utilise GTK4 "
-"et Libadwaita pour fournir une interface simple d'utilisation qui s'intègre "
-"bien avec l'environnement Gnome"
+"A Varia egy aria2-n alapuló letöltéskezelő, amely a GTK4-et és a Libadwaitát "
+"használja, hogy könnyen használható felületet biztosítson, amely jól "
+"integrálható a GNOME asztali környezetbe."
 
 #: src/variamain.py:45
 msgid "This is not a valid URL."
-msgstr "Ce n'est pas une URL valide"
+msgstr "Ez nem érvényes URL."
 
 #: src/variamain.py:125
 msgid "All"
-msgstr "Tous"
+msgstr "Összes"
 
 #: src/variamain.py:137
 msgid "In Progress"
-msgstr "En cours"
+msgstr "Folyamatban"
 
 #: src/variamain.py:148
 msgid "Completed"
-msgstr "Terminé"
+msgstr "Befejezve"
 
 #: src/variamain.py:171
 msgid "About Varia"
-msgstr "À propos de Varia"
+msgstr "Variáról"
 
 #: src/variamain.py:177
 msgid "URL"
@@ -71,31 +71,31 @@ msgstr "URL"
 
 #: src/variamain.py:178
 msgid "Download"
-msgstr "Téléchargement"
+msgstr "Letöltés"
 
 #: src/variamain.py:184
 msgid "Open Download Folder"
-msgstr "Ouvrir le dossier des téléchargeemnts"
+msgstr "Letöltés mappa megnyitása"
 
 #: src/variamain.py:196
 msgid "Speed Limit"
-msgstr "Limite de vitesse"
+msgstr "Sebességkorlát"
 
 #: src/variamain.py:203 src/variamain.py:423
 msgid "Pause All"
-msgstr "Tout mettre en pause"
+msgstr "Összes szüneteltetése"
 
 #: src/variamain.py:212
 msgid "Speed"
-msgstr "Vitesse"
+msgstr "Sebesség"
 
 #: src/variamain.py:215
 msgid "Set Speed Limit"
-msgstr "Définir la limite de vitesse"
+msgstr "Sebességkorlát módosítása"
 
 #: src/variamain.py:216
 msgid "Cancel All"
-msgstr "Tout annuler"
+msgstr "Összes törlése"
 
 #: src/variamain.py:235
 msgid "/s"
@@ -103,331 +103,327 @@ msgstr "/s"
 
 #: src/variamain.py:238
 msgid "No limit"
-msgstr "Pas de limite"
+msgstr "Nincs korlátozás"
 
 #: src/variamain.py:274
 msgid "Download complete."
-msgstr "Téléchargement terminé"
+msgstr "Letöltés befejezve."
 
 #: src/variamain.py:276
 msgid "Download speed is limited."
-msgstr "La vitesse de téléchargement est limitée"
+msgstr "A letöltési sebesség korlátozott."
 
 #: src/variamain.py:277
 msgid "An error occurred:"
-msgstr "Une erreur est survenue :"
+msgstr "Hiba történt:"
 
 #: src/variamain.py:292
 msgid "MB/s"
-msgstr "Mo/s"
+msgstr "MB/s"
 
 #: src/variamain.py:294
 msgid "KB/s"
-msgstr "Ko/s"
+msgstr "KB/s"
 
 #: src/variamain.py:298
 msgid "0 B/s"
-msgstr "0 o/s"
+msgstr "0 B/s"
 
 #: src/variamain.py:300
 msgid " MB/s"
-msgstr " Mo/s"
+msgstr " MB/s"
 
 #: src/variamain.py:302
 msgid " KB/s"
-msgstr " Kb/s"
+msgstr " KB/s"
 
 #: src/variamain.py:304
 msgid " B/s"
-msgstr " b/s"
+msgstr " B/s"
 
 #: src/variamain.py:404
 msgid "Simultaneous Download Amount"
-msgstr "Nombre de téléchargements simultanés"
+msgstr "Egyidejű letöltési mennyiség"
 
 #: src/variamain.py:410
 msgid "Resume All"
-msgstr "Tout reprendre"
+msgstr "Összes folytatása"
 
 #: src/variamain.py:443
 msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
-msgstr ""
-"gestionnaire de téléchargement basé sur aria2 utilisant GTK4 et Libadwaita"
+msgstr "aria2 alapú letöltéskezelő GTK4 és Libadwaita felhasználásával."
 
 #: src/variamain.py:777
 msgid "This application relies on the following pieces of software:"
-msgstr "Cette application s'appuie sur les logiciels suivants :"
+msgstr "Ez az alkalmazás a következő szoftverekre támaszkodik:"
 
 #: src/variamain.py:777
 msgid ""
 "The licenses of all of these pieces of software can be found in the "
 "dependencies_information directory in this application's app directory."
 msgstr ""
-"La licence de tout ces logiciels peut être trouvé dans le dossier "
-"dependencies_information dans le dossier d'installation de l'application."
+"Ezen szoftverek licencei megtalálhatók az alkalmazás alkalmazáskönyvtárának "
+"dependencies_information könyvtárában."
 
+# This is for the credits section. Replace this string with your own information so you'll be credited for your work.
 #: src/variamain.py:449
 msgid "translator-credits"
-msgstr "Naxomega"
+msgstr "Zoltán Rózsa"
 
 #: src/variamain.py:457
 msgid "Download Directory"
-msgstr "Dossier des téléchargements"
+msgstr "Mappa letöltése"
 
 #: src/variamain.py:460
 msgid "Change"
-msgstr "Changer"
+msgstr "Változás"
 
 #: src/variamain.py:463
 msgid "Speed limited"
-msgstr "Vitesse limitée"
+msgstr "Sebesség korlátozott"
 
 #: src/variamain.py:519
 msgid "Authentication"
-msgstr "Authentification"
+msgstr "Hitelesítés"
 
 #: src/variamain.py:532
 msgid "Username"
-msgstr "Nom d'utilisateur"
+msgstr "Felhasználónév"
 
 #: src/variamain.py:534
 msgid "Password"
-msgstr "Mot de passe"
+msgstr "Jelszó"
 
 #: src/variamain.py:554
 msgid "Authorization failed."
-msgstr "Echec."
+msgstr "Sikertelen hitelesítés."
 
 #: src/variamain.py:806
 msgid "Failed to open directory."
-msgstr "L'accès au dossier à echoué."
+msgstr "Nem sikerült megnyitni a mappát."
 
 msgid "Remote Mode"
-msgstr "Téléchargement à distance"
+msgstr "Távoli mód"
 
 msgid "Remote aria2 IP"
-msgstr "IP aria2 distante"
+msgstr "Távoli aria2 IP"
 
 msgid "Remote aria2 Port"
-msgstr "Port aria2 distant"
+msgstr "Távoli aria2 port"
 
 msgid "Remote aria2 RPC Secret"
-msgstr "Ticket RPC secret aria2 distant"
+msgstr "Távoli aria2 RPC titok"
 
 msgid "Remote Download Location"
-msgstr "Dossier de téléchargement distant"
+msgstr "Távoli letöltési hely"
 
 msgid "Exiting Varia..."
-msgstr "Fermeture de Varia..."
+msgstr "Kilépés a Variából..."
 
 msgid "Background Mode"
-msgstr "Exécution en arrière-plan"
+msgstr "Háttér mód"
 
 msgid "Continuing the downloads in the background."
-msgstr "Les téléchargements sont toujours en cours..."
+msgstr "A letöltések folytatása a háttérben."
 
 msgid "Browser Extension"
-msgstr "Extension de navigateur"
+msgstr "Böngésző kiegészítő"
 
 msgid "Shutdown on Completion"
-msgstr "Eteindre quand les téléchargements sont terminés"
+msgstr "Leállítás a befejezéskor"
 
 msgid "Varia is about to shut down your computer."
-msgstr "Varia est sur le point d'éteindre votre ordinateur."
+msgstr "A Varia hamarosan leállítja a számítógépét."
 
 msgid "Press Cancel to cancel and disable."
-msgstr ""
-"Appuyez sur annuler pour annuler extinction et désactiver cette "
-"fonctionnalité."
+msgstr "Nyomja meg a Mégse gombot a törléshez és letiltáshoz."
 
 msgid "Cancel"
-msgstr "Annuler"
+msgstr "Mégsem"
 
 msgid "Warning"
-msgstr "Attention"
+msgstr "Figyelmeztetés"
 
 msgid "Monday"
-msgstr "Lundi"
+msgstr "Hétfő"
 
 msgid "Tuesday"
-msgstr "Mardi"
+msgstr "Kedd"
 
 msgid "Wednesday"
-msgstr "Mercredi"
+msgstr "Szerda"
 
 msgid "Thursday"
-msgstr "Jeudi"
+msgstr "Csütörtök"
 
 msgid "Friday"
-msgstr "Vendredi"
+msgstr "Péntek"
 
 msgid "Saturday"
-msgstr "Samedi"
+msgstr "Szombat"
 
 msgid "Sunday"
-msgstr "Dimanche"
+msgstr "Vasárnap"
 
 msgid "Start (h/m):"
-msgstr "Démarrage (heure/minute) :"
+msgstr "Kezdés (óra/perc):"
 
 msgid "End (h/m):"
-msgstr "Fin (heure/minute) :"
+msgstr "Vége (óra/perc):"
 
 msgid "Scheduler enabled"
-msgstr "Planification activée"
+msgstr "Ütemező engedélyezve"
 
 msgid "Scheduler"
-msgstr "Planification"
+msgstr "Ütemező"
 
 msgid "Enabled"
-msgstr "Activé"
+msgstr "Engedélyezve"
 
 msgid "Start downloading in these times"
-msgstr "Lancer le(s) téléchargement(s) à ces horaires"
+msgstr "Kezdje el a letöltést ekkor"
 
 msgid "Stop downloading in these times"
-msgstr "Stopper le(s) téléchargement(s) à ces horaires"
+msgstr "Fejezze be a letöltést ekkor"
 
 msgid "Add Timespan"
-msgstr "Ajouter une horaire"
+msgstr "Időtartam hozzáadása"
 
 #: When a download is currently seeding:
 msgid "Seeding"
-msgstr "Envoi"
+msgstr "Seedelés"
 
 msgid "Failed"
-msgstr "Echec"
+msgstr "Sikertelen"
 
 msgid "Completion Options"
-msgstr "Actions lors de la réussite des téléchargments"
+msgstr "Letöltés utáni műveletek"
 
 msgid "Exit on Completion"
-msgstr "Fermer Varia"
+msgstr "Kilépés befejezéskor"
 
 msgid "Varia is about to quit."
-msgstr "Varia est sur le point d'être fermée."
+msgstr "Varia hamarosan kilép."
 
 msgid "Preferences"
-msgstr "Préférences"
+msgstr "Preferenciák"
 
 msgid "Other"
-msgstr "Autres"
+msgstr "Egyéb"
 
 msgid "Basic Settings"
-msgstr "Général"
+msgstr "Alapbeállítások"
 
 msgid "Advanced Settings"
-msgstr "Avancés"
+msgstr "Speciális beállítások"
 
 msgid "Use cookies.txt"
-msgstr "Utiliser cookies.txt"
+msgstr "Használja a cookies.txt fájlt"
 
 msgid "Import cookies.txt"
-msgstr "Importer cookies.txt"
+msgstr "Importálja a cookies.txt fájlt"
 
 msgid "Remove cookies.txt"
-msgstr "Enlever cookies.txt"
+msgstr "Távolítsa el a cookies.txt fájlt"
 
 msgid "remaining"
-msgstr "restant"
+msgstr "hátralevő"
 
 msgid "Start in Background Mode"
-msgstr "Démarrer en arrière-plan"
+msgstr "Indítsa el a Háttér módban"
 
 msgid "Remote Timestamp"
-msgstr "Horaires à distance"
+msgstr "Távoli időbélyeg"
 
 msgid "Torrent"
 msgstr "Torrent"
 
 # Updater
 msgid "Checking for updates..."
-msgstr "Recherche de mises à jour..."
+msgstr "Frissítések keresése..."
 
 msgid "A new version of Varia is available. Do you want to update?"
-msgstr ""
-"Une nouvelle version de Varia est disponible, voulez-vous l'installer ?"
+msgstr "Megjelent a Varia új verziója. Szeretnéd frissíteni?"
 
 msgid "Update available"
-msgstr "Mise à jour disponible"
+msgstr "Frissítés elérhető"
 
 msgid "Update"
-msgstr "Mise à jour"
+msgstr "Frissítés"
 
 msgid "Downloading update..."
-msgstr "Téléchargement de la mise à jour..."
+msgstr "Frissítés letöltése..."
 
 msgid "Download failed."
-msgstr "Echec du téléchargement."
+msgstr "Letöltés sikertelen."
 
 msgid "Yes"
-msgstr "Oui"
+msgstr "Igen"
 
 msgid "No"
-msgstr "Non"
+msgstr "Nem"
 
 msgid "Automatically Check for Updates"
-msgstr "Rechercher automatiquement des mises à jour"
+msgstr "Frissítések automatikus keresése"
 
 msgid "Check Now"
-msgstr "Rechercher manuellement"
+msgstr "Ellenőrizze most"
 
 msgid "Do you want to check for updates on startup?"
-msgstr ""
-"Voulez-vous que Varia recherche des mises à jour lors de son démarrage ?"
+msgstr "Szeretnéd ellenőrizni a frissítéseket az indításkor?"
 
 msgid "File"
-msgstr "Fichier"
+msgstr "Fájl"
 
 msgid "Video / Audio"
-msgstr "Vidéo / Audio"
+msgstr "Videó / Hang"
 
 msgid "Video and audio"
-msgstr "Vidéo et audio"
+msgstr "Videó és hang"
 
 msgid "Video only"
-msgstr "Vidéo seulement"
+msgstr "Csak videó"
 
 msgid "Audio only"
-msgstr "Audio seulement"
+msgstr "Csak hang"
 
 #: Relating to video download:
 msgid "Framerate:"
-msgstr "Fréquence d'images :"
+msgstr "Képkockaszám:"
 
 #: Relating to video download:
 msgid "Bitrate:"
-msgstr "Débit Binaire (Bitrate) :"
+msgstr "Bitráta:"
 
 msgid "Checking video..."
-msgstr "Recherche de la vidéo..."
+msgstr "Videó ellenőrzése..."
 
 msgid "No video or audio streams found"
-msgstr "Aucun flux vidéo ou audio trouvé"
+msgstr "Nem található videó- vagy hangfolyam"
 
 msgid "Starting download..."
-msgstr "Démarrage du téléchargement..."
+msgstr "Letöltés indítása..."
 
 msgid ""
 "The video platform may not be supported or you may be being blocked by the "
 "platform. If you have an active VPN connection that might be the cause, or "
 "you can try importing your browser's cookies through a cookies.txt file."
 msgstr ""
-"Le fournisseur de la vidéo n'est pas supporté ou elle vous a bloqué. Si vous "
-"avez un VPN actif, essayez de le désactiver, si vous n'en avez pas, essayez "
-"d'importer le fichier \"cookies.txt\" de votre navigateur web."
+"A videóplatform lehet, hogy nem támogatott, vagy a platform blokkolhat "
+"Téged. Ha aktív VPN-kapcsolatod van, az okozhatja a problémát, vagy "
+"megpróbálhatod importálni a böngésződ sütijeit egy cookies.txt fájlon "
+"keresztül."
 
 msgid "This will disable the video download functionality."
-msgstr "Cela désactivera le téléchargement des vidéos."
+msgstr "Ezzel letiltja a videó letöltési funkciót."
 
 #: Relating to video download progress where it says "Part 1/2" - {indicator}
 #: is replaced by "1/2" or "2/2" (don't translate {indicator})
 msgid "Part {indicator}"
-msgstr "Partie {indicator}"
+msgstr "{indicator} rész"
 
 msgid "Simultaneous download limit exceeded, waiting."
-msgstr ""
-"La limite du nombre de téléchargements simultanés est atteinte, en attente..."
+msgstr "Az egyidejű letöltési korlát túllépve, várakozás."
 
 #: The way percentages will be shown, like 10% or %10 depending on the language
 #: (don't translate {number}, just move it if needed)
@@ -435,16 +431,16 @@ msgid "{number}%"
 msgstr "{number}%"
 
 msgid "Allow Seeding"
-msgstr "Autoriser l'envoi de données"
+msgstr "Seedelés engedélyezése"
 
 msgid "Seeding Ratio Limit"
-msgstr "Limite de vitesse de l'envoi de données"
+msgstr "Seedelés-arány korlátja"
 
 msgid "Torrent Settings"
-msgstr "Torrent"
+msgstr "Torrent beállítások"
 
 msgid "Custom Download Directory for Torrents"
-msgstr "Dossier de téléchargement des torrents"
+msgstr "Egyéni letöltési könyvtár a torrentekhez"
 
 #: When the user attempts to disable seeding
 msgid ""
@@ -454,25 +450,25 @@ msgid ""
 "as they download (a ratio of 1). You may want to consider limiting your "
 "seeding ratio instead."
 msgstr ""
-"Le téléchargements de fichier via torrents s'appuie sur le fait que chaque "
-"personne ayant téléchargé le fichier l'envoie à son tour. En désactivant "
-"l'envoi de données, vous vous verrez probablement limité(e) ou banni(e) des "
-"téléchargements torrent. Les clients sont généralement attendus d'envoyer au "
-"moins ce qu'ils téléchargent (Ratio de 1). Vpus devriez baisser votre ratio "
-"d'envoi à la place."
+"Mivel a torrentezés a felhasználók által megosztott adatokon alapul, a "
+"seedelés letiltása nagyon rossz szemmel nézett dolog, és bizonyos kliensek "
+"vagy trackerek esetében korlátozást vagy kitiltást eredményezhet. A "
+"kliensektől általában elvárják, hogy legalább annyit seedeljenek, amennyit "
+"letöltenek (1-es arány). Érdemes inkább a seedelési arány korlátozását "
+"megfontolnod."
 
 msgid "Cancel Seeding"
-msgstr "Annuler l'envoi"
+msgstr "Seedelés megszakítása"
 
 # Save button
 msgid "Save"
-msgstr "Sauvegarder"
+msgstr "Mentés"
 
 msgid "Show Menu"
-msgstr "Voir le menu"
+msgstr "Menü megjelenítése"
 
 msgid "OK"
-msgstr ""
+msgstr "Rendben"
 
 # Snap version permission warning
 msgid ""
@@ -480,22 +476,27 @@ msgid ""
 "completion option you must first give Varia the related permission. To do "
 "this, open a terminal window and execute this command and then restart Varia:"
 msgstr ""
+"A Variát Snap csomagként használod. Ahhoz, hogy a befejezéskor leállítás "
+"opciót használhasd, először meg kell adnod a Variának a szükséges engedélyt. "
+"Ehhez nyiss meg egy terminálablakot, futtasd le az alábbi parancsot, majd "
+"indítsd újra a Variát:"
 
-#, fuzzy
-#| msgid "Torrent Settings"
 msgid "Enable Torrenting"
-msgstr "Torrent"
+msgstr "Torrent engedélyezése"
 
 msgid "The browser extension will not work when Remote Mode is enabled."
 msgstr ""
+"A böngésző kiegészítő nem fog működni, ha a Távoli mód engedélyezve van."
 
 msgid ""
 "Disabling torrenting will prevent new torrents from being added. It will not "
 "stop current torrent instances."
 msgstr ""
+"A torrent letiltása megakadályozza az új torrentek hozzáadását. Nem állítja "
+"le a jelenlegi torrent példányokat."
 
 msgid "Torrenting is disabled."
-msgstr ""
+msgstr "Torrent letiltva."
 
 msgid "Unknown filesize"
 msgstr ""
@@ -503,14 +504,14 @@ msgstr ""
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
-msgstr "Général"
+msgstr "Általános"
 
 #: src/gtk/help-overlay.ui:14
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
-msgstr "Voir les raccourcis"
+msgstr "Parancsikonok megjelenítése"
 
 #: src/gtk/help-overlay.ui:20
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr "Quitter"
+msgstr "Kilépés"

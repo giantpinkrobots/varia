@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: varia main\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-01-21 15:00+0000\n"
-"Last-Translator: E Infantry <y13558552630@gmail.com>\n"
+"PO-Revision-Date: 2025-03-21 04:41+0000\n"
+"Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
-"projects/varia/glossary/zh_Hans/>\n"
+"projects/varia/varia/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -165,7 +165,7 @@ msgstr ""
 
 #: src/variamain.py:449
 msgid "translator-credits"
-msgstr "lumingzh <lumingzh@qq.com>, 2024"
+msgstr "lumingzh <lumingzh@qq.com>, 2024-2025"
 
 #: src/variamain.py:457
 msgid "Download Directory"
@@ -333,23 +333,23 @@ msgid "Remote Timestamp"
 msgstr "远程时间戳"
 
 msgid "Torrent"
-msgstr "磁力"
+msgstr "种子"
 
 # Updater
 msgid "Checking for updates..."
-msgstr "检查更新"
+msgstr "正在检查更新…"
 
 msgid "A new version of Varia is available. Do you want to update?"
-msgstr "本软件有可用更新。是否更新？"
+msgstr "Varia 有新版本可用。您想要更新吗？"
 
 msgid "Update available"
-msgstr "可用的更新"
+msgstr "有更新可用"
 
 msgid "Update"
 msgstr "更新"
 
 msgid "Downloading update..."
-msgstr "下载更新中......"
+msgstr "正在下载更新…"
 
 msgid "Download failed."
 msgstr "下载失败。"
@@ -367,7 +367,7 @@ msgid "Check Now"
 msgstr "现在检测"
 
 msgid "Do you want to check for updates on startup?"
-msgstr "是否在启动时检测更新？"
+msgstr "您想要在启动时检测更新吗？"
 
 msgid "File"
 msgstr "文件"
@@ -386,58 +386,56 @@ msgstr "仅音频"
 
 #: Relating to video download:
 msgid "Framerate:"
-msgstr ""
+msgstr "帧率："
 
 #: Relating to video download:
 msgid "Bitrate:"
-msgstr "比特率"
+msgstr "比特率："
 
 msgid "Checking video..."
-msgstr "检测视频中..."
+msgstr "正在检测视频…"
 
 msgid "No video or audio streams found"
 msgstr "未检测到视频或音频流媒体"
 
 msgid "Starting download..."
-msgstr "开始下载中..."
+msgstr "正在开始下载…"
 
 msgid ""
 "The video platform may not be supported or you may be being blocked by the "
 "platform. If you have an active VPN connection that might be the cause, or "
 "you can try importing your browser's cookies through a cookies.txt file."
 msgstr ""
+"可能不支持该视频平台或您已被平台封锁。如果您正在使用 VPN 连接网络这可能会是原"
+"因，或者您也可以通过 cookies.txt 文件导入浏览器的 cookies。"
 
 msgid "This will disable the video download functionality."
-msgstr ""
+msgstr "这会禁用视频下载功能。"
 
 #: Relating to video download progress where it says "Part 1/2" - {indicator}
 #: is replaced by "1/2" or "2/2" (don't translate {indicator})
 msgid "Part {indicator}"
-msgstr ""
+msgstr "{indicator} 部分"
 
-#, fuzzy
-#| msgid "Simultaneous Download Amount"
 msgid "Simultaneous download limit exceeded, waiting."
-msgstr "同时下载数量"
+msgstr "已超出同时下载限制，正在等待。"
 
 #: The way percentages will be shown, like 10% or %10 depending on the language
 #: (don't translate {number}, just move it if needed)
 msgid "{number}%"
-msgstr ""
+msgstr "{number}%"
 
-#, fuzzy
-#| msgid "Seeding"
 msgid "Allow Seeding"
-msgstr "正在做种"
+msgstr "允许做种"
 
 msgid "Seeding Ratio Limit"
-msgstr "做种速度限制"
+msgstr "做种比率限制"
 
 msgid "Torrent Settings"
-msgstr "高级磁力设置"
+msgstr "种子设置"
 
 msgid "Custom Download Directory for Torrents"
-msgstr "自定义磁力下载目录"
+msgstr "自定义种子下载目录"
 
 #: When the user attempts to disable seeding
 msgid ""
@@ -447,6 +445,9 @@ msgid ""
 "as they download (a ratio of 1). You may want to consider limiting your "
 "seeding ratio instead."
 msgstr ""
+"种子下载依赖于人们对数据做种，禁用做种是令人非常厌恶的行为并且可能会导致您被"
+"某些客户端和追踪器限流或封禁。客户端通常预期至少做种到与其下载相同的数据量"
+"（做种比率为 1）。相反您可能更想要限制做种比率。"
 
 msgid "Cancel Seeding"
 msgstr "取消做种"
@@ -456,6 +457,35 @@ msgid "Save"
 msgstr "保存"
 
 msgid "Show Menu"
+msgstr "显示菜单"
+
+msgid "OK"
+msgstr "确定"
+
+# Snap version permission warning
+msgid ""
+"You are using Varia as a Snap package. To be able to use the shutdown on "
+"completion option you must first give Varia the related permission. To do "
+"this, open a terminal window and execute this command and then restart Varia:"
+msgstr ""
+"您正在使用 Snap 版本的 Varia。为了能够使用在完成时关机这一选项您必须给予 "
+"Varia 相应权限。要这样做，请打开终端窗口执行此命令后重启 Varia："
+
+msgid "Enable Torrenting"
+msgstr "启用种子下载"
+
+msgid "The browser extension will not work when Remote Mode is enabled."
+msgstr "远程模式启用时浏览器扩展将不会工作。"
+
+msgid ""
+"Disabling torrenting will prevent new torrents from being added. It will not "
+"stop current torrent instances."
+msgstr "禁用种子下载将阻止添加新的种子。但不会停止当前的种子下载实例。"
+
+msgid "Torrenting is disabled."
+msgstr "种子下载已禁用。"
+
+msgid "Unknown filesize"
 msgstr ""
 
 #: src/gtk/help-overlay.ui:11
