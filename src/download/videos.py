@@ -191,7 +191,7 @@ def on_video_clicked(button, self, entry):
                 options_available = True
 
             if len(video_formats) > 0:
-                page_video_only = Adw.PreferencesPage(title=_("Video only"), icon_name="emblem-videos-symbolic")
+                page_video_only = Adw.PreferencesPage(title=_("Video only"), icon_name="camera-video-symbolic")
                 video_download_options_preferences_dialog.add(page_video_only)
                 group_video_only = Adw.PreferencesGroup(title="\"" + video_title + "\" - " + uploader_name)
                 page_video_only.add(group_video_only)
@@ -200,7 +200,7 @@ def on_video_clicked(button, self, entry):
                 options_available = True
 
             if len(audio_formats) > 0:
-                page_audio_only = Adw.PreferencesPage(title=_("Audio only"), icon_name="emblem-music-symbolic")
+                page_audio_only = Adw.PreferencesPage(title=_("Audio only"), icon_name="folder-music-symbolic")
                 video_download_options_preferences_dialog.add(page_audio_only)
                 group_audio_only = Adw.PreferencesGroup(title="\"" + video_title + "\" - " + uploader_name)
                 page_audio_only.add(group_audio_only)

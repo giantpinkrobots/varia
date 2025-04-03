@@ -20,7 +20,7 @@ def window_create_sidebar(self, variaapp, variaVersion):
     sidebar_box.append(header_bar)
 
     preferences_button = Gtk.Button(tooltip_text=_("Preferences"))
-    preferences_button.set_icon_name("emblem-system-symbolic")
+    preferences_button.set_icon_name("applications-system-symbolic")
     preferences_button.connect("clicked", show_preferences, self, variaapp, variaVersion)
 
     hamburger_button = Gtk.MenuButton(tooltip_text=_("Other"))
@@ -102,7 +102,7 @@ def window_create_sidebar(self, variaapp, variaVersion):
     self.download_button.set_sensitive(False)
     self.download_button.connect("clicked", on_download_clicked, self, download_entry, None, None, "regular", None, False, self.appconf["download_directory"])
 
-    self.video_button_icon = Gtk.Image.new_from_icon_name("emblem-videos-symbolic")
+    self.video_button_icon = Gtk.Image.new_from_icon_name("camera-video-symbolic")
     self.video_button_text = Gtk.Label(label=_("Video / Audio"))
     video_button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
     video_button_box.append(self.video_button_icon)
@@ -148,7 +148,7 @@ def window_create_sidebar(self, variaapp, variaVersion):
     filter_button_show_all_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     filter_button_show_all_box.set_margin_top(8)
     filter_button_show_all_box.set_margin_bottom(8)
-    filter_button_show_all_box.append(Gtk.Image.new_from_icon_name("switch-off-symbolic"))
+    filter_button_show_all_box.append(Gtk.Image.new_from_icon_name("radio-symbolic"))
     filter_button_show_all_label = Gtk.Label(label=_("All"))
     filter_button_show_all_label.add_css_class('body')
     filter_button_show_all_box.append(filter_button_show_all_label)
@@ -173,7 +173,7 @@ def window_create_sidebar(self, variaapp, variaVersion):
     filter_button_show_completed_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     filter_button_show_completed_box.set_margin_top(8)
     filter_button_show_completed_box.set_margin_bottom(8)
-    filter_button_show_completed_box.append(Gtk.Image.new_from_icon_name("emblem-ok-symbolic"))
+    filter_button_show_completed_box.append(Gtk.Image.new_from_icon_name("object-select-symbolic"))
     filter_button_show_completed_label = Gtk.Label(label=_("Completed"))
     filter_button_show_completed_label.add_css_class('body')
     filter_button_show_completed_box.append(filter_button_show_completed_label)
@@ -279,15 +279,14 @@ def show_about(app, variaapp, self, variaVersion):
     dialog.set_application_icon("io.github.giantpinkrobots.varia")
     dialog.set_translator_credits(_("translator-credits"))
     dialog.set_artists(["Jakub Steiner"])
-    dialog.set_release_notes_version("v2025.1.24")
+    dialog.set_release_notes_version("v2025.4.3")
     dialog.set_release_notes('''
-        <ul><li>Support for downloading videos and audio from links using yt-dlp.</li>
-        <li>Adaptive layout for smaller window sizes and mobile devices.</li>
-        <li>Support for dragging and dropping .torrent files.</li>
-        <li>New settings to limit or disable torrent seeding, as well as setting a custom torrent download directory.</li>
-        <li>Download states are saved upon addition so they're kept if the app crashes.</li>
-        <li>Paused downloads stay paused upon restart of the app.</li>
-        <li>Fixes for better performance and bug fixes.</li></ul>''')
+        <ul><li>Many bug fixes, especially regarding the video download functionality, for overall stability.</li>
+        <li>Better multi-connection handling through aria2.</li>
+        <li>New retry button for failed downloads.</li>
+        <li>Twitch VOD downloads now possible. Video downloads now also respect the Remote Timestamp option.</li>
+        <li>Torrenting can now be entirely disabled.</li>
+        <li>yt-dlp backend updated to newer version with fix for YouTube downloads.</li></ul>''')
 
     dialog.present(self)
 

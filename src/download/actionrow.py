@@ -81,7 +81,7 @@ def create_actionrow(self, filename):
 
     button_box.append(pause_button)
 
-    stop_button = Gtk.Button.new_from_icon_name("process-stop-symbolic")
+    stop_button = Gtk.Button.new_from_icon_name("media-playback-stop-symbolic")
     stop_button.set_valign(Gtk.Align.CENTER)
     stop_button.add_css_class("circular")
     stop_button.add_css_class("destructive-action")
@@ -106,6 +106,7 @@ def create_actionrow(self, filename):
     download_item.progress_bar = progress_bar
     download_item.speed_label = speed_label
     download_item.pause_button = pause_button
+    download_item.stop_button = stop_button
     download_item.filename_label = filename_label
 
     return download_item
@@ -133,7 +134,7 @@ def on_stop_clicked(button, self, download_item):
     download_item = None
 
 def pause_button_set_retry_mode(button, self, download_item):
-    GLib.idle_add(button.set_icon_name, "arrow-circular-top-right-symbolic")
+    GLib.idle_add(button.set_icon_name, "view-refresh-symbolic")
     button.disconnect(button.connect_handler_id)
     button.connect_handler_id = button.connect("clicked", pause_button_on_retry_clicked, self, download_item)
 

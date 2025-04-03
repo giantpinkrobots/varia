@@ -65,7 +65,7 @@ def initiate(self, variaapp, variaVersion, first_run, issnap):
 
     self.total_download_speed = ""
     self.terminating = False
-
+    
     Gtk.Settings.get_default().set_property("gtk-icon-theme-name", "Adwaita")
 
     if ("dev" in variaVersion):

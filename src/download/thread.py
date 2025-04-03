@@ -30,6 +30,7 @@ class DownloadThread(threading.Thread):
         self.percentage_label = actionrow.percentage_label
         self.progress_bar = actionrow.progress_bar
         self.pause_button = actionrow.pause_button
+        self.stop_button = actionrow.stop_button
         self.actionrow = actionrow
         self.filename_label = actionrow.filename_label
         self.app = app
@@ -376,9 +377,9 @@ class DownloadThread(threading.Thread):
 
             if self.video_download_combined == True:
                 if self.video_download_stage == 0:
-                    speed_label_text = _("Part {indicator}").replace("{indicator}", "1 / 2") + "  ·  "
+                    percentage_label_text = _("Part {indicator}").replace("{indicator}", "1 / 2") + "  ·  " + percentage_label_text
                 elif self.video_download_stage == 1:
-                    speed_label_text = _("Part {indicator}").replace("{indicator}", "2 / 2") + "  ·  "
+                    percentage_label_text = _("Part {indicator}").replace("{indicator}", "2 / 2") + "  ·  " + percentage_label_text
 
         speed_label_text = f"{speed_label_text}{self.total_file_size_text}  ·  {speed_label_text_speed}  ·  {download_remaining_string} {_('remaining')}"
 
@@ -628,6 +629,10 @@ class DownloadThread(threading.Thread):
 
         if os.path.exists(self.state_file):
             os.remove(self.state_file)
+        
+        GLib.idle_add(self.stop_button.remove_css_class, "destructive-action")
+        GLib.idle_add(self.stop_button.set_icon_name, "process-stop-symbolic")
+        GLib.idle_add(self.percentage_label.set_visible, False)
     
     def set_failed(self, fraction):
         if fraction is not None:

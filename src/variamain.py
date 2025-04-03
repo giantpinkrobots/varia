@@ -1,4 +1,4 @@
-variaVersion = "dev"
+variaVersion = "v2025.4.3"
 
 import ctypes
 import gi
@@ -130,7 +130,7 @@ class MainWindow(Adw.ApplicationWindow):
         # Windows only stuff:
         if (os.name == 'nt'):
             icon_theme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default())
-            icon_theme.add_search_path("./")
+            icon_theme.add_search_path("./icons")
             if (self.appconf["check_for_updates_on_startup_enabled"] == '1') and (os.path.exists("./updater-function-enabled")):
                 windows_updater(None, self, variaapp, None, variaVersion, 0)
 
@@ -289,7 +289,7 @@ class MainWindow(Adw.ApplicationWindow):
         if timeout_milliseconds == 1000:
             self.drag_drop_status_page.remove_css_class("drag_drop_status_page")
             self.drag_drop_status_page.add_css_class("drag_drop_status_page_error")
-            self.drag_drop_status_page.set_icon_name("process-stop-symbolic")
+            self.drag_drop_status_page.set_icon_name("media-playback-stop-symbolic")
 
         GLib.idle_add(self.on_drag_leave, None, timeout_milliseconds)
         return 0

@@ -19,9 +19,9 @@ def show_preferences(button, self, app, variaVersion):
     preferences = Adw.PreferencesDialog(title=_("Preferences"))
     preferences.set_search_enabled(True)
 
-    page_1 = Adw.PreferencesPage(title=_("Basic Settings"), icon_name="folder-download-symbolic")
-    page_2 = Adw.PreferencesPage(title=_("Torrent Settings"), icon_name="network-computer-symbolic")
-    page_3 = Adw.PreferencesPage(title=_("Advanced Settings"), icon_name="content-loading-symbolic")
+    page_1 = Adw.PreferencesPage(title=_("Basic Settings"), icon_name="preferences-system-symbolic")
+    page_2 = Adw.PreferencesPage(title=_("Torrent Settings"), icon_name="network-wired-symbolic")
+    page_3 = Adw.PreferencesPage(title=_("Advanced Settings"), icon_name="application-x-executable-symbolic")
     preferences.add(page_1)
     preferences.add(page_2)
     preferences.add(page_3)

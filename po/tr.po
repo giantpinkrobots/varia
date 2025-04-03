@@ -467,14 +467,14 @@ msgid "Show Menu"
 msgstr "Menüyü Göster"
 
 msgid "OK"
-msgstr ""
+msgstr "Tamam"
 
 # Snap version permission warning
 msgid ""
 "You are using Varia as a Snap package. To be able to use the shutdown on "
 "completion option you must first give Varia the related permission. To do "
 "this, open a terminal window and execute this command and then restart Varia:"
-msgstr ""
+msgstr "Varia'nın Snap versiyonunu kullanıyorsunuz. İndirme bitiminde bilgisayarı kapatma opsiyonunu kullanmak istiyorsanız önce Varia'ya gerekli izini vermeniz gerekiyor. Bunu yapmak için bir terminal açıp bu komutu çalıştırdıktan sonra Varia'yı yeniden başlatın:"
 
 #, fuzzy
 #| msgid "Torrent Settings"
@@ -482,18 +482,18 @@ msgid "Enable Torrenting"
 msgstr "Torrent Ayarları"
 
 msgid "The browser extension will not work when Remote Mode is enabled."
-msgstr ""
+msgstr "Uzaktan Kontrol Modu açıkken tarayıcı uzantısı çalışmaz."
 
 msgid ""
 "Disabling torrenting will prevent new torrents from being added. It will not "
 "stop current torrent instances."
-msgstr ""
+msgstr "Torrentleri devre dışı bırakmak yeni torrent eklenmesini engeller. İndirme sürecinde olan torrentleri durdurmaz."
 
 msgid "Torrenting is disabled."
-msgstr ""
+msgstr "Torrent devre dışı"
 
 msgid "Unknown filesize"
-msgstr ""
+msgstr "Dosya boyutu belirsiz"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

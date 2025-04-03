@@ -22,9 +22,9 @@ pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-python-pillow
 pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-python-gobject
 pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-python-pip
 pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-yt-dlp
+pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-pyinstaller
 pacman -S --noconfirm --needed unzip
 pip install aria2p
-pip install pyinstaller
 
 echo "Downloading aria2 and ffmpeg..."
 
@@ -56,9 +56,10 @@ cd src
 pyinstaller varia.spec
 cd ..
 cp -r locale src/dist/variamain/
-cp data/icons/hicolor/symbolic/apps/io.github.giantpinkrobots.varia-symbolic.svg src/dist/variamain/
-cp data/icons/hicolor/symbolic/apps/network-computer-symbolic.svg src/dist/variamain/
-cp data/icons/hicolor/scalable/apps/io.github.giantpinkrobots.varia.svg src/dist/variamain/
+mkdir src/dist/variamain/icons/
+cp data/icons/hicolor/symbolic/apps/io.github.giantpinkrobots.varia-symbolic.svg src/dist/variamain/icons/
+cp data/icons/hicolor/scalable/apps/io.github.giantpinkrobots.varia.svg src/dist/variamain/icons/
+cp -r data/icons/hicolor/symbolic/ui/* src/dist/variamain/icons/
 cp -r dependencies_information src/dist/variamain/
 cp ./aria2/$aria2/aria2c.exe src/dist/variamain/
 cp -r ./ffmpeg/$ffmpeg/bin/* src/dist/variamain/
