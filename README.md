@@ -20,7 +20,8 @@
 | Download for Linux | Download for Windows | Browser Extension |
 | -------- | ------- | ------- |
 | [⬇ Flathub](https://flathub.org/apps/io.github.giantpinkrobots.varia) | [⬇ Installer](https://github.com/giantpinkrobots/varia/releases/download/v2025.4.3/varia-windows-setup-amd64.exe) | [❖ Firefox](https://addons.mozilla.org/firefox/addon/varia-integrator/) |
-| [⬇ AUR (unofficial)](https://aur.archlinux.org/packages/varia) | [⬇ Portable](https://github.com/giantpinkrobots/varia/releases/download/v2025.4.3/varia-windows-portable-amd64.zip) | [❖ Chrome](https://chrome.google.com/webstore/detail/dacakhfljjhgdfdlgjpabkkjhbpcmiff) |
+| [⬇ Snap Store](https://snapcraft.io/varia) | [⬇ Portable](https://github.com/giantpinkrobots/varia/releases/download/v2025.4.3/varia-windows-portable-amd64.zip) | [❖ Chrome](https://chrome.google.com/webstore/detail/dacakhfljjhgdfdlgjpabkkjhbpcmiff) |
+| [⬇ AUR (unofficial)](https://aur.archlinux.org/packages/varia) | | |
 
 <br>
 
@@ -33,7 +34,7 @@ Varia is a download manager for Linux and Windows that supports regular files as
   <img src="https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-2.png" width=350 />
 </p>
 
-<p>
+<p float="left" align="middle">
 
 ![](https://img.shields.io/github/stars/giantpinkrobots/varia.svg) ![](https://img.shields.io/github/watchers/giantpinkrobots/varia.svg) ![](https://img.shields.io/github/followers/giantpinkrobots.svg?style=social&label=Follow&maxAge=2592000) ![](https://img.shields.io/github/license/giantpinkrobots/varia.svg)
 
