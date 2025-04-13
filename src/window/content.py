@@ -2,7 +2,8 @@ import gi
 from stringstorage import gettext as _
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import Gtk, Adw
+from gi.repository import Gtk, Adw, GLib
+import time
 import threading
 
 def window_create_content(self):

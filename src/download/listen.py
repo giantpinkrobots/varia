@@ -2,7 +2,7 @@ import time
 import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import Adw, GLib, Gio
+from gi.repository import Adw, GLib, Gio, Gtk
 from download.actionrow import create_actionrow
 from download.thread import DownloadThread
 import string
