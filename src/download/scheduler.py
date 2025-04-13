@@ -1,5 +1,5 @@
 import datetime
-from gi.repository import Gtk, GLib
+from gi.repository import GLib
 from stringstorage import gettext as _
 
 def schedule_downloads(self, previous_state):
