@@ -400,22 +400,7 @@ class DownloadThread(threading.Thread):
                             self.paused = True
                             change_pause_button_icon = True
                         
-                        i = 0
-
-                        while True:
-                            try:
-                                self.download.pause()
-                                print ("Download paused.")
-                                break
-                                
-                            except:
-                                i += 1
-
-                                if i == 10:
-                                    print("Can't pause, cancelling without deleting files")
-                                    self.stop(False)
-
-                                time.sleep(1)
+                        self.download.pause()
 
                         self.save_state(True)
                 
@@ -494,19 +479,20 @@ class DownloadThread(threading.Thread):
                 except Exception as e:
                     pass
 
-    def stop(self, deletefiles):
+    def stop(self):
         if self.download:
             if self.mode == "regular":
-                downloadgid = self.download.gid
-                downloadname = self.download.name
-                istorrent = self.download.is_torrent
+                downloadgid = self.download.gid.copy()
+                downloadname = self.download.name.copy()
+                istorrent = self.download.is_torrent.copy()
 
                 try:
                     self.download.remove(force=True)
                 except:
                     print('Download couldn\'t be removed, probably already removed.')
 
-                if (deletefiles == True):
+                if ((istorrent and self.download.seeder) or self.download.is_complete) == False: # Delete files if incomplete
+
                     if os.path.exists(os.path.join(self.app.appconf["download_directory"], (downloadgid + ".varia"))):
                         os.remove(os.path.join(self.app.appconf["download_directory"], (downloadgid + ".varia")))
                     
@@ -647,6 +633,5 @@ class DownloadThread(threading.Thread):
         else:
             self.speed_label.set_text(_("An error occurred:") + " " + str(self.download.error_code))
 
-        #self.stop(False)
         GLib.idle_add(self.pause_button.set_retry_mode, self.pause_button, self.app, self)
         self.app.filter_download_list("no", self.app.applied_filter)

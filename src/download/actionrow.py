@@ -121,7 +121,7 @@ def on_pause_clicked(button, self, pause_button, download_item, force_pause, run
             download_item.download_thread.pause(False)
 
 def on_stop_clicked(button, self, download_item):
-    download_item.download_thread.stop(download_item.download_thread.is_complete == False)
+    download_item.download_thread.stop()
     self.download_list.remove(download_item)
     if (download_item.download_thread in self.downloads):
         self.downloads.remove(download_item.download_thread)

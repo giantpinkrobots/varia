@@ -364,10 +364,7 @@ class MainWindow(Adw.ApplicationWindow):
                 self.download_list.remove(child)
                 child = next_child
             for download_thread in self.downloads:
-                deletefiles = True
-                if ((download_thread.mode == "regular") and (download_thread.download.is_torrent) and (download_thread.download.seeder)):
-                    deletefiles = False
-                download_thread.stop(deletefiles)
+                download_thread.stop()
                 self.downloads.remove(download_thread)
         self.header_pause_content.set_icon_name("media-playback-pause-symbolic")
         self.header_pause_content.set_label(_("Pause All"))

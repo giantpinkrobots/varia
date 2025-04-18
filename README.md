@@ -25,9 +25,7 @@
 
 <br>
 
-Varia is a download manager that conforms to the latest Libadwaita design guidelines, integrating nicely with GNOME. It utilizes aria2 and yt-dlp to handle regular files, torrents and video/audio stream downloads.
-
-Varia is a download manager for Linux and Windows that supports regular files as well as torrents and video/audio streams. It is a frontend for aria2 and yt-dlp. It is written with GTK4 and Libadwaita
+Varia is a download manager for Linux and Windows that supports regular files as well as torrents and video/audio streams. It is a frontend for aria2 and yt-dlp.
 
 <p float="left" align="middle">
   <img src="https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-1.png" width=350 />
