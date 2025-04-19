@@ -7,9 +7,10 @@ import threading
 
 def window_create_content(self):
     self.content_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-    header_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+    header_box = Gtk.Box()
 
     self.total_download_speed_label = Gtk.Label(label=self.total_download_speed)
+    self.total_download_speed_label.add_css_class("heading")
 
     header_show_sidebar_button = Gtk.Button()
     header_show_sidebar_button.add_css_class('flat')
@@ -45,7 +46,7 @@ def window_create_content(self):
     self.header_bar.set_title_widget(header_box)
     self.content_box.append(self.header_bar)
 
-    status_page_begin_button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=12)
+    status_page_begin_button_box = Gtk.Box(spacing=12)
     status_page_begin_button_box.append(Gtk.Image.new_from_icon_name("sidebar-show-symbolic"))
     status_page_begin_button_box.append(Gtk.Label(label=_("Show Menu")))
 

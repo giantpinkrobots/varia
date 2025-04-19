@@ -482,9 +482,9 @@ class DownloadThread(threading.Thread):
     def stop(self):
         if self.download:
             if self.mode == "regular":
-                downloadgid = self.download.gid.copy()
-                downloadname = self.download.name.copy()
-                istorrent = self.download.is_torrent.copy()
+                downloadgid = self.download.gid
+                downloadname = self.download.name
+                istorrent = self.download.is_torrent
 
                 try:
                     self.download.remove(force=True)
