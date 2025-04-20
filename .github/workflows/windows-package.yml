@@ -9,9 +9,6 @@ jobs:
   build-windows:
     runs-on: windows-latest
 
-    env:
-      APP_VERSION: "next-branch"
-
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -25,7 +22,7 @@ jobs:
       - name: Run build script in UCRT64 shell
         shell: msys2 {0}
         run: |
-          bash ./build-for-windows.sh
+          bash ./build-for-windows.sh -u
 
       - name: Compile .ISS to .EXE Installer
         uses: Minionguyjpro/Inno-Setup-Action@v1.2.2
@@ -35,5 +32,19 @@ jobs:
       - name: Upload installer
         uses: actions/upload-artifact@v4
         with:
-          name: varia-installer
+          name: varia-windows-installer
           path: output/varia-windows-setup-amd64.exe
+
+      - name: Remove updater-function-enabled file for the portable zip version
+        run: |
+          del src\dist\variamain\updater-function-enabled
+
+      - name: Create zip archive
+        run: |
+          powershell Compress-Archive -Path src\dist\variamain\* -DestinationPath varia-windows-portable-amd64.zip
+
+      - name: Upload zip artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: varia-windows-portable
+          path: varia-windows-portable-amd64.zip
