@@ -29,7 +29,7 @@ Name: "{commondesktop}\Varia"; Filename: "{app}\variamain.exe"; Tasks: desktopic
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}";
 
 [Files]
-Source: "dist\variamain\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
+Source: "src\dist\variamain\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
 
 [Code]
 procedure DisableUpdaterFunction();
