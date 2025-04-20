@@ -390,7 +390,7 @@ class DownloadThread(threading.Thread):
             GLib.idle_add(self.percentage_label.set_text, percentage_label_text)
 
     def pause(self, change_pause_button_icon):
-        if self.download:
+        if self.download and self.is_complete == False:
             if change_pause_button_icon == False:
 
                 if self.mode == "regular":
@@ -424,7 +424,7 @@ class DownloadThread(threading.Thread):
             check_for_all_paused(self.app)
 
     def resume(self):
-        if self.download:
+        if self.download and self.is_complete == False:
             change_pause_button_icon = False
 
             if self.mode == "regular":
