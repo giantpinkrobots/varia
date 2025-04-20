@@ -1,0 +1,45 @@
+name: Windows Package (Test)
+
+on:
+  push:
+    branches: [ gh-actions-test ]
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    env:
+      APP_VERSION: "next-branch"  # ← Hardcoded version here
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up MSYS2 (UCRT64)
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: true
+
+      - name: Run build script in UCRT64 shell
+        shell: msys2 {0}
+        run: |
+          bash ./build-for-windows.sh
+
+      - name: Install Inno Setup
+        run: |
+          Invoke-WebRequest -Uri https://jrsoftware.org/download.php/is.exe -OutFile is.exe
+          Start-Process .\is.exe /VERYSILENT /NORESTART /SP- -Wait
+
+      - name: Run Inno Setup script
+        env:
+          APP_VERSION: ${{ env.APP_VERSION }}
+        run: |
+          "C:\Users\runneradmin\AppData\Local\Programs\Inno Setup 6\ISCC.exe" installer.iss
+
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: varia-installer
+          path: output/varia-windows-setup-amd64.exe
