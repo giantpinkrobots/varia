@@ -1,8 +1,8 @@
-name: Windows Package (Test)
+name: Build for Windows (Installer and Portable)
 
 on:
   push:
-    branches: [ gh-actions-test ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -34,10 +34,18 @@ jobs:
           del src\dist\variamain\updater-function-enabled
           powershell Compress-Archive -Path src\dist\variamain\* -DestinationPath varia-windows-portable-amd64.zip
 
-      - name: Upload installer and portable zip
+      - name: Upload Windows installer
         uses: actions/upload-artifact@v4
         with:
-          name: varia-windows-artifacts
+          name: Varia-Windows-Installer
           path: |
             output/varia-windows-setup-amd64.exe
+          compression-level: 9
+
+      - name: Upload Windows portable
+        uses: actions/upload-artifact@v4
+        with:
+          name: Varia-Windows-Portable
+          path: |
             varia-windows-portable-amd64.zip
+          compression-level: 9

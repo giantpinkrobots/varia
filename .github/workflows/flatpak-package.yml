@@ -1,8 +1,8 @@
-name: Build Flatpak (Test)
+name: Build for Linux (Flatpak)
 
 on:
   push:
-    branches: [ gh-actions-test ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
