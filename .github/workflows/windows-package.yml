@@ -31,7 +31,6 @@ jobs:
         uses: Minionguyjpro/Inno-Setup-Action@v1.2.2
         with:
           path: actions-inno-install-script.iss
-          options: /VERYSILENT /SP-
 
       - name: Upload installer
         uses: actions/upload-artifact@v4
