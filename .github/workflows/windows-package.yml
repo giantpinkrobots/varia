@@ -29,22 +29,15 @@ jobs:
         with:
           path: actions-inno-install-script.iss
 
-      - name: Upload installer
-        uses: actions/upload-artifact@v4
-        with:
-          name: varia-windows-installer
-          path: output/varia-windows-setup-amd64.exe
-
-      - name: Remove updater-function-enabled file for the portable zip version
+      - name: Create portable zip archive
         run: |
           del src\dist\variamain\updater-function-enabled
-
-      - name: Create zip archive
-        run: |
           powershell Compress-Archive -Path src\dist\variamain\* -DestinationPath varia-windows-portable-amd64.zip
 
-      - name: Upload zip artifact
+      - name: Upload installer and portable zip
         uses: actions/upload-artifact@v4
         with:
-          name: varia-windows-portable
-          path: varia-windows-portable-amd64.zip
+          name: varia-windows-artifacts
+          path: |
+            output/varia-windows-setup-amd64.exe
+            varia-windows-portable-amd64.zip

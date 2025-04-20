@@ -1,0 +1,23 @@
+name: Build Flatpak (Test)
+
+on:
+  push:
+    branches: [ gh-actions-test ]
+  workflow_dispatch:
+
+jobs:
+  build-flatpak:
+    name: "Flatpak"
+    runs-on: ubuntu-latest
+
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-48
+      options: --privileged
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        with:
+          bundle: io.github.giantpinkrobots.varia.flatpak
+          manifest-path: io.github.giantpinkrobots.varia.json
+          cache-key: flatpak-builder-${{ github.sha }}
