@@ -18,11 +18,15 @@ gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, GLib, Gio, Gdk
 
-if os.name != 'nt':
+if os.name == 'nt':
+    application_window = Gtk.ApplicationWindow
+
+else:
+    application_window = Adw.ApplicationWindow
     stringstorage.setstrings_linux()
     from stringstorage import gettext as _
 
-class MainWindow(Adw.ApplicationWindow):
+class MainWindow(application_window):
     def __init__(self, variaapp, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, issnap, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
@@ -129,6 +133,7 @@ class MainWindow(Adw.ApplicationWindow):
 
         # Windows only stuff:
         if (os.name == 'nt'):
+            os.environ['GTK_CSD'] = '0'
             icon_theme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default())
             icon_theme.add_search_path("./icons")
             if (self.appconf["check_for_updates_on_startup_enabled"] == '1') and (os.path.exists("./updater-function-enabled")):

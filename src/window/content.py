@@ -1,4 +1,5 @@
 import gi
+import os
 from stringstorage import gettext as _
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
@@ -26,6 +27,7 @@ def window_create_content(self):
     self.header_pause_content.set_icon_name("media-playback-pause-symbolic")
     self.header_pause_content.set_label(_("Pause All"))
     self.header_pause_button = Gtk.Button()
+    self.header_pause_button.add_css_class('flat')
     self.header_pause_button.set_sensitive(False)
     self.header_pause_button.set_child(self.header_pause_content)
     self.header_pause_button.connect("clicked", lambda button: self.pause_all())
@@ -39,12 +41,17 @@ def window_create_content(self):
     header_box.append(self.total_download_speed_label)
     header_box.append(header_expanding_box_2)
     header_box.append(self.header_pause_button)
+    
+    if (os.name == 'nt'): # Don't use Adw.HeaderBar on Windows
+        header_box.prepend(self.header_show_sidebar_button_revealer)
+        self.content_box.append(header_box)
 
-    self.header_bar = Adw.HeaderBar()
-    self.header_bar.add_css_class('flat')
-    self.header_bar.pack_start(self.header_show_sidebar_button_revealer)
-    self.header_bar.set_title_widget(header_box)
-    self.content_box.append(self.header_bar)
+    else:
+        header_bar = Adw.HeaderBar()
+        header_bar.add_css_class('flat')
+        header_bar.pack_start(self.header_show_sidebar_button_revealer)
+        header_bar.set_title_widget(header_box)
+        self.content_box.append(header_bar)
 
     status_page_begin_button_box = Gtk.Box(spacing=12)
     status_page_begin_button_box.append(Gtk.Image.new_from_icon_name("sidebar-show-symbolic"))
@@ -87,43 +94,6 @@ def window_create_content(self):
 
     self.total_download_speed_calculator_thread = threading.Thread(target=self.total_download_speed_get, args=(self.downloads, self.total_download_speed_label))
     self.total_download_speed_calculator_thread.start()
-
-    #self.check_download_status_thread = threading.Thread(target=lambda: check_download_status(self))
-    #self.check_download_status_thread.start()
-
-"""
-def check_download_status(self):
-    while (self.terminating == False):
-        i = 0
-        for download_thread in self.downloads:
-            try:
-                if (download_thread.download):
-                    if (download_thread.mode == "regular" and download_thread.is_torrent and download_thread.is_metadata) == False and \
-                        (download_thread.mode == "regular" and download_thread.download.is_complete == 1) or \
-                        ( (download_thread.mode == "video" and download_thread.video_status == "finished") and \
-                        ( (download_thread.video_download_combined == False) or ( (download_thread.video_download_combined == True and download_thread.video_download_stage == 0) == False) ) ):
-                        
-                        
-                        GLib.idle_add(download_thread.set_complete)
-
-                    elif (download_thread.mode == "regular" and (download_thread.download.status == "error") or (download_thread.download.status == "removed")) or (download_thread.mode == "video" and download_thread.video_status == "error"):
-                        download_thread.cancelled = True
-
-                        if (download_thread.download.error_code == "24"):
-                            download_thread.speed_label.set_text(_("Authorization failed."))
-
-                        else:
-                            download_thread.speed_label.set_text(_("An error occurred:") + " " + str(download_thread.download.error_code))
-                        download_thread.stop(False)
-
-                        GLib.idle_add(download_thread.pause_button.set_visible, False)
-                        self.filter_download_list("no", self.applied_filter)
-            except:
-                pass
-            i += 1
-        
-        time.sleep(0.5)
-"""
 
 def toggle_sidebar_overlay(button, self):
     if self.overlay_split_view.get_show_sidebar() == False:

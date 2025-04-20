@@ -93,7 +93,12 @@ def initiate(self, variaapp, variaVersion, first_run, issnap):
     self.root_window_overlay = Gtk.Overlay()
     self.overlay_split_view = Adw.OverlaySplitView.new()
     self.root_window_overlay.set_child(self.overlay_split_view)
-    self.set_content(self.root_window_overlay)
+
+    if os.name == 'nt': # Gtk.Window (used on Windows) doesn't have set_content
+        self.set_child(self.root_window_overlay)
+
+    else:
+        self.set_content(self.root_window_overlay)
 
     self.drag_drop_status_page = Adw.StatusPage()
     self.drag_drop_status_page.set_icon_name("document-send-symbolic")
