@@ -10,7 +10,7 @@ jobs:
     runs-on: windows-latest
 
     env:
-      APP_VERSION: "next-branch"  # ← Hardcoded version here
+      APP_VERSION: "next-branch"
 
     steps:
       - name: Checkout source
@@ -27,16 +27,11 @@ jobs:
         run: |
           bash ./build-for-windows.sh
 
-      - name: Install Inno Setup
-        run: |
-          Invoke-WebRequest -Uri https://jrsoftware.org/download.php/is.exe -OutFile is.exe
-          Start-Process .\is.exe /VERYSILENT /NORESTART /SP- -Wait
-
-      - name: Run Inno Setup script
-        env:
-          APP_VERSION: ${{ env.APP_VERSION }}
-        run: |
-          "C:\Users\runneradmin\AppData\Local\Programs\Inno Setup 6\ISCC.exe" installer.iss
+      - name: Compile .ISS to .EXE Installer
+        uses: Minionguyjpro/Inno-Setup-Action@v1.2.2
+        with:
+          path: actions-inno-install-script.iss
+          options: /VERYSILENT /SP-
 
       - name: Upload installer
         uses: actions/upload-artifact@v4
