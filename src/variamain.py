@@ -11,6 +11,8 @@ import subprocess
 from operator import itemgetter
 import re
 import stringstorage
+import atexit
+import signal
 
 from download.actionrow import on_download_clicked
 from download.listen import deal_with_simultaneous_download_limit
@@ -552,6 +554,17 @@ def main(version, aria2cexec, ffmpegexec, issnap):
         first_run = True
         with open(os.path.join(appdir, 'varia.conf'), 'w') as f:
             json.dump(appconf, f)
+    
+    def stop_aria2c_on_exit(proc):
+        try:
+            if os.name == 'nt':
+                proc.send_signal(signal.CTRL_BREAK_EVENT)
+            
+            else:
+                os.killpg(os.getpgid(proc.pid), signal.SIGTERM)
+
+        except ProcessLookupError:
+            pass
 
     aria2c_subprocess = None
 
@@ -582,16 +595,18 @@ def main(version, aria2cexec, ffmpegexec, issnap):
 
     if (appconf['remote'] == '0'):
         if (os.name == 'nt'):
-            aria2c_subprocess = subprocess.Popen([aria2cexec] + aria2_config, shell=True)
+            aria2c_subprocess = subprocess.Popen([aria2cexec] + aria2_config, shell=True, creationflags=subprocess.CREATE_NEW_PROCESS_GROUP)
 
         else:
             if hasattr(os, 'posix_fallocate'):
                 aria2_config.append("--file-allocation=falloc") # Set fallocate on Linux for better performance
                 print("fallocate enabled.")
-                aria2c_subprocess = subprocess.Popen([aria2cexec] + aria2_config)
+                aria2c_subprocess = subprocess.Popen([aria2cexec] + aria2_config, preexec_fn=os.setsid)
 
             else:
-                aria2c_subprocess = subprocess.Popen([aria2cexec] + aria2_config)
+                aria2c_subprocess = subprocess.Popen([aria2cexec] + aria2_config, preexec_fn=os.setsid)
+    
+    atexit.register(stop_aria2c_on_exit, aria2c_subprocess)
 
     arguments = sys.argv
     if (len(arguments) > 1):
