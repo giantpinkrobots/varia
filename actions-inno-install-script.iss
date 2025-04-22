@@ -3,7 +3,7 @@
 [Setup]
 AppName=Varia
 AppId={{F2017E34-C494-42DB-9A2C-022CFB2C970C}
-AppVersion=next-branch
+AppVersion=v2025.4.22
 AppPublisher=Giant Pink Robots!
 AppPublisherURL=https://github.com/giantpinkrobots/varia
 AppSupportURL=https://github.com/giantpinkrobots/varia

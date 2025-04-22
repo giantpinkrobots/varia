@@ -1,4 +1,4 @@
-variaVersion = "v2025.4.3"
+variaVersion = "v2025.4.22"
 
 import ctypes
 import gi
