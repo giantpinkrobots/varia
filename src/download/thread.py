@@ -390,7 +390,7 @@ class DownloadThread(threading.Thread):
             GLib.idle_add(self.percentage_label.set_text, percentage_label_text)
 
     def pause(self, change_pause_button_icon):
-        if self.download:
+        if self.download and self.is_complete == False:
             if change_pause_button_icon == False:
 
                 if self.mode == "regular":
@@ -400,22 +400,7 @@ class DownloadThread(threading.Thread):
                             self.paused = True
                             change_pause_button_icon = True
                         
-                        i = 0
-
-                        while True:
-                            try:
-                                self.download.pause()
-                                print ("Download paused.")
-                                break
-                                
-                            except:
-                                i += 1
-
-                                if i == 10:
-                                    print("Can't pause, cancelling without deleting files")
-                                    self.stop(False)
-
-                                time.sleep(1)
+                        self.download.pause()
 
                         self.save_state(True)
                 
@@ -439,7 +424,7 @@ class DownloadThread(threading.Thread):
             check_for_all_paused(self.app)
 
     def resume(self):
-        if self.download:
+        if self.download and self.is_complete == False:
             change_pause_button_icon = False
 
             if self.mode == "regular":
@@ -494,7 +479,7 @@ class DownloadThread(threading.Thread):
                 except Exception as e:
                     pass
 
-    def stop(self, deletefiles):
+    def stop(self):
         if self.download:
             if self.mode == "regular":
                 downloadgid = self.download.gid
@@ -506,7 +491,8 @@ class DownloadThread(threading.Thread):
                 except:
                     print('Download couldn\'t be removed, probably already removed.')
 
-                if (deletefiles == True):
+                if ((istorrent and self.download.seeder) or self.download.is_complete) == False: # Delete files if incomplete
+
                     if os.path.exists(os.path.join(self.app.appconf["download_directory"], (downloadgid + ".varia"))):
                         os.remove(os.path.join(self.app.appconf["download_directory"], (downloadgid + ".varia")))
                     
@@ -647,6 +633,5 @@ class DownloadThread(threading.Thread):
         else:
             self.speed_label.set_text(_("An error occurred:") + " " + str(self.download.error_code))
 
-        #self.stop(False)
         GLib.idle_add(self.pause_button.set_retry_mode, self.pause_button, self.app, self)
         self.app.filter_download_list("no", self.app.applied_filter)

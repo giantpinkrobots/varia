@@ -2,7 +2,7 @@ import time
 import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import Adw, GLib, Gio, Gtk
+from gi.repository import Adw, GLib, Gio
 from download.actionrow import create_actionrow
 from download.thread import DownloadThread
 import string
@@ -36,7 +36,7 @@ def listen_to_aria2(self, variaapp):
                         
                         # Remove the .torrent file download itself:
                         frontend_download_item.cancelled = True
-                        frontend_download_item.stop(True)
+                        frontend_download_item.stop()
                         self.download_list.remove(frontend_download_item.actionrow)
                         self.downloads.remove(frontend_download_item)
 

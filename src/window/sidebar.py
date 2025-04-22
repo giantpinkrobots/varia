@@ -279,14 +279,12 @@ def show_about(app, variaapp, self, variaVersion):
     dialog.set_application_icon("io.github.giantpinkrobots.varia")
     dialog.set_translator_credits(_("translator-credits"))
     dialog.set_artists(["Jakub Steiner"])
-    dialog.set_release_notes_version("v2025.4.3")
+    dialog.set_release_notes_version("v2025.4.22")
     dialog.set_release_notes('''
-        <ul><li>Many bug fixes, especially regarding the video download functionality, for overall stability.</li>
-        <li>Better multi-connection handling through aria2.</li>
-        <li>New retry button for failed downloads.</li>
-        <li>Twitch VOD downloads now possible. Video downloads now also respect the Remote Timestamp option.</li>
-        <li>Torrenting can now be entirely disabled.</li>
-        <li>yt-dlp backend updated to newer version with fix for YouTube downloads.</li></ul>''')
+        <ul><li>Windows only: Varia now uses native window decorations for better integration and stability.</li>
+        <li>New safeguards against having the aria2c process keep running in the case of a crash.</li>
+        <li>Slight UI tweaks. The header bar also now shows the amount of downloads, and how many are completed.</li>
+        <li>Updates to translations.</li></ul>''')
 
     dialog.present(self)
 

@@ -109,14 +109,11 @@ Control a remote aria2 instance running on any server
 </recommends>
 
 <releases>
-<release version="v2025.4.3" date="2025-04-03">
+<release version="v2025.4.22" date="2025-04-22">
 <description translatable="yes">
-<ul><li>Many bug fixes, especially regarding the video download functionality, for overall stability.</li>
-<li>Better multi-connection handling through aria2.</li>
-<li>New retry button for failed downloads.</li>
-<li>Twitch VOD downloads now possible. Video downloads now also respect the Remote Timestamp option.</li>
-<li>Torrenting can now be entirely disabled.</li>
-<li>yt-dlp backend updated to newer version with fix for YouTube downloads.</li></ul>
+<ul><li>New safeguards against having the aria2c process keep running in the case of a crash.</li>
+<li>Slight UI tweaks. The header bar also now shows the amount of downloads, and how many are completed.</li>
+<li>Updates to translations.</li></ul>
 </description>
 </release>
 </releases>

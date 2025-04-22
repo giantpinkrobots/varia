@@ -1,4 +1,4 @@
-variaVersion = "v2025.4.3"
+variaVersion = "v2025.4.22"
 
 import ctypes
 import gi
@@ -11,6 +11,8 @@ import subprocess
 from operator import itemgetter
 import re
 import stringstorage
+import atexit
+import signal
 
 from download.actionrow import on_download_clicked
 from download.listen import deal_with_simultaneous_download_limit
@@ -18,11 +20,15 @@ gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, GLib, Gio, Gdk
 
-if os.name != 'nt':
+if os.name == 'nt':
+    application_window = Gtk.ApplicationWindow
+
+else:
+    application_window = Adw.ApplicationWindow
     stringstorage.setstrings_linux()
     from stringstorage import gettext as _
 
-class MainWindow(Adw.ApplicationWindow):
+class MainWindow(application_window):
     def __init__(self, variaapp, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, issnap, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
@@ -129,6 +135,7 @@ class MainWindow(Adw.ApplicationWindow):
 
         # Windows only stuff:
         if (os.name == 'nt'):
+            os.environ['GTK_CSD'] = '0'
             icon_theme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default())
             icon_theme.add_search_path("./icons")
             if (self.appconf["check_for_updates_on_startup_enabled"] == '1') and (os.path.exists("./updater-function-enabled")):
@@ -311,9 +318,13 @@ class MainWindow(Adw.ApplicationWindow):
     def total_download_speed_get(self, downloads, total_download_speed_label):
         while (self.terminating == False):
             total_download_speed = 0
+            total_completed_download_amount = 0
 
             for download_thread in downloads:
                 total_download_speed += download_thread.speed
+
+                if download_thread.is_complete:
+                    total_completed_download_amount += 1
 
             if (total_download_speed == 0):
                 download_speed_text = "0" + _(" B/s")
@@ -323,6 +334,9 @@ class MainWindow(Adw.ApplicationWindow):
                 download_speed_text = str(round(total_download_speed / 1024, 2)) + _(" KB/s")
             else:
                 download_speed_text = str(round(total_download_speed / 1024 / 1024, 2)) + _(" MB/s")
+            
+            if len(downloads) > 0:
+                download_speed_text = f"{download_speed_text}  ·  {total_completed_download_amount}/{len(downloads)}"
 
             GLib.idle_add(total_download_speed_label.set_text, download_speed_text)
 
@@ -364,10 +378,7 @@ class MainWindow(Adw.ApplicationWindow):
                 self.download_list.remove(child)
                 child = next_child
             for download_thread in self.downloads:
-                deletefiles = True
-                if ((download_thread.mode == "regular") and (download_thread.download.is_torrent) and (download_thread.download.seeder)):
-                    deletefiles = False
-                download_thread.stop(deletefiles)
+                download_thread.stop()
                 self.downloads.remove(download_thread)
         self.header_pause_content.set_icon_name("media-playback-pause-symbolic")
         self.header_pause_content.set_label(_("Pause All"))
@@ -543,6 +554,17 @@ def main(version, aria2cexec, ffmpegexec, issnap):
         first_run = True
         with open(os.path.join(appdir, 'varia.conf'), 'w') as f:
             json.dump(appconf, f)
+    
+    def stop_aria2c_on_exit(proc):
+        try:
+            if os.name == 'nt':
+                proc.send_signal(signal.CTRL_BREAK_EVENT)
+            
+            else:
+                os.killpg(os.getpgid(proc.pid), signal.SIGTERM)
+
+        except ProcessLookupError:
+            pass
 
     aria2c_subprocess = None
 
@@ -573,16 +595,18 @@ def main(version, aria2cexec, ffmpegexec, issnap):
 
     if (appconf['remote'] == '0'):
         if (os.name == 'nt'):
-            aria2c_subprocess = subprocess.Popen([aria2cexec] + aria2_config, shell=True)
+            aria2c_subprocess = subprocess.Popen([aria2cexec] + aria2_config, shell=True, creationflags=subprocess.CREATE_NEW_PROCESS_GROUP)
 
         else:
             if hasattr(os, 'posix_fallocate'):
                 aria2_config.append("--file-allocation=falloc") # Set fallocate on Linux for better performance
                 print("fallocate enabled.")
-                aria2c_subprocess = subprocess.Popen([aria2cexec] + aria2_config)
+                aria2c_subprocess = subprocess.Popen([aria2cexec] + aria2_config, preexec_fn=os.setsid)
 
             else:
-                aria2c_subprocess = subprocess.Popen([aria2cexec] + aria2_config)
+                aria2c_subprocess = subprocess.Popen([aria2cexec] + aria2_config, preexec_fn=os.setsid)
+    
+    atexit.register(stop_aria2c_on_exit, aria2c_subprocess)
 
     arguments = sys.argv
     if (len(arguments) > 1):

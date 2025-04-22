@@ -8,14 +8,16 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2024-12-26 23:01-0300\n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"PO-Revision-Date: 2025-04-13 22:08+0000\n"
+"Last-Translator: Giant Pink Robots! <giantpinkrobots@protonmail.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/varia/varia/es/>"
+"\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.4.4\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -352,7 +354,7 @@ msgid "Downloading update..."
 msgstr "Descargando actualización..."
 
 msgid "Download failed."
-msgstr "Descarga fallida"
+msgstr "Descarga fallida."
 
 msgid "Yes"
 msgstr "Si"
@@ -370,83 +372,75 @@ msgid "Do you want to check for updates on startup?"
 msgstr "¿Quiere comprobar si hay actualizaciones al iniciar?"
 
 msgid "File"
-msgstr ""
+msgstr "Archivo"
 
 msgid "Video / Audio"
-msgstr ""
+msgstr "Video / Audio"
 
 msgid "Video and audio"
-msgstr ""
+msgstr "Video y audio"
 
 msgid "Video only"
-msgstr ""
+msgstr "Sólo video"
 
 msgid "Audio only"
-msgstr ""
+msgstr "Sólo audio"
 
 #: Relating to video download:
 msgid "Framerate:"
-msgstr ""
+msgstr "Velocidad de fotogramas:"
 
 #: Relating to video download:
 msgid "Bitrate:"
-msgstr ""
+msgstr "Tasa de bits:"
 
 # Updater
-#, fuzzy
-#| msgid "Checking for updates..."
 msgid "Checking video..."
-msgstr "Comprobando las actualizaciones..."
+msgstr "Comprobando video..."
 
 msgid "No video or audio streams found"
-msgstr ""
+msgstr "No se encontraron transmisiones de video ni audio"
 
 msgid "Starting download..."
-msgstr ""
+msgstr "Iniciando descarga..."
 
 msgid ""
 "The video platform may not be supported or you may be being blocked by the "
 "platform. If you have an active VPN connection that might be the cause, or "
 "you can try importing your browser's cookies through a cookies.txt file."
 msgstr ""
+"Puede que la plataforma de vídeo no sea compatible o que la plataforma te "
+"esté bloqueando. Si tienes una conexión VPN activa esa podría ser la causa, "
+"o puedes probar a importar las cookies de tu navegador a través de un "
+"archivo cookies.txt."
 
 msgid "This will disable the video download functionality."
-msgstr ""
+msgstr "Esto desactivará la función de descarga de video."
 
 #: Relating to video download progress where it says "Part 1/2" - {indicator}
 #: is replaced by "1/2" or "2/2" (don't translate {indicator})
 msgid "Part {indicator}"
-msgstr ""
+msgstr "Parte {indicator}"
 
-#, fuzzy
-#| msgid "Simultaneous Download Amount"
 msgid "Simultaneous download limit exceeded, waiting."
-msgstr "Número de descargas simultáneas"
+msgstr "Límite de descargas simultáneas superado, en espera."
 
 #: The way percentages will be shown, like 10% or %10 depending on the language
 #: (don't translate {number}, just move it if needed)
 msgid "{number}%"
-msgstr ""
+msgstr "{number}%"
 
-#, fuzzy
-#| msgid "Seeding"
 msgid "Allow Seeding"
-msgstr "Compartiendo"
+msgstr "Permitir siembra"
 
-#, fuzzy
-#| msgid "Speed Limit"
 msgid "Seeding Ratio Limit"
-msgstr "Límite de velocidad"
+msgstr "Límite de siembra"
 
-#, fuzzy
-#| msgid "Torrent"
 msgid "Torrent Settings"
-msgstr "Torrent"
+msgstr "Configuración de Torrent"
 
-#, fuzzy
-#| msgid "Download Directory"
 msgid "Custom Download Directory for Torrents"
-msgstr "Directorio de descargas"
+msgstr "Directorio de descargas personalizado para torrents"
 
 #: When the user attempts to disable seeding
 msgid ""
@@ -456,21 +450,25 @@ msgid ""
 "as they download (a ratio of 1). You may want to consider limiting your "
 "seeding ratio instead."
 msgstr ""
+"Dado que la descarga de torrents se basa en la transferencia de datos por "
+"parte de los usuarios, desactivar la transferencia está muy mal visto y "
+"puede provocar que algunos clientes y rastreadores le limiten o prohíban el "
+"acceso. Por lo general, se espera que los clientes reproduzcan al menos la "
+"misma cantidad que descargan (una proporción de 1). Es posible que desee "
+"considerar la posibilidad de limitar su proporción de siembra en su lugar."
 
-#, fuzzy
-#| msgid "Seeding"
 msgid "Cancel Seeding"
-msgstr "Compartiendo"
+msgstr "Cancelar siembra"
 
 # Save button
 msgid "Save"
-msgstr ""
+msgstr "Guardar"
 
 msgid "Show Menu"
-msgstr ""
+msgstr "Mostrar menú"
 
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 # Snap version permission warning
 msgid ""
@@ -478,25 +476,31 @@ msgid ""
 "completion option you must first give Varia the related permission. To do "
 "this, open a terminal window and execute this command and then restart Varia:"
 msgstr ""
+"Estás utilizando Varia como paquete Snap. Para poder utilizar la opción de "
+"apagado al finalizar, primero debes dar a Varia el permiso correspondiente. "
+"Para ello, abre una ventana de terminal, ejecuta este comando y reinicia "
+"Varia:"
 
-#, fuzzy
-#| msgid "Torrent"
 msgid "Enable Torrenting"
-msgstr "Torrent"
+msgstr "Habolitar descarga de torrents."
 
 msgid "The browser extension will not work when Remote Mode is enabled."
 msgstr ""
+"La extensión del navegador no funcionará cuando el modo remoto esté "
+"habilitado."
 
 msgid ""
 "Disabling torrenting will prevent new torrents from being added. It will not "
 "stop current torrent instances."
 msgstr ""
+"Deshabilitar la descarga de torrents impedirá que se añadan nuevos. No "
+"detendrá las instancias de torrents actuales."
 
 msgid "Torrenting is disabled."
-msgstr ""
+msgstr "La descarga de torrents está deshabilitada."
 
 msgid "Unknown filesize"
-msgstr ""
+msgstr "Tamaño de archivo desconocido"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
@@ -512,3 +516,6 @@ msgstr "Mostrar atajos"
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Salir"
+
+msgid "Torrenting Disabled"
+msgstr ""

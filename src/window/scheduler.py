@@ -1,7 +1,7 @@
 import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import Gtk, Adw, GLib
+from gi.repository import Gtk, Adw
 from stringstorage import gettext as _
 
 def add_timespan_clicked(button, self, timespans_box, day, start_h, start_m, end_h, end_m, switch_enabled):
@@ -28,7 +28,7 @@ def add_timespan_clicked(button, self, timespans_box, day, start_h, start_m, end
 
     days_combobox.set_active(day)
 
-    remove_button = Gtk.Button.new_from_icon_name("media-playback-stop-symbolic")
+    remove_button = Gtk.Button.new_from_icon_name("process-stop-symbolic")
     remove_button.set_valign(Gtk.Align.CENTER)
     remove_button.add_css_class("circular")
     remove_button.add_css_class("destructive-action")

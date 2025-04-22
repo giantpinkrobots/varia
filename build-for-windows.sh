@@ -31,6 +31,11 @@ echo "Downloading aria2 and ffmpeg..."
 aria2="aria2-1.37.0-win-64bit-build1"
 ffmpeg="ffmpeg-n7.1-latest-win64-lgpl-shared-7.1"
 
+rm -rf "./$aria2.zip"
+rm -rf "./$ffmpeg.zip"
+rm -rf "./aria2"
+rm -rf "./ffmpeg"
+
 wget "https://github.com/aria2/aria2/releases/download/release-1.37.0/$aria2.zip"
 wget "https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/$ffmpeg.zip"
 mkdir aria2
@@ -51,6 +56,7 @@ done
 
 echo "Building PyInstaller distributable..."
 
+rm -rf src/dist
 cp -r windows/* src/
 cd src
 pyinstaller varia.spec
