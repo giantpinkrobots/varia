@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-02-23 07:04+0000\n"
-"Last-Translator: Tô Huy <tohuy2008@gmail.com>\n"
+"PO-Revision-Date: 2025-04-13 22:08+0000\n"
+"Last-Translator: Giant Pink Robots! <giantpinkrobots@protonmail.com>\n"
 "Language-Team: Vietnamese <https://hosted.weblate.org/projects/varia/varia/"
 "vi/>\n"
 "Language: vi\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.10.1-dev\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -463,7 +463,7 @@ msgid "Show Menu"
 msgstr "Hiện Menu"
 
 msgid "OK"
-msgstr ""
+msgstr "Đồng ý"
 
 # Snap version permission warning
 msgid ""
@@ -471,25 +471,31 @@ msgid ""
 "completion option you must first give Varia the related permission. To do "
 "this, open a terminal window and execute this command and then restart Varia:"
 msgstr ""
+"Bạn đang sử dụng Varia phiên bản Snap. Vui lòng cấp quyền cho ứng dụng tắt "
+"máy và hoàn thành. Hãy mở giao diện dòng lệnh và thực hiện các câu lệnh sau, "
+"sau đó hãy khởi động lại Varia:"
 
 #, fuzzy
 #| msgid "Torrent Settings"
 msgid "Enable Torrenting"
-msgstr "Cài đặt Torrent"
+msgstr "Bật tùy chọn Torrent"
 
 msgid "The browser extension will not work when Remote Mode is enabled."
-msgstr ""
+msgstr "Tiện ích trình duyệt sẽ không hoạt động được khi bật chế độ từ xa."
 
 msgid ""
 "Disabling torrenting will prevent new torrents from being added. It will not "
 "stop current torrent instances."
 msgstr ""
+"Tắt chế độ torrent sẽ không tự động thêm torrent mới về sau. Tùy chọn này "
+"không ngăn cản torrent đang chạy."
 
 msgid "Torrenting is disabled."
-msgstr ""
+msgstr "Chế độ torrent đã tắt."
 
+#, fuzzy
 msgid "Unknown filesize"
-msgstr ""
+msgstr "Chưa rõ kích thước"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
@@ -505,3 +511,6 @@ msgstr "Hiện Shortcuts"
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Thoát"
+
+msgid "Torrenting Disabled"
+msgstr ""
