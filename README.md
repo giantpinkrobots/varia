@@ -94,17 +94,18 @@ To build Varia without Flatpak or GNOME Builder though, you'll need:
 - aria2 and the aria2p python package.
 - yt-dlp python package
 - FFmpeg (without GPL is okay)
+- libayatana-appindicator
 
 To install the ones besides aria2p on some Linux systems:
 ```
 Ubuntu, Debian, Mint etc:
-sudo apt install meson ninja-build aria2 python-setuptools libgtk-4-dev libadwaita-1-0 gettext ffmpeg
+sudo apt install meson ninja-build aria2 python-setuptools libgtk-4-dev libadwaita-1-0 gettext ffmpeg libayatana-appindicator
 
 Fedora, RHEL etc:
-sudo dnf install meson ninja-build aria2 python-setuptools gtk4-devel libadwaita gettext ffmpeg
+sudo dnf install meson ninja-build aria2 python-setuptools gtk4-devel libadwaita gettext ffmpeg libayatana-appindicator-gtk3
 
 Arch, EndeavourOS, Manjaro etc:
-sudo pacman -S meson aria2 python-setuptools gtk4 libadwaita gettext ffmpeg
+sudo pacman -S meson aria2 python-setuptools gtk4 libadwaita gettext ffmpeg libayatana-appindicator
 ```
 To install aria2p and yt-dlp using pip (your distro probably doesn't have them in its repos - they're on the AUR for Arch):
 ```

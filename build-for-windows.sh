@@ -25,6 +25,7 @@ pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-yt-dlp
 pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-pyinstaller
 pacman -S --noconfirm --needed unzip
 pip install aria2p
+pip install pystray
 
 echo "Downloading aria2 and ffmpeg..."
 
@@ -69,6 +70,7 @@ cp -r data/icons/hicolor/symbolic/ui/* src/dist/variamain/icons/
 cp -r dependencies_information src/dist/variamain/
 cp ./aria2/$aria2/aria2c.exe src/dist/variamain/
 cp -r ./ffmpeg/$ffmpeg/bin/* src/dist/variamain/
+cp src/tray/tray.png src/dist/variamain/
 
 if [ $updater -eq 1 ]; then
 	touch src/dist/variamain/updater-function-enabled
