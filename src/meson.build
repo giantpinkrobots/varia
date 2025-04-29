@@ -2,6 +2,7 @@ pkgdatadir = get_option('prefix') / get_option('datadir') / meson.project_name()
 moduledir = pkgdatadir / 'varia'
 moduledir_window = pkgdatadir / 'varia' / 'window'
 moduledir_download = pkgdatadir / 'varia' / 'download'
+moduledir_tray = pkgdatadir / 'varia' / 'tray'
 
 python = import('python')
 
@@ -52,6 +53,12 @@ varia_sources_download = [
   'download/videos.py',
 ]
 
+varia_sources_tray = [
+  'tray/tray.py',
+  'tray/tray.png',
+]
+
 install_data(varia_sources, install_dir: moduledir)
 install_data(varia_sources_window, install_dir: moduledir_window)
 install_data(varia_sources_download, install_dir: moduledir_download)
+install_data(varia_sources_tray, install_dir: moduledir_tray)

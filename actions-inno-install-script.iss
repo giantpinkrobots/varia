@@ -50,3 +50,7 @@ begin
     DisableUpdaterFunction();
   end;
 end;
+
+[UninstallDelete]
+Type: dirifempty; Name: "{userprofile}\.varia"
+Type: filesandordirs; Name: "{userprofile}\.varia"

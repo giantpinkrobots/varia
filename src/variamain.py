@@ -1,4 +1,4 @@
-variaVersion = "v2025.4.22"
+variaVersion = "dev"
 
 import ctypes
 import gi
@@ -13,6 +13,7 @@ import re
 import stringstorage
 import atexit
 import signal
+from multiprocessing.connection import Listener
 
 from download.actionrow import on_download_clicked
 from download.listen import deal_with_simultaneous_download_limit
@@ -31,7 +32,7 @@ else:
 class MainWindow(application_window):
     def __init__(self, variaapp, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, issnap, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        
+
         from window.sidebar import window_create_sidebar
         from window.content import window_create_content
         from window.updater import windows_updater
@@ -171,8 +172,7 @@ class MainWindow(application_window):
         for download in download_dicts:
             on_download_clicked(None, self, download["url"], download["filename"], None, download["type"], download["video_options"], download["paused"], download["dir"])
 
-        if len(download_dicts) > 0:
-            self.check_all_paused() # Set Pause All / Resume All button
+        self.check_all_status() # Set Pause All / Resume All button
 
         # Start in background mode if it was enabled in preferences:
         if (self.appconf["default_mode"] == "background"):
@@ -180,6 +180,41 @@ class MainWindow(application_window):
         
         self.connect("notify::default-width", self.on_window_resize)
         self.on_window_resize(None, None)
+
+        # Tray icon setup
+        worker_path = os.path.join(os.path.dirname(__file__), 'tray', 'tray.py')
+
+        def tray_process_connection():
+            address = ('localhost', 6802)
+            listener = Listener(address, authkey=b'varia-tray-process')
+
+            print("Waiting for tray process connection...")
+            conn = listener.accept()
+            print("Connected to the tray icon process.")
+
+            while True:
+                try:
+                    message = conn.recv()
+                    print("Tray icon pressed function: ", message)
+
+                    if message == "show":
+                        self.unminimize()
+                        self.set_visible(True)
+                        self.present()
+
+                    elif message == "quit":
+                        self.exitProgram(self, variaapp, False)
+                        break
+
+                except EOFError:
+                    break
+        
+        threading.Thread(target=tray_process_connection, daemon=True).start()
+
+        # Tray icon process must be separate as libayatana-appindicator relies on Gtk 3.
+        self.tray_process = subprocess.Popen(
+            [sys.executable, worker_path, _("Show"), _("Quit")]
+        )
 
     def filter_download_list(self, button, filter_mode):
         if (button != "no"):
@@ -352,23 +387,37 @@ class MainWindow(application_window):
                 for download_thread in self.downloads:
                     download_thread.pause(False)
 
-            self.check_all_paused()
+            self.check_all_status()
 
-    def check_all_paused(self):
-        self.all_paused = True
+    def check_all_status(self):
+        def set_header_button(mode):
+            if mode:
+                GLib.idle_add(self.header_pause_content.set_icon_name, "media-playback-start-symbolic")
+                GLib.idle_add(self.header_pause_content.set_label, _("Resume All"))
+            
+            else:
+                GLib.idle_add(self.header_pause_content.set_icon_name, "media-playback-pause-symbolic")
+                GLib.idle_add(self.header_pause_content.set_label, _("Pause All"))
 
-        for download_thread in self.downloads:
-            if download_thread.paused == False:
-                self.all_paused = False
+        if len(self.downloads) > 0:
+            self.all_paused = True
 
-        if self.all_paused:
-            GLib.idle_add(self.header_pause_content.set_icon_name, "media-playback-start-symbolic")
-            GLib.idle_add(self.header_pause_content.set_label, _("Resume All"))
-            print("All downloads are paused")
+            for download_thread in self.downloads:
+                if download_thread.paused == False:
+                    self.all_paused = False
 
+            if self.all_paused:
+                set_header_button(True)
+                print("All downloads are paused")
+
+            else:
+                set_header_button(False)
+            
+            GLib.idle_add(self.header_pause_button.set_sensitive, True)
+        
         else:
-            GLib.idle_add(self.header_pause_content.set_icon_name, "media-playback-pause-symbolic")
-            GLib.idle_add(self.header_pause_content.set_label, _("Pause All"))
+            set_header_button(False)
+            GLib.idle_add(self.header_pause_button.set_sensitive, False)
 
     def stop_all(self, app, variaapp):
         while (self.downloads != []):
@@ -419,6 +468,9 @@ class MainWindow(application_window):
                     if hasattr(download_thread, "youtubedl_thread"):
                         download_thread.video_pause_event.set() # The thread must be resumed so it can detect the SystemExit call
                         ctypes.pythonapi.PyThreadState_SetAsyncExc(ctypes.c_long(download_thread.youtubedl_thread.ident), ctypes.py_object(SystemExit))
+
+                # Kill the tray icon process
+                self.tray_process.kill()
 
                 exiting_dialog = Adw.AlertDialog()
                 exiting_dialog_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=25)

@@ -12,7 +12,8 @@
         "--device=dri",
         "--socket=wayland",
         "--filesystem=xdg-download",
-        "--system-talk-name=org.freedesktop.login1"
+        "--system-talk-name=org.freedesktop.login1",
+        "--talk-name=org.kde.StatusNotifierWatcher"
     ],
     "cleanup" : [
         "/include",
@@ -28,6 +29,8 @@
     "modules" : [
         "./python3-aria2p.json",
         "./python3-yt-dlp.json",
+        "./python3-pystray.json",
+        "shared-modules/libayatana-appindicator/libayatana-appindicator-gtk3.json",
         {
             "name" : "aria2",
             "buildsystem" : "autotools",
