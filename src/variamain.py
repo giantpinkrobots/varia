@@ -41,8 +41,6 @@ class MainWindow(application_window):
         from download.listen import listen_to_aria2
         from download.scheduler import schedule_downloads
 
-        self.connect('close-request', self.exitProgram, variaapp, False)
-
         self.scheduler_currently_downloading = False
         self.appdir = appdir
         self.appconf = appconf
@@ -166,7 +164,7 @@ class MainWindow(application_window):
 
                 print(current_filename)
                 os.remove(os.path.join(self.appconf["download_directory"], current_filename))
-        
+
         download_dicts = sorted(download_dicts, key=itemgetter("index"))
 
         for download in download_dicts:
@@ -174,10 +172,16 @@ class MainWindow(application_window):
 
         self.check_all_status() # Set Pause All / Resume All button
 
+        # If the tray icon is enabled, connect the close button to sending the program to the background.
+        if self.appconf["use_tray"] == "true":
+            self.connect('close-request', self.exitProgram, variaapp, True)
+        else:
+            self.connect('close-request', self.exitProgram, variaapp, False)
+
         # Start in background mode if it was enabled in preferences:
         if (self.appconf["default_mode"] == "background"):
             self.exitProgram(app=self, variaapp=variaapp, background=True)
-        
+
         self.connect("notify::default-width", self.on_window_resize)
         self.on_window_resize(None, None)
 
@@ -208,13 +212,14 @@ class MainWindow(application_window):
 
                 except EOFError:
                     break
-        
+
         threading.Thread(target=tray_process_connection, daemon=True).start()
 
         # Tray icon process must be separate as libayatana-appindicator relies on Gtk 3.
-        self.tray_process = subprocess.Popen(
+        if self.appconf["use_tray"] == "true":
+            self.tray_process = subprocess.Popen(
             [sys.executable, worker_path, _("Show"), _("Quit")]
-        )
+            )
 
     def filter_download_list(self, button, filter_mode):
         if (button != "no"):
@@ -369,7 +374,7 @@ class MainWindow(application_window):
                 download_speed_text = str(round(total_download_speed / 1024, 2)) + _(" KB/s")
             else:
                 download_speed_text = str(round(total_download_speed / 1024 / 1024, 2)) + _(" MB/s")
-            
+
             if len(downloads) > 0:
                 download_speed_text = f"{download_speed_text}  ·  {total_completed_download_amount}/{len(downloads)}"
 
@@ -394,7 +399,7 @@ class MainWindow(application_window):
             if mode:
                 GLib.idle_add(self.header_pause_content.set_icon_name, "media-playback-start-symbolic")
                 GLib.idle_add(self.header_pause_content.set_label, _("Resume All"))
-            
+
             else:
                 GLib.idle_add(self.header_pause_content.set_icon_name, "media-playback-pause-symbolic")
                 GLib.idle_add(self.header_pause_content.set_label, _("Pause All"))
@@ -412,9 +417,9 @@ class MainWindow(application_window):
 
             else:
                 set_header_button(False)
-            
+
             GLib.idle_add(self.header_pause_button.set_sensitive, True)
-        
+
         else:
             set_header_button(False)
             GLib.idle_add(self.header_pause_button.set_sensitive, False)
@@ -462,7 +467,7 @@ class MainWindow(application_window):
 
                 if (self.is_visible() == False):
                     self.set_visible(True)
-                
+
                 # Stop all yt_dlp threads
                 for download_thread in self.downloads:
                     if hasattr(download_thread, "youtubedl_thread"):
@@ -497,7 +502,7 @@ class MainWindow(application_window):
 
                 if self.update_executable != None:
                     subprocess.Popen([self.update_executable, "/SILENT", "SUPPRESSMSGBOXES", "SP-", "/NOICONS", "/MERGETASKS=\"!desktopicon\"", "&&", os.path.join(os.getcwd(), "variamain.exe")], shell=True)
-        
+
         return True
 
     def aria2c_exiting_check(self, app, counter, variaapp, exiting_dialog):
@@ -515,7 +520,7 @@ class MainWindow(application_window):
             variaapp.quit()
             for thread in threading.enumerate():
                 print(thread.name)
-            
+
             if self.update_executable != None:
                 subprocess.Popen([self.update_executable, "/SILENT", "SUPPRESSMSGBOXES", "SP-", "/NOICONS", "/MERGETASKS=\"!desktopicon\"", "&&", os.path.join(os.getcwd(), "variamain.exe")], shell=True)
 
@@ -537,13 +542,13 @@ class MyApp(Adw.Application):
     def on_activate(self, app, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, issnap):
         if not hasattr(self, 'win'):
             self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf, first_run=first_run, aria2c_subprocess=aria2c_subprocess, aria2cexec=aria2cexec, ffmpegexec=ffmpegexec, issnap=issnap)
-        
+
         try:
             if ((self.win.terminating == False) and ((appconf["default_mode"] == "visible") or (self.initiated == True))):
                 self.win.present()
         except:
             return -1
-        
+
         self.initiated = True
 
     def quit_action(self, action, parameter):
@@ -556,9 +561,9 @@ def main(version, aria2cexec, ffmpegexec, issnap):
         appdir = os.path.join(os.path.expanduser('~'), '.varia')
         if not os.path.exists(appdir):
             os.makedirs(appdir)
-    
+
     download_directory = ''
-    
+
     try:
         if (os.path.exists(GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOWNLOAD))):
             download_directory = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOWNLOAD)
@@ -585,6 +590,7 @@ def main(version, aria2cexec, ffmpegexec, issnap):
         'remote_location': '',
         'schedule_enabled': '0',
         'default_mode': 'visible',
+        'use_tray': 'false',
         'schedule_mode': 'inclusive',
         'schedule': [],
         'remote_time': '0',
@@ -606,12 +612,12 @@ def main(version, aria2cexec, ffmpegexec, issnap):
         first_run = True
         with open(os.path.join(appdir, 'varia.conf'), 'w') as f:
             json.dump(appconf, f)
-    
+
     def stop_aria2c_on_exit(proc):
         try:
             if os.name == 'nt':
                 proc.send_signal(signal.CTRL_BREAK_EVENT)
-            
+
             else:
                 os.killpg(os.getpgid(proc.pid), signal.SIGTERM)
 
@@ -657,7 +663,7 @@ def main(version, aria2cexec, ffmpegexec, issnap):
 
             else:
                 aria2c_subprocess = subprocess.Popen([aria2cexec] + aria2_config, preexec_fn=os.setsid)
-    
+
     atexit.register(stop_aria2c_on_exit, aria2c_subprocess)
 
     arguments = sys.argv
@@ -670,16 +676,16 @@ if ((__name__ == '__main__') and (os.name == 'nt')):
     import gettext
     import ctypes
     import locale
-    
+
     windll = ctypes.windll.kernel32
     lang_id = windll.GetUserDefaultUILanguage()
     current_locale = locale.windows_locale.get(lang_id)
     print(current_locale)
-    
+
     translation = gettext.translation('varia', localedir='./locale', languages=[current_locale], fallback=True)
 
     stringstorage.setstrings_win(translation.gettext)
 
     from stringstorage import gettext as _
-    
+
     sys.exit(main(variaVersion, os.path.join(os.getcwd(), "aria2c.exe"), os.path.join(os.getcwd(), "ffmpeg.exe"), False))

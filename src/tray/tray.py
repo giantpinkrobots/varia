@@ -28,11 +28,12 @@ def create_tray_icon_pystray():
     icon = Icon(
         'Varia',
         icon=image,
+        title='Varia',
         menu=menu
     )
 
     icon.title = "Varia"
-    
+
     icon.run()
 
 def create_tray_icon_ayatana():
@@ -43,20 +44,15 @@ def create_tray_icon_ayatana():
 
     indicator = AyatanaAppIndicator3.Indicator.new(
         "Varia",
-        "io.github.giantpinkrobots.varia",
+        "io.github.giantpinkrobots.varia-symbolic",
         AyatanaAppIndicator3.IndicatorCategory.APPLICATION_STATUS
     )
+
+    indicator.set_title("Varia")
 
     indicator.set_status(AyatanaAppIndicator3.IndicatorStatus.ACTIVE)
 
     menu = Gtk.Menu()
-
-    title_item = Gtk.MenuItem(label="Varia")
-    title_item.set_sensitive(False)
-    menu.append(title_item)
-
-    separator = Gtk.SeparatorMenuItem()
-    menu.append(separator)
 
     show_item = Gtk.MenuItem(label=show_text)
     show_item.connect("activate", tray_action_show)
