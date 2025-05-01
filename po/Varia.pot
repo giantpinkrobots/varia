@@ -467,6 +467,20 @@ msgstr ""
 msgid "Quit"
 msgstr ""
 
+# Close to tray option
+msgid "Background Mode on Close"
+msgstr ""
+
+msgid "Upon closing, Varia will close to tray insted of exiting."
+msgstr ""
+
+# Tray icon always visible option
+msgid "Tray Icon Always Visible"
+msgstr ""
+
+msgid "The tray icon will be visible even when Varia is not in background mode."
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"

@@ -27,12 +27,14 @@ def show_preferences(button, self, app, variaVersion):
     preferences.add(page_3)
     group_extensions = Adw.PreferencesGroup()
     group_1 = Adw.PreferencesGroup()
+    group_tray = Adw.PreferencesGroup()
     group_2 = Adw.PreferencesGroup()
     group_3 = Adw.PreferencesGroup()
     group_4 = Adw.PreferencesGroup()
 
     page_1.add(group_extensions)
     page_1.add(group_1)
+    page_1.add(group_tray)    
     page_2.add(group_4)
     page_2.add(group_3)
     page_3.add(group_2)
@@ -191,14 +193,23 @@ def show_preferences(button, self, app, variaVersion):
     if (self.appconf["default_mode"] == "background"):
         start_in_background.set_active("active")
 
-    # Use Tray Icon:
+    # Close to tray:
 
     use_tray_icon = Adw.SwitchRow()
-    use_tray_icon.set_title(_("Use System Tray"))
+    use_tray_icon.set_title(_("Background Mode on Close"))
+    use_tray_icon.set_subtitle(_("Upon closing, Varia will close to tray insted of exiting."))
     use_tray_icon.connect("notify::active", on_use_tray_icon, self)
 
     if self.appconf["use_tray"] == "true":
         use_tray_icon.set_active("active")
+    
+    tray_icon_always_visible = Adw.SwitchRow()
+    tray_icon_always_visible.set_title(_("Tray Icon Always Visible"))
+    tray_icon_always_visible.set_subtitle(_("The tray icon will be visible even when Varia is not in background mode."))
+    tray_icon_always_visible.connect("notify::active", on_tray_always_visible, self, app)
+
+    if self.appconf["tray_always_visible"] == "true":
+        tray_icon_always_visible.set_active("active")
 
     # Construct Group 1:
 
@@ -206,8 +217,10 @@ def show_preferences(button, self, app, variaVersion):
     group_1.add(speed_limit_expander_box)
     group_1.add(scheduler_actionrow)
     group_1.add(simultaneous_download_amount_spinrow)
-    group_1.add(start_in_background)
-    group_1.add(use_tray_icon)
+    
+    group_tray.add(use_tray_icon)
+    group_tray.add(tray_icon_always_visible)
+    group_tray.add(start_in_background)
 
     # Remote aria2:
 
@@ -569,6 +582,19 @@ def on_use_tray_icon(switch, state, self):
         self.appconf["use_tray"] = "true"
     else:
         self.appconf["use_tray"] = "false"
+
+    self.save_appconf()
+
+def on_tray_always_visible(switch, state, self, variaapp):
+    state = switch.get_active()
+    if state:
+        self.appconf["tray_always_visible"] = "true"
+        self.start_tray_process(variaapp)
+    else:
+        self.appconf["tray_always_visible"] = "false"
+        self.tray_connection_thread_stop = True
+        self.tray_process.kill()
+        self.tray_process = None
 
     self.save_appconf()
 

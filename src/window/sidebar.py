@@ -39,6 +39,10 @@ def window_create_sidebar(self, variaapp, variaVersion):
     about_action.connect("activate", open_downloads_folder, self, self.appconf)
     variaapp.add_action(about_action)
 
+    quit_action = Gio.SimpleAction.new("quit_varia", None)
+    quit_action.connect("activate", quit_varia, self)
+    variaapp.add_action(quit_action)
+
     downloads_folder_action = Gio.SimpleAction.new("about", None)
     downloads_folder_action.connect("activate", show_about, self, variaVersion)
     variaapp.add_action(downloads_folder_action)
@@ -74,6 +78,9 @@ def window_create_sidebar(self, variaapp, variaVersion):
 
     hamburger_menu_item_about = Gio.MenuItem.new(_("About Varia"), "app.about")
     hamburger_menu_model.append_item(hamburger_menu_item_about)
+
+    hamburger_menu_item_quit = Gio.MenuItem.new(_("Quit"), "app.quit_varia")
+    hamburger_menu_model.append_item(hamburger_menu_item_quit)
 
     hamburger_button.set_menu_model(hamburger_menu_model)
 
@@ -310,3 +317,6 @@ def exit_on_completion(self, app, variaapp):
     else:
         variaapp.exit_mode = False
         variaapp.sidebar_remote_mode_label.set_text("")
+
+def quit_varia(app, self, variaapp):
+    variaapp.exitProgram(app=app, variaapp=variaapp, background=False)

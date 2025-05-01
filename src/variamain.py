@@ -50,6 +50,8 @@ class MainWindow(application_window):
         self.remote_successful = False
         self.update_executable = None
         self.ffmpegexec = ffmpegexec
+        self.tray_connection_thread_stop = False
+        self.tray_process = None
 
         # Set up variables and all:
         aria2_connection_successful = initiate(self, variaapp, variaVersion, first_run, issnap)
@@ -171,12 +173,8 @@ class MainWindow(application_window):
             on_download_clicked(None, self, download["url"], download["filename"], None, download["type"], download["video_options"], download["paused"], download["dir"])
 
         self.check_all_status() # Set Pause All / Resume All button
-
-        # If the tray icon is enabled, connect the close button to sending the program to the background.
-        if self.appconf["use_tray"] == "true":
-            self.connect('close-request', self.exitProgram, variaapp, True)
-        else:
-            self.connect('close-request', self.exitProgram, variaapp, False)
+        
+        self.connect('close-request', self.exit_or_tray, variaapp)
 
         # Start in background mode if it was enabled in preferences:
         if (self.appconf["default_mode"] == "background"):
@@ -184,41 +182,48 @@ class MainWindow(application_window):
 
         self.connect("notify::default-width", self.on_window_resize)
         self.on_window_resize(None, None)
+    
+    def start_tray_process(self, variaapp):
+        if self.tray_process == None: # If tray process is not already running
+            worker_path = os.path.join(os.path.dirname(__file__), 'tray', 'tray.py')
 
-        # Tray icon setup
-        worker_path = os.path.join(os.path.dirname(__file__), 'tray', 'tray.py')
+            def tray_process_connection():
+                address = ('localhost', 6802)
+                listener = Listener(address, authkey=b'varia-tray-process')
 
-        def tray_process_connection():
-            address = ('localhost', 6802)
-            listener = Listener(address, authkey=b'varia-tray-process')
+                print("Waiting for tray process connection...")
+                conn = listener.accept()
+                print("Connected to the tray icon process.")
 
-            print("Waiting for tray process connection...")
-            conn = listener.accept()
-            print("Connected to the tray icon process.")
+                self.tray_connection_thread_stop = False
 
-            while True:
-                try:
-                    message = conn.recv()
-                    print("Tray icon pressed function: ", message)
-
-                    if message == "show":
-                        self.unminimize()
-                        self.set_visible(True)
-                        self.present()
-
-                    elif message == "quit":
-                        self.exitProgram(self, variaapp, False)
+                while True:
+                    if self.tray_connection_thread_stop:
                         break
 
-                except EOFError:
-                    break
+                    try:
+                        message = conn.recv()
+                        print("Tray icon pressed function: ", message)
 
-        threading.Thread(target=tray_process_connection, daemon=True).start()
+                        if message == "show":
+                            self.unminimize()
+                            self.set_visible(True)
+                            self.present()
+                            self.tray_process.kill()
+                            self.tray_process = None
 
-        # Tray icon process must be separate as libayatana-appindicator relies on Gtk 3.
-        if self.appconf["use_tray"] == "true":
+                        elif message == "quit":
+                            self.exitProgram(self, variaapp, False)
+                            break
+
+                    except EOFError:
+                        break
+
+            self.tray_process_connection_thread = threading.Thread(target=tray_process_connection, daemon=True).start()
+
+            # Tray icon process must be separate as libayatana-appindicator relies on Gtk 3.
             self.tray_process = subprocess.Popen(
-            [sys.executable, worker_path, _("Show"), _("Quit")]
+                [sys.executable, worker_path, _("Show"), _("Quit")]
             )
 
     def filter_download_list(self, button, filter_mode):
@@ -447,14 +452,26 @@ class MainWindow(application_window):
     def save_window_size(self):
         self.appconf['window_size'] = self.get_default_size()
         self.save_appconf()
+    
+    def exit_or_tray(self, app, variaapp):
+        if self.appconf["use_tray"] == "true":
+            self.exitProgram(self, variaapp, True)
+        
+        else:
+            self.exitProgram(self, variaapp, False)
+        
+        return True
 
     def exitProgram(self, app, variaapp, background):
-        if (background == True):
+        if background:
             self.set_visible(False)
+            self.start_tray_process(variaapp)
+
             notification = Gio.Notification.new(_("Background Mode"))
             notification.set_body(_("Continuing the downloads in the background."))
-            notification.set_title(_("Background Mode")),
+            notification.set_title(_("Background Mode"))
             variaapp.send_notification(None, notification)
+
             print('Background mode')
 
         else:
@@ -475,7 +492,9 @@ class MainWindow(application_window):
                         ctypes.pythonapi.PyThreadState_SetAsyncExc(ctypes.c_long(download_thread.youtubedl_thread.ident), ctypes.py_object(SystemExit))
 
                 # Kill the tray icon process
-                self.tray_process.kill()
+                if self.tray_process:
+                    self.tray_process.kill()
+                    self.tray_connection_thread_stop = True
 
                 exiting_dialog = Adw.AlertDialog()
                 exiting_dialog_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=25)
@@ -503,8 +522,6 @@ class MainWindow(application_window):
                 if self.update_executable != None:
                     subprocess.Popen([self.update_executable, "/SILENT", "SUPPRESSMSGBOXES", "SP-", "/NOICONS", "/MERGETASKS=\"!desktopicon\"", "&&", os.path.join(os.getcwd(), "variamain.exe")], shell=True)
 
-        return True
-
     def aria2c_exiting_check(self, app, counter, variaapp, exiting_dialog):
         print(counter)
         if ((counter <= 20) and (self.aria2c_subprocess.poll() is None)):
@@ -517,7 +534,13 @@ class MainWindow(application_window):
                 exiting_dialog.force_close()
             self.save_window_size()
             self.destroy()
-            variaapp.quit()
+
+            try:
+                variaapp.quit()
+            
+            except:
+                pass # No need to
+
             for thread in threading.enumerate():
                 print(thread.name)
 
@@ -574,7 +597,7 @@ def main(version, aria2cexec, ffmpegexec, issnap):
         download_directory = os.path.expanduser("~")
 
     appconf = {
-        'window_size': [800, 600],
+        'window_size': [800, 630],
         'download_speed_limit_enabled': '0',
         'download_speed_limit': '0',
         'auth': '0',
@@ -591,6 +614,7 @@ def main(version, aria2cexec, ffmpegexec, issnap):
         'schedule_enabled': '0',
         'default_mode': 'visible',
         'use_tray': 'false',
+        'tray_always_visible': 'false',
         'schedule_mode': 'inclusive',
         'schedule': [],
         'remote_time': '0',
