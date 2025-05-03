@@ -162,14 +162,35 @@ class TrayMenu(ServiceInterface):
                 self.varia_conn.send('quit')
 
     @method()
+    async def EventGroup(self, events: 'a(isvu)') -> 'ai':
+        if self.varia_conn is None:
+            try:
+                # Connect to the main Varia process
+                self.varia_conn = Client(('localhost', 6802), authkey=b'varia-tray-process')
+            except ConnectionRefusedError:
+                print(events[0][0])
+                return [events[0][0]]
+
+        for event in events:
+            id, eventId, data, timestamp = event
+
+            if eventId == 'clicked':
+                if id == 2:
+                    # Show the Varia window
+                    self.varia_conn.send('show')
+                elif id == 4:
+                    # Quit Varia
+                    self.varia_conn.send('quit')
+
+        return []
+
+    @method()
     async def AboutToShow(self, id: 'i') -> 'b':
-        # Indicate if the menu has changed
         return False
 
     @method()
-    async def AboutToShowGroup(self, ids: 'ai') -> 'aib':
-        # For multiple menu items, return which ones changed
-        return []
+    async def AboutToShowGroup(self, ids: 'ai') -> 'aiai':
+        return [[], []]
 
 
 async def main():
