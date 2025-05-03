@@ -173,19 +173,25 @@ class MainWindow(application_window):
             on_download_clicked(None, self, download["url"], download["filename"], None, download["type"], download["video_options"], download["paused"], download["dir"])
 
         self.check_all_status() # Set Pause All / Resume All button
-        
+
         self.connect('close-request', self.exit_or_tray, variaapp)
 
         # Start in background mode if it was enabled in preferences:
         if (self.appconf["default_mode"] == "background"):
             self.exitProgram(app=self, variaapp=variaapp, background=True)
 
+        if self.appconf["tray_always_visible"] == "true":
+            self.start_tray_process(variaapp)
+
         self.connect("notify::default-width", self.on_window_resize)
         self.on_window_resize(None, None)
-    
+
     def start_tray_process(self, variaapp):
         if self.tray_process == None: # If tray process is not already running
-            worker_path = os.path.join(os.path.dirname(__file__), 'tray', 'tray.py')
+            if os.name == 'nt':
+                worker_path = os.path.join(os.path.dirname(__file__), 'tray', 'tray_windows.py')
+            else:
+                worker_path = os.path.join(os.path.dirname(__file__), 'tray', 'tray_linux.py')
 
             def tray_process_connection():
                 address = ('localhost', 6802)
@@ -209,8 +215,9 @@ class MainWindow(application_window):
                             self.unminimize()
                             self.set_visible(True)
                             self.present()
-                            self.tray_process.kill()
-                            self.tray_process = None
+                            if self.appconf["tray_always_visible"] != "true":
+                                self.tray_process.kill()
+                                self.tray_process = None
 
                         elif message == "quit":
                             self.exitProgram(self, variaapp, False)
@@ -452,14 +459,14 @@ class MainWindow(application_window):
     def save_window_size(self):
         self.appconf['window_size'] = self.get_default_size()
         self.save_appconf()
-    
+
     def exit_or_tray(self, app, variaapp):
         if self.appconf["use_tray"] == "true":
             self.exitProgram(self, variaapp, True)
-        
+
         else:
             self.exitProgram(self, variaapp, False)
-        
+
         return True
 
     def exitProgram(self, app, variaapp, background):
@@ -537,7 +544,7 @@ class MainWindow(application_window):
 
             try:
                 variaapp.quit()
-            
+
             except:
                 pass # No need to
 
@@ -613,7 +620,7 @@ def main(version, aria2cexec, ffmpegexec, issnap):
         'remote_location': '',
         'schedule_enabled': '0',
         'default_mode': 'visible',
-        'use_tray': 'false',
+        'use_tray': 'true',
         'tray_always_visible': 'false',
         'schedule_mode': 'inclusive',
         'schedule': [],
