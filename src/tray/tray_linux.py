@@ -1,4 +1,5 @@
 import sys
+import os
 from multiprocessing.connection import Client
 
 from dbus_next.aio.message_bus import MessageBus
@@ -9,10 +10,24 @@ from dbus_next.signature import Variant
 
 
 class TrayService(ServiceInterface):
-    def __init__(self, icon_name: str):
+    def __init__(self, icon_name: str, custom_icon: bool = False):
         super().__init__('org.kde.StatusNotifierItem')
 
-        self.icon_name = icon_name
+        self.icon_name = ''
+        self.icon_data = []
+
+        if custom_icon:
+            from PIL import Image
+            import numpy as np
+
+            icon_image = Image.open(os.path.join(sys.path[0], 'tray.png')).convert("RGBA")
+            icon_array = np.array(icon_image)
+            self.icon_data = icon_array.tobytes()
+
+            self.width, self.height = icon_image.size
+        else:
+            self.icon_data = []
+            self.icon_name = icon_name
 
     @dbus_property(PropertyAccess.READ)
     def Category(self) -> 's':
@@ -37,6 +52,10 @@ class TrayService(ServiceInterface):
     @dbus_property(PropertyAccess.READ)
     def IconName(self) -> 's':
         return self.icon_name
+
+    @dbus_property(PropertyAccess.READ)
+    def IconPixmap(self) -> 'a(iiay)':
+        return [[self.width, self.height, self.icon_data]]
 
     @dbus_property(PropertyAccess.READ)
     def Menu(self) -> 'o':
@@ -187,14 +206,17 @@ async def main():
     # Get the current color scheme from desktop portal
     color_scheme = await theme_interface.call_read('org.freedesktop.appearance', 'color-scheme')
 
+    custom_icon = False
+    icon_name = ''
+
     # If it works it works lmao
     if '1' in str(color_scheme.value):
-        icon_name = 'io.github.giantpinkrobots.varia'
+        custom_icon = True
     else:
         icon_name = 'io.github.giantpinkrobots.varia-symbolic'
 
     # Create the tray service and menu
-    tray = TrayService(icon_name)
+    tray = TrayService(icon_name=icon_name, custom_icon=custom_icon)
     menu = TrayMenu(sys.argv[1], sys.argv[2])
 
     bus_name = 'io.github.giantpinkrobots.varia-tray'
