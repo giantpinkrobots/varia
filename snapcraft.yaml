@@ -13,6 +13,11 @@ slots:
     interface: dbus
     bus: session
     name: io.github.giantpinkrobots.varia
+    
+  dbus-varia-tray:
+    interface: dbus
+    bus: session
+    name: io.github.giantpinkrobots.varia-tray
 
 parts:
   python-packages:
@@ -22,6 +27,7 @@ parts:
       - yt-dlp
       - aria2p
       - pystray
+      - dbus-next
     build-packages:
       - python3-pip
       - python3-setuptools
@@ -114,6 +120,7 @@ apps:
     command: usr/bin/varia
     slots:
       - dbus-varia
+      - dbus-varia-tray
     plugs:
       - network
       - home
