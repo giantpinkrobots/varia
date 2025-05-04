@@ -12,21 +12,15 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
-  <style id="current-color-scheme" type="text/css">
-    .ColorScheme-Text {
-    color:#000000;
-    }
-  </style>
   <sodipodi:namedview
      id="namedview13"
      pagecolor="none"
-     class="ColorScheme-Text"
-     bordercolor="currentColor"
+     bordercolor="#000000"
      borderopacity="0.25"
      inkscape:showpageshadow="2"
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="currentColor"
+     inkscape:deskcolor="#000000"
      inkscape:zoom="53"
      inkscape:cx="7.990566"
      inkscape:cy="8"
@@ -156,8 +150,7 @@
     </g>
   </defs>
   <g
-     class="ColorScheme-Text"
-     fill="currentColor"
+     fill="#000000"
      id="g13-8"
      transform="translate(-0.01886792,0.01886792)">
     <path

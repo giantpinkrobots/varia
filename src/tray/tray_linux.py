@@ -1,10 +1,8 @@
 import sys
-import os
 from multiprocessing.connection import Client
 
 from dbus_next.aio.message_bus import MessageBus
 from dbus_next.constants import PropertyAccess
-from dbus_next.introspection import Node
 from dbus_next.service import ServiceInterface, dbus_property, method
 from dbus_next.signature import Variant
 
@@ -15,19 +13,11 @@ class TrayService(ServiceInterface):
 
         self.icon_name = ''
         self.icon_data = []
+        self.width = 0
+        self.height = 0
 
-        if custom_icon:
-            from PIL import Image
-            import numpy as np
-
-            icon_image = Image.open(os.path.join(sys.path[0], 'tray.png')).convert("RGBA")
-            icon_array = np.array(icon_image)
-            self.icon_data = icon_array.tobytes()
-
-            self.width, self.height = icon_image.size
-        else:
-            self.icon_data = []
-            self.icon_name = icon_name
+        self.icon_data = []
+        self.icon_name = icon_name
 
     @dbus_property(PropertyAccess.READ)
     def Category(self) -> 's':
@@ -55,7 +45,7 @@ class TrayService(ServiceInterface):
 
     @dbus_property(PropertyAccess.READ)
     def IconPixmap(self) -> 'a(iiay)':
-        return [[self.width, self.height, self.icon_data]]
+        return [[self.width, self.height, bytes(self.icon_data)]]
 
     @dbus_property(PropertyAccess.READ)
     def Menu(self) -> 'o':
@@ -202,42 +192,10 @@ async def main():
 
     status_watcher = status_proxy.get_interface('org.kde.StatusNotifierWatcher')
 
-    # Create introspection XML for the Settings interface, because dbus-next has a validation limitation that prevents us from going the easy route -_-
-    settings_xml = '''
-        <node>
-          <interface name="org.freedesktop.portal.Settings">
-            <method name="Read">
-              <arg type="s" name="namespace" direction="in"/>
-              <arg type="s" name="key" direction="in"/>
-              <arg type="v" name="value" direction="out"/>
-            </method>
-          </interface>
-        </node>
-        '''
-
-    # Create proxy object with custom introspection
-    theme_proxy = bus.get_proxy_object(
-        'org.freedesktop.portal.Desktop',
-        '/org/freedesktop/portal/desktop',
-        Node.parse(settings_xml)
-    )
-
-    theme_interface = theme_proxy.get_interface('org.freedesktop.portal.Settings')
-
-    # Get the current color scheme from desktop portal
-    color_scheme = await theme_interface.call_read('org.freedesktop.appearance', 'color-scheme')
-
-    custom_icon = False
-    icon_name = ''
-
-    # If it works it works lmao
-    if '1' in str(color_scheme.value):
-        custom_icon = True
-    else:
-        icon_name = 'io.github.giantpinkrobots.varia-symbolic'
+    icon_name = 'io.github.giantpinkrobots.varia-symbolic'
 
     # Create the tray service and menu
-    tray = TrayService(icon_name=icon_name, custom_icon=custom_icon)
+    tray = TrayService(icon_name=icon_name)
     menu = TrayMenu(sys.argv[1], sys.argv[2])
 
     bus_name = 'io.github.giantpinkrobots.varia-tray'
