@@ -57,7 +57,6 @@ varia_sources_tray = [
   'tray/tray_linux.py',
   'tray/tray_windows.py',
   'tray/tray.png',
-  'tray/varia-tray-symbolic.svg',
 ]
 
 install_data(varia_sources, install_dir: moduledir)
