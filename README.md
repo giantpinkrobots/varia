@@ -99,10 +99,10 @@ To build Varia without Flatpak or GNOME Builder though, you'll need:
 To install the ones besides aria2p on some Linux systems:
 ```
 Ubuntu, Debian, Mint etc:
-sudo apt install meson ninja-build aria2 python-setuptools libgtk-4-dev libadwaita-1-0 gettext ffmpeg python3-dbus-next
+sudo apt install meson ninja-build aria2 python3-setuptools libgtk-4-dev libadwaita-1-0 gettext ffmpeg python3-dbus-next
 
 Fedora, RHEL etc:
-sudo dnf install meson ninja-build aria2 python-setuptools gtk4-devel libadwaita gettext ffmpeg python3-dbus-next
+sudo dnf install meson ninja-build aria2 python3-setuptools gtk4-devel libadwaita gettext ffmpeg python3-dbus-next
 
 Arch, EndeavourOS, Manjaro etc:
 sudo pacman -S meson aria2 python-setuptools gtk4 libadwaita gettext ffmpeg python-dbus-next
