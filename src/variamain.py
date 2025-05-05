@@ -189,9 +189,15 @@ class MainWindow(application_window):
     def start_tray_process(self, variaapp):
         if self.tray_process == None: # If tray process is not already running
             if os.name == 'nt':
-                worker_path = os.path.join(os.path.dirname(__file__), 'tray', 'tray_windows.py')
+                
+                if os.path.exists(os.path.join(os.getcwd(), 'tray', 'varia-tray.exe')): # Built with PyInstaller
+                    tray_subprocess_input = [os.path.join(os.getcwd(), 'tray', 'varia-tray.exe'), _("Show"), _("Quit")]
+
+                else: # Running standalone
+                    tray_subprocess_input = [sys.executable, os.path.join(os.path.dirname(__file__), 'tray', 'tray_windows.py'), _("Show"), _("Quit")]
+
             else:
-                worker_path = os.path.join(os.path.dirname(__file__), 'tray', 'tray_linux.py')
+                tray_subprocess_input = [sys.executable, os.path.join(os.path.dirname(__file__), 'tray', 'tray_linux.py'), _("Show"), _("Quit")]
 
             def tray_process_connection():
                 address = ('localhost', 6802)
@@ -225,13 +231,13 @@ class MainWindow(application_window):
 
                     except EOFError:
                         break
-
-            self.tray_process_connection_thread = threading.Thread(target=tray_process_connection, daemon=True).start()
-
+            
             # Tray icon process must be separate as libayatana-appindicator relies on Gtk 3.
             self.tray_process = subprocess.Popen(
-                [sys.executable, worker_path, _("Show"), _("Quit")]
+                tray_subprocess_input
             )
+
+            self.tray_process_connection_thread = threading.Thread(target=tray_process_connection, daemon=True).start()
 
     def filter_download_list(self, button, filter_mode):
         if (button != "no"):
@@ -620,7 +626,7 @@ def main(version, aria2cexec, ffmpegexec, issnap):
         'remote_location': '',
         'schedule_enabled': '0',
         'default_mode': 'visible',
-        'use_tray': 'true',
+        'use_tray': 'false',
         'tray_always_visible': 'false',
         'schedule_mode': 'inclusive',
         'schedule': [],

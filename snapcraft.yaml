@@ -18,6 +18,12 @@ slots:
     interface: dbus
     bus: session
     name: io.github.giantpinkrobots.varia-tray
+  
+  dbusmenu:
+    interface: dbus
+    bus: session
+    name: com.canonical.dbusmenu
+    auto-connect: true
 
 parts:
   python-packages:
@@ -129,5 +135,6 @@ apps:
       - desktop
       - desktop-legacy
       - shutdown
+      - dbusmenu
     desktop: usr/share/applications/io.github.giantpinkrobots.varia.desktop
     common-id: io.github.giantpinkrobots.varia.desktop

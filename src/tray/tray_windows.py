@@ -19,8 +19,6 @@ def create_tray_icon_pystray():
     image = Image.open(image_path)
 
     menu = Menu(
-        MenuItem("Varia", None, enabled=False),
-        MenuItem("───", None, enabled=False),
         MenuItem(show_text, tray_action_show),
         MenuItem(quit_text, tray_action_quit)
     )
