@@ -27,12 +27,14 @@ def show_preferences(button, self, app, variaVersion):
     preferences.add(page_3)
     group_extensions = Adw.PreferencesGroup()
     group_1 = Adw.PreferencesGroup()
+    group_tray = Adw.PreferencesGroup()
     group_2 = Adw.PreferencesGroup()
     group_3 = Adw.PreferencesGroup()
     group_4 = Adw.PreferencesGroup()
 
     page_1.add(group_extensions)
     page_1.add(group_1)
+    page_1.add(group_tray)    
     page_2.add(group_4)
     page_2.add(group_3)
     page_3.add(group_2)
@@ -53,7 +55,7 @@ def show_preferences(button, self, app, variaVersion):
         update_actionrow.add_suffix(update_button)
 
         group_extensions.add(update_actionrow)
-        
+
         if (self.appconf["check_for_updates_on_startup_enabled"] == '1'):
             update_actionrow.set_active("active")
 
@@ -77,7 +79,7 @@ def show_preferences(button, self, app, variaVersion):
     browser_extension_buttons_box.append(browser_extension_chrome_button)
 
     browser_extension_actionrow.add_suffix(browser_extension_buttons_box)
-    
+
     group_extensions.add(browser_extension_actionrow)
 
     # Download directory:
@@ -191,13 +193,34 @@ def show_preferences(button, self, app, variaVersion):
     if (self.appconf["default_mode"] == "background"):
         start_in_background.set_active("active")
 
+    # Close to tray:
+
+    use_tray_icon = Adw.SwitchRow()
+    use_tray_icon.set_title(_("Background Mode on Close"))
+    use_tray_icon.set_subtitle(_("Upon closing, Varia will close to tray insted of exiting."))
+    use_tray_icon.connect("notify::active", on_use_tray_icon, self)
+
+    if self.appconf["use_tray"] == "true":
+        use_tray_icon.set_active("active")
+    
+    tray_icon_always_visible = Adw.SwitchRow()
+    tray_icon_always_visible.set_title(_("Tray Icon Always Visible"))
+    tray_icon_always_visible.set_subtitle(_("The tray icon will be visible even when Varia is not in background mode."))
+    tray_icon_always_visible.connect("notify::active", on_tray_always_visible, self, app)
+
+    if self.appconf["tray_always_visible"] == "true":
+        tray_icon_always_visible.set_active("active")
+
     # Construct Group 1:
 
     group_1.add(download_directory_actionrow)
     group_1.add(speed_limit_expander_box)
     group_1.add(scheduler_actionrow)
     group_1.add(simultaneous_download_amount_spinrow)
-    group_1.add(start_in_background)
+    
+    group_tray.add(use_tray_icon)
+    group_tray.add(tray_icon_always_visible)
+    group_tray.add(start_in_background)
 
     # Remote aria2:
 
@@ -384,7 +407,7 @@ def show_preferences(button, self, app, variaVersion):
         seeding_enabled_switchrow.set_active("active")
 
     seeding_enabled_switchrow.connect("notify::active", on_switch_torrent_seeding, self)
-    
+
     # Set seeding ratio limit:
 
     seeding_ratio_limit_switch = Gtk.Switch()
@@ -402,7 +425,7 @@ def show_preferences(button, self, app, variaVersion):
 
     if (self.appconf["torrent_seeding_ratio"][1] == True):
         seeding_ratio_limit_switch.set_active("active")
-    
+
     # Custom download directory for torrents:
 
     torrent_download_directory_actionrow = Adw.ActionRow()
@@ -435,7 +458,7 @@ def show_preferences(button, self, app, variaVersion):
         torrent_download_directory_actionrow.add_suffix(torrent_download_directory_change_remote_label)
         torrent_download_directory_actionrow.add_suffix(torrent_download_directory_switch)
         torrent_download_directory_switch.set_sensitive(False)
-    
+
     # Construct Group 4 and 3:
 
     group_4.add(torrent_enabled_switchrow)
@@ -519,7 +542,7 @@ def on_speed_limit_changed(self, speed, speed_type, switch):
     speed = speed.get_text()
     if (speed == ""):
         speed = "0"
-    
+
     speed = str(int(speed))
 
     speed_type = speed_type.get_selected()
@@ -550,6 +573,28 @@ def on_start_in_background(switch, state, self):
         self.appconf["default_mode"] = "background"
     else:
         self.appconf["default_mode"] = "visible"
+
+    self.save_appconf()
+
+def on_use_tray_icon(switch, state, self):
+    state = switch.get_active()
+    if state:
+        self.appconf["use_tray"] = "true"
+    else:
+        self.appconf["use_tray"] = "false"
+
+    self.save_appconf()
+
+def on_tray_always_visible(switch, state, self, variaapp):
+    state = switch.get_active()
+    if state:
+        self.appconf["tray_always_visible"] = "true"
+        self.start_tray_process(variaapp)
+    else:
+        self.appconf["tray_always_visible"] = "false"
+        self.tray_connection_thread_stop = True
+        self.tray_process.kill()
+        self.tray_process = None
 
     self.save_appconf()
 
@@ -703,15 +748,15 @@ def on_switch_torrent_seeding(switch, state, self):
         set_aria2c_custom_global_option(self, "bt-enable-lpd", "true")
         set_aria2c_custom_global_option(self, "enable-dht", "true")
         set_aria2c_custom_global_option(self, "enable-dht6", "true")
-        
+
     else:
         def dialog_response_handle(dialog, response_id, self, dialog_checkbutton, switch):
             if response_id == "disable":
                 if dialog_checkbutton.get_active() == True:
                     self.appconf["torrent_seeding_disable_warning_dont_show"] = "1"
-                
+
                 disable_torrent_seeding(self)
-            
+
             elif response_id == "cancel":
                 switch.set_active(True)
 
@@ -723,10 +768,10 @@ def on_switch_torrent_seeding(switch, state, self):
             set_aria2c_custom_global_option(self, "enable-dht", "false")
             set_aria2c_custom_global_option(self, "enable-dht6", "false")
             self.save_appconf()
-        
+
         if self.appconf["torrent_seeding_disable_warning_dont_show"] == "1":
             disable_torrent_seeding(self)
-        
+
         else:
             dialog = Adw.AlertDialog()
             dialog.set_heading(_("Warning"))
@@ -754,7 +799,7 @@ def on_switch_torrent_seeding_ratio_limit(switch, state, self):
     if state:
         self.appconf["torrent_seeding_ratio"][0] = True
         set_aria2c_custom_global_option(self, "seed-ratio", self.appconf["torrent_seeding_ratio"][1])
-        
+
     else:
         self.appconf["torrent_seeding_ratio"][0] = False
         set_aria2c_custom_global_option(self, "seed-ratio", "0")
@@ -765,10 +810,10 @@ def on_switch_custom_torrent_download_directory(switch, state, self):
     state = switch.get_active()
     if state:
         self.appconf["torrent_download_directory_custom_enabled"] = "1"
-    
+
     else:
         self.appconf["torrent_download_directory_custom_enabled"] = "0"
-    
+
     self.save_appconf()
 
 def restart_varia_dialog(preferencesWindow):
@@ -778,4 +823,3 @@ def restart_varia_dialog(preferencesWindow):
     dialog.set_default_response("ok")
     dialog.set_close_response("ok")
     dialog.present(preferencesWindow)
-
