@@ -11,6 +11,10 @@ conf.set('PYTHON', python.find_installation('python3').path())
 conf.set('VERSION', meson.project_version())
 conf.set('localedir', get_option('prefix') / get_option('localedir'))
 conf.set('pkgdatadir', pkgdatadir)
+conf.set(
+  'DESKTOP_FILE_LOCATION',
+  get_option('prefix') / get_option('datadir') / 'applications' / 'io.github.giantpinkrobots.varia.desktop',
+)
 
 configure_file(
   input: 'varia-py.in',
@@ -18,7 +22,7 @@ configure_file(
   configuration: conf,
   install: true,
   install_dir: get_option('bindir'),
-  install_mode: 'r-xr-xr-x'
+  install_mode: 'r-xr-xr-x',
 )
 
 configure_file(
@@ -27,7 +31,16 @@ configure_file(
   configuration: conf,
   install: true,
   install_dir: get_option('bindir'),
-  install_mode: 'r-xr-xr-x'
+  install_mode: 'r-xr-xr-x',
+)
+
+configure_file(
+  input: 'autostart_util.py.in',
+  output: 'autostart_util.py',
+  configuration: conf,
+  install: true,
+  install_dir: moduledir,
+  install_mode: 'rw-r--r--',
 )
 
 varia_sources = [

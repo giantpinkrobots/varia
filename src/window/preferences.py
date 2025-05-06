@@ -34,7 +34,7 @@ def show_preferences(button, self, app, variaVersion):
 
     page_1.add(group_extensions)
     page_1.add(group_1)
-    page_1.add(group_tray)    
+    page_1.add(group_tray)
     page_2.add(group_4)
     page_2.add(group_3)
     page_3.add(group_2)
@@ -202,7 +202,7 @@ def show_preferences(button, self, app, variaVersion):
 
     if self.appconf["use_tray"] == "true":
         use_tray_icon.set_active("active")
-    
+
     tray_icon_always_visible = Adw.SwitchRow()
     tray_icon_always_visible.set_title(_("Tray Icon Always Visible"))
     tray_icon_always_visible.set_subtitle(_("The tray icon will be visible even when Varia is not in background mode."))
@@ -211,16 +211,30 @@ def show_preferences(button, self, app, variaVersion):
     if self.appconf["tray_always_visible"] == "true":
         tray_icon_always_visible.set_active("active")
 
+    open_on_startup = Adw.SwitchRow()
+    open_on_startup.set_title(_("Open on Startup"))
+    open_on_startup.set_subtitle(_("Varia will open automatically when the system starts."))
+    open_on_startup.connect("notify::active", on_open_on_startup, self, preferences)
+
+    if os.name != "posix" or 'SNAP' in os.environ or 'FLATPAK_ID' in os.environ:
+        open_on_startup.set_active(False)
+        open_on_startup.set_sensitive(False)
+        open_on_startup.set_subtitle(_("This feature is currently only compatible with unsandboxed Linux installations. If you wish to have Varia start automatically, use your system settings instead."))
+
+    if self.appconf["open_on_startup"] == "true":
+        open_on_startup.set_active("active")
+
     # Construct Group 1:
 
     group_1.add(download_directory_actionrow)
     group_1.add(speed_limit_expander_box)
     group_1.add(scheduler_actionrow)
     group_1.add(simultaneous_download_amount_spinrow)
-    
+
     group_tray.add(use_tray_icon)
     group_tray.add(tray_icon_always_visible)
     group_tray.add(start_in_background)
+    group_tray.add(open_on_startup)
 
     # Remote aria2:
 
@@ -598,6 +612,29 @@ def on_tray_always_visible(switch, state, self, variaapp):
 
     self.save_appconf()
 
+def on_open_on_startup(switch, state, self, preferencesWindow):
+    state = switch.get_active()
+    if state:
+        self.appconf["open_on_startup"] = "true"
+
+        import autostart_util
+        try:
+            autostart_util.copy_autostart_file()
+            self.save_appconf()
+        except Exception:
+            switch.set_active(False)
+            error_varia_dialog(preferencesWindow)
+    else:
+        self.appconf["open_on_startup"] = "false"
+
+        import autostart_util
+        try:
+            autostart_util.delete_autostart_file()
+            self.save_appconf()
+        except Exception:
+            switch.set_active(True)
+            error_varia_dialog(preferencesWindow)
+
 def on_remote_time(switch, state, self):
     state = switch.get_active()
     if state:
@@ -815,6 +852,14 @@ def on_switch_custom_torrent_download_directory(switch, state, self):
         self.appconf["torrent_download_directory_custom_enabled"] = "0"
 
     self.save_appconf()
+
+def error_varia_dialog(preferencesWindow):
+    dialog = Adw.AlertDialog()
+    dialog.set_body(_("An error occurred while applying the change. Please ensure you have proper permissions, or report the issue."))
+    dialog.add_response("ok",  _("OK"))
+    dialog.set_default_response("ok")
+    dialog.set_close_response("ok")
+    dialog.present(preferencesWindow)
 
 def restart_varia_dialog(preferencesWindow):
     dialog = Adw.AlertDialog()

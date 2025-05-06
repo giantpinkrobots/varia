@@ -189,7 +189,7 @@ class MainWindow(application_window):
     def start_tray_process(self, variaapp):
         if self.tray_process == None: # If tray process is not already running
             if os.name == 'nt':
-                
+
                 if os.path.exists(os.path.join(os.getcwd(), 'tray', 'varia-tray.exe')): # Built with PyInstaller
                     tray_subprocess_input = [os.path.join(os.getcwd(), 'tray', 'varia-tray.exe'), _("Show"), _("Quit")]
 
@@ -231,7 +231,7 @@ class MainWindow(application_window):
 
                     except EOFError:
                         break
-            
+
             # Tray icon process must be separate as libayatana-appindicator relies on Gtk 3.
             self.tray_process = subprocess.Popen(
                 tray_subprocess_input
@@ -628,6 +628,7 @@ def main(version, aria2cexec, ffmpegexec, issnap):
         'default_mode': 'visible',
         'use_tray': 'false',
         'tray_always_visible': 'false',
+        'open_on_startup': 'false',
         'schedule_mode': 'inclusive',
         'schedule': [],
         'remote_time': '0',
