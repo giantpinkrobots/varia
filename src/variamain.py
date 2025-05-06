@@ -178,6 +178,7 @@ class MainWindow(application_window):
 
         # Start in background mode if it was enabled in preferences:
         if (self.appconf["default_mode"] == "background"):
+            self.suppress_startup_notification = True
             self.exitProgram(app=self, variaapp=variaapp, background=True)
 
         if self.appconf["tray_always_visible"] == "true":
@@ -185,6 +186,8 @@ class MainWindow(application_window):
 
         self.connect("notify::default-width", self.on_window_resize)
         self.on_window_resize(None, None)
+
+        self.tray_notification = False
 
     def start_tray_process(self, variaapp):
         if self.tray_process == None: # If tray process is not already running
@@ -480,10 +483,16 @@ class MainWindow(application_window):
             self.set_visible(False)
             self.start_tray_process(variaapp)
 
-            notification = Gio.Notification.new(_("Background Mode"))
-            notification.set_body(_("Continuing the downloads in the background."))
-            notification.set_title(_("Background Mode"))
-            variaapp.send_notification(None, notification)
+            if self.suppress_startup_notification:
+                self.suppress_startup_notification = False
+                return
+
+            if not self.tray_notification:
+                self.tray_notification = True
+                notification = Gio.Notification.new(_("Background Mode"))
+                notification.set_body(_("Continuing the downloads in the background."))
+                notification.set_title(_("Background Mode"))
+                variaapp.send_notification(None, notification)
 
             print('Background mode')
 
