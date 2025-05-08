@@ -178,6 +178,7 @@ class MainWindow(application_window):
 
         # Start in background mode if it was enabled in preferences:
         if (self.appconf["default_mode"] == "background"):
+            self.suppress_startup_notification = True
             self.exitProgram(app=self, variaapp=variaapp, background=True)
 
         if self.appconf["tray_always_visible"] == "true":
@@ -186,10 +187,12 @@ class MainWindow(application_window):
         self.connect("notify::default-width", self.on_window_resize)
         self.on_window_resize(None, None)
 
+        self.tray_notification = False
+
     def start_tray_process(self, variaapp):
         if self.tray_process == None: # If tray process is not already running
             if os.name == 'nt':
-                
+
                 if os.path.exists(os.path.join(os.getcwd(), 'tray', 'varia-tray.exe')): # Built with PyInstaller
                     tray_subprocess_input = [os.path.join(os.getcwd(), 'tray', 'varia-tray.exe'), _("Show"), _("Quit")]
 
@@ -231,7 +234,7 @@ class MainWindow(application_window):
 
                     except EOFError:
                         break
-            
+
             # Tray icon process must be separate as libayatana-appindicator relies on Gtk 3.
             self.tray_process = subprocess.Popen(
                 tray_subprocess_input
@@ -480,10 +483,16 @@ class MainWindow(application_window):
             self.set_visible(False)
             self.start_tray_process(variaapp)
 
-            notification = Gio.Notification.new(_("Background Mode"))
-            notification.set_body(_("Continuing the downloads in the background."))
-            notification.set_title(_("Background Mode"))
-            variaapp.send_notification(None, notification)
+            if self.suppress_startup_notification:
+                self.suppress_startup_notification = False
+                return
+
+            if not self.tray_notification:
+                self.tray_notification = True
+                notification = Gio.Notification.new(_("Background Mode"))
+                notification.set_body(_("Continuing the downloads in the background."))
+                notification.set_title(_("Background Mode"))
+                variaapp.send_notification(None, notification)
 
             print('Background mode')
 
@@ -714,6 +723,7 @@ if ((__name__ == '__main__') and (os.name == 'nt')):
     import ctypes
     import locale
 
+    os.chdir(os.path.dirname(sys.executable))
     windll = ctypes.windll.kernel32
     lang_id = windll.GetUserDefaultUILanguage()
     current_locale = locale.windows_locale.get(lang_id)
