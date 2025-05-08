@@ -35,8 +35,8 @@ configure_file(
 )
 
 configure_file(
-  input: 'autostart_util.py.in',
-  output: 'autostart_util.py',
+  input: 'autostart_util_linux.py.in',
+  output: 'autostart_util_linux.py',
   configuration: conf,
   install: true,
   install_dir: moduledir,
@@ -47,6 +47,7 @@ varia_sources = [
   'variamain.py',
   'initiate.py',
   'stringstorage.py',
+  'autostart_util.py',
 ]
 
 varia_sources_window = [

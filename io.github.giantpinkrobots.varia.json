@@ -14,7 +14,8 @@
         "--filesystem=xdg-download",
         "--system-talk-name=org.freedesktop.login1",
         "--talk-name=org.kde.StatusNotifierWatcher",
-        "--own-name=io.github.giantpinkrobots.varia-tray"
+        "--own-name=io.github.giantpinkrobots.varia-tray",
+        "--filesystem=~/.config/autostart"
     ],
     "cleanup" : [
         "/include",
@@ -30,7 +31,6 @@
     "modules" : [
         "./python3-aria2p.json",
         "./python3-yt-dlp.json",
-        "./python3-pystray.json",
         "./python3-dbus-next.json",
         {
             "name" : "aria2",

@@ -10,6 +10,8 @@ from download.communicate import set_speed_limit, set_aria2c_download_directory,
 from window.scheduler import show_scheduler_dialog
 from window.updater import windows_updater
 
+import autostart_util
+
 def show_preferences(button, self, app, variaVersion):
     if self.overlay_split_view.get_show_sidebar() and \
         self.overlay_split_view.get_collapsed():
@@ -211,17 +213,14 @@ def show_preferences(button, self, app, variaVersion):
     if self.appconf["tray_always_visible"] == "true":
         tray_icon_always_visible.set_active("active")
 
+    # Open on startup
+    
     open_on_startup = Adw.SwitchRow()
     open_on_startup.set_title(_("Open on Startup"))
     open_on_startup.set_subtitle(_("Varia will open automatically when the system starts."))
     open_on_startup.connect("notify::active", on_open_on_startup, self, preferences)
 
-    if os.name != "posix" or 'SNAP' in os.environ or 'FLATPAK_ID' in os.environ:
-        open_on_startup.set_active(False)
-        open_on_startup.set_sensitive(False)
-        open_on_startup.set_subtitle(_("This feature is currently only compatible with unsandboxed Linux installations. If you wish to have Varia start automatically, use your system settings instead."))
-
-    if self.appconf["open_on_startup"] == "true":
+    if autostart_util.get_autostart():
         open_on_startup.set_active("active")
 
     # Construct Group 1:
@@ -234,7 +233,9 @@ def show_preferences(button, self, app, variaVersion):
     group_tray.add(use_tray_icon)
     group_tray.add(tray_icon_always_visible)
     group_tray.add(start_in_background)
-    group_tray.add(open_on_startup)
+
+    if ((os.name == 'nt') and (os.path.exists("./updater-function-enabled") == False)) == False: # Windows portable not supported
+        group_tray.add(open_on_startup)
 
     # Remote aria2:
 
@@ -615,23 +616,16 @@ def on_tray_always_visible(switch, state, self, variaapp):
 def on_open_on_startup(switch, state, self, preferencesWindow):
     state = switch.get_active()
     if state:
-        self.appconf["open_on_startup"] = "true"
+        autostart_util_result = autostart_util.set_autostart()
 
-        import autostart_util
-        try:
-            autostart_util.copy_autostart_file()
-            self.save_appconf()
-        except Exception:
+        if autostart_util_result == 1:
             switch.set_active(False)
             error_varia_dialog(preferencesWindow)
-    else:
-        self.appconf["open_on_startup"] = "false"
 
-        import autostart_util
-        try:
-            autostart_util.delete_autostart_file()
-            self.save_appconf()
-        except Exception:
+    else:
+        autostart_util_result = autostart_util.unset_autostart()
+
+        if autostart_util_result == 1:
             switch.set_active(True)
             error_varia_dialog(preferencesWindow)
 

@@ -637,7 +637,6 @@ def main(version, aria2cexec, ffmpegexec, issnap):
         'default_mode': 'visible',
         'use_tray': 'false',
         'tray_always_visible': 'false',
-        'open_on_startup': 'false',
         'schedule_mode': 'inclusive',
         'schedule': [],
         'remote_time': '0',

@@ -25,6 +25,12 @@ slots:
     name: com.canonical.dbusmenu
     auto-connect: true
 
+plugs:
+  autostart-access:
+    interface: personal-files
+    read-write:
+      - $HOME/.config/autostart
+
 parts:
   python-packages:
     plugin: python
@@ -136,5 +142,6 @@ apps:
       - desktop-legacy
       - shutdown
       - dbusmenu
+      - autostart-access
     desktop: usr/share/applications/io.github.giantpinkrobots.varia.desktop
     common-id: io.github.giantpinkrobots.varia.desktop
