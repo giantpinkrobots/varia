@@ -190,6 +190,7 @@ def show_preferences(button, self, app, variaVersion):
 
     start_in_background = Adw.SwitchRow()
     start_in_background.set_title(_("Start in Background Mode"))
+    start_in_background.set_subtitle(_("Varia will start directly in background mode upon opening."))
     start_in_background.connect("notify::active", on_start_in_background, self)
 
     if (self.appconf["default_mode"] == "background"):
@@ -241,7 +242,7 @@ def show_preferences(button, self, app, variaVersion):
 
     remote_aria2_expander_box = Adw.ExpanderRow()
     remote_aria2_expander_box.set_title(_("Remote Mode"))
-    remote_aria2_expander_box.set_subtitle(_("This will disable the video download functionality.") + "\n" + _("The browser extension will not work when Remote Mode is enabled."))
+    remote_aria2_expander_box.set_subtitle(_("Use Varia as a GUI for a remote aria2c instance.") + "\n" + _("This will disable the video download functionality.") + "\n" + _("The browser extension will not work when Remote Mode is enabled."))
 
     remote_aria2_expander_switch = Gtk.Switch()
     remote_aria2_expander_switch.set_halign(Gtk.Align.START)
