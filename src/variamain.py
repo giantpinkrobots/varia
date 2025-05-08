@@ -723,6 +723,7 @@ if ((__name__ == '__main__') and (os.name == 'nt')):
     import ctypes
     import locale
 
+    os.chdir(os.path.dirname(sys.executable))
     windll = ctypes.windll.kernel32
     lang_id = windll.GetUserDefaultUILanguage()
     current_locale = locale.windows_locale.get(lang_id)
