@@ -180,6 +180,8 @@ class MainWindow(application_window):
         if (self.appconf["default_mode"] == "background"):
             self.suppress_startup_notification = True
             self.exitProgram(app=self, variaapp=variaapp, background=True)
+        else:
+            self.suppress_startup_notification = False
 
         if self.appconf["tray_always_visible"] == "true":
             self.start_tray_process(variaapp)
@@ -488,11 +490,11 @@ class MainWindow(application_window):
                 return
 
             if not self.tray_notification:
-                self.tray_notification = True
                 notification = Gio.Notification.new(_("Background Mode"))
                 notification.set_body(_("Continuing the downloads in the background."))
                 notification.set_title(_("Background Mode"))
                 variaapp.send_notification(None, notification)
+                self.tray_notification = True
 
             print('Background mode')
 
