@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-04-13 22:08+0000\n"
+"PO-Revision-Date: 2025-05-09 18:01+0000\n"
 "Last-Translator: Giant Pink Robots! <giantpinkrobots@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/varia/varia/tr/>"
 "\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -474,7 +474,11 @@ msgid ""
 "You are using Varia as a Snap package. To be able to use the shutdown on "
 "completion option you must first give Varia the related permission. To do "
 "this, open a terminal window and execute this command and then restart Varia:"
-msgstr "Varia'nın Snap versiyonunu kullanıyorsunuz. İndirme bitiminde bilgisayarı kapatma opsiyonunu kullanmak istiyorsanız önce Varia'ya gerekli izini vermeniz gerekiyor. Bunu yapmak için bir terminal açıp bu komutu çalıştırdıktan sonra Varia'yı yeniden başlatın:"
+msgstr ""
+"Varia'nın Snap versiyonunu kullanıyorsunuz. İndirme bitiminde bilgisayarı "
+"kapatma opsiyonunu kullanmak istiyorsanız önce Varia'ya gerekli izini "
+"vermeniz gerekiyor. Bunu yapmak için bir terminal açıp bu komutu "
+"çalıştırdıktan sonra Varia'yı yeniden başlatın:"
 
 msgid "Enable Torrenting"
 msgstr "Torrent Desteğini Etkinleştir"
@@ -485,7 +489,9 @@ msgstr "Uzaktan Kontrol Modu açıkken tarayıcı uzantısı çalışmaz."
 msgid ""
 "Disabling torrenting will prevent new torrents from being added. It will not "
 "stop current torrent instances."
-msgstr "Torrentleri devre dışı bırakmak yeni torrent eklenmesini engeller. İndirme sürecinde olan torrentleri durdurmaz."
+msgstr ""
+"Torrentleri devre dışı bırakmak yeni torrent eklenmesini engeller. İndirme "
+"sürecinde olan torrentleri durdurmaz."
 
 msgid "Torrenting is disabled."
 msgstr "Torrent desteği devre dışı."
@@ -500,6 +506,38 @@ msgstr "Göster"
 # Tray icon quit button
 msgid "Quit"
 msgstr "Çık"
+
+msgid "Background Mode on Close"
+msgstr "Kapayınca Arka Plan Moduna Al"
+
+msgid "Upon closing, Varia will close to tray insted of exiting."
+msgstr "Varia kapanmak yerine sistem tepsisine küçültülür."
+
+# Tray icon always visible option
+msgid "Tray Icon Always Visible"
+msgstr "Tepsi Simgesi Her Zaman Görünür"
+
+msgid ""
+"The tray icon will be visible even when Varia is not in background mode."
+msgstr ""
+"Varia arka plan modunda değilse bile sistem tepsisi simgesi her zaman "
+"gösterilir."
+
+# Open on startup option
+msgid "Open on Startup"
+msgstr "Sistemle Birlikte Başlat"
+
+msgid "Varia will open automatically when the system starts."
+msgstr "Varia sistem başlangıcında otomatik olarak başlatılır."
+
+# Start on background mode subtitle
+msgid "Varia will start directly in background mode upon opening."
+msgstr "Varia direkt olarak arka plan modunda başlatılır."
+
+# Remote mode additional explanation
+msgid "Use Varia as a GUI for a remote aria2c instance."
+msgstr ""
+"Varia'yı başka bir aria2c süreci için bir grafiksel arayüz olarak kullan."
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
@@ -516,5 +554,5 @@ msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Çık"
 
-msgid "Torrenting Disabled"
-msgstr "Torrent Devre Dışı"
+#~ msgid "Torrenting Disabled"
+#~ msgstr "Torrent Devre Dışı"

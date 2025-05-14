@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Varia\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-04-15 06:01+0000\n"
+"PO-Revision-Date: 2025-05-09 18:01+0000\n"
 "Last-Translator: Любомир Василев <lyubomirv@gmx.com>\n"
 "Language-Team: Bulgarian <https://hosted.weblate.org/projects/varia/varia/bg/"
 ">\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -503,6 +503,46 @@ msgstr "Торентите са изключени."
 msgid "Unknown filesize"
 msgstr "Неизвестен размер"
 
+msgid "Show"
+msgstr "Показване"
+
+msgid "Quit"
+msgstr "Изход"
+
+msgid "Background Mode on Close"
+msgstr "Фонов режим при затваряне"
+
+msgid "Upon closing, Varia will close to tray insted of exiting."
+msgstr ""
+"При затваряне, Varia ще остане в системната област на лентата за задачите."
+
+# Tray icon always visible option
+msgid "Tray Icon Always Visible"
+msgstr "Винаги видима иконка в системната област"
+
+msgid ""
+"The tray icon will be visible even when Varia is not in background mode."
+msgstr ""
+"Иконката в системната област ще присъства винаги – дори когато Varia не е "
+"във фонов режим."
+
+# Open on startup option
+msgid "Open on Startup"
+msgstr "Автоматично стартиране"
+
+msgid "Varia will open automatically when the system starts."
+msgstr "Varia ще се стартира автоматично заедно със системата."
+
+# Start on background mode subtitle
+msgid "Varia will start directly in background mode upon opening."
+msgstr "Varia ще се стартира във фонов режим."
+
+# Remote mode additional explanation
+msgid "Use Varia as a GUI for a remote aria2c instance."
+msgstr ""
+"Използване на Varia като интерфейс за управление на отдалечено изпълняващ се "
+"aria2c."
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
@@ -518,5 +558,5 @@ msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Спиране на програмата"
 
-msgid "Torrenting Disabled"
-msgstr "Торентите са изключени"
+#~ msgid "Torrenting Disabled"
+#~ msgstr "Торентите са изключени"

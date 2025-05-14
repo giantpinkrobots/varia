@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-04-13 22:08+0000\n"
-"Last-Translator: Giant Pink Robots! <giantpinkrobots@protonmail.com>\n"
+"PO-Revision-Date: 2025-05-13 00:49+0000\n"
+"Last-Translator: Eryk Michalak <gnu.ewm@protonmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/varia/varia/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -311,7 +311,7 @@ msgid "Other"
 msgstr "Inne"
 
 msgid "Basic Settings"
-msgstr ""
+msgstr "Podstawowe ustawienia"
 
 msgid "Advanced Settings"
 msgstr "Ustawienia zaawansowane"
@@ -351,10 +351,10 @@ msgid "Update"
 msgstr "Aktualizuj"
 
 msgid "Downloading update..."
-msgstr ""
+msgstr "Pobieranie aktualizacji..."
 
 msgid "Download failed."
-msgstr ""
+msgstr "Pobieranie nie powiodło się."
 
 msgid "Yes"
 msgstr "Tak"
@@ -366,7 +366,7 @@ msgid "Automatically Check for Updates"
 msgstr ""
 
 msgid "Check Now"
-msgstr ""
+msgstr "Sprawdź teraz"
 
 msgid "Do you want to check for updates on startup?"
 msgstr ""
@@ -381,10 +381,10 @@ msgid "Video and audio"
 msgstr ""
 
 msgid "Video only"
-msgstr ""
+msgstr "Tylko wideo"
 
 msgid "Audio only"
-msgstr ""
+msgstr "Tylko audio"
 
 #: Relating to video download:
 msgid "Framerate:"
@@ -395,13 +395,13 @@ msgid "Bitrate:"
 msgstr "Przepływność:"
 
 msgid "Checking video..."
-msgstr ""
+msgstr "Sprawdzanie wideo..."
 
 msgid "No video or audio streams found"
 msgstr ""
 
 msgid "Starting download..."
-msgstr ""
+msgstr "Rozpoczynanie pobierania..."
 
 msgid ""
 "The video platform may not be supported or you may be being blocked by the "
@@ -415,7 +415,7 @@ msgstr ""
 #: Relating to video download progress where it says "Part 1/2" - {indicator}
 #: is replaced by "1/2" or "2/2" (don't translate {indicator})
 msgid "Part {indicator}"
-msgstr ""
+msgstr "Część {indicator}"
 
 msgid "Simultaneous download limit exceeded, waiting."
 msgstr ""
@@ -457,7 +457,7 @@ msgid "Show Menu"
 msgstr ""
 
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 # Snap version permission warning
 msgid ""
@@ -483,6 +483,43 @@ msgstr ""
 msgid "Unknown filesize"
 msgstr ""
 
+# Tray icon show button
+msgid "Show"
+msgstr "Pokaż"
+
+msgid "Quit"
+msgstr "Wyjdź"
+
+# Close to tray option
+msgid "Background Mode on Close"
+msgstr ""
+
+msgid "Upon closing, Varia will close to tray insted of exiting."
+msgstr ""
+
+# Tray icon always visible option
+msgid "Tray Icon Always Visible"
+msgstr ""
+
+msgid ""
+"The tray icon will be visible even when Varia is not in background mode."
+msgstr ""
+
+# Open on startup option
+msgid "Open on Startup"
+msgstr ""
+
+msgid "Varia will open automatically when the system starts."
+msgstr ""
+
+# Start on background mode subtitle
+msgid "Varia will start directly in background mode upon opening."
+msgstr ""
+
+# Remote mode additional explanation
+msgid "Use Varia as a GUI for a remote aria2c instance."
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
@@ -497,6 +534,3 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Zakończ"
-
-msgid "Torrenting Disabled"
-msgstr ""

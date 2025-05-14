@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-04-16 13:05+0000\n"
+"PO-Revision-Date: 2025-05-14 07:01+0000\n"
 "Last-Translator: Peter Vančo <petervanco347@gmail.com>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/varia/varia/sk/>\n"
 "Language: sk\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
-"X-Generator: Weblate 5.11.1-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -171,7 +171,7 @@ msgstr "Peter Vančo"
 
 #: src/variamain.py:457
 msgid "Download Directory"
-msgstr "Priečinok na stiahnutie"
+msgstr "Priečinok sťahovania"
 
 #: src/variamain.py:460
 msgid "Change"
@@ -179,7 +179,7 @@ msgstr "Zmeniť"
 
 #: src/variamain.py:463
 msgid "Speed limited"
-msgstr "Limit rýchlosti"
+msgstr "Limitovaná rýchlosť"
 
 #: src/variamain.py:519
 msgid "Authentication"
@@ -217,7 +217,7 @@ msgid "Remote Download Location"
 msgstr "Vzdialená lokalita pre sťahovanie"
 
 msgid "Exiting Varia..."
-msgstr "Ukončuje sa Varia…"
+msgstr "Ukončuje sa Varia..."
 
 msgid "Background Mode"
 msgstr "Režim na pozadí"
@@ -339,7 +339,7 @@ msgstr "Torrent"
 
 # Updater
 msgid "Checking for updates..."
-msgstr "Kontrolujú sa aktualizácie…"
+msgstr "Kontrolujú sa aktualizácie..."
 
 msgid "A new version of Varia is available. Do you want to update?"
 msgstr "K dispozícii je nová verzia Varia. Chcete ju aktualizovať?"
@@ -351,7 +351,7 @@ msgid "Update"
 msgstr "Aktualizovať"
 
 msgid "Downloading update..."
-msgstr "Sťahuje sa aktualizácia…"
+msgstr "Sťahuje sa aktualizácia..."
 
 msgid "Download failed."
 msgstr "Sťahovanie sa nepodarilo."
@@ -395,22 +395,26 @@ msgid "Bitrate:"
 msgstr "Bitová rýchlosť:"
 
 msgid "Checking video..."
-msgstr "Kontroluje sa video…"
+msgstr "Kontroluje sa video..."
 
 msgid "No video or audio streams found"
 msgstr "Nenašli sa žiadne dostupné video ani audio streamy"
 
 msgid "Starting download..."
-msgstr "Spustilo sa sťahovanie…"
+msgstr "Spustilo sa sťahovanie..."
 
 msgid ""
 "The video platform may not be supported or you may be being blocked by the "
 "platform. If you have an active VPN connection that might be the cause, or "
 "you can try importing your browser's cookies through a cookies.txt file."
 msgstr ""
-"Vaša video platforma nemusí byť podporovaná, alebo vás môže blokovať. "
-"Aktívne pripojenie cez VPN môže byť príčinou problému. Môžete skúsiť načítať "
-"cookies zo svojho prehliadača prostredníctvom súboru cookies.txt."
+"Video platforma nemusí byť podporovaná, alebo vám môže byť prístup na "
+"platformu zablokovaný. Ak používate VPN, môže to byť príčinou problému, "
+"pretože niektoré platformy blokujú pripojenia cez VPN. Skúste VPN vypnúť a "
+"zistiť, či sa problém vyrieši. Ďalším možným dôvodom môžu byť chýbajúce "
+"alebo nesprávne cookies, ktoré niektoré webové stránky vyžadujú na "
+"autentifikáciu a prístup k obsahu. V takom prípade môžete skúsiť importovať "
+"cookies zo svojho prehliadača pomocou súboru cookies.txt."
 
 msgid "This will disable the video download functionality."
 msgstr "Táto možnosť deaktivuje funkciu sťahovania videa."
@@ -498,6 +502,43 @@ msgstr "Torrentovanie je vypnuté."
 msgid "Unknown filesize"
 msgstr "Neznáma veľkosť"
 
+msgid "Show"
+msgstr "Zobraziť"
+
+msgid "Quit"
+msgstr "Ukončiť"
+
+msgid "Background Mode on Close"
+msgstr "Režim na pozadí pri zatvorení"
+
+msgid "Upon closing, Varia will close to tray insted of exiting."
+msgstr "Po zatvorení sa Varia minimalizuje do panela úloh namiesto ukončenia."
+
+# Tray icon always visible option
+msgid "Tray Icon Always Visible"
+msgstr "Ikona v paneli úloh vždy viditeľná"
+
+msgid ""
+"The tray icon will be visible even when Varia is not in background mode."
+msgstr ""
+"Ikona v paneli úloh bude viditeľná aj vtedy, keď Varia nebude v režime na "
+"pozadí."
+
+# Open on startup option
+msgid "Open on Startup"
+msgstr "Spustiť pri štarte"
+
+msgid "Varia will open automatically when the system starts."
+msgstr "Varia sa automaticky otvorí pri spustení systému."
+
+# Start on background mode subtitle
+msgid "Varia will start directly in background mode upon opening."
+msgstr "Varia sa spustí priamo v režime na pozadí po otvorení."
+
+# Remote mode additional explanation
+msgid "Use Varia as a GUI for a remote aria2c instance."
+msgstr "Varia sa použije ako grafické rozhranie pre vzdialenú inštanciu aria2c."
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
@@ -513,5 +554,5 @@ msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Ukončiť"
 
-msgid "Torrenting Disabled"
-msgstr "Torrenting vypnutý"
+#~ msgid "Torrenting Disabled"
+#~ msgstr "Torrenting vypnutý"
