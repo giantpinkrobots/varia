@@ -51,7 +51,14 @@ begin
   end;
 end;
 
+procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
+begin
+  if CurUninstallStep = usUninstall then
+  begin
+    RegDeleteValue(HKEY_CURRENT_USER, 'Software\Microsoft\Windows\CurrentVersion\Run', 'VariaAutostart');
+  end;
+end;
+
 [UninstallDelete]
 Type: dirifempty; Name: "{%USERPROFILE}\.varia"
 Type: filesandordirs; Name: "{%USERPROFILE}\.varia"
-Type: regvalue; Root: HKCU; Key: "Software\Microsoft\Windows\CurrentVersion\Run"; Name: "VariaAutostart"
