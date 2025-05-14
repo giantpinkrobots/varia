@@ -10,8 +10,8 @@ msgstr ""
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
 "PO-Revision-Date: 2025-04-13 22:08+0000\n"
 "Last-Translator: Giant Pink Robots! <giantpinkrobots@protonmail.com>\n"
-"Language-Team: Persian <https://hosted.weblate.org/projects/varia/varia/fa/>"
-"\n"
+"Language-Team: Persian <https://hosted.weblate.org/projects/varia/varia/fa/"
+">\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -503,6 +503,47 @@ msgstr ""
 msgid "Unknown filesize"
 msgstr ""
 
+# Tray icon show button
+msgid "Show"
+msgstr ""
+
+#, fuzzy
+#| msgctxt "shortcut window"
+#| msgid "Quit"
+msgid "Quit"
+msgstr "خروج"
+
+#, fuzzy
+#| msgid "Background Mode"
+msgid "Background Mode on Close"
+msgstr "حالت پس‌زمینه"
+
+msgid "Upon closing, Varia will close to tray insted of exiting."
+msgstr ""
+
+# Tray icon always visible option
+msgid "Tray Icon Always Visible"
+msgstr ""
+
+msgid ""
+"The tray icon will be visible even when Varia is not in background mode."
+msgstr ""
+
+# Open on startup option
+msgid "Open on Startup"
+msgstr ""
+
+msgid "Varia will open automatically when the system starts."
+msgstr ""
+
+# Start on background mode subtitle
+msgid "Varia will start directly in background mode upon opening."
+msgstr ""
+
+# Remote mode additional explanation
+msgid "Use Varia as a GUI for a remote aria2c instance."
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
@@ -517,6 +558,3 @@ msgstr "نمایش میانبرها"
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "خروج"
-
-msgid "Torrenting Disabled"
-msgstr ""

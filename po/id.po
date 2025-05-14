@@ -1,23 +1,23 @@
-# The Japanese translation of Varia.
-# Copyright (C) YEAR THE Varia'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the Varia package.
-# Gnuey56 <gnuey56@proton.me>, 2024.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-04-13 22:08+0000\n"
-"Last-Translator: Giant Pink Robots! <giantpinkrobots@protonmail.com>\n"
-"Language-Team: Japanese <https://hosted.weblate.org/projects/varia/varia/ja/"
-">\n"
-"Language: ja\n"
+"PO-Revision-Date: 2025-05-09 18:01+0000\n"
+"Last-Translator: Ilham Fauzan <ilhamfzx@gmail.com>\n"
+"Language-Team: Indonesian <https://hosted.weblate.org/projects/varia/varia/"
+"id/>\n"
+"Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -28,11 +28,11 @@ msgstr "Varia"
 #. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
 #: data/io.github.giantpinkrobots.varia.desktop.in:11
 msgid "varia;aria;download;manager;"
-msgstr "varia;aria;download;manager;ダウンロード;マネージャー;"
+msgstr "varia;aria;unduh;manajer;"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
 msgid "Download manager based on aria2"
-msgstr "aria2 をベースにしたダウンロードマネージャー"
+msgstr "Pengelola unduhan berbasis aria2"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
 msgid ""
@@ -40,29 +40,29 @@ msgid ""
 "to provide a easy to use interface that integrates well with the GNOME "
 "desktop."
 msgstr ""
-"Varia は、aria2 をベースにしたダウンロードマネージャーであり、GTK4 と "
-"Libadwaita を使用することで、GNOME デスクトップとよく統合する使いやすいイン"
-"ターフェイスを提供します。"
+"Varia adalah pengelola unduhan berbasis aria2 yang memanfaatkan GTK4 dan "
+"Libadwaita untuk memberikan antarmuka yang mudah dan terintegrasi baik "
+"dengan desktop GNOME."
 
 #: src/variamain.py:45
 msgid "This is not a valid URL."
-msgstr "有効な URL ではありません。"
+msgstr "Ini bukan URL yang valid."
 
 #: src/variamain.py:125
 msgid "All"
-msgstr "すべてのダウンロード"
+msgstr "Semua"
 
 #: src/variamain.py:137
 msgid "In Progress"
-msgstr "進行中"
+msgstr "Dalam proses"
 
 #: src/variamain.py:148
 msgid "Completed"
-msgstr "完了済"
+msgstr "Selesai"
 
 #: src/variamain.py:171
 msgid "About Varia"
-msgstr "Varia について"
+msgstr "Tentang Varia"
 
 #: src/variamain.py:177
 msgid "URL"
@@ -70,386 +70,377 @@ msgstr "URL"
 
 #: src/variamain.py:178
 msgid "Download"
-msgstr "ダウンロード"
+msgstr "Unduh"
 
 #: src/variamain.py:184
 msgid "Open Download Folder"
-msgstr "ダウンロードフォルダを開く"
+msgstr "Buka folder unduhan"
 
 #: src/variamain.py:196
 msgid "Speed Limit"
-msgstr "速度制限"
+msgstr "Batas kecepatan"
 
 #: src/variamain.py:203 src/variamain.py:423
 msgid "Pause All"
-msgstr "すべてを一時停止"
+msgstr "Jeda semuanya"
 
 #: src/variamain.py:212
 msgid "Speed"
-msgstr "速度"
+msgstr "Kecepatan"
 
 #: src/variamain.py:215
 msgid "Set Speed Limit"
-msgstr "速度制限を設定"
+msgstr "Atur batas kecepatan"
 
 #: src/variamain.py:216
 msgid "Cancel All"
-msgstr "すべてをキャンセル"
+msgstr "Batalkan semua"
 
 #: src/variamain.py:235
 msgid "/s"
-msgstr "/s"
+msgstr "/d"
 
 #: src/variamain.py:238
 msgid "No limit"
-msgstr "制限なし"
+msgstr "Tanpa batasan"
 
 #: src/variamain.py:274
 msgid "Download complete."
-msgstr "ダウンロードが完了しました。"
+msgstr "Unduhan selesai."
 
 #: src/variamain.py:276
 msgid "Download speed is limited."
-msgstr "ダウンロード速度が制限されています。"
+msgstr "Kecepatan unduhan terbatas."
 
 #: src/variamain.py:277
 msgid "An error occurred:"
-msgstr "エラーが発生しました:"
+msgstr "Terjadi kesalahan:"
 
 #: src/variamain.py:292
 msgid "MB/s"
-msgstr "MB/s"
+msgstr "MB/d"
 
 #: src/variamain.py:294
 msgid "KB/s"
-msgstr "KB/s"
+msgstr "KB/d"
 
 #: src/variamain.py:298
 msgid "0 B/s"
-msgstr "0 B/s"
+msgstr "0 B/d"
 
 #: src/variamain.py:300
 msgid " MB/s"
-msgstr "MB/s"
+msgstr " MB/d"
 
 #: src/variamain.py:302
 msgid " KB/s"
-msgstr "KB/s"
+msgstr " KB/d"
 
 #: src/variamain.py:304
 msgid " B/s"
-msgstr "B/s"
+msgstr " B/d"
 
 #: src/variamain.py:404
 msgid "Simultaneous Download Amount"
-msgstr "同時ダウンロード数"
+msgstr "Jumlah unduhan bersamaan"
 
 #: src/variamain.py:410
 msgid "Resume All"
-msgstr "すべてを再開"
+msgstr "Lanjutkan semua"
 
 #: src/variamain.py:443
 msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
 msgstr ""
-"GTK4 と Libadwaita を使用する、aria2 をベースのダウンロードマネージャー。"
+"pengelola unduhan berbasis aria2 yang memanfaatkan GTK4 dan Libadwaita."
 
 #: src/variamain.py:777
 msgid "This application relies on the following pieces of software:"
-msgstr "このアプリケーションは以下のソフトウェアに依存しています:"
+msgstr "Aplikasi ini bergantung kepada perangkat lunak berikut:"
 
 #: src/variamain.py:777
 msgid ""
 "The licenses of all of these pieces of software can be found in the "
 "dependencies_information directory in this application's app directory."
 msgstr ""
-"これらすべてのアプリケーションのライセンスは、このアプリのディレクトリの "
-"dependencies_information ディレクトリにあります。"
+"Lisensi semua perangkat lunak ini dapat ditemukan di direktori "
+"dependencies_information dalam direktori aplikasi ini."
 
+# This is for the credits section. Replace this string with your own information so you'll be credited for your work.
 #: src/variamain.py:449
 msgid "translator-credits"
-msgstr "Gnuey56 <gnuey56@proton.me>"
+msgstr "Ilham Fauzan <https://zan.re>"
 
 #: src/variamain.py:457
 msgid "Download Directory"
-msgstr "ダウンロードディレクトリ"
+msgstr "Folder unduhan"
 
 #: src/variamain.py:460
 msgid "Change"
-msgstr "変更"
+msgstr "Ubah"
 
 #: src/variamain.py:463
 msgid "Speed limited"
-msgstr "速度が制限されています"
+msgstr "Kecepatan terbatas"
 
 #: src/variamain.py:519
 msgid "Authentication"
-msgstr "認証"
+msgstr "Otentikasi"
 
 #: src/variamain.py:532
 msgid "Username"
-msgstr "ユーザー名"
+msgstr "Nama Pengguna"
 
 #: src/variamain.py:534
 msgid "Password"
-msgstr "パスワード"
+msgstr "Kata Sandi"
 
 #: src/variamain.py:554
 msgid "Authorization failed."
-msgstr "認証に失敗しました。"
+msgstr "Gagal melakukan otorisasi."
 
 #: src/variamain.py:806
 msgid "Failed to open directory."
-msgstr "ディレクトリを開くのに失敗しました。"
+msgstr "Gagal membuka folder."
 
 msgid "Remote Mode"
-msgstr "リモートモード"
+msgstr "Mode Remote"
 
 msgid "Remote aria2 IP"
-msgstr "リモート aria2 IP"
+msgstr "Remote IP aria2"
 
 msgid "Remote aria2 Port"
-msgstr "リモート aria2 ポート"
+msgstr "Remote Port aria2"
 
 msgid "Remote aria2 RPC Secret"
-msgstr "リモート aria2 RPC シークレットトークン"
+msgstr "Remote RPC Secret aria2"
 
 msgid "Remote Download Location"
-msgstr "リモートのダウンロード場所"
+msgstr "Lokasi Unduhan Remote"
 
 msgid "Exiting Varia..."
-msgstr "Varia を終了中..."
+msgstr "Keluar dari Varia..."
 
 msgid "Background Mode"
-msgstr "バックグラウンドモード"
+msgstr "Mode Latar Belakang"
 
 msgid "Continuing the downloads in the background."
-msgstr "バックグラウンドでダウンロードを続けます。"
+msgstr "Lanjutkan unduhan di latar belakang."
 
 msgid "Browser Extension"
-msgstr "ブラウザ拡張機能"
+msgstr "Ekstensi Browser"
 
 msgid "Shutdown on Completion"
-msgstr "完了時にシャットダウンする"
+msgstr "Matikan setelah unduhan selesai"
 
 msgid "Varia is about to shut down your computer."
-msgstr "Varia はこのコンピューターをシャットダウンしようとしています。"
+msgstr "Varia akan segera mematikan komputer Anda."
 
 msgid "Press Cancel to cancel and disable."
-msgstr "キャンセルを押して取り消しできます。"
+msgstr "Tekan Batal untuk membatalkan dan menonaktifkan."
 
 msgid "Cancel"
-msgstr "キャンセル"
+msgstr "Batal"
 
 msgid "Warning"
-msgstr "警告"
+msgstr "Peringatan"
 
 msgid "Monday"
-msgstr "月曜日"
+msgstr "Senin"
 
 msgid "Tuesday"
-msgstr "火曜日"
+msgstr "Selasa"
 
 msgid "Wednesday"
-msgstr "水曜日"
+msgstr "Rabu"
 
 msgid "Thursday"
-msgstr "木曜日"
+msgstr "Kamis"
 
 msgid "Friday"
-msgstr "金曜日"
+msgstr "Jumat"
 
 msgid "Saturday"
-msgstr "土曜日"
+msgstr "Sabtu"
 
 msgid "Sunday"
-msgstr "日曜日"
+msgstr "Minggu"
 
 msgid "Start (h/m):"
-msgstr "開始 (時/分):"
+msgstr "Mulai (j/m):"
 
 msgid "End (h/m):"
-msgstr "終了 (時/分):"
+msgstr "Berhenti (j/m):"
 
 msgid "Scheduler enabled"
-msgstr "スケジューラーが有効になっています"
+msgstr "Penjadwal diaktifkan"
 
 msgid "Scheduler"
-msgstr "スケジューラー"
+msgstr "Penjadwalan"
 
 msgid "Enabled"
-msgstr "有効"
+msgstr "Aktif"
 
 msgid "Start downloading in these times"
-msgstr "これらの時間にダウンロードを開始する"
+msgstr "Mulai unduhan di waktu berikut"
 
 msgid "Stop downloading in these times"
-msgstr "これらの時間にダウンロードを終了する"
+msgstr "Hentikan unduhan di waktu tersebut"
 
 msgid "Add Timespan"
-msgstr "タイムスパンを追加"
+msgstr "Tambahkan rentang waktu"
 
 #: When a download is currently seeding:
 msgid "Seeding"
-msgstr "シード中"
+msgstr "Seeding"
 
 msgid "Failed"
-msgstr "失敗"
+msgstr "Gagal"
 
 msgid "Completion Options"
-msgstr "ダウンロード完了時のオプション"
+msgstr "Opsi Penyelesaian"
 
 msgid "Exit on Completion"
-msgstr "完了時に終了する"
+msgstr "Keluar setelah Selesai"
 
 msgid "Varia is about to quit."
-msgstr "Varia は終了しようとしています。"
+msgstr "Varia akan segera keluar."
 
 msgid "Preferences"
-msgstr "設定"
+msgstr "Preferensi"
 
 msgid "Other"
-msgstr "その他"
+msgstr "Lainnya"
 
 msgid "Basic Settings"
-msgstr "基本設定"
+msgstr "Pengaturan Dasar"
 
 msgid "Advanced Settings"
-msgstr "詳細設定"
+msgstr "Pengaturan Lanjutan"
 
 msgid "Use cookies.txt"
-msgstr "cookies.txt を使用"
+msgstr "Gunakan cookies.txt"
 
 msgid "Import cookies.txt"
-msgstr "cookies.txt をインポート"
+msgstr "Impor cookies.txt"
 
 msgid "Remove cookies.txt"
-msgstr "cookies.txt を削除"
+msgstr "Hapus cookies.txt"
 
 msgid "remaining"
-msgstr "残り"
+msgstr "tersisa"
 
 msgid "Start in Background Mode"
-msgstr "バックグラウンドモードで開始"
+msgstr "Mulai dalam Mode Latar Belakang"
 
 msgid "Remote Timestamp"
-msgstr "リモートのタイムスタンプ"
+msgstr "Stempel Waktu Remote"
 
 msgid "Torrent"
-msgstr ""
+msgstr "Torrent"
 
 # Updater
 msgid "Checking for updates..."
-msgstr ""
+msgstr "Memeriksa pembaruan..."
 
 msgid "A new version of Varia is available. Do you want to update?"
-msgstr ""
+msgstr "Versi terbaru Varia tersedia. Apakah Anda ingin memperbaruinya?"
 
 msgid "Update available"
-msgstr ""
+msgstr "Pembaruan tersedia"
 
 msgid "Update"
-msgstr ""
+msgstr "Perbarui"
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Downloading update..."
-msgstr "ダウンロードが完了しました。"
+msgstr "Mengunduh pembaruan..."
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Download failed."
-msgstr "ダウンロードが完了しました。"
+msgstr "Unduhan gagal."
 
 msgid "Yes"
-msgstr ""
+msgstr "Ya"
 
 msgid "No"
-msgstr ""
+msgstr "Tidak"
 
 msgid "Automatically Check for Updates"
-msgstr ""
+msgstr "Otomatis Periksa Pembaruan"
 
 msgid "Check Now"
-msgstr ""
+msgstr "Periksa Sekarang"
 
 msgid "Do you want to check for updates on startup?"
-msgstr ""
+msgstr "Apakah Anda ingin memeriksa pembaruan saat dimulai?"
 
 msgid "File"
-msgstr ""
+msgstr "Berkas"
 
 msgid "Video / Audio"
-msgstr ""
+msgstr "Video / Audio"
 
 msgid "Video and audio"
-msgstr ""
+msgstr "Video dan Audio"
 
 msgid "Video only"
-msgstr ""
+msgstr "Hanya Video"
 
 msgid "Audio only"
-msgstr ""
+msgstr "Hanya Audio"
 
 #: Relating to video download:
 msgid "Framerate:"
-msgstr ""
+msgstr "Kecepatan frame:"
 
 #: Relating to video download:
 msgid "Bitrate:"
-msgstr ""
+msgstr "Kecepatan Bit:"
 
 msgid "Checking video..."
-msgstr ""
+msgstr "Memeriksa video..."
 
 msgid "No video or audio streams found"
-msgstr ""
+msgstr "Tidak ada video atau audio yang ditemukan"
 
 msgid "Starting download..."
-msgstr ""
+msgstr "Memulai unduhan..."
 
 msgid ""
 "The video platform may not be supported or you may be being blocked by the "
 "platform. If you have an active VPN connection that might be the cause, or "
 "you can try importing your browser's cookies through a cookies.txt file."
 msgstr ""
+"Platform video mungkin tidak didukung atau mungkin Anda telah diblokir oleh "
+"platform tersebut. Jika Anda menggunakan koneksi VPN mungkin menjadi "
+"penyebabnya, atau Anda dapat mencoba mengimpor cookie browser Anda melalui "
+"file cookies.txt."
 
 msgid "This will disable the video download functionality."
-msgstr ""
+msgstr "Ini akan menonaktifkan fungsi pengunduhan video."
 
 #: Relating to video download progress where it says "Part 1/2" - {indicator}
 #: is replaced by "1/2" or "2/2" (don't translate {indicator})
 msgid "Part {indicator}"
-msgstr ""
+msgstr "Bagian {indicator}"
 
-#, fuzzy
-#| msgid "Simultaneous Download Amount"
 msgid "Simultaneous download limit exceeded, waiting."
-msgstr "同時ダウンロード数"
+msgstr "Melebihi batas unduhan bersamaan, menunggu."
 
 #: The way percentages will be shown, like 10% or %10 depending on the language
 #: (don't translate {number}, just move it if needed)
 msgid "{number}%"
-msgstr ""
+msgstr "{number}%"
 
-#, fuzzy
-#| msgid "Seeding"
 msgid "Allow Seeding"
-msgstr "シード中"
+msgstr "Perbolehkan Seeding"
 
-#, fuzzy
-#| msgid "Speed Limit"
 msgid "Seeding Ratio Limit"
-msgstr "速度制限"
+msgstr "Batas Rasio Seeding"
 
-#, fuzzy
-#| msgid "Advanced Settings"
 msgid "Torrent Settings"
-msgstr "詳細設定"
+msgstr "Pengaturan Torrent"
 
-#, fuzzy
-#| msgid "Download Directory"
 msgid "Custom Download Directory for Torrents"
-msgstr "ダウンロードディレクトリ"
+msgstr "Folder Unduhan Khusus untuk Torrent"
 
 #: When the user attempts to disable seeding
 msgid ""
@@ -459,21 +450,25 @@ msgid ""
 "as they download (a ratio of 1). You may want to consider limiting your "
 "seeding ratio instead."
 msgstr ""
+"Karena torrenting bergantung pada orang-orang yang melakukan seeding data, "
+"menonaktifkan seeding sangat tidak disarankan dan dapat menyebabkan akun "
+"Anda dibatasi (throttled) atau diblokir oleh beberapa klien atau tracker. "
+"Pengguna biasanya diharapkan untuk melakukan seeding setidaknya sebanyak "
+"yang mereka unduh (rasio 1:1). Anda mungkin ingin mempertimbangkan untuk "
+"membatasi rasio seeding Anda daripada menonaktifkannya sepenuhnya."
 
-#, fuzzy
-#| msgid "Seeding"
 msgid "Cancel Seeding"
-msgstr "シード中"
+msgstr "Batalkan Seeding"
 
 # Save button
 msgid "Save"
-msgstr ""
+msgstr "Simpan"
 
 msgid "Show Menu"
-msgstr ""
+msgstr "Tampilkan Menu"
 
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 # Snap version permission warning
 msgid ""
@@ -481,62 +476,63 @@ msgid ""
 "completion option you must first give Varia the related permission. To do "
 "this, open a terminal window and execute this command and then restart Varia:"
 msgstr ""
+"Anda menggunakan Varia sebagai paket Snap. Untuk dapat menggunakan opsi "
+"matikan setelah selesai, Anda harus terlebih dahulu memberikan izin yang "
+"diperlukan Varia. Untuk melakukannya, buka terminal dan jalankan perintah "
+"berikut, lalu mulai ulang Varia:"
 
-#, fuzzy
-#| msgid "Advanced Settings"
 msgid "Enable Torrenting"
-msgstr "詳細設定"
+msgstr "Aktifkan Torrent"
 
 msgid "The browser extension will not work when Remote Mode is enabled."
-msgstr ""
+msgstr "Ekstensi browser ini tidak akan bekerja ketika Mode Remote diaktifkan."
 
 msgid ""
 "Disabling torrenting will prevent new torrents from being added. It will not "
 "stop current torrent instances."
 msgstr ""
+"Mematikan torrent akan mencengah torrent baru ditambahkan. Ini tidak akan "
+"memberhentikan torrent yang sedang berjalan."
 
 msgid "Torrenting is disabled."
-msgstr ""
+msgstr "Torrent dinonaktifkan."
 
 msgid "Unknown filesize"
-msgstr ""
+msgstr "Ukuran file tidak diketahui"
 
 # Tray icon show button
 msgid "Show"
-msgstr ""
+msgstr "Tampilkan"
 
-#, fuzzy
-#| msgctxt "shortcut window"
-#| msgid "Quit"
+# Tray icon quit button
 msgid "Quit"
-msgstr "終了"
+msgstr "Keluar"
 
-#, fuzzy
-#| msgid "Background Mode"
+# Close to tray option
 msgid "Background Mode on Close"
-msgstr "バックグラウンドモード"
+msgstr "Mode Latar Belakang ketika Ditutup"
 
 msgid "Upon closing, Varia will close to tray insted of exiting."
-msgstr ""
+msgstr "Setelah ditutup, Varia akan berada di tray sistem.."
 
 # Tray icon always visible option
 msgid "Tray Icon Always Visible"
-msgstr ""
+msgstr "Icon Tray Selalu Terlihat"
 
 msgid ""
 "The tray icon will be visible even when Varia is not in background mode."
-msgstr ""
+msgstr "Icon tray akan terlihat walau Varia tidak dalam mode latar belakang."
 
 # Open on startup option
 msgid "Open on Startup"
-msgstr ""
+msgstr "Buka saat Startup"
 
 msgid "Varia will open automatically when the system starts."
-msgstr ""
+msgstr "Varia akan terbuka otomatis ketika sistem dimulai."
 
 # Start on background mode subtitle
 msgid "Varia will start directly in background mode upon opening."
-msgstr ""
+msgstr "Varia akan dimulai dalam mode latar belakang saat dibuka."
 
 # Remote mode additional explanation
 msgid "Use Varia as a GUI for a remote aria2c instance."
@@ -545,14 +541,14 @@ msgstr ""
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
-msgstr "一般"
+msgstr "Umum"
 
 #: src/gtk/help-overlay.ui:14
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
-msgstr "ショートカットを表示"
+msgstr "Tampilkan Pintasan"
 
 #: src/gtk/help-overlay.ui:20
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr "終了"
+msgstr "Keluar"

@@ -10,8 +10,8 @@ msgstr ""
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
 "PO-Revision-Date: 2025-04-13 22:08+0000\n"
 "Last-Translator: Giant Pink Robots! <giantpinkrobots@protonmail.com>\n"
-"Language-Team: Occitan <https://hosted.weblate.org/projects/varia/varia/oc/>"
-"\n"
+"Language-Team: Occitan <https://hosted.weblate.org/projects/varia/varia/oc/"
+">\n"
 "Language: oc\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -493,6 +493,48 @@ msgstr ""
 msgid "Unknown filesize"
 msgstr "Talha de fichièr desconeguda"
 
+#, fuzzy
+#| msgid "Show Menu"
+msgid "Show"
+msgstr "Mostrar lo menú"
+
+#, fuzzy
+#| msgctxt "shortcut window"
+#| msgid "Quit"
+msgid "Quit"
+msgstr "Quitar"
+
+#, fuzzy
+#| msgid "Background Mode"
+msgid "Background Mode on Close"
+msgstr "Mòde rèireplan"
+
+msgid "Upon closing, Varia will close to tray insted of exiting."
+msgstr ""
+
+# Tray icon always visible option
+msgid "Tray Icon Always Visible"
+msgstr ""
+
+msgid ""
+"The tray icon will be visible even when Varia is not in background mode."
+msgstr ""
+
+# Open on startup option
+msgid "Open on Startup"
+msgstr ""
+
+msgid "Varia will open automatically when the system starts."
+msgstr ""
+
+# Start on background mode subtitle
+msgid "Varia will start directly in background mode upon opening."
+msgstr ""
+
+# Remote mode additional explanation
+msgid "Use Varia as a GUI for a remote aria2c instance."
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
@@ -507,6 +549,3 @@ msgstr "Afichar los acorchis"
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Quitar"
-
-msgid "Torrenting Disabled"
-msgstr ""
