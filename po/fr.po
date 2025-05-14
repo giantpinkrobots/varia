@@ -500,6 +500,48 @@ msgstr ""
 msgid "Unknown filesize"
 msgstr ""
 
+#, fuzzy
+#| msgid "Show Menu"
+msgid "Show"
+msgstr "Voir le menu"
+
+#, fuzzy
+#| msgctxt "shortcut window"
+#| msgid "Quit"
+msgid "Quit"
+msgstr "Quitter"
+
+#, fuzzy
+#| msgid "Background Mode"
+msgid "Background Mode on Close"
+msgstr "Exécution en arrière-plan"
+
+msgid "Upon closing, Varia will close to tray insted of exiting."
+msgstr ""
+
+# Tray icon always visible option
+msgid "Tray Icon Always Visible"
+msgstr ""
+
+msgid ""
+"The tray icon will be visible even when Varia is not in background mode."
+msgstr ""
+
+# Open on startup option
+msgid "Open on Startup"
+msgstr ""
+
+msgid "Varia will open automatically when the system starts."
+msgstr ""
+
+# Start on background mode subtitle
+msgid "Varia will start directly in background mode upon opening."
+msgstr ""
+
+# Remote mode additional explanation
+msgid "Use Varia as a GUI for a remote aria2c instance."
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
@@ -514,6 +556,3 @@ msgstr "Voir les raccourcis"
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Quitter"
-
-msgid "Torrenting Disabled"
-msgstr ""

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-04-16 13:05+0000\n"
+"PO-Revision-Date: 2025-05-09 18:01+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/varia/varia/et/>"
 "\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11.1-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -502,6 +502,41 @@ msgstr "Torrentipõhine allalaadimine pole kasutusel."
 msgid "Unknown filesize"
 msgstr "Tundmatu failisuurus"
 
+msgid "Show"
+msgstr "Näita"
+
+msgid "Quit"
+msgstr "Välju"
+
+msgid "Background Mode on Close"
+msgstr "Sulgemisel vii taustale"
+
+msgid "Upon closing, Varia will close to tray insted of exiting."
+msgstr "Sulgemisel jääb Varia taustal tööle ning on leitav süsteemisalvest."
+
+# Tray icon always visible option
+msgid "Tray Icon Always Visible"
+msgstr "Süsteemisalve ikoon on alati näha"
+
+msgid ""
+"The tray icon will be visible even when Varia is not in background mode."
+msgstr "Süsteemisalve ikoon on näha ka siis, kui Varia ei tööta taustal."
+
+# Open on startup option
+msgid "Open on Startup"
+msgstr "Ava käivitamisel"
+
+msgid "Varia will open automatically when the system starts."
+msgstr "Süsteemi käivitumisel avatakse ka Varia rakendus."
+
+# Start on background mode subtitle
+msgid "Varia will start directly in background mode upon opening."
+msgstr "Varia käivitub avamisel taustarežiimis."
+
+# Remote mode additional explanation
+msgid "Use Varia as a GUI for a remote aria2c instance."
+msgstr "Kasuta Variat kaugseadmes asuva aria2c kasutajaliidesena."
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
@@ -517,5 +552,5 @@ msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Välju"
 
-msgid "Torrenting Disabled"
-msgstr "Torrentipõhine allalaadimine pole kasutusel"
+#~ msgid "Torrenting Disabled"
+#~ msgstr "Torrentipõhine allalaadimine pole kasutusel"

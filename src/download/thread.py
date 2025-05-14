@@ -116,6 +116,8 @@ class DownloadThread(threading.Thread):
 
         print(self.downloadname)
 
+        self.app.check_all_status()
+
         # Regular download, use aria2p:
         if self.mode == "regular":
 
@@ -538,7 +540,13 @@ class DownloadThread(threading.Thread):
                 os.remove(self.state_file)
         
         self.download_temp_files.clear()
+
+        self.app.download_list.remove(self.actionrow)
+        self.app.downloads.remove(self)
         self.download = None
+
+        self.app.check_all_status()
+
         self = None
         return
 

@@ -39,6 +39,10 @@ def window_create_sidebar(self, variaapp, variaVersion):
     about_action.connect("activate", open_downloads_folder, self, self.appconf)
     variaapp.add_action(about_action)
 
+    quit_action = Gio.SimpleAction.new("quit_varia", None)
+    quit_action.connect("activate", quit_varia, self)
+    variaapp.add_action(quit_action)
+
     downloads_folder_action = Gio.SimpleAction.new("about", None)
     downloads_folder_action.connect("activate", show_about, self, variaVersion)
     variaapp.add_action(downloads_folder_action)
@@ -54,8 +58,7 @@ def window_create_sidebar(self, variaapp, variaVersion):
     variaapp.add_action(self.exit_action)
 
     hamburger_menu_item_background = Gio.MenuItem.new(_("Background Mode"), "app.background_mode")
-    if (os.name != 'nt'):
-        hamburger_menu_model.append_item(hamburger_menu_item_background)
+    hamburger_menu_model.append_item(hamburger_menu_item_background)
 
     hamburger_menu_item_cancel_all = Gio.MenuItem.new(_("Cancel All"), "app.cancel_all_downloads")
     hamburger_menu_model.append_item(hamburger_menu_item_cancel_all)
@@ -75,6 +78,9 @@ def window_create_sidebar(self, variaapp, variaVersion):
 
     hamburger_menu_item_about = Gio.MenuItem.new(_("About Varia"), "app.about")
     hamburger_menu_model.append_item(hamburger_menu_item_about)
+
+    hamburger_menu_item_quit = Gio.MenuItem.new(_("Quit"), "app.quit_varia")
+    hamburger_menu_model.append_item(hamburger_menu_item_quit)
 
     hamburger_button.set_menu_model(hamburger_menu_model)
 
@@ -273,18 +279,18 @@ def show_about(app, variaapp, self, variaVersion):
     dialog.set_website("https://giantpinkrobots.github.io/varia")
     dialog.set_issue_url("https://github.com/giantpinkrobots/varia/issues")
     dialog.set_copyright("2023 Giant Pink Robots!\n\n" + _("This application relies on the following pieces of software:") +
-        "\n\n- aria2\n- yt-dlp\n- FFmpeg\n- GTK4\n- Libadwaita\n- Meson\n- OpenSSL\n- Python-appdirs\n- Python-aria2p\n- Python-certifi\n- Python-charset-normalizer\n- Python-gettext\n- Python-idna\n- Python-loguru\n- Python-requests\n- Python-setuptools\n- Python-urllib3\n- Python-websocket-client\n\n" +
+        "\n\n- aria2\n- yt-dlp\n- FFmpeg\n- GTK4\n- Libadwaita\n- Meson\n- OpenSSL\n- Python-appdirs\n- Python-aria2p\n- Python-certifi\n- Python-charset-normalizer\n- Python-gettext\n- Python-idna\n- Python-loguru\n- Python-requests\n- Python-setuptools\n- Python-urllib3\n- Python-websocket-client\n- Python-pystray\n- Python-dbus-next\n\n" +
         _("The licenses of all of these pieces of software can be found in the dependencies_information directory in this application's app directory."))
     dialog.set_developers(["Giant Pink Robots! (@giantpinkrobots) https://github.com/giantpinkrobots"])
     dialog.set_application_icon("io.github.giantpinkrobots.varia")
     dialog.set_translator_credits(_("translator-credits"))
     dialog.set_artists(["Jakub Steiner"])
-    dialog.set_release_notes_version("v2025.4.22")
+    dialog.set_release_notes_version("v2025.5.14")
     dialog.set_release_notes('''
-        <ul><li>Windows only: Varia now uses native window decorations for better integration and stability.</li>
-        <li>New safeguards against having the aria2c process keep running in the case of a crash.</li>
-        <li>Slight UI tweaks. The header bar also now shows the amount of downloads, and how many are completed.</li>
-        <li>Updates to translations.</li></ul>''')
+        <ul><li>Tray icon support.</li>
+        <li>New option to automatically start Varia upon bootup.</li>
+        <li>Bug fix: Pause All button malfunctioning</li>
+        <li>Additional text and translations.</li></ul>''')
 
     dialog.present(self)
 
@@ -311,3 +317,6 @@ def exit_on_completion(self, app, variaapp):
     else:
         variaapp.exit_mode = False
         variaapp.sidebar_remote_mode_label.set_text("")
+
+def quit_varia(app, self, variaapp):
+    variaapp.exitProgram(app=app, variaapp=variaapp, background=False)

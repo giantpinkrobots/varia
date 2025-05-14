@@ -131,7 +131,6 @@ def initiate(self, variaapp, variaVersion, first_run, issnap):
     )
 
     self.downloads = []
-    self.all_paused = False
 
     self.shutdown_mode = False
     self.shutdown_dialog_raised = False

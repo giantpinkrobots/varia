@@ -2,7 +2,7 @@
 
 <br>
 
-# 
+#
 <br>
 
 <p float="left" align="middle">
@@ -19,8 +19,8 @@
 
 | Download for Linux | Download for Windows | Browser Extension |
 | -------- | ------- | ------- |
-| [⬇ Flathub](https://flathub.org/apps/io.github.giantpinkrobots.varia) | [⬇ Installer](https://github.com/giantpinkrobots/varia/releases/download/v2025.4.22/varia-windows-setup-amd64.exe) | [❖ Firefox](https://addons.mozilla.org/firefox/addon/varia-integrator/) |
-| [⬇ Snap Store](https://snapcraft.io/varia) | [⬇ Portable](https://github.com/giantpinkrobots/varia/releases/download/v2025.4.22/varia-windows-portable-amd64.zip) | [❖ Chrome](https://chrome.google.com/webstore/detail/dacakhfljjhgdfdlgjpabkkjhbpcmiff) |
+| [⬇ Flathub](https://flathub.org/apps/io.github.giantpinkrobots.varia) | [⬇ Installer](https://github.com/giantpinkrobots/varia/releases/download/v2025.5.14/varia-windows-setup-amd64.exe) | [❖ Firefox](https://addons.mozilla.org/firefox/addon/varia-integrator/) |
+| [⬇ Snap Store](https://snapcraft.io/varia) | [⬇ Portable](https://github.com/giantpinkrobots/varia/releases/download/v2025.5.14/varia-windows-portable-amd64.zip) | [❖ Chrome](https://chrome.google.com/webstore/detail/dacakhfljjhgdfdlgjpabkkjhbpcmiff) |
 | [⬇ AUR (unofficial)](https://aur.archlinux.org/packages/varia) | | |
 
 <br>
@@ -94,17 +94,18 @@ To build Varia without Flatpak or GNOME Builder though, you'll need:
 - aria2 and the aria2p python package.
 - yt-dlp python package
 - FFmpeg (without GPL is okay)
+- python-dbus-next
 
 To install the ones besides aria2p on some Linux systems:
 ```
 Ubuntu, Debian, Mint etc:
-sudo apt install meson ninja-build aria2 python-setuptools libgtk-4-dev libadwaita-1-0 gettext ffmpeg
+sudo apt install meson ninja-build aria2 python3-setuptools libgtk-4-dev libadwaita-1-0 gettext ffmpeg python3-dbus-next
 
 Fedora, RHEL etc:
-sudo dnf install meson ninja-build aria2 python-setuptools gtk4-devel libadwaita gettext ffmpeg
+sudo dnf install meson ninja-build aria2 python3-setuptools gtk4-devel libadwaita gettext ffmpeg python3-dbus-next
 
 Arch, EndeavourOS, Manjaro etc:
-sudo pacman -S meson aria2 python-setuptools gtk4 libadwaita gettext ffmpeg
+sudo pacman -S meson aria2 python-setuptools gtk4 libadwaita gettext ffmpeg python-dbus-next
 ```
 To install aria2p and yt-dlp using pip (your distro probably doesn't have them in its repos - they're on the AUR for Arch):
 ```
@@ -170,11 +171,10 @@ But, it also relies on the following pieces of software and libraries:
 - Python-setuptools
 - Python-urllib3
 - Python-websocket-client
+- python-dbus-next
 
 The licenses of all of these pieces of software can be found in the dependencies_information directory.
 
 ## The name
 
 The name "Varia" comes from the aria2 software it is based on, and I added a "V" to make it "Varia". In the Metroid series of games, there is a special suit you eventually get named a "<a href=https://metroid.fandom.com/wiki/Varia_Suit>Varia Suit</a>" with its main feature being allowing Samus to withstand extreme temperatures. I spent some time thinking about how to connect the Varia Suit to my app, but couldn't, soooo... I think it just sounds cool.
-
-

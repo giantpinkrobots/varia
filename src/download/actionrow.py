@@ -122,16 +122,6 @@ def on_pause_clicked(button, self, pause_button, download_item, force_pause, run
 
 def on_stop_clicked(button, self, download_item):
     download_item.download_thread.stop()
-    self.download_list.remove(download_item)
-    if (download_item.download_thread in self.downloads):
-        self.downloads.remove(download_item.download_thread)
-    if (self.download_list.get_first_child() == None):
-        self.header_pause_content.set_icon_name("media-playback-pause-symbolic")
-        self.header_pause_content.set_label(_("Pause All"))
-        self.header_pause_button.set_sensitive(False)
-        self.content_root_overlay.add_overlay(self.status_page_widget)
-    download_item.download_thread = None
-    download_item = None
 
 def pause_button_set_retry_mode(button, self, download_item):
     GLib.idle_add(button.set_icon_name, "view-refresh-symbolic")

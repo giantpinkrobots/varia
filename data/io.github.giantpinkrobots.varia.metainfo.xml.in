@@ -109,11 +109,12 @@ Control a remote aria2 instance running on any server
 </recommends>
 
 <releases>
-<release version="v2025.4.22" date="2025-04-22">
+<release version="v2025.5.14" date="2025-05-14">
 <description translatable="yes">
-<ul><li>New safeguards against having the aria2c process keep running in the case of a crash.</li>
-<li>Slight UI tweaks. The header bar also now shows the amount of downloads, and how many are completed.</li>
-<li>Updates to translations.</li></ul>
+<ul><li>Tray icon support.</li>
+<li>New option to automatically start Varia upon bootup.</li>
+<li>Bug fix: Pause All button malfunctioning</li>
+<li>Additional text and translations.</li></ul>
 </description>
 </release>
 </releases>

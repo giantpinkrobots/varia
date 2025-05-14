@@ -13,7 +13,7 @@ while getopts "hu" flag; do
 	esac
 done
 
-echo "Installing dependencies..."
+echo "      -   Installing dependencies..."
 
 pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-python
 pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-gtk4
@@ -23,10 +23,12 @@ pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-python-gobject
 pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-python-pip
 pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-yt-dlp
 pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-pyinstaller
+pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-upx
 pacman -S --noconfirm --needed unzip
 pip install aria2p
+pip install pystray
 
-echo "Downloading aria2 and ffmpeg..."
+echo "      -   Downloading aria2 and ffmpeg..."
 
 aria2="aria2-1.37.0-win-64bit-build1"
 ffmpeg="ffmpeg-n7.1-latest-win64-lgpl-shared-7.1"
@@ -43,7 +45,7 @@ unzip -d aria2 $aria2.zip
 mkdir ffmpeg
 unzip -d ffmpeg $ffmpeg.zip
 
-echo "Generating locales..."
+echo "      -   Generating locales..."
 
 rm -rf locale
 mkdir locale
@@ -54,13 +56,22 @@ for po in po/*.po; do
 	msgfmt -o "locale/$lang/LC_MESSAGES/varia.mo" "$po"
 done
 
-echo "Building PyInstaller distributable..."
-
 rm -rf src/dist
-cp -r windows/* src/
+cp windows/icon.ico src/
+cp windows/varia.spec src/
+cp windows/varia-tray.spec src/tray/
 cd src
+
+echo "      -   Building PyInstaller distributable of the main application"
+
 pyinstaller varia.spec
-cd ..
+cd tray
+
+echo "      -   Building PyInstaller distributable of the tray process"
+
+pyinstaller -n varia-tray --noconsole tray_windows.py
+
+cd ../..
 cp -r locale src/dist/variamain/
 mkdir src/dist/variamain/icons/
 cp data/icons/hicolor/symbolic/apps/io.github.giantpinkrobots.varia-symbolic.svg src/dist/variamain/icons/
@@ -69,10 +80,13 @@ cp -r data/icons/hicolor/symbolic/ui/* src/dist/variamain/icons/
 cp -r dependencies_information src/dist/variamain/
 cp ./aria2/$aria2/aria2c.exe src/dist/variamain/
 cp -r ./ffmpeg/$ffmpeg/bin/* src/dist/variamain/
+mkdir src/dist/variamain/tray
+cp -r src/tray/dist/varia-tray/* src/dist/variamain/tray/
+cp src/tray/tray.png src/dist/variamain/tray/_internal/
 
 if [ $updater -eq 1 ]; then
 	touch src/dist/variamain/updater-function-enabled
 fi
 
-echo "Build complete."
-echo "src/dist/variamain/variamain.exe"
+echo "      -   Build complete."
+echo "      -   src/dist/variamain/variamain.exe"

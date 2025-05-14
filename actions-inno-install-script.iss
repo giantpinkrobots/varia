@@ -3,7 +3,7 @@
 [Setup]
 AppName=Varia
 AppId={{F2017E34-C494-42DB-9A2C-022CFB2C970C}
-AppVersion=v2025.4.22
+AppVersion=v2025.5.14
 AppPublisher=Giant Pink Robots!
 AppPublisherURL=https://github.com/giantpinkrobots/varia
 AppSupportURL=https://github.com/giantpinkrobots/varia
@@ -50,3 +50,8 @@ begin
     DisableUpdaterFunction();
   end;
 end;
+
+[UninstallDelete]
+Type: dirifempty; Name: "{userprofile}\.varia"
+Type: filesandordirs; Name: "{userprofile}\.varia"
+Type: regvalue; Name: "VariaAutostart"; Root: HKCU; Key: "Software\Microsoft\Windows\CurrentVersion\Run"

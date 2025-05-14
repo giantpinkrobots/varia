@@ -485,7 +485,8 @@ msgid "Enable Torrenting"
 msgstr "Torrent engedélyezése"
 
 msgid "The browser extension will not work when Remote Mode is enabled."
-msgstr "A böngészőkiegészítő nem fog működni, ha a Távoli mód engedélyezve van."
+msgstr ""
+"A böngészőkiegészítő nem fog működni, ha a Távoli mód engedélyezve van."
 
 msgid ""
 "Disabling torrenting will prevent new torrents from being added. It will not "
@@ -499,6 +500,48 @@ msgstr "Torrent letiltva."
 
 msgid "Unknown filesize"
 msgstr "Ismeretlen fájlméret"
+
+#, fuzzy
+#| msgid "Show Menu"
+msgid "Show"
+msgstr "Menü megjelenítése"
+
+#, fuzzy
+#| msgctxt "shortcut window"
+#| msgid "Quit"
+msgid "Quit"
+msgstr "Kilépés"
+
+#, fuzzy
+#| msgid "Background Mode"
+msgid "Background Mode on Close"
+msgstr "Háttér mód"
+
+msgid "Upon closing, Varia will close to tray insted of exiting."
+msgstr ""
+
+# Tray icon always visible option
+msgid "Tray Icon Always Visible"
+msgstr ""
+
+msgid ""
+"The tray icon will be visible even when Varia is not in background mode."
+msgstr ""
+
+# Open on startup option
+msgid "Open on Startup"
+msgstr ""
+
+msgid "Varia will open automatically when the system starts."
+msgstr ""
+
+# Start on background mode subtitle
+msgid "Varia will start directly in background mode upon opening."
+msgstr ""
+
+# Remote mode additional explanation
+msgid "Use Varia as a GUI for a remote aria2c instance."
+msgstr ""
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
@@ -515,5 +558,5 @@ msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Kilépés"
 
-msgid "Torrenting Disabled"
-msgstr "Torrent letiltva"
+#~ msgid "Torrenting Disabled"
+#~ msgstr "Torrent letiltva"
