@@ -54,4 +54,4 @@ end;
 [UninstallDelete]
 Type: dirifempty; Name: "{%USERPROFILE}\.varia"
 Type: filesandordirs; Name: "{%USERPROFILE}\.varia"
-Type: regvalue; Name: "VariaAutostart"; Root: HKCU; Key: "Software\Microsoft\Windows\CurrentVersion\Run"
+Type: regvalue; Root: HKCU; Key: "Software\Microsoft\Windows\CurrentVersion\Run"; Name: "VariaAutostart"
