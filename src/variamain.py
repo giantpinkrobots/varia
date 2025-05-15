@@ -113,6 +113,8 @@ class MainWindow(application_window):
         #set_aria2c_download_simultaneous_amount(self)
         set_aria2c_custom_global_option(self, "max-concurrent-downloads", str(self.appconf["download_simultaneous_amount"]))
 
+        set_aria2c_custom_global_option(self, "split", str(self.appconf["download_segments"]))
+
         # Start checking for simultaneous download amount limit:
         thread = threading.Thread(target=lambda: deal_with_simultaneous_download_limit(self))
         thread.start()
@@ -629,6 +631,7 @@ def main(version, aria2cexec, ffmpegexec, issnap):
         'auth_password': '',
         'download_directory': download_directory,
         'download_simultaneous_amount': '5',
+        'download_segments': '5',
         'remote': '0',
         'remote_protocol': 'https://',
         'remote_ip': '',
