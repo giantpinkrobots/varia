@@ -186,6 +186,12 @@ def show_preferences(button, self, app, variaVersion):
     simultaneous_download_amount_spinrow.set_value(float(self.appconf["download_simultaneous_amount"]))
     simultaneous_download_amount_spinrow.connect("changed", on_simultaneous_download_amount_changed, self)
 
+    split_downloads_spinrow = Adw.SpinRow(adjustment=Gtk.Adjustment(step_increment=1.0))
+    split_downloads_spinrow.set_title(_("Download Segments"))
+    split_downloads_spinrow.set_range(1.0, 20.0)
+    split_downloads_spinrow.set_value(float(self.appconf["download_segments"]))
+    split_downloads_spinrow.connect("changed", on_split_downloads_changed, self)
+
     # Start in background:
 
     start_in_background = Adw.SwitchRow()
@@ -215,7 +221,7 @@ def show_preferences(button, self, app, variaVersion):
         tray_icon_always_visible.set_active("active")
 
     # Open on startup
-    
+
     open_on_startup = Adw.SwitchRow()
     open_on_startup.set_title(_("Open on Startup"))
     open_on_startup.set_subtitle(_("Varia will open automatically when the system starts."))
@@ -230,6 +236,7 @@ def show_preferences(button, self, app, variaVersion):
     group_1.add(speed_limit_expander_box)
     group_1.add(scheduler_actionrow)
     group_1.add(simultaneous_download_amount_spinrow)
+    group_1.add(split_downloads_spinrow)
 
     group_tray.add(use_tray_icon)
     group_tray.add(tray_icon_always_visible)
@@ -668,6 +675,12 @@ def on_simultaneous_download_amount_changed(spinrow, self):
 
     #set_aria2c_download_simultaneous_amount(self)
     set_aria2c_custom_global_option(self, "max-concurrent-downloads", str(self.appconf["download_simultaneous_amount"]))
+
+def on_split_downloads_changed(spinrow, self):
+    self.appconf["download_segments"] = str(int(spinrow.get_value()))
+    self.save_appconf()
+
+    set_aria2c_custom_global_option(self, "split", str(self.appconf["download_segments"]))
 
 def set_remote(self, remote_protocol, remote_ip, remote_port, remote_secret, remote_location, switch, preferencesWindow):
     if (remote_protocol.get_selected() == 0):
