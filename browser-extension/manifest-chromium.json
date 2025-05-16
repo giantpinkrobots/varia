@@ -10,11 +10,10 @@
   "action": {
     "default_popup": "popup.html"
   },
-  "permissions": ["downloads", "storage"],
+  "permissions": ["downloads", "storage", "contextMenus", "tabs"],
   "host_permissions": ["http://localhost:6801/jsonrpc"],
   "manifest_version": 3,
   "background": {
     "service_worker": "background.js"
   }
 }
-
