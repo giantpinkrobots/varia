@@ -14,6 +14,7 @@ import stringstorage
 import atexit
 import signal
 from multiprocessing.connection import Listener
+from http.server import BaseHTTPRequestHandler, HTTPServer
 
 from download.actionrow import on_download_clicked
 from download.listen import deal_with_simultaneous_download_limit
@@ -191,6 +192,8 @@ class MainWindow(application_window):
 
         self.tray_notification = False
 
+        self.start_video_process(self)
+
     def start_tray_process(self, variaapp):
         if self.tray_process == None: # If tray process is not already running
             if os.name == 'nt':
@@ -243,6 +246,43 @@ class MainWindow(application_window):
             )
 
             self.tray_process_connection_thread = threading.Thread(target=tray_process_connection, daemon=True).start()
+
+    def start_video_process(self, window):
+        class VideoRequestHandler(BaseHTTPRequestHandler):
+            def __init__(self, window, *args, **kwargs):
+                self.window = window
+                super().__init__(*args, **kwargs)
+
+            def do_POST(self):
+                content_length = int(self.headers['Content-Length'])
+                data = self.rfile.read(content_length)
+
+                url_json = json.loads(data.decode())
+
+                url = url_json['url']
+
+                self.window.unminimize()
+                self.window.set_visible(True)
+                self.window.download_entry.set_text(url)
+                self.window.video_button.emit("clicked")
+
+                # Process the video data here
+                self.send_response(200)
+                self.end_headers()
+
+        class VideoRequestServer(HTTPServer):
+            def __init__(self, window, *args, **kwargs):
+                self.window = window
+                super().__init__(*args, **kwargs)
+
+            def finish_request(self, request, client_address):
+                handler = self.RequestHandlerClass(window=self.window, request=request, client_address=client_address, server=self)
+                return handler
+
+        self.video_server = VideoRequestServer(window=window, server_address=('localhost', 6803), RequestHandlerClass=VideoRequestHandler)
+
+        self.video_thread = threading.Thread(target=self.video_server.serve_forever)
+        self.video_thread.start()
 
     def filter_download_list(self, button, filter_mode):
         if (button != "no"):
@@ -519,6 +559,8 @@ class MainWindow(application_window):
                 if self.tray_process:
                     self.tray_process.kill()
                     self.tray_connection_thread_stop = True
+
+                self.video_server.shutdown()
 
                 exiting_dialog = Adw.AlertDialog()
                 exiting_dialog_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=25)
