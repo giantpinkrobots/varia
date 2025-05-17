@@ -93,8 +93,8 @@ def window_create_sidebar(self, variaapp, variaVersion):
     box_add_download.set_margin_top(8)
     box_add_download.set_margin_bottom(8)
 
-    download_entry = Gtk.Entry()
-    download_entry.set_placeholder_text(_("URL"))
+    self.download_entry = Gtk.Entry()
+    self.download_entry.set_placeholder_text(_("URL"))
 
     self.download_button_icon = Gtk.Image.new_from_icon_name("folder-download-symbolic")
     self.download_button_text = Gtk.Label(label=_("Download"))
@@ -106,7 +106,7 @@ def window_create_sidebar(self, variaapp, variaVersion):
     self.download_button.set_child(download_button_box)
     self.download_button.add_css_class("suggested-action")
     self.download_button.set_sensitive(False)
-    self.download_button.connect("clicked", on_download_clicked, self, download_entry, None, None, "regular", None, False, self.appconf["download_directory"])
+    self.download_button.connect("clicked", on_download_clicked, self, self.download_entry, None, None, "regular", None, False, self.appconf["download_directory"])
 
     self.video_button_icon = Gtk.Image.new_from_icon_name("camera-video-symbolic")
     self.video_button_text = Gtk.Label(label=_("Video / Audio"))
@@ -118,9 +118,9 @@ def window_create_sidebar(self, variaapp, variaVersion):
     self.video_button.set_child(video_button_box)
     self.video_button.add_css_class("suggested-action")
     self.video_button.set_sensitive(False)
-    self.video_button.connect("clicked", on_video_clicked, self, download_entry)
+    self.video_button.connect("clicked", on_video_clicked, self, self.download_entry)
 
-    download_entry.connect('changed', on_download_entry_changed, self.download_button, self.video_button)
+    self.download_entry.connect('changed', on_download_entry_changed, self.download_button, self.video_button)
 
     self.add_torrent_button = Gtk.Button()
     self.add_torrent_button.connect("clicked", on_add_torrent_clicked, self)
@@ -139,7 +139,7 @@ def window_create_sidebar(self, variaapp, variaVersion):
 
     self.add_torrent_button.set_child(self.torrent_button_box)
 
-    box_add_download.append(download_entry)
+    box_add_download.append(self.download_entry)
     box_add_download.append(self.download_button)
     box_add_download.append(self.video_button)
     box_add_download.append(Gtk.Separator(margin_top=8, margin_bottom=8))

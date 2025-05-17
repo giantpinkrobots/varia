@@ -11,7 +11,10 @@
     "default_popup": "popup.html"
   },
   "permissions": ["downloads", "storage", "contextMenus", "tabs"],
-  "host_permissions": ["http://localhost:6801/jsonrpc"],
+  "host_permissions": [
+    "http://localhost:6801/jsonrpc",
+    "http://localhost:6803/video"
+  ],
   "manifest_version": 3,
   "background": {
     "service_worker": "background.js"

@@ -49,7 +49,7 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
 async function handleContextMenu(tab) {
   if (tab.url.includes("youtube.com/watch")) {
     chrome.contextMenus.create({
-      title: "Download video with Varia",
+      title: "Download with Varia...",
       id: "varia-video-download",
     });
   } else {
