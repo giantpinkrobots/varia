@@ -14,26 +14,54 @@ chrome.downloads.onCreated.addListener(function(downloadItem) {
 
   chrome.storage.sync.get('enabled', function(data) {
     if (data.enabled) {
-      sendToAria2(downloadItem);
+      sendToAria2(downloadItem, "file");
     }
   });
 });
 
-function sendToAria2(downloadItem) {
-  fetch('http://localhost:6801/jsonrpc', {
-    method: 'POST',
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.type === 'VIDEO_BUTTON_CLICKED') {
+    console.log('Video button clicked');
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      const currentTab = tabs[0];
+      sendToAria2(currentTab.url, "video");
+      console.log('Video sent: ' + currentTab.url);
+    });
+  }
+});
+
+function sendToAria2(downloadItem, downloadType) {
+  let jsonParams;
+
+  if (downloadType === "file") {
+    jsonParams = [[downloadItem.url], { pause: "true" }];
+  } else if (downloadType === "video") {
+    jsonParams = [[downloadItem], {
+      pause: "true",
+      out: "varia-video-download.variavideo"
+    }];
+  }
+
+  fetch("http://localhost:6801/jsonrpc", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      jsonrpc: '2.0',
-      id: '1',
-      method: 'aria2.addUri',
-      params: [[downloadItem.url], {"pause": "true"}]
+      jsonrpc: "2.0",
+      id: "1",
+      method: "aria2.addUri",
+      params: jsonParams
     })
-  }).then(response => {
-    chrome.downloads.cancel(downloadItem.id);
-  }).catch(error => {
-
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log("Aria2 response:", data);
+    if (downloadType === "file") {
+      chrome.downloads.cancel(downloadItem.id);
+    }
+  })
+  .catch(error => {
+    console.error("Failed to send to Aria2:", error);
   });
 }

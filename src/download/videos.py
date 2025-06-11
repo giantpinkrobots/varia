@@ -18,8 +18,12 @@ def format_filesize(filesize):
     return f"{filesize:.2f} TB"
 
 def on_video_clicked(button, self, entry):
-    url = entry.get_text()
-    entry.set_text("")
+    if isinstance(entry, str):
+        url = entry
+    
+    else:
+        url = entry.get_text()
+        entry.set_text("")
 
     # Show loading screen
     loading_dialog = Adw.AlertDialog()

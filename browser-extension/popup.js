@@ -8,3 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     chrome.storage.sync.set({enabled: enabled});
   });
 });
+
+document.querySelector('.video-button').addEventListener('click', () => {
+  chrome.runtime.sendMessage({ type: 'VIDEO_BUTTON_CLICKED' });
+});

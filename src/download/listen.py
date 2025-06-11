@@ -5,6 +5,7 @@ gi.require_version('Adw', '1')
 from gi.repository import Adw, GLib, Gio
 from download.actionrow import create_actionrow
 from download.thread import DownloadThread
+from download.videos import on_video_clicked
 import string
 import random
 import textwrap
@@ -59,15 +60,27 @@ def listen_to_aria2(self, variaapp):
         downloads_in_frontend_files = set(downloads_in_frontend_files)
 
         for download_item_to_be_added in self.api.get_downloads():
-            new_download_files = download_item_to_be_added.files
 
-            if ( (download_item_to_be_added.gid not in downloads_in_frontend_gids) # If the download wasn't already added
-                    and (download_item_to_be_added.is_metadata == False) # If the download isn't just metadata
-                    and (download_item_to_be_added.is_complete == False) # If the download is not complete
-                    and ((any(item in new_download_files for item in downloads_in_frontend_files)) == False) ): # Make sure it's not a duplicate
-                if not download_item_to_be_added.is_torrent:
-                    print('Download added directly to aria2c, adding it to the UI: ' + download_item_to_be_added.files[0].uris[0]["uri"])
-                add_download_to_ui(self, download_item_to_be_added, variaapp)
+            # Handle videos:
+            downloadurl = download_item_to_be_added.files[0].uris[0]["uri"]
+            if download_item_to_be_added.name == "varia-video-download.variavideo":
+                download_item_to_be_added.remove(force=True)
+                on_video_clicked(None, self, downloadurl)
+                self.unminimize()
+                self.set_visible(True)
+                self.present()
+                print("Video added through browser extension")
+            
+            else:
+                new_download_files = download_item_to_be_added.files
+
+                if ( (download_item_to_be_added.gid not in downloads_in_frontend_gids) # If the download wasn't already added
+                        and (download_item_to_be_added.is_metadata == False) # If the download isn't just metadata
+                        and (download_item_to_be_added.is_complete == False) # If the download is not complete
+                        and ((any(item in new_download_files for item in downloads_in_frontend_files)) == False) ): # Make sure it's not a duplicate
+                    if not download_item_to_be_added.is_torrent:
+                        print('Download added directly to aria2c, adding it to the UI: ' + download_item_to_be_added.files[0].uris[0]["uri"])
+                    add_download_to_ui(self, download_item_to_be_added, variaapp)
 
         if currently_downloading == True:
             self.shutdown_action.set_enabled(True)
