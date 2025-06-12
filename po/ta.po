@@ -1,0 +1,555 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-30 03:17+0300\n"
+"PO-Revision-Date: 2025-04-13 22:08+0000\n"
+"Last-Translator: Giant Pink Robots! <giantpinkrobots@protonmail.com>\n"
+"Language-Team: Tamil <https://hosted.weblate.org/projects/varia/varia/ta/>\n"
+"Language: ta\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11-dev\n"
+
+#. Translators: Do NOT translate or localize the application name.
+#: data/io.github.giantpinkrobots.varia.desktop.in:4
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:3
+msgid "Varia"
+msgstr "வரியா"
+
+#. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
+#: data/io.github.giantpinkrobots.varia.desktop.in:11
+msgid "varia;aria;download;manager;"
+msgstr "வரியா; ஏரியா; பதிவிறக்கம்; மேலாளர்;"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
+msgid "Download manager based on aria2"
+msgstr "ARIA2 இன் அடிப்படையில் மேலாளரைப் பதிவிறக்கவும்"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
+msgid ""
+"Varia is a download manager based on aria2 that utilizes GTK4 and Libadwaita "
+"to provide a easy to use interface that integrates well with the GNOME "
+"desktop."
+msgstr ""
+"வரியா என்பது ARIA2 ஐ அடிப்படையாகக் கொண்ட ஒரு பதிவிறக்க மேலாளராகும், இது GTK4 மற்றும் "
+"லிபாட்வைட்டாவைப் பயன்படுத்தி க்னோம் டெச்க்டாப்புடன் நன்கு ஒருங்கிணைக்கும் இடைமுகத்தை எளிதாகப் "
+"பயன்படுத்துகிறது."
+
+#: src/variamain.py:45
+msgid "This is not a valid URL."
+msgstr "இது சரியான முகவரி அல்ல."
+
+#: src/variamain.py:125
+msgid "All"
+msgstr "அனைத்தும்"
+
+#: src/variamain.py:137
+msgid "In Progress"
+msgstr "முன்னேற்றத்தில் உள்ளது"
+
+#: src/variamain.py:148
+msgid "Completed"
+msgstr "முடிந்தது"
+
+#: src/variamain.py:171
+msgid "About Varia"
+msgstr "வரியாவை பற்றி"
+
+#: src/variamain.py:177
+msgid "URL"
+msgstr "உரலி"
+
+#: src/variamain.py:178
+msgid "Download"
+msgstr "பதிவிறக்கம்"
+
+#: src/variamain.py:184
+msgid "Open Download Folder"
+msgstr "பதிவிறக்க கோப்புறை திறந்த"
+
+#: src/variamain.py:196
+msgid "Speed Limit"
+msgstr "வேக வரம்பு"
+
+#: src/variamain.py:203 src/variamain.py:423
+msgid "Pause All"
+msgstr "அனைத்தையும் இடைநிறுத்துங்கள்"
+
+#: src/variamain.py:212
+msgid "Speed"
+msgstr "வேகம்"
+
+#: src/variamain.py:215
+msgid "Set Speed Limit"
+msgstr "வேக வரம்பை அமைக்கவும்"
+
+#: src/variamain.py:216
+msgid "Cancel All"
+msgstr "ஆனைத்தையும் ரத்து செய்"
+
+#: src/variamain.py:235
+msgid "/s"
+msgstr "/கள்"
+
+#: src/variamain.py:238
+msgid "No limit"
+msgstr "வரம்பு இல்லை"
+
+#: src/variamain.py:274
+msgid "Download complete."
+msgstr "முழுமையான பதிவிறக்கம்."
+
+#: src/variamain.py:276
+msgid "Download speed is limited."
+msgstr "பதிவிறக்க விரைவு குறைவாக உள்ளது."
+
+#: src/variamain.py:277
+msgid "An error occurred:"
+msgstr "பிழை ஏற்பட்டது:"
+
+#: src/variamain.py:292
+msgid "MB/s"
+msgstr "Mb/s"
+
+#: src/variamain.py:294
+msgid "KB/s"
+msgstr "Kb/s"
+
+#: src/variamain.py:298
+msgid "0 B/s"
+msgstr "0 பி/வி"
+
+#: src/variamain.py:300
+msgid " MB/s"
+msgstr " Mb/s"
+
+#: src/variamain.py:302
+msgid " KB/s"
+msgstr " Kb/s"
+
+#: src/variamain.py:304
+msgid " B/s"
+msgstr " B/s"
+
+#: src/variamain.py:404
+msgid "Simultaneous Download Amount"
+msgstr "ஒரே நேரத்தில் பதிவிறக்க தொகை"
+
+#: src/variamain.py:410
+msgid "Resume All"
+msgstr "அனைத்தையும் மீண்டும் தொடங்குங்கள்"
+
+#: src/variamain.py:443
+msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
+msgstr ""
+"ARIA2 அடிப்படையிலான பதிவிறக்க மேலாளர் GTK4 மற்றும் Libadwaita ஐப் பயன்படுத்துகிறார்."
+
+#: src/variamain.py:777
+msgid "This application relies on the following pieces of software:"
+msgstr "இந்த பயன்பாடு பின்வரும் மென்பொருள்களை நம்பியுள்ளது:"
+
+#: src/variamain.py:777
+msgid ""
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
+msgstr ""
+"இந்த அனைத்து மென்பொருள்களின் உரிமங்களையும் இந்த பயன்பாட்டின் பயன்பாட்டு கோப்பகத்தில் உள்ள "
+"சார்பு_ செய்தி கோப்பகத்தில் காணலாம்."
+
+# This is for the credits section. Replace this string with your own information so you'll be credited for your work.
+#: src/variamain.py:449
+msgid "translator-credits"
+msgstr "மொழிபெயர்ப்பாளர்-வரவு"
+
+#: src/variamain.py:457
+msgid "Download Directory"
+msgstr "கோப்பகத்தைப் பதிவிறக்கவும்"
+
+#: src/variamain.py:460
+msgid "Change"
+msgstr "மாற்றம்"
+
+#: src/variamain.py:463
+msgid "Speed limited"
+msgstr "ச்பீட் லிமிடெட்"
+
+#: src/variamain.py:519
+msgid "Authentication"
+msgstr "ஏற்பு"
+
+#: src/variamain.py:532
+msgid "Username"
+msgstr "பயனர்பெயர்"
+
+#: src/variamain.py:534
+msgid "Password"
+msgstr "கடவுச்சொல்"
+
+#: src/variamain.py:554
+msgid "Authorization failed."
+msgstr "ஏற்பு தோல்வியடைந்தது."
+
+#: src/variamain.py:806
+msgid "Failed to open directory."
+msgstr "கோப்பகத்தைத் திறக்கத் தவறிவிட்டது."
+
+msgid "Remote Mode"
+msgstr "தொலைநிலை பயன்முறை"
+
+msgid "Remote aria2 IP"
+msgstr "ரிமோட் ARIA2 IP"
+
+msgid "Remote aria2 Port"
+msgstr "ரிமோட் ARIA2 துறைமுகம்"
+
+msgid "Remote aria2 RPC Secret"
+msgstr "ரிமோட் ARIA2 RPC மறைபொருள்"
+
+msgid "Remote Download Location"
+msgstr "தொலைநிலை பதிவிறக்க இடம்"
+
+msgid "Exiting Varia..."
+msgstr "வரியாவிலிருந்து வெளியேறுதல் ..."
+
+msgid "Background Mode"
+msgstr "பின்னணி முறை"
+
+msgid "Continuing the downloads in the background."
+msgstr "பின்னணியில் பதிவிறக்கங்களைத் தொடர்கிறது."
+
+msgid "Browser Extension"
+msgstr "உலாவி நீட்டிப்பு"
+
+msgid "Shutdown on Completion"
+msgstr "முடிந்ததும் பணிநிறுத்தம்"
+
+msgid "Varia is about to shut down your computer."
+msgstr "வரியா உங்கள் கணினியை மூட உள்ளது."
+
+msgid "Press Cancel to cancel and disable."
+msgstr "ரத்துசெய் மற்றும் முடக்க ரத்துசெய்."
+
+msgid "Cancel"
+msgstr "ரத்துசெய்"
+
+msgid "Warning"
+msgstr "எச்சரிக்கை"
+
+msgid "Monday"
+msgstr "திங்கள்"
+
+msgid "Tuesday"
+msgstr "செவ்வாய்க்கிழமை"
+
+msgid "Wednesday"
+msgstr "புதன்கிழமை"
+
+msgid "Thursday"
+msgstr "வியாழக்கிழமை"
+
+msgid "Friday"
+msgstr "வெள்ளிக்கிழமை"
+
+msgid "Saturday"
+msgstr "காரிக்கிழமை"
+
+msgid "Sunday"
+msgstr "ஞாயிற்றுக்கிழமை"
+
+msgid "Start (h/m):"
+msgstr "தொடக்க (h/m):"
+
+msgid "End (h/m):"
+msgstr "முடிவு (h/m):"
+
+msgid "Scheduler enabled"
+msgstr "திட்டமிடல் இயக்கப்பட்டது"
+
+msgid "Scheduler"
+msgstr "திட்டமிடுபவர்"
+
+msgid "Enabled"
+msgstr "இயக்கப்பட்டது"
+
+msgid "Start downloading in these times"
+msgstr "இந்த காலங்களில் பதிவிறக்கத் தொடங்குங்கள்"
+
+msgid "Stop downloading in these times"
+msgstr "இந்த காலங்களில் பதிவிறக்குவதை நிறுத்துங்கள்"
+
+msgid "Add Timespan"
+msgstr "டைம்ச்பான் சேர்க்கவும்"
+
+#: When a download is currently seeding:
+msgid "Seeding"
+msgstr "விதைப்பு"
+
+msgid "Failed"
+msgstr "தோல்வியுற்றது"
+
+msgid "Completion Options"
+msgstr "நிறைவு விருப்பங்கள்"
+
+msgid "Exit on Completion"
+msgstr "முடிந்ததும் வெளியேறவும்"
+
+msgid "Varia is about to quit."
+msgstr "வரியா வெளியேறப் போகிறது."
+
+msgid "Preferences"
+msgstr "விருப்பத்தேர்வுகள்"
+
+msgid "Other"
+msgstr "மற்றொன்று"
+
+msgid "Basic Settings"
+msgstr "அடிப்படை அமைப்புகள்"
+
+msgid "Advanced Settings"
+msgstr "மேம்பட்ட அமைப்புகள்"
+
+msgid "Use cookies.txt"
+msgstr "குக்கீகள் பயன்படுத்தவும்"
+
+msgid "Import cookies.txt"
+msgstr "குக்கீகள் இறக்குமதி"
+
+msgid "Remove cookies.txt"
+msgstr "குக்கீகளை அகற்று"
+
+msgid "remaining"
+msgstr "மீதமுள்ள"
+
+msgid "Start in Background Mode"
+msgstr "பின்னணி பயன்முறையில் தொடங்கவும்"
+
+msgid "Remote Timestamp"
+msgstr "தொலைநிலை நேர முத்திரை"
+
+msgid "Torrent"
+msgstr "டொரண்ட்"
+
+# Updater
+msgid "Checking for updates..."
+msgstr "புதுப்பிப்புகளைச் சரிபார்க்கிறது ..."
+
+msgid "A new version of Varia is available. Do you want to update?"
+msgstr "வரியாவின் புதிய பதிப்பு கிடைக்கிறது. நீங்கள் புதுப்பிக்க விரும்புகிறீர்களா?"
+
+msgid "Update available"
+msgstr "புதுப்பிப்பு கிடைக்கிறது"
+
+msgid "Update"
+msgstr "புதுப்பிப்பு"
+
+msgid "Downloading update..."
+msgstr "புதுப்பிப்பைப் பதிவிறக்குகிறது ..."
+
+msgid "Download failed."
+msgstr "பதிவிறக்கம் தோல்வியடைந்தது."
+
+msgid "Yes"
+msgstr "ஆம்"
+
+msgid "No"
+msgstr "இல்லை"
+
+msgid "Automatically Check for Updates"
+msgstr "புதுப்பிப்புகளை தானாக சரிபார்க்கவும்"
+
+msgid "Check Now"
+msgstr "இப்போது சரிபார்க்க"
+
+msgid "Do you want to check for updates on startup?"
+msgstr "தொடக்க குறித்த புதுப்பிப்புகளை சரிபார்க்க விரும்புகிறீர்களா?"
+
+msgid "File"
+msgstr "கோப்பு"
+
+msgid "Video / Audio"
+msgstr "வீடியோ / ஆடியோ"
+
+msgid "Video and audio"
+msgstr "வீடியோ மற்றும் ஆடியோ"
+
+msgid "Video only"
+msgstr "வீடியோ மட்டும்"
+
+msgid "Audio only"
+msgstr "ஆடியோ மட்டும்"
+
+#: Relating to video download:
+msgid "Framerate:"
+msgstr "பிரேம்ரேட்:"
+
+#: Relating to video download:
+msgid "Bitrate:"
+msgstr "பிட்ரேட்:"
+
+msgid "Checking video..."
+msgstr "வீடியோவை சரிபார்க்கிறது ..."
+
+msgid "No video or audio streams found"
+msgstr "வீடியோ அல்லது ஆடியோ ச்ட்ரீம்கள் எதுவும் கிடைக்கவில்லை"
+
+msgid "Starting download..."
+msgstr "பதிவிறக்கத் தொடங்குகிறது ..."
+
+msgid ""
+"The video platform may not be supported or you may be being blocked by the "
+"platform. If you have an active VPN connection that might be the cause, or "
+"you can try importing your browser's cookies through a cookies.txt file."
+msgstr ""
+"வீடியோ தளம் ஆதரிக்கப்படாமல் இருக்கலாம் அல்லது நீங்கள் மேடையில் தடுக்கப்படலாம். உங்களிடம் "
+"செயலில் உள்ள VPN இணைப்பு இருந்தால், அது காரணமாக இருக்கலாம், அல்லது உங்கள் உலாவியின் "
+"குக்கீகளை குக்கீகள்.டெக்ச்ட் கோப்பு மூலம் இறக்குமதி செய்ய முயற்சி செய்யலாம்."
+
+msgid "This will disable the video download functionality."
+msgstr "இது வீடியோ பதிவிறக்க செயல்பாட்டை முடக்கும்."
+
+#: Relating to video download progress where it says "Part 1/2" - {indicator}
+#: is replaced by "1/2" or "2/2" (don't translate {indicator})
+msgid "Part {indicator}"
+msgstr "பகுதி {indicator}"
+
+msgid "Simultaneous download limit exceeded, waiting."
+msgstr "ஒரே நேரத்தில் பதிவிறக்க வரம்பு மீறியது, காத்திருக்கிறது."
+
+#: The way percentages will be shown, like 10% or %10 depending on the language
+#: (don't translate {number}, just move it if needed)
+msgid "{number}%"
+msgstr "{number}%"
+
+msgid "Allow Seeding"
+msgstr "விதைப்பதை அனுமதிக்கவும்"
+
+msgid "Seeding Ratio Limit"
+msgstr "விதைப்பு விகித வரம்பு"
+
+msgid "Torrent Settings"
+msgstr "டொரண்ட் அமைப்புகள்"
+
+msgid "Custom Download Directory for Torrents"
+msgstr "தனிப்பயன் பதிவிறக்கம் Directory க்கு Torrents"
+
+#: When the user attempts to disable seeding
+msgid ""
+"As torrenting relies on people seeding data, disabling seeding is very much "
+"frowned upon and may result in you getting throttled or banned by certain "
+"clients and trackers. Clients are usually expected to seed at least as much "
+"as they download (a ratio of 1). You may want to consider limiting your "
+"seeding ratio instead."
+msgstr ""
+"டோரண்டிங் மக்கள் தரவை விதைப்பதை நம்பியிருப்பதால், விதைப்பதை முடக்குவது மிகவும் கோபமாக "
+"உள்ளது, மேலும் சில வாடிக்கையாளர்கள் மற்றும் டிராக்கர்களால் நீங்கள் தூண்டப்படவோ அல்லது தடை "
+"செய்யவோ காரணமாக இருக்கலாம். வாடிக்கையாளர்கள் வழக்கமாக பதிவிறக்கும்போது குறைந்தபட்சம் "
+"விதை செய்வார்கள் என்று எதிர்பார்க்கப்படுகிறது (1 என்ற விகிதம்). அதற்கு பதிலாக உங்கள் "
+"விதைப்பு விகிதத்தை கட்டுப்படுத்துவதை நீங்கள் பரிசீலிக்க விரும்பலாம்."
+
+msgid "Cancel Seeding"
+msgstr "விதைப்பு ரத்துசெய்"
+
+# Save button
+msgid "Save"
+msgstr "சேமி"
+
+msgid "Show Menu"
+msgstr "மெனுவைக் காட்டு"
+
+msgid "OK"
+msgstr "சரி"
+
+# Snap version permission warning
+msgid ""
+"You are using Varia as a Snap package. To be able to use the shutdown on "
+"completion option you must first give Varia the related permission. To do "
+"this, open a terminal window and execute this command and then restart Varia:"
+msgstr ""
+"நீங்கள் வரியாவை ச்னாப் தொகுப்பாகப் பயன்படுத்துகிறீர்கள். நிறைவு விருப்பத்தில் பணிநிறுத்தத்தைப் "
+"பயன்படுத்த நீங்கள் முதலில் வெரியாவுக்கு தொடர்புடைய அனுமதியை வழங்க வேண்டும். இதைச் செய்ய, "
+"ஒரு முனைய சாளரத்தைத் திறந்து இந்த கட்டளையை இயக்கவும், பின்னர் மாறுபாட்டை மறுதொடக்கம் "
+"செய்யவும்:"
+
+msgid "Enable Torrenting"
+msgstr "டொரெண்டிங் இயக்கவும்"
+
+msgid "The browser extension will not work when Remote Mode is enabled."
+msgstr "தொலைநிலை பயன்முறை இயக்கப்பட்டால் உலாவி நீட்டிப்பு இயங்காது."
+
+msgid ""
+"Disabling torrenting will prevent new torrents from being added. It will not "
+"stop current torrent instances."
+msgstr ""
+"நீரோட்டத்தை முடக்குவது புதிய நீரோடைகள் சேர்க்கப்படுவதைத் தடுக்கும். இது தற்போதைய டொரண்ட் "
+"நிகழ்வுகளை நிறுத்தாது."
+
+msgid "Torrenting is disabled."
+msgstr "டோரண்டிங் முடக்கப்பட்டுள்ளது."
+
+msgid "Unknown filesize"
+msgstr ""
+
+#, fuzzy
+#| msgid "Show Menu"
+msgid "Show"
+msgstr "மெனுவைக் காட்டு"
+
+#, fuzzy
+#| msgctxt "shortcut window"
+#| msgid "Quit"
+msgid "Quit"
+msgstr "வெளியேறு"
+
+#, fuzzy
+#| msgid "Background Mode"
+msgid "Background Mode on Close"
+msgstr "பின்னணி முறை"
+
+msgid "Upon closing, Varia will close to tray insted of exiting."
+msgstr ""
+
+# Tray icon always visible option
+msgid "Tray Icon Always Visible"
+msgstr ""
+
+msgid ""
+"The tray icon will be visible even when Varia is not in background mode."
+msgstr ""
+
+# Open on startup option
+msgid "Open on Startup"
+msgstr ""
+
+msgid "Varia will open automatically when the system starts."
+msgstr ""
+
+# Start on background mode subtitle
+msgid "Varia will start directly in background mode upon opening."
+msgstr ""
+
+# Remote mode additional explanation
+msgid "Use Varia as a GUI for a remote aria2c instance."
+msgstr ""
+
+#: src/gtk/help-overlay.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "பொது"
+
+#: src/gtk/help-overlay.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "குறுக்குவழிகளைக் காட்டு"
+
+#: src/gtk/help-overlay.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "வெளியேறு"

@@ -20,7 +20,7 @@ def window_create_sidebar(self, variaapp, variaVersion):
     sidebar_box.append(header_bar)
 
     preferences_button = Gtk.Button(tooltip_text=_("Preferences"))
-    preferences_button.set_icon_name("emblem-system-symbolic")
+    preferences_button.set_icon_name("applications-system-symbolic")
     preferences_button.connect("clicked", show_preferences, self, variaapp, variaVersion)
 
     hamburger_button = Gtk.MenuButton(tooltip_text=_("Other"))
@@ -39,6 +39,10 @@ def window_create_sidebar(self, variaapp, variaVersion):
     about_action.connect("activate", open_downloads_folder, self, self.appconf)
     variaapp.add_action(about_action)
 
+    quit_action = Gio.SimpleAction.new("quit_varia", None)
+    quit_action.connect("activate", quit_varia, self)
+    variaapp.add_action(quit_action)
+
     downloads_folder_action = Gio.SimpleAction.new("about", None)
     downloads_folder_action.connect("activate", show_about, self, variaVersion)
     variaapp.add_action(downloads_folder_action)
@@ -54,8 +58,7 @@ def window_create_sidebar(self, variaapp, variaVersion):
     variaapp.add_action(self.exit_action)
 
     hamburger_menu_item_background = Gio.MenuItem.new(_("Background Mode"), "app.background_mode")
-    if (os.name != 'nt'):
-        hamburger_menu_model.append_item(hamburger_menu_item_background)
+    hamburger_menu_model.append_item(hamburger_menu_item_background)
 
     hamburger_menu_item_cancel_all = Gio.MenuItem.new(_("Cancel All"), "app.cancel_all_downloads")
     hamburger_menu_model.append_item(hamburger_menu_item_cancel_all)
@@ -75,6 +78,9 @@ def window_create_sidebar(self, variaapp, variaVersion):
 
     hamburger_menu_item_about = Gio.MenuItem.new(_("About Varia"), "app.about")
     hamburger_menu_model.append_item(hamburger_menu_item_about)
+
+    hamburger_menu_item_quit = Gio.MenuItem.new(_("Quit"), "app.quit_varia")
+    hamburger_menu_model.append_item(hamburger_menu_item_quit)
 
     hamburger_button.set_menu_model(hamburger_menu_model)
 
@@ -102,7 +108,7 @@ def window_create_sidebar(self, variaapp, variaVersion):
     self.download_button.set_sensitive(False)
     self.download_button.connect("clicked", on_download_clicked, self, download_entry, None, None, "regular", None, False, self.appconf["download_directory"])
 
-    self.video_button_icon = Gtk.Image.new_from_icon_name("emblem-videos-symbolic")
+    self.video_button_icon = Gtk.Image.new_from_icon_name("camera-video-symbolic")
     self.video_button_text = Gtk.Label(label=_("Video / Audio"))
     video_button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
     video_button_box.append(self.video_button_icon)
@@ -116,20 +122,28 @@ def window_create_sidebar(self, variaapp, variaVersion):
 
     download_entry.connect('changed', on_download_entry_changed, self.download_button, self.video_button)
 
-    torrent_button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
-    torrent_button_box.append(Gtk.Image.new_from_icon_name("document-open-symbolic"))
-    torrent_button_box.append(Gtk.Label(label=_("Torrent")))
+    self.add_torrent_button = Gtk.Button()
+    self.add_torrent_button.connect("clicked", on_add_torrent_clicked, self)
 
-    add_torrent_button = Gtk.Button()
-    add_torrent_button.add_css_class("suggested-action")
-    add_torrent_button.set_child(torrent_button_box)
-    add_torrent_button.connect("clicked", on_add_torrent_clicked, self)
+    if (self.appconf['torrent_enabled'] == '1'):
+        self.torrent_button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+        self.torrent_button_box.append(Gtk.Image.new_from_icon_name("document-open-symbolic"))
+        self.torrent_button_box.append(Gtk.Label(label=_("Torrent")))
+        self.add_torrent_button.add_css_class("suggested-action")
+        self.add_torrent_button.set_sensitive(True)
+
+    else:
+        self.torrent_button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+        self.torrent_button_box.append(Gtk.Label(label=_("Torrenting Disabled")))
+        self.add_torrent_button.set_sensitive(False)
+
+    self.add_torrent_button.set_child(self.torrent_button_box)
 
     box_add_download.append(download_entry)
     box_add_download.append(self.download_button)
     box_add_download.append(self.video_button)
     box_add_download.append(Gtk.Separator(margin_top=8, margin_bottom=8))
-    box_add_download.append(add_torrent_button)
+    box_add_download.append(self.add_torrent_button)
 
     frame_add_download = Gtk.Frame()
     frame_add_download.set_margin_bottom(8)
@@ -140,7 +154,7 @@ def window_create_sidebar(self, variaapp, variaVersion):
     filter_button_show_all_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     filter_button_show_all_box.set_margin_top(8)
     filter_button_show_all_box.set_margin_bottom(8)
-    filter_button_show_all_box.append(Gtk.Image.new_from_icon_name("switch-off-symbolic"))
+    filter_button_show_all_box.append(Gtk.Image.new_from_icon_name("radio-symbolic"))
     filter_button_show_all_label = Gtk.Label(label=_("All"))
     filter_button_show_all_label.add_css_class('body')
     filter_button_show_all_box.append(filter_button_show_all_label)
@@ -165,7 +179,7 @@ def window_create_sidebar(self, variaapp, variaVersion):
     filter_button_show_completed_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     filter_button_show_completed_box.set_margin_top(8)
     filter_button_show_completed_box.set_margin_bottom(8)
-    filter_button_show_completed_box.append(Gtk.Image.new_from_icon_name("emblem-ok-symbolic"))
+    filter_button_show_completed_box.append(Gtk.Image.new_from_icon_name("object-select-symbolic"))
     filter_button_show_completed_label = Gtk.Label(label=_("Completed"))
     filter_button_show_completed_label.add_css_class('body')
     filter_button_show_completed_box.append(filter_button_show_completed_label)
@@ -265,21 +279,18 @@ def show_about(app, variaapp, self, variaVersion):
     dialog.set_website("https://giantpinkrobots.github.io/varia")
     dialog.set_issue_url("https://github.com/giantpinkrobots/varia/issues")
     dialog.set_copyright("2023 Giant Pink Robots!\n\n" + _("This application relies on the following pieces of software:") +
-        "\n\n- aria2\n- yt-dlp\n- FFmpeg\n- GTK4\n- Libadwaita\n- Meson\n- OpenSSL\n- Python-appdirs\n- Python-aria2p\n- Python-certifi\n- Python-charset-normalizer\n- Python-gettext\n- Python-idna\n- Python-loguru\n- Python-requests\n- Python-setuptools\n- Python-urllib3\n- Python-websocket-client\n\n" +
+        "\n\n- aria2\n- yt-dlp\n- FFmpeg\n- GTK4\n- Libadwaita\n- Meson\n- OpenSSL\n- Python-appdirs\n- Python-aria2p\n- Python-certifi\n- Python-charset-normalizer\n- Python-gettext\n- Python-idna\n- Python-loguru\n- Python-requests\n- Python-setuptools\n- Python-urllib3\n- Python-websocket-client\n- Python-pystray\n- Python-dbus-next\n\n" +
         _("The licenses of all of these pieces of software can be found in the dependencies_information directory in this application's app directory."))
     dialog.set_developers(["Giant Pink Robots! (@giantpinkrobots) https://github.com/giantpinkrobots"])
     dialog.set_application_icon("io.github.giantpinkrobots.varia")
     dialog.set_translator_credits(_("translator-credits"))
     dialog.set_artists(["Jakub Steiner"])
-    dialog.set_release_notes_version("v2025.1.24")
+    dialog.set_release_notes_version("v2025.5.14")
     dialog.set_release_notes('''
-        <ul><li>Support for downloading videos and audio from links using yt-dlp.</li>
-        <li>Adaptive layout for smaller window sizes and mobile devices.</li>
-        <li>Support for dragging and dropping .torrent files.</li>
-        <li>New settings to limit or disable torrent seeding, as well as setting a custom torrent download directory.</li>
-        <li>Download states are saved upon addition so they're kept if the app crashes.</li>
-        <li>Paused downloads stay paused upon restart of the app.</li>
-        <li>Fixes for better performance and bug fixes.</li></ul>''')
+        <ul><li>Tray icon support.</li>
+        <li>New option to automatically start Varia upon bootup.</li>
+        <li>Bug fix: Pause All button malfunctioning</li>
+        <li>Additional text and translations.</li></ul>''')
 
     dialog.present(self)
 
@@ -306,3 +317,6 @@ def exit_on_completion(self, app, variaapp):
     else:
         variaapp.exit_mode = False
         variaapp.sidebar_remote_mode_label.set_text("")
+
+def quit_varia(app, self, variaapp):
+    variaapp.exitProgram(app=app, variaapp=variaapp, background=False)

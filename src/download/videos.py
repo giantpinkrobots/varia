@@ -10,9 +10,20 @@ import yt_dlp
 from download.actionrow import on_download_clicked
 from download.thread import DownloadThread
 
+def format_filesize(filesize):
+    for unit in ['B', 'KB', 'MB', 'GB', 'TB']:
+        if filesize < 1024.0:
+            return f"{filesize:.2f} {unit}"
+        filesize /= 1024.0
+    return f"{filesize:.2f} TB"
+
 def on_video_clicked(button, self, entry):
-    url = entry.get_text()
-    entry.set_text("")
+    if isinstance(entry, str):
+        url = entry
+    
+    else:
+        url = entry.get_text()
+        entry.set_text("")
 
     # Show loading screen
     loading_dialog = Adw.AlertDialog()
@@ -31,15 +42,7 @@ def on_video_clicked(button, self, entry):
     loading_dialog.set_can_close(False)
     loading_dialog.present(self)
 
-    def format_filesize(filesize):
-        for unit in ['B', 'KB', 'MB', 'GB', 'TB']:
-            if filesize < 1024.0:
-                return f"{filesize:.2f} {unit}"
-            filesize /= 1024.0
-        return f"{filesize:.2f} TB"
-
     def ytdlp_startsubprocess():
-
         if self.appconf["cookies_txt"] == "1":
             youtube_dl_options = {'cookiefile': os.path.join(self.appdir, 'cookies.txt')}
         else:
@@ -65,18 +68,24 @@ def on_video_clicked(button, self, entry):
             uploader_name = data.get("uploader", "?")
 
             for fmt in data.get("formats", []):
-
+                print(fmt)
                 # If filesize is only approximate, take that as filesize
-                if fmt.get("filesize_approx", 0) != 0:
+                if fmt.get("filesize", 0) == 0 and fmt.get("filesize_approx", 0) != 0:
                     fmt["filesize"] = fmt["filesize_approx"]
 
+                if fmt.get("filesize", 0) == 0:
+                    fmt["filesize"] = 0
+
                 # Throw out unnecessary formats
-                if fmt.get("ext") == "mhtml" or fmt.get("filesize", 0) == 0:
+                if fmt.get("ext") == "mhtml":
                     continue
                 
                 # Video only
                 elif fmt["audio_ext"] == "none":
-                    if fmt.get("vbr", 0) != 0:
+                    bitrate = fmt.get("vbr", 0)
+                    if bitrate == 0 and fmt.get("tbr", 0) != 0:
+                        bitrate = fmt.get("tbr", 0)
+                    if bitrate != 0:
                         video_formats.append({
                             "id": fmt["format_id"],
                             "ext": fmt["ext"],
@@ -84,23 +93,27 @@ def on_video_clicked(button, self, entry):
                             "framerate": fmt.get("fps", None),
                             "filesize": fmt["filesize"],
                             "url": fmt["url"],
-                            "bitrate": fmt["vbr"],
+                            "bitrate": bitrate,
                         })
+                    print(fmt)
 
                 # Audio only
                 elif fmt["video_ext"] == "none":
-                    if fmt.get("abr", 0) != 0:
+                    bitrate = fmt.get("abr", 0)
+                    if bitrate == 0 and fmt.get("tbr", 0) != 0:
+                        bitrate = fmt.get("tbr", 0)
+                    if bitrate != 0:
                         audio_formats.append({
                             "id": fmt["format_id"],
                             "ext": fmt["ext"],
-                            "bitrate": fmt["abr"],
+                            "bitrate": bitrate,
                             "filesize": fmt["filesize"],
                             "url": fmt["url"],
                         })
 
                 # Video and audio
                 elif fmt["video_ext"] != "none" and fmt["audio_ext"] != "none":
-                    if fmt.get("vbr", 0) != 0 and fmt.get("abr", 0) != 0:
+                    if fmt.get("tbr", 0) != 0:
                         combined_formats.append({
                             "id": fmt["format_id"],
                             "ext": fmt["ext"],
@@ -108,8 +121,7 @@ def on_video_clicked(button, self, entry):
                             "framerate": fmt.get("fps", None),
                             "filesize": fmt["filesize"],
                             "url": fmt["url"],
-                            "bitrate-video": fmt["vbr"],
-                            "bitrate-audio": fmt["abr"],
+                            "bitrate": fmt.get("tbr", 0)
                         })
 
             # Match the video-only streams with the appropriate audio-only streams
@@ -130,13 +142,13 @@ def on_video_clicked(button, self, entry):
             # Add combined formats to the matched formats list
             for combined in combined_formats:
                 combined_size_bytes = combined["filesize"]
-                bitrate = str(combined["bitrate-video"]) + " - " + str(combined["bitrate-audio"])
+                bitrate = combined["bitrate"]
                 matched_formats.append([combined, None, combined_size_bytes, bitrate])
             
             # Sort the lists based on their filesize, from biggest to smallest
-            video_formats.sort(key=lambda x: x["filesize"], reverse=True)
+            video_formats.sort(key=lambda x: ((int(x["resolution"].split('x')[0]) * int(x["resolution"].split('x')[1])), x["filesize"]), reverse=True)
             audio_formats.sort(key=lambda x: x["filesize"], reverse=True)
-            matched_formats.sort(key=lambda x: x[2], reverse=True)
+            matched_formats.sort(key=lambda x: ((int(x[0]["resolution"].split('x')[0]) * int(x[0]["resolution"].split('x')[1])), x[2]), reverse=True)
 
             def remove_duplicates_from_lists(list, mode):
                 seen = set()
@@ -183,7 +195,7 @@ def on_video_clicked(button, self, entry):
                 options_available = True
 
             if len(video_formats) > 0:
-                page_video_only = Adw.PreferencesPage(title=_("Video only"), icon_name="emblem-videos-symbolic")
+                page_video_only = Adw.PreferencesPage(title=_("Video only"), icon_name="camera-video-symbolic")
                 video_download_options_preferences_dialog.add(page_video_only)
                 group_video_only = Adw.PreferencesGroup(title="\"" + video_title + "\" - " + uploader_name)
                 page_video_only.add(group_video_only)
@@ -192,7 +204,7 @@ def on_video_clicked(button, self, entry):
                 options_available = True
 
             if len(audio_formats) > 0:
-                page_audio_only = Adw.PreferencesPage(title=_("Audio only"), icon_name="emblem-music-symbolic")
+                page_audio_only = Adw.PreferencesPage(title=_("Audio only"), icon_name="folder-music-symbolic")
                 video_download_options_preferences_dialog.add(page_audio_only)
                 group_audio_only = Adw.PreferencesGroup(title="\"" + video_title + "\" - " + uploader_name)
                 page_audio_only.add(group_audio_only)
@@ -225,7 +237,10 @@ def on_video_clicked(button, self, entry):
                 if video_only_format["ext"] is not None:
                     actionrow_subtitle = video_only_format["ext"]
                 if video_only_format["filesize"] is not None:
-                    actionrow_subtitle += "  ·  " + str(format_filesize(video_only_format["filesize"]))
+                    formatted_filesize = str(format_filesize(video_only_format["filesize"]))
+                    if '0.00' in formatted_filesize:
+                        formatted_filesize = _("Unknown filesize")
+                    actionrow_subtitle += "  ·  " + formatted_filesize
                 if video_only_format["bitrate"] is not None:
                     actionrow_subtitle += "  ·  " + _("Bitrate:") + " " + str(format_filesize(video_only_format["bitrate"]))
                 
@@ -247,7 +262,10 @@ def on_video_clicked(button, self, entry):
                 if audio_only_format["ext"] is not None:
                     actionrow_subtitle = audio_only_format["ext"]
                 if audio_only_format["filesize"] is not None:
-                    actionrow_subtitle += "  ·  " + str(format_filesize(audio_only_format["filesize"]))
+                    formatted_filesize = str(format_filesize(audio_only_format["filesize"]))
+                    if '0.00' in formatted_filesize:
+                        formatted_filesize = _("Unknown filesize")
+                    actionrow_subtitle += "  ·  " + formatted_filesize
                 if audio_only_format["bitrate"] is not None:
                     actionrow_subtitle += "  ·  " + _("Bitrate:") + " " + str(format_filesize(audio_only_format["bitrate"]))
                 
@@ -273,7 +291,10 @@ def on_video_clicked(button, self, entry):
                 if complete_format[0]["ext"] is not None:
                     actionrow_subtitle = complete_format[0]["ext"]
                 if complete_format[2] is not None:
-                    actionrow_subtitle += "  ·  " + format_filesize(complete_format[2])
+                    formatted_filesize = str(format_filesize(complete_format[2]))
+                    if '0.00' in formatted_filesize:
+                        formatted_filesize = _("Unknown filesize")
+                    actionrow_subtitle += "  ·  " + formatted_filesize
                 if complete_format[4] == True:
                     actionrow_subtitle += "?"
                 if complete_format[3] is not None:
@@ -343,19 +364,22 @@ def on_video_option_download_clicked(self, prefswindow, type, download_object, d
     if type == "complete":
         if download_object[1] == None: # Format already includes an audio stream
             video_options = {
-                'format': download_object[0]["id"]
+                'format': download_object[0]["id"],
+                'filesize_to_show': str(format_filesize(download_object[0].get("filesize", 0)))
             }
 
         else: # Video and audio formats are separate
             video_options = {
-                'format': download_object[0]["id"] + "+" + download_object[1]["id"]
+                'format': download_object[0]["id"] + "+" + download_object[1]["id"],
+                'filesize_to_show': str(format_filesize(download_object[0].get("filesize", 0) + download_object[1].get("filesize", 0)))
             }
         
         file_ext = download_object[0]["ext"]
 
     else:
         video_options = {
-            'format': download_object["id"]
+            'format': download_object["id"],
+            'filesize_to_show': str(format_filesize(download_object.get("filesize", 0)))
         }
 
         file_ext = download_object["ext"]

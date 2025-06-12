@@ -4,7 +4,7 @@
     <style>
       body {
         width: 200px;
-        height: 125px;
+        height: 240px;
         background-color: #f6f5f4;
         border-radius: 8px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
@@ -51,6 +51,29 @@
       input:checked + .slider:before {
         transform: translateX(26px);
       }
+      .button {
+        background-color: #c2e4ff;
+        padding: 10px 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 5px;
+        transition: .25s;
+      }
+      .video-button-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        color: black;
+      }
+      .video-button-content span {
+        font-weight: bold;
+      }
+      .button:hover {
+        background-color: #9bd2ff;
+      }
       @media (prefers-color-scheme: dark) {
         body {
           background-color: #242424;
@@ -60,6 +83,15 @@
         }
         .feather-icons {
           filter: invert(100%);
+        }
+        .button {
+          background-color: #00559b;
+        }
+        .button:hover {
+          background-color: #0c3150;
+        }
+        .video-button-content {
+          color: white;
         }
       }
     </style>
@@ -79,6 +111,14 @@
         <input type="checkbox" id="toggleSwitch">
         <span class="slider"></span>
       </label>
+      <br><br>
+      <hr><br>
+      <a href="#" class="video-button button">
+        <div class="video-button-content">
+          <img class="feather-icons" src="video.png">
+          <span>Video</span>
+        </div>
+      </a>
       <br>
     </center>
     <script src="popup.js"></script>

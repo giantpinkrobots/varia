@@ -1,0 +1,51 @@
+name: Build for Windows (Installer and Portable)
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up MSYS2 (UCRT64)
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: true
+
+      - name: Run build script in UCRT64 shell
+        shell: msys2 {0}
+        run: |
+          bash ./build-for-windows.sh -u
+
+      - name: Compile .ISS to .EXE Installer
+        uses: Minionguyjpro/Inno-Setup-Action@v1.2.2
+        with:
+          path: actions-inno-install-script.iss
+
+      - name: Create portable zip archive
+        run: |
+          del src\dist\variamain\updater-function-enabled
+          powershell Compress-Archive -Path src\dist\variamain\* -DestinationPath varia-windows-portable-amd64.zip
+
+      - name: Upload Windows installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: Varia-Windows-Installer
+          path: |
+            output/varia-windows-setup-amd64.exe
+          compression-level: 9
+
+      - name: Upload Windows portable
+        uses: actions/upload-artifact@v4
+        with:
+          name: Varia-Windows-Portable
+          path: |
+            varia-windows-portable-amd64.zip
+          compression-level: 9

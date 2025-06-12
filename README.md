@@ -2,15 +2,16 @@
 
 <br>
 
-# 
+#
 <br>
 
-<center>
-<p><img src="https://raw.githubusercontent.com/giantpinkrobots/varia/main/windows/icon.ico" width=200 /></p>
+<p float="left" align="middle">
+  <img src="https://raw.githubusercontent.com/giantpinkrobots/varia/main/windows/icon.ico" width=200 />
+</p>
 
 # Varia
 
-<h3>Quick and efficient download manager</h3>
+<h3>Download manager for files, torrents and videos</h3>
 
 <h3><a href="https://giantpinkrobots.github.io/varia">🌐 Homepage</a></h3>
 
@@ -18,44 +19,50 @@
 
 | Download for Linux | Download for Windows | Browser Extension |
 | -------- | ------- | ------- |
-| [⬇ Flathub](https://flathub.org/apps/io.github.giantpinkrobots.varia) | [⬇ Installer](https://github.com/giantpinkrobots/varia/releases/download/v2025.1.24/varia-windows-setup-amd64.exe) | [❖ Firefox](https://addons.mozilla.org/firefox/addon/varia-integrator/) |
-| [⬇ AUR (unofficial)](https://aur.archlinux.org/packages/varia) | [⬇ Portable](https://github.com/giantpinkrobots/varia/releases/download/v2025.1.24/varia-windows-portable-amd64.zip) | [❖ Chrome](https://chrome.google.com/webstore/detail/dacakhfljjhgdfdlgjpabkkjhbpcmiff) |
+| [⬇ Flathub](https://flathub.org/apps/io.github.giantpinkrobots.varia) | [⬇ Installer](https://github.com/giantpinkrobots/varia/releases/download/v2025.5.14/varia-windows-setup-amd64.exe) | [❖ Firefox](https://addons.mozilla.org/firefox/addon/varia-integrator/) |
+| [⬇ Snap Store](https://snapcraft.io/varia) | [⬇ Portable](https://github.com/giantpinkrobots/varia/releases/download/v2025.5.14/varia-windows-portable-amd64.zip) | [❖ Chrome](https://chrome.google.com/webstore/detail/dacakhfljjhgdfdlgjpabkkjhbpcmiff) |
+| [⬇ AUR (unofficial)](https://aur.archlinux.org/packages/varia) | | |
 
 <br>
 
-Varia is a simple download manager that conforms to the latest Libadwaita design guidelines, integrating nicely with GNOME. It utilizes aria2 and yt-dlp to handle regular files, torrents and video/audio stream downloads.
-
-</center>
+Varia is a download manager for Linux and Windows that supports regular files as well as torrents and video/audio streams. It is a frontend for aria2 and yt-dlp.
 
 <p float="left" align="middle">
-  <img src="https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-1.png" width=400 />
+  <img src="https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-1.png" width=350 />
+  <img src="https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-2.png" width=350 />
 </p>
 
-<p>
-  
-![](https://img.shields.io/github/commits-since/giantpinkrobots/varia/latest/main?label=commits%20since%20latest%20release)  ![](https://img.shields.io/github/forks/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/stars/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/watchers/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/issues/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/issues-closed/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/issues-pr/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/issues-pr-closed/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/license/giantpinkrobots/varia.svg)  ![](https://img.shields.io/github/followers/giantpinkrobots.svg?style=social&label=Follow&maxAge=2592000)
+<p float="left" align="middle">
+
+![](https://img.shields.io/github/stars/giantpinkrobots/varia.svg) ![](https://img.shields.io/github/watchers/giantpinkrobots/varia.svg) ![](https://img.shields.io/github/followers/giantpinkrobots.svg?style=social&label=Follow&maxAge=2592000) ![](https://img.shields.io/github/license/giantpinkrobots/varia.svg)
 
 </p>
 
-<a href="https://hosted.weblate.org/engage/varia/">
-<img src="https://hosted.weblate.org/widget/varia/multi-auto.svg" alt="Translation status" />
-</a>
-
-<br><br>
-
-It supports basic functionality like continuing incomplete downloads from the previous session upon startup, pausing/cancelling all downloads at once, setting a speed limit, authentication with a username/password, setting the simultaneous download amount and setting the download directory.
+<p float="left" align="middle">
+  <a href="https://hosted.weblate.org/engage/varia/">
+    <img src="https://hosted.weblate.org/widget/varia/multi-auto.svg" alt="Translation status" />
+  </a>
+</p>
 
 ## Get Varia
 
-### Flatpak
+### Linux
+
+#### Flatpak
 The main way to get Varia that is supported by me is via [Flathub](https://flathub.org/apps/io.github.giantpinkrobots.varia).
 ```
 flatpak install flathub io.github.giantpinkrobots.varia
 ```
 This requires you to have Flatpak and the Flathub Flatpak repository installed on your system.
 
-### AUR (Arch Linux)
-You can get Varia via the [AUR](https://aur.archlinux.org/packages/varia) as well, but it is not distributed by me.
+#### Snap
+You can get Varia through the [Snap Store](https://snapcraft.io/varia). However, you will need to give it additional permissions through the terminal if you want to use the "Shutdown after Completion" feature:
+```
+sudo snap connect varia:shutdown
+```
+
+#### AUR (Arch Linux) (Unofficial)
+You can get Varia via the [AUR](https://aur.archlinux.org/packages/varia) as well, but it is **unofficial** and not handled by me.
 
 ### Windows
 You can find amd64 builds of Varia in the Releases section in both installer and portable forms. The installer version is recommended and it includes an auto updater function.
@@ -73,6 +80,11 @@ The 'main' branch can be built with the instructions below. The 'next' branch ma
 
 The easiest way of building Varia is to use GNOME Builder. Just clone this repository, and open the folder using Builder. Then, press run. This is the way I make Varia, and the 'next' branch can only be reliably built this way.
 
+Varia is developed to be Flatpak-first, so it can be built with GNOME Builder with a single click on the Run button. You can also run it directly using flatpak-builder:
+```
+flatpak-builder --force-clean --install --user ./_build ./io.github.giantpinkrobots.varia.json && flatpak run io.github.giantpinkrobots.varia
+```
+
 To build Varia without Flatpak or GNOME Builder though, you'll need:
 - meson
 - python-setuptools
@@ -82,17 +94,18 @@ To build Varia without Flatpak or GNOME Builder though, you'll need:
 - aria2 and the aria2p python package.
 - yt-dlp python package
 - FFmpeg (without GPL is okay)
+- python-dbus-next
 
 To install the ones besides aria2p on some Linux systems:
 ```
 Ubuntu, Debian, Mint etc:
-sudo apt install meson ninja-build aria2 python-setuptools libgtk-4-dev libadwaita-1-0 gettext ffmpeg
+sudo apt install meson ninja-build aria2 python3-setuptools libgtk-4-dev libadwaita-1-0 gettext ffmpeg python3-dbus-next
 
 Fedora, RHEL etc:
-sudo dnf install meson ninja-build aria2 python-setuptools gtk4-devel libadwaita gettext ffmpeg
+sudo dnf install meson ninja-build aria2 python3-setuptools gtk4-devel libadwaita gettext ffmpeg python3-dbus-next
 
 Arch, EndeavourOS, Manjaro etc:
-sudo pacman -S meson aria2 python-setuptools gtk4 libadwaita gettext ffmpeg
+sudo pacman -S meson aria2 python-setuptools gtk4 libadwaita gettext ffmpeg python-dbus-next
 ```
 To install aria2p and yt-dlp using pip (your distro probably doesn't have them in its repos - they're on the AUR for Arch):
 ```
@@ -112,13 +125,22 @@ sudo meson install
 ### for Windows
 
 - [Get MSYS2.](https://www.msys2.org/)
-- Open the mingw64 shell in MSYS2 and update everything before continuing:
+- Open the MSYS2 standard shell and update everything before continuing:
 ```
 pacman -Syyu
 ```
-- Either clone Varia inside the shell or copy the folder to your MSYS2 home folder.
-- [You need to get a copy of aria2c.exe](https://github.com/aria2/aria2/releases) and paste it into the root of the folder.
-- Running 'build-for-windows.sh' will take care of the dependencies and everything else and build Varia WITHOUT the updater function. To enable the updater function you need to run the script with the '-u' argument. (or just create an empty file called 'updater-function-enabled' next to variamain.exe after completion)
+- Either clone Varia inside the shell or copy the folder to your MSYS2 home folder and navigate into it:
+```
+cd varia
+```
+- Run the build script:
+```
+./build-for-windows.sh
+```
+Or with the updater function enabled: (it just creates an empty file in the dist directory named 'updater-function-enabled')
+```
+./build-for-windows.sh -u
+```
 
 Varia will be built into src/dist/variamain. Main executable is variamain.exe.
 
@@ -149,11 +171,10 @@ But, it also relies on the following pieces of software and libraries:
 - Python-setuptools
 - Python-urllib3
 - Python-websocket-client
+- python-dbus-next
 
 The licenses of all of these pieces of software can be found in the dependencies_information directory.
 
 ## The name
 
 The name "Varia" comes from the aria2 software it is based on, and I added a "V" to make it "Varia". In the Metroid series of games, there is a special suit you eventually get named a "<a href=https://metroid.fandom.com/wiki/Varia_Suit>Varia Suit</a>" with its main feature being allowing Samus to withstand extreme temperatures. I spent some time thinking about how to connect the Varia Suit to my app, but couldn't, soooo... I think it just sounds cool.
-
-

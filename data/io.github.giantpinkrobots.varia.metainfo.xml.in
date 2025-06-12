@@ -15,24 +15,32 @@
 <url type="translate">https://hosted.weblate.org/projects/varia/glossary/</url>
 
 <languages>
-<lang>en_US</lang>
+<lang>ar_SA</lang>
+<lang>bg_BG</lang>
 <lang>de_DE</lang>
+<lang>en_US</lang>
+<lang>es_ES</lang>
+<lang>et_EE</lang>
+<lang>fa_IR</lang>
+<lang>fi_FI</lang>
+<lang>fr_FR</lang>
+<lang>hi_IN</lang>
+<lang>hu_HU</lang>
 <lang>it_IT</lang>
+<lang>ja_JP</lang>
+<lang>nb_NO</lang>
 <lang>nl_NL</lang>
 <lang>oc_FR</lang>
+<lang>pl_PL</lang>
 <lang>pt_BR</lang>
 <lang>ru_RU</lang>
+<lang>sk_SK</lang>
+<lang>ta_IN</lang>
 <lang>tr_TR</lang>
 <lang>uk_UA</lang>
-<lang>fr_FR</lang>
-<lang>zh_TW</lang>
-<lang>nb_NO</lang>
-<lang>ja_JP</lang>
-<lang>es_ES</lang>
-<lang>fa_IR</lang>
-<lang>hi_IN</lang>
-<lang>bg_BG</lang>
+<lang>vi_VN</lang>
 <lang>zh_CN</lang>
+<lang>zh_TW</lang>
 </languages>
 
 <branding>
@@ -67,27 +75,29 @@ Download from protected areas with basic auth and cookies.txt import support
 Control a remote aria2 instance running on any server
 </li>
 </ul>
-<p>
-Varia uses GTK4 and Libadwaita for the user interface and utilizes Aria2 for the downloads underneath, as well as yt-dlp for videos. It is free software licensed under the Mozilla Public License 2.0. A list of dependencies can be viewed through the Legal section in the About Varia page.
-</p>
 </description>
 
 <launchable type="desktop-id">io.github.giantpinkrobots.varia.desktop</launchable>
 <translation type="gettext">varia</translation>
 <screenshots>
 <screenshot type="default">
+<caption>Main window</caption>
 <image>https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-1.png</image>
 </screenshot>
 <screenshot>
+<caption>Video/audio download dialog</caption>
 <image>https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-2.png</image>
 </screenshot>
 <screenshot>
+<caption>Scheduler setting dialog</caption>
 <image>https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-3.png</image>
 </screenshot>
 <screenshot>
+<caption>Preferences dialog</caption>
 <image>https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-4.png</image>
 </screenshot>
 <screenshot>
+<caption>Main window in dark mode</caption>
 <image>https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-5.png</image>
 </screenshot>
 </screenshots>
@@ -99,15 +109,12 @@ Varia uses GTK4 and Libadwaita for the user interface and utilizes Aria2 for the
 </recommends>
 
 <releases>
-<release version="v2025.1.24" date="2025-01-24">
+<release version="v2025.5.14" date="2025-05-14">
 <description translatable="yes">
-<ul><li>Support for downloading videos and audio from links using yt-dlp.</li>
-<li>Adaptive layout for smaller window sizes and mobile devices.</li>
-<li>Support for dragging and dropping .torrent files.</li>
-<li>New settings to limit or disable torrent seeding, as well as setting a custom torrent download directory.</li>
-<li>Download states are saved upon addition so they're kept if the app crashes.</li>
-<li>Paused downloads stay paused upon restart of the app.</li>
-<li>Fixes for better performance and bug fixes.</li></ul>
+<ul><li>Tray icon support.</li>
+<li>New option to automatically start Varia upon bootup.</li>
+<li>Bug fix: Pause All button malfunctioning</li>
+<li>Additional text and translations.</li></ul>
 </description>
 </release>
 </releases>

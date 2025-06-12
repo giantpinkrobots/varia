@@ -3,19 +3,21 @@
 # This file is distributed under the same license as the Varia package.
 # Julian Lai <s9209122222@gmail.com>, 2023.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2023-12-07 12:00+0100\n"
-"Last-Translator: Julian Lai <s9209122222@gmail.com>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2025-04-13 22:08+0000\n"
+"Last-Translator: Giant Pink Robots! <giantpinkrobots@protonmail.com>\n"
+"Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
+"projects/varia/varia/zh_Hant/>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -193,255 +195,245 @@ msgstr "驗證失敗。"
 
 #: src/variamain.py:806
 msgid "Failed to open directory."
-msgstr ""
+msgstr "無法開啟目錄。"
 
 msgid "Remote Mode"
-msgstr ""
+msgstr "遠端模式"
 
 msgid "Remote aria2 IP"
-msgstr ""
+msgstr "遠端 aria2 IP"
 
 msgid "Remote aria2 Port"
-msgstr ""
+msgstr "遠端 aria2 連接埠"
 
 msgid "Remote aria2 RPC Secret"
-msgstr ""
+msgstr "遠端 aria2 RPC 安全"
 
 msgid "Remote Download Location"
-msgstr ""
+msgstr "遠端下載位置"
 
 msgid "Exiting Varia..."
-msgstr ""
+msgstr "退出 Varia..."
 
 msgid "Background Mode"
-msgstr ""
+msgstr "背景模式"
 
 msgid "Continuing the downloads in the background."
-msgstr ""
+msgstr "在背景繼續下載。"
 
 msgid "Browser Extension"
-msgstr ""
+msgstr "瀏覽器擴充"
 
 msgid "Shutdown on Completion"
-msgstr ""
+msgstr "完成後關機"
 
 msgid "Varia is about to shut down your computer."
-msgstr ""
+msgstr "Varia 即將關閉您的電腦。"
 
 msgid "Press Cancel to cancel and disable."
-msgstr ""
+msgstr "按取消可取消並停用。"
 
-#, fuzzy
-#| msgid "Cancel All"
 msgid "Cancel"
-msgstr "全部取消"
+msgstr "取消"
 
 msgid "Warning"
-msgstr ""
+msgstr "警告"
 
 msgid "Monday"
-msgstr ""
+msgstr "星期一"
 
 msgid "Tuesday"
-msgstr ""
+msgstr "星期二"
 
 msgid "Wednesday"
-msgstr ""
+msgstr "星期三"
 
 msgid "Thursday"
-msgstr ""
+msgstr "星期四"
 
 msgid "Friday"
-msgstr ""
+msgstr "星期五"
 
 msgid "Saturday"
-msgstr ""
+msgstr "星期六"
 
 msgid "Sunday"
-msgstr ""
+msgstr "星期日"
 
 msgid "Start (h/m):"
-msgstr ""
+msgstr "開始 (時/分):"
 
 msgid "End (h/m):"
-msgstr ""
+msgstr "結束 (時/分):"
 
 msgid "Scheduler enabled"
-msgstr ""
+msgstr "調度程序已啟用"
 
 msgid "Scheduler"
-msgstr ""
+msgstr "調度程式"
 
 msgid "Enabled"
-msgstr ""
+msgstr "已啟用"
 
 msgid "Start downloading in these times"
-msgstr ""
+msgstr "在這些時間開始下載"
 
 msgid "Stop downloading in these times"
-msgstr ""
+msgstr "這些時候請停止下載"
 
 msgid "Add Timespan"
-msgstr ""
+msgstr "添加時間間隔"
 
 #: When a download is currently seeding:
 msgid "Seeding"
-msgstr ""
+msgstr "正在做種"
 
 msgid "Failed"
-msgstr ""
+msgstr "失敗的"
 
 msgid "Completion Options"
-msgstr ""
+msgstr "完成選項"
 
 msgid "Exit on Completion"
-msgstr ""
+msgstr "完成後退出"
 
 msgid "Varia is about to quit."
-msgstr ""
+msgstr "Varia即將退出。"
 
 msgid "Preferences"
-msgstr ""
+msgstr "首選設定"
 
 msgid "Other"
-msgstr ""
+msgstr "其他"
 
 msgid "Basic Settings"
-msgstr ""
+msgstr "基本設定"
 
 msgid "Advanced Settings"
-msgstr ""
+msgstr "進階設定"
 
 msgid "Use cookies.txt"
-msgstr ""
+msgstr "使用 cookies.txt"
 
 msgid "Import cookies.txt"
-msgstr ""
+msgstr "導入 cookies.txt"
 
 msgid "Remove cookies.txt"
-msgstr ""
+msgstr "刪除 cookies.txt"
 
 msgid "remaining"
-msgstr ""
+msgstr "剩下的"
 
 msgid "Start in Background Mode"
-msgstr ""
+msgstr "以背景模式啟動"
 
 msgid "Remote Timestamp"
-msgstr ""
+msgstr "遠端時間戳"
 
 msgid "Torrent"
-msgstr ""
+msgstr "種子"
 
 # Updater
 msgid "Checking for updates..."
-msgstr ""
+msgstr "正在檢查更新..."
 
 msgid "A new version of Varia is available. Do you want to update?"
-msgstr ""
+msgstr "Varia 有新版本可用。您想要更新嗎？"
 
 msgid "Update available"
-msgstr ""
+msgstr "有更新可用"
 
 msgid "Update"
-msgstr ""
+msgstr "更新"
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Downloading update..."
-msgstr "下載完成。"
+msgstr "正在下載更新…"
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Download failed."
-msgstr "下載完成。"
+msgstr "下載失敗。"
 
 msgid "Yes"
-msgstr ""
+msgstr "是"
 
 msgid "No"
-msgstr ""
+msgstr "不"
 
 msgid "Automatically Check for Updates"
-msgstr ""
+msgstr "自動檢查更新"
 
 msgid "Check Now"
-msgstr ""
+msgstr "立即檢查"
 
 msgid "Do you want to check for updates on startup?"
-msgstr ""
+msgstr "啟動時想檢查更新嗎？"
 
 msgid "File"
-msgstr ""
+msgstr "檔案"
 
 msgid "Video / Audio"
-msgstr ""
+msgstr "影片/音訊"
 
 msgid "Video and audio"
-msgstr ""
+msgstr "影片和音訊"
 
 msgid "Video only"
-msgstr ""
+msgstr "僅限影片"
 
 msgid "Audio only"
-msgstr ""
+msgstr "僅音訊"
 
 #: Relating to video download:
 msgid "Framerate:"
-msgstr ""
+msgstr "幀率："
 
 #: Relating to video download:
 msgid "Bitrate:"
-msgstr ""
+msgstr "位元速率："
 
 msgid "Checking video..."
-msgstr ""
+msgstr "正在檢查影片..."
 
 msgid "No video or audio streams found"
-msgstr ""
+msgstr "未找到視訊或音訊串流"
 
 msgid "Starting download..."
-msgstr ""
+msgstr "開始下載..."
 
 msgid ""
 "The video platform may not be supported or you may be being blocked by the "
 "platform. If you have an active VPN connection that might be the cause, or "
 "you can try importing your browser's cookies through a cookies.txt file."
 msgstr ""
+"該影片平台可能不支持，或者您可能被該平台封鎖。如果您有活動的 VPN 連接，這可能"
+"是原因，或者您可以嘗試透過 cookies.txt 檔案匯入瀏覽器的 cookie。"
 
 msgid "This will disable the video download functionality."
-msgstr ""
+msgstr "這將停用影片下載功能。"
 
 #: Relating to video download progress where it says "Part 1/2" - {indicator}
 #: is replaced by "1/2" or "2/2" (don't translate {indicator})
 msgid "Part {indicator}"
-msgstr ""
+msgstr "部分{indicator}"
 
-#, fuzzy
-#| msgid "Simultaneous Download Amount"
 msgid "Simultaneous download limit exceeded, waiting."
-msgstr "同時下載數量"
+msgstr "已超出同時下載限制，正在等待。"
 
 #: The way percentages will be shown, like 10% or %10 depending on the language
 #: (don't translate {number}, just move it if needed)
 msgid "{number}%"
-msgstr ""
+msgstr "{number}%"
 
 msgid "Allow Seeding"
-msgstr ""
+msgstr "允許做種"
 
-#, fuzzy
-#| msgid "Speed Limit"
 msgid "Seeding Ratio Limit"
-msgstr "限速"
+msgstr "做種比率限制"
 
 msgid "Torrent Settings"
-msgstr ""
+msgstr "種子設定"
 
-#, fuzzy
-#| msgid "Download Directory"
 msgid "Custom Download Directory for Torrents"
-msgstr "下載路徑"
+msgstr "自訂種子下載目錄"
 
 #: When the user attempts to disable seeding
 msgid ""
@@ -451,15 +443,89 @@ msgid ""
 "as they download (a ratio of 1). You may want to consider limiting your "
 "seeding ratio instead."
 msgstr ""
+"種子下載依賴人們對資料做種，禁用做種是令人非常厭惡的行為並且可能會導致您被某"
+"些客戶端和追蹤器限流或封禁。客戶端通常預期至少做種到與其下載相同的資料量（做"
+"種比率為 1）。相反地您可能更想要限製做種比率。"
 
 msgid "Cancel Seeding"
-msgstr ""
+msgstr "取消做種"
 
 # Save button
 msgid "Save"
-msgstr ""
+msgstr "儲存"
 
 msgid "Show Menu"
+msgstr "顯示選單"
+
+msgid "OK"
+msgstr ""
+
+# Snap version permission warning
+msgid ""
+"You are using Varia as a Snap package. To be able to use the shutdown on "
+"completion option you must first give Varia the related permission. To do "
+"this, open a terminal window and execute this command and then restart Varia:"
+msgstr ""
+
+#, fuzzy
+#| msgid "Torrent Settings"
+msgid "Enable Torrenting"
+msgstr "種子設定"
+
+msgid "The browser extension will not work when Remote Mode is enabled."
+msgstr ""
+
+msgid ""
+"Disabling torrenting will prevent new torrents from being added. It will not "
+"stop current torrent instances."
+msgstr ""
+
+msgid "Torrenting is disabled."
+msgstr ""
+
+msgid "Unknown filesize"
+msgstr ""
+
+#, fuzzy
+#| msgid "Show Menu"
+msgid "Show"
+msgstr "顯示選單"
+
+#, fuzzy
+#| msgctxt "shortcut window"
+#| msgid "Quit"
+msgid "Quit"
+msgstr "離開"
+
+#, fuzzy
+#| msgid "Background Mode"
+msgid "Background Mode on Close"
+msgstr "背景模式"
+
+msgid "Upon closing, Varia will close to tray insted of exiting."
+msgstr ""
+
+# Tray icon always visible option
+msgid "Tray Icon Always Visible"
+msgstr ""
+
+msgid ""
+"The tray icon will be visible even when Varia is not in background mode."
+msgstr ""
+
+# Open on startup option
+msgid "Open on Startup"
+msgstr ""
+
+msgid "Varia will open automatically when the system starts."
+msgstr ""
+
+# Start on background mode subtitle
+msgid "Varia will start directly in background mode upon opening."
+msgstr ""
+
+# Remote mode additional explanation
+msgid "Use Varia as a GUI for a remote aria2c instance."
 msgstr ""
 
 #: src/gtk/help-overlay.ui:11

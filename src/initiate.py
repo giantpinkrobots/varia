@@ -8,7 +8,7 @@ gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, Gio, Gdk
 from stringstorage import gettext as _
 
-def initiate(self, variaapp, variaVersion, first_run):
+def initiate(self, variaapp, variaVersion, first_run, issnap):
     self.downloaddir = self.appconf["download_directory"]
 
     self.applied_filter = "show_all"
@@ -65,7 +65,7 @@ def initiate(self, variaapp, variaVersion, first_run):
 
     self.total_download_speed = ""
     self.terminating = False
-
+    
     Gtk.Settings.get_default().set_property("gtk-icon-theme-name", "Adwaita")
 
     if ("dev" in variaVersion):
@@ -73,15 +73,32 @@ def initiate(self, variaapp, variaVersion, first_run):
 
     # DragDrop area that covers the entire window for torrent files
     self.drop_target = Gtk.DropTarget.new(Gio.File, Gdk.DragAction.COPY)
-    self.drop_target.connect("enter", self.on_drag_enter)
-    self.drop_target.connect("leave", self.on_drag_leave, 250)
-    self.drop_target.connect("drop", self.on_file_drop)
     self.add_controller(self.drop_target)
+
+    def set_drop_target(enable):
+        if enable:
+            self.drag_drop_enter_handler_id = self.drop_target.connect("enter", self.on_drag_enter)
+            self.drag_drop_leave_handler_id = self.drop_target.connect("leave", self.on_drag_leave, 250)
+            self.drag_drop_drop_handler_id = self.drop_target.connect("drop", self.on_file_drop)
+
+        else:
+            self.drop_target.disconnect(self.drag_drop_enter_handler_id)
+            self.drop_target.disconnect(self.drag_drop_leave_handler_id)
+            self.drop_target.disconnect(self.drag_drop_drop_handler_id)
+
+    self.set_drop_target = set_drop_target
+
+    self.set_drop_target(True)
 
     self.root_window_overlay = Gtk.Overlay()
     self.overlay_split_view = Adw.OverlaySplitView.new()
     self.root_window_overlay.set_child(self.overlay_split_view)
-    self.set_content(self.root_window_overlay)
+
+    if os.name == 'nt': # Gtk.Window (used on Windows) doesn't have set_content
+        self.set_child(self.root_window_overlay)
+
+    else:
+        self.set_content(self.root_window_overlay)
 
     self.drag_drop_status_page = Adw.StatusPage()
     self.drag_drop_status_page.set_icon_name("document-send-symbolic")
@@ -114,7 +131,6 @@ def initiate(self, variaapp, variaVersion, first_run):
     )
 
     self.downloads = []
-    self.all_paused = False
 
     self.shutdown_mode = False
     self.shutdown_dialog_raised = False
@@ -131,6 +147,14 @@ def initiate(self, variaapp, variaVersion, first_run):
         dialog.set_response_appearance("yes", Adw.ResponseAppearance.SUGGESTED)
         dialog.connect("response", set_auto_updates, self, variaapp, variaVersion)
         dialog.set_close_response("no")
+        dialog.present(self)
+
+    elif issnap and first_run:
+        dialog = Adw.AlertDialog()
+        dialog.set_body(_("You are using Varia as a Snap package. To be able to use the shutdown on completion option you must first give Varia the related permission. To do this, open a terminal window and execute this command and then restart Varia:") + "\n\n$ sudo snap connect varia:shutdown")
+        dialog.add_response("ok",  _("OK"))
+        dialog.set_response_appearance("ok", Adw.ResponseAppearance.SUGGESTED)
+        dialog.set_close_response("ok")
         dialog.present(self)
 
 def set_auto_updates(dialog, response_id, self, variaapp, variaVersion):

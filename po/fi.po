@@ -1,0 +1,531 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-30 03:17+0300\n"
+"PO-Revision-Date: 2025-05-13 00:49+0000\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
+"Language-Team: Finnish <https://hosted.weblate.org/projects/varia/varia/fi/>"
+"\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.12-dev\n"
+
+#. Translators: Do NOT translate or localize the application name.
+#: data/io.github.giantpinkrobots.varia.desktop.in:4
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:3
+msgid "Varia"
+msgstr "Varia"
+
+#. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
+#: data/io.github.giantpinkrobots.varia.desktop.in:11
+msgid "varia;aria;download;manager;"
+msgstr "varia;aria;download;manager;lataa;lataukset;"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
+msgid "Download manager based on aria2"
+msgstr "Latausten hallinta pohjautuen aria2:een"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
+msgid ""
+"Varia is a download manager based on aria2 that utilizes GTK4 and Libadwaita "
+"to provide a easy to use interface that integrates well with the GNOME "
+"desktop."
+msgstr ""
+
+#: src/variamain.py:45
+msgid "This is not a valid URL."
+msgstr "Tämä ei ole kelvollinen verkko-osoite."
+
+#: src/variamain.py:125
+msgid "All"
+msgstr "Kaikki"
+
+#: src/variamain.py:137
+msgid "In Progress"
+msgstr "Meneillään"
+
+#: src/variamain.py:148
+msgid "Completed"
+msgstr "Valmis"
+
+#: src/variamain.py:171
+msgid "About Varia"
+msgstr "Tietoja - Varia"
+
+#: src/variamain.py:177
+msgid "URL"
+msgstr "Verkko-osoite"
+
+#: src/variamain.py:178
+msgid "Download"
+msgstr "Lataa"
+
+#: src/variamain.py:184
+msgid "Open Download Folder"
+msgstr "Avaa Lataukset-kansio"
+
+#: src/variamain.py:196
+msgid "Speed Limit"
+msgstr "Nopeusrajoitus"
+
+#: src/variamain.py:203 src/variamain.py:423
+msgid "Pause All"
+msgstr "Keskeytä kaikki"
+
+#: src/variamain.py:212
+msgid "Speed"
+msgstr "Nopeus"
+
+#: src/variamain.py:215
+msgid "Set Speed Limit"
+msgstr "Aseta nopeusrajoitus"
+
+#: src/variamain.py:216
+msgid "Cancel All"
+msgstr "Peru kaikki"
+
+#: src/variamain.py:235
+msgid "/s"
+msgstr "/s"
+
+#: src/variamain.py:238
+msgid "No limit"
+msgstr "Ei rajoitusta"
+
+#: src/variamain.py:274
+msgid "Download complete."
+msgstr "Lataus valmistui."
+
+#: src/variamain.py:276
+msgid "Download speed is limited."
+msgstr "Latauksen nopeutta rajoitetaan."
+
+#: src/variamain.py:277
+msgid "An error occurred:"
+msgstr "Tapahtui virhe:"
+
+#: src/variamain.py:292
+msgid "MB/s"
+msgstr "Mt/s"
+
+#: src/variamain.py:294
+msgid "KB/s"
+msgstr "kt/s"
+
+#: src/variamain.py:298
+msgid "0 B/s"
+msgstr "0 t/s"
+
+#: src/variamain.py:300
+msgid " MB/s"
+msgstr " Mt/s"
+
+#: src/variamain.py:302
+msgid " KB/s"
+msgstr " kt/s"
+
+#: src/variamain.py:304
+msgid " B/s"
+msgstr " t/s"
+
+#: src/variamain.py:404
+msgid "Simultaneous Download Amount"
+msgstr "Samanaikaisten latausten määrä"
+
+#: src/variamain.py:410
+msgid "Resume All"
+msgstr "Palauta kaikki"
+
+#: src/variamain.py:443
+msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
+msgstr ""
+
+#: src/variamain.py:777
+msgid "This application relies on the following pieces of software:"
+msgstr ""
+
+#: src/variamain.py:777
+msgid ""
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
+msgstr ""
+
+# This is for the credits section. Replace this string with your own information so you'll be credited for your work.
+#: src/variamain.py:449
+msgid "translator-credits"
+msgstr "Jiri Grönroos"
+
+#: src/variamain.py:457
+msgid "Download Directory"
+msgstr "Latauskansio"
+
+#: src/variamain.py:460
+msgid "Change"
+msgstr "Vaihda"
+
+#: src/variamain.py:463
+msgid "Speed limited"
+msgstr "Nopeus rajoitettu"
+
+#: src/variamain.py:519
+msgid "Authentication"
+msgstr "Todennus"
+
+#: src/variamain.py:532
+msgid "Username"
+msgstr "Käyttäjätunnus"
+
+#: src/variamain.py:534
+msgid "Password"
+msgstr "Salasana"
+
+#: src/variamain.py:554
+msgid "Authorization failed."
+msgstr "Valtuutus epäonnistui."
+
+#: src/variamain.py:806
+msgid "Failed to open directory."
+msgstr "Kansion avaaminen epäonnistui."
+
+msgid "Remote Mode"
+msgstr "Etätila"
+
+msgid "Remote aria2 IP"
+msgstr "Etä-aria2:n IP-osoite"
+
+msgid "Remote aria2 Port"
+msgstr "Etä-aria2:n portti"
+
+msgid "Remote aria2 RPC Secret"
+msgstr "Etä-aria2:n RPC-salaisuus"
+
+msgid "Remote Download Location"
+msgstr "Etälatausten sijainti"
+
+msgid "Exiting Varia..."
+msgstr "Suljetaan Varia..."
+
+msgid "Background Mode"
+msgstr "Taustatila"
+
+msgid "Continuing the downloads in the background."
+msgstr "Jatketaan latauksia taustalla."
+
+msgid "Browser Extension"
+msgstr "Selainlaajennus"
+
+msgid "Shutdown on Completion"
+msgstr "Sammutus valmistumisen yhteydessä"
+
+msgid "Varia is about to shut down your computer."
+msgstr "Varia on aikeissa sammuttaa tietokoneesi."
+
+msgid "Press Cancel to cancel and disable."
+msgstr "Paina Peru peruaksesi ja poistaaksesi käytöstä."
+
+msgid "Cancel"
+msgstr "Peru"
+
+msgid "Warning"
+msgstr "Varoitus"
+
+msgid "Monday"
+msgstr "Maanantai"
+
+msgid "Tuesday"
+msgstr "Tiistai"
+
+msgid "Wednesday"
+msgstr "Keskiviikko"
+
+msgid "Thursday"
+msgstr "Torstai"
+
+msgid "Friday"
+msgstr "Perjantai"
+
+msgid "Saturday"
+msgstr "Lauantai"
+
+msgid "Sunday"
+msgstr "Sunnuntai"
+
+msgid "Start (h/m):"
+msgstr "Aloitus (h/m):"
+
+msgid "End (h/m):"
+msgstr "Lopetus (h/m):"
+
+msgid "Scheduler enabled"
+msgstr "Ajastus käytössä"
+
+msgid "Scheduler"
+msgstr "Ajastin"
+
+msgid "Enabled"
+msgstr "Käytössä"
+
+msgid "Start downloading in these times"
+msgstr "Aloita lataaminen näinä aikoina"
+
+msgid "Stop downloading in these times"
+msgstr "Lopeta lataaminen näinä aikoina"
+
+msgid "Add Timespan"
+msgstr "Lisää aikajana"
+
+#: When a download is currently seeding:
+msgid "Seeding"
+msgstr "Jaetaan"
+
+msgid "Failed"
+msgstr "Epäonnistui"
+
+msgid "Completion Options"
+msgstr "Valmistumisen asetukset"
+
+msgid "Exit on Completion"
+msgstr "Lopeta valmistumisen yhteydessä"
+
+msgid "Varia is about to quit."
+msgstr "Varia ollaan sulkemassa."
+
+msgid "Preferences"
+msgstr "Asetukset"
+
+msgid "Other"
+msgstr "Muu"
+
+msgid "Basic Settings"
+msgstr "Perusasetukset"
+
+msgid "Advanced Settings"
+msgstr "Lisäasetukset"
+
+msgid "Use cookies.txt"
+msgstr "Käytä cookies.txt-tiedostoa"
+
+msgid "Import cookies.txt"
+msgstr "Tuo cookies.txt-tiedosto"
+
+msgid "Remove cookies.txt"
+msgstr "Poista cookies.txt-tiedosto"
+
+msgid "remaining"
+msgstr "jäljellä"
+
+msgid "Start in Background Mode"
+msgstr "Käynnistä taustatilassa"
+
+msgid "Remote Timestamp"
+msgstr "Etäaikaleima"
+
+msgid "Torrent"
+msgstr "Torrent"
+
+# Updater
+msgid "Checking for updates..."
+msgstr "Tarkistetaan päivitykset..."
+
+msgid "A new version of Varia is available. Do you want to update?"
+msgstr "Uusi Varia-versio on saatavilla. Haluatko päivittää?"
+
+msgid "Update available"
+msgstr "Päivitys saatavilla"
+
+msgid "Update"
+msgstr "Päivitä"
+
+msgid "Downloading update..."
+msgstr "Ladataan päivitystä..."
+
+msgid "Download failed."
+msgstr "Lataus epäonnistui."
+
+msgid "Yes"
+msgstr "Kyllä"
+
+msgid "No"
+msgstr "Ei"
+
+msgid "Automatically Check for Updates"
+msgstr "Tarkista päivitykset automaattisesti"
+
+msgid "Check Now"
+msgstr "Tarkista nyt"
+
+msgid "Do you want to check for updates on startup?"
+msgstr "Haluatko tarkistaa päivitykset sovelluksen käynnistyessä?"
+
+msgid "File"
+msgstr "Tiedosto"
+
+msgid "Video / Audio"
+msgstr "Video/ääni"
+
+msgid "Video and audio"
+msgstr "Video ja ääni"
+
+msgid "Video only"
+msgstr "Vain video"
+
+msgid "Audio only"
+msgstr "Vain ääni"
+
+#: Relating to video download:
+msgid "Framerate:"
+msgstr "Kuvanopeus:"
+
+#: Relating to video download:
+msgid "Bitrate:"
+msgstr "Bittinopeus:"
+
+msgid "Checking video..."
+msgstr "Tarkistetaan videota..."
+
+msgid "No video or audio streams found"
+msgstr "Video- tai äänivirtoja ei löytynyt"
+
+msgid "Starting download..."
+msgstr "Aloitetaan lataus..."
+
+msgid ""
+"The video platform may not be supported or you may be being blocked by the "
+"platform. If you have an active VPN connection that might be the cause, or "
+"you can try importing your browser's cookies through a cookies.txt file."
+msgstr ""
+
+msgid "This will disable the video download functionality."
+msgstr "Tämä poistaa käytöstä videon lataustoiminnallisuuden."
+
+#: Relating to video download progress where it says "Part 1/2" - {indicator}
+#: is replaced by "1/2" or "2/2" (don't translate {indicator})
+msgid "Part {indicator}"
+msgstr "Osa {indicator}"
+
+msgid "Simultaneous download limit exceeded, waiting."
+msgstr "Samanaikaisten latausten raja tuli vastaan, odotetaan."
+
+#: The way percentages will be shown, like 10% or %10 depending on the language
+#: (don't translate {number}, just move it if needed)
+msgid "{number}%"
+msgstr ""
+
+msgid "Allow Seeding"
+msgstr "Salli jakaminen"
+
+msgid "Seeding Ratio Limit"
+msgstr "Jakamissuhteen raja"
+
+msgid "Torrent Settings"
+msgstr "Torrent-asetukset"
+
+msgid "Custom Download Directory for Torrents"
+msgstr "Mukautettu Lataukset-kansio torrenteille"
+
+#: When the user attempts to disable seeding
+msgid ""
+"As torrenting relies on people seeding data, disabling seeding is very much "
+"frowned upon and may result in you getting throttled or banned by certain "
+"clients and trackers. Clients are usually expected to seed at least as much "
+"as they download (a ratio of 1). You may want to consider limiting your "
+"seeding ratio instead."
+msgstr ""
+
+msgid "Cancel Seeding"
+msgstr "Peru jakaminen"
+
+# Save button
+msgid "Save"
+msgstr "Tallenna"
+
+msgid "Show Menu"
+msgstr "Näytä valikko"
+
+msgid "OK"
+msgstr "OK"
+
+# Snap version permission warning
+msgid ""
+"You are using Varia as a Snap package. To be able to use the shutdown on "
+"completion option you must first give Varia the related permission. To do "
+"this, open a terminal window and execute this command and then restart Varia:"
+msgstr ""
+
+msgid "Enable Torrenting"
+msgstr "Ota torrentointi käyttöön"
+
+msgid "The browser extension will not work when Remote Mode is enabled."
+msgstr ""
+
+msgid ""
+"Disabling torrenting will prevent new torrents from being added. It will not "
+"stop current torrent instances."
+msgstr ""
+
+msgid "Torrenting is disabled."
+msgstr "Torrentointi on pois käytöstä."
+
+msgid "Unknown filesize"
+msgstr "Tuntematon tiedostokoko"
+
+msgid "Show"
+msgstr "Näytä"
+
+msgid "Quit"
+msgstr "Lopeta"
+
+msgid "Background Mode on Close"
+msgstr "Taustatila sulkemisen myötä"
+
+msgid "Upon closing, Varia will close to tray insted of exiting."
+msgstr "Kun suljetaan, Varia sulkeutuu ilmoitusalueelle lopettamisen sijaan."
+
+# Tray icon always visible option
+msgid "Tray Icon Always Visible"
+msgstr "Ilmoitusalueen kuvake aina näkyvissä"
+
+msgid ""
+"The tray icon will be visible even when Varia is not in background mode."
+msgstr ""
+"Ilmoitusalueen kuvake on näkyvissä myös silloin, kun Varia ei ole "
+"taustatilassa."
+
+# Open on startup option
+msgid "Open on Startup"
+msgstr "Avaa käynnistyksen myötä"
+
+msgid "Varia will open automatically when the system starts."
+msgstr "Varia avautuu automaattisesti, kun järjestelmä käynnistyy."
+
+# Start on background mode subtitle
+msgid "Varia will start directly in background mode upon opening."
+msgstr "Varia käynnistyy suoraan taustatilaan avauksen myötä."
+
+# Remote mode additional explanation
+msgid "Use Varia as a GUI for a remote aria2c instance."
+msgstr ""
+
+#: src/gtk/help-overlay.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Yleiset"
+
+#: src/gtk/help-overlay.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Näytä pikanäppäimet"
+
+#: src/gtk/help-overlay.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Lopeta"

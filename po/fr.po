@@ -9,16 +9,15 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-01-17 14:21+0000\n"
-"Last-Translator: Prefill add-on <noreply-addon-prefill@weblate.org>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/varia/glossary/fr/"
-">\n"
+"PO-Revision-Date: 2025-04-13 22:08+0000\n"
+"Last-Translator: Giant Pink Robots! <giantpinkrobots@protonmail.com>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/varia/varia/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -29,13 +28,12 @@ msgstr "Varia"
 
 #. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
 #: data/io.github.giantpinkrobots.varia.desktop.in:11
-#, fuzzy
 msgid "varia;aria;download;manager;"
-msgstr "varia;aria;download;manager;"
+msgstr "varia;aria;téléchargement;gestionnaire;"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
 msgid "Download manager based on aria2"
-msgstr "Gestionnaire de téléchargement basé sur ari2"
+msgstr "Gestionnaire de téléchargement basé sur aria2"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
 msgid ""
@@ -53,15 +51,15 @@ msgstr "Ce n'est pas une URL valide"
 
 #: src/variamain.py:125
 msgid "All"
-msgstr ""
+msgstr "Tous"
 
 #: src/variamain.py:137
 msgid "In Progress"
-msgstr ""
+msgstr "En cours"
 
 #: src/variamain.py:148
 msgid "Completed"
-msgstr ""
+msgstr "Terminé"
 
 #: src/variamain.py:171
 msgid "About Varia"
@@ -117,7 +115,7 @@ msgstr "La vitesse de téléchargement est limitée"
 
 #: src/variamain.py:277
 msgid "An error occurred:"
-msgstr "Une erreur est survenue:"
+msgstr "Une erreur est survenue :"
 
 #: src/variamain.py:292
 msgid "MB/s"
@@ -129,7 +127,7 @@ msgstr "Ko/s"
 
 #: src/variamain.py:298
 msgid "0 B/s"
-msgstr "0 b/s"
+msgstr "0 o/s"
 
 #: src/variamain.py:300
 msgid " MB/s"
@@ -145,7 +143,7 @@ msgstr " b/s"
 
 #: src/variamain.py:404
 msgid "Simultaneous Download Amount"
-msgstr ""
+msgstr "Nombre de téléchargements simultanés"
 
 #: src/variamain.py:410
 msgid "Resume All"
@@ -157,306 +155,296 @@ msgstr ""
 "gestionnaire de téléchargement basé sur aria2 utilisant GTK4 et Libadwaita"
 
 #: src/variamain.py:777
-#, fuzzy
 msgid "This application relies on the following pieces of software:"
-msgstr "This application relies on the following pieces of software:"
+msgstr "Cette application s'appuie sur les logiciels suivants :"
 
 #: src/variamain.py:777
-#, fuzzy
 msgid ""
 "The licenses of all of these pieces of software can be found in the "
 "dependencies_information directory in this application's app directory."
 msgstr ""
-"The licenses of all of these pieces of software can be found in the "
-"dependencies_information directory in this application's app directory."
+"La licence de tout ces logiciels peut être trouvé dans le dossier "
+"dependencies_information dans le dossier d'installation de l'application."
 
 #: src/variamain.py:449
 msgid "translator-credits"
-msgstr "bluekillwood"
+msgstr "Naxomega"
 
 #: src/variamain.py:457
-#, fuzzy
 msgid "Download Directory"
-msgstr "Download Directory"
+msgstr "Dossier des téléchargements"
 
 #: src/variamain.py:460
-#, fuzzy
 msgid "Change"
-msgstr "Change"
+msgstr "Changer"
 
 #: src/variamain.py:463
-#, fuzzy
 msgid "Speed limited"
-msgstr "Speed limited"
+msgstr "Vitesse limitée"
 
 #: src/variamain.py:519
-#, fuzzy
 msgid "Authentication"
-msgstr "Authentication"
+msgstr "Authentification"
 
 #: src/variamain.py:532
-#, fuzzy
 msgid "Username"
-msgstr "Username"
+msgstr "Nom d'utilisateur"
 
 #: src/variamain.py:534
-#, fuzzy
 msgid "Password"
-msgstr "Password"
+msgstr "Mot de passe"
 
 #: src/variamain.py:554
-#, fuzzy
 msgid "Authorization failed."
-msgstr "Authorization failed."
+msgstr "Echec."
 
 #: src/variamain.py:806
 msgid "Failed to open directory."
-msgstr ""
+msgstr "L'accès au dossier à echoué."
 
 msgid "Remote Mode"
-msgstr ""
+msgstr "Téléchargement à distance"
 
 msgid "Remote aria2 IP"
-msgstr ""
+msgstr "IP aria2 distante"
 
 msgid "Remote aria2 Port"
-msgstr ""
+msgstr "Port aria2 distant"
 
 msgid "Remote aria2 RPC Secret"
-msgstr ""
+msgstr "Ticket RPC secret aria2 distant"
 
 msgid "Remote Download Location"
-msgstr ""
+msgstr "Dossier de téléchargement distant"
 
 msgid "Exiting Varia..."
-msgstr ""
+msgstr "Fermeture de Varia..."
 
 msgid "Background Mode"
-msgstr ""
+msgstr "Exécution en arrière-plan"
 
 msgid "Continuing the downloads in the background."
-msgstr ""
+msgstr "Les téléchargements sont toujours en cours..."
 
 msgid "Browser Extension"
-msgstr ""
+msgstr "Extension de navigateur"
 
 msgid "Shutdown on Completion"
-msgstr ""
+msgstr "Eteindre quand les téléchargements sont terminés"
 
 msgid "Varia is about to shut down your computer."
-msgstr ""
+msgstr "Varia est sur le point d'éteindre votre ordinateur."
 
 msgid "Press Cancel to cancel and disable."
 msgstr ""
+"Appuyez sur annuler pour annuler extinction et désactiver cette "
+"fonctionnalité."
 
-#, fuzzy
-#| msgid "Cancel All"
 msgid "Cancel"
-msgstr "Tout annuler"
+msgstr "Annuler"
 
 msgid "Warning"
-msgstr ""
+msgstr "Attention"
 
 msgid "Monday"
-msgstr ""
+msgstr "Lundi"
 
 msgid "Tuesday"
-msgstr ""
+msgstr "Mardi"
 
 msgid "Wednesday"
-msgstr ""
+msgstr "Mercredi"
 
 msgid "Thursday"
-msgstr ""
+msgstr "Jeudi"
 
 msgid "Friday"
-msgstr ""
+msgstr "Vendredi"
 
 msgid "Saturday"
-msgstr ""
+msgstr "Samedi"
 
 msgid "Sunday"
-msgstr ""
+msgstr "Dimanche"
 
 msgid "Start (h/m):"
-msgstr ""
+msgstr "Démarrage (heure/minute) :"
 
 msgid "End (h/m):"
-msgstr ""
+msgstr "Fin (heure/minute) :"
 
 msgid "Scheduler enabled"
-msgstr ""
+msgstr "Planification activée"
 
 msgid "Scheduler"
-msgstr ""
+msgstr "Planification"
 
 msgid "Enabled"
-msgstr ""
+msgstr "Activé"
 
 msgid "Start downloading in these times"
-msgstr ""
+msgstr "Lancer le(s) téléchargement(s) à ces horaires"
 
 msgid "Stop downloading in these times"
-msgstr ""
+msgstr "Stopper le(s) téléchargement(s) à ces horaires"
 
 msgid "Add Timespan"
-msgstr ""
+msgstr "Ajouter une horaire"
 
 #: When a download is currently seeding:
 msgid "Seeding"
-msgstr ""
+msgstr "Envoi"
 
 msgid "Failed"
-msgstr ""
+msgstr "Echec"
 
 msgid "Completion Options"
-msgstr ""
+msgstr "Actions lors de la réussite des téléchargments"
 
 msgid "Exit on Completion"
-msgstr ""
+msgstr "Fermer Varia"
 
 msgid "Varia is about to quit."
-msgstr ""
+msgstr "Varia est sur le point d'être fermée."
 
 msgid "Preferences"
-msgstr ""
+msgstr "Préférences"
 
 msgid "Other"
-msgstr ""
+msgstr "Autres"
 
 msgid "Basic Settings"
-msgstr ""
+msgstr "Général"
 
 msgid "Advanced Settings"
-msgstr ""
+msgstr "Avancés"
 
 msgid "Use cookies.txt"
-msgstr ""
+msgstr "Utiliser cookies.txt"
 
 msgid "Import cookies.txt"
-msgstr ""
+msgstr "Importer cookies.txt"
 
 msgid "Remove cookies.txt"
-msgstr ""
+msgstr "Enlever cookies.txt"
 
 msgid "remaining"
-msgstr ""
+msgstr "restant"
 
 msgid "Start in Background Mode"
-msgstr ""
+msgstr "Démarrer en arrière-plan"
 
 msgid "Remote Timestamp"
-msgstr ""
+msgstr "Horaires à distance"
 
 msgid "Torrent"
-msgstr ""
+msgstr "Torrent"
 
 # Updater
 msgid "Checking for updates..."
-msgstr ""
+msgstr "Recherche de mises à jour..."
 
 msgid "A new version of Varia is available. Do you want to update?"
 msgstr ""
+"Une nouvelle version de Varia est disponible, voulez-vous l'installer ?"
 
 msgid "Update available"
-msgstr ""
+msgstr "Mise à jour disponible"
 
 msgid "Update"
-msgstr ""
+msgstr "Mise à jour"
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Downloading update..."
-msgstr "Téléchargement terminé"
+msgstr "Téléchargement de la mise à jour..."
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Download failed."
-msgstr "Téléchargement terminé"
+msgstr "Echec du téléchargement."
 
 msgid "Yes"
-msgstr ""
+msgstr "Oui"
 
 msgid "No"
-msgstr ""
+msgstr "Non"
 
 msgid "Automatically Check for Updates"
-msgstr ""
+msgstr "Rechercher automatiquement des mises à jour"
 
 msgid "Check Now"
-msgstr ""
+msgstr "Rechercher manuellement"
 
 msgid "Do you want to check for updates on startup?"
 msgstr ""
+"Voulez-vous que Varia recherche des mises à jour lors de son démarrage ?"
 
 msgid "File"
-msgstr ""
+msgstr "Fichier"
 
 msgid "Video / Audio"
-msgstr ""
+msgstr "Vidéo / Audio"
 
 msgid "Video and audio"
-msgstr ""
+msgstr "Vidéo et audio"
 
 msgid "Video only"
-msgstr ""
+msgstr "Vidéo seulement"
 
 msgid "Audio only"
-msgstr ""
+msgstr "Audio seulement"
 
 #: Relating to video download:
 msgid "Framerate:"
-msgstr ""
+msgstr "Fréquence d'images :"
 
 #: Relating to video download:
 msgid "Bitrate:"
-msgstr ""
+msgstr "Débit Binaire (Bitrate) :"
 
 msgid "Checking video..."
-msgstr ""
+msgstr "Recherche de la vidéo..."
 
 msgid "No video or audio streams found"
-msgstr ""
+msgstr "Aucun flux vidéo ou audio trouvé"
 
 msgid "Starting download..."
-msgstr ""
+msgstr "Démarrage du téléchargement..."
 
 msgid ""
 "The video platform may not be supported or you may be being blocked by the "
 "platform. If you have an active VPN connection that might be the cause, or "
 "you can try importing your browser's cookies through a cookies.txt file."
 msgstr ""
+"Le fournisseur de la vidéo n'est pas supporté ou elle vous a bloqué. Si vous "
+"avez un VPN actif, essayez de le désactiver, si vous n'en avez pas, essayez "
+"d'importer le fichier \"cookies.txt\" de votre navigateur web."
 
 msgid "This will disable the video download functionality."
-msgstr ""
+msgstr "Cela désactivera le téléchargement des vidéos."
 
 #: Relating to video download progress where it says "Part 1/2" - {indicator}
 #: is replaced by "1/2" or "2/2" (don't translate {indicator})
 msgid "Part {indicator}"
-msgstr ""
+msgstr "Partie {indicator}"
 
 msgid "Simultaneous download limit exceeded, waiting."
 msgstr ""
+"La limite du nombre de téléchargements simultanés est atteinte, en attente..."
 
 #: The way percentages will be shown, like 10% or %10 depending on the language
 #: (don't translate {number}, just move it if needed)
 msgid "{number}%"
-msgstr ""
+msgstr "{number}%"
 
 msgid "Allow Seeding"
-msgstr ""
+msgstr "Autoriser l'envoi de données"
 
-#, fuzzy
-#| msgid "Speed Limit"
 msgid "Seeding Ratio Limit"
-msgstr "Limite de vitesse"
+msgstr "Limite de vitesse de l'envoi de données"
 
 msgid "Torrent Settings"
-msgstr ""
+msgstr "Torrent"
 
-#, fuzzy
 msgid "Custom Download Directory for Torrents"
-msgstr "Download Directory"
+msgstr "Dossier de téléchargement des torrents"
 
 #: When the user attempts to disable seeding
 msgid ""
@@ -466,31 +454,105 @@ msgid ""
 "as they download (a ratio of 1). You may want to consider limiting your "
 "seeding ratio instead."
 msgstr ""
+"Le téléchargements de fichier via torrents s'appuie sur le fait que chaque "
+"personne ayant téléchargé le fichier l'envoie à son tour. En désactivant "
+"l'envoi de données, vous vous verrez probablement limité(e) ou banni(e) des "
+"téléchargements torrent. Les clients sont généralement attendus d'envoyer au "
+"moins ce qu'ils téléchargent (Ratio de 1). Vpus devriez baisser votre ratio "
+"d'envoi à la place."
 
 msgid "Cancel Seeding"
-msgstr ""
+msgstr "Annuler l'envoi"
 
 # Save button
 msgid "Save"
-msgstr ""
+msgstr "Sauvegarder"
 
 msgid "Show Menu"
+msgstr "Voir le menu"
+
+msgid "OK"
+msgstr ""
+
+# Snap version permission warning
+msgid ""
+"You are using Varia as a Snap package. To be able to use the shutdown on "
+"completion option you must first give Varia the related permission. To do "
+"this, open a terminal window and execute this command and then restart Varia:"
+msgstr ""
+
+#, fuzzy
+#| msgid "Torrent Settings"
+msgid "Enable Torrenting"
+msgstr "Torrent"
+
+msgid "The browser extension will not work when Remote Mode is enabled."
+msgstr ""
+
+msgid ""
+"Disabling torrenting will prevent new torrents from being added. It will not "
+"stop current torrent instances."
+msgstr ""
+
+msgid "Torrenting is disabled."
+msgstr ""
+
+msgid "Unknown filesize"
+msgstr ""
+
+#, fuzzy
+#| msgid "Show Menu"
+msgid "Show"
+msgstr "Voir le menu"
+
+#, fuzzy
+#| msgctxt "shortcut window"
+#| msgid "Quit"
+msgid "Quit"
+msgstr "Quitter"
+
+#, fuzzy
+#| msgid "Background Mode"
+msgid "Background Mode on Close"
+msgstr "Exécution en arrière-plan"
+
+msgid "Upon closing, Varia will close to tray insted of exiting."
+msgstr ""
+
+# Tray icon always visible option
+msgid "Tray Icon Always Visible"
+msgstr ""
+
+msgid ""
+"The tray icon will be visible even when Varia is not in background mode."
+msgstr ""
+
+# Open on startup option
+msgid "Open on Startup"
+msgstr ""
+
+msgid "Varia will open automatically when the system starts."
+msgstr ""
+
+# Start on background mode subtitle
+msgid "Varia will start directly in background mode upon opening."
+msgstr ""
+
+# Remote mode additional explanation
+msgid "Use Varia as a GUI for a remote aria2c instance."
 msgstr ""
 
 #: src/gtk/help-overlay.ui:11
-#, fuzzy
 msgctxt "shortcut window"
 msgid "General"
-msgstr "General"
+msgstr "Général"
 
 #: src/gtk/help-overlay.ui:14
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
-msgstr "Show Shortcuts"
+msgstr "Voir les raccourcis"
 
 #: src/gtk/help-overlay.ui:20
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr "Quit"
+msgstr "Quitter"

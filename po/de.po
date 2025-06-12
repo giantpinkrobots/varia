@@ -9,14 +9,15 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2024-03-01 01:12+0100\n"
-"Last-Translator: Philipp Kiemle <philipp.kiemle@gmail.com>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2025-04-13 22:08+0000\n"
+"Last-Translator: Giant Pink Robots! <giantpinkrobots@protonmail.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/varia/varia/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.4.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -166,7 +167,9 @@ msgstr ""
 
 #: src/variamain.py:449
 msgid "translator-credits"
-msgstr "Philipp Kiemle <philipp.kiemle@gmail.com>"
+msgstr ""
+"Philipp Kiemle <philipp.kiemle@gmail.com>\n"
+"word."
 
 #: src/variamain.py:457
 msgid "Download Directory"
@@ -225,7 +228,7 @@ msgid "Continuing the downloads in the background."
 msgstr "Downloads werden im Hintergrund weitergeführt."
 
 msgid "Browser Extension"
-msgstr ""
+msgstr "Browser-Erweiterung"
 
 msgid "Shutdown on Completion"
 msgstr ""
@@ -236,34 +239,32 @@ msgstr ""
 msgid "Press Cancel to cancel and disable."
 msgstr ""
 
-#, fuzzy
-#| msgid "Cancel All"
 msgid "Cancel"
-msgstr "Alle abbrechen"
+msgstr "Abbrechen"
 
 msgid "Warning"
-msgstr ""
+msgstr "Warnung"
 
 msgid "Monday"
-msgstr ""
+msgstr "Montag"
 
 msgid "Tuesday"
-msgstr ""
+msgstr "Dienstag"
 
 msgid "Wednesday"
-msgstr ""
+msgstr "Mittwoch"
 
 msgid "Thursday"
-msgstr ""
+msgstr "Donnerstag"
 
 msgid "Friday"
-msgstr ""
+msgstr "Freitag"
 
 msgid "Saturday"
-msgstr ""
+msgstr "Samstag"
 
 msgid "Sunday"
-msgstr ""
+msgstr "Sonntag"
 
 msgid "Start (h/m):"
 msgstr ""
@@ -278,7 +279,7 @@ msgid "Scheduler"
 msgstr ""
 
 msgid "Enabled"
-msgstr ""
+msgstr "Aktiviert"
 
 msgid "Start downloading in these times"
 msgstr ""
@@ -287,14 +288,14 @@ msgid "Stop downloading in these times"
 msgstr ""
 
 msgid "Add Timespan"
-msgstr ""
+msgstr "Zeitspanne hinzufügen"
 
 #: When a download is currently seeding:
 msgid "Seeding"
-msgstr ""
+msgstr "Seeding"
 
 msgid "Failed"
-msgstr ""
+msgstr "Fehlgeschlagen"
 
 msgid "Completion Options"
 msgstr ""
@@ -306,49 +307,47 @@ msgid "Varia is about to quit."
 msgstr ""
 
 msgid "Preferences"
-msgstr ""
+msgstr "Einstellungen"
 
 msgid "Other"
-msgstr ""
+msgstr "Andere"
 
 msgid "Basic Settings"
-msgstr ""
+msgstr "Grundlegende Einstellungen"
 
 msgid "Advanced Settings"
-msgstr ""
+msgstr "Erweiterte Einstellungen"
 
 msgid "Use cookies.txt"
-msgstr ""
+msgstr "Nutze cookies.txt"
 
 msgid "Import cookies.txt"
-msgstr ""
+msgstr "Importiere cookies.txt"
 
 msgid "Remove cookies.txt"
-msgstr ""
+msgstr "Entferne cookies.txt"
 
 msgid "remaining"
-msgstr ""
+msgstr "verbleibend"
 
-#, fuzzy
-#| msgid "Background Mode"
 msgid "Start in Background Mode"
-msgstr "Hintergrundmodus"
+msgstr "Starte im Hintergrundmodus"
 
 msgid "Remote Timestamp"
 msgstr ""
 
 msgid "Torrent"
-msgstr ""
+msgstr "Torrent"
 
 # Updater
 msgid "Checking for updates..."
-msgstr ""
+msgstr "Suche nach Aktualisierungen..."
 
 msgid "A new version of Varia is available. Do you want to update?"
-msgstr ""
+msgstr "Eine neue Version von Varia ist verfügbar. Willst du aktualisieren?"
 
 msgid "Update available"
-msgstr ""
+msgstr "Aktualisierung verfügbar"
 
 msgid "Update"
 msgstr ""
@@ -358,51 +357,49 @@ msgstr ""
 msgid "Downloading update..."
 msgstr "Herunterladen abgeschlossen."
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Download failed."
-msgstr "Herunterladen abgeschlossen."
+msgstr "Herunterladen fehlgeschlagen."
 
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 msgid "No"
-msgstr ""
+msgstr "Nein"
 
 msgid "Automatically Check for Updates"
-msgstr ""
+msgstr "Automatisch auf Aktualisierungen überprüfen"
 
 msgid "Check Now"
-msgstr ""
+msgstr "Jetzt überprüfen"
 
 msgid "Do you want to check for updates on startup?"
 msgstr ""
 
 msgid "File"
-msgstr ""
+msgstr "Datei"
 
 msgid "Video / Audio"
-msgstr ""
+msgstr "Video / Audio"
 
 msgid "Video and audio"
-msgstr ""
+msgstr "Video und Audio"
 
 msgid "Video only"
-msgstr ""
+msgstr "Nur Video"
 
 msgid "Audio only"
-msgstr ""
+msgstr "Nur Audio"
 
 #: Relating to video download:
 msgid "Framerate:"
-msgstr ""
+msgstr "Bildrate:"
 
 #: Relating to video download:
 msgid "Bitrate:"
-msgstr ""
+msgstr "Bitrate:"
 
 msgid "Checking video..."
-msgstr ""
+msgstr "Überprüfe Video..."
 
 msgid "No video or audio streams found"
 msgstr ""
@@ -422,7 +419,7 @@ msgstr ""
 #: Relating to video download progress where it says "Part 1/2" - {indicator}
 #: is replaced by "1/2" or "2/2" (don't translate {indicator})
 msgid "Part {indicator}"
-msgstr ""
+msgstr "Teil {indicator}"
 
 #, fuzzy
 #| msgid "Simultaneous Download Amount"
@@ -432,10 +429,10 @@ msgstr "Anzahl paralleler Downloads"
 #: The way percentages will be shown, like 10% or %10 depending on the language
 #: (don't translate {number}, just move it if needed)
 msgid "{number}%"
-msgstr ""
+msgstr "{number}%"
 
 msgid "Allow Seeding"
-msgstr ""
+msgstr "Seeding erlauben"
 
 #, fuzzy
 #| msgid "Speed Limit"
@@ -443,7 +440,7 @@ msgid "Seeding Ratio Limit"
 msgstr "Geschwindigkeitsbegrenzung"
 
 msgid "Torrent Settings"
-msgstr ""
+msgstr "Torrent Einstellungen"
 
 #, fuzzy
 #| msgid "Download Directory"
@@ -460,13 +457,84 @@ msgid ""
 msgstr ""
 
 msgid "Cancel Seeding"
-msgstr ""
+msgstr "Seeding abbrechen"
 
 # Save button
 msgid "Save"
-msgstr ""
+msgstr "Speichern"
 
 msgid "Show Menu"
+msgstr "Zeige Menü"
+
+msgid "OK"
+msgstr ""
+
+# Snap version permission warning
+msgid ""
+"You are using Varia as a Snap package. To be able to use the shutdown on "
+"completion option you must first give Varia the related permission. To do "
+"this, open a terminal window and execute this command and then restart Varia:"
+msgstr ""
+
+#, fuzzy
+#| msgid "Torrent Settings"
+msgid "Enable Torrenting"
+msgstr "Torrent Einstellungen"
+
+msgid "The browser extension will not work when Remote Mode is enabled."
+msgstr ""
+
+msgid ""
+"Disabling torrenting will prevent new torrents from being added. It will not "
+"stop current torrent instances."
+msgstr ""
+
+msgid "Torrenting is disabled."
+msgstr ""
+
+msgid "Unknown filesize"
+msgstr ""
+
+#, fuzzy
+#| msgid "Show Menu"
+msgid "Show"
+msgstr "Zeige Menü"
+
+#, fuzzy
+#| msgctxt "shortcut window"
+#| msgid "Quit"
+msgid "Quit"
+msgstr "Beenden"
+
+#, fuzzy
+#| msgid "Background Mode"
+msgid "Background Mode on Close"
+msgstr "Hintergrundmodus"
+
+msgid "Upon closing, Varia will close to tray insted of exiting."
+msgstr ""
+
+# Tray icon always visible option
+msgid "Tray Icon Always Visible"
+msgstr ""
+
+msgid ""
+"The tray icon will be visible even when Varia is not in background mode."
+msgstr ""
+
+# Open on startup option
+msgid "Open on Startup"
+msgstr ""
+
+msgid "Varia will open automatically when the system starts."
+msgstr ""
+
+# Start on background mode subtitle
+msgid "Varia will start directly in background mode upon opening."
+msgstr ""
+
+# Remote mode additional explanation
+msgid "Use Varia as a GUI for a remote aria2c instance."
 msgstr ""
 
 #: src/gtk/help-overlay.ui:11

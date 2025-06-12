@@ -1,7 +1,7 @@
 import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import Gtk, Adw, Pango
+from gi.repository import Gtk, Adw, Pango, GLib
 from stringstorage import gettext as _
 from download.thread import DownloadThread
 import json
@@ -23,6 +23,9 @@ def on_download_clicked(button, self, entry, downloadname, download, mode, video
         self.downloads.append(download_thread)
         download_thread.start()
 
+        if paused == False:
+            self.all_paused = False
+
 def create_actionrow(self, filename):
     download_item = Adw.Bin()
 
@@ -35,15 +38,25 @@ def create_actionrow(self, filename):
     box_2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
     box_2.set_margin_start(10)
     box_2.set_margin_end(10)
-    box_2.set_margin_top(10)
+    box_2.set_margin_top(8)
     box_2.set_margin_bottom(10)
 
     download_item.set_child(box_2)
 
+    percentage_and_filename_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+
+    percentage_label = Gtk.Label(label=_("{number}%").replace("{number}", "0"))
+    percentage_label.set_halign(Gtk.Align.START)
+    percentage_label.add_css_class("dim-label")
+    percentage_label.set_margin_end(5)
+    percentage_and_filename_box.append(percentage_label)
+
     filename_label = Gtk.Label(label=filename)
     filename_label.set_ellipsize(Pango.EllipsizeMode.END)
     filename_label.set_halign(Gtk.Align.START)
-    box.append(filename_label)
+    percentage_and_filename_box.append(filename_label)
+
+    box.append(percentage_and_filename_box)
 
     progress_bar = Gtk.ProgressBar()
 
@@ -63,11 +76,12 @@ def create_actionrow(self, filename):
     pause_button.set_child(pause_button_icon)
     pause_button.set_valign(Gtk.Align.CENTER)
     pause_button.add_css_class("circular")
-    pause_button.connect("clicked", on_pause_clicked, self, pause_button, download_item, False, True)
+    pause_button.connect_handler_id = pause_button.connect("clicked", on_pause_clicked, self, pause_button, download_item, False, True)
+    pause_button.set_retry_mode = pause_button_set_retry_mode
 
     button_box.append(pause_button)
 
-    stop_button = Gtk.Button.new_from_icon_name("process-stop-symbolic")
+    stop_button = Gtk.Button.new_from_icon_name("media-playback-stop-symbolic")
     stop_button.set_valign(Gtk.Align.CENTER)
     stop_button.add_css_class("circular")
     stop_button.add_css_class("destructive-action")
@@ -88,9 +102,11 @@ def create_actionrow(self, filename):
 
     self.content_root_overlay.remove_overlay(self.status_page_widget)
 
+    download_item.percentage_label = percentage_label
     download_item.progress_bar = progress_bar
     download_item.speed_label = speed_label
     download_item.pause_button = pause_button
+    download_item.stop_button = stop_button
     download_item.filename_label = filename_label
 
     return download_item
@@ -105,14 +121,23 @@ def on_pause_clicked(button, self, pause_button, download_item, force_pause, run
             download_item.download_thread.pause(False)
 
 def on_stop_clicked(button, self, download_item):
-    download_item.download_thread.stop(download_item.download_thread.is_complete == False)
-    self.download_list.remove(download_item)
-    if (download_item.download_thread in self.downloads):
-        self.downloads.remove(download_item.download_thread)
-    if (self.download_list.get_first_child() == None):
-        self.header_pause_content.set_icon_name("media-playback-pause-symbolic")
-        self.header_pause_content.set_label(_("Pause All"))
-        self.header_pause_button.set_sensitive(False)
-        self.content_root_overlay.add_overlay(self.status_page_widget)
-    download_item.download_thread = None
-    download_item = None
+    download_item.download_thread.stop()
+
+def pause_button_set_retry_mode(button, self, download_item):
+    GLib.idle_add(button.set_icon_name, "view-refresh-symbolic")
+    button.disconnect(button.connect_handler_id)
+    button.connect_handler_id = button.connect("clicked", pause_button_on_retry_clicked, self, download_item)
+
+def pause_button_on_retry_clicked(button, self, download_item):
+    GLib.idle_add(button.set_icon_name, "media-playback-pause-symbolic")
+    button.disconnect(button.connect_handler_id)
+    button.connect_handler_id = button.connect("clicked", on_pause_clicked, self, button, download_item, False, True)
+
+    GLib.idle_add(download_item.speed_label.set_text, "")
+    GLib.idle_add(download_item.progress_bar.remove_css_class, "error")
+    GLib.idle_add(download_item.progress_bar.set_fraction, 0)
+
+    download_item.cancelled = False
+    download_item.retry = True
+    download_item.run()
+    self.filter_download_list("no", self.applied_filter)

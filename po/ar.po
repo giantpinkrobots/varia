@@ -1,0 +1,549 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-30 03:17+0300\n"
+"PO-Revision-Date: 2025-04-13 22:08+0000\n"
+"Last-Translator: Giant Pink Robots! <giantpinkrobots@protonmail.com>\n"
+"Language-Team: Arabic <https://hosted.weblate.org/projects/varia/varia/ar/>\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+"X-Generator: Weblate 5.11-dev\n"
+
+#. Translators: Do NOT translate or localize the application name.
+#: data/io.github.giantpinkrobots.varia.desktop.in:4
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:3
+msgid "Varia"
+msgstr "Varia"
+
+#. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
+#: data/io.github.giantpinkrobots.varia.desktop.in:11
+msgid "varia;aria;download;manager;"
+msgstr "varia;aria;تحميل;مدير;"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
+msgid "Download manager based on aria2"
+msgstr "مدير تحميل مبنى على aria2"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
+msgid ""
+"Varia is a download manager based on aria2 that utilizes GTK4 and Libadwaita "
+"to provide a easy to use interface that integrates well with the GNOME "
+"desktop."
+msgstr ""
+"Varia هو مدير تحميل مبنى على aria2 ويستخدم GTK4 و Libadwaita ليوفر واجهة "
+"سهلة الاستخدام تتكامل بشكل جيد مع سطح مكتب."
+
+#: src/variamain.py:45
+msgid "This is not a valid URL."
+msgstr "هذا ال URL غير صحيح."
+
+#: src/variamain.py:125
+msgid "All"
+msgstr "الكل"
+
+#: src/variamain.py:137
+msgid "In Progress"
+msgstr "جاري التنفيذ"
+
+#: src/variamain.py:148
+msgid "Completed"
+msgstr "اكتمل"
+
+#: src/variamain.py:171
+msgid "About Varia"
+msgstr "حول Varia"
+
+#: src/variamain.py:177
+msgid "URL"
+msgstr "URL"
+
+#: src/variamain.py:178
+msgid "Download"
+msgstr "تحميل"
+
+#: src/variamain.py:184
+msgid "Open Download Folder"
+msgstr "فتح مجلد التحميلات"
+
+#: src/variamain.py:196
+msgid "Speed Limit"
+msgstr "الحد الأقصى للسرعة"
+
+#: src/variamain.py:203 src/variamain.py:423
+msgid "Pause All"
+msgstr "إيقاف الكل"
+
+#: src/variamain.py:212
+msgid "Speed"
+msgstr "السرعة"
+
+#: src/variamain.py:215
+msgid "Set Speed Limit"
+msgstr "تحديد الحد الأقصى للسرعة"
+
+#: src/variamain.py:216
+msgid "Cancel All"
+msgstr "إلغاء الكل"
+
+#: src/variamain.py:235
+msgid "/s"
+msgstr "/s"
+
+#: src/variamain.py:238
+msgid "No limit"
+msgstr "لا حد أقصى"
+
+#: src/variamain.py:274
+msgid "Download complete."
+msgstr "أكتمل التحميل."
+
+#: src/variamain.py:276
+msgid "Download speed is limited."
+msgstr "سرعة التحميل محدودة."
+
+#: src/variamain.py:277
+msgid "An error occurred:"
+msgstr "لقد حصل مشكلة:"
+
+#: src/variamain.py:292
+msgid "MB/s"
+msgstr "MB/s"
+
+#: src/variamain.py:294
+msgid "KB/s"
+msgstr "KB/s"
+
+#: src/variamain.py:298
+msgid "0 B/s"
+msgstr "0 B/s"
+
+#: src/variamain.py:300
+msgid " MB/s"
+msgstr " MB/s"
+
+#: src/variamain.py:302
+msgid " KB/s"
+msgstr " KB/s"
+
+#: src/variamain.py:304
+msgid " B/s"
+msgstr " B/s"
+
+#: src/variamain.py:404
+msgid "Simultaneous Download Amount"
+msgstr "عدد التنزيلات المتزامنة"
+
+#: src/variamain.py:410
+msgid "Resume All"
+msgstr "استئناف الكل"
+
+#: src/variamain.py:443
+msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
+msgstr "مدير تنزيل مبني على aria2، يستخدم GTK4 و Libadwaita."
+
+#: src/variamain.py:777
+msgid "This application relies on the following pieces of software:"
+msgstr "هذا التطبيق يعتمد على البرامج التالية:"
+
+#: src/variamain.py:777
+msgid ""
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
+msgstr ""
+"يمكن العثور على تراخيص جميع هذه البرامج في مجلد \"dependencies_information\" "
+"داخل مجلد التطبيق."
+
+# This is for the credits section. Replace this string with your own information so you'll be credited for your work.
+#: src/variamain.py:449
+msgid "translator-credits"
+msgstr "HongYue1"
+
+#: src/variamain.py:457
+msgid "Download Directory"
+msgstr "مجلد التحميلات"
+
+#: src/variamain.py:460
+msgid "Change"
+msgstr "تغير"
+
+#: src/variamain.py:463
+msgid "Speed limited"
+msgstr "الحد الأقصى للسرعة"
+
+#: src/variamain.py:519
+msgid "Authentication"
+msgstr "التحقق من الهوية"
+
+#: src/variamain.py:532
+msgid "Username"
+msgstr "اسم المستخدم"
+
+#: src/variamain.py:534
+msgid "Password"
+msgstr "كلمة السر"
+
+#: src/variamain.py:554
+msgid "Authorization failed."
+msgstr "فشل السماح بالدخول."
+
+#: src/variamain.py:806
+msgid "Failed to open directory."
+msgstr "فشل فتح المجلد."
+
+msgid "Remote Mode"
+msgstr "نمط التحكم عن بعد"
+
+msgid "Remote aria2 IP"
+msgstr "عنوان الIP لـ aria2 البعيد"
+
+msgid "Remote aria2 Port"
+msgstr "ال port لaria2 البعيد"
+
+msgid "Remote aria2 RPC Secret"
+msgstr "مفتاح RPC السري لـ aria2 البعيد"
+
+msgid "Remote Download Location"
+msgstr "مسار التنزيل عن بعد"
+
+msgid "Exiting Varia..."
+msgstr "جاري الخروج من Varia..."
+
+msgid "Background Mode"
+msgstr "العمل في الخلفية"
+
+msgid "Continuing the downloads in the background."
+msgstr "متابعة التحميل في الخلفية."
+
+msgid "Browser Extension"
+msgstr "إضافة المتصفح"
+
+msgid "Shutdown on Completion"
+msgstr "إيقاف الحاسوب بعد الانتهاء من التنزيل"
+
+msgid "Varia is about to shut down your computer."
+msgstr "Varia على وشك إيقاف تشغيل هذا الجهاز."
+
+msgid "Press Cancel to cancel and disable."
+msgstr "انقر على \"إلغاء\" للإيقاف والتعطيل."
+
+msgid "Cancel"
+msgstr "ألغاء"
+
+msgid "Warning"
+msgstr "تحذير"
+
+msgid "Monday"
+msgstr "الأثنين"
+
+msgid "Tuesday"
+msgstr "الثلاثاء"
+
+msgid "Wednesday"
+msgstr "الأربعاء"
+
+msgid "Thursday"
+msgstr "الخميس"
+
+msgid "Friday"
+msgstr "الجمعة"
+
+msgid "Saturday"
+msgstr "السبت"
+
+msgid "Sunday"
+msgstr "الأحد"
+
+msgid "Start (h/m):"
+msgstr "البدء (ساعة/دقيقة):"
+
+msgid "End (h/m):"
+msgstr "النهاية (ساعة/دقيقة):"
+
+msgid "Scheduler enabled"
+msgstr "تم تفعيل الجدولة"
+
+msgid "Scheduler"
+msgstr "خاصية الجدولة"
+
+msgid "Enabled"
+msgstr "مفعل"
+
+msgid "Start downloading in these times"
+msgstr "ابدأ التحميل فى هذه الأوقات"
+
+msgid "Stop downloading in these times"
+msgstr "إيقاف التحميل فى هذه الأوقات"
+
+msgid "Add Timespan"
+msgstr "إضافة فترة زمنية"
+
+#: When a download is currently seeding:
+msgid "Seeding"
+msgstr "البذر (seeding)"
+
+msgid "Failed"
+msgstr "فشل"
+
+msgid "Completion Options"
+msgstr "خيارات ما بعد انتهاء التحميل"
+
+msgid "Exit on Completion"
+msgstr "الخروج عند انتهاء التحميل"
+
+msgid "Varia is about to quit."
+msgstr "Varia على وشك الخروج."
+
+msgid "Preferences"
+msgstr "الإعدادات"
+
+msgid "Other"
+msgstr "أخرى"
+
+msgid "Basic Settings"
+msgstr "الإعدادات الأساسية"
+
+msgid "Advanced Settings"
+msgstr "الإعدادت المتقدمة"
+
+msgid "Use cookies.txt"
+msgstr "استخدم ملف cookies.txt"
+
+msgid "Import cookies.txt"
+msgstr "اضافة ملف cookies.txt"
+
+msgid "Remove cookies.txt"
+msgstr "إزالة ملف cookies.txt"
+
+msgid "remaining"
+msgstr "متبقى"
+
+msgid "Start in Background Mode"
+msgstr "وضع البدأ فى الخلفية"
+
+msgid "Remote Timestamp"
+msgstr "الطابع الزمني للجهاز البعيد"
+
+msgid "Torrent"
+msgstr "تورينت"
+
+# Updater
+msgid "Checking for updates..."
+msgstr "جارى التحقق من وجود تحديثات..."
+
+msgid "A new version of Varia is available. Do you want to update?"
+msgstr "نسخة أحدث من Varia وجدت. هل تريد التحديث؟"
+
+msgid "Update available"
+msgstr "يوجد تحديث"
+
+msgid "Update"
+msgstr "تحديث"
+
+msgid "Downloading update..."
+msgstr "جارى تحميل التحديث..."
+
+msgid "Download failed."
+msgstr "فشل التحميل."
+
+msgid "Yes"
+msgstr "نعم"
+
+msgid "No"
+msgstr "لا"
+
+msgid "Automatically Check for Updates"
+msgstr "التحقق التلقائى عن التحديثات"
+
+msgid "Check Now"
+msgstr "تحقق الأن"
+
+msgid "Do you want to check for updates on startup?"
+msgstr "هل تريد التحقق من التحديثات عند تشغيل البرنامج؟"
+
+msgid "File"
+msgstr "ملف"
+
+msgid "Video / Audio"
+msgstr "الفيديوهات / الصوتيات"
+
+msgid "Video and audio"
+msgstr "الفيديوهات و الصوتيات"
+
+msgid "Video only"
+msgstr "الفيديوهات فقط"
+
+msgid "Audio only"
+msgstr "الصوتيات فقط"
+
+#: Relating to video download:
+msgid "Framerate:"
+msgstr "معدل الإطارات:"
+
+#: Relating to video download:
+msgid "Bitrate:"
+msgstr "معدل نقل البيانات (Bitrate):"
+
+msgid "Checking video..."
+msgstr "جارى التحقق من الفيديو..."
+
+msgid "No video or audio streams found"
+msgstr "لم يتم العثور على مقاطع فيديو أو صوت"
+
+msgid "Starting download..."
+msgstr "جارى بدأ التحميل..."
+
+msgid ""
+"The video platform may not be supported or you may be being blocked by the "
+"platform. If you have an active VPN connection that might be the cause, or "
+"you can try importing your browser's cookies through a cookies.txt file."
+msgstr ""
+"قد لا تكون منصة الفيديو مدعومة أو قد تكون محظورًا من قبل المنصة. إذا كان لديك "
+"اتصال VPN نشط، فقد يكون هذا هو السبب، أو يمكنك محاولة استيراد ملفات تعريف "
+"الارتباط الخاصة بمتصفحك من خلال ملف cookies.txt."
+
+msgid "This will disable the video download functionality."
+msgstr "سيؤدي هذا إلى تعطيل وظيفة تنزيل الفيديو."
+
+#: Relating to video download progress where it says "Part 1/2" - {indicator}
+#: is replaced by "1/2" or "2/2" (don't translate {indicator})
+msgid "Part {indicator}"
+msgstr "الجزء {indicator}"
+
+msgid "Simultaneous download limit exceeded, waiting."
+msgstr "تجاوزت الحد المسموح للتنزيلات المتزامنة، برجاء الانتظار."
+
+#: The way percentages will be shown, like 10% or %10 depending on the language
+#: (don't translate {number}, just move it if needed)
+msgid "{number}%"
+msgstr "{number}%"
+
+msgid "Allow Seeding"
+msgstr "السماح بال seeding"
+
+msgid "Seeding Ratio Limit"
+msgstr "الحد الأقصى لنسبة المشاركة (seeding)"
+
+msgid "Torrent Settings"
+msgstr "أعدادات التورينت"
+
+msgid "Custom Download Directory for Torrents"
+msgstr "مسار تنزيل مخصص لملفات التورنت"
+
+#: When the user attempts to disable seeding
+msgid ""
+"As torrenting relies on people seeding data, disabling seeding is very much "
+"frowned upon and may result in you getting throttled or banned by certain "
+"clients and trackers. Clients are usually expected to seed at least as much "
+"as they download (a ratio of 1). You may want to consider limiting your "
+"seeding ratio instead."
+msgstr ""
+"بما أن التورنت يعتمد على قيام الأشخاص ببذر البيانات (seeding)، فإن تعطيل "
+"البذر يعتبر أمرًا مستهجنًا للغاية وقد يؤدي إلى تقييد سرعتك أو حظرك من قبل بعض "
+"العملاء والمتتبعات. عادةً ما يُتوقع من العملاء أن يبذروا على الأقل بقدر ما "
+"يقومون بتنزيله (نسبة 1). قد ترغب في التفكير في تحديد نسبة البذر بدلاً من ذلك."
+
+msgid "Cancel Seeding"
+msgstr "الغاء ال seeding"
+
+# Save button
+msgid "Save"
+msgstr "الحفظ"
+
+msgid "Show Menu"
+msgstr "إظهار القائمة"
+
+msgid "OK"
+msgstr ""
+
+# Snap version permission warning
+msgid ""
+"You are using Varia as a Snap package. To be able to use the shutdown on "
+"completion option you must first give Varia the related permission. To do "
+"this, open a terminal window and execute this command and then restart Varia:"
+msgstr ""
+
+#, fuzzy
+#| msgid "Torrent Settings"
+msgid "Enable Torrenting"
+msgstr "أعدادات التورينت"
+
+msgid "The browser extension will not work when Remote Mode is enabled."
+msgstr ""
+
+msgid ""
+"Disabling torrenting will prevent new torrents from being added. It will not "
+"stop current torrent instances."
+msgstr ""
+
+msgid "Torrenting is disabled."
+msgstr ""
+
+msgid "Unknown filesize"
+msgstr ""
+
+#, fuzzy
+#| msgid "Show Menu"
+msgid "Show"
+msgstr "إظهار القائمة"
+
+#, fuzzy
+#| msgctxt "shortcut window"
+#| msgid "Quit"
+msgid "Quit"
+msgstr "الخروج"
+
+#, fuzzy
+#| msgid "Background Mode"
+msgid "Background Mode on Close"
+msgstr "العمل في الخلفية"
+
+msgid "Upon closing, Varia will close to tray insted of exiting."
+msgstr ""
+
+# Tray icon always visible option
+msgid "Tray Icon Always Visible"
+msgstr ""
+
+msgid ""
+"The tray icon will be visible even when Varia is not in background mode."
+msgstr ""
+
+# Open on startup option
+msgid "Open on Startup"
+msgstr ""
+
+msgid "Varia will open automatically when the system starts."
+msgstr ""
+
+# Start on background mode subtitle
+msgid "Varia will start directly in background mode upon opening."
+msgstr ""
+
+# Remote mode additional explanation
+msgid "Use Varia as a GUI for a remote aria2c instance."
+msgstr ""
+
+#: src/gtk/help-overlay.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "عام"
+
+#: src/gtk/help-overlay.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "إظهار الأختصارات"
+
+#: src/gtk/help-overlay.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "الخروج"

@@ -1,0 +1,555 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-30 03:17+0300\n"
+"PO-Revision-Date: 2025-04-13 22:08+0000\n"
+"Last-Translator: Giant Pink Robots! <giantpinkrobots@protonmail.com>\n"
+"Language-Team: Vietnamese <https://hosted.weblate.org/projects/varia/varia/"
+"vi/>\n"
+"Language: vi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.11-dev\n"
+
+#. Translators: Do NOT translate or localize the application name.
+#: data/io.github.giantpinkrobots.varia.desktop.in:4
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:3
+msgid "Varia"
+msgstr "Varia"
+
+#. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
+#: data/io.github.giantpinkrobots.varia.desktop.in:11
+msgid "varia;aria;download;manager;"
+msgstr "varia;aria;download;manager;"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
+msgid "Download manager based on aria2"
+msgstr "Trình quản lý tải xuống dựa trên aria2"
+
+#: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
+msgid ""
+"Varia is a download manager based on aria2 that utilizes GTK4 and Libadwaita "
+"to provide a easy to use interface that integrates well with the GNOME "
+"desktop."
+msgstr ""
+"Varia là trình quản lý tải xuống được dựa trên aria2 tối ưu GTK4 và "
+"Libadwaita để tạo nên một giao diện dễ sử dụng và tích hợp tốt với GNOME."
+
+#: src/variamain.py:45
+msgid "This is not a valid URL."
+msgstr "URL không hợp lệ."
+
+#: src/variamain.py:125
+msgid "All"
+msgstr "Tất cả"
+
+#: src/variamain.py:137
+msgid "In Progress"
+msgstr "Đang Trong Quá Trình Tải Xuống"
+
+#: src/variamain.py:148
+msgid "Completed"
+msgstr "Đã Tải Xong"
+
+#: src/variamain.py:171
+msgid "About Varia"
+msgstr "Thông tin về Varia"
+
+#: src/variamain.py:177
+msgid "URL"
+msgstr "URL"
+
+#: src/variamain.py:178
+msgid "Download"
+msgstr "Tải xuống"
+
+#: src/variamain.py:184
+msgid "Open Download Folder"
+msgstr "Mở Thư mục Download"
+
+#: src/variamain.py:196
+msgid "Speed Limit"
+msgstr "Giới Hạn Tốc Độ Tải Xuống"
+
+#: src/variamain.py:203 src/variamain.py:423
+msgid "Pause All"
+msgstr "Dừng Tất Cả"
+
+#: src/variamain.py:212
+msgid "Speed"
+msgstr "Tốc độ"
+
+#: src/variamain.py:215
+msgid "Set Speed Limit"
+msgstr "Giới hạn tốc độ tải xuống"
+
+#: src/variamain.py:216
+msgid "Cancel All"
+msgstr "Hủy Tất Cả"
+
+#: src/variamain.py:235
+msgid "/s"
+msgstr "/s"
+
+#: src/variamain.py:238
+msgid "No limit"
+msgstr "Không giới hạn"
+
+#: src/variamain.py:274
+msgid "Download complete."
+msgstr "Tải xuống hoàn thành."
+
+#: src/variamain.py:276
+msgid "Download speed is limited."
+msgstr "Tốc độ tải xuống đã bị giới hạn."
+
+#: src/variamain.py:277
+msgid "An error occurred:"
+msgstr "Có lỗi xảy ra:"
+
+#: src/variamain.py:292
+msgid "MB/s"
+msgstr "MB/s"
+
+#: src/variamain.py:294
+msgid "KB/s"
+msgstr "KB/s"
+
+#: src/variamain.py:298
+msgid "0 B/s"
+msgstr "0 B/s"
+
+#: src/variamain.py:300
+msgid " MB/s"
+msgstr " MB/s"
+
+#: src/variamain.py:302
+msgid " KB/s"
+msgstr " KB/s"
+
+#: src/variamain.py:304
+msgid " B/s"
+msgstr " B/s"
+
+#: src/variamain.py:404
+msgid "Simultaneous Download Amount"
+msgstr "Số lượng tải xuống đồng thời"
+
+#: src/variamain.py:410
+msgid "Resume All"
+msgstr "Tiếp tục tất cả"
+
+#: src/variamain.py:443
+msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
+msgstr "Trình tải xuống dựa vào aria2 tối ưu GTK4 và Libadwaita."
+
+#: src/variamain.py:777
+msgid "This application relies on the following pieces of software:"
+msgstr "Ứng dụng này dựa trên những phần mềm sau:"
+
+#: src/variamain.py:777
+msgid ""
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
+msgstr ""
+"Chính sách của những phần mềm có thể tìm thấy ở đường dẫn "
+"dependencies_information ở trong thư mục chứa ứng dụng này."
+
+# This is for the credits section. Replace this string with your own information so you'll be credited for your work.
+#: src/variamain.py:449
+msgid "translator-credits"
+msgstr "Tô Huy from Viet Nam with luv 🤍"
+
+#: src/variamain.py:457
+msgid "Download Directory"
+msgstr "Thư mục tải xuống"
+
+#: src/variamain.py:460
+msgid "Change"
+msgstr "Thay đổi"
+
+#: src/variamain.py:463
+msgid "Speed limited"
+msgstr "Tốc độ bị giới hạn"
+
+#: src/variamain.py:519
+msgid "Authentication"
+msgstr "Xác thực"
+
+#: src/variamain.py:532
+msgid "Username"
+msgstr "Tên người dùng"
+
+#: src/variamain.py:534
+msgid "Password"
+msgstr "Mật khẩu"
+
+#: src/variamain.py:554
+msgid "Authorization failed."
+msgstr "Không thể xác thực."
+
+#: src/variamain.py:806
+msgid "Failed to open directory."
+msgstr "Không thể mở thư mục."
+
+msgid "Remote Mode"
+msgstr "Chế độ từ xa"
+
+msgid "Remote aria2 IP"
+msgstr "Địa chỉ IP aria2 từ xa"
+
+msgid "Remote aria2 Port"
+msgstr "Cổng aria2 từ xa"
+
+msgid "Remote aria2 RPC Secret"
+msgstr "Mã RPC Secret aria2 từ xa"
+
+msgid "Remote Download Location"
+msgstr "Vị trí tải xuống từ xa"
+
+msgid "Exiting Varia..."
+msgstr "Đang thoát Varia..."
+
+msgid "Background Mode"
+msgstr "Chế độ dưới nền"
+
+msgid "Continuing the downloads in the background."
+msgstr "Đang tiếp tục tải xuống ở dưới nền."
+
+msgid "Browser Extension"
+msgstr "Trình mở rộng của trình duyệt"
+
+msgid "Shutdown on Completion"
+msgstr "Tắt máy sau khi hoàn thành"
+
+msgid "Varia is about to shut down your computer."
+msgstr "Varia đang chuẩn bị tắt máy."
+
+msgid "Press Cancel to cancel and disable."
+msgstr "Nhấn Dừng để dừng và vô hiệu hóa."
+
+msgid "Cancel"
+msgstr "Dừng"
+
+msgid "Warning"
+msgstr "Cảnh báo"
+
+msgid "Monday"
+msgstr "Thứ Hai"
+
+msgid "Tuesday"
+msgstr "Thứ Ba"
+
+msgid "Wednesday"
+msgstr "Thứ Tư"
+
+msgid "Thursday"
+msgstr "Thứ Năm"
+
+msgid "Friday"
+msgstr "Thứ Sáu"
+
+msgid "Saturday"
+msgstr "Thứ Bảy"
+
+msgid "Sunday"
+msgstr "Chủ Nhật"
+
+msgid "Start (h/m):"
+msgstr "Bắt đầu (h/m):"
+
+msgid "End (h/m):"
+msgstr "Kết thúc (h/m):"
+
+msgid "Scheduler enabled"
+msgstr "Lên lịch đã bật"
+
+msgid "Scheduler"
+msgstr "Lên lịch"
+
+msgid "Enabled"
+msgstr "Bật"
+
+msgid "Start downloading in these times"
+msgstr "Bắt đầu tải xuống ở lần này"
+
+msgid "Stop downloading in these times"
+msgstr "Tạm dừng tải xuống ở lần này"
+
+msgid "Add Timespan"
+msgstr "Thêm Thời lượng"
+
+#: When a download is currently seeding:
+msgid "Seeding"
+msgstr "Seeding"
+
+msgid "Failed"
+msgstr "Thất bại"
+
+msgid "Completion Options"
+msgstr "Tùy chọn sau khi hoàn thành"
+
+msgid "Exit on Completion"
+msgstr "Thoát khi Hoàn thành"
+
+msgid "Varia is about to quit."
+msgstr "Varia đang chuẩn bị thoát."
+
+msgid "Preferences"
+msgstr "Tùy chọn"
+
+msgid "Other"
+msgstr "Khác"
+
+msgid "Basic Settings"
+msgstr "Cài đặt cơ bản"
+
+msgid "Advanced Settings"
+msgstr "Cài đặt nâng cao"
+
+msgid "Use cookies.txt"
+msgstr "Sử dụng cookies.txt"
+
+msgid "Import cookies.txt"
+msgstr "Nhập cookies.txt"
+
+msgid "Remove cookies.txt"
+msgstr "Xóa cookies.txt"
+
+msgid "remaining"
+msgstr "còn lại"
+
+msgid "Start in Background Mode"
+msgstr "Bắt đầu trong chế độ nền"
+
+msgid "Remote Timestamp"
+msgstr "Mốc thời gian từ xa"
+
+msgid "Torrent"
+msgstr "Torrent"
+
+# Updater
+msgid "Checking for updates..."
+msgstr "Đang kiểm tra bản cập nhật mới..."
+
+msgid "A new version of Varia is available. Do you want to update?"
+msgstr "Đã có phiên bản mới của Varia. Bạn có muốn cập nhật không?"
+
+msgid "Update available"
+msgstr "Cập nhật khả dụng"
+
+msgid "Update"
+msgstr "Cập nhật"
+
+msgid "Downloading update..."
+msgstr "Đang tải xuống bản cập nhật..."
+
+msgid "Download failed."
+msgstr "Tải xuống thất bại."
+
+msgid "Yes"
+msgstr "Có"
+
+msgid "No"
+msgstr "Không"
+
+msgid "Automatically Check for Updates"
+msgstr "Tự động kiếm tra bản cập nhật mới"
+
+msgid "Check Now"
+msgstr "Kiếm tra ngay bây giờ"
+
+msgid "Do you want to check for updates on startup?"
+msgstr "Bạn có muốn kiếm tra bản cập nhật ngay khi khởi động?"
+
+msgid "File"
+msgstr "File"
+
+msgid "Video / Audio"
+msgstr "Video / Âm thanh"
+
+msgid "Video and audio"
+msgstr "Video và âm thanh"
+
+msgid "Video only"
+msgstr "Chỉ video"
+
+msgid "Audio only"
+msgstr "Chỉ âm thanh"
+
+#: Relating to video download:
+msgid "Framerate:"
+msgstr "Framerate:"
+
+#: Relating to video download:
+msgid "Bitrate:"
+msgstr "Bitrate:"
+
+msgid "Checking video..."
+msgstr "Đang kiểm tra video..."
+
+msgid "No video or audio streams found"
+msgstr "Không có luồng video hoặc âm thanh được tìm thấy"
+
+msgid "Starting download..."
+msgstr "Đang bắt đầu tải xuống..."
+
+msgid ""
+"The video platform may not be supported or you may be being blocked by the "
+"platform. If you have an active VPN connection that might be the cause, or "
+"you can try importing your browser's cookies through a cookies.txt file."
+msgstr ""
+"Trình xem video không hỗ trợ hoặc đã bị chặn. Nếu bạn đang bật VPN thì có "
+"thể sẽ bị ảnh hưởng hoặc bạn có thể thử nhập cookies từ trình duyệt của bạn "
+"bằng file cookies.txt."
+
+msgid "This will disable the video download functionality."
+msgstr "Trình tải xuống video sẽ bị vô hiệu hóa."
+
+#: Relating to video download progress where it says "Part 1/2" - {indicator}
+#: is replaced by "1/2" or "2/2" (don't translate {indicator})
+msgid "Part {indicator}"
+msgstr "Phần {indicator}"
+
+msgid "Simultaneous download limit exceeded, waiting."
+msgstr "Số luồng tải xuống đồng thời vượt quá giới hạn, vui lòng chờ."
+
+#: The way percentages will be shown, like 10% or %10 depending on the language
+#: (don't translate {number}, just move it if needed)
+msgid "{number}%"
+msgstr "{number}%"
+
+msgid "Allow Seeding"
+msgstr "Cho phép Seeding"
+
+msgid "Seeding Ratio Limit"
+msgstr "Giới hạn tỉ lệ Seeding"
+
+msgid "Torrent Settings"
+msgstr "Cài đặt Torrent"
+
+msgid "Custom Download Directory for Torrents"
+msgstr "Đường dẫn tải xuống tùy chỉnh cho Torrents"
+
+#: When the user attempts to disable seeding
+msgid ""
+"As torrenting relies on people seeding data, disabling seeding is very much "
+"frowned upon and may result in you getting throttled or banned by certain "
+"clients and trackers. Clients are usually expected to seed at least as much "
+"as they download (a ratio of 1). You may want to consider limiting your "
+"seeding ratio instead."
+msgstr ""
+"Torrent dự vào dữ liệu của người dùng, tắt seeding là không thể chấp nhận và "
+"có thể sẽ bị ban bởi một số clients hoặc trackers. Clients thường sẽ seed ít "
+"nhất bằng tỉ lệ họ tải xuống (thường là 1). Thay vì thế bạn có thể giới hạn "
+"tỉ lệ seeding."
+
+msgid "Cancel Seeding"
+msgstr "Dừng Seeding"
+
+# Save button
+msgid "Save"
+msgstr "Lưu"
+
+msgid "Show Menu"
+msgstr "Hiện Menu"
+
+msgid "OK"
+msgstr "Đồng ý"
+
+# Snap version permission warning
+msgid ""
+"You are using Varia as a Snap package. To be able to use the shutdown on "
+"completion option you must first give Varia the related permission. To do "
+"this, open a terminal window and execute this command and then restart Varia:"
+msgstr ""
+"Bạn đang sử dụng Varia phiên bản Snap. Vui lòng cấp quyền cho ứng dụng tắt "
+"máy và hoàn thành. Hãy mở giao diện dòng lệnh và thực hiện các câu lệnh sau, "
+"sau đó hãy khởi động lại Varia:"
+
+#, fuzzy
+#| msgid "Torrent Settings"
+msgid "Enable Torrenting"
+msgstr "Bật tùy chọn Torrent"
+
+msgid "The browser extension will not work when Remote Mode is enabled."
+msgstr "Tiện ích trình duyệt sẽ không hoạt động được khi bật chế độ từ xa."
+
+msgid ""
+"Disabling torrenting will prevent new torrents from being added. It will not "
+"stop current torrent instances."
+msgstr ""
+"Tắt chế độ torrent sẽ không tự động thêm torrent mới về sau. Tùy chọn này "
+"không ngăn cản torrent đang chạy."
+
+msgid "Torrenting is disabled."
+msgstr "Chế độ torrent đã tắt."
+
+#, fuzzy
+msgid "Unknown filesize"
+msgstr "Chưa rõ kích thước"
+
+#, fuzzy
+#| msgid "Show Menu"
+msgid "Show"
+msgstr "Hiện Menu"
+
+#, fuzzy
+#| msgctxt "shortcut window"
+#| msgid "Quit"
+msgid "Quit"
+msgstr "Thoát"
+
+#, fuzzy
+#| msgid "Background Mode"
+msgid "Background Mode on Close"
+msgstr "Chế độ dưới nền"
+
+msgid "Upon closing, Varia will close to tray insted of exiting."
+msgstr ""
+
+# Tray icon always visible option
+msgid "Tray Icon Always Visible"
+msgstr ""
+
+msgid ""
+"The tray icon will be visible even when Varia is not in background mode."
+msgstr ""
+
+# Open on startup option
+msgid "Open on Startup"
+msgstr ""
+
+msgid "Varia will open automatically when the system starts."
+msgstr ""
+
+# Start on background mode subtitle
+msgid "Varia will start directly in background mode upon opening."
+msgstr ""
+
+# Remote mode additional explanation
+msgid "Use Varia as a GUI for a remote aria2c instance."
+msgstr ""
+
+#: src/gtk/help-overlay.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Chung"
+
+#: src/gtk/help-overlay.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Hiện Shortcuts"
+
+#: src/gtk/help-overlay.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Thoát"
