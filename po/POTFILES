@@ -1,4 +1,14 @@
 data/io.github.giantpinkrobots.varia.desktop.in
 data/io.github.giantpinkrobots.varia.metainfo.xml.in
+src/initiate.py
 src/variamain.py
-src/gtk/help-overlay.ui
+src/download/actionrow.py
+src/download/communicate.py
+src/download/listen.py
+src/download/thread.py
+src/download/videos.py
+src/window/content.py
+src/window/preferences.py
+src/window/scheduler.py
+src/window/sidebar.py
+src/window/updater.py
