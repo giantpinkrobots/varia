@@ -166,7 +166,7 @@ def show_preferences(button, self, app, variaVersion):
     scheduler_actionrow = Adw.ActionRow()
     scheduler_actionrow.set_title(_("Scheduler"))
 
-    scheduler_actionrow_edit_button = Gtk.Button(label=_("Change"))
+    scheduler_actionrow_edit_button = Gtk.Button(label=_("Configure"))
     scheduler_actionrow_edit_button.set_halign(Gtk.Align.START)
     scheduler_actionrow_edit_button.set_valign(Gtk.Align.CENTER)
     scheduler_actionrow_edit_button.add_css_class("suggested-action")
