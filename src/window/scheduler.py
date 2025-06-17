@@ -10,16 +10,19 @@ def add_timespan_clicked(button, self, timespans_box, day, start_h, start_m, end
 
     switch_enabled.set_sensitive(True)
 
-    root_box = Gtk.Box()
+    root_box = Adw.WrapBox()
     timespan_row.set_child(root_box)
-
-    box_contents = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
-    box_contents.set_margin_start(4)
-    box_contents.set_margin_end(4)
-    box_contents.set_margin_top(4)
     
-    timespan_box_row_1 = Gtk.Box()
-    timespan_box_row_2 = Gtk.Box()
+    box_column_1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
+    box_column_2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
+    box_column_1.set_margin_start(4)
+    box_column_1.set_margin_end(4)
+    box_column_1.set_margin_top(4)
+    box_column_1.set_margin_bottom(4)
+    box_column_2.set_margin_start(4)
+    box_column_2.set_margin_end(4)
+    box_column_2.set_margin_top(4)
+    box_column_2.set_margin_bottom(4)
 
     days_combobox = Gtk.ComboBoxText()
     all_days = [_("Monday"), _("Tuesday"), _("Wednesday"), _("Thursday"), _("Friday"), _("Saturday"), _("Sunday")]
@@ -30,6 +33,7 @@ def add_timespan_clicked(button, self, timespans_box, day, start_h, start_m, end
     days_combobox.set_active(day)
 
     remove_button = Gtk.Button.new_from_icon_name("list-remove-symbolic")
+    remove_button.set_margin_start(4)
     remove_button.set_margin_end(4)
     remove_button.set_margin_top(4)
     remove_button.set_margin_bottom(4)
@@ -37,11 +41,13 @@ def add_timespan_clicked(button, self, timespans_box, day, start_h, start_m, end
     remove_button.connect("clicked", remove_timespan, self, timespans_box, timespan_row, len(self.timespans_list), switch_enabled)
 
     timespan_count_label = Gtk.Label()
+    timespan_count_label.set_halign(Gtk.Align.START)
     timespan_count_label.add_css_class("heading")
     timespan_count_label.set_margin_start(6)
     timespan_count_label.set_margin_end(6)
+    timespan_count_label.set_margin_top(6)
+    timespan_count_label.set_margin_bottom(6)
 
-    timespan_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
     start_timespan_box = Gtk.Box(spacing=2)
     end_timespan_box = Gtk.Box(spacing=2)
 
@@ -63,23 +69,15 @@ def add_timespan_clicked(button, self, timespans_box, day, start_h, start_m, end
     end_timespan_box.append(end_timespan_spin_h)
     end_timespan_box.append(end_timespan_spin_m)
 
-    timespan_box_row_1.append(timespan_count_label)
-    timespan_box_row_1.append(Gtk.Box(hexpand=True))
-    timespan_box_row_1.append(start_timespan_box)
+    box_column_1.append(timespan_count_label)
+    box_column_1.append(days_combobox)
 
-    timespan_box_row_2.append(days_combobox)
-    timespan_box_row_2.append(Gtk.Box(hexpand=True))
-    timespan_box_row_2.append(end_timespan_box)
+    box_column_2.append(start_timespan_box)
+    box_column_2.append(end_timespan_box)
 
-    box_contents.append(timespan_box_row_1)
-    box_contents.append(timespan_box_row_2)
-
-    timespan_box.append(start_timespan_box)
-    timespan_box.append(end_timespan_box)
-
-    box_contents.append(timespan_box)
-
-    root_box.append(box_contents)
+    root_box.append(box_column_1)
+    root_box.append(Gtk.Box(hexpand=True))
+    root_box.append(box_column_2)
     root_box.append(Gtk.Box(hexpand=True))
     root_box.append(remove_button)
 
