@@ -39,7 +39,7 @@ def listen_to_aria2(self, variaapp):
                         frontend_download_item.cancelled = True
                         frontend_download_item.stop()
                         self.download_list.remove(frontend_download_item.actionrow)
-                        self.downloads.remove(frontend_download_item)
+                        os.remove(torrent_file_path)
 
         downloads_in_frontend_files = []
         downloads_in_frontend_gids = []
@@ -62,14 +62,18 @@ def listen_to_aria2(self, variaapp):
         for download_item_to_be_added in self.api.get_downloads():
 
             # Handle videos:
-            downloadurl = download_item_to_be_added.files[0].uris[0]["uri"]
             if download_item_to_be_added.name == "varia-video-download.variavideo":
-                download_item_to_be_added.remove(force=True)
-                on_video_clicked(None, self, downloadurl)
-                self.unminimize()
-                self.set_visible(True)
-                self.present()
-                print("Video added through browser extension")
+                try:
+                    downloadurl = download_item_to_be_added.files[0].uris[0]["uri"]
+                    download_item_to_be_added.remove(force=True)
+                    on_video_clicked(None, self, downloadurl)
+                    self.unminimize()
+                    self.set_visible(True)
+                    self.present()
+                    print("Video added through browser extension")
+                
+                except:
+                    pass
             
             else:
                 new_download_files = download_item_to_be_added.files
