@@ -4,6 +4,7 @@ gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, GLib
 import threading
+import multiprocessing
 import os
 import yt_dlp
 
@@ -18,17 +19,24 @@ def format_filesize(filesize):
     return f"{filesize:.2f} TB"
 
 def on_video_clicked(button, self, entry):
+    self.video_loading_cancelled = False
+
     if isinstance(entry, str):
         url = entry
     
     else:
         url = entry.get_text()
         entry.set_text("")
+    
+    def loading_dialog_cancel_pressed(dialog, response_id, self):
+        self.video_loading_cancelled = True
+        GLib.idle_add(dialog.set_can_close, True)
+        GLib.idle_add(dialog.close)
 
     # Show loading screen
     loading_dialog = Adw.AlertDialog()
     loading_dialog_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=25)
-    loading_dialog.set_child(loading_dialog_box)
+    loading_dialog.set_extra_child(loading_dialog_box)
     loading_dialog_box.set_margin_top(30)
     loading_dialog_box.set_margin_bottom(30)
     loading_dialog_box.set_margin_start(60)
@@ -39,6 +47,11 @@ def on_video_clicked(button, self, entry):
     loading_dialog_label = Gtk.Label(label=_("Checking video..."))
     loading_dialog_label.add_css_class("title-1")
     loading_dialog_box.append(loading_dialog_label)
+
+    loading_dialog.add_response("cancel",  _("Cancel"))
+    loading_dialog.connect("response", loading_dialog_cancel_pressed, self)
+    loading_dialog.set_response_appearance("cancel", Adw.ResponseAppearance.DESTRUCTIVE)
+
     loading_dialog.set_can_close(False)
     loading_dialog.present(self)
 
@@ -47,15 +60,31 @@ def on_video_clicked(button, self, entry):
             youtube_dl_options = {'cookiefile': os.path.join(self.appdir, 'cookies.txt')}
         else:
             youtube_dl_options = {}
+        
+        def ytdlp_get_data(shared_dict):
+            try:
+                with yt_dlp.YoutubeDL(youtube_dl_options) as ydl:
+                    shared_dict['data'] = ydl.sanitize_info(ydl.extract_info(url, download=False))
+                    shared_dict['ytdlp_error'] = ""
 
-        try:
-            with yt_dlp.YoutubeDL(youtube_dl_options) as ydl:
-                data = ydl.sanitize_info(ydl.extract_info(url, download=False))
+            except Exception as error:
+                print(error)
+                shared_dict['data'] = False
+                shared_dict['ytdlp_error'] = str(error)
 
-        except Exception as error:
-            print(error)
-            data = False
-            ytdlp_error = str(error)
+        with multiprocessing.Manager() as manager:
+            dict = manager.dict()
+            process = multiprocessing.Process(target=ytdlp_get_data, args=(dict,))
+            process.start()
+
+            while process.is_alive():
+                if self.video_loading_cancelled == True:
+                    process.terminate()
+                    process.join()
+                    return
+            
+            data = dict['data']
+            ytdlp_error = dict['ytdlp_error']
 
         video_formats = []
         audio_formats = []
@@ -344,7 +373,7 @@ def on_video_clicked(button, self, entry):
             error_dialog.set_response_appearance("ok", Adw.ResponseAppearance.SUGGESTED)
             error_dialog.set_close_response("ok")
             GLib.idle_add(error_dialog.present, self)
-        
+    
         GLib.idle_add(loading_dialog.set_can_close, True)
         GLib.idle_add(loading_dialog.close)
 
