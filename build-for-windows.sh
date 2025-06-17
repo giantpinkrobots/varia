@@ -1,14 +1,19 @@
 updater=0
+debug=0
 
-while getopts "hu" flag; do
+while getopts "hud" flag; do
 	case $flag in
 		h)
 		echo "No flags - Build without the updater function"
 		echo "-u - Enable the updater function"
+		echo "-d - Enable debug mode"
 		exit
 		;;
 		u)
 		updater=1
+		;;
+		d)
+		debug=1
 		;;
 	esac
 done
@@ -58,18 +63,29 @@ done
 
 rm -rf src/dist
 cp windows/icon.ico src/
-cp windows/varia.spec src/
-cp windows/varia-tray.spec src/tray/
+
+if [ $debug -eq 1 ]; then
+	echo "      -   Debug mode enabled"
+	cp windows/varia-debug.spec src/varia.spec
+else
+	cp windows/varia.spec src/
+fi
+
 cd src
 
 echo "      -   Building PyInstaller distributable of the main application"
 
 pyinstaller varia.spec
+
 cd tray
 
 echo "      -   Building PyInstaller distributable of the tray process"
 
-pyinstaller -n varia-tray --noconsole tray_windows.py
+if [ $debug -eq 1 ]; then
+	pyinstaller -n varia-tray --noconfirm tray_windows.py
+else
+	pyinstaller -n varia-tray --noconsole --noconfirm tray_windows.py
+fi
 
 cd ../..
 cp -r locale src/dist/variamain/
