@@ -285,12 +285,20 @@ def show_about(app, variaapp, self, variaVersion):
     dialog.set_application_icon("io.github.giantpinkrobots.varia")
     dialog.set_translator_credits(_("translator-credits"))
     dialog.set_artists(["Jakub Steiner"])
-    dialog.set_release_notes_version("v2025.5.14")
+    dialog.set_release_notes_version(variaVersion)
     dialog.set_release_notes('''
         <ul><li>Tray icon support.</li>
         <li>New option to automatically start Varia upon bootup.</li>
         <li>Bug fix: Pause All button malfunctioning</li>
         <li>Additional text and translations.</li></ul>''')
+    
+    if os.name != 'nt':
+        dialog.add_other_app("io.github.giantpinkrobots.flatsweep",
+                            "Flatsweep",
+                            "Flatpak leftover cleaner")
+        dialog.add_other_app("io.github.giantpinkrobots.bootqt",
+                            "Bootqt",
+                            "Create bootable drives")
 
     dialog.present(self)
 

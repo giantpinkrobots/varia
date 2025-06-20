@@ -1,19 +1,21 @@
-application_id = 'io.github.giantpinkrobots.varia'
-
 scalable_dir = 'hicolor' / 'scalable' / 'apps'
-install_data(
-  scalable_dir / ('@0@.svg').format(application_id),
-  install_dir: get_option('datadir') / 'icons' / scalable_dir
+install_subdir(
+  scalable_dir,
+  install_dir: get_option('datadir') / 'icons/hicolor/scalable'
 )
 
 symbolic_dir = 'hicolor' / 'symbolic' / 'apps'
 install_subdir(
   symbolic_dir,
-  install_dir: get_option('datadir') / 'icons' / 'hicolor/symbolic'
+  install_dir: get_option('datadir') / 'icons/hicolor/symbolic'
 )
 
 ui_dir = 'hicolor' / 'symbolic' / 'ui'
 install_subdir(
   symbolic_dir,
-  install_dir: get_option('datadir') / 'icons' / 'hicolor/symbolic'
+  install_dir: get_option('datadir') / 'icons/hicolor/symbolic'
+)
+
+install_data('io.github.giantpinkrobots.bootqt.png',
+  install_dir: join_paths(get_option('datadir'), 'icons')
 )

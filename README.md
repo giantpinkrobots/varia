@@ -152,28 +152,7 @@ Varia will be built into src/dist/variamain. Main executable is variamain.exe.
 
 <a href=https://github.com/giantpinkrobots/varia/blob/main/LICENSE>Varia is licensed under the Mozilla Public License 2.0.</a>
 
-But, it also relies on the following pieces of software and libraries:
-- aria2
-- yt-dlp
-- FFmpeg
-- OpenSSL
-- aria2p
-- GTK4
-- Libadwaita
-- Meson
-- Python-appdirs
-- Python-certifi
-- Python-charset-normalizer
-- Python-gettext
-- Python-idna
-- Python-loguru
-- Python-requests
-- Python-setuptools
-- Python-urllib3
-- Python-websocket-client
-- python-dbus-next
-
-The licenses of all of these pieces of software can be found in the dependencies_information directory.
+But it also relies on many other libraries each with their own licenses, all of whom can be found in the dependencies_information directory.
 
 ## The name
 
