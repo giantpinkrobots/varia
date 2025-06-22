@@ -10,3 +10,4 @@ Categories=Network
 # Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
 Keywords=varia;aria;download;manager;torrent;bittorrent;video;audio;media;ytdlp;YouTube;downloader
 StartupNotify=true
+X-Flatpak=io.github.giantpinkrobots.varia

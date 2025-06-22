@@ -16,7 +16,7 @@
         "--system-talk-name=org.freedesktop.login1",
         "--talk-name=org.kde.StatusNotifierWatcher",
         "--own-name=io.github.giantpinkrobots.varia-tray",
-        "--filesystem=~/.config/autostart"
+        "--talk-name=org.freedesktop.portal.Background"
     ],
     "cleanup" : [
         "/include",

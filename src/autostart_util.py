@@ -1,7 +1,7 @@
 import os
 win_reg_key_path = r"Software\Microsoft\Windows\CurrentVersion\Run"
 
-def get_autostart():
+def get_autostart(): # Unused
     if os.name == 'nt':
         import winreg
         try:
@@ -13,11 +13,8 @@ def get_autostart():
             return False
     
     else:
-        if os.path.isfile(os.path.join(os.getenv('HOME'), '.config/autostart/io.github.giantpinkrobots.varia.desktop')):
-            return True
-        
-        else:
-            return False
+        import autostart_util_linux
+        return autostart_util_linux.get_autostart()
 
 def set_autostart():
     if os.name == 'nt':

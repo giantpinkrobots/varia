@@ -1,0 +1,98 @@
+import os
+import shutil
+import asyncio
+from dbus_next.aio import MessageBus
+from dbus_next import Message, Variant
+from dbus_next.constants import MessageType
+
+portal_bus_id = "org.freedesktop.portal.Desktop"
+portal_path = "/org/freedesktop/portal/desktop"
+portal_interface_id = "org.freedesktop.portal.Background"
+desktop_file_in_autostart_dir = os.path.join(os.getenv("HOME"), ".config/autostart", "io.github.giantpinkrobots.varia.desktop")
+desktop_file_source = "@DESKTOP_FILE_LOCATION@"
+
+loop = asyncio.new_event_loop()
+asyncio.set_event_loop(loop)
+
+async def call_portal_method(method_name, signature, *args):
+    bus = await MessageBus().connect()
+    msg = Message(
+        destination=portal_bus_id,
+        path=portal_path,
+        interface=portal_interface_id,
+        member=method_name,
+        signature=signature,
+        body=list(args),
+    )
+    reply = await bus.call(msg)
+
+    if reply.message_type == MessageType.ERROR:
+        raise Exception("Portal access failed with error: {reply.body}")
+    
+    if reply.body:
+        return reply.body[0]
+
+    else:
+        return None
+
+def copy_autostart_file():
+    if os.name != "posix":
+        return
+
+    if 'SNAP' in os.environ or 'FLATPAK_ID' in os.environ:
+        try:
+            loop.run_until_complete(setup_autostart_portal())
+        except Exception as e:
+            print(f"Failed to request autostart using portal with error: {e}")
+    else:
+        try:
+            shutil.copyfile(desktop_file_source, desktop_file_in_autostart_dir)
+            print("Copied desktop file to autostart")
+        except Exception as e:
+            print(f"Failed to copy desktop file with error: {e}")
+
+def delete_autostart_file():
+    if os.name != "posix":
+        return
+
+    if 'SNAP' in os.environ or 'FLATPAK_ID' in os.environ:
+        try:
+            loop.run_until_complete(remove_autostart_portal())
+        except Exception as e:
+            print(f"Failed to uninstall autostart using portal with error: {e}")
+    else:
+        if os.path.isfile(desktop_file_in_autostart_dir):
+            os.remove(desktop_file_in_autostart_dir)
+            print("Removed autostart desktop file")
+
+async def setup_autostart_portal():
+    try:
+        await call_portal_method(
+            "RequestBackground",
+            "sa{sv}",
+            "",
+            {
+                "desktop-file": Variant("s", "io.github.giantpinkrobots.varia.desktop"),
+                "autostart": Variant("b", True),
+            },
+        )
+        
+        print("Successfully set up autostart using portal")
+    except Exception as e:
+        print(f"Failed to request autostart using portal with error: {e}")
+
+async def remove_autostart_portal():
+    try:
+        await call_portal_method(
+            "RequestBackground",
+            "sa{sv}",
+            "",
+            {
+                "desktop-file": Variant("s", "io.github.giantpinkrobots.varia.desktop"),
+                "autostart": Variant("b", False),
+            },
+        )
+
+        print("Uninstalled autostart using portal")
+    except Exception as e:
+        print(f"Failed to uninstall autostart using portal with error: {e}")

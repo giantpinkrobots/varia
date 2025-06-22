@@ -651,7 +651,8 @@ def main(version, aria2cexec, ffmpegexec, issnap):
         'torrent_seeding_ratio': [False, '1.0'],
         'torrent_download_directory_custom_enabled': '0',
         'torrent_download_directory': download_directory,
-        'torrent_enabled': '1'}
+        'torrent_enabled': '1',
+        'autostart_on_boot_enabled': 'false'}
 
     if os.path.exists(os.path.join(appdir, 'varia.conf')):
         first_run = False

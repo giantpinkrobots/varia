@@ -35,7 +35,7 @@ configure_file(
 )
 
 configure_file(
-  input: 'autostart_util_linux.py.in',
+  input: 'autostart_util_linux.in',
   output: 'autostart_util_linux.py',
   configuration: conf,
   install: true,

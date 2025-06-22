@@ -221,7 +221,7 @@ def show_preferences(button, self, app, variaVersion):
     open_on_startup.set_subtitle(_("Varia will open automatically when the system starts."))
     open_on_startup.connect("notify::active", on_open_on_startup, self, preferences)
 
-    if autostart_util.get_autostart():
+    if self.appconf["autostart_on_boot_enabled"] == "true":
         open_on_startup.set_active("active")
 
     # Construct Group 1:
@@ -622,6 +622,10 @@ def on_open_on_startup(switch, state, self, preferencesWindow):
         if autostart_util_result == 1:
             switch.set_active(False)
             error_varia_dialog(preferencesWindow)
+        
+        else:
+            self.appconf["autostart_on_boot_enabled"] = "true"
+            self.save_appconf()
 
     else:
         autostart_util_result = autostart_util.unset_autostart()
@@ -629,6 +633,10 @@ def on_open_on_startup(switch, state, self, preferencesWindow):
         if autostart_util_result == 1:
             switch.set_active(True)
             error_varia_dialog(preferencesWindow)
+        
+        else:
+            self.appconf["autostart_on_boot_enabled"] = "false"
+            self.save_appconf()
 
 def on_remote_time(switch, state, self):
     state = switch.get_active()
