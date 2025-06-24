@@ -448,6 +448,7 @@ class MainWindow(application_window):
         else:
             set_header_button(False)
             GLib.idle_add(self.header_pause_button.set_sensitive, False)
+            self.content_root_overlay.add_overlay(self.status_page_widget)
 
     def stop_all(self, app, variaapp):
         while (self.downloads != []):
