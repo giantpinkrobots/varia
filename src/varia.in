@@ -19,7 +19,7 @@ fi
 
 if [ -z "$SNAP" ];
 then
-	$pythonexec $pkgdatadir/../../bin/varia-py.py "$aria2cexec" "$ffmpegexec"
+	$pythonexec $pkgdatadir/../../bin/varia-py.py "$aria2cexec" "$ffmpegexec" "NOSNAP" "$@"
 else
-	python3 $SNAP/usr/bin/varia-py.py "$aria2cexec" "$ffmpegexec" "$SNAP"
+	python3 $SNAP/usr/bin/varia-py.py "$aria2cexec" "$ffmpegexec" "$SNAP" "$@"
 fi

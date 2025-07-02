@@ -2,7 +2,7 @@
 # Translators: Do NOT translate or localize the application name.
 Name=Varia
 Comment=Download files, videos and torrents
-Exec=varia
+Exec=varia %u
 Icon=io.github.giantpinkrobots.varia
 Terminal=false
 Type=Application
@@ -11,3 +11,5 @@ Categories=Network
 Keywords=varia;aria;download;manager;torrent;bittorrent;video;audio;media;ytdlp;YouTube;downloader
 StartupNotify=true
 X-Flatpak=io.github.giantpinkrobots.varia
+MimeType=application/x-bittorrent;x-scheme-handler/magnet;
+DBusActivatable=true

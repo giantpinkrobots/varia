@@ -17,6 +17,8 @@ from multiprocessing.connection import Listener
 
 from download.actionrow import on_download_clicked
 from download.listen import deal_with_simultaneous_download_limit
+from download.actionrow import create_actionrow
+from download.thread import DownloadThread
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, GLib, Gio, Gdk
@@ -369,7 +371,7 @@ class MainWindow(application_window):
     # Adaptive layout stuff:
 
     def on_window_resize(self, widget, param):
-        if self.get_default_size()[0] < 550:
+        if self.get_default_size()[0] < 600:
             self.header_show_sidebar_button_revealer.set_reveal_child(True)
             self.status_page_begin_button_revealer.set_reveal_child(True)
             self.overlay_split_view.set_show_sidebar(False)
@@ -581,15 +583,26 @@ class MainWindow(application_window):
             self.exitProgram(variaapp, variaapp, False)
 
 class MyApp(Adw.Application):
-    def __init__(self, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, issnap, **kwargs):
+    def __init__(self, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, issnap, arguments, **kwargs):
         super().__init__(**kwargs)
-        self.connect('activate', self.on_activate, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, issnap)
+        self.connect('activate', self.on_activate, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, issnap, arguments)
         quit_action = Gio.SimpleAction.new("quit", None)
         quit_action.connect("activate", self.quit_action)
         self.add_action(quit_action)
         self.initiated = False
+    
+    def do_open(self, files, *args):
+        arguments = []
+        with open(os.path.join(self.win.appdir, 'torrentifleopen'), 'w') as f:
+            f.write("sdfgsdffsdsdfsdfsdfsfdsfdfsdsdfsdfdffsdsdfsdfsdfsfdsfd")
 
-    def on_activate(self, app, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, issnap):
+        for item in files:
+            arguments.append(item.get_uri())
+            print(item)
+        
+        self.add_downloads(arguments)
+
+    def on_activate(self, app, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, issnap, arguments):
         if not hasattr(self, 'win'):
             self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf, first_run=first_run, aria2c_subprocess=aria2c_subprocess, aria2cexec=aria2cexec, ffmpegexec=ffmpegexec, issnap=issnap)
 
@@ -601,10 +614,52 @@ class MyApp(Adw.Application):
 
         self.initiated = True
 
+        if len(arguments) > 0:
+            self.add_downloads(arguments)
+
+    def add_downloads(self, arguments):
+        torrent_not_enabled_error_shown = False
+
+        for item in arguments:
+            if item.startswith("magnet:"):
+                if self.win.appconf['torrent_enabled'] == '0':
+                    if torrent_not_enabled_error_shown == False:
+                        show_torrent_not_enabled_error()
+                        torrent_not_enabled_error_shown = True
+                
+                else:
+                    actionrow = create_actionrow(self.win, item)
+                    download_thread = DownloadThread(self.win, item, actionrow, item, None, "regular", None, False, self.win.appconf["download_directory"])
+                    actionrow.download_thread = download_thread
+                    self.win.downloads.append(download_thread)
+                    download_thread.start()
+                    download_thread.pause_button.set_visible(True)
+            
+            elif item.endswith(".torrent"):
+                if self.win.appconf['torrent_enabled'] == '0':
+                    if torrent_not_enabled_error_shown == False:
+                        show_torrent_not_enabled_error()
+                        torrent_not_enabled_error_shown = True
+                
+                else:
+                    if self.win.appconf["torrent_download_directory_custom_enabled"] == "1":
+                        self.win.api.add_torrent(item, options={"dir": self.win.appconf["torrent_download_directory"]})
+
+                    else:
+                        self.win.api.add_torrent(item)
+
+        def show_torrent_not_enabled_error():
+                dialog = Adw.AlertDialog()
+                dialog.set_body(_("Torrenting is disabled."))
+                dialog.add_response("ok",  _("OK"))
+                dialog.set_default_response("ok")
+                dialog.set_close_response("ok")
+                dialog.present(self.win)
+
     def quit_action(self, action, parameter):
         self.win.quit_action_received(self)
 
-def main(version, aria2cexec, ffmpegexec, issnap):
+def main(version, aria2cexec, ffmpegexec, issnap, arguments):
     if "FLATPAK_ID" in os.environ:
         appdir = os.path.join('/var', 'data')
     else:
@@ -718,11 +773,9 @@ def main(version, aria2cexec, ffmpegexec, issnap):
 
     atexit.register(stop_aria2c_on_exit, aria2c_subprocess)
 
-    arguments = sys.argv
-    if (len(arguments) > 1):
-        arguments = arguments[:-3]
-    app = MyApp(appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, issnap, application_id="io.github.giantpinkrobots.varia")
-    app.run(arguments)
+    arguments = json.loads(arguments)
+    app = MyApp(appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, issnap, arguments, application_id="io.github.giantpinkrobots.varia", flags=Gio.ApplicationFlags.HANDLES_OPEN)
+    app.run()
 
 if ((__name__ == '__main__') and (os.name == 'nt')):
     import gettext
@@ -741,4 +794,4 @@ if ((__name__ == '__main__') and (os.name == 'nt')):
 
     from stringstorage import gettext as _
 
-    sys.exit(main(variaVersion, os.path.join(os.getcwd(), "aria2c.exe"), os.path.join(os.getcwd(), "ffmpeg.exe"), False))
+    sys.exit(main(variaVersion, os.path.join(os.getcwd(), "aria2c.exe"), os.path.join(os.getcwd(), "ffmpeg.exe"), False, "[]"))
