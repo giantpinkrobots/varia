@@ -66,3 +66,12 @@ end;
 [UninstallDelete]
 Type: dirifempty; Name: "{%USERPROFILE}\.varia"
 Type: filesandordirs; Name: "{%USERPROFILE}\.varia"
+
+[Registry]
+Root: HKCR; Subkey: "magnet"; ValueType: string; ValueData: "URL:Magnet Protocol"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "magnet"; ValueName: "URL Protocol"; ValueType: string; ValueData: ""; Flags: uninsdeletevalue
+Root: HKCR; Subkey: "magnet\shell\open\command"; ValueType: string; ValueData: """{app}\variamain.exe"" ""%1"""; Flags: uninsdeletevalue
+
+Root: HKCR; Subkey: ".torrent"; ValueType: string; ValueData: "Varia.Torrent"; Flags: uninsdeletevalue
+Root: HKCR; Subkey: "Varia.Torrent\DefaultIcon"; ValueType: string; ValueData: "{app}\variamain.exe,0"; Flags: uninsdeletevalue
+Root: HKCR; Subkey: "Varia.Torrent\shell\open\command"; ValueType: string; ValueData: """{app}\variamain.exe"" ""%1"""; Flags: uninsdeletevalue

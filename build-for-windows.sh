@@ -63,6 +63,7 @@ done
 
 rm -rf src/dist
 cp windows/icon.ico src/
+cp windows/version.txt src/
 
 if [ $debug -eq 1 ]; then
 	echo "      -   Debug mode enabled"

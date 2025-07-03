@@ -14,6 +14,7 @@ import stringstorage
 import atexit
 import signal
 from multiprocessing.connection import Listener
+import socket
 
 from download.actionrow import on_download_clicked
 from download.listen import deal_with_simultaneous_download_limit
@@ -22,6 +23,10 @@ from download.thread import DownloadThread
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, GLib, Gio, Gdk
+
+
+varia_server_host = '127.0.0.1'
+varia_server_port = 54682
 
 if os.name == 'nt':
     application_window = Gtk.ApplicationWindow
@@ -582,6 +587,37 @@ class MainWindow(application_window):
         if (self.terminating == False):
             self.exitProgram(variaapp, variaapp, False)
 
+def handle_connection(sock):
+    while True:
+        conn, _ = sock.accept()
+        data = conn.recv(1024).decode()
+        if data:
+            data = json.loads(data)
+            myapp.add_downloads(data)
+        conn.close()
+        time.sleep(0.5)
+
+def start_varia_server():
+    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    try:
+        server.bind((varia_server_host, varia_server_port))
+
+    except OSError:
+        return False # Another Varia instance is already running
+
+    server.listen(1)
+    threading.Thread(target=handle_connection, args=(server,), daemon=True).start()
+    return True
+   
+def send_to_varia_instance(message):
+    try:
+        with socket.create_connection((varia_server_host, varia_server_port), timeout=2) as sock:
+            sock.sendall(message.encode())
+
+    except OSError:
+        print("Couldn't contact existing instance.")
+
 class MyApp(Adw.Application):
     def __init__(self, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, issnap, arguments, **kwargs):
         super().__init__(**kwargs)
@@ -593,8 +629,6 @@ class MyApp(Adw.Application):
     
     def do_open(self, files, *args):
         arguments = []
-        with open(os.path.join(self.win.appdir, 'torrentifleopen'), 'w') as f:
-            f.write("sdfgsdffsdsdfsdfsdfsfdsfdfsdsdfsdfdffsdsdfsdfsdfsfdsfd")
 
         for item in files:
             arguments.append(item.get_uri())
@@ -619,6 +653,14 @@ class MyApp(Adw.Application):
 
     def add_downloads(self, arguments):
         torrent_not_enabled_error_shown = False
+        
+        def show_torrent_not_enabled_error():
+            dialog = Adw.AlertDialog()
+            dialog.set_body(_("Torrenting is disabled."))
+            dialog.add_response("ok",  _("OK"))
+            dialog.set_default_response("ok")
+            dialog.set_close_response("ok")
+            dialog.present(self.win)
 
         for item in arguments:
             if item.startswith("magnet:"):
@@ -647,19 +689,19 @@ class MyApp(Adw.Application):
 
                     else:
                         self.win.api.add_torrent(item)
-
-        def show_torrent_not_enabled_error():
-                dialog = Adw.AlertDialog()
-                dialog.set_body(_("Torrenting is disabled."))
-                dialog.add_response("ok",  _("OK"))
-                dialog.set_default_response("ok")
-                dialog.set_close_response("ok")
-                dialog.present(self.win)
+        
+        self.win.present()
 
     def quit_action(self, action, parameter):
         self.win.quit_action_received(self)
 
 def main(version, aria2cexec, ffmpegexec, issnap, arguments):
+    if (os.name == 'nt'): # Varia server only used on Windows to send data to the already running instance.
+        if not start_varia_server():
+            send_to_varia_instance(arguments)
+            return
+            sys.exit()
+
     if "FLATPAK_ID" in os.environ:
         appdir = os.path.join('/var', 'data')
     else:
@@ -774,8 +816,9 @@ def main(version, aria2cexec, ffmpegexec, issnap, arguments):
     atexit.register(stop_aria2c_on_exit, aria2c_subprocess)
 
     arguments = json.loads(arguments)
-    app = MyApp(appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, issnap, arguments, application_id="io.github.giantpinkrobots.varia", flags=Gio.ApplicationFlags.HANDLES_OPEN)
-    app.run()
+    global myapp
+    myapp = MyApp(appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, issnap, arguments, application_id="io.github.giantpinkrobots.varia", flags=Gio.ApplicationFlags.HANDLES_OPEN)
+    myapp.run()
 
 if ((__name__ == '__main__') and (os.name == 'nt')):
     import gettext
@@ -794,4 +837,4 @@ if ((__name__ == '__main__') and (os.name == 'nt')):
 
     from stringstorage import gettext as _
 
-    sys.exit(main(variaVersion, os.path.join(os.getcwd(), "aria2c.exe"), os.path.join(os.getcwd(), "ffmpeg.exe"), False, "[]"))
+    sys.exit(main(variaVersion, os.path.join(os.getcwd(), "aria2c.exe"), os.path.join(os.getcwd(), "ffmpeg.exe"), False, json.dumps(sys.argv)))
