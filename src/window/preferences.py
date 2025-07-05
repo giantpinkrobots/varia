@@ -422,7 +422,7 @@ def show_preferences(button, self, app, variaVersion):
     if (self.appconf["torrent_seeding_enabled"] == "1"):
         seeding_enabled_switchrow.set_active("active")
 
-    seeding_enabled_switchrow.connect("notify::active", on_switch_torrent_seeding, self)
+    seeding_enabled_switchrow.connect("notify::active", on_switch_torrent_seeding, self, preferences)
 
     # Set seeding ratio limit:
 
@@ -779,7 +779,7 @@ def on_switch_torrent(switch, state, self):
     self.save_appconf()
     torrent_settings_set_sensitive(self)
 
-def on_switch_torrent_seeding(switch, state, self):
+def on_switch_torrent_seeding(switch, state, self, preferencesWindow):
     state = switch.get_active()
     if state:
         self.appconf["torrent_seeding_enabled"] = "1"
@@ -825,7 +825,7 @@ def on_switch_torrent_seeding(switch, state, self):
             dialog.set_close_response("cancel")
             dialog.set_response_appearance("disable", Adw.ResponseAppearance.DESTRUCTIVE)
             dialog.connect("response", dialog_response_handle, self, dialog_checkbutton, switch)
-            dialog.present(self)
+            dialog.present(preferencesWindow)
 
 def on_torrent_seeding_ratio_limit_change(spinrow, self):
     self.appconf["torrent_seeding_ratio"][1] = str(floor(spinrow.get_value() * 10) / 10)

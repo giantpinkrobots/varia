@@ -650,6 +650,32 @@ class MyApp(Adw.Application):
 
         if len(arguments) > 0:
             self.add_downloads(arguments)
+        
+        if os.name == 'nt':
+            # On Windows we use Gtk.ApplicationWindow which causes an issue where the dialogs that are shown on top
+            # don't seem to disable (unfocus) the window/widget below - even if it does. So we manually override
+            # the realize and close signals of Gtk.Widget for Adw.Dialog to set the parent widget sensitivity
+            # to True or False.
+            class AdwDialogForWindows(Adw.Dialog):
+                def __init__(self, **kwargs):
+                    super().__init__(**kwargs)
+                    self.connect_after("realize", dialog_show)
+                    self.connect_after("closed", dialog_close)
+            
+                def present(self, parent=None):
+                    if parent is not None:
+                        self._parentwidget = parent
+                    super().present(parent)
+            
+            def dialog_show(dialog):
+                if dialog._parentwidget:
+                    dialog._parentwidget.set_sensitive(False)
+            
+            def dialog_close(dialog):
+                if dialog._parentwidget:
+                    dialog._parentwidget.set_sensitive(True)
+
+            Adw.Dialog = AdwDialogForWindows
 
     def add_downloads(self, arguments):
         torrent_not_enabled_error_shown = False
