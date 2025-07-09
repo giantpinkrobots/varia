@@ -379,7 +379,7 @@ def on_video_clicked(button, self, entry):
 
         return
     
-    thread = threading.Thread(target=ytdlp_startsubprocess)
+    thread = threading.Thread(target=ytdlp_startsubprocess, daemon=True)
     thread.start()
 
 def on_video_option_download_clicked(self, prefswindow, type, download_object, download_name, url):

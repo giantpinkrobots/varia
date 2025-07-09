@@ -38,7 +38,7 @@ def windows_updater(bannerButton, app, variaapp, parentWindow, variaVersion, mod
     if os.path.exists(os.path.join(app.appdir, 'updater-all-releases.txt')):
         os.remove(os.path.join(app.appdir, 'updater-all-releases.txt'))
     
-    thread = threading.Thread(target=lambda: start_update_check(variaVersion, app, variaapp, checking_dialog, mode))
+    thread = threading.Thread(target=lambda: start_update_check(variaVersion, app, variaapp, checking_dialog, mode), daemon=True)
     thread.start()
 
 def start_update_check(variaVersion, app, variaapp, checking_dialog, mode):
@@ -180,5 +180,5 @@ def update_pressed(dialog, response_id, latest_windows_binary_url, latest_name_f
                 dialog.set_close_response("ok")
                 dialog.present(app)
 
-        thread = threading.Thread(target=download_update)
+        thread = threading.Thread(target=download_update, daemon=True)
         thread.start()

@@ -15,6 +15,7 @@ import atexit
 import signal
 from multiprocessing.connection import Listener
 import socket
+import traceback
 
 from download.actionrow import on_download_clicked
 from download.listen import deal_with_simultaneous_download_limit
@@ -121,7 +122,7 @@ class MainWindow(application_window):
         set_aria2c_custom_global_option(self, "max-concurrent-downloads", str(self.appconf["download_simultaneous_amount"]))
 
         # Start checking for simultaneous download amount limit:
-        thread = threading.Thread(target=lambda: deal_with_simultaneous_download_limit(self))
+        thread = threading.Thread(target=lambda: deal_with_simultaneous_download_limit(self), daemon=True)
         thread.start()
 
         # Set the remote time setting:
@@ -134,11 +135,11 @@ class MainWindow(application_window):
         set_aria2c_cookies(self)
 
         # Listen to aria2c:
-        thread = threading.Thread(target=lambda: listen_to_aria2(self, variaapp))
+        thread = threading.Thread(target=lambda: listen_to_aria2(self, variaapp), daemon=True)
         thread.start()
 
         # Begin the scheduler:
-        thread = threading.Thread(target=lambda: schedule_downloads(self, True))
+        thread = threading.Thread(target=lambda: schedule_downloads(self, True), daemon=True)
         thread.start()
 
         # Windows only stuff:
@@ -250,6 +251,9 @@ class MainWindow(application_window):
             self.tray_process = subprocess.Popen(
                 tray_subprocess_input
             )
+
+            global tray_process_global
+            tray_process_global = self.tray_process
 
             self.tray_process_connection_thread = threading.Thread(target=tray_process_connection, daemon=True).start()
 
@@ -788,17 +792,7 @@ def main(version, aria2cexec, ffmpegexec, issnap, arguments):
         with open(os.path.join(appdir, 'varia.conf'), 'w') as f:
             json.dump(appconf, f)
 
-    def stop_aria2c_on_exit(proc):
-        try:
-            if os.name == 'nt':
-                proc.send_signal(signal.CTRL_BREAK_EVENT)
-
-            else:
-                os.killpg(os.getpgid(proc.pid), signal.SIGTERM)
-
-        except ProcessLookupError:
-            pass
-
+    global aria2c_subprocess
     aria2c_subprocess = None
 
     aria2_config = [
@@ -839,12 +833,44 @@ def main(version, aria2cexec, ffmpegexec, issnap, arguments):
             else:
                 aria2c_subprocess = subprocess.Popen([aria2cexec] + aria2_config, preexec_fn=os.setsid)
 
-    atexit.register(stop_aria2c_on_exit, aria2c_subprocess)
+    atexit.register(stop_subprocesses_and_exit)
+
+    signal.signal(signal.SIGINT, stop_subprocesses_and_exit)
+    signal.signal(signal.SIGTERM, stop_subprocesses_and_exit)
+    sys.excepthook = global_exception_handler
 
     arguments = json.loads(arguments)
     global myapp
     myapp = MyApp(appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, issnap, arguments, application_id="io.github.giantpinkrobots.varia", flags=Gio.ApplicationFlags.HANDLES_OPEN)
-    myapp.run()
+
+    try:
+        myapp.run()
+    
+    finally: # Kill subprocesses if they're running (in case of a crash)
+        stop_subprocesses_and_exit()
+
+def global_exception_handler(exctype, value, tb):
+    traceback.print_exception(exctype, value, tb)
+    stop_subprocesses_and_exit()
+
+def stop_subprocesses_and_exit(*args):
+    print("*** Varia has stopped ***")
+    
+    if tray_process_global.poll() is None:
+        tray_process_global.kill()
+        myapp.win.tray_connection_thread_stop = True
+    
+    if aria2c_subprocess.poll() is None:
+        myapp.win.api.client.shutdown()
+        aria2c_subprocess.wait()
+    
+    try:
+        myapp.win.destroy()
+        myapp.quit()
+        sys.exit()
+    
+    except:
+        return
 
 if ((__name__ == '__main__') and (os.name == 'nt')):
     import gettext

@@ -92,7 +92,7 @@ def window_create_content(self):
     self.content_box.append(self.content_root_overlay)
     self.overlay_split_view.set_content(self.content_box)
 
-    self.total_download_speed_calculator_thread = threading.Thread(target=self.total_download_speed_get, args=(self.downloads, self.total_download_speed_label))
+    self.total_download_speed_calculator_thread = threading.Thread(target=self.total_download_speed_get, args=(self.downloads, self.total_download_speed_label), daemon=True)
     self.total_download_speed_calculator_thread.start()
 
 def toggle_sidebar_overlay(button, self):
