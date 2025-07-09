@@ -215,7 +215,7 @@ def show_preferences(button, self, app, variaVersion):
         tray_icon_always_visible.set_active("active")
 
     # Open on startup
-    
+
     open_on_startup = Adw.SwitchRow()
     open_on_startup.set_title(_("Open on Startup"))
     open_on_startup.set_subtitle(_("Varia will open automatically when the system starts."))
@@ -395,12 +395,21 @@ def show_preferences(button, self, app, variaVersion):
     cookies_txt_action.add_suffix(cookies_txt_remove_button)
     cookies_txt_action.add_suffix(cookies_txt_action_switch)
 
+    # Download segments:
+
+    split_downloads_spinrow = Adw.SpinRow(adjustment=Gtk.Adjustment(step_increment=1.0))
+    split_downloads_spinrow.set_title(_("Download Segments"))
+    split_downloads_spinrow.set_range(1.0, 20.0)
+    split_downloads_spinrow.set_value(float(self.appconf["download_segments"]))
+    split_downloads_spinrow.connect("changed", on_split_downloads_changed, self)
+
     # Construct Group 2:
 
     group_2.add(auth_expander)
     group_2.add(remote_time)
     group_2.add(cookies_txt_action)
     group_2.add(cookies_txt_action)
+    group_2.add(split_downloads_spinrow)
     group_2.add(remote_aria2_expander_box)
 
     # Enable or disable torrenting:
@@ -676,6 +685,12 @@ def on_simultaneous_download_amount_changed(spinrow, self):
 
     #set_aria2c_download_simultaneous_amount(self)
     set_aria2c_custom_global_option(self, "max-concurrent-downloads", str(self.appconf["download_simultaneous_amount"]))
+
+def on_split_downloads_changed(spinrow, self):
+    self.appconf["download_segments"] = str(int(spinrow.get_value()))
+    self.save_appconf()
+
+    set_aria2c_custom_global_option(self, "split", str(self.appconf["download_segments"]))
 
 def set_remote(self, remote_protocol, remote_ip, remote_port, remote_secret, remote_location, switch, preferencesWindow):
     if (remote_protocol.get_selected() == 0):

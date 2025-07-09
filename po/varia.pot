@@ -499,6 +499,9 @@ msgstr ""
 msgid "Configure"
 msgstr ""
 
+msgid "Download Segments"
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
