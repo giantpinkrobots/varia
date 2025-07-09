@@ -186,12 +186,6 @@ def show_preferences(button, self, app, variaVersion):
     simultaneous_download_amount_spinrow.set_value(float(self.appconf["download_simultaneous_amount"]))
     simultaneous_download_amount_spinrow.connect("changed", on_simultaneous_download_amount_changed, self)
 
-    split_downloads_spinrow = Adw.SpinRow(adjustment=Gtk.Adjustment(step_increment=1.0))
-    split_downloads_spinrow.set_title(_("Download Segments"))
-    split_downloads_spinrow.set_range(1.0, 20.0)
-    split_downloads_spinrow.set_value(float(self.appconf["download_segments"]))
-    split_downloads_spinrow.connect("changed", on_split_downloads_changed, self)
-
     # Start in background:
 
     start_in_background = Adw.SwitchRow()
@@ -236,7 +230,6 @@ def show_preferences(button, self, app, variaVersion):
     group_1.add(speed_limit_expander_box)
     group_1.add(scheduler_actionrow)
     group_1.add(simultaneous_download_amount_spinrow)
-    group_1.add(split_downloads_spinrow)
 
     group_tray.add(use_tray_icon)
     group_tray.add(tray_icon_always_visible)
@@ -402,12 +395,21 @@ def show_preferences(button, self, app, variaVersion):
     cookies_txt_action.add_suffix(cookies_txt_remove_button)
     cookies_txt_action.add_suffix(cookies_txt_action_switch)
 
+    # Download segments:
+
+    split_downloads_spinrow = Adw.SpinRow(adjustment=Gtk.Adjustment(step_increment=1.0))
+    split_downloads_spinrow.set_title(_("Download Segments"))
+    split_downloads_spinrow.set_range(1.0, 20.0)
+    split_downloads_spinrow.set_value(float(self.appconf["download_segments"]))
+    split_downloads_spinrow.connect("changed", on_split_downloads_changed, self)
+
     # Construct Group 2:
 
     group_2.add(auth_expander)
     group_2.add(remote_time)
     group_2.add(cookies_txt_action)
     group_2.add(cookies_txt_action)
+    group_2.add(split_downloads_spinrow)
     group_2.add(remote_aria2_expander_box)
 
     # Enable or disable torrenting:
