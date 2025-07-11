@@ -25,7 +25,6 @@ gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, GLib, Gio, Gdk
 
-
 varia_server_host = '127.0.0.1'
 varia_server_port = 54682
 

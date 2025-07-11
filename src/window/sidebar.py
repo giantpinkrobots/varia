@@ -287,10 +287,14 @@ def show_about(app, variaapp, self, variaVersion):
     dialog.set_artists(["Jakub Steiner"])
     dialog.set_release_notes_version(variaVersion)
     dialog.set_release_notes('''
-        <ul><li>Tray icon support.</li>
-        <li>New option to automatically start Varia upon bootup.</li>
-        <li>Bug fix: Pause All button malfunctioning</li>
-        <li>Additional text and translations.</li></ul>''')
+        <ul><li>Video downloads now can be added through the browser extension.</li>
+        <li>.torrent files can now be opened through a file manager.</li>
+        <li>Magnet links can now be opened through a browser.</li>
+        <li>"Checking video" dialog can now be cancelled.</li>
+        <li>Download segments can now be adjusted through preferences.</li>
+        <li>Scheduler config screen is now more compact and works better on smaller window sizes.</li>
+        <li>Better crash handling.</li>
+        <li>(Windows only) Dialog windows now properly grey out what's behind them for better legibility.</li></ul>''')
     
     if os.name != 'nt':
         dialog.add_other_app("io.github.giantpinkrobots.flatsweep",

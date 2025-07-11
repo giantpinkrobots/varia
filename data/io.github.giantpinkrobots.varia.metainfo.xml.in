@@ -17,6 +17,7 @@
 <languages>
 <lang>ar_SA</lang>
 <lang>bg_BG</lang>
+<lang>ca_ES</lang>
 <lang>de_DE</lang>
 <lang>en_US</lang>
 <lang>es_ES</lang>
@@ -26,6 +27,7 @@
 <lang>fr_FR</lang>
 <lang>hi_IN</lang>
 <lang>hu_HU</lang>
+<lang>id_ID</lang>
 <lang>it_IT</lang>
 <lang>ja_JP</lang>
 <lang>nb_NO</lang>
@@ -111,10 +113,14 @@ Control a remote aria2 instance running on any server
 <releases>
 <release version="v2025.5.14" date="2025-05-14">
 <description translatable="yes">
-<ul><li>Tray icon support.</li>
-<li>New option to automatically start Varia upon bootup.</li>
-<li>Bug fix: Pause All button malfunctioning</li>
-<li>Additional text and translations.</li></ul>
+<ul><li>Video downloads now can be added through the browser extension.</li>
+<li>.torrent files can now be opened through a file manager.</li>
+<li>Magnet links can now be opened through a browser.</li>
+<li>"Checking video" dialog can now be cancelled.</li>
+<li>Download segments can now be adjusted through preferences.</li>
+<li>Scheduler config screen is now more compact and works better on smaller window sizes.</li>
+<li>Better crash handling.</li>
+<li>(Windows only) Dialog windows now properly grey out what's behind them for better legibility.</li></ul>
 </description>
 </release>
 </releases>
