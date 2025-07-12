@@ -859,11 +859,11 @@ def global_exception_handler(exctype, value, tb):
 def stop_subprocesses_and_exit(*args):
     print("*** Varia has stopped ***")
     
-    if tray_process_global.poll() is None:
+    if "tray_process_global" in locals() and tray_process_global.poll() is None:
         tray_process_global.kill()
         myapp.win.tray_connection_thread_stop = True
     
-    if aria2c_subprocess.poll() is None:
+    if "aria2c_subprocess" in locals() and aria2c_subprocess.poll() is None:
         myapp.win.api.client.shutdown()
         aria2c_subprocess.wait()
     
