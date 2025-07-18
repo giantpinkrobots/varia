@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Varia\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-05-09 18:01+0000\n"
+"PO-Revision-Date: 2025-07-11 06:06+0000\n"
 "Last-Translator: Любомир Василев <lyubomirv@gmx.com>\n"
 "Language-Team: Bulgarian <https://hosted.weblate.org/projects/varia/varia/bg/"
 ">\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -33,7 +33,7 @@ msgstr "varia;aria;изтегляне;изтегляния,сваляне,сва
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
 msgid "Download manager based on aria2"
-msgstr "Мениджър за изтегляне основан на aria2"
+msgstr "Мениджър на свалянията основан на aria2"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
 msgid ""
@@ -41,9 +41,9 @@ msgid ""
 "to provide a easy to use interface that integrates well with the GNOME "
 "desktop."
 msgstr ""
-"„Varia“ е мениджър за изтегляне основан на aria2, който използва GTK4 и "
+"„Varia“ е мениджър на свалянията основан на aria2, който използва GTK4 и "
 "Libadwaita, за да осигури лесен за използване потребителски интерфейс, който "
-"се интегрира добре с GNOME работната среда."
+"се интегрира добре с графичната среда GNOME."
 
 #: src/variamain.py:45
 msgid "This is not a valid URL."
@@ -71,11 +71,11 @@ msgstr "URL адрес, или само адрес"
 
 #: src/variamain.py:178
 msgid "Download"
-msgstr "Изтегляне"
+msgstr "Сваляне"
 
 #: src/variamain.py:184
 msgid "Open Download Folder"
-msgstr "Отваряне на изтеглянията"
+msgstr "Отваряне на папката за свалени файлове"
 
 #: src/variamain.py:196
 msgid "Speed Limit"
@@ -107,11 +107,11 @@ msgstr "Без ограничение"
 
 #: src/variamain.py:274
 msgid "Download complete."
-msgstr "Изтеглянето завърши."
+msgstr "Свалянето завърши."
 
 #: src/variamain.py:276
 msgid "Download speed is limited."
-msgstr "Скоростта на изтегляне е ограничена."
+msgstr "Скоростта на сваляне е ограничена."
 
 #: src/variamain.py:277
 msgid "An error occurred:"
@@ -143,7 +143,7 @@ msgstr " Б/с"
 
 #: src/variamain.py:404
 msgid "Simultaneous Download Amount"
-msgstr "Количество едновременни изтегляния"
+msgstr "Количество едновременни сваляния"
 
 #: src/variamain.py:410
 msgid "Resume All"
@@ -151,7 +151,7 @@ msgstr "Пускане на всички"
 
 #: src/variamain.py:443
 msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
-msgstr "Мениджър за изтегляне основан на aria2, използващ GTK4 и Libadwaita."
+msgstr "Мениджър на свалянията основан на aria2, използващ GTK4 и Libadwaita."
 
 #: src/variamain.py:777
 msgid "This application relies on the following pieces of software:"
@@ -171,7 +171,7 @@ msgstr "twlvnn kraftwerk <kraft_werk@tutanota.com>"
 
 #: src/variamain.py:457
 msgid "Download Directory"
-msgstr "Папка за изтегляне"
+msgstr "Папка за свалени файлове"
 
 #: src/variamain.py:460
 msgid "Change"
@@ -214,7 +214,7 @@ msgid "Remote aria2 RPC Secret"
 msgstr "Отдалечен aria2 RPC Secret"
 
 msgid "Remote Download Location"
-msgstr "Отдалечено място за изтегляне"
+msgstr "Отдалечено място за свалени файлове"
 
 msgid "Exiting Varia..."
 msgstr "Спиране на „Varia“…"
@@ -223,7 +223,7 @@ msgid "Background Mode"
 msgstr "Фонов режим"
 
 msgid "Continuing the downloads in the background."
-msgstr "Продължаване на изтеглянето във фонов режим."
+msgstr "Продължаване на свалянето във фонов режим."
 
 msgid "Browser Extension"
 msgstr "Браузър разширение"
@@ -280,10 +280,10 @@ msgid "Enabled"
 msgstr "Включено"
 
 msgid "Start downloading in these times"
-msgstr "Стартиране на изтеглянето по това време"
+msgstr "Стартиране на свалянията през тези времена"
 
 msgid "Stop downloading in these times"
-msgstr "Спиране на изтеглянето по това време"
+msgstr "Спиране на свалянията през тези времена"
 
 msgid "Add Timespan"
 msgstr "Добавяне на времеви интервал"
@@ -353,10 +353,10 @@ msgid "Update"
 msgstr "Обновяване"
 
 msgid "Downloading update..."
-msgstr "Изтегляне на обновлението..."
+msgstr "Сваляне на обновлението…"
 
 msgid "Download failed."
-msgstr "Изтеглянето е неуспешно."
+msgstr "Свалянето е неуспешно."
 
 msgid "Yes"
 msgstr "Да"
@@ -542,6 +542,12 @@ msgid "Use Varia as a GUI for a remote aria2c instance."
 msgstr ""
 "Използване на Varia като интерфейс за управление на отдалечено изпълняващ се "
 "aria2c."
+
+msgid "Configure"
+msgstr "Настройки"
+
+msgid "Download Segments"
+msgstr "Сваляне на части"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

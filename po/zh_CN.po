@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: varia main\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-05-13 00:49+0000\n"
+"PO-Revision-Date: 2025-07-18 00:03+0000\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/varia/varia/zh_Hans/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -522,6 +522,12 @@ msgstr "Varia 将在打开时直接以后台模式运行。"
 # Remote mode additional explanation
 msgid "Use Varia as a GUI for a remote aria2c instance."
 msgstr "将 Varia 作为远程 aria2c 实例的图形用户界面使用。"
+
+msgid "Configure"
+msgstr "配置"
+
+msgid "Download Segments"
+msgstr "下载分段"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

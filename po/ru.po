@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Varia\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-05-07 11:01+0000\n"
-"Last-Translator: Денис Кузнецов <denispr89@gmail.com>\n"
+"PO-Revision-Date: 2025-06-22 17:35+0000\n"
+"Last-Translator: Aleksandr Melman <alexmelman88@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/varia/varia/ru/"
 ">\n"
 "Language: ru\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -498,47 +498,51 @@ msgstr "Режим торрента отключен."
 msgid "Unknown filesize"
 msgstr "Неизвестный размер файла"
 
-#, fuzzy
-#| msgid "Show Menu"
 msgid "Show"
-msgstr "Показать меню"
+msgstr "Показать"
 
-#, fuzzy
-#| msgctxt "shortcut window"
-#| msgid "Quit"
 msgid "Quit"
 msgstr "Выйти"
 
-#, fuzzy
-#| msgid "Background Mode"
 msgid "Background Mode on Close"
-msgstr "Фоновый режим"
+msgstr "Фоновый режим при закрытии"
 
 msgid "Upon closing, Varia will close to tray insted of exiting."
-msgstr ""
+msgstr "После закрытия Varia свернется в трей вместо закрытия."
 
 # Tray icon always visible option
 msgid "Tray Icon Always Visible"
-msgstr ""
+msgstr "Значок в трее всегда виден"
 
 msgid ""
 "The tray icon will be visible even when Varia is not in background mode."
 msgstr ""
+"Значок в трее будет виден, даже если Varia не находится в фоновом режиме."
 
 # Open on startup option
 msgid "Open on Startup"
-msgstr ""
+msgstr "Открыть при запуске"
 
 msgid "Varia will open automatically when the system starts."
-msgstr ""
+msgstr "Varia откроется автоматически при запуске системы."
 
 # Start on background mode subtitle
 msgid "Varia will start directly in background mode upon opening."
-msgstr ""
+msgstr "После открытия Varia запустится в фоновом режиме."
 
 # Remote mode additional explanation
 msgid "Use Varia as a GUI for a remote aria2c instance."
 msgstr ""
+"Использовать Varia в качестве графического интерфейса для удаленного "
+"экземпляра aria2c."
+
+msgid "Configure"
+msgstr "Настроить"
+
+#, fuzzy
+#| msgid "Download complete."
+msgid "Download Segments"
+msgstr "Загрузка завершена."
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

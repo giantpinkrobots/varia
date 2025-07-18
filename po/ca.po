@@ -9,10 +9,10 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
 "PO-Revision-Date: 2025-07-11 06:06+0000\n"
-"Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
-"Language-Team: Estonian <https://hosted.weblate.org/projects/varia/varia/et/>"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"Language-Team: Catalan <https://hosted.weblate.org/projects/varia/varia/ca/>"
 "\n"
-"Language: et\n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -28,13 +28,11 @@ msgstr "Varia"
 #. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
 #: data/io.github.giantpinkrobots.varia.desktop.in:11
 msgid "varia;aria;download;manager;"
-msgstr ""
-"varia;aria;download;manager;allalaadimine;allalaadimiste haldus;"
-"allalaadimishaldur;laadi alla;lae alla;"
+msgstr "varia;aria;baixada;gestor;"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
 msgid "Download manager based on aria2"
-msgstr "Allalaadimiste haldur, mis põhineb aria2 tarvikul"
+msgstr "Gestor de baixades basat en l’aria2"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
 msgid ""
@@ -42,408 +40,402 @@ msgid ""
 "to provide a easy to use interface that integrates well with the GNOME "
 "desktop."
 msgstr ""
-"Varia on aria2 tarvikul põhinev allalaadimishaldur, mis mugava ja lihtsa "
-"kasutaliidese jaoks kasutab GTK4 ja Libadwaita teeke ning lõimub sujuvalt "
-"GNOME'i töölauaga."
+"El Varia és un gestor de baixades basat en l’aria2 que fa servir GTK4 i "
+"libadwaita per a proporcionar una interfície fàcil d’usar que s’integra bé "
+"amb l’escriptori GNOME."
 
 #: src/variamain.py:45
 msgid "This is not a valid URL."
-msgstr "See pole korrektne võrguaadress."
+msgstr "Aquest no és un URL vàlid."
 
 #: src/variamain.py:125
 msgid "All"
-msgstr "Kõik"
+msgstr "Tot"
 
 #: src/variamain.py:137
 msgid "In Progress"
-msgstr "Töös"
+msgstr "En curs"
 
 #: src/variamain.py:148
 msgid "Completed"
-msgstr "Valmis"
+msgstr "Completades"
 
 #: src/variamain.py:171
 msgid "About Varia"
-msgstr "Rakenduse teave: Varia"
+msgstr "Quant al Varia"
 
 #: src/variamain.py:177
 msgid "URL"
-msgstr "Võrguaadress"
+msgstr "URL"
 
 #: src/variamain.py:178
 msgid "Download"
-msgstr "Laadi alla"
+msgstr ""
 
 #: src/variamain.py:184
 msgid "Open Download Folder"
-msgstr "Ava allalaadimiste kaust"
+msgstr "Obre la carpeta de baixades"
 
 #: src/variamain.py:196
 msgid "Speed Limit"
-msgstr "Võrgukiiruse piirang"
+msgstr "Límit de velocitat"
 
 #: src/variamain.py:203 src/variamain.py:423
 msgid "Pause All"
-msgstr "Peata kõik"
+msgstr "Posa-ho tot en pausa"
 
 #: src/variamain.py:212
 msgid "Speed"
-msgstr "Kiirus"
+msgstr "Velocitat"
 
 #: src/variamain.py:215
 msgid "Set Speed Limit"
-msgstr "Määra võrgukiiruse piirang"
+msgstr "Defineix un límit de velocitat"
 
 #: src/variamain.py:216
 msgid "Cancel All"
-msgstr "Katkesta kõik"
+msgstr "Cancel·la-ho tot"
 
 #: src/variamain.py:235
 msgid "/s"
-msgstr "/sek"
+msgstr "/s"
 
 #: src/variamain.py:238
 msgid "No limit"
-msgstr "Piirang puudub"
+msgstr "Il·limitat"
 
 #: src/variamain.py:274
 msgid "Download complete."
-msgstr "Allalaadimine lõppes."
+msgstr "Ha finalitzat la baixada."
 
 #: src/variamain.py:276
 msgid "Download speed is limited."
-msgstr "Allalaadimiskiirus on piiratud."
+msgstr "La velocitat de baixada està limitada."
 
 #: src/variamain.py:277
 msgid "An error occurred:"
-msgstr "Tekkis viga:"
+msgstr "S’ha produït un error:"
 
 #: src/variamain.py:292
 msgid "MB/s"
-msgstr "MB/sek"
+msgstr "MB/s"
 
 #: src/variamain.py:294
 msgid "KB/s"
-msgstr "KB/sek"
+msgstr "kB/s"
 
 #: src/variamain.py:298
 msgid "0 B/s"
-msgstr "0 B/sek"
+msgstr "0 B/s"
 
 #: src/variamain.py:300
 msgid " MB/s"
-msgstr " MB/sek"
+msgstr " MB/s"
 
 #: src/variamain.py:302
 msgid " KB/s"
-msgstr " KB/sek"
+msgstr " kB/s"
 
 #: src/variamain.py:304
 msgid " B/s"
-msgstr " B/sek"
+msgstr " B/s"
 
 #: src/variamain.py:404
 msgid "Simultaneous Download Amount"
-msgstr "Samaaegseid allalaadimisi"
+msgstr ""
 
 #: src/variamain.py:410
 msgid "Resume All"
-msgstr "Jätka kõikide allalaadimist"
+msgstr "Reprèn-ho tot"
 
 #: src/variamain.py:443
 msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
-msgstr ""
-"aria2 tarvikul põhinev ning GTK4 ja Libadwaita teeke kasutav "
-"allalaadimishaldur."
+msgstr "Un gestor de baixades basat en l’aria2 que utilitza GTK4 i libadwaita."
 
 #: src/variamain.py:777
 msgid "This application relies on the following pieces of software:"
-msgstr "See rakendus kasutab järgnevaid tarkvarakomponente:"
+msgstr "Aquesta aplicació depèn del programari següent:"
 
 #: src/variamain.py:777
 msgid ""
 "The licenses of all of these pieces of software can be found in the "
 "dependencies_information directory in this application's app directory."
 msgstr ""
-"Näidatud tarkvara litsentsid leiduvad rakenduse paigalduskausta "
-"dependencies_information alamkaustas."
+"Les llicències de tot aquest programari es poden trobar al directori "
+"«dependencies_information» dins el directori d’aplicació d’aquest programa."
 
 # This is for the credits section. Replace this string with your own information so you'll be credited for your work.
 #: src/variamain.py:449
 msgid "translator-credits"
-msgstr "Priit Jõerüüt 2025"
+msgstr "Adolfo Jayme Barrientos <fitojb@ubuntu.com>, 2025"
 
 #: src/variamain.py:457
 msgid "Download Directory"
-msgstr "Allalaadimiste kaust"
+msgstr "Directori de baixades"
 
 #: src/variamain.py:460
 msgid "Change"
-msgstr "Muuda"
+msgstr ""
 
 #: src/variamain.py:463
 msgid "Speed limited"
-msgstr "Võrgukiiruse piirang"
+msgstr "S’ha limitat la velocitat"
 
 #: src/variamain.py:519
 msgid "Authentication"
-msgstr "Autentimine"
+msgstr "Autenticació"
 
 #: src/variamain.py:532
 msgid "Username"
-msgstr "Kasutajanimi"
+msgstr "Nom d’usuari"
 
 #: src/variamain.py:534
 msgid "Password"
-msgstr "Salasõna"
+msgstr "Contrasenya"
 
 #: src/variamain.py:554
 msgid "Authorization failed."
-msgstr "Autoriseerimine ei õnnestunud."
+msgstr "Ha fallat l’autorització."
 
 #: src/variamain.py:806
 msgid "Failed to open directory."
-msgstr "Kausta avamine ei õnnestunud."
+msgstr "No s’ha pogut obrir el directori."
 
 msgid "Remote Mode"
-msgstr "Kaughaldus"
+msgstr "Mode remot"
 
 msgid "Remote aria2 IP"
-msgstr "aria2 kaugseadme ip-aadress"
+msgstr "IP de l’aria2 remot"
 
 msgid "Remote aria2 Port"
-msgstr "aria2 kaugseadme port"
+msgstr "Port de l’aria2 remot"
 
 msgid "Remote aria2 RPC Secret"
-msgstr "aria2 kaugseadme RPC saladus"
+msgstr "Clau secreta RPC de l’aria2 remot"
 
 msgid "Remote Download Location"
-msgstr "Allalaadimiskaust kaugseadmes"
+msgstr "Ubicació de la baixada remota"
 
 msgid "Exiting Varia..."
-msgstr "Sulgeme Varia..."
+msgstr "S’està sortint del Varia…"
 
 msgid "Background Mode"
-msgstr "Taustarežiim"
+msgstr "Mode en segon pla"
 
 msgid "Continuing the downloads in the background."
-msgstr "Jätkame allalaadimisi taustal."
+msgstr "Les baixades continuen en segon pla."
 
 msgid "Browser Extension"
-msgstr "Brauseri lisamoodul"
+msgstr "Extensió per al navegador"
 
 msgid "Shutdown on Completion"
-msgstr "Allalaadimise lõppemisel lülita välja"
+msgstr "Apaga en finalitzar"
 
 msgid "Varia is about to shut down your computer."
-msgstr "Varia on lülitamas sinu arvutit välja."
+msgstr "El Varia està a punt d’apagar l’ordinador."
 
 msgid "Press Cancel to cancel and disable."
-msgstr "Tühistamiseks ja edaspidiseks vältimiseks vajuta nuppu „Katkesta“."
+msgstr "Feu clic a Cancel·la per a cancel·lar i desactivar."
 
 msgid "Cancel"
-msgstr "Katkesta"
+msgstr "Cancel·la"
 
 msgid "Warning"
-msgstr "Hoiatus"
+msgstr "Avís"
 
 msgid "Monday"
-msgstr "Esmaspäeval"
+msgstr "dilluns"
 
 msgid "Tuesday"
-msgstr "Teisipäeval"
+msgstr "dimarts"
 
 msgid "Wednesday"
-msgstr "Kolmapäeval"
+msgstr "dimecres"
 
 msgid "Thursday"
-msgstr "Neljapäeval"
+msgstr "dijous"
 
 msgid "Friday"
-msgstr "Reedel"
+msgstr "divendres"
 
 msgid "Saturday"
-msgstr "Laupäeval"
+msgstr "dissabte"
 
 msgid "Sunday"
-msgstr "Pühapäeval"
+msgstr "diumenge"
 
 msgid "Start (h/m):"
-msgstr "Alusta (t/m):"
+msgstr ""
 
 msgid "End (h/m):"
-msgstr "Lõpeta (t/m):"
+msgstr ""
 
 msgid "Scheduler enabled"
-msgstr "Ajahaldus on kasutusel"
+msgstr "S’ha activat el planificador"
 
 msgid "Scheduler"
-msgstr "Ajastamine"
+msgstr "Planificador"
 
 msgid "Enabled"
-msgstr "Kasutusel"
+msgstr ""
 
 msgid "Start downloading in these times"
-msgstr "Alusta allalaadimist näidatud aegadel"
+msgstr ""
 
 msgid "Stop downloading in these times"
-msgstr "Lõpeta allalaadimine näidatud aegadel"
+msgstr ""
 
 msgid "Add Timespan"
-msgstr "Lisa ajavahemik"
+msgstr ""
 
 #: When a download is currently seeding:
 msgid "Seeding"
-msgstr "Edasijagamisel"
+msgstr ""
 
 msgid "Failed"
-msgstr "Ei õnnestunud"
+msgstr ""
 
 msgid "Completion Options"
-msgstr "Allalaadimise lõppemisel"
+msgstr ""
 
 msgid "Exit on Completion"
-msgstr "Sulge rakendus"
+msgstr ""
 
 msgid "Varia is about to quit."
-msgstr "Varia on lõpetamas oma tööd."
+msgstr ""
 
 msgid "Preferences"
-msgstr "Eelistused"
+msgstr "Preferències"
 
 msgid "Other"
-msgstr "Muud"
+msgstr ""
 
 msgid "Basic Settings"
-msgstr "Põhiseadistused"
+msgstr "Paràmetres bàsics"
 
 msgid "Advanced Settings"
-msgstr "Täiendavad seadistused"
+msgstr "Paràmetres avançats"
 
 msgid "Use cookies.txt"
-msgstr "Kasuta cookies.txt faili"
+msgstr ""
 
 msgid "Import cookies.txt"
-msgstr "Impordi cookies.txt"
+msgstr ""
 
 msgid "Remove cookies.txt"
-msgstr "Eemalda cookies.txt"
+msgstr ""
 
 msgid "remaining"
-msgstr "aega jäänud"
+msgstr ""
 
 msgid "Start in Background Mode"
-msgstr "Käivitamisel jää taustale"
+msgstr "Inicia en mode en segon pla"
 
 msgid "Remote Timestamp"
-msgstr "Kasuta välise teenuse ajatemplit"
+msgstr ""
 
 msgid "Torrent"
-msgstr "Torrent"
+msgstr ""
 
 # Updater
 msgid "Checking for updates..."
-msgstr "Kontrollime uuendusi..."
+msgstr "S’està comprovant si hi ha actualitzacions…"
 
 msgid "A new version of Varia is available. Do you want to update?"
-msgstr "Varia uus versioon on saadaval. Kas sa soovid rakendust uuendada?"
+msgstr "Hi ha disponible una versió nova del Varia. Voleu actualitzar-la?"
 
 msgid "Update available"
-msgstr "Uus versioon on saadaval"
+msgstr ""
 
 msgid "Update"
-msgstr "Uuenda"
+msgstr "Actualitza"
 
 msgid "Downloading update..."
-msgstr "Laadime uuendust alla..."
+msgstr "S’està baixant l’actualització…"
 
 msgid "Download failed."
-msgstr "Allalaadimine ei õnnestunud."
+msgstr "Ha fallat la baixada."
 
 msgid "Yes"
-msgstr "Jah"
+msgstr "Sí"
 
 msgid "No"
-msgstr "Ei"
+msgstr "No"
 
 msgid "Automatically Check for Updates"
-msgstr "Kontrolli uuendusi automaatselt"
+msgstr "Comprova actualitzacions automàticament"
 
 msgid "Check Now"
-msgstr "Kontrolli kohe"
+msgstr "Comprova ara"
 
 msgid "Do you want to check for updates on startup?"
-msgstr "Kas sa soovid rakenduse käivitamisel kontrollida uuenduste olemasolu?"
+msgstr "Voleu comprovar si hi ha actualitzacions a l’inici?"
 
 msgid "File"
-msgstr "Fail"
+msgstr "Fitxer"
 
 msgid "Video / Audio"
-msgstr "Video / Heli"
+msgstr ""
 
 msgid "Video and audio"
-msgstr "Video ja heli"
+msgstr "Vídeo i àudio"
 
 msgid "Video only"
-msgstr "Ainult video"
+msgstr "Només vídeo"
 
 msgid "Audio only"
-msgstr "Ainult heli"
+msgstr "Només àudio"
 
 #: Relating to video download:
 msgid "Framerate:"
-msgstr "Kaadrisagedus:"
+msgstr "Taxa de fotogrames:"
 
 #: Relating to video download:
 msgid "Bitrate:"
-msgstr "Bitikiirus:"
+msgstr "Taxa de bits:"
 
 msgid "Checking video..."
-msgstr "Kontrollime videot..."
+msgstr ""
 
 msgid "No video or audio streams found"
-msgstr "Ei leidunud video- ega heliriba"
+msgstr ""
 
 msgid "Starting download..."
-msgstr "Alustame allalaadimist…"
+msgstr "S’està iniciant la baixada…"
 
 msgid ""
 "The video platform may not be supported or you may be being blocked by the "
 "platform. If you have an active VPN connection that might be the cause, or "
 "you can try importing your browser's cookies through a cookies.txt file."
 msgstr ""
-"Selle videoplatvormi tugi kas puudub või platvorm blokeerib sinu arvuti ip-"
-"aadressi. Kui kasutad VPN-ühendust, siis võib ka see olukorra põhjustada. "
-"Ühe lahendusena võid proovida importida oma veebibrauseri küpsised cookies."
-"txt faili abil."
 
 msgid "This will disable the video download functionality."
-msgstr "Sellega eemaldad kasutuselt video allalaadimise funktsionaalsuse."
+msgstr "Això desactivarà la funcionalitat de baixada de vídeo."
 
 #: Relating to video download progress where it says "Part 1/2" - {indicator}
 #: is replaced by "1/2" or "2/2" (don't translate {indicator})
 msgid "Part {indicator}"
-msgstr "Osa {indicator}"
+msgstr ""
 
 msgid "Simultaneous download limit exceeded, waiting."
-msgstr "Samaaegselt lubatud allalaadimiste piir on käes. Nüüd ootame natuke."
+msgstr ""
 
 #: The way percentages will be shown, like 10% or %10 depending on the language
 #: (don't translate {number}, just move it if needed)
 msgid "{number}%"
-msgstr "{number}%"
+msgstr "{number} %"
 
 msgid "Allow Seeding"
-msgstr "Luba edasijagamine"
+msgstr ""
 
 msgid "Seeding Ratio Limit"
-msgstr "Edasijagamise suhtarvu piir"
+msgstr ""
 
 msgid "Torrent Settings"
-msgstr "Torrenti seadistused"
+msgstr ""
 
 msgid "Custom Download Directory for Torrents"
-msgstr "Eraldi kaust torrentite allalaadimiseks"
+msgstr ""
 
 #: When the user attempts to disable seeding
 msgid ""
@@ -453,25 +445,19 @@ msgid ""
 "as they download (a ratio of 1). You may want to consider limiting your "
 "seeding ratio instead."
 msgstr ""
-"Torrenti kasutamine eeldab, et kõik osalejad ka jagavad andmeid edasi ning "
-"selle väljalülitamist võidakse pahaks panna ja näiteks piirata sulle "
-"jagatavate andmete laadimiskiirust või mõnede klientide ning serverite puhul "
-"lausa ühendus blokeerida.Tavaliselt eeldatakse, et kliendid jagada edasi "
-"samapalju andmeid, kui laadivad alla (suhtarv 1). Aga vastavalt sinu "
-"konkreetsetele oludele võib sul olla vaja seda suhtarvu muuta."
 
 msgid "Cancel Seeding"
-msgstr "Katkesta edasijagamine"
+msgstr ""
 
 # Save button
 msgid "Save"
-msgstr "Salvesta"
+msgstr "Desa"
 
 msgid "Show Menu"
-msgstr "Näita menüüd"
+msgstr "Mostra el menú"
 
 msgid "OK"
-msgstr "Sobib"
+msgstr "D’acord"
 
 # Snap version permission warning
 msgid ""
@@ -479,84 +465,79 @@ msgid ""
 "completion option you must first give Varia the related permission. To do "
 "this, open a terminal window and execute this command and then restart Varia:"
 msgstr ""
-"Sa kasutad Variat Snapi paketina. Kui soovid, et saaksid peala allalaadimist "
-"arvuti kinni panna, siis palun anna Variale vastavad õigused. Selleks ava "
-"terminali aken, käivita alljärgnev käsk ning seejärel käivita Varia uuesti:"
 
 msgid "Enable Torrenting"
-msgstr "Luba torrenti kasutamine"
+msgstr ""
 
 msgid "The browser extension will not work when Remote Mode is enabled."
-msgstr "Brauseri laiendus ei toimi, kui kaughaldus on kasutusel."
+msgstr ""
 
 msgid ""
 "Disabling torrenting will prevent new torrents from being added. It will not "
 "stop current torrent instances."
 msgstr ""
-"Torrentite töötluse väljalülitamine takistab vaid uute torrentite lisamist, "
-"kuid ei lõpeta pooleliolevaid torrentipõhiseid allalaadimisi."
 
 msgid "Torrenting is disabled."
-msgstr "Torrentipõhine allalaadimine pole kasutusel."
+msgstr ""
 
 msgid "Unknown filesize"
-msgstr "Tundmatu failisuurus"
+msgstr ""
 
+# Tray icon show button
 msgid "Show"
-msgstr "Näita"
+msgstr "Mostra"
 
+# Tray icon quit button
 msgid "Quit"
-msgstr "Välju"
+msgstr "Surt"
 
+# Close to tray option
 msgid "Background Mode on Close"
-msgstr "Sulgemisel vii taustale"
+msgstr ""
 
 msgid "Upon closing, Varia will close to tray insted of exiting."
-msgstr "Sulgemisel jääb Varia taustal tööle ning on leitav süsteemisalvest."
+msgstr ""
 
 # Tray icon always visible option
 msgid "Tray Icon Always Visible"
-msgstr "Süsteemisalve ikoon on alati näha"
+msgstr ""
 
 msgid ""
 "The tray icon will be visible even when Varia is not in background mode."
-msgstr "Süsteemisalve ikoon on näha ka siis, kui Varia ei tööta taustal."
+msgstr ""
 
 # Open on startup option
 msgid "Open on Startup"
-msgstr "Ava käivitamisel"
+msgstr ""
 
 msgid "Varia will open automatically when the system starts."
-msgstr "Süsteemi käivitumisel avatakse ka Varia rakendus."
+msgstr ""
 
 # Start on background mode subtitle
 msgid "Varia will start directly in background mode upon opening."
-msgstr "Varia käivitub avamisel taustarežiimis."
+msgstr ""
 
 # Remote mode additional explanation
 msgid "Use Varia as a GUI for a remote aria2c instance."
-msgstr "Kasuta Variat kaugseadmes asuva aria2c kasutajaliidesena."
+msgstr ""
 
 msgid "Configure"
-msgstr "Seadista"
+msgstr "Configura"
 
 msgid "Download Segments"
-msgstr "Laadi segmendid alla"
+msgstr "Baixada en segments"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
-msgstr "Üldised"
+msgstr "Generals"
 
 #: src/gtk/help-overlay.ui:14
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
-msgstr "Näita kiirklahve"
+msgstr "Mostra les dreceres"
 
 #: src/gtk/help-overlay.ui:20
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr "Välju"
-
-#~ msgid "Torrenting Disabled"
-#~ msgstr "Torrentipõhine allalaadimine pole kasutusel"
+msgstr "Surt"
