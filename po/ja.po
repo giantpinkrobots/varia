@@ -542,6 +542,14 @@ msgstr ""
 msgid "Use Varia as a GUI for a remote aria2c instance."
 msgstr ""
 
+msgid "Configure"
+msgstr ""
+
+#, fuzzy
+#| msgid "Download complete."
+msgid "Download Segments"
+msgstr "ダウンロードが完了しました。"
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"

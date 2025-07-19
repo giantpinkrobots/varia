@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: Varia\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-04-13 22:08+0000\n"
-"Last-Translator: Giant Pink Robots! <giantpinkrobots@protonmail.com>\n"
+"PO-Revision-Date: 2025-07-05 18:44+0000\n"
+"Last-Translator: freeducks-debug <209897795+freeducks-debug@users.noreply."
+"github.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/varia/varia/uk/"
 ">\n"
 "Language: uk\n"
@@ -18,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -45,12 +46,12 @@ msgid ""
 "desktop."
 msgstr ""
 "Varia це менеджер завантажень заснований на aria2, який використовує GTK4 та "
-"Libadwaita щоб зробити простий і зрозумілий інтерфейс який дуже добре "
+"Libadwaita, щоб зробити простий і зрозумілий інтерфейс який дуже добре "
 "інтегрується зі стільницею GNOME."
 
 #: src/variamain.py:45
 msgid "This is not a valid URL."
-msgstr "Це не правильна URL-адреса."
+msgstr "Це некоректна URL-адреса."
 
 #: src/variamain.py:125
 msgid "All"
@@ -172,7 +173,9 @@ msgstr ""
 
 #: src/variamain.py:449
 msgid "translator-credits"
-msgstr "volkov <volkovissocool@gmail.com>"
+msgstr ""
+"volkov <volkovissocool@gmail.com>\n"
+"freeducks-debug"
 
 #: src/variamain.py:457
 msgid "Download Directory"
@@ -271,10 +274,10 @@ msgid "Sunday"
 msgstr "Неділя"
 
 msgid "Start (h/m):"
-msgstr "Початок (год./хв.)"
+msgstr "Початок (год./хв.):"
 
 msgid "End (h/m):"
-msgstr "Кінець (год./хв.)"
+msgstr "Кінець (год./хв.):"
 
 msgid "Scheduler enabled"
 msgstr "Планувальник увімкнено"
@@ -341,121 +344,111 @@ msgid "Remote Timestamp"
 msgstr "Віддалені позначки часу"
 
 msgid "Torrent"
-msgstr ""
+msgstr "Торрент"
 
 # Updater
 msgid "Checking for updates..."
-msgstr ""
+msgstr "Перевірка оновлень..."
 
 msgid "A new version of Varia is available. Do you want to update?"
-msgstr ""
+msgstr "Доступна нова версія Varia. Бажаєте оновити?"
 
 msgid "Update available"
-msgstr ""
+msgstr "Доступне оновлення"
 
 msgid "Update"
-msgstr ""
+msgstr "Оновити"
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Downloading update..."
-msgstr "Завантаження завершене."
+msgstr "Завантаження оновлення..."
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Download failed."
-msgstr "Завантаження завершене."
+msgstr "Помилка завантаження."
 
 msgid "Yes"
-msgstr ""
+msgstr "Так"
 
 msgid "No"
-msgstr ""
+msgstr "Ні"
 
 msgid "Automatically Check for Updates"
-msgstr ""
+msgstr "Автоматична перевірка оновлень"
 
 msgid "Check Now"
-msgstr ""
+msgstr "Перевірити зараз"
 
 msgid "Do you want to check for updates on startup?"
-msgstr ""
+msgstr "Бажаєте перевірити наявність оновлень при запуску додатка?"
 
 msgid "File"
-msgstr ""
+msgstr "Файл"
 
 msgid "Video / Audio"
-msgstr ""
+msgstr "Відео / Аудіо"
 
 msgid "Video and audio"
-msgstr ""
+msgstr "Відео та аудіо"
 
 msgid "Video only"
-msgstr ""
+msgstr "Тільки відео"
 
 msgid "Audio only"
-msgstr ""
+msgstr "Тільки аудіо"
 
 #: Relating to video download:
 msgid "Framerate:"
-msgstr ""
+msgstr "Частота кадрів:"
 
 #: Relating to video download:
 msgid "Bitrate:"
-msgstr ""
+msgstr "Бітрейт:"
 
 msgid "Checking video..."
-msgstr ""
+msgstr "Перевірка відео..."
 
 msgid "No video or audio streams found"
-msgstr ""
+msgstr "Не знайдено відео чи аудіо потоків"
 
 msgid "Starting download..."
-msgstr ""
+msgstr "Початок завантаження..."
 
 msgid ""
 "The video platform may not be supported or you may be being blocked by the "
 "platform. If you have an active VPN connection that might be the cause, or "
 "you can try importing your browser's cookies through a cookies.txt file."
 msgstr ""
+"Можливо, відео платформа не підтримується або ця платформа заблокувала вас. "
+"Якщо у вас активне VPN з'єднання, то можливо воно є джерелом проблем, або "
+"можете спробувати імпортувати кукіс (cookies) із вашого браузера через "
+"cookies.txt файл."
 
 msgid "This will disable the video download functionality."
-msgstr ""
+msgstr "Це вимкне можливість завантаження відео."
 
 #: Relating to video download progress where it says "Part 1/2" - {indicator}
 #: is replaced by "1/2" or "2/2" (don't translate {indicator})
 msgid "Part {indicator}"
-msgstr ""
+msgstr "Частина {indicator}"
 
-#, fuzzy
-#| msgid "Simultaneous Download Amount"
 msgid "Simultaneous download limit exceeded, waiting."
-msgstr "Кількість одночасних завантажень"
+msgstr "Перевищена кількість одночасних завантажень, очікування."
 
 #: The way percentages will be shown, like 10% or %10 depending on the language
 #: (don't translate {number}, just move it if needed)
 msgid "{number}%"
-msgstr ""
+msgstr "{number}%"
 
-#, fuzzy
-#| msgid "Seeding"
 msgid "Allow Seeding"
-msgstr "Роздається"
+msgstr "Дозволити роздачу"
 
-#, fuzzy
-#| msgid "Speed Limit"
 msgid "Seeding Ratio Limit"
-msgstr "Обмеження швидкості"
+msgstr "Обмеження коефіцієнта роздачі"
 
-#, fuzzy
-#| msgid "Advanced Settings"
 msgid "Torrent Settings"
-msgstr "Налаштування для досвідчених"
+msgstr "Налаштування торрента"
 
-#, fuzzy
-#| msgid "Download Directory"
 msgid "Custom Download Directory for Torrents"
-msgstr "Тека для завантажень"
+msgstr "Користувацька тека завантажень для торрентів"
 
 #: When the user attempts to disable seeding
 msgid ""
@@ -465,21 +458,24 @@ msgid ""
 "as they download (a ratio of 1). You may want to consider limiting your "
 "seeding ratio instead."
 msgstr ""
+"Оскільки система торрентів тримається на тому, щоб люди допомагали роздавати "
+"дані - вимкнення роздачі не є прийнятним на деяких торрент трекерах і "
+"клієнтах, за що вас можуть обмежувати або блокувати. Зазвичай, від клієнтів "
+"очікують, що вони будуть роздавати хоча б стільки, скільки і завантажують "
+"(коефіцієнт 1). Тому краще зменшити коефіцієнт роздачі, замість вимкнення."
 
-#, fuzzy
-#| msgid "Seeding"
 msgid "Cancel Seeding"
-msgstr "Роздається"
+msgstr "Скасувати роздачу"
 
 # Save button
 msgid "Save"
-msgstr ""
+msgstr "Зберегти"
 
 msgid "Show Menu"
-msgstr ""
+msgstr "Показати меню"
 
 msgid "OK"
-msgstr ""
+msgstr "Добре"
 
 # Snap version permission warning
 msgid ""
@@ -487,66 +483,79 @@ msgid ""
 "completion option you must first give Varia the related permission. To do "
 "this, open a terminal window and execute this command and then restart Varia:"
 msgstr ""
+"Ви використовуєте Varia у snap пакунку. Щоб дозволити вимкнення пристрою по "
+"завершенню завантаження - вам спочатку треба видати Varia належні дозволи. "
+"Щоб виконати це, відкрийте термінал та виконайте цю команду і перезавантажте "
+"Varia:"
 
-#, fuzzy
-#| msgid "Advanced Settings"
 msgid "Enable Torrenting"
-msgstr "Налаштування для досвідчених"
+msgstr "Увімкнути режим торренту"
 
 msgid "The browser extension will not work when Remote Mode is enabled."
 msgstr ""
+"Розширення для браузера не буде працювати, доки \"Віддалений режим\" "
+"увімкнений."
 
 msgid ""
 "Disabling torrenting will prevent new torrents from being added. It will not "
 "stop current torrent instances."
 msgstr ""
+"Вимкнення режиму торрентів зупинить додавання нових торрентів. Це не "
+"призведе до зупинки поточних активних завантажень торрентів."
 
 msgid "Torrenting is disabled."
-msgstr ""
+msgstr "Режим торренту вимкнено."
 
 msgid "Unknown filesize"
-msgstr ""
+msgstr "Невідомий розмір файлу"
 
 # Tray icon show button
 msgid "Show"
-msgstr ""
+msgstr "Показати"
 
-#, fuzzy
-#| msgctxt "shortcut window"
-#| msgid "Quit"
 msgid "Quit"
 msgstr "Вийти"
 
-#, fuzzy
-#| msgid "Background Mode"
 msgid "Background Mode on Close"
-msgstr "Режим заднього фону"
+msgstr "Режим заднього фону при закриванні"
 
 msgid "Upon closing, Varia will close to tray insted of exiting."
-msgstr ""
+msgstr "Після закривання вікна Varia, додаток буде згорнуто до лотку (tray)."
 
 # Tray icon always visible option
 msgid "Tray Icon Always Visible"
-msgstr ""
+msgstr "Піктограма завжди відображається у лотку (tray)"
 
 msgid ""
 "The tray icon will be visible even when Varia is not in background mode."
 msgstr ""
+"Піктограма у лотку (tray) завжди буде видима, навіть якщо Varia не у "
+"фоновому режимі."
 
 # Open on startup option
 msgid "Open on Startup"
-msgstr ""
+msgstr "Відкривати при запуску системи"
 
 msgid "Varia will open automatically when the system starts."
-msgstr ""
+msgstr "Varia буде автоматично відкрито при запуску системи."
 
 # Start on background mode subtitle
 msgid "Varia will start directly in background mode upon opening."
-msgstr ""
+msgstr "Varia буде одразу запускатися у фоновому режимі."
 
 # Remote mode additional explanation
 msgid "Use Varia as a GUI for a remote aria2c instance."
 msgstr ""
+"Використовувати Varia як графічний інтерфейс для віддаленого екземпляру "
+"aria2c."
+
+msgid "Configure"
+msgstr "Налаштувати"
+
+#, fuzzy
+#| msgid "Download complete."
+msgid "Download Segments"
+msgstr "Завантаження завершене."
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

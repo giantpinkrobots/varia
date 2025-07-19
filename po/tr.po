@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-05-09 18:01+0000\n"
+"PO-Revision-Date: 2025-07-12 10:01+0000\n"
 "Last-Translator: Giant Pink Robots! <giantpinkrobots@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/varia/varia/tr/>"
 "\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -538,6 +538,12 @@ msgstr "Varia direkt olarak arka plan modunda başlatılır."
 msgid "Use Varia as a GUI for a remote aria2c instance."
 msgstr ""
 "Varia'yı başka bir aria2c süreci için bir grafiksel arayüz olarak kullan."
+
+msgid "Configure"
+msgstr "Yapılandır"
+
+msgid "Download Segments"
+msgstr "İndirme Parçaları"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

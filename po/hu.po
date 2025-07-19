@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-04-17 14:01+0000\n"
-"Last-Translator: Balázs Meskó <meskobalazs@mailbox.org>\n"
+"PO-Revision-Date: 2025-06-16 15:04+0000\n"
+"Last-Translator: Zoltán Rózsa <rozsazoltan@users.noreply.hosted.weblate."
+"org>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/varia/varia/hu/"
 ">\n"
 "Language: hu\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11.1-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -501,47 +502,50 @@ msgstr "Torrent letiltva."
 msgid "Unknown filesize"
 msgstr "Ismeretlen fájlméret"
 
-#, fuzzy
-#| msgid "Show Menu"
 msgid "Show"
-msgstr "Menü megjelenítése"
+msgstr "Megjelenítés"
 
-#, fuzzy
-#| msgctxt "shortcut window"
-#| msgid "Quit"
 msgid "Quit"
 msgstr "Kilépés"
 
-#, fuzzy
-#| msgid "Background Mode"
 msgid "Background Mode on Close"
-msgstr "Háttér mód"
+msgstr "Háttér mód bezáráskor"
 
 msgid "Upon closing, Varia will close to tray insted of exiting."
-msgstr ""
+msgstr "Bezáráskor a Varia a kilépés helyett a tálcára helyezi magát."
 
 # Tray icon always visible option
 msgid "Tray Icon Always Visible"
-msgstr ""
+msgstr "Tálca ikon mindig látható"
 
 msgid ""
 "The tray icon will be visible even when Varia is not in background mode."
-msgstr ""
+msgstr "A tálca ikon akkor is látható lesz, ha a Varia nincs háttérben."
 
 # Open on startup option
 msgid "Open on Startup"
-msgstr ""
+msgstr "Megnyitás rendszerindításkor"
 
 msgid "Varia will open automatically when the system starts."
-msgstr ""
+msgstr "A Varia automatikusan megnyílik, amikor a rendszer elindul."
 
 # Start on background mode subtitle
 msgid "Varia will start directly in background mode upon opening."
-msgstr ""
+msgstr "A Varia a megnyitás után közvetlenül a háttérben indul el."
 
 # Remote mode additional explanation
 msgid "Use Varia as a GUI for a remote aria2c instance."
 msgstr ""
+"Használja a Varia grafikus felhasználói felületét egy távoli aria2c "
+"példányhoz."
+
+msgid "Configure"
+msgstr "Konfigurálás"
+
+#, fuzzy
+#| msgid "Download complete."
+msgid "Download Segments"
+msgstr "Letöltés befejezve."
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

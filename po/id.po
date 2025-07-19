@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-05-09 18:01+0000\n"
-"Last-Translator: Ilham Fauzan <ilhamfzx@gmail.com>\n"
+"PO-Revision-Date: 2025-06-20 14:27+0000\n"
+"Last-Translator: Mie <miesiva@tutanota.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/varia/varia/"
 "id/>\n"
 "Language: id\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -537,6 +537,15 @@ msgstr "Varia akan dimulai dalam mode latar belakang saat dibuka."
 # Remote mode additional explanation
 msgid "Use Varia as a GUI for a remote aria2c instance."
 msgstr ""
+"Gunakan Varia sebagai antarmuka grafis untuk instance aria2c jarak jauh."
+
+msgid "Configure"
+msgstr "Konfigurasi"
+
+#, fuzzy
+#| msgid "Download complete."
+msgid "Download Segments"
+msgstr "Unduhan selesai."
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

@@ -536,6 +536,14 @@ msgstr "Varia vai iniciar diretamente em modo de segundo plano ao ser aberto."
 msgid "Use Varia as a GUI for a remote aria2c instance."
 msgstr "Usa Varia como uma GUI para uma instância remota do aria2c."
 
+msgid "Configure"
+msgstr ""
+
+#, fuzzy
+#| msgid "Download complete."
+msgid "Download Segments"
+msgstr "Download completo."
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
