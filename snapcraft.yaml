@@ -31,7 +31,6 @@ parts:
     python-packages:
       - yt-dlp
       - aria2p
-      - pystray
       - dbus-next
     build-packages:
       - python3-pip

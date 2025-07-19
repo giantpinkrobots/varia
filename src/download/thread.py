@@ -14,7 +14,6 @@ from yt_dlp import YoutubeDL
 import re
 import base64
 import multiprocessing as multiprocessing
-from window.content import check_for_all_paused
 
 class DownloadThread(threading.Thread):
     def __init__(self, app, url, actionrow, downloadname, download, mode, video_options, paused, dir):
@@ -423,7 +422,7 @@ class DownloadThread(threading.Thread):
             if change_pause_button_icon:
                 self.pause_button.get_child().set_from_icon_name("media-playback-start-symbolic")
             
-            check_for_all_paused(self.app)
+            self.app.check_all_status()
 
     def resume(self):
         if self.download and self.is_complete == False:
@@ -461,7 +460,7 @@ class DownloadThread(threading.Thread):
             if change_pause_button_icon:
                 self.pause_button.get_child().set_from_icon_name("media-playback-pause-symbolic")
         
-        check_for_all_paused(self.app)
+        self.app.check_all_status()
 
     def video_remove_temp_files(self):
         if "temp_files" in self.video_options:
@@ -604,13 +603,14 @@ class DownloadThread(threading.Thread):
                     return False
                 
     def set_complete(self):
+        self.is_complete = True
+        self.cancelled = True
         GLib.idle_add(self.speed_label.set_text, _("Download complete."))
         GLib.idle_add(self.pause_button.set_visible, False)
         self.cancelled = True
         self.app.filter_download_list("no", self.app.applied_filter)
         self.progress_bar.set_fraction(1)
         self.progress_bar.add_css_class("success")
-        self.is_complete = True
 
         if self.mode == "regular":
             is_seeding = self.download.is_torrent and self.download.seeder

@@ -111,7 +111,7 @@ Control a remote aria2 instance running on any server
 </recommends>
 
 <releases>
-<release version="v2025.5.14" date="2025-05-14">
+<release version="v2025.7.19" date="2025-07-19">
 <description translatable="yes">
 <ul><li>Video downloads now can be added through the browser extension.</li>
 <li>.torrent files can now be opened through a file manager.</li>

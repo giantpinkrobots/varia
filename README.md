@@ -19,8 +19,8 @@
 
 | Download for Linux | Download for Windows | Browser Extension |
 | -------- | ------- | ------- |
-| [⬇ Flathub](https://flathub.org/apps/io.github.giantpinkrobots.varia) | [⬇ Installer](https://github.com/giantpinkrobots/varia/releases/download/v2025.5.14/varia-windows-setup-amd64.exe) | [❖ Firefox](https://addons.mozilla.org/firefox/addon/varia-integrator/) |
-| [⬇ Snap Store](https://snapcraft.io/varia) | [⬇ Portable](https://github.com/giantpinkrobots/varia/releases/download/v2025.5.14/varia-windows-portable-amd64.zip) | [❖ Chrome](https://chrome.google.com/webstore/detail/dacakhfljjhgdfdlgjpabkkjhbpcmiff) |
+| [⬇ Flathub](https://flathub.org/apps/io.github.giantpinkrobots.varia) | [⬇ Installer](https://github.com/giantpinkrobots/varia/releases/download/v2025.7.19/varia-windows-setup-amd64.exe) | [❖ Firefox](https://addons.mozilla.org/firefox/addon/varia-integrator/) |
+| [⬇ Snap Store](https://snapcraft.io/varia) | [⬇ Portable](https://github.com/giantpinkrobots/varia/releases/download/v2025.7.19/varia-windows-portable-amd64.zip) | [❖ Chrome](https://chrome.google.com/webstore/detail/dacakhfljjhgdfdlgjpabkkjhbpcmiff) |
 | [⬇ AUR (unofficial)](https://aur.archlinux.org/packages/varia) | | |
 
 <br>
@@ -56,7 +56,11 @@ flatpak install flathub io.github.giantpinkrobots.varia
 This requires you to have Flatpak and the Flathub Flatpak repository installed on your system.
 
 #### Snap
-You can get Varia through the [Snap Store](https://snapcraft.io/varia). However, you will need to give it additional permissions through the terminal if you want to use the "Shutdown after Completion" feature:
+You can get Varia through the [Snap Store](https://snapcraft.io/varia).
+```
+sudo snap install varia
+```
+However, you will need to give it additional permissions through the terminal if you want to use the "Shutdown after Completion" feature:
 ```
 sudo snap connect varia:shutdown
 ```

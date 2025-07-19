@@ -101,23 +101,3 @@ def toggle_sidebar_overlay(button, self):
         self.overlay_split_view.set_show_sidebar(True)
     else:
         self.overlay_split_view.set_show_sidebar(False)
-
-def check_for_all_paused(self):
-    all_paused = True
-
-    for download_item in self.downloads.copy():
-        if download_item.paused == False:
-            all_paused = False
-            break
-
-    if all_paused:
-        self.all_paused = True
-        self.header_pause_content.set_icon_name("media-playback-start-symbolic")
-        self.header_pause_content.set_label(_("Resume All"))
-        self.header_pause_button.set_sensitive(True)
-    
-    else:
-        self.all_paused = False
-        self.header_pause_content.set_icon_name("media-playback-pause-symbolic")
-        self.header_pause_content.set_label(_("Pause All"))
-        self.header_pause_button.set_sensitive(True)

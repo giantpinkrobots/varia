@@ -1,4 +1,4 @@
-variaVersion = "dev"
+variaVersion = "v2025.7.19"
 
 import ctypes
 import gi
@@ -433,35 +433,34 @@ class MainWindow(application_window):
             self.check_all_status()
 
     def check_all_status(self):
-        def set_header_button(mode):
-            if mode:
-                GLib.idle_add(self.header_pause_content.set_icon_name, "media-playback-start-symbolic")
-                GLib.idle_add(self.header_pause_content.set_label, _("Resume All"))
+        if len(self.downloads) == 0:
+            self.all_paused = False
+            self.header_pause_content.set_icon_name("media-playback-pause-symbolic")
+            self.header_pause_content.set_label(_("Pause All"))
+            self.header_pause_button.set_sensitive(False)
 
-            else:
-                GLib.idle_add(self.header_pause_content.set_icon_name, "media-playback-pause-symbolic")
-                GLib.idle_add(self.header_pause_content.set_label, _("Pause All"))
-
-        if len(self.downloads) > 0:
-            self.all_paused = True
-
-            for download_thread in self.downloads:
-                if download_thread.paused == False:
-                    self.all_paused = False
-
-            if self.all_paused:
-                set_header_button(True)
-                print("All downloads are paused")
-
-            else:
-                set_header_button(False)
-
-            GLib.idle_add(self.header_pause_button.set_sensitive, True)
-
-        else:
-            set_header_button(False)
             GLib.idle_add(self.header_pause_button.set_sensitive, False)
             self.content_root_overlay.add_overlay(self.status_page_widget)
+        
+        else:
+            all_paused = True
+
+            for download_item in self.downloads.copy():
+                if download_item.is_complete == False and download_item.cancelled == False and download_item.paused == False:
+                    all_paused = False
+                    break
+
+            if all_paused:
+                self.all_paused = True
+                self.header_pause_content.set_icon_name("media-playback-start-symbolic")
+                self.header_pause_content.set_label(_("Resume All"))
+                self.header_pause_button.set_sensitive(True)
+            
+            else:
+                self.all_paused = False
+                self.header_pause_content.set_icon_name("media-playback-pause-symbolic")
+                self.header_pause_content.set_label(_("Pause All"))
+                self.header_pause_button.set_sensitive(True)
 
     def stop_all(self, app, variaapp):
         while (self.downloads != []):
@@ -839,7 +838,7 @@ def main(version, aria2cexec, ffmpegexec, issnap, arguments):
     atexit.register(stop_subprocesses_and_exit)
 
     signal.signal(signal.SIGINT, stop_subprocesses_and_exit)
-    signal.signal(signal.SIGTERM, stop_subprocesses_and_exit)
+    #signal.signal(signal.SIGTERM, stop_subprocesses_and_exit) # causes issues with other subprocesses
     sys.excepthook = global_exception_handler
 
     arguments = json.loads(arguments)
