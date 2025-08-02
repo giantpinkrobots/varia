@@ -8,12 +8,16 @@ chrome.runtime.onInstalled.addListener(function(details) {
 
 chrome.downloads.onCreated.addListener(function(downloadItem) {
   var downloadTime = new Date(downloadItem.startTime).getTime();
+  var downloadSize = downloadItem.fileSize;
+
   if (downloadTime < startTime) {
     return;
   }
 
-  chrome.storage.sync.get('enabled', function(data) {
-    if (data.enabled) {
+  chrome.storage.sync.get(['enabled', 'downloadSize'], function(data) {
+    console.log('Min Download Size:', data.downloadSize || 0);
+    console.log('Download Size:', downloadSize);
+    if (data.enabled && downloadSize >= ((data.downloadSize || 0) * 1048576)) {
       sendToAria2(downloadItem, "file");
     }
   });
