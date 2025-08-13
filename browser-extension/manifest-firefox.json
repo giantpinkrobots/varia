@@ -1,7 +1,7 @@
 {
   "name": "Varia Integrator",
   "description": "Route all downloads to Varia if it's running.",
-  "version": "1.3",
+  "version": "1.4",
   "icons": {
     "16": "icon16.png",
     "48": "icon48.png",
