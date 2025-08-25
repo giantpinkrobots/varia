@@ -7,6 +7,7 @@ import json
 import threading
 import os
 import subprocess
+import time
 
 update_download_progress = 0
 
@@ -53,7 +54,16 @@ def start_update_check(variaVersion, app, variaapp, checking_dialog, mode):
     
     if os.path.exists(os.path.join(app.appdir, 'updater-all-releases.txt')):
         all_releases = open(os.path.join(app.appdir, 'updater-all-releases.txt')).read()
-        os.remove(os.path.join(app.appdir, 'updater-all-releases.txt'))
+
+        while True:
+            try:
+                os.remove(os.path.join(app.appdir, 'updater-all-releases.txt'))
+                break
+
+            except:
+                time.sleep(0.5)
+                pass
+
     else:
         latest_name_for_windows = "failed"
     
@@ -103,7 +113,7 @@ def show_update_available_banner(windows_updater, app, variaapp, variaVersion):
     app.update_available_banner.set_button_label(_("Update"))
     app.update_available_banner.connect("button-clicked", windows_updater, app, variaapp, None, variaVersion, 1)
     app.update_available_banner.set_revealed(True)
-    app.content_box.insert_child_after(app.update_available_banner, app.header_bar)
+    app.content_box.insert_child_after(app.update_available_banner, app.content_box.get_first_child())
 
 def update_pressed(dialog, response_id, latest_windows_binary_url, latest_name_for_windows, app, variaapp):
     dialog.set_can_close(True)
