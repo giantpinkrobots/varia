@@ -1,10 +1,11 @@
 import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import Gtk, Adw, Pango, GLib
+from gi.repository import Gtk, Adw, Pango, GLib, Gio
 from stringstorage import gettext as _
 from download.thread import DownloadThread
 import json
+import os
 
 def on_download_clicked(button, self, entry, downloadname, download, mode, video_options, paused, dir):
     if isinstance(entry, str):
@@ -80,6 +81,7 @@ def create_actionrow(self, filename):
     pause_button.add_css_class("circular")
     pause_button.connect_handler_id = pause_button.connect("clicked", on_pause_clicked, self, pause_button, download_item, False, True)
     pause_button.set_retry_mode = pause_button_set_retry_mode
+    pause_button.set_open_mode = pause_button_set_open_mode
 
     button_box.append(pause_button)
 
@@ -130,6 +132,11 @@ def pause_button_set_retry_mode(button, self, download_item):
     button.disconnect(button.connect_handler_id)
     button.connect_handler_id = button.connect("clicked", pause_button_on_retry_clicked, self, download_item)
 
+def pause_button_set_open_mode(button, self, download_item):
+    GLib.idle_add(button.set_icon_name, "application-x-executable-symbolic")
+    button.disconnect(button.connect_handler_id)
+    button.connect_handler_id = button.connect("clicked", pause_button_on_open_clicked, self, download_item)
+
 def pause_button_on_retry_clicked(button, self, download_item):
     new_download_item = on_download_clicked(None, self, download_item.url, download_item.downloadname, None, download_item.mode, download_item.video_options, False, download_item.downloaddir)
 
@@ -138,3 +145,7 @@ def pause_button_on_retry_clicked(button, self, download_item):
     self.downloads.insert(self.downloads.index(download_item), new_download_item)
 
     download_item.stop()
+
+def pause_button_on_open_clicked(button, self, download_item):
+    if os.path.exists(download_item.filepath):
+        Gio.AppInfo.launch_default_for_uri("file://" + download_item.filepath, None)

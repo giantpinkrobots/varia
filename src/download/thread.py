@@ -39,6 +39,12 @@ class DownloadThread(threading.Thread):
         self.speed = 0
         self.paused_because_exceeds_limit = False
         self.total_file_size_text = ""
+
+        try:
+            self.filepath = os.path.join(app.appconf["download_directory"], downloadname)
+        
+        except:
+            self.filepath = None
         
         self.video_options = video_options
         if self.video_options == None:
@@ -150,6 +156,8 @@ class DownloadThread(threading.Thread):
 
             download_began = False
 
+            self.filepath = os.path.join(self.app.appconf["download_directory"], self.downloadname)
+
             while (self.cancelled == False):
                 try:
                     self.download.update()
@@ -166,6 +174,7 @@ class DownloadThread(threading.Thread):
                     if self.downloadname != self.download.name:
                         self.downloadname = self.download.name
                         self.save_state(True)
+                        self.filepath = os.path.join(self.app.appconf["download_directory"], self.downloadname)
                     
                     if self.filename_label.get_text() != self.downloadname:
                         GLib.idle_add(self.filename_label.set_text, self.download.name)
@@ -610,7 +619,6 @@ class DownloadThread(threading.Thread):
         self.is_complete = True
         self.cancelled = True
         GLib.idle_add(self.speed_label.set_text, _("Download complete."))
-        GLib.idle_add(self.pause_button.set_visible, False)
         self.cancelled = True
         self.app.filter_download_list("no", self.app.applied_filter)
         self.progress_bar.set_fraction(1)
@@ -618,7 +626,6 @@ class DownloadThread(threading.Thread):
 
         if self.mode == "regular":
             is_seeding = self.download.is_torrent and self.download.seeder
-
             if is_seeding == False and os.path.exists(os.path.join(self.downloaddir,(self.download.gid + ".varia"))):
                 os.remove(os.path.join(self.downloaddir,(self.download.gid + ".varia")))
 
@@ -631,6 +638,7 @@ class DownloadThread(threading.Thread):
         GLib.idle_add(self.stop_button.remove_css_class, "destructive-action")
         GLib.idle_add(self.stop_button.set_icon_name, "process-stop-symbolic")
         GLib.idle_add(self.percentage_label.set_visible, False)
+        GLib.idle_add(self.pause_button.set_open_mode, self.pause_button, self.app, self)
     
     def set_failed(self, fraction):
         if fraction is not None:
@@ -639,11 +647,12 @@ class DownloadThread(threading.Thread):
         self.progress_bar.add_css_class("error")
         self.cancelled = True
 
-        if (self.download.error_code == "24"):
-            self.speed_label.set_text(_("Authorization failed."))
+        if self.mode == "regular":
+            if (self.download.error_code == "24"):
+                self.speed_label.set_text(_("Authorization failed."))
 
-        else:
-            self.speed_label.set_text(_("An error occurred:") + " " + str(self.download.error_code))
+            else:
+                self.speed_label.set_text(_("An error occurred:") + " " + str(self.download.error_code))
 
         GLib.idle_add(self.pause_button.set_retry_mode, self.pause_button, self.app, self)
         self.app.filter_download_list("no", self.app.applied_filter)
