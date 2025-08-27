@@ -401,7 +401,11 @@ class DownloadThread(threading.Thread):
                             self.paused = True
                             change_pause_button_icon = True
                         
-                        self.download.pause()
+                        try:
+                            self.download.pause()
+                        
+                        except:
+                            pass
 
                         self.save_state(True)
                 

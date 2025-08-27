@@ -463,15 +463,10 @@ class MainWindow(application_window):
                 self.header_pause_button.set_sensitive(True)
 
     def stop_all(self, app, variaapp):
-        while (self.downloads != []):
-            child = self.download_list.get_first_child()
-            while child is not None:
-                next_child = child.get_next_sibling()
-                self.download_list.remove(child)
-                child = next_child
-            for download_thread in self.downloads:
-                download_thread.stop()
-                self.downloads.remove(download_thread)
+        while self.downloads != []:
+            for download_item in self.downloads:
+                download_item.stop()
+
         self.header_pause_content.set_icon_name("media-playback-pause-symbolic")
         self.header_pause_content.set_label(_("Pause All"))
         self.header_pause_button.set_sensitive(False)

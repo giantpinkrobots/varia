@@ -25,6 +25,8 @@ def on_download_clicked(button, self, entry, downloadname, download, mode, video
 
         if paused == False:
             self.all_paused = False
+    
+    return download_thread
 
 def create_actionrow(self, filename):
     download_item = Adw.Bin()
@@ -129,15 +131,10 @@ def pause_button_set_retry_mode(button, self, download_item):
     button.connect_handler_id = button.connect("clicked", pause_button_on_retry_clicked, self, download_item)
 
 def pause_button_on_retry_clicked(button, self, download_item):
-    GLib.idle_add(button.set_icon_name, "media-playback-pause-symbolic")
-    button.disconnect(button.connect_handler_id)
-    button.connect_handler_id = button.connect("clicked", on_pause_clicked, self, button, download_item, False, True)
+    new_download_item = on_download_clicked(None, self, download_item.url, download_item.downloadname, None, download_item.mode, download_item.video_options, False, download_item.downloaddir)
 
-    GLib.idle_add(download_item.speed_label.set_text, "")
-    GLib.idle_add(download_item.progress_bar.remove_css_class, "error")
-    GLib.idle_add(download_item.progress_bar.set_fraction, 0)
+    self.download_list.reorder_child_after(new_download_item.actionrow, download_item.actionrow)
+    self.downloads.remove(new_download_item)
+    self.downloads.insert(self.downloads.index(download_item), new_download_item)
 
-    download_item.cancelled = False
-    download_item.retry = True
-    download_item.run()
-    self.filter_download_list("no", self.applied_filter)
+    download_item.stop()
