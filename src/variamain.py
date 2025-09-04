@@ -75,18 +75,22 @@ class MainWindow(application_window):
 
         # Check if the download path still exists:
         if not (os.path.exists(self.appconf["download_directory"])):
-            if (os.path.exists(GLib.get_user_special_dir(GLib.DIRECTORY_DOWNLOAD))):
+            if GLib.get_user_special_dir(GLib.DIRECTORY_DOWNLOAD) and os.path.exists(GLib.get_user_special_dir(GLib.DIRECTORY_DOWNLOAD)):
                 self.appconf["download_directory"] = GLib.get_user_special_dir(GLib.DIRECTORY_DOWNLOAD)
-            else:
+            elif GLib.get_user_special_dir(GLib.DIRECTORY_HOME):
                 self.appconf["download_directory"] = GLib.get_user_special_dir(GLib.DIRECTORY_HOME)
+            else:
+                self.appconf["download_directory"] = os.path.expanduser("~")
             self.save_appconf()
 
         # Check if the custom torrent download path still exists:
         if not (os.path.exists(self.appconf["torrent_download_directory"])):
-            if (os.path.exists(GLib.get_user_special_dir(GLib.DIRECTORY_DOWNLOAD))):
+            if GLib.get_user_special_dir(GLib.DIRECTORY_DOWNLOAD) and os.path.exists(GLib.get_user_special_dir(GLib.DIRECTORY_DOWNLOAD)):
                 self.appconf["torrent_download_directory"] = GLib.get_user_special_dir(GLib.DIRECTORY_DOWNLOAD)
-            else:
+            elif GLib.get_user_special_dir(GLib.DIRECTORY_HOME):
                 self.appconf["torrent_download_directory"] = GLib.get_user_special_dir(GLib.DIRECTORY_HOME)
+            else:
+                self.appconf["torrent_download_directory"] = os.path.expanduser("~")
             self.save_appconf()
 
         # Set download speed limit from appconf:

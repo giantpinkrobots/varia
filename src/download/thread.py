@@ -393,9 +393,8 @@ class DownloadThread(threading.Thread):
 
         speed_label_text = f"{speed_label_text}{self.total_file_size_text}  ·  {speed_label_text_speed}  ·  {download_remaining_string} {_('remaining')}"
 
-        GLib.idle_add(self.progress_bar.set_fraction, progress / 100)
-
         if self.is_complete == False:
+            GLib.idle_add(self.progress_bar.set_fraction, progress / 100)
             GLib.idle_add(self.speed_label.set_text, speed_label_text)
             GLib.idle_add(self.percentage_label.set_text, percentage_label_text)
 

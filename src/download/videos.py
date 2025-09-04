@@ -110,7 +110,7 @@ def on_video_clicked(button, self, entry):
                     continue
                 
                 # Video only
-                elif fmt["audio_ext"] == "none":
+                elif fmt["audio_ext"] == "none" and fmt["resolution"]:
                     bitrate = fmt.get("vbr", 0)
                     if bitrate == 0 and fmt.get("tbr", 0) != 0:
                         bitrate = fmt.get("tbr", 0)
@@ -124,7 +124,6 @@ def on_video_clicked(button, self, entry):
                             "url": fmt["url"],
                             "bitrate": bitrate,
                         })
-                    print(fmt)
 
                 # Audio only
                 elif fmt["video_ext"] == "none":
@@ -141,7 +140,7 @@ def on_video_clicked(button, self, entry):
                         })
 
                 # Video and audio
-                elif fmt["video_ext"] != "none" and fmt["audio_ext"] != "none":
+                elif fmt["video_ext"] != "none" and fmt["audio_ext"] != "none" and fmt["resolution"]:
                     if fmt.get("tbr", 0) != 0:
                         combined_formats.append({
                             "id": fmt["format_id"],
