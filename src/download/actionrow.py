@@ -4,6 +4,7 @@ gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, Pango, GLib, Gio
 from stringstorage import gettext as _
 from download.thread import DownloadThread
+from download.details import show_download_details_dialog
 import json
 import os
 
@@ -43,7 +44,6 @@ def create_actionrow(self, filename):
     box_2.set_margin_end(10)
     box_2.set_margin_top(8)
     box_2.set_margin_bottom(10)
-
     download_item.set_child(box_2)
 
     percentage_and_filename_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
@@ -72,6 +72,12 @@ def create_actionrow(self, filename):
     button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
     button_box.set_margin_start(10)
 
+    info_button = Gtk.Button.new_from_icon_name("info-outline-symbolic")
+    info_button.set_valign(Gtk.Align.CENTER)
+    info_button.add_css_class("circular")
+    info_button.connect("clicked", show_download_details_dialog, self, download_item)
+    button_box.append(info_button)
+
     pause_button_icon = Gtk.Image.new()
     pause_button_icon.set_from_icon_name("media-playback-pause-symbolic")
 
@@ -82,7 +88,6 @@ def create_actionrow(self, filename):
     pause_button.connect_handler_id = pause_button.connect("clicked", on_pause_clicked, self, pause_button, download_item, False, True)
     pause_button.set_retry_mode = pause_button_set_retry_mode
     pause_button.set_open_mode = pause_button_set_open_mode
-
     button_box.append(pause_button)
 
     stop_button = Gtk.Button.new_from_icon_name("media-playback-stop-symbolic")
@@ -112,6 +117,7 @@ def create_actionrow(self, filename):
     download_item.pause_button = pause_button
     download_item.stop_button = stop_button
     download_item.filename_label = filename_label
+    download_item.info_button = info_button
 
     return download_item
 

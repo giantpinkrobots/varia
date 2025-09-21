@@ -356,6 +356,10 @@ def on_video_clicked(button, self, entry):
             
             GLib.idle_add(loading_dialog.set_can_close, True)
             GLib.idle_add(loading_dialog.close)
+
+            if os.name == 'nt':
+                video_download_options_preferences_dialog.set_content_width(self.get_default_size()[0])
+                video_download_options_preferences_dialog.set_content_height(self.get_default_size()[1])
             GLib.idle_add(video_download_options_preferences_dialog.present, self)
 
         else:

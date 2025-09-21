@@ -502,6 +502,37 @@ msgstr ""
 msgid "Download Segments"
 msgstr ""
 
+# Download details dialog
+msgid "Download Details"
+msgstr ""
+
+msgid "Type"
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+msgid "Downloading"
+msgstr ""
+
+msgid "Paused"
+msgstr ""
+
+msgid "Percentage Downloaded"
+msgstr ""
+
+msgid "Remaining"
+msgstr ""
+
+msgid "Download Speed"
+msgstr ""
+
+msgid "Seeding Speed"
+msgstr ""
+
+msgid "Torrent Peers"
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"

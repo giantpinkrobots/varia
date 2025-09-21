@@ -304,6 +304,9 @@ def show_about(app, variaapp, self, variaVersion):
                             "Bootqt",
                             "Create bootable drives")
 
+    if os.name == 'nt':
+        dialog.set_content_width(self.get_default_size()[0])
+        dialog.set_content_height(self.get_default_size()[1])
     dialog.present(self)
 
 def open_downloads_folder(self, app, variaapp, appconf):

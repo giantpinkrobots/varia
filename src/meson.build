@@ -65,6 +65,7 @@ varia_sources_download = [
   'download/listen.py',
   'download/scheduler.py',
   'download/videos.py',
+  'download/details.py',
 ]
 
 varia_sources_tray = [

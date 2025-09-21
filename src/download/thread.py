@@ -1,7 +1,4 @@
 import ctypes
-import gi
-gi.require_version('Gtk', '4.0')
-gi.require_version('Adw', '1')
 from gi.repository import GLib
 import threading
 from urllib.parse import urlparse
@@ -34,11 +31,24 @@ class DownloadThread(threading.Thread):
         self.filename_label = actionrow.filename_label
         self.app = app
         self.cancelled = False
-        self.downloadname = downloadname
         self.mode = mode
         self.speed = 0
         self.paused_because_exceeds_limit = False
         self.total_file_size_text = ""
+        self.download_details = {
+            'type': "",
+            'status': _("Downloading"),
+            'remaining': "∞",
+            'download_speed': "0 B/s",
+            'percentage': "0%",
+            'torrent_seeding_speed': "0 B/s",
+            'torrent_peers': []
+        }
+
+        if downloadname:
+            self.downloadname = downloadname
+        else:
+            self.downloadname = ""
 
         try:
             self.filepath = os.path.join(app.appconf["download_directory"], downloadname)
@@ -128,6 +138,12 @@ class DownloadThread(threading.Thread):
 
             download_options["pause"] = "true"
 
+            if self.download.is_torrent:
+                self.download_details['type'] = _("Torrent")
+
+            else:
+                self.download_details['type'] = _("Regular")
+
             if self.downloadname != None:
                 download_options["out"] = self.downloadname
 
@@ -139,6 +155,7 @@ class DownloadThread(threading.Thread):
             if self.app.scheduler_currently_downloading and self.paused == False and self.download.gid and self.download.is_paused:
                 try:
                     self.download.resume()
+                    self.download_details['status'] = _("Downloading")
                 except:
                     return
 
@@ -161,6 +178,12 @@ class DownloadThread(threading.Thread):
             while (self.cancelled == False):
                 try:
                     self.download.update()
+
+                    if self.download.is_paused:
+                        self.download_details['status'] = _("Paused")
+                    
+                    else:
+                        self.download_details['status'] = _("Downloading")
 
                     try:
                         self.total_file_size_text = self.download.total_length_string(True) # Get human readable format
@@ -198,6 +221,8 @@ class DownloadThread(threading.Thread):
         
         # Video/audio download, use yt_dlp:
         elif self.mode == "video":
+
+            self.download_details['type'] = _("Video / Audio")
 
             if self.paused == True:
                 self.video_pause_event.set()
@@ -280,12 +305,15 @@ class DownloadThread(threading.Thread):
             speed = self.download.download_speed
             self.speed = speed
 
-            if self.download.is_torrent and self.download.seeder:
-                if self.app.appconf["torrent_seeding_enabled"] == "1":
-                    GLib.idle_add(self.show_message(_("Seeding torrent")))
-                else:
-                    GLib.idle_add(self.set_complete)
-                return
+            if self.download.is_torrent:
+                self.download_details['torrent_peers'] = self.app.api.client.call("aria2.getPeers", [self.download.gid])
+
+                if self.download.seeder:
+                    if self.app.appconf["torrent_seeding_enabled"] == "1":
+                        GLib.idle_add(self.show_message(_("Seeding torrent")))
+                    else:
+                        GLib.idle_add(self.set_complete)
+                    return
             
             download_delta = self.download.eta
             download_speed_mb = (speed / 1024 / 1024)
@@ -397,6 +425,9 @@ class DownloadThread(threading.Thread):
             GLib.idle_add(self.progress_bar.set_fraction, progress / 100)
             GLib.idle_add(self.speed_label.set_text, speed_label_text)
             GLib.idle_add(self.percentage_label.set_text, percentage_label_text)
+            self.download_details['remaining'] = download_remaining_string
+            self.download_details['percentage'] = percentage_label_text
+            self.download_details['download_speed'] = speed_label_text_speed
 
     def pause(self, change_pause_button_icon):
         if self.download and self.is_complete == False:
@@ -436,6 +467,8 @@ class DownloadThread(threading.Thread):
             
             self.app.check_all_status()
 
+            self.download_details['status'] = _("Paused")
+
     def resume(self):
         if self.download and self.is_complete == False:
             change_pause_button_icon = False
@@ -473,6 +506,8 @@ class DownloadThread(threading.Thread):
                 self.pause_button.get_child().set_from_icon_name("media-playback-pause-symbolic")
         
         self.app.check_all_status()
+
+        self.download_details['status'] = _("Downloading")
 
     def video_remove_temp_files(self):
         if "temp_files" in self.video_options:
@@ -623,6 +658,9 @@ class DownloadThread(threading.Thread):
         self.progress_bar.set_fraction(1)
         self.progress_bar.add_css_class("success")
 
+        self.download_details['status'] = _("Completed")
+        self.download_details['remaining'] = _("")
+
         if self.mode == "regular":
             is_seeding = self.download.is_torrent and self.download.seeder
             if is_seeding == False and os.path.exists(os.path.join(self.downloaddir,(self.download.gid + ".varia"))):
@@ -652,6 +690,9 @@ class DownloadThread(threading.Thread):
 
             else:
                 self.speed_label.set_text(_("An error occurred:") + " " + str(self.download.error_code))
+        
+        self.download_details['status'] = _("Failed")
+        self.download_details['remaining'] = _("")
 
         GLib.idle_add(self.pause_button.set_retry_mode, self.pause_button, self.app, self)
         self.app.filter_download_list("no", self.app.applied_filter)

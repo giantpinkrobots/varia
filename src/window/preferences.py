@@ -500,6 +500,9 @@ def show_preferences(button, self, app, variaVersion):
 
     torrent_settings_set_sensitive(self)
 
+    if os.name == 'nt':
+        preferences.set_content_width(self.get_default_size()[0])
+        preferences.set_content_height(self.get_default_size()[1])
     preferences.present(self)
 
 def on_switch_auto_update_check(switch, state, self):

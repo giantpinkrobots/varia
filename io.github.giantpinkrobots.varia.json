@@ -1,7 +1,7 @@
 {
     "id" : "io.github.giantpinkrobots.varia",
     "runtime" : "org.gnome.Platform",
-    "runtime-version" : "48",
+    "runtime-version" : "49",
     "//!" : "!!!!!!Also update the GNOME version in ./.github/workflows/flatpak-package.yml",
     "sdk" : "org.gnome.Sdk",
     "command" : "varia",
