@@ -512,6 +512,9 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
+msgid "File Name"
+msgstr ""
+
 msgid "Downloading"
 msgstr ""
 
@@ -528,6 +531,15 @@ msgid "Download Speed"
 msgstr ""
 
 msgid "Seeding Speed"
+msgstr ""
+
+msgid "Amount Downloaded"
+msgstr ""
+
+msgid "Amount Uploaded"
+msgstr ""
+
+msgid "Ratio"
 msgstr ""
 
 msgid "Torrent Peers"

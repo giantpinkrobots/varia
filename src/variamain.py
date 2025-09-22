@@ -1,4 +1,4 @@
-variaVersion = "v2025.7.19-1"
+variaVersion = "dev"
 
 import ctypes
 import gi
@@ -433,8 +433,6 @@ class MainWindow(application_window):
             else:
                 for download_thread in self.downloads:
                     download_thread.pause(False)
-
-            self.check_all_status()
 
     def check_all_status(self):
         if len(self.downloads) == 0:

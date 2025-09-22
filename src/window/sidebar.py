@@ -96,7 +96,7 @@ def window_create_sidebar(self, variaapp, variaVersion):
     download_entry = Gtk.Entry()
     download_entry.set_placeholder_text(_("URL"))
 
-    self.download_button_icon = Gtk.Image.new_from_icon_name("folder-download-symbolic")
+    self.download_button_icon = Gtk.Image.new_from_icon_name("arrow-pointing-at-line-down-symbolic")
     self.download_button_text = Gtk.Label(label=_("Download"))
     download_button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
     download_button_box.append(self.download_button_icon)

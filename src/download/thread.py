@@ -41,6 +41,8 @@ class DownloadThread(threading.Thread):
             'remaining': "∞",
             'download_speed': "0 B/s",
             'percentage': "0%",
+            'completed_length': 0,
+            'upload_length': 0,
             'torrent_seeding_speed': "0 B/s",
             'torrent_peers': []
         }
@@ -136,14 +138,6 @@ class DownloadThread(threading.Thread):
         # Regular download, use aria2p:
         if self.mode == "regular":
 
-            download_options["pause"] = "true"
-
-            if self.download.is_torrent:
-                self.download_details['type'] = _("Torrent")
-
-            else:
-                self.download_details['type'] = _("Regular")
-
             if self.downloadname != None:
                 download_options["out"] = self.downloadname
 
@@ -152,24 +146,29 @@ class DownloadThread(threading.Thread):
             if self.download == None:
                 self.download = self.api.add_uris([self.url], options=download_options)
 
-            if self.app.scheduler_currently_downloading and self.paused == False and self.download.gid and self.download.is_paused:
-                try:
+            if self.app.scheduler_currently_downloading and self.paused == False and self.download.gid:
+                if self.download.is_paused:
                     self.download.resume()
-                    self.download_details['status'] = _("Downloading")
-                except:
-                    return
+
+                self.download_details['status'] = _("Downloading")
 
             else:
                 self.pause(True)
             
             print("Download added. | " + self.download.gid + "\n" + self.downloaddir + "\n" + self.url)
+
+            if self.download.is_torrent:
+                self.download_details['type'] = _("Torrent")
+
+            else:
+                self.download_details['type'] = _("Regular")
             
             self.previous_filename = ""
 
             self.app.filter_download_list("no", self.app.applied_filter)
 
             if self.retry == False:
-                self.save_state(False)
+                self.save_state()
 
             download_began = False
 
@@ -196,7 +195,7 @@ class DownloadThread(threading.Thread):
                     
                     if self.downloadname != self.download.name:
                         self.downloadname = self.download.name
-                        self.save_state(True)
+                        self.save_state()
                         self.filepath = os.path.join(self.app.appconf["download_directory"], self.downloadname)
                     
                     if self.filename_label.get_text() != self.downloadname:
@@ -224,14 +223,7 @@ class DownloadThread(threading.Thread):
 
             self.download_details['type'] = _("Video / Audio")
 
-            if self.paused == True:
-                self.video_pause_event.set()
-            
-            else:
-                self.pause(False)
-
             self.total_file_size_text = self.video_options['filesize_to_show']
-            del self.video_options['filesize_to_show'] # filesize_to_show key not needed by yt_dlp, only needed in gui
 
             video_options_final = self.video_options.copy()
             video_options_final['progress_hooks'] = [self.update_labels_and_things]
@@ -253,7 +245,7 @@ class DownloadThread(threading.Thread):
             GLib.idle_add(self.filename_label.set_text, self.downloadname)
 
             if self.retry == False:
-                self.save_state(False)
+                self.save_state()
             
             if self.app.appconf["schedule_enabled"] == 1 and self.app.scheduler_currently_downloading == False:
                 self.pause(False)
@@ -263,6 +255,12 @@ class DownloadThread(threading.Thread):
                         self.resume()
                         break
                     time.sleep(1)
+            
+            if self.paused:
+                self.pause(True)
+            
+            while self.paused:
+                time.sleep(0.25)
             
             GLib.idle_add(self.speed_label.set_text, _("Starting download..."))
 
@@ -307,6 +305,8 @@ class DownloadThread(threading.Thread):
 
             if self.download.is_torrent:
                 self.download_details['torrent_peers'] = self.app.api.client.call("aria2.getPeers", [self.download.gid])
+                self.download_details['completed_length'] = self.download.completed_length
+                self.download_details['upload_length'] = self.download.upload_length
 
                 if self.download.seeder:
                     if self.app.appconf["torrent_seeding_enabled"] == "1":
@@ -406,7 +406,7 @@ class DownloadThread(threading.Thread):
                 self.download_temp_files.append(temp_file)
                 self.video_options["temp_files"] = json.dumps(self.download_temp_files)
                 os.remove(self.state_file)
-                self.save_state(False)
+                self.save_state()
 
             if self.video_download_progress_previous > progress + 50:
                 self.video_download_stage = 1
@@ -431,41 +431,27 @@ class DownloadThread(threading.Thread):
 
     def pause(self, change_pause_button_icon):
         if self.download and self.is_complete == False:
-            if change_pause_button_icon == False:
+            if self.mode == "regular":
+                try:
+                    self.download.pause()
+                except:
+                    pass
+            
+            elif self.mode == "video":
+                self.video_pause_event.clear()
 
-                if self.mode == "regular":
-                    if self.download.is_paused == False:
+            if self.app.terminating == False:
+                self.paused = True
+                self.app.check_all_status()
+                change_pause_button_icon = True
 
-                        if self.app.terminating == False:
-                            self.paused = True
-                            change_pause_button_icon = True
-                        
-                        try:
-                            self.download.pause()
-                        
-                        except:
-                            pass
-
-                        self.save_state(True)
-                
-                elif self.mode == "video":
-                    if self.video_pause_event.is_set():
-
-                        if self.app.terminating == False:
-                            self.paused = True
-                            change_pause_button_icon = True
-
-                        self.video_pause_event.clear()
-                        print ("Download paused.")
-
-                        self.save_state(True)
+            print ("Download paused.")
+            self.save_state()
             
             self.paused_because_exceeds_limit = False
             
             if change_pause_button_icon:
                 self.pause_button.get_child().set_from_icon_name("media-playback-start-symbolic")
-            
-            self.app.check_all_status()
 
             self.download_details['status'] = _("Paused")
 
@@ -482,7 +468,7 @@ class DownloadThread(threading.Thread):
                     try:
                         self.download.resume()
                         print ("Download resumed.")
-                        self.save_state(True)
+                        self.save_state()
 
                     except:
                         try:
@@ -500,7 +486,7 @@ class DownloadThread(threading.Thread):
                     self.video_pause_event.set()
                     print ("Download resumed.")
 
-                    self.save_state(True)
+                    self.save_state()
             
             if change_pause_button_icon:
                 self.pause_button.get_child().set_from_icon_name("media-playback-pause-symbolic")
@@ -596,7 +582,7 @@ class DownloadThread(threading.Thread):
         self = None
         return
 
-    def save_state(self, override):
+    def save_state(self):
         if self.download:
             state = {
                 'url': self.url,
@@ -614,12 +600,8 @@ class DownloadThread(threading.Thread):
             elif self.mode == "video":
                 save_filename = base64.b64encode(self.url.encode('ascii')).decode('ascii').replace("/", "")
             
-            if override == False:
-                while True:
-                    if os.path.isfile(os.path.join(self.app.appconf["download_directory"], f'{save_filename}.varia')):
-                        save_filename += "a"
-                    else:
-                        break
+            if os.path.isfile(os.path.join(self.app.appconf["download_directory"], f'{save_filename}.varia')):
+                os.remove(os.path.join(self.app.appconf["download_directory"], f'{save_filename}.varia'))
 
             with open(os.path.join(self.app.appconf["download_directory"], f'{save_filename}.varia'), 'w') as f:
                 json.dump(state, f)

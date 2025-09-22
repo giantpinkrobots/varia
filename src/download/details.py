@@ -27,6 +27,12 @@ def show_download_details_dialog(button, self, download_item):
     actionrow_download_status.add_suffix(label_download_status)
     group_1.add(actionrow_download_status)
 
+    actionrow_download_file_name = Adw.ActionRow(title=_("File Name"))
+    label_download_file_name = Gtk.Label(label=download_item.download_thread.filename_label.get_text())
+    label_download_file_name.set_ellipsize(Pango.EllipsizeMode.END)
+    actionrow_download_file_name.add_suffix(label_download_file_name)
+    group_1.add(actionrow_download_file_name)
+
     actionrow_download_url = Adw.ActionRow(title=_("URL"))
     label_url = Gtk.Label(label=download_item.download_thread.url)
     label_url.set_ellipsize(Pango.EllipsizeMode.END)
@@ -59,13 +65,44 @@ def show_download_details_dialog(button, self, download_item):
         actionrow_download_seeding_speed.add_suffix(label_seeding_speed)
         group_1.add(actionrow_download_seeding_speed)
 
+        group_2 = Adw.PreferencesGroup()
+        prefs_page.add(group_2)
+
+        group_2_box = Gtk.Box(spacing=10)
+        group_2.add(group_2_box)
+
+        group_2_0 = Adw.PreferencesGroup()
+        group_2_1 = Adw.PreferencesGroup()
+        group_2_2 = Adw.PreferencesGroup()
+
+        group_2_box.append(Gtk.Box(hexpand=True))
+        group_2_box.append(group_2_0)
+        group_2_box.append(group_2_1)
+        group_2_box.append(group_2_2)
+        group_2_box.append(Gtk.Box(hexpand=True))
+
+        actionrow_download_download_amount = Adw.ActionRow(title=_("Amount Downloaded"))
+        actionrow_download_download_amount_icon = Gtk.Image.new_from_icon_name("arrow4-down-symbolic")
+        actionrow_download_download_amount.add_prefix(actionrow_download_download_amount_icon)
+        group_2_0.add(actionrow_download_download_amount)
+
+        actionrow_download_upload_amount = Adw.ActionRow(title=_("Amount Uploaded"))
+        actionrow_download_upload_amount_icon = Gtk.Image.new_from_icon_name("arrow4-up-symbolic")
+        actionrow_download_upload_amount.add_prefix(actionrow_download_upload_amount_icon)
+        group_2_1.add(actionrow_download_upload_amount)
+
+        actionrow_download_ratio = Adw.ActionRow(title=_("Ratio"))
+        actionrow_download_ratio_icon = Gtk.Image.new_from_icon_name("radio-symbolic")
+        actionrow_download_ratio.add_prefix(actionrow_download_ratio_icon)
+        group_2_2.add(actionrow_download_ratio)
+
         if download_item.download_thread.download.is_torrent:
-            group_2 = Adw.PreferencesGroup(title=_("Torrent Peers"))
-            prefs_page.add(group_2)
+            group_3 = Adw.PreferencesGroup(title=_("Torrent Peers"))
+            prefs_page.add(group_3)
 
             scrolled_window = Gtk.ScrolledWindow()
             scrolled_window.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)
-            group_2.add(scrolled_window)
+            group_3.add(scrolled_window)
 
             class Peer(GObject.GObject):
                 peerId = GObject.Property(type=str, default="")
@@ -135,38 +172,44 @@ def show_download_details_dialog(button, self, download_item):
 
                 if download_item.download_thread.mode == "regular" and download_item.download_thread.download.is_torrent:
                     label_seeding_speed.set_text(details.get('torrent_seeding_speed', ''))
+                    actionrow_download_download_amount.set_subtitle(str(details.get('completed_length', 0)))
+                    actionrow_download_upload_amount.set_subtitle(str(details.get('upload_length', 0)))
 
-                updated_peers = []
+                    downloaded = int(str(details.get('completed_length', 0)))
+                    uploaded = int(str(details.get('upload_length', 0)))
+                    actionrow_download_ratio.set_subtitle(str(uploaded / downloaded))
 
-                for peer_data in details.get("torrent_peers", []):
-                    
-                    peer_id = unquote(peer_data.get("peerId", ""))
-                    if peer_id.startswith("-AR"):
-                        peer_id = f"Aria2 ({peer_id[3:]})"
-                    elif peer_id.startswith("-TR"):
-                        peer_id = f"Transmission ({peer_id[3:]})"
-                    elif peer_id.startswith("-qB"):
-                        peer_id = f"qBittorrent ({peer_id[3:]})"
-                    elif peer_id.startswith("-DE"):
-                        peer_id = f"Deluge ({peer_id[3:]})"
-                    elif peer_id.startswith("-UT"):
-                        peer_id = f"µTorrent ({peer_id[3:]})"
-                    elif peer_id.startswith("-AZ"):
-                        peer_id = f"Azureus/Vuze ({peer_id[3:]})"
-                    elif peer_id.startswith("-LT"):
-                        peer_id = f"libtorrent ({peer_id[3:]})"
+                    updated_peers = []
 
-                    peer = Peer(
-                        peerId = peer_id,
-                        ip = peer_data.get("ip", ""),
-                        downloadSpeed = peer_data.get("downloadSpeed", ""),
-                        uploadSpeed = peer_data.get("uploadSpeed", ""),
-                        seeder = str(peer_data.get("seeder", "")),
-                    )
+                    for peer_data in details.get("torrent_peers", []):
+                        
+                        peer_id = unquote(peer_data.get("peerId", ""))
+                        if peer_id.startswith("-AR"):
+                            peer_id = f"Aria2 ({peer_id[3:]})"
+                        elif peer_id.startswith("-TR"):
+                            peer_id = f"Transmission ({peer_id[3:]})"
+                        elif peer_id.startswith("-qB"):
+                            peer_id = f"qBittorrent ({peer_id[3:]})"
+                        elif peer_id.startswith("-DE"):
+                            peer_id = f"Deluge ({peer_id[3:]})"
+                        elif peer_id.startswith("-UT"):
+                            peer_id = f"µTorrent ({peer_id[3:]})"
+                        elif peer_id.startswith("-AZ"):
+                            peer_id = f"Azureus/Vuze ({peer_id[3:]})"
+                        elif peer_id.startswith("-LT"):
+                            peer_id = f"libtorrent ({peer_id[3:]})"
 
-                    updated_peers.append(peer)
+                        peer = Peer(
+                            peerId = peer_id,
+                            ip = peer_data.get("ip", ""),
+                            downloadSpeed = peer_data.get("downloadSpeed", ""),
+                            uploadSpeed = peer_data.get("uploadSpeed", ""),
+                            seeder = str(peer_data.get("seeder", "")),
+                        )
 
-                peer_store.splice(0, peer_store.get_n_items(), updated_peers)
+                        updated_peers.append(peer)
+
+                    peer_store.splice(0, peer_store.get_n_items(), updated_peers)
 
                 close_dialog = False
             
