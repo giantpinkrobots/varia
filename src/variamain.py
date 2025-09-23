@@ -59,6 +59,7 @@ class MainWindow(application_window):
         self.ffmpegexec = ffmpegexec
         self.tray_connection_thread_stop = False
         self.tray_process = None
+        self.window_resize_timeout = None
 
         # Set up variables and all:
         aria2_connection_successful = initiate(self, variaapp, variaVersion, first_run, issnap)
@@ -140,6 +141,9 @@ class MainWindow(application_window):
         # Set cookies.txt:
         set_aria2c_cookies(self)
 
+        # Set bt require encryption:
+        set_aria2c_custom_global_option(self, "bt-force-encryption", self.appconf["torrent_require_encryption"])
+
         # Listen to aria2c:
         thread = threading.Thread(target=lambda: listen_to_aria2(self, variaapp), daemon=True)
         thread.start()
@@ -189,8 +193,8 @@ class MainWindow(application_window):
         self.check_all_status() # Set Pause All / Resume All button
 
         self.connect('close-request', self.exit_or_tray, variaapp)
-
         self.connect("notify::default-width", self.on_window_resize)
+        self.connect("notify::maximized", self.on_window_resize)
         self.on_window_resize(None, None)
 
         self.tray_notification = False
@@ -386,7 +390,16 @@ class MainWindow(application_window):
     # Adaptive layout stuff:
 
     def on_window_resize(self, widget, param):
-        if self.get_default_size()[0] < 600:
+        GLib.idle_add(self.apply_window_resize)
+
+        if self.window_resize_timeout:
+            GLib.source_remove(self.window_resize_timeout)
+            self.window_resize_timeout = None
+
+        self.window_resize_timeout = GLib.timeout_add(300, self.apply_window_resize)
+    
+    def apply_window_resize(self):
+        if self.root_window_overlay.get_width() < 600:
             self.header_show_sidebar_button_revealer.set_reveal_child(True)
             self.status_page_begin_button_revealer.set_reveal_child(True)
             self.overlay_split_view.set_show_sidebar(False)
@@ -703,7 +716,7 @@ class MyApp(Adw.Application):
                     actionrow.download_thread = download_thread
                     self.win.downloads.append(download_thread)
                     download_thread.start()
-                    download_thread.pause_button.set_visible(True)
+                    download_thread.actionrow.pause_button.set_visible(True)
             
             elif item.endswith(".torrent"):
                 if self.win.appconf['torrent_enabled'] == '0':
@@ -779,6 +792,8 @@ def main(version, aria2cexec, ffmpegexec, issnap, arguments):
         'torrent_download_directory_custom_enabled': '0',
         'torrent_download_directory': download_directory,
         'torrent_enabled': '1',
+        'torrent_require_encryption': 'false',
+        'torrent_peers_ip_lookup': '1',
         'autostart_on_boot_enabled': 'false'}
 
     if os.path.exists(os.path.join(appdir, 'varia.conf')):

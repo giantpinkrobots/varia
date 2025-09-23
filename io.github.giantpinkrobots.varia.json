@@ -30,9 +30,6 @@
         "*.a"
     ],
     "modules" : [
-        "./python3-aria2p.json",
-        "./python3-yt-dlp.json",
-        "./python3-dbus-next.json",
         {
             "name" : "aria2",
             "buildsystem" : "autotools",
@@ -87,6 +84,10 @@
                 }
             ]
         },
+        "./python3-aria2p.json",
+        "./python3-yt-dlp.json",
+        "./python3-dbus-next.json",
+        "./python3-emoji-country-flag.json",
         {
             "name" : "varia",
             "builddir" : true,

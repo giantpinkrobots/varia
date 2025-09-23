@@ -1,0 +1,14 @@
+{
+    "name": "python3-emoji-country-flag",
+    "buildsystem": "simple",
+    "build-commands": [
+        "pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"emoji-country-flag\" --no-build-isolation"
+    ],
+    "sources": [
+        {
+            "type": "file",
+            "url": "https://files.pythonhosted.org/packages/34/e6/2f6c0164453535379e62cc9a7ccc1a864b8f01ff935d567fe471beeb6f84/emoji_country_flag-2.1.0-py3-none-any.whl",
+            "sha256": "224b19583210901b950a624ab0b0896cdf0764b36f8bd1463868b15fb8c10f6a"
+        }
+    ]
+}

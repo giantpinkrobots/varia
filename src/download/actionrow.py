@@ -19,7 +19,12 @@ def on_download_clicked(button, self, entry, downloadname, download, mode, video
         video_options = json.loads(video_options)
 
     if url:
-        download_item = create_actionrow(self, url)
+        if downloadname:
+            download_item = create_actionrow(self, downloadname)
+        
+        else:
+            download_item = create_actionrow(self, url)
+
         download_thread = DownloadThread(self, url, download_item, downloadname, download, mode, video_options, paused, dir)
         download_item.download_thread = download_thread
         self.downloads.append(download_thread)
@@ -76,18 +81,16 @@ def create_actionrow(self, filename):
     info_button.set_valign(Gtk.Align.CENTER)
     info_button.add_css_class("circular")
     info_button.connect("clicked", show_download_details_dialog, self, download_item)
+    info_button.set_tooltip_text(_("Download Details"))
     button_box.append(info_button)
 
-    pause_button_icon = Gtk.Image.new()
-    pause_button_icon.set_from_icon_name("media-playback-pause-symbolic")
-
-    pause_button = Gtk.Button.new()
-    pause_button.set_child(pause_button_icon)
+    pause_button = Gtk.Button.new_from_icon_name("media-playback-pause-symbolic")
     pause_button.set_valign(Gtk.Align.CENTER)
     pause_button.add_css_class("circular")
     pause_button.connect_handler_id = pause_button.connect("clicked", on_pause_clicked, self, pause_button, download_item, False, True)
     pause_button.set_retry_mode = pause_button_set_retry_mode
     pause_button.set_open_mode = pause_button_set_open_mode
+    pause_button.set_tooltip_text(_("Pause"))
     button_box.append(pause_button)
 
     stop_button = Gtk.Button.new_from_icon_name("media-playback-stop-symbolic")
@@ -95,6 +98,7 @@ def create_actionrow(self, filename):
     stop_button.add_css_class("circular")
     stop_button.add_css_class("destructive-action")
     stop_button.connect("clicked", on_stop_clicked, self, download_item)
+    stop_button.set_tooltip_text(_("Stop"))
     button_box.append(stop_button)
 
     box_1.append(box)
@@ -137,11 +141,13 @@ def pause_button_set_retry_mode(button, self, download_item):
     GLib.idle_add(button.set_icon_name, "view-refresh-symbolic")
     button.disconnect(button.connect_handler_id)
     button.connect_handler_id = button.connect("clicked", pause_button_on_retry_clicked, self, download_item)
+    button.set_tooltip_text(_("Retry"))
 
 def pause_button_set_open_mode(button, self, download_item):
     GLib.idle_add(button.set_icon_name, "application-x-executable-symbolic")
     button.disconnect(button.connect_handler_id)
     button.connect_handler_id = button.connect("clicked", pause_button_on_open_clicked, self, download_item)
+    button.set_tooltip_text(_("Open File"))
 
 def pause_button_on_retry_clicked(button, self, download_item):
     new_download_item = on_download_clicked(None, self, download_item.url, download_item.downloadname, None, download_item.mode, download_item.video_options, False, download_item.downloaddir)

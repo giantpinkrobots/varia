@@ -23,12 +23,7 @@ class DownloadThread(threading.Thread):
         self.auth = app.appconf["auth"]
         self.auth_username = app.appconf["auth_username"]
         self.auth_password = app.appconf["auth_password"]
-        self.percentage_label = actionrow.percentage_label
-        self.progress_bar = actionrow.progress_bar
-        self.pause_button = actionrow.pause_button
-        self.stop_button = actionrow.stop_button
         self.actionrow = actionrow
-        self.filename_label = actionrow.filename_label
         self.app = app
         self.cancelled = False
         self.mode = mode
@@ -93,8 +88,9 @@ class DownloadThread(threading.Thread):
                 GLib.idle_add(self.show_message("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⣤⣤⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⠟⠉⠉⠉⠉⠉⠉⠉⠙⠻⢶⣄⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣷⡀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⡟⠀⣠⣶⠛⠛⠛⠛⠛⠛⠳⣦⡀⠀⠘⣿⡄⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⠁⠀⢹⣿⣦⣀⣀⣀⣀⣀⣠⣼⡇⠀⠀⠸⣷⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡏⠀⠀⠀⠉⠛⠿⠿⠿⠿⠛⠋⠁⠀⠀⠀⠀⣿⡄⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⡇⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⣸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣧⠀\n⠀⠀⠀⠀⠀⠀⠀⢸⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⠀\n⠀⠀⠀⠀⠀⠀⠀⣾⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀\n⠀⠀⠀⠀⠀⠀⠀⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀\n⠀⠀⠀⠀⠀⠀⢰⣿⠀⠀⠀⠀⣠⡶⠶⠿⠿⠿⠿⢷⣦⠀⠀⠀⠀⠀⠀⠀⣿⠀\n⠀⠀⣀⣀⣀⠀⣸⡇⠀⠀⠀⠀⣿⡀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⠀⣿⠀\n⣠⡿⠛⠛⠛⠛⠻⠀⠀⠀⠀⠀⢸⣇⠀⠀⠀⠀⠀⠀⣿⠇⠀⠀⠀⠀⠀⠀⣿⠀\n⢻⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⡟⠀⠀⢀⣤⣤⣴⣿⠀⠀⠀⠀⠀⠀⠀⣿⠀\n⠈⠙⢷⣶⣦⣤⣤⣤⣴⣶⣾⠿⠛⠁⢀⣶⡟⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡟⠀\n⠀⠀⠀⠀⠉⠉⠉⠉⠉⠀⠀⠀⠀⠀⠈⣿⣆⡀⠀⠀⠀⠀⠀⠀⢀⣠⣴⡾⠃⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⠻⢿⣿⣾⣿⡿⠿⠟⠋⠁⠀⠀⠀"))
             except:
                 pass
-            GLib.idle_add(self.pause_button.set_visible, False)
-            GLib.idle_add(self.progress_bar.set_visible, False)
+            GLib.idle_add(self.actionrow.pause_button.set_visible, False)
+            GLib.idle_add(self.actionrow.progress_bar.set_visible, False)
+            GLib.idle_add(self.actionrow.info_button.set_visible, False)
             return
         
         download_options = {}
@@ -141,8 +137,6 @@ class DownloadThread(threading.Thread):
             if self.downloadname != None:
                 download_options["out"] = self.downloadname
 
-            print(download_options)
-
             if self.download == None:
                 self.download = self.api.add_uris([self.url], options=download_options)
 
@@ -154,8 +148,6 @@ class DownloadThread(threading.Thread):
 
             else:
                 self.pause(True)
-            
-            print("Download added. | " + self.download.gid + "\n" + self.downloaddir + "\n" + self.url)
 
             if self.download.is_torrent:
                 self.download_details['type'] = _("Torrent")
@@ -164,15 +156,15 @@ class DownloadThread(threading.Thread):
                 self.download_details['type'] = _("Regular")
             
             self.previous_filename = ""
-
             self.app.filter_download_list("no", self.app.applied_filter)
+            download_began = False
+            self.filepath = os.path.join(self.app.appconf["download_directory"], self.downloadname)
 
             if self.retry == False:
                 self.save_state()
 
-            download_began = False
-
-            self.filepath = os.path.join(self.app.appconf["download_directory"], self.downloadname)
+            print("Download added. | " + self.download.gid + "\n" + self.downloaddir + "\n" + self.url)
+            print(download_options)
 
             while (self.cancelled == False):
                 try:
@@ -190,16 +182,16 @@ class DownloadThread(threading.Thread):
                         pass
 
                     if download_began == False and self.download.is_active:
-                        self.pause_button.get_child().set_from_icon_name("media-playback-pause-symbolic")
+                        self.actionrow.pause_button.get_child().set_from_icon_name("media-playback-pause-symbolic")
                         download_began = True
                     
-                    if self.downloadname != self.download.name:
+                    if (self.download.is_torrent and self.download.name.startswith("[METADATA]")) == False and self.downloadname != self.download.name:
                         self.downloadname = self.download.name
                         self.save_state()
                         self.filepath = os.path.join(self.app.appconf["download_directory"], self.downloadname)
                     
-                    if self.filename_label.get_text() != self.downloadname:
-                        GLib.idle_add(self.filename_label.set_text, self.download.name)
+                    if self.actionrow.filename_label.get_text() != self.downloadname:
+                        GLib.idle_add(self.actionrow.filename_label.set_text, self.download.name)
 
                     self.update_labels_and_things(None)
                     if ((self.download.is_complete) and (self.download.is_metadata == False)):
@@ -241,8 +233,7 @@ class DownloadThread(threading.Thread):
                 self.video_download_combined = True
 
             self.download = YoutubeDL(video_options_final)
-
-            GLib.idle_add(self.filename_label.set_text, self.downloadname)
+            GLib.idle_add(self.actionrow.filename_label.set_text, self.downloadname)
 
             if self.retry == False:
                 self.save_state()
@@ -422,9 +413,9 @@ class DownloadThread(threading.Thread):
         speed_label_text = f"{speed_label_text}{self.total_file_size_text}  ·  {speed_label_text_speed}  ·  {download_remaining_string} {_('remaining')}"
 
         if self.is_complete == False:
-            GLib.idle_add(self.progress_bar.set_fraction, progress / 100)
+            GLib.idle_add(self.actionrow.progress_bar.set_fraction, progress / 100)
             GLib.idle_add(self.speed_label.set_text, speed_label_text)
-            GLib.idle_add(self.percentage_label.set_text, percentage_label_text)
+            GLib.idle_add(self.actionrow.percentage_label.set_text, percentage_label_text)
             self.download_details['remaining'] = download_remaining_string
             self.download_details['percentage'] = percentage_label_text
             self.download_details['download_speed'] = speed_label_text_speed
@@ -451,7 +442,8 @@ class DownloadThread(threading.Thread):
             self.paused_because_exceeds_limit = False
             
             if change_pause_button_icon:
-                self.pause_button.get_child().set_from_icon_name("media-playback-start-symbolic")
+                self.actionrow.pause_button.get_child().set_from_icon_name("media-playback-start-symbolic")
+                self.actionrow.pause_button.set_tooltip_text(_("Resume"))
 
             self.download_details['status'] = _("Paused")
 
@@ -489,7 +481,8 @@ class DownloadThread(threading.Thread):
                     self.save_state()
             
             if change_pause_button_icon:
-                self.pause_button.get_child().set_from_icon_name("media-playback-pause-symbolic")
+                self.actionrow.pause_button.get_child().set_from_icon_name("media-playback-pause-symbolic")
+                self.actionrow.pause_button.set_tooltip_text(_("Pause"))
         
         self.app.check_all_status()
 
@@ -637,8 +630,8 @@ class DownloadThread(threading.Thread):
         GLib.idle_add(self.speed_label.set_text, _("Download complete."))
         self.cancelled = True
         self.app.filter_download_list("no", self.app.applied_filter)
-        self.progress_bar.set_fraction(1)
-        self.progress_bar.add_css_class("success")
+        self.actionrow.progress_bar.set_fraction(1)
+        self.actionrow.progress_bar.add_css_class("success")
 
         self.download_details['status'] = _("Completed")
         self.download_details['remaining'] = _("")
@@ -654,16 +647,16 @@ class DownloadThread(threading.Thread):
         if os.path.exists(self.state_file):
             os.remove(self.state_file)
         
-        GLib.idle_add(self.stop_button.remove_css_class, "destructive-action")
-        GLib.idle_add(self.stop_button.set_icon_name, "process-stop-symbolic")
-        GLib.idle_add(self.percentage_label.set_visible, False)
-        GLib.idle_add(self.pause_button.set_open_mode, self.pause_button, self.app, self)
+        GLib.idle_add(self.actionrow.stop_button.remove_css_class, "destructive-action")
+        GLib.idle_add(self.actionrow.stop_button.set_icon_name, "process-stop-symbolic")
+        GLib.idle_add(self.actionrow.percentage_label.set_visible, False)
+        GLib.idle_add(self.actionrow.pause_button.set_open_mode, self.actionrow.pause_button, self.app, self)
     
     def set_failed(self, fraction):
         if fraction is not None:
-            self.progress_bar.set_fraction(fraction)
+            self.actionrow.progress_bar.set_fraction(fraction)
 
-        self.progress_bar.add_css_class("error")
+        self.actionrow.progress_bar.add_css_class("error")
         self.cancelled = True
 
         if self.mode == "regular":
@@ -676,5 +669,5 @@ class DownloadThread(threading.Thread):
         self.download_details['status'] = _("Failed")
         self.download_details['remaining'] = _("")
 
-        GLib.idle_add(self.pause_button.set_retry_mode, self.pause_button, self.app, self)
+        GLib.idle_add(self.actionrow.pause_button.set_retry_mode, self.actionrow.pause_button, self.app, self)
         self.app.filter_download_list("no", self.app.applied_filter)

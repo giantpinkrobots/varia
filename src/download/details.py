@@ -1,13 +1,25 @@
 import gi
 import os
+import requests
+import flag
+import threading
+import time
+import math
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import Gtk, Adw, Pango, GLib, Gio, GObject
+from gi.repository import Gtk, Adw, Pango, GLib, Gio, GObject, Gdk
 from stringstorage import gettext as _
 from urllib.parse import unquote
 
+global ip_geolocation_cache
+
 def show_download_details_dialog(button, self, download_item):
-    details_dialog_shown = True
+    self.download_details_dialog_shown = True
+    self.details_dialog_resize_timeout = None
+    self.peers_added_counter = 0
+
+    if 'ip_geolocation_cache' not in globals():
+        ip_geolocation_cache = {}
 
     details_dialog = Adw.PreferencesDialog(title=_("Download Details"))
 
@@ -28,7 +40,7 @@ def show_download_details_dialog(button, self, download_item):
     group_1.add(actionrow_download_status)
 
     actionrow_download_file_name = Adw.ActionRow(title=_("File Name"))
-    label_download_file_name = Gtk.Label(label=download_item.download_thread.filename_label.get_text())
+    label_download_file_name = Gtk.Label(label=download_item.download_thread.actionrow.filename_label.get_text())
     label_download_file_name.set_ellipsize(Pango.EllipsizeMode.END)
     actionrow_download_file_name.add_suffix(label_download_file_name)
     group_1.add(actionrow_download_file_name)
@@ -82,12 +94,12 @@ def show_download_details_dialog(button, self, download_item):
         group_2_box.append(Gtk.Box(hexpand=True))
 
         actionrow_download_download_amount = Adw.ActionRow(title=_("Amount Downloaded"))
-        actionrow_download_download_amount_icon = Gtk.Image.new_from_icon_name("arrow4-down-symbolic")
+        actionrow_download_download_amount_icon = Gtk.Image.new_from_icon_name("go-down-symbolic")
         actionrow_download_download_amount.add_prefix(actionrow_download_download_amount_icon)
         group_2_0.add(actionrow_download_download_amount)
 
         actionrow_download_upload_amount = Adw.ActionRow(title=_("Amount Uploaded"))
-        actionrow_download_upload_amount_icon = Gtk.Image.new_from_icon_name("arrow4-up-symbolic")
+        actionrow_download_upload_amount_icon = Gtk.Image.new_from_icon_name("go-up-symbolic")
         actionrow_download_upload_amount.add_prefix(actionrow_download_upload_amount_icon)
         group_2_1.add(actionrow_download_upload_amount)
 
@@ -154,86 +166,138 @@ def show_download_details_dialog(button, self, download_item):
                 for column in view.get_columns():
                     column.set_fixed_width(column_width)
 
-                scrolled_window.set_max_content_width(prefs_page.get_width() - 50)
-                scrolled_window.set_min_content_width(prefs_page.get_width() - 50)
-
             peer_view.connect_after("realize", lambda view: equalize_columns(view))
 
     def update_details():
-        close_dialog = True
-
-        try:
-            if details_dialog_shown and download_item and download_item.download_thread and download_item.download_thread.download_details:
-                details = download_item.download_thread.download_details
-                label_download_status.set_text(details.get('status', ''))
-                label_percentage.set_text(details.get('percentage', ''))
-                label_remaining.set_text(details.get('remaining', ''))
-                label_download_speed.set_text(details.get('download_speed', ''))
-
-                if download_item.download_thread.mode == "regular" and download_item.download_thread.download.is_torrent:
-                    label_seeding_speed.set_text(details.get('torrent_seeding_speed', ''))
-                    actionrow_download_download_amount.set_subtitle(str(details.get('completed_length', 0)))
-                    actionrow_download_upload_amount.set_subtitle(str(details.get('upload_length', 0)))
-
-                    downloaded = int(str(details.get('completed_length', 0)))
-                    uploaded = int(str(details.get('upload_length', 0)))
-                    actionrow_download_ratio.set_subtitle(str(uploaded / downloaded))
-
-                    updated_peers = []
-
-                    for peer_data in details.get("torrent_peers", []):
-                        
-                        peer_id = unquote(peer_data.get("peerId", ""))
-                        if peer_id.startswith("-AR"):
-                            peer_id = f"Aria2 ({peer_id[3:]})"
-                        elif peer_id.startswith("-TR"):
-                            peer_id = f"Transmission ({peer_id[3:]})"
-                        elif peer_id.startswith("-qB"):
-                            peer_id = f"qBittorrent ({peer_id[3:]})"
-                        elif peer_id.startswith("-DE"):
-                            peer_id = f"Deluge ({peer_id[3:]})"
-                        elif peer_id.startswith("-UT"):
-                            peer_id = f"µTorrent ({peer_id[3:]})"
-                        elif peer_id.startswith("-AZ"):
-                            peer_id = f"Azureus/Vuze ({peer_id[3:]})"
-                        elif peer_id.startswith("-LT"):
-                            peer_id = f"libtorrent ({peer_id[3:]})"
-
-                        peer = Peer(
-                            peerId = peer_id,
-                            ip = peer_data.get("ip", ""),
-                            downloadSpeed = peer_data.get("downloadSpeed", ""),
-                            uploadSpeed = peer_data.get("uploadSpeed", ""),
-                            seeder = str(peer_data.get("seeder", "")),
-                        )
-
-                        updated_peers.append(peer)
-
-                    peer_store.splice(0, peer_store.get_n_items(), updated_peers)
-
-                close_dialog = False
-            
-            else:
-                close_dialog = True
-        
-        except:
+        if self.download_details_dialog_shown:
             close_dialog = True
 
-        if close_dialog:
-            details_dialog.close()
-            return False
+            try:
+                if self.download_details_dialog_shown and download_item and download_item.download_thread and download_item.download_thread.download_details:
+                    details = download_item.download_thread.download_details
+                    label_download_status.set_text(details.get('status', ''))
+                    label_percentage.set_text(details.get('percentage', ''))
+                    label_remaining.set_text(details.get('remaining', ''))
+                    label_download_speed.set_text(details.get('download_speed', ''))
 
+                    if download_item and download_item.download_thread.mode == "regular" and download_item.download_thread.download.is_torrent:
+                        label_seeding_speed.set_text(details.get('torrent_seeding_speed', ''))
+                        actionrow_download_download_amount.set_subtitle(str(details.get('completed_length', 0)))
+                        actionrow_download_upload_amount.set_subtitle(str(details.get('upload_length', 0)))
+
+                        downloaded = int(str(details.get('completed_length', 0)))
+                        uploaded = int(str(details.get('upload_length', 0)))
+
+                        if uploaded == 0 or downloaded == 0:
+                            ratio = 0.0
+
+                        else:
+                            ratio = math.floor((uploaded / downloaded) * 10) / 10.0
+
+                        actionrow_download_ratio.set_subtitle(str(ratio))
+
+                        updated_peers = []
+
+                        previous_peer_amount = peer_store.get_n_items()
+
+                        for peer_data in details.get("torrent_peers", []):
+                            peer_id = unquote(peer_data.get("peerId", ""))
+                            if peer_id.startswith("-AR"):
+                                peer_id = f"Aria2 ({peer_id[3:]})"
+                            elif peer_id.startswith("-TR"):
+                                peer_id = f"Transmission ({peer_id[3:]})"
+                            elif peer_id.startswith("-qB"):
+                                peer_id = f"qBittorrent ({peer_id[3:]})"
+                            elif peer_id.startswith("-DE"):
+                                peer_id = f"Deluge ({peer_id[3:]})"
+                            elif peer_id.startswith("-UT"):
+                                peer_id = f"µTorrent ({peer_id[3:]})"
+                            elif peer_id.startswith("-AZ"):
+                                peer_id = f"Azureus/Vuze ({peer_id[3:]})"
+                            elif peer_id.startswith("-LT"):
+                                peer_id = f"libtorrent ({peer_id[3:]})"
+                            
+                            ip = peer_data.get("ip", "")
+                            if ip != "" and ip not in ip_geolocation_cache:
+                                ip_geolocation_cache[ip] = ""
+
+                            peer = Peer(
+                                peerId = peer_id,
+                                ip = f"{ip_geolocation_cache[ip]} {peer_data.get("ip", "")}",
+                                downloadSpeed = peer_data.get("downloadSpeed", ""),
+                                uploadSpeed = peer_data.get("uploadSpeed", ""),
+                                seeder = str(peer_data.get("seeder", "")),
+                            )
+
+                            updated_peers.append(peer)
+
+                        peer_store.splice(0, peer_store.get_n_items(), updated_peers)
+                        
+                        if peer_store.get_n_items() > 0:
+                            if self.peers_added_counter < 2:
+                                self.peers_added_counter += 1
+                                update_size()
+
+                            if previous_peer_amount == 0:
+                                update_size()
+
+                    close_dialog = False
+                
+                else:
+                    close_dialog = True
+
+            except:
+                close_dialog = True
+
+            if close_dialog:
+                details_dialog.close()
+                return False
+
+            else:
+                GLib.timeout_add(1000, update_details)
+        
         else:
-            GLib.timeout_add(1000, update_details)
+            return False
+    
+    def get_country_flags():
+        while self.download_details_dialog_shown:
+            for ip in list(ip_geolocation_cache.keys()):
+                if ip_geolocation_cache[ip] == "":
+                    try:
+                        ip_geolocation_cache[ip] = flag.flag(requests.get(f"http://ip-api.com/json/{ip}?fields=countryCode", timeout=2).json().get("countryCode", ""))
+                    except:
+                        ip_geolocation_cache[ip] = ""
+            
+            if self.download_details_dialog_shown == False:
+                break
+
+            time.sleep(1)
+        
+        return False
 
     def update_size(*_):
+        GLib.idle_add(apply_update_size)
+
+        if self.details_dialog_resize_timeout:
+            GLib.source_remove(self.details_dialog_resize_timeout)
+            self.details_dialog_resize_timeout = None
+
+        self.window_resize_timeout = GLib.timeout_add(300, apply_update_size)
+
+    def apply_update_size():
         details_dialog.set_content_width(self.get_width())
         details_dialog.set_content_height(self.get_height())
 
         if scrolled_window:
-            scrolled_window.set_max_content_width(prefs_page.get_width() - 50)
-            scrolled_window.set_min_content_width(prefs_page.get_width() - 50)
+            equalize_columns(peer_view)
 
+    def on_closed(dialog):
+        self.download_details_dialog_shown = False
+        return
+    
+    details_dialog.resize_timeout = None
+
+    self.connect("notify::maximized", update_size)
     self.connect("notify::default-width", update_size)
     self.connect("notify::default-height", update_size)
     update_size()
@@ -241,6 +305,11 @@ def show_download_details_dialog(button, self, download_item):
     if os.name == 'nt':
         details_dialog.set_content_width(self.get_default_size()[0])
         details_dialog.set_content_height(self.get_default_size()[1])
+    details_dialog.connect("closed", on_closed)
     details_dialog.present(self)
 
     GLib.idle_add(update_details)
+
+    if self.appconf["torrent_peers_ip_lookup"] == "1":
+        thread = threading.Thread(target=get_country_flags)
+        thread.start()

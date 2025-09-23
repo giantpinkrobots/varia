@@ -502,6 +502,30 @@ msgstr ""
 msgid "Download Segments"
 msgstr ""
 
+msgid "Pause"
+msgstr ""
+
+msgid "Resume"
+msgstr ""
+
+msgid "Stop"
+msgstr ""
+
+msgid "Open File"
+msgstr ""
+
+msgid "Retry"
+msgstr ""
+
+msgid "Require Encryption"
+msgstr ""
+
+msgid "Get Country Info of Peers"
+msgstr ""
+
+msgid "This will use an external service to get the IP geolocation of your torrent peers in order to show country flags in the details window."
+msgstr ""
+
 # Download details dialog
 msgid "Download Details"
 msgstr ""
