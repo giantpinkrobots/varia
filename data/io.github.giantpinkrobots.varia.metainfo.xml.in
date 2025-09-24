@@ -104,11 +104,16 @@ Control a remote aria2 instance running on any server
 </screenshot>
 </screenshots>
 
-<recommends>
+
+<requires>
+<display_length compare="ge">360</display_length>
+</requires>
+
+<supports>
 <control>keyboard</control>
 <control>pointing</control>
 <control>touch</control>
-</recommends>
+</supports>
 
 <releases>
 <release version="v2025.7.19" date="2025-07-19">

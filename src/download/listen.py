@@ -186,7 +186,10 @@ def raise_shutdown_dialog(variamain, variaapp):
 def shutdown_dialog_cancel_pressed(dialog, response_id, variamain, variaapp):
     variamain.shutdown_dialog_raised = False
     variamain.shutdown_mode = False
-    variamain.sidebar_remote_mode_label.set_text("")
+    try:
+        variamain.sidebar_content_box.remove(variamain.sidebar_remote_mode_label)
+    except:
+        pass
     GLib.timeout_add(2000, listen_to_aria2, variamain, variaapp)
 
 def initiate_shutdown(variamain, shutdown_id):
@@ -220,7 +223,10 @@ def raise_exit_dialog(variamain, variaapp):
 def exit_dialog_cancel(dialog, response_id, variamain, variaapp):
     variamain.exit_dialog_raised = False
     variamain.exit_mode = False
-    variamain.sidebar_remote_mode_label.set_text("")
+    try:
+        variamain.sidebar_content_box.remove(variamain.sidebar_remote_mode_label)
+    except:
+        pass
     GLib.timeout_add(2000, listen_to_aria2, variamain, variaapp)
 
 def initiate_app_exit(variamain, variaapp):

@@ -282,7 +282,7 @@ def show_download_details_dialog(button, self, download_item):
             GLib.source_remove(self.details_dialog_resize_timeout)
             self.details_dialog_resize_timeout = None
 
-        self.window_resize_timeout = GLib.timeout_add(300, apply_update_size)
+        self.window_resize_timeout = GLib.timeout_add(50, apply_update_size)
 
     def apply_update_size():
         details_dialog.set_content_width(self.get_width())

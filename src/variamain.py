@@ -59,7 +59,6 @@ class MainWindow(application_window):
         self.ffmpegexec = ffmpegexec
         self.tray_connection_thread_stop = False
         self.tray_process = None
-        self.window_resize_timeout = None
 
         # Set up variables and all:
         aria2_connection_successful = initiate(self, variaapp, variaVersion, first_run, issnap)
@@ -72,7 +71,11 @@ class MainWindow(application_window):
         window_create_content(self)
 
         if self.appconf["schedule_enabled"] == 1:
-            self.sidebar_scheduler_label.set_label(_("Scheduler enabled"))
+            try:
+                self.sidebar_content_box.remove(self.sidebar_scheduler_label)
+            except:
+                pass
+            self.sidebar_content_box.append(self.sidebar_scheduler_label)
 
         # Check if the download path still exists:
         if not (os.path.exists(self.appconf["download_directory"])):
@@ -195,7 +198,7 @@ class MainWindow(application_window):
         self.connect('close-request', self.exit_or_tray, variaapp)
         self.connect("notify::default-width", self.on_window_resize)
         self.connect("notify::maximized", self.on_window_resize)
-        self.on_window_resize(None, None)
+        GLib.timeout_add(100, self.on_window_resize, None, None)
 
         self.tray_notification = False
 
@@ -391,12 +394,7 @@ class MainWindow(application_window):
 
     def on_window_resize(self, widget, param):
         GLib.idle_add(self.apply_window_resize)
-
-        if self.window_resize_timeout:
-            GLib.source_remove(self.window_resize_timeout)
-            self.window_resize_timeout = None
-
-        self.window_resize_timeout = GLib.timeout_add(300, self.apply_window_resize)
+        GLib.timeout_add(50, self.apply_window_resize)
     
     def apply_window_resize(self):
         if self.root_window_overlay.get_width() < 600:

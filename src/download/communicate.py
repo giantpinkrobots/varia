@@ -5,9 +5,13 @@ import os
 from stringstorage import gettext as _
 
 def set_speed_limit(self, download_limit):
-    self.sidebar_speed_limited_label.set_text("")
+    try:
+        self.sidebar_content_box.remove(self.sidebar_speed_limited_label)
+    except:
+        pass
+
     if ((download_limit[:-1] != "0") and (self.appconf["download_speed_limit_enabled"] == "1")):
-        self.sidebar_speed_limited_label.set_text(_("Speed limited"))
+        self.sidebar_content_box.append(self.sidebar_speed_limited_label)
     else:
         download_limit = "0K"
 

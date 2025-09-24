@@ -109,10 +109,17 @@ def change_schedule_mode(switch, state, self, mode, switch_mode_1, switch_mode_2
 def save_schedule(preferencesDialog, self, preferencesWindow, switch_mode_1, switch_enabled):
     if switch_enabled.get_state():
         self.appconf["schedule_enabled"] = 1
-        self.sidebar_scheduler_label.set_label(_("Scheduler enabled"))
+        try:
+            self.sidebar_content_box.remove(self.sidebar_scheduler_label)
+        except:
+            pass
+        self.sidebar_content_box.append(self.sidebar_scheduler_label)
     else:
         self.appconf["schedule_enabled"] = 0
-        self.sidebar_scheduler_label.set_label("")
+        try:
+            self.sidebar_content_box.remove(self.sidebar_scheduler_label)
+        except:
+            pass
 
     if switch_mode_1.get_state():
         self.appconf["schedule_mode"] = 'inclusive'
@@ -139,7 +146,10 @@ def if_there_are_any_timespans(self, switch_enabled):
         switch_enabled.set_sensitive(False)
         switch_enabled.set_active(False)
         self.appconf["schedule_enabled"] = 0
-        self.sidebar_scheduler_label.set_label("")
+        try:
+            self.sidebar_content_box.remove(self.sidebar_scheduler_label)
+        except:
+            pass
         self.save_appconf()
 
 def adjust_timespan_labels(self):
