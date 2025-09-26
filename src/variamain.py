@@ -59,6 +59,7 @@ class MainWindow(application_window):
         self.ffmpegexec = ffmpegexec
         self.tray_connection_thread_stop = False
         self.tray_process = None
+        self.ip_geolocation_cache = {}
 
         # Set up variables and all:
         aria2_connection_successful = initiate(self, variaapp, variaVersion, first_run, issnap)

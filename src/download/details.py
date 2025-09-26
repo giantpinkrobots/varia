@@ -11,15 +11,10 @@ from gi.repository import Gtk, Adw, Pango, GLib, Gio, GObject, Gdk
 from stringstorage import gettext as _
 from urllib.parse import unquote
 
-global ip_geolocation_cache
-
 def show_download_details_dialog(button, self, download_item):
     self.download_details_dialog_shown = True
     self.details_dialog_resize_timeout = None
     self.peers_added_counter = 0
-
-    if 'ip_geolocation_cache' not in globals():
-        ip_geolocation_cache = {}
 
     details_dialog = Adw.PreferencesDialog(title=_("Download Details"))
 
@@ -218,12 +213,12 @@ def show_download_details_dialog(button, self, download_item):
                                 peer_id = f"libtorrent ({peer_id[3:]})"
                             
                             ip = peer_data.get("ip", "")
-                            if ip != "" and ip not in ip_geolocation_cache:
-                                ip_geolocation_cache[ip] = ""
+                            if ip != "" and ip not in list(self.ip_geolocation_cache.keys()):
+                                self.ip_geolocation_cache[ip] = ""
 
                             peer = Peer(
                                 peerId = peer_id,
-                                ip = f"{ip_geolocation_cache[ip]} {peer_data.get("ip", "")}",
+                                ip = f"{self.ip_geolocation_cache[ip]} {peer_data.get("ip", "")}",
                                 downloadSpeed = peer_data.get("downloadSpeed", ""),
                                 uploadSpeed = peer_data.get("uploadSpeed", ""),
                                 seeder = str(peer_data.get("seeder", "")),
@@ -261,17 +256,18 @@ def show_download_details_dialog(button, self, download_item):
     
     def get_country_flags():
         while self.download_details_dialog_shown:
-            for ip in list(ip_geolocation_cache.keys()):
-                if ip_geolocation_cache[ip] == "":
+            for ip in list(self.ip_geolocation_cache.keys()):
+                if self.ip_geolocation_cache[ip] == "":
                     try:
-                        ip_geolocation_cache[ip] = flag.flag(requests.get(f"http://ip-api.com/json/{ip}?fields=countryCode", timeout=2).json().get("countryCode", ""))
+                        self.ip_geolocation_cache[ip] = flag.flag(requests.get(f"http://ip-api.com/json/{ip}?fields=countryCode", timeout=2).json().get("countryCode", ""))
                     except:
-                        ip_geolocation_cache[ip] = ""
+                        pass
             
             if self.download_details_dialog_shown == False:
                 break
 
-            time.sleep(1)
+            else:
+                time.sleep(0.25)
         
         return False
 
@@ -311,5 +307,5 @@ def show_download_details_dialog(button, self, download_item):
     GLib.idle_add(update_details)
 
     if self.appconf["torrent_peers_ip_lookup"] == "1":
-        thread = threading.Thread(target=get_country_flags)
+        thread = threading.Thread(target=get_country_flags, daemon=True)
         thread.start()
