@@ -30,12 +30,14 @@ class DownloadThread(threading.Thread):
         self.speed = 0
         self.paused_because_exceeds_limit = False
         self.total_file_size_text = ""
+        self.download_message_shown = False
         self.download_details = {
             'type': "",
             'status': _("Downloading"),
             'remaining': "∞",
             'download_speed': "0 B/s",
             'percentage': "0%",
+            'messaage': "",
             'completed_length': 0,
             'upload_length': 0,
             'torrent_seeding_speed': "0 B/s",
@@ -82,6 +84,8 @@ class DownloadThread(threading.Thread):
             return False
 
     def run(self):
+        self.download_message_shown = False
+
         if (self.url == "sus"):
             try:
                 # Lol nice - Caleb (N0tACyb0rg)
@@ -263,7 +267,7 @@ class DownloadThread(threading.Thread):
                     self.video_stop_event.clear()
                     self.cancelled = True
                 except Exception as e:
-                    GLib.idle_add(self.speed_label.set_text, f"{_("An error occurred:")} {self.app.escape_special_characters(str(e))}")
+                    self.show_message(f"{_("An error occurred:")} {self.app.escape_special_characters(str(e))}")
                     self.video_stop_event.clear()
                     self.cancelled = True
                     GLib.idle_add(self.set_failed, None)
@@ -279,7 +283,10 @@ class DownloadThread(threading.Thread):
             return
 
     def show_message(self, message):
-        self.speed_label.set_text(message)
+        print(f'Download message shown: {message}')
+        GLib.idle_add(self.speed_label.set_text, message)
+        self.download_details['message'] = message
+        self.download_message_shown = True
 
     def update_labels_and_things(self, video_object):
         speed_label_text = ""
@@ -411,6 +418,7 @@ class DownloadThread(threading.Thread):
                     percentage_label_text = _("Part {indicator}").replace("{indicator}", "2 / 2") + "  ·  " + percentage_label_text
 
         speed_label_text = f"{speed_label_text}{self.total_file_size_text}  ·  {speed_label_text_speed}  ·  {download_remaining_string} {_('remaining')}"
+        self.download_details['message'] = ""
 
         if self.is_complete == False:
             GLib.idle_add(self.actionrow.progress_bar.set_fraction, progress / 100)
@@ -464,7 +472,7 @@ class DownloadThread(threading.Thread):
 
                     except:
                         try:
-                            GLib.idle_add(self.speed_label.set_text, _("An error occurred:") + " " + self.download.error_message.split("status=")[1])
+                            self.show_message(_("An error occurred:") + " " + self.download.error_message.split("status=")[1])
                             print ("An error occurred when resuming. " + self.download.error_message.split("status=")[1])
                         except:
                             pass
@@ -634,7 +642,8 @@ class DownloadThread(threading.Thread):
         self.actionrow.progress_bar.add_css_class("success")
 
         self.download_details['status'] = _("Completed")
-        self.download_details['remaining'] = _("")
+        self.download_details['remaining'] = ""
+        self.download_details['download_speed'] = ""
 
         if self.mode == "regular":
             is_seeding = self.download.is_torrent and self.download.seeder
@@ -661,13 +670,14 @@ class DownloadThread(threading.Thread):
 
         if self.mode == "regular":
             if (self.download.error_code == "24"):
-                self.speed_label.set_text(_("Authorization failed."))
+                self.show_message(_("Authorization failed."))
 
             else:
-                self.speed_label.set_text(_("An error occurred:") + " " + str(self.download.error_code))
+                self.show_message(_("An error occurred:") + " " + str(self.download.error_code))
         
         self.download_details['status'] = _("Failed")
-        self.download_details['remaining'] = _("")
+        self.download_details['remaining'] = ""
+        self.download_details['download_speed'] = ""
 
         GLib.idle_add(self.actionrow.pause_button.set_retry_mode, self.actionrow.pause_button, self.app, self)
         self.app.filter_download_list("no", self.app.applied_filter)

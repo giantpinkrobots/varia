@@ -33,22 +33,27 @@ pacman -S --noconfirm --needed unzip
 pip install aria2p
 pip install pystray
 
-echo "      -   Downloading aria2 and ffmpeg..."
+echo "      -   Downloading aria2, ffmpeg and deno..."
 
 aria2="aria2-1.37.0-win-64bit-build1"
-ffmpeg="ffmpeg-n7.1-latest-win64-lgpl-shared-7.1"
+ffmpeg="ffmpeg-n8.0-latest-win64-lgpl-shared-8.0"
 
 rm -rf "./$aria2.zip"
 rm -rf "./$ffmpeg.zip"
+rm -rf "./deno-x86_64-pc-windows-msvc.zip"
 rm -rf "./aria2"
 rm -rf "./ffmpeg"
+rm -rf "./deno"
 
 wget "https://github.com/aria2/aria2/releases/download/release-1.37.0/$aria2.zip"
 wget "https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/$ffmpeg.zip"
+wget "https://github.com/denoland/deno/releases/download/v2.5.2/deno-x86_64-pc-windows-msvc.zip"
 mkdir aria2
 unzip -d aria2 $aria2.zip
 mkdir ffmpeg
 unzip -d ffmpeg $ffmpeg.zip
+mkdir deno
+unzip -d deno deno-x86_64-pc-windows-msvc.zip
 
 echo "      -   Generating locales..."
 
@@ -97,6 +102,8 @@ cp -r data/icons/hicolor/symbolic/ui/* src/dist/variamain/icons/
 cp -r dependencies_information src/dist/variamain/
 cp ./aria2/$aria2/aria2c.exe src/dist/variamain/
 cp -r ./ffmpeg/$ffmpeg/bin/* src/dist/variamain/
+cp ./deno/deno.exe src/dist/variamain/
+
 mkdir src/dist/variamain/tray
 cp -r src/tray/dist/varia-tray/* src/dist/variamain/tray/
 cp src/tray/tray.png src/dist/variamain/tray/_internal/

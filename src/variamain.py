@@ -1,4 +1,4 @@
-variaVersion = "dev"
+variaVersion = "dev" # Also update actions-inno-install-script.iss
 
 import ctypes
 import gi

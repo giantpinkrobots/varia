@@ -14,12 +14,27 @@ from urllib.parse import unquote
 def show_download_details_dialog(button, self, download_item):
     self.download_details_dialog_shown = True
     self.details_dialog_resize_timeout = None
+    self.details_dialog_message_actionrow_added = False
     self.peers_added_counter = 0
 
     details_dialog = Adw.PreferencesDialog(title=_("Download Details"))
 
     prefs_page = Adw.PreferencesPage()
     details_dialog.add(prefs_page)
+
+    group_message = Adw.PreferencesGroup()
+
+    actionrow_download_message = Adw.ActionRow()
+    label_download_message = Gtk.Label()
+    label_download_message.set_selectable(True)
+    label_download_message.set_wrap(True)
+    actionrow_download_message.add_prefix(label_download_message)
+    group_message.add(actionrow_download_message)
+
+    if download_item.download_thread.download_message_shown and download_item.download_thread.download_details.get('message', '') != '':
+        label_download_message.set_text(download_item.download_thread.download_details.get('message', ''))
+        prefs_page.add(group_message)
+        self.details_dialog_message_actionrow_added = True
 
     group_1 = Adw.PreferencesGroup()
     prefs_page.add(group_1)
@@ -36,13 +51,13 @@ def show_download_details_dialog(button, self, download_item):
 
     actionrow_download_file_name = Adw.ActionRow(title=_("File Name"))
     label_download_file_name = Gtk.Label(label=download_item.download_thread.actionrow.filename_label.get_text())
-    label_download_file_name.set_ellipsize(Pango.EllipsizeMode.END)
+    label_download_file_name.set_wrap(True)
     actionrow_download_file_name.add_suffix(label_download_file_name)
     group_1.add(actionrow_download_file_name)
 
     actionrow_download_url = Adw.ActionRow(title=_("URL"))
     label_url = Gtk.Label(label=download_item.download_thread.url)
-    label_url.set_ellipsize(Pango.EllipsizeMode.END)
+    label_url.set_wrap(True)
     label_url.set_selectable(True)
     actionrow_download_url.add_suffix(label_url)
     group_1.add(actionrow_download_url)
@@ -170,10 +185,20 @@ def show_download_details_dialog(button, self, download_item):
             try:
                 if self.download_details_dialog_shown and download_item and download_item.download_thread and download_item.download_thread.download_details:
                     details = download_item.download_thread.download_details
+                    label_download_type.set_text(details.get('type', ''))
                     label_download_status.set_text(details.get('status', ''))
                     label_percentage.set_text(details.get('percentage', ''))
                     label_remaining.set_text(details.get('remaining', ''))
                     label_download_speed.set_text(details.get('download_speed', ''))
+
+                    if self.details_dialog_message_actionrow_added == False and download_item and download_item.download_thread.download_message_shown and download_item.download_thread.download_details.get('message', '') != '':
+                        label_download_message.set_text(download_item.download_thread.download_details.get('message', ''))
+                        prefs_page.insert(group_message, 0)
+                        self.details_dialog_message_actionrow_added = True
+                    
+                    elif self.details_dialog_message_actionrow_added == True and download_item and download_item.download_thread.download_message_shown == False:
+                        prefs_page.remove(group_message)
+                        self.details_dialog_message_actionrow_added = False
 
                     if download_item and download_item.download_thread.mode == "regular" and download_item.download_thread.download.is_torrent:
                         label_seeding_speed.set_text(details.get('torrent_seeding_speed', ''))
