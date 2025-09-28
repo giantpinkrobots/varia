@@ -18,6 +18,21 @@
         "--own-name=io.github.giantpinkrobots.varia-tray",
         "--talk-name=org.freedesktop.portal.Background"
     ],
+    "sdk-extensions" : [
+        "org.freedesktop.Sdk.Extension.rust-stable",
+        "org.freedesktop.Sdk.Extension.llvm21"
+    ],
+    "build-options" : {
+        "append-path" : "/usr/lib/sdk/rust-stable/bin:/usr/lib/sdk/llvm21/bin",
+        "build-args" : [
+            "--share=network"
+        ],
+        "env" : {
+            "CARGO_HOME" : "/run/build/rust-flatpak/cargo",
+            "CC": "clang",
+            "CXX": "clang++"
+        }
+    },
     "cleanup" : [
         "/include",
         "/lib/pkgconfig",
@@ -30,6 +45,22 @@
         "*.a"
     ],
     "modules" : [
+        {
+            "name": "deno",
+            "buildsystem": "simple",
+            "build-commands": [
+                "cargo fetch --locked --manifest-path Cargo.toml",
+                "cargo build --release",
+                "install -Dm755 ./target/release/deno -t /app/bin/"
+            ],
+            "sources": [
+                {
+                "type": "archive",
+                "url": "https://github.com/denoland/deno/archive/refs/tags/v2.5.2.zip",
+                "sha256": "4f153241b528b3961ba7fbe812fd370cb0b319127ef1e21f0ec2038aa4b6d96e"
+                }
+            ]
+        },
         {
             "name" : "aria2",
             "buildsystem" : "autotools",
@@ -102,8 +133,5 @@
                 "--libdir=lib"
             ]
         }
-    ],
-    "build-options" : {
-        "env" : {        }
-    }
+    ]
 }
