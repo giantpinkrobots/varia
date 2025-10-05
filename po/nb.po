@@ -548,6 +548,88 @@ msgstr ""
 msgid "Download Segments"
 msgstr "Nedlasting fullført"
 
+#, fuzzy
+#| msgid "Pause All"
+msgid "Pause"
+msgstr "Stans alt"
+
+#, fuzzy
+#| msgid "Resume All"
+msgid "Resume"
+msgstr "Fortsett alt"
+
+msgid "Stop"
+msgstr ""
+
+msgid "Open File"
+msgstr ""
+
+msgid "Retry"
+msgstr ""
+
+msgid "Require Encryption"
+msgstr ""
+
+msgid "Get Country Info of Peers"
+msgstr ""
+
+msgid ""
+"This will use an external service to get the IP geolocation of your torrent "
+"peers in order to show country flags in the details window."
+msgstr ""
+
+#, fuzzy
+#| msgid "Download complete."
+msgid "Download Details"
+msgstr "Nedlasting fullført"
+
+msgid "Type"
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+msgid "File Name"
+msgstr ""
+
+#, fuzzy
+#| msgid "Download"
+msgid "Downloading"
+msgstr "Last ned"
+
+#, fuzzy
+#| msgid "Pause All"
+msgid "Paused"
+msgstr "Stans alt"
+
+msgid "Percentage Downloaded"
+msgstr ""
+
+msgid "Remaining"
+msgstr ""
+
+#, fuzzy
+#| msgid "Download complete."
+msgid "Download Speed"
+msgstr "Nedlasting fullført"
+
+msgid "Seeding Speed"
+msgstr ""
+
+#, fuzzy
+#| msgid "Download complete."
+msgid "Amount Downloaded"
+msgstr "Nedlasting fullført"
+
+msgid "Amount Uploaded"
+msgstr ""
+
+msgid "Ratio"
+msgstr ""
+
+msgid "Torrent Peers"
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"

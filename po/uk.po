@@ -557,6 +557,98 @@ msgstr "Налаштувати"
 msgid "Download Segments"
 msgstr "Завантаження завершене."
 
+#, fuzzy
+#| msgid "Pause All"
+msgid "Pause"
+msgstr "Призупинити всі"
+
+#, fuzzy
+#| msgid "Resume All"
+msgid "Resume"
+msgstr "Відновити всі"
+
+msgid "Stop"
+msgstr ""
+
+#, fuzzy
+#| msgid "File"
+msgid "Open File"
+msgstr "Файл"
+
+msgid "Retry"
+msgstr ""
+
+msgid "Require Encryption"
+msgstr ""
+
+msgid "Get Country Info of Peers"
+msgstr ""
+
+msgid ""
+"This will use an external service to get the IP geolocation of your torrent "
+"peers in order to show country flags in the details window."
+msgstr ""
+
+#, fuzzy
+#| msgid "Download failed."
+msgid "Download Details"
+msgstr "Помилка завантаження."
+
+msgid "Type"
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+#, fuzzy
+#| msgid "File"
+msgid "File Name"
+msgstr "Файл"
+
+#, fuzzy
+#| msgid "Download"
+msgid "Downloading"
+msgstr "Завантажити"
+
+#, fuzzy
+#| msgid "Pause All"
+msgid "Paused"
+msgstr "Призупинити всі"
+
+msgid "Percentage Downloaded"
+msgstr ""
+
+#, fuzzy
+#| msgid "remaining"
+msgid "Remaining"
+msgstr "залишилося"
+
+#, fuzzy
+#| msgid "Download complete."
+msgid "Download Speed"
+msgstr "Завантаження завершене."
+
+#, fuzzy
+#| msgid "Seeding"
+msgid "Seeding Speed"
+msgstr "Роздається"
+
+#, fuzzy
+#| msgid "Download complete."
+msgid "Amount Downloaded"
+msgstr "Завантаження завершене."
+
+msgid "Amount Uploaded"
+msgstr ""
+
+msgid "Ratio"
+msgstr ""
+
+#, fuzzy
+#| msgid "Torrent"
+msgid "Torrent Peers"
+msgstr "Торрент"
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"

@@ -528,6 +528,98 @@ msgstr ""
 msgid "Download Segments"
 msgstr "Pobieranie zakończone."
 
+#, fuzzy
+#| msgid "Pause All"
+msgid "Pause"
+msgstr "Zatrzymaj wszystko"
+
+#, fuzzy
+#| msgid "Resume All"
+msgid "Resume"
+msgstr "Wznów wszystko"
+
+msgid "Stop"
+msgstr ""
+
+#, fuzzy
+#| msgid "File"
+msgid "Open File"
+msgstr "Plik"
+
+msgid "Retry"
+msgstr ""
+
+msgid "Require Encryption"
+msgstr ""
+
+msgid "Get Country Info of Peers"
+msgstr ""
+
+msgid ""
+"This will use an external service to get the IP geolocation of your torrent "
+"peers in order to show country flags in the details window."
+msgstr ""
+
+#, fuzzy
+#| msgid "Download failed."
+msgid "Download Details"
+msgstr "Pobieranie nie powiodło się."
+
+msgid "Type"
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+#, fuzzy
+#| msgid "File"
+msgid "File Name"
+msgstr "Plik"
+
+#, fuzzy
+#| msgid "Download"
+msgid "Downloading"
+msgstr "Pobierz"
+
+#, fuzzy
+#| msgid "Pause All"
+msgid "Paused"
+msgstr "Zatrzymaj wszystko"
+
+msgid "Percentage Downloaded"
+msgstr ""
+
+#, fuzzy
+#| msgid "remaining"
+msgid "Remaining"
+msgstr "pozostałe"
+
+#, fuzzy
+#| msgid "Download complete."
+msgid "Download Speed"
+msgstr "Pobieranie zakończone."
+
+#, fuzzy
+#| msgid "Seeding"
+msgid "Seeding Speed"
+msgstr "Seedowanie"
+
+#, fuzzy
+#| msgid "Download complete."
+msgid "Amount Downloaded"
+msgstr "Pobieranie zakończone."
+
+msgid "Amount Uploaded"
+msgstr ""
+
+msgid "Ratio"
+msgstr ""
+
+#, fuzzy
+#| msgid "Torrent"
+msgid "Torrent Peers"
+msgstr "Torrent"
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"

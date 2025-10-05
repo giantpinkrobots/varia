@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: varia main\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-07-18 00:03+0000\n"
+"PO-Revision-Date: 2025-09-26 05:01+0000\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/varia/varia/zh_Hans/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -528,6 +528,74 @@ msgstr "配置"
 
 msgid "Download Segments"
 msgstr "下载分段"
+
+msgid "Pause"
+msgstr "暂停"
+
+msgid "Resume"
+msgstr "恢复"
+
+msgid "Stop"
+msgstr "停止"
+
+msgid "Open File"
+msgstr "打开文件"
+
+msgid "Retry"
+msgstr "重试"
+
+msgid "Require Encryption"
+msgstr "需要加密"
+
+msgid "Get Country Info of Peers"
+msgstr "获取对等点的国家信息"
+
+msgid ""
+"This will use an external service to get the IP geolocation of your torrent "
+"peers in order to show country flags in the details window."
+msgstr "这将使用外部服务来获取您种子对等点的 IP 定位以在详情窗口中显示国旗。"
+
+msgid "Download Details"
+msgstr "下载详情"
+
+msgid "Type"
+msgstr "类型"
+
+msgid "Status"
+msgstr "状态"
+
+msgid "File Name"
+msgstr "文件名称"
+
+msgid "Downloading"
+msgstr "正在下载"
+
+msgid "Paused"
+msgstr "已暂停"
+
+msgid "Percentage Downloaded"
+msgstr "已下载百分比"
+
+msgid "Remaining"
+msgstr "剩余"
+
+msgid "Download Speed"
+msgstr "下载速度"
+
+msgid "Seeding Speed"
+msgstr "做种速度"
+
+msgid "Amount Downloaded"
+msgstr "已下载量"
+
+msgid "Amount Uploaded"
+msgstr "已上传量"
+
+msgid "Ratio"
+msgstr "比率"
+
+msgid "Torrent Peers"
+msgstr "种子对等点"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

@@ -547,6 +547,98 @@ msgstr "Konfigurálás"
 msgid "Download Segments"
 msgstr "Letöltés befejezve."
 
+#, fuzzy
+#| msgid "Pause All"
+msgid "Pause"
+msgstr "Összes szüneteltetése"
+
+#, fuzzy
+#| msgid "Resume All"
+msgid "Resume"
+msgstr "Összes folytatása"
+
+msgid "Stop"
+msgstr ""
+
+#, fuzzy
+#| msgid "File"
+msgid "Open File"
+msgstr "Fájl"
+
+msgid "Retry"
+msgstr ""
+
+msgid "Require Encryption"
+msgstr ""
+
+msgid "Get Country Info of Peers"
+msgstr ""
+
+msgid ""
+"This will use an external service to get the IP geolocation of your torrent "
+"peers in order to show country flags in the details window."
+msgstr ""
+
+#, fuzzy
+#| msgid "Download failed."
+msgid "Download Details"
+msgstr "Letöltés sikertelen."
+
+msgid "Type"
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+#, fuzzy
+#| msgid "File"
+msgid "File Name"
+msgstr "Fájl"
+
+#, fuzzy
+#| msgid "Download"
+msgid "Downloading"
+msgstr "Letöltés"
+
+#, fuzzy
+#| msgid "Pause All"
+msgid "Paused"
+msgstr "Összes szüneteltetése"
+
+msgid "Percentage Downloaded"
+msgstr ""
+
+#, fuzzy
+#| msgid "remaining"
+msgid "Remaining"
+msgstr "hátralevő"
+
+#, fuzzy
+#| msgid "Download complete."
+msgid "Download Speed"
+msgstr "Letöltés befejezve."
+
+#, fuzzy
+#| msgid "Seeding"
+msgid "Seeding Speed"
+msgstr "Megosztás"
+
+#, fuzzy
+#| msgid "Download complete."
+msgid "Amount Downloaded"
+msgstr "Letöltés befejezve."
+
+msgid "Amount Uploaded"
+msgstr ""
+
+msgid "Ratio"
+msgstr ""
+
+#, fuzzy
+#| msgid "Torrent"
+msgid "Torrent Peers"
+msgstr "Torrent"
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"

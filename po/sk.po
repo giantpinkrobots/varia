@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-07-11 06:06+0000\n"
+"PO-Revision-Date: 2025-09-24 12:02+0000\n"
 "Last-Translator: Peter Vančo <petervanco347@gmail.com>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/varia/varia/sk/>\n"
 "Language: sk\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -375,7 +375,8 @@ msgstr "Skontrolovať teraz"
 
 msgid "Do you want to check for updates on startup?"
 msgstr ""
-"Chceli by ste skontrolovať dostupnosť aktualizácií pri spustení aplikácie?"
+"Máte záujem o automatickú kontrolu dostupnosti aktualizácií pri spustení "
+"aplikácie?"
 
 msgid "File"
 msgstr "Súbor"
@@ -564,6 +565,76 @@ msgstr "Konfigurovať"
 
 msgid "Download Segments"
 msgstr "Stiahnuť segmenty"
+
+msgid "Pause"
+msgstr "Pozastaviť"
+
+msgid "Resume"
+msgstr "Obnoviť"
+
+msgid "Stop"
+msgstr "Zastaviť"
+
+msgid "Open File"
+msgstr "Otvoriť súbor"
+
+msgid "Retry"
+msgstr "Opakovať"
+
+msgid "Require Encryption"
+msgstr "Vyžadovanie šifrovania"
+
+msgid "Get Country Info of Peers"
+msgstr "Získavanie informácií o krajinách peerov"
+
+msgid ""
+"This will use an external service to get the IP geolocation of your torrent "
+"peers in order to show country flags in the details window."
+msgstr ""
+"Použije sa externá služba na získanie geolokácie IP adries peerov, aby sa v "
+"okne s podrobnosťami zobrazili vlajky krajín."
+
+msgid "Download Details"
+msgstr "Detaily sťahovania"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Status"
+msgstr "Stav"
+
+msgid "File Name"
+msgstr "Názov súboru"
+
+msgid "Downloading"
+msgstr "Sťahovanie"
+
+msgid "Paused"
+msgstr "Pozastavené"
+
+msgid "Percentage Downloaded"
+msgstr "Percento stiahnutia"
+
+msgid "Remaining"
+msgstr "Zostáva"
+
+msgid "Download Speed"
+msgstr "Rýchlosť sťahovania"
+
+msgid "Seeding Speed"
+msgstr "Rýchlosť odosielania"
+
+msgid "Amount Downloaded"
+msgstr "Stiahnuté množstvo"
+
+msgid "Amount Uploaded"
+msgstr "Odoslané množstvo"
+
+msgid "Ratio"
+msgstr "Pomer"
+
+msgid "Torrent Peers"
+msgstr "Účastníci siete"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
