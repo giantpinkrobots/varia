@@ -7,7 +7,7 @@ import time
 import math
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import Gtk, Adw, Pango, GLib, Gio, GObject, Gdk
+from gi.repository import Gtk, Adw, GLib, Gio, GObject
 from stringstorage import gettext as _
 from urllib.parse import unquote
 

@@ -5,7 +5,6 @@ gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, Gio
 from stringstorage import gettext as _
-import textwrap
 
 from window.preferences import show_preferences
 from download.actionrow import on_download_clicked
