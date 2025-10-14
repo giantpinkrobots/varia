@@ -31,7 +31,7 @@ def add_timespan_clicked(button, self, timespans_box, day, start_h, start_m, end
         days_combobox.append_text(day_in_days)
 
     days_combobox.set_active(day)
-    days_combobox.connect("changed", on_edit, self)
+    days_combobox.connect("changed", on_edit, None, self)
 
     remove_button = Gtk.Button.new_from_icon_name("list-remove-symbolic")
     remove_button.set_margin_start(4)
@@ -55,16 +55,16 @@ def add_timespan_clicked(button, self, timespans_box, day, start_h, start_m, end
     start_timespan_label = Gtk.Label(label=_("Start (h/m):"))
     start_timespan_spin_h = Gtk.SpinButton.new_with_range(0, 23, 1)
     start_timespan_spin_h.set_value(float(start_h))
-    start_timespan_spin_h.connect("value-changed", on_edit, self)
+    start_timespan_spin_h.connect("value-changed", on_edit, None, self)
     start_timespan_spin_m = Gtk.SpinButton.new_with_range(0, 59, 1)
     start_timespan_spin_m.set_value(float(start_m))
-    start_timespan_spin_m.connect("value-changed", on_edit, self)
+    start_timespan_spin_m.connect("value-changed", on_edit, None, self)
     end_timespan_label = Gtk.Label(label=_("End (h/m):"))
     end_timespan_spin_h = Gtk.SpinButton.new_with_range(0, 23, 1)
-    end_timespan_spin_h.connect("value-changed", on_edit, self)
+    end_timespan_spin_h.connect("value-changed", on_edit, None, self)
     end_timespan_spin_h.set_value(float(end_h))
     end_timespan_spin_m = Gtk.SpinButton.new_with_range(0, 59, 1)
-    end_timespan_spin_m.connect("value-changed", on_edit, self)
+    end_timespan_spin_m.connect("value-changed", on_edit, None, self)
     end_timespan_spin_m.set_value(float(end_m))
 
     start_timespan_box.append(start_timespan_label)
@@ -91,13 +91,12 @@ def add_timespan_clicked(button, self, timespans_box, day, start_h, start_m, end
     self.timespans_list.append(timespan_info)
 
     adjust_timespan_labels(self)
-    on_edit(None, self)
+    on_edit(None, None, self)
 
 def discard_all(widget, self):
-    self.schedulerDialog.set_can_pop(True)
     self.preferencesWindow.pop_subpage()
 
-def on_edit(widget, self):
+def on_edit(widget, state, self):
     if self.all_initial_timespans_added and self.anything_was_edited == False:
         self.anything_was_edited = True
         self.schedulerDialog.set_can_pop(False)
@@ -112,7 +111,7 @@ def remove_timespan(button, self, timespans_box, timespan_row, timespan_id, swit
     self.timespans_list = [item for item in self.timespans_list if item.get('id') != timespan_id]
     if_there_are_any_timespans(self, switch_enabled)
     adjust_timespan_labels(self)
-    on_edit(None, self)
+    on_edit(None, None, self)
 
 def change_schedule_mode(switch, state, self, mode, switch_mode_1, switch_mode_2):
     if (mode == 'inclusive'):
@@ -125,7 +124,7 @@ def change_schedule_mode(switch, state, self, mode, switch_mode_1, switch_mode_2
             switch_mode_1.set_active(False)
         else:
             switch_mode_1.set_active(True)
-    on_edit(None, self)
+    on_edit(None, None, self)
 
 def save_schedule(preferencesDialog, self, switch_mode_1, switch_enabled):
     if switch_enabled.get_state():
@@ -166,12 +165,6 @@ def if_there_are_any_timespans(self, switch_enabled):
     if self.timespans_list == []:
         switch_enabled.set_sensitive(False)
         switch_enabled.set_active(False)
-        self.appconf["schedule_enabled"] = 0
-        try:
-            self.sidebar_content_box.remove(self.sidebar_scheduler_label)
-        except:
-            pass
-        self.save_appconf()
 
 def adjust_timespan_labels(self):
     i = 1
@@ -216,6 +209,7 @@ def show_scheduler_dialog(self, preferencesWindow, variaapp, show_preferences, v
 
     switch_enabled = Gtk.Switch()
     switch_enabled.set_active(self.appconf["schedule_enabled"])
+    switch_enabled.connect("state-set", on_edit, self)
 
     box_enabled.append(label_enabled)
     box_enabled.append(expanding_box_enabled)
