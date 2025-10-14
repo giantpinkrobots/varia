@@ -15,8 +15,7 @@
         "--filesystem=xdg-download",
         "--system-talk-name=org.freedesktop.login1",
         "--talk-name=org.kde.StatusNotifierWatcher",
-        "--own-name=io.github.giantpinkrobots.varia-tray",
-        "--talk-name=org.freedesktop.portal.Background"
+        "--own-name=io.github.giantpinkrobots.varia-tray"
     ],
     "cleanup" : [
         "/include",
