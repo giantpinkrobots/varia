@@ -25,9 +25,9 @@ jobs:
           bash ./build-for-windows.sh -u
 
       - name: Compile .ISS to .EXE Installer
-        uses: Minionguyjpro/Inno-Setup-Action@v1.2.2
+        uses: Minionguyjpro/Inno-Setup-Action@v1.2.7
         with:
-          path: ./actions-inno-install-script.iss
+          path: actions-inno-install-script.iss
 
       - name: Create portable zip archive
         run: |
