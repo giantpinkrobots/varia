@@ -32,6 +32,7 @@ pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-upx
 pacman -S --noconfirm --needed unzip
 pip install aria2p
 pip install pystray
+pip install emoji-country-flag
 
 #echo "      -   Downloading aria2, ffmpeg and deno..."
 echo "      -   Downloading aria2 and ffmpeg..."
