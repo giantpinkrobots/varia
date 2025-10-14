@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-09-30 16:01+0000\n"
-"Last-Translator: Сказка <mohamedhero932@yahoo.com>\n"
+"PO-Revision-Date: 2025-04-13 22:08+0000\n"
+"Last-Translator: Giant Pink Robots! <giantpinkrobots@protonmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/varia/varia/ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -463,7 +463,7 @@ msgid "Show Menu"
 msgstr "إظهار القائمة"
 
 msgid "OK"
-msgstr "نعم"
+msgstr ""
 
 # Snap version permission warning
 msgid ""
@@ -471,138 +471,75 @@ msgid ""
 "completion option you must first give Varia the related permission. To do "
 "this, open a terminal window and execute this command and then restart Varia:"
 msgstr ""
-"أنت تستخدم فاريا كحزمة سناب. لإستخدام إغلاق عند الإنتهاء يجب عليك إعطاء "
-"الصلاحيات اللازمة. لتطييقه إفتح صفحة الطرفية ونفذ هذا الأمر وأعد تشغيل فاريا"
 
+#, fuzzy
+#| msgid "Torrent Settings"
 msgid "Enable Torrenting"
-msgstr "تفعيل أعدادات التورينت"
+msgstr "أعدادات التورينت"
 
 msgid "The browser extension will not work when Remote Mode is enabled."
-msgstr "امتداد المتصفح لن يعمل إذا كان نمط عن بعد مفعل."
+msgstr ""
 
 msgid ""
 "Disabling torrenting will prevent new torrents from being added. It will not "
 "stop current torrent instances."
 msgstr ""
-"أيقاف تحميل التورينت سيمنع إضافة ملفات التورينت الجديدة. لن يوقف تحميل "
-"التورينت الحالي"
 
 msgid "Torrenting is disabled."
-msgstr "تحميل التورينت متوقف"
+msgstr ""
 
 msgid "Unknown filesize"
-msgstr "حجم الملف مجهول"
+msgstr ""
 
+#, fuzzy
+#| msgid "Show Menu"
 msgid "Show"
-msgstr "عرض القائمة"
+msgstr "إظهار القائمة"
 
+#, fuzzy
+#| msgctxt "shortcut window"
+#| msgid "Quit"
 msgid "Quit"
-msgstr "إغلاق"
+msgstr "الخروج"
 
+#, fuzzy
+#| msgid "Background Mode"
 msgid "Background Mode on Close"
-msgstr "العمل في الخلفية عند الإغلاق"
+msgstr "العمل في الخلفية"
 
 msgid "Upon closing, Varia will close to tray insted of exiting."
-msgstr "خلال الإغلاق فاريا سيعمل في الخلفية بدل الخروج"
+msgstr ""
 
 # Tray icon always visible option
 msgid "Tray Icon Always Visible"
-msgstr "خيار أيقونة العمل في الخلفية دائما ظاهرة"
+msgstr ""
 
 msgid ""
 "The tray icon will be visible even when Varia is not in background mode."
-msgstr "أيقونة العمل في الخلفية سوف تظهر حتى لو كان فاريا ليس في نمط الخلفية."
+msgstr ""
 
 # Open on startup option
 msgid "Open on Startup"
-msgstr "خيار الفتح عند التشغيل"
+msgstr ""
 
 msgid "Varia will open automatically when the system starts."
-msgstr "فاريا سيعمل آلياً عند بدء النظام"
+msgstr ""
 
 # Start on background mode subtitle
 msgid "Varia will start directly in background mode upon opening."
-msgstr "فاريا سيعمل مباشرة في نمظ الخلفية عند الفتح"
+msgstr ""
 
 # Remote mode additional explanation
 msgid "Use Varia as a GUI for a remote aria2c instance."
-msgstr "استخدم فاريا كواجهة سطح المكتب لطلب aria2c عن بعد"
+msgstr ""
 
 msgid "Configure"
-msgstr "إعداد"
-
-msgid "Download Segments"
-msgstr "أقسام التحميل."
-
-msgid "Pause"
-msgstr "إيقاف"
-
-msgid "Resume"
-msgstr "استئناف"
-
-msgid "Stop"
-msgstr "إيقاف"
-
-msgid "Open File"
-msgstr "فتح ملف"
-
-msgid "Retry"
-msgstr "إعادة محاولة"
-
-msgid "Require Encryption"
-msgstr "يستلزم التشفير"
-
-msgid "Get Country Info of Peers"
-msgstr "الحصول على معلومات بلد الأقران"
-
-msgid ""
-"This will use an external service to get the IP geolocation of your torrent "
-"peers in order to show country flags in the details window."
 msgstr ""
-"سيستخدم هذا الخيار خدمة خارجية للحصول على الموقع الجغرافي لعنوان IP الخاص "
-"بأقران التورنت لديك، وذلك لعرض أعلام بلدانهم في نافذة التفاصيل."
 
-msgid "Download Details"
-msgstr "تفاصيل التحميل"
-
-msgid "Type"
-msgstr "النوع"
-
-msgid "Status"
-msgstr "الحالة"
-
-msgid "File Name"
-msgstr "اسم الملف"
-
-msgid "Downloading"
-msgstr "جارى التحميل"
-
-msgid "Paused"
-msgstr "موقف"
-
-msgid "Percentage Downloaded"
-msgstr "النسبة المئوية المحملة"
-
-msgid "Remaining"
-msgstr "متبقى"
-
-msgid "Download Speed"
-msgstr "سرعة التحميل"
-
-msgid "Seeding Speed"
-msgstr "سرعة البذر (seeding)"
-
-msgid "Amount Downloaded"
-msgstr "الكمية المحملة"
-
-msgid "Amount Uploaded"
-msgstr "الكمية المرفوعة"
-
-msgid "Ratio"
-msgstr "النسبة"
-
-msgid "Torrent Peers"
-msgstr "أقران التورينت"
+#, fuzzy
+#| msgid "Download complete."
+msgid "Download Segments"
+msgstr "أكتمل التحميل."
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

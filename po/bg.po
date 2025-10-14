@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Varia\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-09-24 12:01+0000\n"
+"PO-Revision-Date: 2025-07-11 06:06+0000\n"
 "Last-Translator: Любомир Василев <lyubomirv@gmx.com>\n"
 "Language-Team: Bulgarian <https://hosted.weblate.org/projects/varia/varia/bg/"
 ">\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -548,77 +548,6 @@ msgstr "Настройки"
 
 msgid "Download Segments"
 msgstr "Сваляне на части"
-
-msgid "Pause"
-msgstr "Спиране на пауза"
-
-msgid "Resume"
-msgstr "Възобновяване"
-
-msgid "Stop"
-msgstr "Спиране"
-
-msgid "Open File"
-msgstr "Отваряне на файла"
-
-msgid "Retry"
-msgstr "Повторен опит"
-
-msgid "Require Encryption"
-msgstr "Изисква се шифроване"
-
-msgid "Get Country Info of Peers"
-msgstr "Получаване на информация за държавите на участниците"
-
-msgid ""
-"This will use an external service to get the IP geolocation of your torrent "
-"peers in order to show country flags in the details window."
-msgstr ""
-"Тази функционалност ще използва външна услуга за установяване на "
-"местоположението на участниците в торента чрез техните IP адреси, за да може "
-"да се показват флагчета на държавите в прозореца с подробностите."
-
-msgid "Download Details"
-msgstr "Подробности за свалянето"
-
-msgid "Type"
-msgstr "Вид"
-
-msgid "Status"
-msgstr "Състояние"
-
-msgid "File Name"
-msgstr "Име на файла"
-
-msgid "Downloading"
-msgstr "Сваляне"
-
-msgid "Paused"
-msgstr "На пауза"
-
-msgid "Percentage Downloaded"
-msgstr "Процент свалено"
-
-msgid "Remaining"
-msgstr "Оставащо"
-
-msgid "Download Speed"
-msgstr "Скорост на сваляне"
-
-msgid "Seeding Speed"
-msgstr "Скорост на качване"
-
-msgid "Amount Downloaded"
-msgstr "Размер свалено"
-
-msgid "Amount Uploaded"
-msgstr "Размер качено"
-
-msgid "Ratio"
-msgstr "Съотношение"
-
-msgid "Torrent Peers"
-msgstr "Участници в торента"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

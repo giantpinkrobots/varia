@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-09-24 12:02+0000\n"
+"PO-Revision-Date: 2025-07-12 10:01+0000\n"
 "Last-Translator: Giant Pink Robots! <giantpinkrobots@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/varia/varia/tr/>"
 "\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -544,77 +544,6 @@ msgstr "Yapılandır"
 
 msgid "Download Segments"
 msgstr "İndirme Parçaları"
-
-msgid "Pause"
-msgstr "Duraklat"
-
-msgid "Resume"
-msgstr "Sürdür"
-
-msgid "Stop"
-msgstr "Durdur"
-
-msgid "Open File"
-msgstr "Dosyayı Aç"
-
-msgid "Retry"
-msgstr "Yeniden Dene"
-
-msgid "Require Encryption"
-msgstr "Şifreleme Gerektir"
-
-msgid "Get Country Info of Peers"
-msgstr "Eşlerin Ülke Bilgilerini Göster"
-
-msgid ""
-"This will use an external service to get the IP geolocation of your torrent "
-"peers in order to show country flags in the details window."
-msgstr ""
-"Bu seçenek indirme detayları penceresinde torrent eşlerinin ülke "
-"bayraklarını göstermek için harici bir servis kullanarak IP adreslerinin "
-"coğrafi konumunu alır."
-
-msgid "Download Details"
-msgstr "İndirme Detayları"
-
-msgid "Type"
-msgstr "Tür"
-
-msgid "Status"
-msgstr "Durum"
-
-msgid "File Name"
-msgstr "Dosya Adı"
-
-msgid "Downloading"
-msgstr "İndiriliyor"
-
-msgid "Paused"
-msgstr "Duraklatıldı"
-
-msgid "Percentage Downloaded"
-msgstr "İndirilen Yüzde"
-
-msgid "Remaining"
-msgstr "Kalan"
-
-msgid "Download Speed"
-msgstr "İndirme Hızı"
-
-msgid "Seeding Speed"
-msgstr "Seed Hızı"
-
-msgid "Amount Downloaded"
-msgstr "İndirilen Miktar"
-
-msgid "Amount Uploaded"
-msgstr "Gönderilen Miktar"
-
-msgid "Ratio"
-msgstr "Oran"
-
-msgid "Torrent Peers"
-msgstr "Torrent Eşleri"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

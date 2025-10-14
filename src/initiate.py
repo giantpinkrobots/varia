@@ -61,7 +61,7 @@ def initiate(self, variaapp, variaVersion, first_run, issnap):
 
     self.set_title("Varia")
     self.set_default_size(self.appconf["window_size"][0], self.appconf["window_size"][1])
-    self.set_size_request(400, 360)
+    self.set_size_request(400, 250) # Copy of this exists in scheduler.py
 
     self.total_download_speed = ""
     self.terminating = False

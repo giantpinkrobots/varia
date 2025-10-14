@@ -5,6 +5,7 @@ gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, Gio
 from stringstorage import gettext as _
+import textwrap
 
 from window.preferences import show_preferences
 from download.actionrow import on_download_clicked
@@ -12,7 +13,7 @@ from download.videos import on_video_clicked
 
 def window_create_sidebar(self, variaapp, variaVersion):
     sidebar_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-    self.sidebar_content_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
+    sidebar_content_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
 
     header_bar = Adw.HeaderBar()
     header_bar.add_css_class('flat')
@@ -209,6 +210,17 @@ def window_create_sidebar(self, variaapp, variaVersion):
     self.filter_button_show_failed.set_child(filter_button_show_failed_box)
     self.filter_button_show_failed.connect("clicked", self.filter_download_list, "show_failed")
 
+    self.sidebar_shutdown_mode_label = Gtk.Label()
+    self.sidebar_remote_mode_label = Gtk.Label()
+    if (self.appconf['remote'] == '1'):
+        self.sidebar_remote_mode_label.set_text(textwrap.fill(_("Remote Mode"), 23))
+    self.sidebar_speed_limited_label = Gtk.Label()
+    self.sidebar_scheduler_label = Gtk.Label()
+
+    sidebar_content_box.set_margin_start(6)
+    sidebar_content_box.set_margin_end(6)
+    sidebar_content_box.set_margin_bottom(6)
+
     sidebar_filter_buttons_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
     sidebar_filter_buttons_box.append(self.filter_button_show_all)
     sidebar_filter_buttons_box.append(self.filter_button_show_downloading)
@@ -216,31 +228,14 @@ def window_create_sidebar(self, variaapp, variaVersion):
     sidebar_filter_buttons_box.append(self.filter_button_show_seeding)
     sidebar_filter_buttons_box.append(self.filter_button_show_failed)
 
-    self.sidebar_content_box.append(frame_add_download)
-    self.sidebar_content_box.append(sidebar_filter_buttons_box)
-    self.sidebar_content_box.append(Gtk.Box(vexpand=True))
-    sidebar_box.append(self.sidebar_content_box)
-
-    self.sidebar_shutdown_mode_label = Gtk.Label()
-    self.sidebar_shutdown_mode_label.add_css_class('dim-label')
-
-    self.sidebar_remote_mode_label = Gtk.Label(label=_("Remote Mode"))
-    self.sidebar_remote_mode_label.add_css_class('dim-label')
-    if (self.appconf['remote'] == '1'):
-        self.sidebar_content_box.append(self.sidebar_remote_mode_label)
-    
-    self.sidebar_speed_limited_label = Gtk.Label(label=_("Speed Limited"))
-    self.sidebar_speed_limited_label.add_css_class('dim-label')
-
-    self.sidebar_scheduler_label = Gtk.Label(label=_("Scheduler enabled"))
-    self.sidebar_scheduler_label.add_css_class('dim-label')
-
-    self.sidebar_exit_on_completion_label = Gtk.Label()
-    self.sidebar_exit_on_completion_label.add_css_class('dim-label')
-
-    self.sidebar_content_box.set_margin_start(4)
-    self.sidebar_content_box.set_margin_end(4)
-    self.sidebar_content_box.set_margin_bottom(4)
+    sidebar_content_box.append(frame_add_download)
+    sidebar_content_box.append(sidebar_filter_buttons_box)
+    sidebar_content_box.append(Gtk.Box(vexpand=True))
+    sidebar_content_box.append(self.sidebar_shutdown_mode_label)
+    sidebar_content_box.append(self.sidebar_remote_mode_label)
+    sidebar_content_box.append(self.sidebar_speed_limited_label)
+    sidebar_content_box.append(self.sidebar_scheduler_label)
+    sidebar_box.append(sidebar_content_box)
 
     self.overlay_split_view.set_sidebar(sidebar_box)
 
@@ -292,9 +287,14 @@ def show_about(app, variaapp, self, variaVersion):
     dialog.set_artists(["Jakub Steiner"])
     dialog.set_release_notes_version(variaVersion)
     dialog.set_release_notes('''
-        <ul><li>New download details window added for details like individual download speed, torrent peers etc.</li>
-        <li>New open file button added for completed downloads.</li>
-        <li>Retrying failed downloads is now more reliable.</li></ul>''')
+        <ul><li>Video downloads now can be added through the browser extension.</li>
+        <li>.torrent files can now be opened through a file manager.</li>
+        <li>Magnet links can now be opened through a browser.</li>
+        <li>"Checking video" dialog can now be cancelled.</li>
+        <li>Download segments can now be adjusted through preferences.</li>
+        <li>Scheduler config screen is now more compact and works better on smaller window sizes.</li>
+        <li>Better crash handling.</li>
+        <li>(Windows only) Dialog windows now properly grey out what's behind them for better legibility.</li></ul>''')
     
     if os.name != 'nt':
         dialog.add_other_app("io.github.giantpinkrobots.flatsweep",
@@ -304,9 +304,6 @@ def show_about(app, variaapp, self, variaVersion):
                             "Bootqt",
                             "Create bootable drives")
 
-    if os.name == 'nt':
-        dialog.set_content_width(self.get_default_size()[0])
-        dialog.set_content_height(self.get_default_size()[1])
     dialog.present(self)
 
 def open_downloads_folder(self, app, variaapp, appconf):
@@ -319,35 +316,19 @@ def shutdown_on_completion(self, app, variaapp):
     if (variaapp.shutdown_mode == False):
         variaapp.shutdown_mode = True
         variaapp.exit_mode = False
-        try:
-            variaapp.sidebar_content_box.remove(variaapp.sidebar_exit_on_completion_label)
-        except:
-            pass
-        variaapp.sidebar_exit_on_completion_label.set_text(_("Shutdown on Completion"))
-        variaapp.sidebar_content_box.append(variaapp.sidebar_exit_on_completion_label)
+        variaapp.sidebar_remote_mode_label.set_text(textwrap.fill(_("Shutdown on Completion"), 23))
     else:
         variaapp.shutdown_mode = False
-        try:
-            variaapp.sidebar_content_box.remove(variaapp.sidebar_exit_on_completion_label)
-        except:
-            pass
+        variaapp.sidebar_remote_mode_label.set_text("")
 
 def exit_on_completion(self, app, variaapp):
     if (variaapp.exit_mode == False):
         variaapp.exit_mode = True
         variaapp.shutdown_mode = False
-        try:
-            variaapp.sidebar_content_box.remove(variaapp.sidebar_exit_on_completion_label)
-        except:
-            pass
-        variaapp.sidebar_exit_on_completion_label.set_text(_("Exit on Completion"))
-        variaapp.sidebar_content_box.append(variaapp.sidebar_exit_on_completion_label)
+        variaapp.sidebar_remote_mode_label.set_text(textwrap.fill(_("Exit on Completion"), 23))
     else:
         variaapp.exit_mode = False
-        try:
-            variaapp.sidebar_content_box.remove(variaapp.sidebar_exit_on_completion_label)
-        except:
-            pass
+        variaapp.sidebar_remote_mode_label.set_text("")
 
 def quit_varia(app, self, variaapp):
     variaapp.exitProgram(app=app, variaapp=variaapp, background=False)

@@ -33,7 +33,7 @@ def schedule_downloads(self, previous_state):
 
     if previous_state != self.scheduler_currently_downloading:
         if self.scheduler_currently_downloading == True:
-            self.download_button_icon.set_from_icon_name("folder-download-symbolic")
+            self.download_button_icon.set_from_icon_name("camera-video-symbolic")
             self.video_button_icon.set_from_icon_name("camera-video-symbolic")
             self.all_paused = True
             self.pause_all()

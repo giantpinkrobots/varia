@@ -10,8 +10,8 @@ msgstr ""
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
 "PO-Revision-Date: 2025-07-11 06:06+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
-"Language-Team: Catalan <https://hosted.weblate.org/projects/varia/varia/ca/"
-">\n"
+"Language-Team: Catalan <https://hosted.weblate.org/projects/varia/varia/ca/>"
+"\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -526,94 +526,6 @@ msgstr "Configura"
 
 msgid "Download Segments"
 msgstr "Baixada en segments"
-
-#, fuzzy
-#| msgid "Pause All"
-msgid "Pause"
-msgstr "Posa-ho tot en pausa"
-
-#, fuzzy
-#| msgid "Resume All"
-msgid "Resume"
-msgstr "Reprèn-ho tot"
-
-msgid "Stop"
-msgstr ""
-
-#, fuzzy
-#| msgid "File"
-msgid "Open File"
-msgstr "Fitxer"
-
-msgid "Retry"
-msgstr ""
-
-msgid "Require Encryption"
-msgstr ""
-
-msgid "Get Country Info of Peers"
-msgstr ""
-
-msgid ""
-"This will use an external service to get the IP geolocation of your torrent "
-"peers in order to show country flags in the details window."
-msgstr ""
-
-#, fuzzy
-#| msgid "Download failed."
-msgid "Download Details"
-msgstr "Ha fallat la baixada."
-
-msgid "Type"
-msgstr ""
-
-msgid "Status"
-msgstr ""
-
-#, fuzzy
-#| msgid "File"
-msgid "File Name"
-msgstr "Fitxer"
-
-#, fuzzy
-#| msgid "Downloading update..."
-msgid "Downloading"
-msgstr "S’està baixant l’actualització…"
-
-#, fuzzy
-#| msgid "Pause All"
-msgid "Paused"
-msgstr "Posa-ho tot en pausa"
-
-msgid "Percentage Downloaded"
-msgstr ""
-
-#, fuzzy
-#| msgid "Warning"
-msgid "Remaining"
-msgstr "Avís"
-
-#, fuzzy
-#| msgid "Download Segments"
-msgid "Download Speed"
-msgstr "Baixada en segments"
-
-msgid "Seeding Speed"
-msgstr ""
-
-#, fuzzy
-#| msgid "Download Segments"
-msgid "Amount Downloaded"
-msgstr "Baixada en segments"
-
-msgid "Amount Uploaded"
-msgstr ""
-
-msgid "Ratio"
-msgstr ""
-
-msgid "Torrent Peers"
-msgstr ""
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

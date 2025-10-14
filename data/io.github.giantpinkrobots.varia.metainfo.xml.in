@@ -104,23 +104,23 @@ Control a remote aria2 instance running on any server
 </screenshot>
 </screenshots>
 
-
-<requires>
-<display_length compare="ge">360</display_length>
-</requires>
-
-<supports>
+<recommends>
 <control>keyboard</control>
 <control>pointing</control>
 <control>touch</control>
-</supports>
+</recommends>
 
 <releases>
-<release version="v2025.10.14" date="2025-10-14">
+<release version="v2025.7.19" date="2025-07-19">
 <description translatable="yes">
-<ul><li>New download details window added for details like individual download speed, torrent peers etc.</li>
-<li>New open file button added for completed downloads.</li>
-<li>Retrying failed downloads is now more reliable.</li></ul>
+<ul><li>Video downloads now can be added through the browser extension.</li>
+<li>.torrent files can now be opened through a file manager.</li>
+<li>Magnet links can now be opened through a browser.</li>
+<li>"Checking video" dialog can now be cancelled.</li>
+<li>Download segments can now be adjusted through preferences.</li>
+<li>Scheduler config screen is now more compact and works better on smaller window sizes.</li>
+<li>Better crash handling.</li>
+<li>(Windows only) Dialog windows now properly grey out what's behind them for better legibility.</li></ul>
 </description>
 </release>
 </releases>

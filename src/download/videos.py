@@ -110,7 +110,7 @@ def on_video_clicked(button, self, entry):
                     continue
                 
                 # Video only
-                elif fmt["audio_ext"] == "none" and fmt["resolution"]:
+                elif fmt["audio_ext"] == "none":
                     bitrate = fmt.get("vbr", 0)
                     if bitrate == 0 and fmt.get("tbr", 0) != 0:
                         bitrate = fmt.get("tbr", 0)
@@ -124,6 +124,7 @@ def on_video_clicked(button, self, entry):
                             "url": fmt["url"],
                             "bitrate": bitrate,
                         })
+                    print(fmt)
 
                 # Audio only
                 elif fmt["video_ext"] == "none":
@@ -140,7 +141,7 @@ def on_video_clicked(button, self, entry):
                         })
 
                 # Video and audio
-                elif fmt["video_ext"] != "none" and fmt["audio_ext"] != "none" and fmt["resolution"]:
+                elif fmt["video_ext"] != "none" and fmt["audio_ext"] != "none":
                     if fmt.get("tbr", 0) != 0:
                         combined_formats.append({
                             "id": fmt["format_id"],
@@ -356,10 +357,6 @@ def on_video_clicked(button, self, entry):
             
             GLib.idle_add(loading_dialog.set_can_close, True)
             GLib.idle_add(loading_dialog.close)
-
-            if os.name == 'nt':
-                video_download_options_preferences_dialog.set_content_width(self.get_default_size()[0])
-                video_download_options_preferences_dialog.set_content_height(self.get_default_size()[1])
             GLib.idle_add(video_download_options_preferences_dialog.present, self)
 
         else:

@@ -483,27 +483,6 @@ def show_preferences(button, self, app, variaVersion):
         torrent_download_directory_actionrow.add_suffix(torrent_download_directory_change_remote_label)
         torrent_download_directory_actionrow.add_suffix(torrent_download_directory_switch)
         torrent_download_directory_switch.set_sensitive(False)
-    
-    # Require encryption:
-
-    require_encryption_switchrow = Adw.SwitchRow()
-    require_encryption_switchrow.set_title(_("Require Encryption"))
-
-    if (self.appconf["torrent_require_encryption"] == "true"):
-        require_encryption_switchrow.set_active("active")
-
-    require_encryption_switchrow.connect("notify::active", on_switch_torrent_require_encryption, self)
-
-    # IP lookup for peers:
-
-    peers_ip_lookup_switchrow = Adw.SwitchRow()
-    peers_ip_lookup_switchrow.set_title(_("Get Country Info of Peers"))
-    peers_ip_lookup_switchrow.set_subtitle(_("This will use an external service to get the IP geolocation of your torrent peers in order to show country flags in the details window."))
-
-    if (self.appconf["torrent_peers_ip_lookup"] == "1"):
-        peers_ip_lookup_switchrow.set_active("active")
-
-    peers_ip_lookup_switchrow.connect("notify::active", on_switch_torrent_peers_ip_lookup, self)
 
     # Construct Group 4 and 3:
 
@@ -513,8 +492,6 @@ def show_preferences(button, self, app, variaVersion):
     self.group_3_options.append(seeding_enabled_switchrow)
     self.group_3_options.append(seeding_ratio_limit_spinrow)
     self.group_3_options.append(torrent_download_directory_actionrow)
-    self.group_3_options.append(require_encryption_switchrow)
-    self.group_3_options.append(peers_ip_lookup_switchrow)
 
     for option in self.group_3_options:
         group_3.add(option)
@@ -523,9 +500,6 @@ def show_preferences(button, self, app, variaVersion):
 
     torrent_settings_set_sensitive(self)
 
-    if os.name == 'nt':
-        preferences.set_content_width(self.get_default_size()[0])
-        preferences.set_content_height(self.get_default_size()[1])
     preferences.present(self)
 
 def on_switch_auto_update_check(switch, state, self):
@@ -894,28 +868,6 @@ def on_switch_custom_torrent_download_directory(switch, state, self):
 
     else:
         self.appconf["torrent_download_directory_custom_enabled"] = "0"
-
-    self.save_appconf()
-
-def on_switch_torrent_require_encryption(switch, state, self):
-    state = switch.get_active()
-    if state:
-        self.appconf["torrent_require_encryption"] = "true"
-        set_aria2c_custom_global_option(self, "bt-force-encryption", "true")
-
-    else:
-        self.appconf["torrent_require_encryption"] = "false"
-        set_aria2c_custom_global_option(self, "bt-force-encryption", "false")
-
-    self.save_appconf()
-
-def on_switch_torrent_peers_ip_lookup(switch, state, self):
-    state = switch.get_active()
-    if state:
-        self.appconf["torrent_peers_ip_lookup"] = "1"
-
-    else:
-        self.appconf["torrent_peers_ip_lookup"] = "0"
 
     self.save_appconf()
 

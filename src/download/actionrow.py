@@ -1,12 +1,10 @@
 import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import Gtk, Adw, Pango, GLib, Gio
+from gi.repository import Gtk, Adw, Pango, GLib
 from stringstorage import gettext as _
 from download.thread import DownloadThread
-from download.details import show_download_details_dialog
 import json
-import os
 
 def on_download_clicked(button, self, entry, downloadname, download, mode, video_options, paused, dir):
     if isinstance(entry, str):
@@ -19,12 +17,7 @@ def on_download_clicked(button, self, entry, downloadname, download, mode, video
         video_options = json.loads(video_options)
 
     if url:
-        if downloadname:
-            download_item = create_actionrow(self, downloadname)
-        
-        else:
-            download_item = create_actionrow(self, url)
-
+        download_item = create_actionrow(self, url)
         download_thread = DownloadThread(self, url, download_item, downloadname, download, mode, video_options, paused, dir)
         download_item.download_thread = download_thread
         self.downloads.append(download_thread)
@@ -32,8 +25,6 @@ def on_download_clicked(button, self, entry, downloadname, download, mode, video
 
         if paused == False:
             self.all_paused = False
-    
-    return download_thread
 
 def create_actionrow(self, filename):
     download_item = Adw.Bin()
@@ -49,6 +40,7 @@ def create_actionrow(self, filename):
     box_2.set_margin_end(10)
     box_2.set_margin_top(8)
     box_2.set_margin_bottom(10)
+
     download_item.set_child(box_2)
 
     percentage_and_filename_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
@@ -77,20 +69,16 @@ def create_actionrow(self, filename):
     button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
     button_box.set_margin_start(10)
 
-    info_button = Gtk.Button.new_from_icon_name("info-outline-symbolic")
-    info_button.set_valign(Gtk.Align.CENTER)
-    info_button.add_css_class("circular")
-    info_button.connect("clicked", show_download_details_dialog, self, download_item)
-    info_button.set_tooltip_text(_("Download Details"))
-    button_box.append(info_button)
+    pause_button_icon = Gtk.Image.new()
+    pause_button_icon.set_from_icon_name("media-playback-pause-symbolic")
 
-    pause_button = Gtk.Button.new_from_icon_name("media-playback-pause-symbolic")
+    pause_button = Gtk.Button.new()
+    pause_button.set_child(pause_button_icon)
     pause_button.set_valign(Gtk.Align.CENTER)
     pause_button.add_css_class("circular")
     pause_button.connect_handler_id = pause_button.connect("clicked", on_pause_clicked, self, pause_button, download_item, False, True)
     pause_button.set_retry_mode = pause_button_set_retry_mode
-    pause_button.set_open_mode = pause_button_set_open_mode
-    pause_button.set_tooltip_text(_("Pause"))
+
     button_box.append(pause_button)
 
     stop_button = Gtk.Button.new_from_icon_name("media-playback-stop-symbolic")
@@ -98,7 +86,6 @@ def create_actionrow(self, filename):
     stop_button.add_css_class("circular")
     stop_button.add_css_class("destructive-action")
     stop_button.connect("clicked", on_stop_clicked, self, download_item)
-    stop_button.set_tooltip_text(_("Stop"))
     button_box.append(stop_button)
 
     box_1.append(box)
@@ -121,7 +108,6 @@ def create_actionrow(self, filename):
     download_item.pause_button = pause_button
     download_item.stop_button = stop_button
     download_item.filename_label = filename_label
-    download_item.info_button = info_button
 
     return download_item
 
@@ -141,23 +127,17 @@ def pause_button_set_retry_mode(button, self, download_item):
     GLib.idle_add(button.set_icon_name, "view-refresh-symbolic")
     button.disconnect(button.connect_handler_id)
     button.connect_handler_id = button.connect("clicked", pause_button_on_retry_clicked, self, download_item)
-    button.set_tooltip_text(_("Retry"))
-
-def pause_button_set_open_mode(button, self, download_item):
-    GLib.idle_add(button.set_icon_name, "application-x-executable-symbolic")
-    button.disconnect(button.connect_handler_id)
-    button.connect_handler_id = button.connect("clicked", pause_button_on_open_clicked, self, download_item)
-    button.set_tooltip_text(_("Open File"))
 
 def pause_button_on_retry_clicked(button, self, download_item):
-    new_download_item = on_download_clicked(None, self, download_item.url, download_item.downloadname, None, download_item.mode, download_item.video_options, False, download_item.downloaddir)
+    GLib.idle_add(button.set_icon_name, "media-playback-pause-symbolic")
+    button.disconnect(button.connect_handler_id)
+    button.connect_handler_id = button.connect("clicked", on_pause_clicked, self, button, download_item, False, True)
 
-    self.download_list.reorder_child_after(new_download_item.actionrow, download_item.actionrow)
-    self.downloads.remove(new_download_item)
-    self.downloads.insert(self.downloads.index(download_item), new_download_item)
+    GLib.idle_add(download_item.speed_label.set_text, "")
+    GLib.idle_add(download_item.progress_bar.remove_css_class, "error")
+    GLib.idle_add(download_item.progress_bar.set_fraction, 0)
 
-    download_item.stop()
-
-def pause_button_on_open_clicked(button, self, download_item):
-    if os.path.exists(download_item.filepath):
-        Gio.AppInfo.launch_default_for_uri("file://" + download_item.filepath, None)
+    download_item.cancelled = False
+    download_item.retry = True
+    download_item.run()
+    self.filter_download_list("no", self.applied_filter)

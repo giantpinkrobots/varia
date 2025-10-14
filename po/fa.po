@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-09-14 05:01+0000\n"
-"Last-Translator: CourierV <imcouriervi@gmail.com>\n"
+"PO-Revision-Date: 2025-04-13 22:08+0000\n"
+"Last-Translator: Giant Pink Robots! <giantpinkrobots@protonmail.com>\n"
 "Language-Team: Persian <https://hosted.weblate.org/projects/varia/varia/fa/"
 ">\n"
 "Language: fa\n"
@@ -17,18 +17,20 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:3
+#, fuzzy
 msgid "Varia"
 msgstr "Varia"
 
 #. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
 #: data/io.github.giantpinkrobots.varia.desktop.in:11
+#, fuzzy
 msgid "varia;aria;download;manager;"
-msgstr "واریا;اریا;دانلود;مدیر;"
+msgstr "varia;aria;download;manager;"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
 msgid "Download manager based on aria2"
@@ -165,7 +167,7 @@ msgstr ""
 
 #: src/variamain.py:449
 msgid "translator-credits"
-msgstr "mohammad ostadi <mrostd@gmail.com> - CourierV <imcouriervi@gmail.com>"
+msgstr "mohammad ostadi <mrostd@gmail.com>"
 
 #: src/variamain.py:457
 msgid "Download Directory"
@@ -242,201 +244,216 @@ msgid "Warning"
 msgstr "هشدار"
 
 msgid "Monday"
-msgstr "دوشنبه"
+msgstr ""
 
 msgid "Tuesday"
-msgstr "سه‌شنبه"
+msgstr ""
 
 msgid "Wednesday"
-msgstr "چهارشنبه"
+msgstr ""
 
 msgid "Thursday"
-msgstr "پنج‌شنبه"
+msgstr ""
 
 msgid "Friday"
-msgstr "جمعه"
+msgstr ""
 
 msgid "Saturday"
-msgstr "شنبه"
+msgstr ""
 
 msgid "Sunday"
-msgstr "یکشنبه"
+msgstr ""
 
 msgid "Start (h/m):"
-msgstr "شروع (س/د):"
+msgstr ""
 
 msgid "End (h/m):"
-msgstr "پایان (س/د):"
+msgstr ""
 
 msgid "Scheduler enabled"
-msgstr "برنامه‌ریز فعال شد"
+msgstr ""
 
 msgid "Scheduler"
-msgstr "برنامه‌ریز"
+msgstr ""
 
 msgid "Enabled"
-msgstr "فعال شده"
+msgstr ""
 
 msgid "Start downloading in these times"
-msgstr "بارگیری را در این زمان ها شروع کن"
+msgstr ""
 
 msgid "Stop downloading in these times"
-msgstr "بارگیری را در این زمان ها متوقف کن"
+msgstr ""
 
 msgid "Add Timespan"
-msgstr "بازه زمانی اضافه کن"
+msgstr ""
 
 #: When a download is currently seeding:
 msgid "Seeding"
-msgstr "بذر دهی"
+msgstr ""
 
 msgid "Failed"
-msgstr "شکست خورد"
+msgstr ""
 
 msgid "Completion Options"
-msgstr "گزینه های تکمیل"
+msgstr ""
 
+#, fuzzy
+#| msgid "Shutdown on Completion"
 msgid "Exit on Completion"
-msgstr "خروج بعد از اتمام"
+msgstr "خاموش شدن پس از اتمام"
 
+#, fuzzy
+#| msgid "Varia is about to shut down your computer."
 msgid "Varia is about to quit."
-msgstr "Varia در شرف خروج است."
+msgstr "Varia در شرف خاموش کردن رایانه شما است."
 
 msgid "Preferences"
-msgstr "گزینه‌ها"
+msgstr ""
 
 msgid "Other"
-msgstr "سایر"
+msgstr ""
 
 msgid "Basic Settings"
-msgstr "تنظیمات پایه"
+msgstr ""
 
 msgid "Advanced Settings"
-msgstr "تنظیمات پیشرفته"
+msgstr ""
 
 msgid "Use cookies.txt"
-msgstr "از cookies.txt استفاده کن"
+msgstr ""
 
 msgid "Import cookies.txt"
-msgstr "وارد کردن cookies.txt"
+msgstr ""
 
 msgid "Remove cookies.txt"
-msgstr "حذف cookies.txt"
+msgstr ""
 
+#, fuzzy
+#| msgid "Warning"
 msgid "remaining"
-msgstr "باقی مانده"
+msgstr "هشدار"
 
+#, fuzzy
+#| msgid "Background Mode"
 msgid "Start in Background Mode"
-msgstr "شروع در حالت پس‌زمینه"
+msgstr "حالت پس‌زمینه"
 
 msgid "Remote Timestamp"
-msgstr "برچسب زمانی از راه دور"
+msgstr ""
 
 msgid "Torrent"
-msgstr "تورنت"
+msgstr ""
 
 # Updater
 msgid "Checking for updates..."
-msgstr "درحال بررسی برای به‌روزرسانی ها..."
+msgstr ""
 
 msgid "A new version of Varia is available. Do you want to update?"
-msgstr "نسخه جدیدی از واریا در دسترس است. آیا میخواهید به‌روزرسانی کنید؟"
+msgstr ""
 
 msgid "Update available"
-msgstr "به‌روزرسانی در دسترس است"
+msgstr ""
 
 msgid "Update"
-msgstr "به‌روزرسانی"
+msgstr ""
 
+#, fuzzy
+#| msgid "Download complete."
 msgid "Downloading update..."
-msgstr "درحال بارگیری به‌روزرسانی..."
+msgstr "بارگیری تکمیل شد."
 
+#, fuzzy
+#| msgid "Download complete."
 msgid "Download failed."
-msgstr "بارگیری شکست خورد."
+msgstr "بارگیری تکمیل شد."
 
 msgid "Yes"
-msgstr "بله"
+msgstr ""
 
 msgid "No"
-msgstr "خیر"
+msgstr ""
 
 msgid "Automatically Check for Updates"
-msgstr "به صورت خودکار برای به‌روزرسانی بررسی کن"
+msgstr ""
 
 msgid "Check Now"
-msgstr "الان بررسی کن"
+msgstr ""
 
 msgid "Do you want to check for updates on startup?"
-msgstr "آیا می‌خواهید هنگام راه‌اندازی، برای به‌روزرسانی‌ها بررسی انجام شود؟"
+msgstr ""
 
 msgid "File"
-msgstr "فایل"
+msgstr ""
 
 msgid "Video / Audio"
-msgstr "ویدیو / صدا"
+msgstr ""
 
 msgid "Video and audio"
-msgstr "ویدیو و صدا"
+msgstr ""
 
 msgid "Video only"
-msgstr "فقط ویدیو"
+msgstr ""
 
 msgid "Audio only"
-msgstr "فقط صدا"
+msgstr ""
 
 #: Relating to video download:
 msgid "Framerate:"
-msgstr "نرخ فریم:"
+msgstr ""
 
 #: Relating to video download:
 msgid "Bitrate:"
-msgstr "نرخ بیت:"
+msgstr ""
 
 msgid "Checking video..."
-msgstr "درحال بررسی ویدیو..."
+msgstr ""
 
 msgid "No video or audio streams found"
-msgstr "هیچ جریان ویدیو یا صوتی یافت نشد"
+msgstr ""
 
 msgid "Starting download..."
-msgstr "درحال شروع دانلود..."
+msgstr ""
 
 msgid ""
 "The video platform may not be supported or you may be being blocked by the "
 "platform. If you have an active VPN connection that might be the cause, or "
 "you can try importing your browser's cookies through a cookies.txt file."
 msgstr ""
-"ممکن است پلتفرم ویدیو پشتیبانی نشود یا ممکن است توسط پلتفرم مسدود شده باشید. "
-"اگر اتصال VPN فعال دارید، احتمالاً این علت است. همچنین می‌توانید با وارد کردن "
-"کوکی‌های مرورگرتان از طریق فایل cookies.txt این مشکل را برطرف کنید."
 
 msgid "This will disable the video download functionality."
-msgstr "این عملکرد دانلود ویدیو را غیر فعال می‌کند."
+msgstr ""
 
 #: Relating to video download progress where it says "Part 1/2" - {indicator}
 #: is replaced by "1/2" or "2/2" (don't translate {indicator})
 msgid "Part {indicator}"
-msgstr "بخش {indicator}"
+msgstr ""
 
+#, fuzzy
+#| msgid "Simultaneous Download Amount"
 msgid "Simultaneous download limit exceeded, waiting."
-msgstr "حد مجاز دانلود همزمان فراتر رفته است، در حال انتظار."
+msgstr "مقدار بارگیری همزمان"
 
 #: The way percentages will be shown, like 10% or %10 depending on the language
 #: (don't translate {number}, just move it if needed)
 msgid "{number}%"
-msgstr "{number}%"
+msgstr ""
 
 msgid "Allow Seeding"
-msgstr "اجازه دادن به بذرپاشی"
+msgstr ""
 
+#, fuzzy
+#| msgid "Speed Limit"
 msgid "Seeding Ratio Limit"
-msgstr "محدودیت سرعت بذرپاشی"
+msgstr "محدودیت سرعت"
 
 msgid "Torrent Settings"
-msgstr "تنظیمات تورنت"
+msgstr ""
 
+#, fuzzy
+#| msgid "Download Directory"
 msgid "Custom Download Directory for Torrents"
-msgstr "پوشه دانلود اختصاصی برای تورنت‌ها"
+msgstr "شاخهٔ بارگیری"
 
 #: When the user attempts to disable seeding
 msgid ""
@@ -446,25 +463,21 @@ msgid ""
 "as they download (a ratio of 1). You may want to consider limiting your "
 "seeding ratio instead."
 msgstr ""
-"از آنجا که تورنت‌کردن (اشتراک‌گذاری فایل) بر پایه اشتراک‌گذاری داده‌ها توسط "
-"کاربران (seed کردن) استوار است، غیرفعال کردن اشتراک‌گذاری به شدت ناپسند تلقی "
-"می‌شود و ممکن است باعث شود توسط برخی کلاینت‌ها و ردیاب‌ها (trackers) سرعت "
-"اینترنت شما کاهش یابد یا حتی مسدود شوید. معمولاً از کاربران انتظار می‌رود "
-"حداقل به اندازه‌ای که دانلود می‌کنند، داده اشتراک‌گذاری کنند (نسبت ۱ به ۱). "
-"بهتر است به جای غیرفعال کردن کامل، نسبت اشتراک‌گذاری خود را محدود کنید."
 
+#, fuzzy
+#| msgid "Cancel"
 msgid "Cancel Seeding"
-msgstr "لغو کردن بذرپاشی"
+msgstr "لغو"
 
 # Save button
 msgid "Save"
-msgstr "ذخیره"
+msgstr ""
 
 msgid "Show Menu"
-msgstr "نمایش منو"
+msgstr ""
 
 msgid "OK"
-msgstr "باشه"
+msgstr ""
 
 # Snap version permission warning
 msgid ""
@@ -472,169 +485,72 @@ msgid ""
 "completion option you must first give Varia the related permission. To do "
 "this, open a terminal window and execute this command and then restart Varia:"
 msgstr ""
-"شما در حال استفاده از Varia به صورت بسته Snap هستید. برای اینکه بتوانید "
-"گزینه خاموش شدن پس از اتمام را فعال کنید، ابتدا باید اجازه مربوطه را به "
-"Varia بدهید. برای این کار، یک پنجره ترمینال باز کنید و این دستور را اجرا "
-"کنید و سپس Varia را مجدداً راه‌اندازی کنید:"
 
 msgid "Enable Torrenting"
-msgstr "فعال کردن تورنت"
+msgstr ""
 
 msgid "The browser extension will not work when Remote Mode is enabled."
 msgstr ""
-"وقتی حالت راه دور (Remote Mode) فعال باشد، افزونه مرورگر کار نخواهد کرد."
 
 msgid ""
 "Disabling torrenting will prevent new torrents from being added. It will not "
 "stop current torrent instances."
 msgstr ""
-"غیرفعال کردن تورنت باعث می‌شود که تورنت‌های جدید اضافه نشوند. اما تورنت‌های در "
-"حال اجرا را متوقف نخواهد کرد."
 
 msgid "Torrenting is disabled."
-msgstr "تورنت غیرفعال شده است."
+msgstr ""
 
 msgid "Unknown filesize"
-msgstr "حجم فایل نامشخص"
+msgstr ""
 
 # Tray icon show button
 msgid "Show"
-msgstr "نمایش"
+msgstr ""
 
+#, fuzzy
+#| msgctxt "shortcut window"
+#| msgid "Quit"
 msgid "Quit"
 msgstr "خروج"
 
+#, fuzzy
+#| msgid "Background Mode"
 msgid "Background Mode on Close"
-msgstr "ورود به حالت پس‌زمینه پس از خروج"
+msgstr "حالت پس‌زمینه"
 
 msgid "Upon closing, Varia will close to tray insted of exiting."
 msgstr ""
-"پس از بستن، Varia به جای خروج کامل، در نوار وظیفه (tray) بسته خواهد شد."
 
 # Tray icon always visible option
 msgid "Tray Icon Always Visible"
-msgstr "آیکون نوار وظیفه همیشه قابل مشاهده باشد"
+msgstr ""
 
 msgid ""
 "The tray icon will be visible even when Varia is not in background mode."
 msgstr ""
-"آیکون نوار وظیفه حتی زمانی که Varia در حالت پس‌زمینه نیست نیز قابل مشاهده "
-"خواهد بود."
 
 # Open on startup option
 msgid "Open on Startup"
-msgstr "باز شدن هنگام راه‌اندازی سیستم"
+msgstr ""
 
 msgid "Varia will open automatically when the system starts."
-msgstr "Varia به‌طور خودکار هنگام راه‌اندازی سیستم باز خواهد شد."
+msgstr ""
 
 # Start on background mode subtitle
 msgid "Varia will start directly in background mode upon opening."
-msgstr "Varia به محض باز شدن مستقیماً در حالت پس‌زمینه شروع خواهد کرد."
+msgstr ""
 
 # Remote mode additional explanation
 msgid "Use Varia as a GUI for a remote aria2c instance."
 msgstr ""
-"از Varia به عنوان رابط گرافیکی (GUI) برای یک نمونه‌ی راه دور aria2c استفاده "
-"کنید."
 
 msgid "Configure"
-msgstr "پیکربندی کنید"
+msgstr ""
 
+#, fuzzy
+#| msgid "Download complete."
 msgid "Download Segments"
-msgstr "دانلود بخش‌ها"
-
-#, fuzzy
-#| msgid "Pause All"
-msgid "Pause"
-msgstr "مکث همه"
-
-#, fuzzy
-#| msgid "Resume All"
-msgid "Resume"
-msgstr "از سرگیری همه"
-
-msgid "Stop"
-msgstr ""
-
-#, fuzzy
-#| msgid "File"
-msgid "Open File"
-msgstr "فایل"
-
-msgid "Retry"
-msgstr ""
-
-msgid "Require Encryption"
-msgstr ""
-
-msgid "Get Country Info of Peers"
-msgstr ""
-
-msgid ""
-"This will use an external service to get the IP geolocation of your torrent "
-"peers in order to show country flags in the details window."
-msgstr ""
-
-#, fuzzy
-#| msgid "Download failed."
-msgid "Download Details"
-msgstr "بارگیری شکست خورد."
-
-msgid "Type"
-msgstr ""
-
-msgid "Status"
-msgstr ""
-
-#, fuzzy
-#| msgid "File"
-msgid "File Name"
-msgstr "فایل"
-
-#, fuzzy
-#| msgid "Download"
-msgid "Downloading"
-msgstr "بارگیری"
-
-#, fuzzy
-#| msgid "Pause All"
-msgid "Paused"
-msgstr "مکث همه"
-
-msgid "Percentage Downloaded"
-msgstr ""
-
-#, fuzzy
-#| msgid "remaining"
-msgid "Remaining"
-msgstr "باقی مانده"
-
-#, fuzzy
-#| msgid "Download Segments"
-msgid "Download Speed"
-msgstr "دانلود بخش‌ها"
-
-#, fuzzy
-#| msgid "Seeding"
-msgid "Seeding Speed"
-msgstr "بذر دهی"
-
-#, fuzzy
-#| msgid "Download Segments"
-msgid "Amount Downloaded"
-msgstr "دانلود بخش‌ها"
-
-msgid "Amount Uploaded"
-msgstr ""
-
-msgid "Ratio"
-msgstr ""
-
-#, fuzzy
-#| msgid "Torrent"
-msgid "Torrent Peers"
-msgstr "تورنت"
+msgstr "بارگیری تکمیل شد."
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

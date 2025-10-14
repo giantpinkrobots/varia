@@ -1,4 +1,4 @@
-variaVersion = "v2025.10.14" # Also update actions-inno-install-script.iss
+variaVersion = "v2025.7.19-1"
 
 import ctypes
 import gi
@@ -59,7 +59,6 @@ class MainWindow(application_window):
         self.ffmpegexec = ffmpegexec
         self.tray_connection_thread_stop = False
         self.tray_process = None
-        self.ip_geolocation_cache = {}
 
         # Set up variables and all:
         aria2_connection_successful = initiate(self, variaapp, variaVersion, first_run, issnap)
@@ -72,30 +71,22 @@ class MainWindow(application_window):
         window_create_content(self)
 
         if self.appconf["schedule_enabled"] == 1:
-            try:
-                self.sidebar_content_box.remove(self.sidebar_scheduler_label)
-            except:
-                pass
-            self.sidebar_content_box.append(self.sidebar_scheduler_label)
+            self.sidebar_scheduler_label.set_label(_("Scheduler enabled"))
 
         # Check if the download path still exists:
         if not (os.path.exists(self.appconf["download_directory"])):
-            if GLib.get_user_special_dir(GLib.DIRECTORY_DOWNLOAD) and os.path.exists(GLib.get_user_special_dir(GLib.DIRECTORY_DOWNLOAD)):
+            if (os.path.exists(GLib.get_user_special_dir(GLib.DIRECTORY_DOWNLOAD))):
                 self.appconf["download_directory"] = GLib.get_user_special_dir(GLib.DIRECTORY_DOWNLOAD)
-            elif GLib.get_user_special_dir(GLib.DIRECTORY_HOME):
-                self.appconf["download_directory"] = GLib.get_user_special_dir(GLib.DIRECTORY_HOME)
             else:
-                self.appconf["download_directory"] = os.path.expanduser("~")
+                self.appconf["download_directory"] = GLib.get_user_special_dir(GLib.DIRECTORY_HOME)
             self.save_appconf()
 
         # Check if the custom torrent download path still exists:
         if not (os.path.exists(self.appconf["torrent_download_directory"])):
-            if GLib.get_user_special_dir(GLib.DIRECTORY_DOWNLOAD) and os.path.exists(GLib.get_user_special_dir(GLib.DIRECTORY_DOWNLOAD)):
+            if (os.path.exists(GLib.get_user_special_dir(GLib.DIRECTORY_DOWNLOAD))):
                 self.appconf["torrent_download_directory"] = GLib.get_user_special_dir(GLib.DIRECTORY_DOWNLOAD)
-            elif GLib.get_user_special_dir(GLib.DIRECTORY_HOME):
-                self.appconf["torrent_download_directory"] = GLib.get_user_special_dir(GLib.DIRECTORY_HOME)
             else:
-                self.appconf["torrent_download_directory"] = os.path.expanduser("~")
+                self.appconf["torrent_download_directory"] = GLib.get_user_special_dir(GLib.DIRECTORY_HOME)
             self.save_appconf()
 
         # Set download speed limit from appconf:
@@ -144,9 +135,6 @@ class MainWindow(application_window):
 
         # Set cookies.txt:
         set_aria2c_cookies(self)
-
-        # Set bt require encryption:
-        set_aria2c_custom_global_option(self, "bt-force-encryption", self.appconf["torrent_require_encryption"])
 
         # Listen to aria2c:
         thread = threading.Thread(target=lambda: listen_to_aria2(self, variaapp), daemon=True)
@@ -197,9 +185,9 @@ class MainWindow(application_window):
         self.check_all_status() # Set Pause All / Resume All button
 
         self.connect('close-request', self.exit_or_tray, variaapp)
+
         self.connect("notify::default-width", self.on_window_resize)
-        self.connect("notify::maximized", self.on_window_resize)
-        GLib.timeout_add(100, self.on_window_resize, None, None)
+        self.on_window_resize(None, None)
 
         self.tray_notification = False
 
@@ -394,11 +382,7 @@ class MainWindow(application_window):
     # Adaptive layout stuff:
 
     def on_window_resize(self, widget, param):
-        GLib.idle_add(self.apply_window_resize)
-        GLib.timeout_add(50, self.apply_window_resize)
-    
-    def apply_window_resize(self):
-        if self.root_window_overlay.get_width() < 600:
+        if self.get_default_size()[0] < 600:
             self.header_show_sidebar_button_revealer.set_reveal_child(True)
             self.status_page_begin_button_revealer.set_reveal_child(True)
             self.overlay_split_view.set_show_sidebar(False)
@@ -446,6 +430,8 @@ class MainWindow(application_window):
                 for download_thread in self.downloads:
                     download_thread.pause(False)
 
+            self.check_all_status()
+
     def check_all_status(self):
         if len(self.downloads) == 0:
             self.all_paused = False
@@ -477,10 +463,15 @@ class MainWindow(application_window):
                 self.header_pause_button.set_sensitive(True)
 
     def stop_all(self, app, variaapp):
-        while self.downloads != []:
-            for download_item in self.downloads:
-                download_item.stop()
-
+        while (self.downloads != []):
+            child = self.download_list.get_first_child()
+            while child is not None:
+                next_child = child.get_next_sibling()
+                self.download_list.remove(child)
+                child = next_child
+            for download_thread in self.downloads:
+                download_thread.stop()
+                self.downloads.remove(download_thread)
         self.header_pause_content.set_icon_name("media-playback-pause-symbolic")
         self.header_pause_content.set_label(_("Pause All"))
         self.header_pause_button.set_sensitive(False)
@@ -715,7 +706,7 @@ class MyApp(Adw.Application):
                     actionrow.download_thread = download_thread
                     self.win.downloads.append(download_thread)
                     download_thread.start()
-                    download_thread.actionrow.pause_button.set_visible(True)
+                    download_thread.pause_button.set_visible(True)
             
             elif item.endswith(".torrent"):
                 if self.win.appconf['torrent_enabled'] == '0':
@@ -791,8 +782,6 @@ def main(version, aria2cexec, ffmpegexec, issnap, arguments):
         'torrent_download_directory_custom_enabled': '0',
         'torrent_download_directory': download_directory,
         'torrent_enabled': '1',
-        'torrent_require_encryption': 'false',
-        'torrent_peers_ip_lookup': '1',
         'autostart_on_boot_enabled': 'false'}
 
     if os.path.exists(os.path.join(appdir, 'varia.conf')):

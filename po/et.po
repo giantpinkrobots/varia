@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-09-24 12:02+0000\n"
+"PO-Revision-Date: 2025-07-11 06:06+0000\n"
 "Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/varia/varia/et/>"
 "\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -542,76 +542,6 @@ msgstr "Seadista"
 
 msgid "Download Segments"
 msgstr "Laadi segmendid alla"
-
-msgid "Pause"
-msgstr "Peata"
-
-msgid "Resume"
-msgstr "Jätka"
-
-msgid "Stop"
-msgstr "Lõpeta"
-
-msgid "Open File"
-msgstr "Ava fail"
-
-msgid "Retry"
-msgstr "Proovi uuesti"
-
-msgid "Require Encryption"
-msgstr "Eelda krüptimist"
-
-msgid "Get Country Info of Peers"
-msgstr "Tuvasta võrdõigusvõrgu sõlmede riigid"
-
-msgid ""
-"This will use an external service to get the IP geolocation of your torrent "
-"peers in order to show country flags in the details window."
-msgstr ""
-"Selleks on kasutusel väline teenus, mis sinna edastatud IP-aadressi alusel "
-"kuvab üksikasjade vaates torrenti kõikide otspunktide asukohariikide lipud."
-
-msgid "Download Details"
-msgstr "Allalaadimise üksikasjad"
-
-msgid "Type"
-msgstr "Tüüp"
-
-msgid "Status"
-msgstr "Olek"
-
-msgid "File Name"
-msgstr "Failinimi"
-
-msgid "Downloading"
-msgstr "Allalaadimisel"
-
-msgid "Paused"
-msgstr "Peatatud"
-
-msgid "Percentage Downloaded"
-msgstr "Allalaaditud protsent"
-
-msgid "Remaining"
-msgstr "Aega jäänud"
-
-msgid "Download Speed"
-msgstr "Allalaadimise kiirus"
-
-msgid "Seeding Speed"
-msgstr "Edasijagamise kiirus"
-
-msgid "Amount Downloaded"
-msgstr "Allalaaditud maht"
-
-msgid "Amount Uploaded"
-msgstr "Üleslaaditud maht"
-
-msgid "Ratio"
-msgstr "Suhtarv"
-
-msgid "Torrent Peers"
-msgstr "Torrenti võrdvõrgu sõlmed"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
