@@ -536,6 +536,98 @@ msgstr ""
 msgid "Download Segments"
 msgstr "下載完成。"
 
+#, fuzzy
+#| msgid "Pause All"
+msgid "Pause"
+msgstr "全部暫停"
+
+#, fuzzy
+#| msgid "Resume All"
+msgid "Resume"
+msgstr "全部復原"
+
+msgid "Stop"
+msgstr ""
+
+#, fuzzy
+#| msgid "File"
+msgid "Open File"
+msgstr "檔案"
+
+msgid "Retry"
+msgstr ""
+
+msgid "Require Encryption"
+msgstr ""
+
+msgid "Get Country Info of Peers"
+msgstr ""
+
+msgid ""
+"This will use an external service to get the IP geolocation of your torrent "
+"peers in order to show country flags in the details window."
+msgstr ""
+
+#, fuzzy
+#| msgid "Download failed."
+msgid "Download Details"
+msgstr "下載失敗。"
+
+msgid "Type"
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+#, fuzzy
+#| msgid "File"
+msgid "File Name"
+msgstr "檔案"
+
+#, fuzzy
+#| msgid "Download"
+msgid "Downloading"
+msgstr "下載"
+
+#, fuzzy
+#| msgid "Pause All"
+msgid "Paused"
+msgstr "全部暫停"
+
+msgid "Percentage Downloaded"
+msgstr ""
+
+#, fuzzy
+#| msgid "remaining"
+msgid "Remaining"
+msgstr "剩下的"
+
+#, fuzzy
+#| msgid "Download complete."
+msgid "Download Speed"
+msgstr "下載完成。"
+
+#, fuzzy
+#| msgid "Seeding"
+msgid "Seeding Speed"
+msgstr "正在做種"
+
+#, fuzzy
+#| msgid "Download complete."
+msgid "Amount Downloaded"
+msgstr "下載完成。"
+
+msgid "Amount Uploaded"
+msgstr ""
+
+msgid "Ratio"
+msgstr ""
+
+#, fuzzy
+#| msgid "Torrent"
+msgid "Torrent Peers"
+msgstr "種子"
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"

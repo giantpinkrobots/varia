@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-06-20 14:27+0000\n"
+"PO-Revision-Date: 2025-07-20 08:06+0000\n"
 "Last-Translator: Mie <miesiva@tutanota.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/varia/varia/"
 "id/>\n"
@@ -542,10 +542,100 @@ msgstr ""
 msgid "Configure"
 msgstr "Konfigurasi"
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Download Segments"
-msgstr "Unduhan selesai."
+msgstr "Unduh Segmen"
+
+#, fuzzy
+#| msgid "Pause All"
+msgid "Pause"
+msgstr "Jeda semuanya"
+
+#, fuzzy
+#| msgid "Resume All"
+msgid "Resume"
+msgstr "Lanjutkan semua"
+
+msgid "Stop"
+msgstr ""
+
+#, fuzzy
+#| msgid "File"
+msgid "Open File"
+msgstr "Berkas"
+
+msgid "Retry"
+msgstr ""
+
+msgid "Require Encryption"
+msgstr ""
+
+msgid "Get Country Info of Peers"
+msgstr ""
+
+msgid ""
+"This will use an external service to get the IP geolocation of your torrent "
+"peers in order to show country flags in the details window."
+msgstr ""
+
+#, fuzzy
+#| msgid "Download failed."
+msgid "Download Details"
+msgstr "Unduhan gagal."
+
+msgid "Type"
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+#, fuzzy
+#| msgid "File"
+msgid "File Name"
+msgstr "Berkas"
+
+#, fuzzy
+#| msgid "Download"
+msgid "Downloading"
+msgstr "Unduh"
+
+#, fuzzy
+#| msgid "Pause All"
+msgid "Paused"
+msgstr "Jeda semuanya"
+
+msgid "Percentage Downloaded"
+msgstr ""
+
+#, fuzzy
+#| msgid "remaining"
+msgid "Remaining"
+msgstr "tersisa"
+
+#, fuzzy
+#| msgid "Download Segments"
+msgid "Download Speed"
+msgstr "Unduh Segmen"
+
+#, fuzzy
+#| msgid "Seeding"
+msgid "Seeding Speed"
+msgstr "Seeding"
+
+#, fuzzy
+#| msgid "Download Segments"
+msgid "Amount Downloaded"
+msgstr "Unduh Segmen"
+
+msgid "Amount Uploaded"
+msgstr ""
+
+msgid "Ratio"
+msgstr ""
+
+#, fuzzy
+#| msgid "Torrent"
+msgid "Torrent Peers"
+msgstr "Torrent"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

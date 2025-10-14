@@ -10,8 +10,8 @@ msgstr ""
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
 "PO-Revision-Date: 2025-07-11 06:06+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/varia/varia/es/>"
-"\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/varia/varia/es/"
+">\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -539,6 +539,98 @@ msgstr "Configurar"
 
 msgid "Download Segments"
 msgstr "Descarga por segmentos"
+
+#, fuzzy
+#| msgid "Pause All"
+msgid "Pause"
+msgstr "Pausar todo"
+
+#, fuzzy
+#| msgid "Resume All"
+msgid "Resume"
+msgstr "Reanudar todo"
+
+msgid "Stop"
+msgstr ""
+
+#, fuzzy
+#| msgid "File"
+msgid "Open File"
+msgstr "Archivo"
+
+msgid "Retry"
+msgstr ""
+
+msgid "Require Encryption"
+msgstr ""
+
+msgid "Get Country Info of Peers"
+msgstr ""
+
+msgid ""
+"This will use an external service to get the IP geolocation of your torrent "
+"peers in order to show country flags in the details window."
+msgstr ""
+
+#, fuzzy
+#| msgid "Download failed."
+msgid "Download Details"
+msgstr "Descarga fallida."
+
+msgid "Type"
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+#, fuzzy
+#| msgid "File"
+msgid "File Name"
+msgstr "Archivo"
+
+#, fuzzy
+#| msgid "Download"
+msgid "Downloading"
+msgstr "Descargar"
+
+#, fuzzy
+#| msgid "Pause All"
+msgid "Paused"
+msgstr "Pausar todo"
+
+msgid "Percentage Downloaded"
+msgstr ""
+
+#, fuzzy
+#| msgid "remaining"
+msgid "Remaining"
+msgstr "restante"
+
+#, fuzzy
+#| msgid "Download Segments"
+msgid "Download Speed"
+msgstr "Descarga por segmentos"
+
+#, fuzzy
+#| msgid "Seeding"
+msgid "Seeding Speed"
+msgstr "Compartiendo"
+
+#, fuzzy
+#| msgid "Download Segments"
+msgid "Amount Downloaded"
+msgstr "Descarga por segmentos"
+
+msgid "Amount Uploaded"
+msgstr ""
+
+msgid "Ratio"
+msgstr ""
+
+#, fuzzy
+#| msgid "Torrent"
+msgid "Torrent Peers"
+msgstr "Torrent"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

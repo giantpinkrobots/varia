@@ -540,6 +540,98 @@ msgstr "உள்ளமை"
 msgid "Download Segments"
 msgstr "முழுமையான பதிவிறக்கம்."
 
+#, fuzzy
+#| msgid "Pause All"
+msgid "Pause"
+msgstr "அனைத்தையும் இடைநிறுத்துங்கள்"
+
+#, fuzzy
+#| msgid "Resume All"
+msgid "Resume"
+msgstr "அனைத்தையும் மீண்டும் தொடங்குங்கள்"
+
+msgid "Stop"
+msgstr ""
+
+#, fuzzy
+#| msgid "File"
+msgid "Open File"
+msgstr "கோப்பு"
+
+msgid "Retry"
+msgstr ""
+
+msgid "Require Encryption"
+msgstr ""
+
+msgid "Get Country Info of Peers"
+msgstr ""
+
+msgid ""
+"This will use an external service to get the IP geolocation of your torrent "
+"peers in order to show country flags in the details window."
+msgstr ""
+
+#, fuzzy
+#| msgid "Download failed."
+msgid "Download Details"
+msgstr "பதிவிறக்கம் தோல்வியடைந்தது."
+
+msgid "Type"
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+#, fuzzy
+#| msgid "File"
+msgid "File Name"
+msgstr "கோப்பு"
+
+#, fuzzy
+#| msgid "Download"
+msgid "Downloading"
+msgstr "பதிவிறக்கம்"
+
+#, fuzzy
+#| msgid "Pause All"
+msgid "Paused"
+msgstr "அனைத்தையும் இடைநிறுத்துங்கள்"
+
+msgid "Percentage Downloaded"
+msgstr ""
+
+#, fuzzy
+#| msgid "remaining"
+msgid "Remaining"
+msgstr "மீதமுள்ள"
+
+#, fuzzy
+#| msgid "Download complete."
+msgid "Download Speed"
+msgstr "முழுமையான பதிவிறக்கம்."
+
+#, fuzzy
+#| msgid "Seeding"
+msgid "Seeding Speed"
+msgstr "விதைப்பு"
+
+#, fuzzy
+#| msgid "Download complete."
+msgid "Amount Downloaded"
+msgstr "முழுமையான பதிவிறக்கம்."
+
+msgid "Amount Uploaded"
+msgstr ""
+
+msgid "Ratio"
+msgstr ""
+
+#, fuzzy
+#| msgid "Torrent"
+msgid "Torrent Peers"
+msgstr "டொரண்ட்"
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"

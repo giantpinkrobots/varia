@@ -547,6 +547,98 @@ msgstr ""
 msgid "Download Segments"
 msgstr "Tải xuống hoàn thành."
 
+#, fuzzy
+#| msgid "Pause All"
+msgid "Pause"
+msgstr "Dừng Tất Cả"
+
+#, fuzzy
+#| msgid "Resume All"
+msgid "Resume"
+msgstr "Tiếp tục tất cả"
+
+msgid "Stop"
+msgstr ""
+
+#, fuzzy
+#| msgid "File"
+msgid "Open File"
+msgstr "File"
+
+msgid "Retry"
+msgstr ""
+
+msgid "Require Encryption"
+msgstr ""
+
+msgid "Get Country Info of Peers"
+msgstr ""
+
+msgid ""
+"This will use an external service to get the IP geolocation of your torrent "
+"peers in order to show country flags in the details window."
+msgstr ""
+
+#, fuzzy
+#| msgid "Download failed."
+msgid "Download Details"
+msgstr "Tải xuống thất bại."
+
+msgid "Type"
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+#, fuzzy
+#| msgid "File"
+msgid "File Name"
+msgstr "File"
+
+#, fuzzy
+#| msgid "Download"
+msgid "Downloading"
+msgstr "Tải xuống"
+
+#, fuzzy
+#| msgid "Pause All"
+msgid "Paused"
+msgstr "Dừng Tất Cả"
+
+msgid "Percentage Downloaded"
+msgstr ""
+
+#, fuzzy
+#| msgid "remaining"
+msgid "Remaining"
+msgstr "còn lại"
+
+#, fuzzy
+#| msgid "Download complete."
+msgid "Download Speed"
+msgstr "Tải xuống hoàn thành."
+
+#, fuzzy
+#| msgid "Seeding"
+msgid "Seeding Speed"
+msgstr "Seeding"
+
+#, fuzzy
+#| msgid "Download complete."
+msgid "Amount Downloaded"
+msgstr "Tải xuống hoàn thành."
+
+msgid "Amount Uploaded"
+msgstr ""
+
+msgid "Ratio"
+msgstr ""
+
+#, fuzzy
+#| msgid "Torrent"
+msgid "Torrent Peers"
+msgstr "Torrent"
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
