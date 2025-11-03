@@ -150,8 +150,19 @@ def initiate(self, variaapp, variaVersion, first_run, issnap):
         dialog.present(self)
 
     elif issnap and first_run:
+        dialog_commands_label = Gtk.Label()
+        dialog_commands_label.set_wrap(True)
+        dialog_commands_label.set_selectable(True)
+        dialog_commands_label.set_markup("<b>$</b> sudo snap connect varia:dbus-varia-tray"
+                                    + "\n<b>$</b> sudo snap connect varia:dbusmenu"
+                                    + "\n<b>$</b> sudo snap connect varia:shutdown")
+
         dialog = Adw.AlertDialog()
-        dialog.set_body(_("You are using Varia as a Snap package. To be able to use the shutdown on completion option you must first give Varia the related permission. To do this, open a terminal window and execute this command and then restart Varia:") + "\n\n$ sudo snap connect varia:shutdown")
+        dialog.set_body(_("You are using Varia as a Snap package. There are some functions that you can't use without manually giving Varia some extra permissions. These are:")
+                        + "\n\n - " + _("Background Mode")
+                        + "\n - " + _("Shutdown on Completion")
+                        + "\n\n" + _("To enable these functions you must run these commands in a terminal to give the required permissions and then restart Varia:"))
+        dialog.set_extra_child(dialog_commands_label)
         dialog.add_response("ok",  _("OK"))
         dialog.set_response_appearance("ok", Adw.ResponseAppearance.SUGGESTED)
         dialog.set_close_response("ok")

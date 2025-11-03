@@ -1,6 +1,6 @@
 name: varia
 base: core24
-version: 'v2025.10.14'
+version: 'v2025.10.14-1'
 summary: Download files, videos and torrents
 description: |
   Varia is a file, video and torrent downloader based on aria2 and yt-dlp
@@ -13,7 +13,8 @@ slots:
     interface: dbus
     bus: session
     name: io.github.giantpinkrobots.varia
-    
+
+plugs:
   dbus-varia-tray:
     interface: dbus
     bus: session
@@ -124,7 +125,6 @@ apps:
     command: usr/bin/varia
     slots:
       - dbus-varia
-      - dbus-varia-tray
     plugs:
       - network
       - home
@@ -132,6 +132,8 @@ apps:
       - x11
       - desktop
       - shutdown
+      - dbus-varia-tray
+      - dbusmenu
     desktop: usr/share/applications/io.github.giantpinkrobots.varia.desktop
     common-id: io.github.giantpinkrobots.varia.desktop
     autostart: io.github.giantpinkrobots.varia.desktop
