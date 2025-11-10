@@ -205,6 +205,12 @@ class MainWindow(application_window):
 
         self.present()
 
+        # Run on_window_resize when the window is presented:
+        def on_window_map(self):
+            GLib.idle_add(self.on_window_resize, None, None)
+
+        self.connect("map", on_window_map)
+
         # Start in background mode if it was enabled in preferences:
         if (self.appconf["default_mode"] == "background"):
             self.suppress_startup_notification = True
