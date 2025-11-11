@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-09-24 12:02+0000\n"
+"PO-Revision-Date: 2025-11-03 23:02+0000\n"
 "Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/varia/varia/et/>"
 "\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -29,8 +29,8 @@ msgstr "Varia"
 #: data/io.github.giantpinkrobots.varia.desktop.in:11
 msgid "varia;aria;download;manager;"
 msgstr ""
-"varia;aria;download;manager;allalaadimine;allalaadimiste haldus;"
-"allalaadimishaldur;laadi alla;lae alla;"
+"varia;aria;download;manager;allalaadimine;allalaadimiste "
+"haldus;allalaadimishaldur;laadi alla;lae alla;"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
 msgid "Download manager based on aria2"
@@ -414,8 +414,8 @@ msgid ""
 msgstr ""
 "Selle videoplatvormi tugi kas puudub või platvorm blokeerib sinu arvuti ip-"
 "aadressi. Kui kasutad VPN-ühendust, siis võib ka see olukorra põhjustada. "
-"Ühe lahendusena võid proovida importida oma veebibrauseri küpsised cookies."
-"txt faili abil."
+"Ühe lahendusena võid proovida importida oma veebibrauseri küpsised "
+"cookies.txt faili abil."
 
 msgid "This will disable the video download functionality."
 msgstr "Sellega eemaldad kasutuselt video allalaadimise funktsionaalsuse."
@@ -472,16 +472,6 @@ msgstr "Näita menüüd"
 
 msgid "OK"
 msgstr "Sobib"
-
-# Snap version permission warning
-msgid ""
-"You are using Varia as a Snap package. To be able to use the shutdown on "
-"completion option you must first give Varia the related permission. To do "
-"this, open a terminal window and execute this command and then restart Varia:"
-msgstr ""
-"Sa kasutad Variat Snapi paketina. Kui soovid, et saaksid peala allalaadimist "
-"arvuti kinni panna, siis palun anna Variale vastavad õigused. Selleks ava "
-"terminali aken, käivita alljärgnev käsk ning seejärel käivita Varia uuesti:"
 
 msgid "Enable Torrenting"
 msgstr "Luba torrenti kasutamine"
@@ -613,6 +603,23 @@ msgstr "Suhtarv"
 msgid "Torrent Peers"
 msgstr "Torrenti võrdvõrgu sõlmed"
 
+# Snap packaging permissions dialog part 1/2
+msgid ""
+"You are using Varia as a Snap package. There are some functions that you "
+"can't use without manually giving Varia some extra permissions. These are:"
+msgstr ""
+"Sa kasutad Variat snapi paketina. Seetõtu on paar järgnevat "
+"funktsionaalsust, mis ei toimi enne, kui oled käsitsi Variale andnud "
+"vastavad õigused:"
+
+# Snap packaging permissions dialog part 2/2
+msgid ""
+"To enable these functions you must run these commands in a terminal to give "
+"the required permissions and then restart Varia:"
+msgstr ""
+"Nende funktsionaalsuste kasutamiseks sa pead vajalike õiguste lubamiseks "
+"terminalis käivitama järgnevad käsud ja siis Varia uuesti käivitama:"
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
@@ -627,6 +634,18 @@ msgstr "Näita kiirklahve"
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Välju"
+
+# Snap version permission warning
+#~ msgid ""
+#~ "You are using Varia as a Snap package. To be able to use the shutdown on "
+#~ "completion option you must first give Varia the related permission. To do "
+#~ "this, open a terminal window and execute this command and then restart "
+#~ "Varia:"
+#~ msgstr ""
+#~ "Sa kasutad Variat Snapi paketina. Kui soovid, et saaksid peala "
+#~ "allalaadimist arvuti kinni panna, siis palun anna Variale vastavad "
+#~ "õigused. Selleks ava terminali aken, käivita alljärgnev käsk ning "
+#~ "seejärel käivita Varia uuesti:"
 
 #~ msgid "Torrenting Disabled"
 #~ msgstr "Torrentipõhine allalaadimine pole kasutusel"

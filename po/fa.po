@@ -466,17 +466,6 @@ msgstr "نمایش منو"
 msgid "OK"
 msgstr "باشه"
 
-# Snap version permission warning
-msgid ""
-"You are using Varia as a Snap package. To be able to use the shutdown on "
-"completion option you must first give Varia the related permission. To do "
-"this, open a terminal window and execute this command and then restart Varia:"
-msgstr ""
-"شما در حال استفاده از Varia به صورت بسته Snap هستید. برای اینکه بتوانید "
-"گزینه خاموش شدن پس از اتمام را فعال کنید، ابتدا باید اجازه مربوطه را به "
-"Varia بدهید. برای این کار، یک پنجره ترمینال باز کنید و این دستور را اجرا "
-"کنید و سپس Varia را مجدداً راه‌اندازی کنید:"
-
 msgid "Enable Torrenting"
 msgstr "فعال کردن تورنت"
 
@@ -636,6 +625,18 @@ msgstr ""
 msgid "Torrent Peers"
 msgstr "تورنت"
 
+# Snap packaging permissions dialog part 1/2
+msgid ""
+"You are using Varia as a Snap package. There are some functions that you "
+"can't use without manually giving Varia some extra permissions. These are:"
+msgstr ""
+
+# Snap packaging permissions dialog part 2/2
+msgid ""
+"To enable these functions you must run these commands in a terminal to give "
+"the required permissions and then restart Varia:"
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
@@ -650,3 +651,15 @@ msgstr "نمایش میانبرها"
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "خروج"
+
+# Snap version permission warning
+#~ msgid ""
+#~ "You are using Varia as a Snap package. To be able to use the shutdown on "
+#~ "completion option you must first give Varia the related permission. To do "
+#~ "this, open a terminal window and execute this command and then restart "
+#~ "Varia:"
+#~ msgstr ""
+#~ "شما در حال استفاده از Varia به صورت بسته Snap هستید. برای اینکه بتوانید "
+#~ "گزینه خاموش شدن پس از اتمام را فعال کنید، ابتدا باید اجازه مربوطه را به "
+#~ "Varia بدهید. برای این کار، یک پنجره ترمینال باز کنید و این دستور را اجرا "
+#~ "کنید و سپس Varia را مجدداً راه‌اندازی کنید:"

@@ -410,8 +410,8 @@ msgid ""
 msgstr ""
 "A plataforma de vídeo pode não ser suportada ou pode ser bloqueado pela "
 "plataforma. Se tem uma conexão VPN ativa que pode ser a causa, ou pode "
-"tentar importar os cookies do seu navegador através de um ficheiro cookies."
-"txt."
+"tentar importar os cookies do seu navegador através de um ficheiro "
+"cookies.txt."
 
 msgid "This will disable the video download functionality."
 msgstr "Isto irá desativar a funcionalidade de descarga de vídeo."
@@ -467,17 +467,6 @@ msgstr "Exibir Menu"
 
 msgid "OK"
 msgstr "OK"
-
-# Snap version permission warning
-msgid ""
-"You are using Varia as a Snap package. To be able to use the shutdown on "
-"completion option you must first give Varia the related permission. To do "
-"this, open a terminal window and execute this command and then restart Varia:"
-msgstr ""
-"Usa o Varia como um pacote Snap. Para poder usar a opção de desligamento ao "
-"concluir, precisa primeiro conceder ao Varia a permissão correspondente. "
-"Para isto, abra uma janela de terminal, execute este comando e reinicie o "
-"Varia:"
 
 msgid "Enable Torrenting"
 msgstr "Ativar torrent"
@@ -638,6 +627,18 @@ msgstr ""
 msgid "Torrent Peers"
 msgstr "Torrent"
 
+# Snap packaging permissions dialog part 1/2
+msgid ""
+"You are using Varia as a Snap package. There are some functions that you "
+"can't use without manually giving Varia some extra permissions. These are:"
+msgstr ""
+
+# Snap packaging permissions dialog part 2/2
+msgid ""
+"To enable these functions you must run these commands in a terminal to give "
+"the required permissions and then restart Varia:"
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
@@ -652,3 +653,15 @@ msgstr "Mostrar Atalhos"
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Sair"
+
+# Snap version permission warning
+#~ msgid ""
+#~ "You are using Varia as a Snap package. To be able to use the shutdown on "
+#~ "completion option you must first give Varia the related permission. To do "
+#~ "this, open a terminal window and execute this command and then restart "
+#~ "Varia:"
+#~ msgstr ""
+#~ "Usa o Varia como um pacote Snap. Para poder usar a opção de desligamento "
+#~ "ao concluir, precisa primeiro conceder ao Varia a permissão "
+#~ "correspondente. Para isto, abra uma janela de terminal, execute este "
+#~ "comando e reinicie o Varia:"

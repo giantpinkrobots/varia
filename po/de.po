@@ -3,22 +3,21 @@
 # This file is distributed under the same license as the Varia package.
 #
 # Philipp Kiemle <philipp.kiemle@gmail.com>, 2023-2024.
-# xXSunfaceXx <xxsunfacexx@posteo.de>, 2025. # Translation fully reviewed and revised.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-10-16 13:45+0000\n"
-"Last-Translator: xXSunfaceXx <xxsunfacexx@posteo.de>\n"
+"PO-Revision-Date: 2025-11-10 20:21+0000\n"
+"Last-Translator: xXSunfaceXx <community.shell@posteo.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/varia/varia/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -353,7 +352,6 @@ msgstr "Aktualisierung verfügbar"
 msgid "Update"
 msgstr "Aktualisieren"
 
-#| msgid "Download complete."
 msgid "Downloading update..."
 msgstr "Update wird heruntergeladen..."
 
@@ -412,8 +410,8 @@ msgid ""
 "platform. If you have an active VPN connection that might be the cause, or "
 "you can try importing your browser's cookies through a cookies.txt file."
 msgstr ""
-"Die Videoplattform wird möglicherweise nicht unterstützt oder Sie werden von der "
-"Plattform blockiert. Falls Sie über VPN verbunden sind, könnte dies die "
+"Die Videoplattform wird möglicherweise nicht unterstützt oder Sie werden von "
+"der Plattform blockiert. Falls Sie über VPN verbunden sind, könnte dies die "
 "Ursache sein, Sie können versuchen, die Cookies Ihres Browsers über eine "
 "cookies.txt Datei zu importieren."
 
@@ -425,7 +423,6 @@ msgstr "Das deaktiviert die Video Download Funktionalität."
 msgid "Part {indicator}"
 msgstr "Teil {indicator}"
 
-#| msgid "Simultaneous Download Amount"
 msgid "Simultaneous download limit exceeded, waiting."
 msgstr "Maximale Anzahl gleichzeitiger Downloads überschritten, bitte warten."
 
@@ -437,14 +434,12 @@ msgstr "{number}%"
 msgid "Allow Seeding"
 msgstr "Seeding erlauben"
 
-#| msgid "Speed Limit"
 msgid "Seeding Ratio Limit"
 msgstr "Seeding Verhältnis Limit"
 
 msgid "Torrent Settings"
 msgstr "Torrent Einstellungen"
 
-#| msgid "Download Directory"
 msgid "Custom Download Directory for Torrents"
 msgstr "Torrent Download Verzeichnis"
 
@@ -456,11 +451,12 @@ msgid ""
 "as they download (a ratio of 1). You may want to consider limiting your "
 "seeding ratio instead."
 msgstr ""
-"Da Torrents darauf angewiesen sind, dass Nutzer Daten seeden, ist es unerwünscht "
-"das Seeding zu deaktivieren und kann dazu führen, dass Sie von bestimmten Clients und "
-"Trackern gedrosselt oder gesperrt werden. Von Ihnen wird normalerweise erwartet, "
-"dass sie mindestens so viel seeden wie sie herunterladen (Verhältnis 1:1). "
-"Sie sollten in Betracht ziehen, stattdessen Ihr Seeding Verhältnis zu begrenzen."
+"Da Torrents darauf angewiesen sind, dass Nutzer Daten seeden, ist es "
+"unerwünscht das Seeding zu deaktivieren und kann dazu führen, dass Sie von "
+"bestimmten Clients und Trackern gedrosselt oder gesperrt werden. Von Ihnen "
+"wird normalerweise erwartet, dass sie mindestens so viel seeden wie sie "
+"herunterladen (Verhältnis 1:1). Sie sollten in Betracht ziehen, stattdessen "
+"Ihr Seeding Verhältnis zu begrenzen."
 
 msgid "Cancel Seeding"
 msgstr "Seeding abbrechen"
@@ -475,30 +471,20 @@ msgstr "Menü anzeigen"
 msgid "OK"
 msgstr "OK"
 
-# Snap version permission warning
-msgid ""
-"You are using Varia as a Snap package. To be able to use the shutdown on "
-"completion option you must first give Varia the related permission. To do "
-"this, open a terminal window and execute this command and then restart Varia:"
-msgstr ""
-"Sie verwenden Varia als Snap Paket. Um die Option 'Herunterfahren wenn abgeschlossen' "
-"nutzen zu können, müssen Sie Varia zunächst die entsprechende Berechtigung erteilen. "
-"Öffnen Sie dazu ein Terminal, führen Sie diesen Befehl aus und starten Sie "
-"Varia anschließend neu:"
-
-#| msgid "Torrent Settings"
 msgid "Enable Torrenting"
 msgstr "Torrents aktivieren"
 
 msgid "The browser extension will not work when Remote Mode is enabled."
-msgstr "Die Browsererweiterung funktioniert nicht, wenn der remote Modus aktiviert ist."
+msgstr ""
+"Die Browsererweiterung funktioniert nicht, wenn der remote Modus aktiviert "
+"ist."
 
 msgid ""
 "Disabling torrenting will prevent new torrents from being added. It will not "
 "stop current torrent instances."
 msgstr ""
-"Das Deaktivieren von Torrents verhindert das Hinzufügen neuer Torrents."
-"Laufende Torrents werden dadurch nicht gestoppt."
+"Das Deaktivieren von Torrents verhindert das Hinzufügen neuer "
+"Torrents.Laufende Torrents werden dadurch nicht gestoppt."
 
 msgid "Torrenting is disabled."
 msgstr "Torrents sind deaktiviert."
@@ -506,17 +492,12 @@ msgstr "Torrents sind deaktiviert."
 msgid "Unknown filesize"
 msgstr "Unbekannte Dateigröße"
 
-
-#| msgid "Show Menu"
 msgid "Show"
 msgstr "Anzeigen"
 
-#| msgctxt "shortcut window"
-#| msgid "Quit"
 msgid "Quit"
 msgstr "Beenden"
 
-#| msgid "Background Mode"
 msgid "Background Mode on Close"
 msgstr "Nach dem Schließen weiter im Hintergrund ausführen"
 
@@ -550,22 +531,18 @@ msgstr "Varia als GUI für eine remote aria2c Instanz verwenden."
 msgid "Configure"
 msgstr "Konfigurieren"
 
-#| msgid "Download complete."
 msgid "Download Segments"
 msgstr "Downloadlimit paralleler Segmente"
 
-#| msgid "Pause All"
 msgid "Pause"
 msgstr "Alle pausieren"
 
-#| msgid "Resume All"
 msgid "Resume"
 msgstr "Alle fortsetzen"
 
 msgid "Stop"
 msgstr "Stopp"
 
-#| msgid "File"
 msgid "Open File"
 msgstr "Datei öffnen"
 
@@ -582,11 +559,9 @@ msgid ""
 "This will use an external service to get the IP geolocation of your torrent "
 "peers in order to show country flags in the details window."
 msgstr ""
-"Hierfür wird ein externer Dienst genutzt, um die IP-Geolokation Ihrer Torrent-Peers "
-"abzurufen und Länderflaggen im Detailfenster anzuzeigen."
+"Hierfür wird ein externer Dienst genutzt, um die IP-Geolokation Ihrer "
+"Torrent-Peers abzurufen und Länderflaggen im Detailfenster anzuzeigen."
 
-
-#| msgid "Download failed."
 msgid "Download Details"
 msgstr "Download Details"
 
@@ -596,34 +571,27 @@ msgstr "Typ"
 msgid "Status"
 msgstr "Status"
 
-#| msgid "File"
 msgid "File Name"
 msgstr "Dateiname"
 
-#| msgid "Download"
 msgid "Downloading"
 msgstr "Lädt herunter"
 
-#| msgid "Pause All"
 msgid "Paused"
 msgstr "Pausiert"
 
 msgid "Percentage Downloaded"
 msgstr "Fortschritt in Prozent"
 
-#| msgid "remaining"
 msgid "Remaining"
 msgstr "Ausstehend"
 
-#| msgid "Download complete."
 msgid "Download Speed"
 msgstr "Download Geschwindigkeit"
 
-#| msgid "Seeding"
 msgid "Seeding Speed"
 msgstr "Seeding Geschwindigkeit"
 
-#| msgid "Download complete."
 msgid "Amount Downloaded"
 msgstr "Gesamt Downloadmenge"
 
@@ -633,9 +601,26 @@ msgstr "Gesamt Uploadmenge"
 msgid "Ratio"
 msgstr "Up/Download Verhältnis"
 
-#| msgid "Torrent"
 msgid "Torrent Peers"
 msgstr "Torrent Peers"
+
+# Snap packaging permissions dialog part 1/2
+msgid ""
+"You are using Varia as a Snap package. There are some functions that you "
+"can't use without manually giving Varia some extra permissions. These are:"
+msgstr ""
+"Sie verwenden Varia als Snappaket. Es gibt einige Funktionen, die Sie nicht "
+"verwenden können, ohne Varia manuell einige zusätzliche Berechtigungen zu "
+"erteilen. Diese sind:"
+
+# Snap packaging permissions dialog part 2/2
+msgid ""
+"To enable these functions you must run these commands in a terminal to give "
+"the required permissions and then restart Varia:"
+msgstr ""
+"Um diese Funkionen zu aktivieren führen sie folgende Befehle in einem "
+"Terminal aus um die erforderlichen Berechtigungen zu erteilen, und starten "
+"sie Varia dann neu:"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
@@ -651,3 +636,15 @@ msgstr "Tastenkürzel anzeigen"
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Beenden"
+
+# Snap version permission warning
+#~ msgid ""
+#~ "You are using Varia as a Snap package. To be able to use the shutdown on "
+#~ "completion option you must first give Varia the related permission. To do "
+#~ "this, open a terminal window and execute this command and then restart "
+#~ "Varia:"
+#~ msgstr ""
+#~ "Sie verwenden Varia als Snap Paket. Um die Option 'Herunterfahren wenn "
+#~ "abgeschlossen' nutzen zu können, müssen Sie Varia zunächst die "
+#~ "entsprechende Berechtigung erteilen. Öffnen Sie dazu ein Terminal, führen "
+#~ "Sie diesen Befehl aus und starten Sie Varia anschließend neu:"

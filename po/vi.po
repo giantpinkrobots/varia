@@ -465,16 +465,6 @@ msgstr "Hiện Menu"
 msgid "OK"
 msgstr "Đồng ý"
 
-# Snap version permission warning
-msgid ""
-"You are using Varia as a Snap package. To be able to use the shutdown on "
-"completion option you must first give Varia the related permission. To do "
-"this, open a terminal window and execute this command and then restart Varia:"
-msgstr ""
-"Bạn đang sử dụng Varia phiên bản Snap. Vui lòng cấp quyền cho ứng dụng tắt "
-"máy và hoàn thành. Hãy mở giao diện dòng lệnh và thực hiện các câu lệnh sau, "
-"sau đó hãy khởi động lại Varia:"
-
 #, fuzzy
 #| msgid "Torrent Settings"
 msgid "Enable Torrenting"
@@ -639,6 +629,18 @@ msgstr ""
 msgid "Torrent Peers"
 msgstr "Torrent"
 
+# Snap packaging permissions dialog part 1/2
+msgid ""
+"You are using Varia as a Snap package. There are some functions that you "
+"can't use without manually giving Varia some extra permissions. These are:"
+msgstr ""
+
+# Snap packaging permissions dialog part 2/2
+msgid ""
+"To enable these functions you must run these commands in a terminal to give "
+"the required permissions and then restart Varia:"
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
@@ -653,3 +655,14 @@ msgstr "Hiện Shortcuts"
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Thoát"
+
+# Snap version permission warning
+#~ msgid ""
+#~ "You are using Varia as a Snap package. To be able to use the shutdown on "
+#~ "completion option you must first give Varia the related permission. To do "
+#~ "this, open a terminal window and execute this command and then restart "
+#~ "Varia:"
+#~ msgstr ""
+#~ "Bạn đang sử dụng Varia phiên bản Snap. Vui lòng cấp quyền cho ứng dụng "
+#~ "tắt máy và hoàn thành. Hãy mở giao diện dòng lệnh và thực hiện các câu "
+#~ "lệnh sau, sau đó hãy khởi động lại Varia:"

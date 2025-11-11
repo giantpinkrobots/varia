@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-09-24 12:02+0000\n"
+"PO-Revision-Date: 2025-11-05 00:51+0000\n"
 "Last-Translator: Peter Vančo <petervanco347@gmail.com>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/varia/varia/sk/>\n"
 "Language: sk\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -478,19 +478,6 @@ msgstr "Zobraziť menu"
 msgid "OK"
 msgstr "OK"
 
-# Snap version permission warning
-msgid ""
-"You are using Varia as a Snap package. To be able to use the shutdown on "
-"completion option you must first give Varia the related permission. To do "
-"this, open a terminal window and execute this command and then restart Varia:"
-msgstr ""
-"Používate aplikáciu Varia ako Snap balík. Snap balíky fungujú v izolovanom "
-"prostredí, kde majú obmedzený prístup k určitým systémovým funkciám kvôli "
-"bezpečnosti. Aby ste mohli využiť možnosť „Vypnúť počítač po dokončení“, "
-"musíte aplikácii Varia najskôr udeliť potrebné povolenia na ovládanie "
-"systému. Ak to chcete urobiť, otvorte Terminál, vložte tento príkaz a "
-"následne reštartujte aplikáciu Varia:"
-
 msgid "Enable Torrenting"
 msgstr "Spustenie torrentovania"
 
@@ -636,6 +623,23 @@ msgstr "Pomer"
 msgid "Torrent Peers"
 msgstr "Účastníci siete"
 
+# Snap packaging permissions dialog part 1/2
+msgid ""
+"You are using Varia as a Snap package. There are some functions that you "
+"can't use without manually giving Varia some extra permissions. These are:"
+msgstr ""
+"Používate aplikáciu Varia ako Snap balík. Niektoré funkcie nie je možné "
+"používať bez toho, aby ste aplikácii Varia manuálne udelili dodatočné "
+"oprávnenia. Sú to:"
+
+# Snap packaging permissions dialog part 2/2
+msgid ""
+"To enable these functions you must run these commands in a terminal to give "
+"the required permissions and then restart Varia:"
+msgstr ""
+"Ak chcete tieto funkcie povoliť, musíte v termináli spustiť nasledujúce "
+"príkazy, aby ste udelili potrebné oprávnenia, a potom reštartovať Varia:"
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
@@ -650,6 +654,20 @@ msgstr "Zobraziť skratky"
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Ukončiť"
+
+# Snap version permission warning
+#~ msgid ""
+#~ "You are using Varia as a Snap package. To be able to use the shutdown on "
+#~ "completion option you must first give Varia the related permission. To do "
+#~ "this, open a terminal window and execute this command and then restart "
+#~ "Varia:"
+#~ msgstr ""
+#~ "Používate aplikáciu Varia ako Snap balík. Snap balíky fungujú v "
+#~ "izolovanom prostredí, kde majú obmedzený prístup k určitým systémovým "
+#~ "funkciám kvôli bezpečnosti. Aby ste mohli využiť možnosť „Vypnúť počítač "
+#~ "po dokončení“, musíte aplikácii Varia najskôr udeliť potrebné povolenia "
+#~ "na ovládanie systému. Ak to chcete urobiť, otvorte Terminál, vložte tento "
+#~ "príkaz a následne reštartujte aplikáciu Varia:"
 
 #~ msgid "Torrenting Disabled"
 #~ msgstr "Torrenting vypnutý"

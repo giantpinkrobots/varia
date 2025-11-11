@@ -9,8 +9,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
 "PO-Revision-Date: 2025-06-16 15:04+0000\n"
-"Last-Translator: Zoltán Rózsa <rozsazoltan@users.noreply.hosted.weblate."
-"org>\n"
+"Last-Translator: Zoltán Rózsa "
+"<rozsazoltan@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/varia/varia/hu/"
 ">\n"
 "Language: hu\n"
@@ -471,17 +471,6 @@ msgstr "Menü megjelenítése"
 msgid "OK"
 msgstr "Rendben"
 
-# Snap version permission warning
-msgid ""
-"You are using Varia as a Snap package. To be able to use the shutdown on "
-"completion option you must first give Varia the related permission. To do "
-"this, open a terminal window and execute this command and then restart Varia:"
-msgstr ""
-"A Variát Snap csomagként használja. Ahhoz, hogy a „Leállítás a befejezéskor” "
-"lehetőséget használhassa, először meg kell adnia a szükséges engedélyt a "
-"Variának. Ehhez nyisson meg egy terminálablakot, futtassa az alábbi "
-"parancsot, majd indítsd újra a Variát:"
-
 msgid "Enable Torrenting"
 msgstr "Torrent engedélyezése"
 
@@ -639,6 +628,18 @@ msgstr ""
 msgid "Torrent Peers"
 msgstr "Torrent"
 
+# Snap packaging permissions dialog part 1/2
+msgid ""
+"You are using Varia as a Snap package. There are some functions that you "
+"can't use without manually giving Varia some extra permissions. These are:"
+msgstr ""
+
+# Snap packaging permissions dialog part 2/2
+msgid ""
+"To enable these functions you must run these commands in a terminal to give "
+"the required permissions and then restart Varia:"
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
@@ -653,6 +654,18 @@ msgstr "Gyorsbillentyűk megjelenítése"
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Kilépés"
+
+# Snap version permission warning
+#~ msgid ""
+#~ "You are using Varia as a Snap package. To be able to use the shutdown on "
+#~ "completion option you must first give Varia the related permission. To do "
+#~ "this, open a terminal window and execute this command and then restart "
+#~ "Varia:"
+#~ msgstr ""
+#~ "A Variát Snap csomagként használja. Ahhoz, hogy a „Leállítás a "
+#~ "befejezéskor” lehetőséget használhassa, először meg kell adnia a "
+#~ "szükséges engedélyt a Variának. Ehhez nyisson meg egy terminálablakot, "
+#~ "futtassa az alábbi parancsot, majd indítsd újra a Variát:"
 
 #~ msgid "Torrenting Disabled"
 #~ msgstr "Torrent letiltva"

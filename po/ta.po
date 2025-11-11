@@ -467,17 +467,6 @@ msgstr "மெனுவைக் காட்டு"
 msgid "OK"
 msgstr "சரி"
 
-# Snap version permission warning
-msgid ""
-"You are using Varia as a Snap package. To be able to use the shutdown on "
-"completion option you must first give Varia the related permission. To do "
-"this, open a terminal window and execute this command and then restart Varia:"
-msgstr ""
-"நீங்கள் வரியாவை ச்னாப் தொகுப்பாகப் பயன்படுத்துகிறீர்கள். நிறைவு விருப்பத்தில் பணிநிறுத்தத்தைப் "
-"பயன்படுத்த நீங்கள் முதலில் வெரியாவுக்கு தொடர்புடைய அனுமதியை வழங்க வேண்டும். இதைச் செய்ய, "
-"ஒரு முனைய சாளரத்தைத் திறந்து இந்த கட்டளையை இயக்கவும், பின்னர் மாறுபாட்டை மறுதொடக்கம் "
-"செய்யவும்:"
-
 msgid "Enable Torrenting"
 msgstr "டொரெண்டிங் இயக்கவும்"
 
@@ -632,6 +621,18 @@ msgstr ""
 msgid "Torrent Peers"
 msgstr "டொரண்ட்"
 
+# Snap packaging permissions dialog part 1/2
+msgid ""
+"You are using Varia as a Snap package. There are some functions that you "
+"can't use without manually giving Varia some extra permissions. These are:"
+msgstr ""
+
+# Snap packaging permissions dialog part 2/2
+msgid ""
+"To enable these functions you must run these commands in a terminal to give "
+"the required permissions and then restart Varia:"
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
@@ -646,3 +647,15 @@ msgstr "குறுக்குவழிகளைக் காட்டு"
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "வெளியேறு"
+
+# Snap version permission warning
+#~ msgid ""
+#~ "You are using Varia as a Snap package. To be able to use the shutdown on "
+#~ "completion option you must first give Varia the related permission. To do "
+#~ "this, open a terminal window and execute this command and then restart "
+#~ "Varia:"
+#~ msgstr ""
+#~ "நீங்கள் வரியாவை ச்னாப் தொகுப்பாகப் பயன்படுத்துகிறீர்கள். நிறைவு விருப்பத்தில் "
+#~ "பணிநிறுத்தத்தைப் பயன்படுத்த நீங்கள் முதலில் வெரியாவுக்கு தொடர்புடைய அனுமதியை வழங்க "
+#~ "வேண்டும். இதைச் செய்ய, ஒரு முனைய சாளரத்தைத் திறந்து இந்த கட்டளையை இயக்கவும், பின்னர் "
+#~ "மாறுபாட்டை மறுதொடக்கம் செய்யவும்:"

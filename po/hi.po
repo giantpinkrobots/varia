@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: varia\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-04-13 22:08+0000\n"
-"Last-Translator: Giant Pink Robots! <giantpinkrobots@protonmail.com>\n"
+"PO-Revision-Date: 2025-10-24 07:02+0000\n"
+"Last-Translator: tan ✨ <tanmayrajkrishna@gmail.com>\n"
 "Language-Team: Hindi <https://hosted.weblate.org/projects/varia/varia/hi/>\n"
 "Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -324,135 +324,120 @@ msgstr "cookies.txt आयात करें"
 msgid "Remove cookies.txt"
 msgstr "cookies.txt हटाएं"
 
-#, fuzzy
-#| msgid "Warning"
 msgid "remaining"
-msgstr "चेतावनी"
+msgstr "शेष"
 
-#, fuzzy
-#| msgid "Background Mode"
 msgid "Start in Background Mode"
-msgstr "पृष्ठभूमि मोड"
+msgstr "पृष्ठभूमि मोड में शुरुआत करें"
 
 msgid "Remote Timestamp"
-msgstr ""
+msgstr "दूरस्थ समय-मुहर"
 
 msgid "Torrent"
-msgstr ""
+msgstr "टॉरन्ट"
 
 # Updater
 msgid "Checking for updates..."
-msgstr ""
+msgstr "अद्यतन की जांच हो रही है…"
 
 msgid "A new version of Varia is available. Do you want to update?"
-msgstr ""
+msgstr "Varia की नई संस्करण उपलब्ध है। क्या आप अद्यतन करना चाहते हैं?"
 
 msgid "Update available"
-msgstr ""
+msgstr "अद्यतन उपलब्ध है"
 
 msgid "Update"
-msgstr ""
+msgstr "अद्यतन"
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Downloading update..."
-msgstr "डाउनलोड पूर्ण।"
+msgstr "अद्यतन डाउनलोड हो रहा है…"
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Download failed."
-msgstr "डाउनलोड पूर्ण।"
+msgstr "डाउनलोड असफल रहा।"
 
 msgid "Yes"
-msgstr ""
+msgstr "हाँ"
 
 msgid "No"
-msgstr ""
+msgstr "नहीं"
 
 msgid "Automatically Check for Updates"
-msgstr ""
+msgstr "खुद ब खुद अद्यतन की जांच करो"
 
 msgid "Check Now"
-msgstr ""
+msgstr "अभी जांच करो"
 
 msgid "Do you want to check for updates on startup?"
-msgstr ""
+msgstr "क्या आप अद्यतन की जांच शुरुआत में करना चाहते हैं?"
 
 msgid "File"
-msgstr ""
+msgstr "फ़ाइल"
 
 msgid "Video / Audio"
-msgstr ""
+msgstr "वीडियो/ऑडियो"
 
 msgid "Video and audio"
-msgstr ""
+msgstr "वीडियो और ऑडियो"
 
 msgid "Video only"
-msgstr ""
+msgstr "केवल वीडियो"
 
 msgid "Audio only"
-msgstr ""
+msgstr "केवल ऑडियो"
 
 #: Relating to video download:
 msgid "Framerate:"
-msgstr ""
+msgstr "फ्रेमरेट:"
 
 #: Relating to video download:
 msgid "Bitrate:"
-msgstr ""
+msgstr "बिटरेट:"
 
 msgid "Checking video..."
-msgstr ""
+msgstr "विडिओ की जांच हो रही है..।"
 
 msgid "No video or audio streams found"
-msgstr ""
+msgstr "कोई भी विडिओ या औडियो स्ट्रीम नहीं मिली"
 
 msgid "Starting download..."
-msgstr ""
+msgstr "डाउनलोड शुरू हो रही है…"
 
 msgid ""
 "The video platform may not be supported or you may be being blocked by the "
 "platform. If you have an active VPN connection that might be the cause, or "
 "you can try importing your browser's cookies through a cookies.txt file."
 msgstr ""
+"यह विडीओ प्लैटफ़ॉर्म शायद समर्थित नहीं है या फिर आप इस प्लैट्फॉर्म के द्वारा अवरोधित हैं। "
+"शायद आपका VPN कनेक्शन इसका कारण है, या फिर आप अपने ब्राउजर की कूकीस को cookies.txt "
+"फाइल के द्वारा आयात कर सकते हैं।"
 
 msgid "This will disable the video download functionality."
-msgstr ""
+msgstr "यह विडिओ डाउनलोड की कार्यक्षमता को असमर्थ कर देगा।"
 
 #: Relating to video download progress where it says "Part 1/2" - {indicator}
 #: is replaced by "1/2" or "2/2" (don't translate {indicator})
 msgid "Part {indicator}"
-msgstr ""
+msgstr "भाग {सूचक}"
 
-#, fuzzy
-#| msgid "Simultaneous Download Amount"
 msgid "Simultaneous download limit exceeded, waiting."
-msgstr "समकालिक डाउनलोड मात्रा"
+msgstr "समक्षणिक डाउनलोड मात्रा पार हो गई है, प्रतीक्षा की जा रही है।"
 
 #: The way percentages will be shown, like 10% or %10 depending on the language
 #: (don't translate {number}, just move it if needed)
 msgid "{number}%"
-msgstr ""
+msgstr "{संख्या}%"
 
-#, fuzzy
-#| msgid "Seeding"
 msgid "Allow Seeding"
-msgstr "सीडिंग"
+msgstr "सीडिंग की अनुमति दें"
 
-#, fuzzy
-#| msgid "Speed Limit"
 msgid "Seeding Ratio Limit"
-msgstr "गति सीमा"
+msgstr "सीडिंग अनुपात आप"
 
-#, fuzzy
-#| msgid "Advanced Settings"
 msgid "Torrent Settings"
-msgstr "उन्नत सेटिंग्स"
+msgstr "टॉरन्ट सेटिंग्स"
 
-#, fuzzy
-#| msgid "Download Directory"
 msgid "Custom Download Directory for Torrents"
-msgstr "डाउनलोड निर्देशिका"
+msgstr "विशेष डाउनलोड स्थान टोर्रेंट्स के लिए"
 
 #: When the user attempts to disable seeding
 msgid ""
@@ -476,13 +461,6 @@ msgid "Show Menu"
 msgstr ""
 
 msgid "OK"
-msgstr ""
-
-# Snap version permission warning
-msgid ""
-"You are using Varia as a Snap package. To be able to use the shutdown on "
-"completion option you must first give Varia the related permission. To do "
-"this, open a terminal window and execute this command and then restart Varia:"
 msgstr ""
 
 #, fuzzy
@@ -640,6 +618,18 @@ msgstr ""
 #| msgid "Advanced Settings"
 msgid "Torrent Peers"
 msgstr "उन्नत सेटिंग्स"
+
+# Snap packaging permissions dialog part 1/2
+msgid ""
+"You are using Varia as a Snap package. There are some functions that you "
+"can't use without manually giving Varia some extra permissions. These are:"
+msgstr ""
+
+# Snap packaging permissions dialog part 2/2
+msgid ""
+"To enable these functions you must run these commands in a terminal to give "
+"the required permissions and then restart Varia:"
+msgstr ""
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
