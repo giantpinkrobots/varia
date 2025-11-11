@@ -292,9 +292,7 @@ def show_about(app, variaapp, self, variaVersion):
     dialog.set_artists(["Jakub Steiner"])
     dialog.set_release_notes_version(variaVersion)
     dialog.set_release_notes('''
-        <ul><li>New download details window added for details like individual download speed, torrent peers etc.</li>
-        <li>New open file button added for completed downloads.</li>
-        <li>Retrying failed downloads is now more reliable.</li></ul>''')
+        <ul><li>Minor bugfix and translations update.</li></ul>''')
     
     if os.name != 'nt':
         dialog.add_other_app("io.github.giantpinkrobots.flatsweep",

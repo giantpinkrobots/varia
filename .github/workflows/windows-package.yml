@@ -1,8 +1,6 @@
 name: Build for Windows (Installer and Portable)
 
 on:
-  push:
-    branches: [ main ]
   workflow_dispatch:
 
 jobs:
