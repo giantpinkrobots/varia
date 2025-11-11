@@ -33,6 +33,7 @@ parts:
       - yt-dlp
       - aria2p
       - dbus-next
+      - emoji-country-flag
     build-packages:
       - python3-pip
       - python3-setuptools
