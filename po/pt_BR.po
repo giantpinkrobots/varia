@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-05-13 00:49+0000\n"
-"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
+"PO-Revision-Date: 2025-11-11 09:52+0000\n"
+"Last-Translator: xand <alexandreferrocha@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "varia/varia/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -289,7 +289,7 @@ msgstr "Adicionar intervalo de tempo"
 
 #: When a download is currently seeding:
 msgid "Seeding"
-msgstr "Semeando"
+msgstr "Enviando"
 
 msgid "Failed"
 msgstr "Falhou"
@@ -429,10 +429,10 @@ msgid "{number}%"
 msgstr "{number}%"
 
 msgid "Allow Seeding"
-msgstr "Permitir semear"
+msgstr "Permitir envio"
 
 msgid "Seeding Ratio Limit"
-msgstr "Limite da proporção de semeação"
+msgstr "Limite da proporção de envio"
 
 msgid "Torrent Settings"
 msgstr "Configurações de torrent"
@@ -466,17 +466,6 @@ msgstr "Exibir Menu"
 
 msgid "OK"
 msgstr "OK"
-
-# Snap version permission warning
-msgid ""
-"You are using Varia as a Snap package. To be able to use the shutdown on "
-"completion option you must first give Varia the related permission. To do "
-"this, open a terminal window and execute this command and then restart Varia:"
-msgstr ""
-"Você está usando o Varia como um pacote Snap. Para poder usar a opção de "
-"desligamento ao concluir, você precisa primeiro conceder ao Varia a "
-"permissão correspondente. Para isso, abra uma janela de terminal, execute "
-"este comando e reinicie o Varia:"
 
 msgid "Enable Torrenting"
 msgstr "Habilitar torrent"
@@ -537,104 +526,98 @@ msgid "Use Varia as a GUI for a remote aria2c instance."
 msgstr "Usa Varia como uma GUI para uma instância remota do aria2c."
 
 msgid "Configure"
-msgstr ""
+msgstr "Configurar"
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Download Segments"
-msgstr "Download completo."
+msgstr "Download em partes"
 
-#, fuzzy
-#| msgid "Pause All"
 msgid "Pause"
-msgstr "Pausar Tudo"
+msgstr "Pausar"
 
-#, fuzzy
-#| msgid "Resume All"
 msgid "Resume"
-msgstr "Continuar Todos"
+msgstr "Continuar"
 
 msgid "Stop"
-msgstr ""
+msgstr "Parar"
 
-#, fuzzy
-#| msgid "File"
 msgid "Open File"
-msgstr "Arquivo"
+msgstr "Abrir arquivo"
 
 msgid "Retry"
-msgstr ""
+msgstr "Tentar novamente"
 
 msgid "Require Encryption"
-msgstr ""
+msgstr "Exigir criptografia"
 
 msgid "Get Country Info of Peers"
-msgstr ""
+msgstr "Obter informação do país dos peers"
 
 msgid ""
 "This will use an external service to get the IP geolocation of your torrent "
 "peers in order to show country flags in the details window."
 msgstr ""
+"Isso usará um serviço externo para obter a geolocalização IP de seus peers "
+"de torrent, a fim de mostrar as bandeiras dos países na janela de detalhes."
 
-#, fuzzy
-#| msgid "Download failed."
 msgid "Download Details"
-msgstr "O download falhou."
+msgstr "Detalhes do Download"
 
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
-#, fuzzy
-#| msgid "File"
 msgid "File Name"
-msgstr "Arquivo"
+msgstr "Nome do arquivo"
 
-#, fuzzy
-#| msgid "Download"
 msgid "Downloading"
-msgstr "Download"
+msgstr "Baixando"
 
-#, fuzzy
-#| msgid "Pause All"
 msgid "Paused"
-msgstr "Pausar Tudo"
+msgstr "Pausado"
 
 msgid "Percentage Downloaded"
-msgstr ""
+msgstr "Porcentagem baixada"
 
-#, fuzzy
-#| msgid "remaining"
 msgid "Remaining"
-msgstr "restante"
+msgstr "Restante"
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Download Speed"
-msgstr "Download completo."
+msgstr "Velocidade de download"
 
-#, fuzzy
-#| msgid "Seeding"
 msgid "Seeding Speed"
-msgstr "Semeando"
+msgstr "Velocidade de envio"
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Amount Downloaded"
-msgstr "Download completo."
+msgstr "Quantidade baixada"
 
 msgid "Amount Uploaded"
-msgstr ""
+msgstr "Quantidade enviada"
 
 msgid "Ratio"
-msgstr ""
+msgstr "Ratio"
 
-#, fuzzy
-#| msgid "Torrent"
 msgid "Torrent Peers"
-msgstr "Torrent"
+msgstr "Peers do Torrent"
+
+# Snap packaging permissions dialog part 1/2
+msgid ""
+"You are using Varia as a Snap package. There are some functions that you "
+"can't use without manually giving Varia some extra permissions. These are:"
+msgstr ""
+"Você está usando o Varia como um pacote Snap. Existem algumas funções que "
+"você não pode usar sem conceder manualmente algumas permissões extras ao "
+"Varia. Estas são:"
+
+# Snap packaging permissions dialog part 2/2
+msgid ""
+"To enable these functions you must run these commands in a terminal to give "
+"the required permissions and then restart Varia:"
+msgstr ""
+"Para habilitar estas funções, você deve executar estes comandos em um "
+"terminal para conceder as permissões necessárias e, em seguida, reiniciar o "
+"Varia:"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
@@ -650,3 +633,15 @@ msgstr "Mostrar Atalhos"
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Sair"
+
+# Snap version permission warning
+#~ msgid ""
+#~ "You are using Varia as a Snap package. To be able to use the shutdown on "
+#~ "completion option you must first give Varia the related permission. To do "
+#~ "this, open a terminal window and execute this command and then restart "
+#~ "Varia:"
+#~ msgstr ""
+#~ "Você está usando o Varia como um pacote Snap. Para poder usar a opção de "
+#~ "desligamento ao concluir, você precisa primeiro conceder ao Varia a "
+#~ "permissão correspondente. Para isso, abra uma janela de terminal, execute "
+#~ "este comando e reinicie o Varia:"

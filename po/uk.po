@@ -9,8 +9,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
 "PO-Revision-Date: 2025-07-05 18:44+0000\n"
-"Last-Translator: freeducks-debug <209897795+freeducks-debug@users.noreply."
-"github.com>\n"
+"Last-Translator: freeducks-debug <209897795+freeducks-"
+"debug@users.noreply.github.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/varia/varia/uk/"
 ">\n"
 "Language: uk\n"
@@ -31,9 +31,7 @@ msgstr "Varia"
 #. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
 #: data/io.github.giantpinkrobots.varia.desktop.in:11
 msgid "varia;aria;download;manager;"
-msgstr ""
-"varia;aria;download;manager;torrent;завантажувач;скачати;зберегти;варія;арія;"
-"закачати;торрент;"
+msgstr "varia;aria;download;manager;torrent;завантажувач;скачати;зберегти;варія;арія;закачати;торрент;"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
 msgid "Download manager based on aria2"
@@ -477,17 +475,6 @@ msgstr "Показати меню"
 msgid "OK"
 msgstr "Добре"
 
-# Snap version permission warning
-msgid ""
-"You are using Varia as a Snap package. To be able to use the shutdown on "
-"completion option you must first give Varia the related permission. To do "
-"this, open a terminal window and execute this command and then restart Varia:"
-msgstr ""
-"Ви використовуєте Varia у snap пакунку. Щоб дозволити вимкнення пристрою по "
-"завершенню завантаження - вам спочатку треба видати Varia належні дозволи. "
-"Щоб виконати це, відкрийте термінал та виконайте цю команду і перезавантажте "
-"Varia:"
-
 msgid "Enable Torrenting"
 msgstr "Увімкнути режим торренту"
 
@@ -649,6 +636,18 @@ msgstr ""
 msgid "Torrent Peers"
 msgstr "Торрент"
 
+# Snap packaging permissions dialog part 1/2
+msgid ""
+"You are using Varia as a Snap package. There are some functions that you "
+"can't use without manually giving Varia some extra permissions. These are:"
+msgstr ""
+
+# Snap packaging permissions dialog part 2/2
+msgid ""
+"To enable these functions you must run these commands in a terminal to give "
+"the required permissions and then restart Varia:"
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
@@ -663,3 +662,15 @@ msgstr "Показати клавіатурні скорочення"
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Вийти"
+
+# Snap version permission warning
+#~ msgid ""
+#~ "You are using Varia as a Snap package. To be able to use the shutdown on "
+#~ "completion option you must first give Varia the related permission. To do "
+#~ "this, open a terminal window and execute this command and then restart "
+#~ "Varia:"
+#~ msgstr ""
+#~ "Ви використовуєте Varia у snap пакунку. Щоб дозволити вимкнення пристрою "
+#~ "по завершенню завантаження - вам спочатку треба видати Varia належні "
+#~ "дозволи. Щоб виконати це, відкрийте термінал та виконайте цю команду і "
+#~ "перезавантажте Varia:"

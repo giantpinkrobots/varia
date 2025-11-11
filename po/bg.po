@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Varia\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-09-24 12:01+0000\n"
+"PO-Revision-Date: 2025-11-05 00:51+0000\n"
 "Last-Translator: Любомир Василев <lyubomirv@gmx.com>\n"
 "Language-Team: Bulgarian <https://hosted.weblate.org/projects/varia/varia/bg/"
 ">\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -472,17 +472,6 @@ msgstr "Показване на менюто"
 msgid "OK"
 msgstr "Добре"
 
-# Snap version permission warning
-msgid ""
-"You are using Varia as a Snap package. To be able to use the shutdown on "
-"completion option you must first give Varia the related permission. To do "
-"this, open a terminal window and execute this command and then restart Varia:"
-msgstr ""
-"Вие използвате Varia като пакет от Snap. Ако искате да използвате функцията "
-"за изключване на компютъра при завършване на свалянето, трябва първо да "
-"дадете на Varia съответното разрешение. За да направите това, отворете "
-"терминала и изпълнете тази команда, а след това рестартирайте Varia:"
-
 msgid "Enable Torrenting"
 msgstr "Включване на торентите"
 
@@ -620,6 +609,24 @@ msgstr "Съотношение"
 msgid "Torrent Peers"
 msgstr "Участници в торента"
 
+# Snap packaging permissions dialog part 1/2
+msgid ""
+"You are using Varia as a Snap package. There are some functions that you "
+"can't use without manually giving Varia some extra permissions. These are:"
+msgstr ""
+"Използвате Varia като пакет от Snap. Има някои функционалности, които няма "
+"да може да ползвате, докато ръчно не дадете някои допълнителни разрешения на "
+"Varia. Те са:"
+
+# Snap packaging permissions dialog part 2/2
+msgid ""
+"To enable these functions you must run these commands in a terminal to give "
+"the required permissions and then restart Varia:"
+msgstr ""
+"За да включите тези функционалности, трябва да изпълните тези команди в "
+"терминала – така ще дадете необходимите разрешения. След това трябва да "
+"рестартирате Varia:"
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
@@ -634,6 +641,19 @@ msgstr "Показване на клавишните комбинации"
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Спиране на програмата"
+
+# Snap version permission warning
+#~ msgid ""
+#~ "You are using Varia as a Snap package. To be able to use the shutdown on "
+#~ "completion option you must first give Varia the related permission. To do "
+#~ "this, open a terminal window and execute this command and then restart "
+#~ "Varia:"
+#~ msgstr ""
+#~ "Вие използвате Varia като пакет от Snap. Ако искате да използвате "
+#~ "функцията за изключване на компютъра при завършване на свалянето, трябва "
+#~ "първо да дадете на Varia съответното разрешение. За да направите това, "
+#~ "отворете терминала и изпълнете тази команда, а след това рестартирайте "
+#~ "Varia:"
 
 #~ msgid "Torrenting Disabled"
 #~ msgstr "Торентите са изключени"

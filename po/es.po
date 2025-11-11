@@ -469,16 +469,6 @@ msgstr "Mostrar menú"
 msgid "OK"
 msgstr "Aceptar"
 
-# Snap version permission warning
-msgid ""
-"You are using Varia as a Snap package. To be able to use the shutdown on "
-"completion option you must first give Varia the related permission. To do "
-"this, open a terminal window and execute this command and then restart Varia:"
-msgstr ""
-"Estás utilizando Varia como paquete Snap. Para poder utilizar la opción de "
-"apagado al finalizar, primero debe dar a Varia el permiso correspondiente. "
-"Para ello, abra una ventana de terminal, ejecute esta orden y reinicie Varia:"
-
 msgid "Enable Torrenting"
 msgstr "Activar descarga de torrents"
 
@@ -632,6 +622,18 @@ msgstr ""
 msgid "Torrent Peers"
 msgstr "Torrent"
 
+# Snap packaging permissions dialog part 1/2
+msgid ""
+"You are using Varia as a Snap package. There are some functions that you "
+"can't use without manually giving Varia some extra permissions. These are:"
+msgstr ""
+
+# Snap packaging permissions dialog part 2/2
+msgid ""
+"To enable these functions you must run these commands in a terminal to give "
+"the required permissions and then restart Varia:"
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
@@ -646,3 +648,15 @@ msgstr "Mostrar atajos"
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Salir"
+
+# Snap version permission warning
+#~ msgid ""
+#~ "You are using Varia as a Snap package. To be able to use the shutdown on "
+#~ "completion option you must first give Varia the related permission. To do "
+#~ "this, open a terminal window and execute this command and then restart "
+#~ "Varia:"
+#~ msgstr ""
+#~ "Estás utilizando Varia como paquete Snap. Para poder utilizar la opción "
+#~ "de apagado al finalizar, primero debe dar a Varia el permiso "
+#~ "correspondiente. Para ello, abra una ventana de terminal, ejecute esta "
+#~ "orden y reinicie Varia:"

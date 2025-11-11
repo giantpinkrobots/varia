@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-04-13 22:08+0000\n"
+"PO-Revision-Date: 2025-11-03 23:02+0000\n"
 "Last-Translator: Giant Pink Robots! <giantpinkrobots@protonmail.com>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/varia/"
 "varia/nb_NO/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -46,7 +46,7 @@ msgstr ""
 
 #: src/variamain.py:45
 msgid "This is not a valid URL."
-msgstr "Ugyldig adresse"
+msgstr "Ugyldig adresse."
 
 #: src/variamain.py:125
 msgid "All"
@@ -475,13 +475,6 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-# Snap version permission warning
-msgid ""
-"You are using Varia as a Snap package. To be able to use the shutdown on "
-"completion option you must first give Varia the related permission. To do "
-"this, open a terminal window and execute this command and then restart Varia:"
-msgstr ""
-
 msgid "Enable Torrenting"
 msgstr ""
 
@@ -628,6 +621,18 @@ msgid "Ratio"
 msgstr ""
 
 msgid "Torrent Peers"
+msgstr ""
+
+# Snap packaging permissions dialog part 1/2
+msgid ""
+"You are using Varia as a Snap package. There are some functions that you "
+"can't use without manually giving Varia some extra permissions. These are:"
+msgstr ""
+
+# Snap packaging permissions dialog part 2/2
+msgid ""
+"To enable these functions you must run these commands in a terminal to give "
+"the required permissions and then restart Varia:"
 msgstr ""
 
 #: src/gtk/help-overlay.ui:11

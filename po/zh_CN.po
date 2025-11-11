@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: varia main\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-09-26 05:01+0000\n"
+"PO-Revision-Date: 2025-11-05 00:51+0000\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/varia/varia/zh_Hans/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -462,15 +462,6 @@ msgstr "显示菜单"
 msgid "OK"
 msgstr "确定"
 
-# Snap version permission warning
-msgid ""
-"You are using Varia as a Snap package. To be able to use the shutdown on "
-"completion option you must first give Varia the related permission. To do "
-"this, open a terminal window and execute this command and then restart Varia:"
-msgstr ""
-"您正在使用 Snap 版本的 Varia。为了能够使用在完成时关机这一选项您必须给予 "
-"Varia 相应权限。要这样做，请打开终端窗口执行此命令后重启 Varia："
-
 msgid "Enable Torrenting"
 msgstr "启用种子下载"
 
@@ -597,6 +588,19 @@ msgstr "比率"
 msgid "Torrent Peers"
 msgstr "种子对等点"
 
+# Snap packaging permissions dialog part 1/2
+msgid ""
+"You are using Varia as a Snap package. There are some functions that you "
+"can't use without manually giving Varia some extra permissions. These are:"
+msgstr "您在使用 Snap 软件包格式的 Varia。有些功能只有您手动授予 Varia 一些额外权限才"
+"能使用。这些功能为："
+
+# Snap packaging permissions dialog part 2/2
+msgid ""
+"To enable these functions you must run these commands in a terminal to give "
+"the required permissions and then restart Varia:"
+msgstr "要启用这些功能您必须在终端中运行以下命令来授予所需权限并重启 Varia："
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
@@ -611,3 +615,13 @@ msgstr "显示快捷键"
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "退出"
+
+# Snap version permission warning
+#~ msgid ""
+#~ "You are using Varia as a Snap package. To be able to use the shutdown on "
+#~ "completion option you must first give Varia the related permission. To do "
+#~ "this, open a terminal window and execute this command and then restart "
+#~ "Varia:"
+#~ msgstr ""
+#~ "您正在使用 Snap 版本的 Varia。为了能够使用在完成时关机这一选项您必须给予 "
+#~ "Varia 相应权限。要这样做，请打开终端窗口执行此命令后重启 Varia："

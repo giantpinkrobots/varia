@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-04-13 22:08+0000\n"
-"Last-Translator: Giant Pink Robots! <giantpinkrobots@protonmail.com>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/varia/varia/it/"
-">\n"
+"PO-Revision-Date: 2025-11-05 00:51+0000\n"
+"Last-Translator: lubbesflipperi <pierluca@pm.me>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/varia/varia/it/>"
+"\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -423,10 +423,8 @@ msgstr "In questo modo si disattiva la funzionalità di download dei video."
 msgid "Part {indicator}"
 msgstr "Parti {indicator}"
 
-#, fuzzy
-#| msgid "Simultaneous Download Amount"
 msgid "Simultaneous download limit exceeded, waiting."
-msgstr "Quantità di download simultanei"
+msgstr "Limite di download simultanei superato. In attesa."
 
 #: The way percentages will be shown, like 10% or %10 depending on the language
 #: (don't translate {number}, just move it if needed)
@@ -473,19 +471,10 @@ msgid "Show Menu"
 msgstr "Mostra il Menu"
 
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
-# Snap version permission warning
-msgid ""
-"You are using Varia as a Snap package. To be able to use the shutdown on "
-"completion option you must first give Varia the related permission. To do "
-"this, open a terminal window and execute this command and then restart Varia:"
-msgstr ""
-
-#, fuzzy
-#| msgid "Torrent Settings"
 msgid "Enable Torrenting"
-msgstr "Impostazioni Torrent"
+msgstr "Abilita il torrenting"
 
 msgid "The browser extension will not work when Remote Mode is enabled."
 msgstr ""
@@ -499,12 +488,10 @@ msgid "Torrenting is disabled."
 msgstr ""
 
 msgid "Unknown filesize"
-msgstr ""
+msgstr "Dimensione file sconosciuta"
 
-#, fuzzy
-#| msgid "Show Menu"
 msgid "Show"
-msgstr "Mostra il Menu"
+msgstr "Mostra"
 
 #, fuzzy
 #| msgctxt "shortcut window"
@@ -512,28 +499,30 @@ msgstr "Mostra il Menu"
 msgid "Quit"
 msgstr "Esci"
 
-#, fuzzy
-#| msgid "Background Mode"
 msgid "Background Mode on Close"
-msgstr "Modalità in background"
+msgstr "Esecuzione in background alla chiusura"
 
 msgid "Upon closing, Varia will close to tray insted of exiting."
 msgstr ""
+"Alla chiusura della finestra, Varia rimarrà aperto come icona nella barra "
+"delle applicazioni."
 
 # Tray icon always visible option
 msgid "Tray Icon Always Visible"
-msgstr ""
+msgstr "Icona sempre visibile"
 
 msgid ""
 "The tray icon will be visible even when Varia is not in background mode."
 msgstr ""
+"L'icona nella barra delle applicazioni rimarrà visibile anche quando la "
+"modalità background non è attiva."
 
 # Open on startup option
 msgid "Open on Startup"
-msgstr ""
+msgstr "Apri all'avvio"
 
 msgid "Varia will open automatically when the system starts."
-msgstr ""
+msgstr "Varia verrà aperto in automatico all'avvio del sistema."
 
 # Start on background mode subtitle
 msgid "Varia will start directly in background mode upon opening."
@@ -541,39 +530,31 @@ msgstr ""
 
 # Remote mode additional explanation
 msgid "Use Varia as a GUI for a remote aria2c instance."
-msgstr ""
+msgstr "Usa Varia come GUI per un'istanza remota di aria2c."
 
 msgid "Configure"
-msgstr ""
+msgstr "Configura"
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Download Segments"
-msgstr "Download completato."
+msgstr "Segmenti di download"
 
-#, fuzzy
-#| msgid "Pause All"
 msgid "Pause"
-msgstr "Metti in pausa tutti"
+msgstr "Pausa"
 
-#, fuzzy
-#| msgid "Resume All"
 msgid "Resume"
-msgstr "Riprendi tutti"
+msgstr "Riprendi"
 
 msgid "Stop"
-msgstr ""
+msgstr "Ferma"
 
-#, fuzzy
-#| msgid "File"
 msgid "Open File"
-msgstr "File"
+msgstr "Apri File"
 
 msgid "Retry"
-msgstr ""
+msgstr "Riprova"
 
 msgid "Require Encryption"
-msgstr ""
+msgstr "Richiedi crittografia"
 
 msgid "Get Country Info of Peers"
 msgstr ""
@@ -583,65 +564,61 @@ msgid ""
 "peers in order to show country flags in the details window."
 msgstr ""
 
-#, fuzzy
-#| msgid "Download failed."
 msgid "Download Details"
-msgstr "Download fallito."
+msgstr "Dettagli del download"
 
 msgid "Type"
 msgstr ""
 
 msgid "Status"
-msgstr ""
+msgstr "Stato"
 
-#, fuzzy
-#| msgid "File"
 msgid "File Name"
-msgstr "File"
+msgstr "Nome del file"
 
-#, fuzzy
-#| msgid "Download"
 msgid "Downloading"
-msgstr "Scarica"
+msgstr "Scaricamento"
 
-#, fuzzy
-#| msgid "Pause All"
 msgid "Paused"
-msgstr "Metti in pausa tutti"
+msgstr "In pausa"
 
 msgid "Percentage Downloaded"
-msgstr ""
+msgstr "Percentuale scaricata"
 
-#, fuzzy
-#| msgid "remaining"
 msgid "Remaining"
-msgstr "rimanenti"
+msgstr "Rimanente"
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Download Speed"
-msgstr "Download completato."
+msgstr "Velocità del download"
 
-#, fuzzy
-#| msgid "Seeding"
 msgid "Seeding Speed"
-msgstr "In seeding"
+msgstr "Velocità del seeding"
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Amount Downloaded"
-msgstr "Download completato."
+msgstr "Quantità scaricata"
 
 msgid "Amount Uploaded"
-msgstr ""
+msgstr "Quantità servita"
 
 msgid "Ratio"
-msgstr ""
+msgstr "Rapporto"
 
 #, fuzzy
 #| msgid "Torrent"
 msgid "Torrent Peers"
 msgstr "Torrent"
+
+# Snap packaging permissions dialog part 1/2
+msgid ""
+"You are using Varia as a Snap package. There are some functions that you "
+"can't use without manually giving Varia some extra permissions. These are:"
+msgstr ""
+
+# Snap packaging permissions dialog part 2/2
+msgid ""
+"To enable these functions you must run these commands in a terminal to give "
+"the required permissions and then restart Varia:"
+msgstr ""
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

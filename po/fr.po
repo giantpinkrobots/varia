@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-09-22 10:08+0000\n"
-"Last-Translator: Quentin PAGÈS <quentinantonin@free.fr>\n"
+"PO-Revision-Date: 2025-11-03 23:02+0000\n"
+"Last-Translator: Giant Pink Robots! <giantpinkrobots@protonmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/varia/varia/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -43,11 +43,11 @@ msgid ""
 msgstr ""
 "Varia est un gestionnaire de téléchargement basé sur aria2 qui utilise GTK4 "
 "et Libadwaita pour fournir une interface simple d'utilisation qui s'intègre "
-"bien avec l'environnement Gnome"
+"bien avec l'environnement Gnome."
 
 #: src/variamain.py:45
 msgid "This is not a valid URL."
-msgstr "Ce n'est pas une URL valide"
+msgstr "Ce n'est pas une URL valide."
 
 #: src/variamain.py:125
 msgid "All"
@@ -474,13 +474,6 @@ msgstr "Voir le menu"
 msgid "OK"
 msgstr ""
 
-# Snap version permission warning
-msgid ""
-"You are using Varia as a Snap package. To be able to use the shutdown on "
-"completion option you must first give Varia the related permission. To do "
-"this, open a terminal window and execute this command and then restart Varia:"
-msgstr ""
-
 #, fuzzy
 #| msgid "Torrent Settings"
 msgid "Enable Torrenting"
@@ -641,6 +634,18 @@ msgstr ""
 #| msgid "Torrent"
 msgid "Torrent Peers"
 msgstr "Torrent"
+
+# Snap packaging permissions dialog part 1/2
+msgid ""
+"You are using Varia as a Snap package. There are some functions that you "
+"can't use without manually giving Varia some extra permissions. These are:"
+msgstr ""
+
+# Snap packaging permissions dialog part 2/2
+msgid ""
+"To enable these functions you must run these commands in a terminal to give "
+"the required permissions and then restart Varia:"
+msgstr ""
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

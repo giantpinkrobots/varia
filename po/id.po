@@ -470,17 +470,6 @@ msgstr "Tampilkan Menu"
 msgid "OK"
 msgstr "OK"
 
-# Snap version permission warning
-msgid ""
-"You are using Varia as a Snap package. To be able to use the shutdown on "
-"completion option you must first give Varia the related permission. To do "
-"this, open a terminal window and execute this command and then restart Varia:"
-msgstr ""
-"Anda menggunakan Varia sebagai paket Snap. Untuk dapat menggunakan opsi "
-"matikan setelah selesai, Anda harus terlebih dahulu memberikan izin yang "
-"diperlukan Varia. Untuk melakukannya, buka terminal dan jalankan perintah "
-"berikut, lalu mulai ulang Varia:"
-
 msgid "Enable Torrenting"
 msgstr "Aktifkan Torrent"
 
@@ -637,6 +626,18 @@ msgstr ""
 msgid "Torrent Peers"
 msgstr "Torrent"
 
+# Snap packaging permissions dialog part 1/2
+msgid ""
+"You are using Varia as a Snap package. There are some functions that you "
+"can't use without manually giving Varia some extra permissions. These are:"
+msgstr ""
+
+# Snap packaging permissions dialog part 2/2
+msgid ""
+"To enable these functions you must run these commands in a terminal to give "
+"the required permissions and then restart Varia:"
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
@@ -651,3 +652,15 @@ msgstr "Tampilkan Pintasan"
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Keluar"
+
+# Snap version permission warning
+#~ msgid ""
+#~ "You are using Varia as a Snap package. To be able to use the shutdown on "
+#~ "completion option you must first give Varia the related permission. To do "
+#~ "this, open a terminal window and execute this command and then restart "
+#~ "Varia:"
+#~ msgstr ""
+#~ "Anda menggunakan Varia sebagai paket Snap. Untuk dapat menggunakan opsi "
+#~ "matikan setelah selesai, Anda harus terlebih dahulu memberikan izin yang "
+#~ "diperlukan Varia. Untuk melakukannya, buka terminal dan jalankan perintah "
+#~ "berikut, lalu mulai ulang Varia:"
