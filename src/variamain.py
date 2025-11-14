@@ -60,12 +60,24 @@ class MainWindow(application_window):
         self.tray_connection_thread_stop = False
         self.tray_process = None
         self.ip_geolocation_cache = {}
+        self.issnap = issnap
 
         # Set up variables and all:
         aria2_connection_successful = initiate(self, variaapp, variaVersion, first_run, issnap)
 
-        if (aria2_connection_successful == -1):
+        if aria2_connection_successful == -1:
             return
+        
+        # Get status of Snap interface connections:
+        if self.issnap:
+            self.snap_is_connected = {"dbus-varia-tray": False, "dbusmenu": False, "shutdown": False}
+
+            for key in self.snap_is_connected:
+                self.snap_is_connected[key] = subprocess.run(["snapctl", "is-connected", key], capture_output=True, shell=True).returncode == 0
+            
+            if not (self.snap_is_connected["dbus-varia-tray"] and self.snap_is_connected["dbusmenu"]): # Can't use tray icons, disable Background mode
+                self.appconf["tray_always_visible"] == "false"
+                self.appconf["use_tray"] == "false"
 
         # Create window contents:
         window_create_sidebar(self, variaapp, variaVersion)

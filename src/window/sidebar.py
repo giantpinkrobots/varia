@@ -267,7 +267,11 @@ def on_add_torrent(file_dialog, result, self):
         self.api.add_torrent(file)
 
 def background_mode(app, variaapp1, self, variaapp):
-    self.exitProgram(app=app, variaapp=variaapp, background=True)
+    if variaapp.issnap and ((variaapp.snap_is_connected["dbus-varia-tray"] == False) or (variaapp.snap_is_connected["dbusmenu"] == False)): # If running on Snap and doesn't have the required permissions
+        variaapp.show_snap_permissions_required_dialog()
+
+    else:
+        self.exitProgram(app=app, variaapp=variaapp, background=True)
 
 def show_about(app, variaapp, self, variaVersion):
     if self.overlay_split_view.get_show_sidebar() and \
@@ -314,21 +318,25 @@ def open_downloads_folder(self, app, variaapp, appconf):
         subprocess.Popen(["xdg-open", appconf["download_directory"]])
 
 def shutdown_on_completion(self, app, variaapp):
-    if (variaapp.shutdown_mode == False):
-        variaapp.shutdown_mode = True
-        variaapp.exit_mode = False
-        try:
-            variaapp.sidebar_content_box.remove(variaapp.sidebar_exit_on_completion_label)
-        except:
-            pass
-        variaapp.sidebar_exit_on_completion_label.set_text(_("Shutdown on Completion"))
-        variaapp.sidebar_content_box.append(variaapp.sidebar_exit_on_completion_label)
+    if variaapp.issnap and (variaapp.snap_is_connected["shutdown"] == False): # If running on Snap and doesn't have the required permission
+        variaapp.show_snap_permissions_required_dialog()
+
     else:
-        variaapp.shutdown_mode = False
-        try:
-            variaapp.sidebar_content_box.remove(variaapp.sidebar_exit_on_completion_label)
-        except:
-            pass
+        if (variaapp.shutdown_mode == False):
+            variaapp.shutdown_mode = True
+            variaapp.exit_mode = False
+            try:
+                variaapp.sidebar_content_box.remove(variaapp.sidebar_exit_on_completion_label)
+            except:
+                pass
+            variaapp.sidebar_exit_on_completion_label.set_text(_("Shutdown on Completion"))
+            variaapp.sidebar_content_box.append(variaapp.sidebar_exit_on_completion_label)
+        else:
+            variaapp.shutdown_mode = False
+            try:
+                variaapp.sidebar_content_box.remove(variaapp.sidebar_exit_on_completion_label)
+            except:
+                pass
 
 def exit_on_completion(self, app, variaapp):
     if (variaapp.exit_mode == False):

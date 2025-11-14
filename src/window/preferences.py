@@ -621,7 +621,12 @@ def on_speed_limit_changed(self, speed, speed_type, switch):
 def on_start_in_background(switch, state, self):
     state = switch.get_active()
     if state:
-        self.appconf["default_mode"] = "background"
+        if self.issnap and ((self.snap_is_connected["dbus-varia-tray"] == False) or (self.snap_is_connected["dbusmenu"] == False)): # If running on Snap and doesn't have the required permissions
+            switch.set_active(False)
+            self.show_snap_permissions_required_dialog()
+        
+        else:
+            self.appconf["default_mode"] = "background"
     else:
         self.appconf["default_mode"] = "visible"
 
@@ -630,7 +635,12 @@ def on_start_in_background(switch, state, self):
 def on_use_tray_icon(switch, state, self):
     state = switch.get_active()
     if state:
-        self.appconf["use_tray"] = "true"
+        if self.issnap and ((self.snap_is_connected["dbus-varia-tray"] == False) or (self.snap_is_connected["dbusmenu"] == False)): # If running on Snap and doesn't have the required permissions
+            switch.set_active(False)
+            self.show_snap_permissions_required_dialog()
+        
+        else:
+            self.appconf["use_tray"] = "true"
     else:
         self.appconf["use_tray"] = "false"
 
@@ -639,8 +649,13 @@ def on_use_tray_icon(switch, state, self):
 def on_tray_always_visible(switch, state, self, variaapp):
     state = switch.get_active()
     if state:
-        self.appconf["tray_always_visible"] = "true"
-        self.start_tray_process(variaapp)
+        if self.issnap and ((self.snap_is_connected["dbus-varia-tray"] == False) or (self.snap_is_connected["dbusmenu"] == False)): # If running on Snap and doesn't have the required permissions
+            switch.set_active(False)
+            self.show_snap_permissions_required_dialog()
+        
+        else:
+            self.appconf["tray_always_visible"] = "true"
+            self.start_tray_process(variaapp)
     else:
         self.appconf["tray_always_visible"] = "false"
         self.tray_connection_thread_stop = True
