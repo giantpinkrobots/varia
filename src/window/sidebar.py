@@ -105,7 +105,7 @@ def window_create_sidebar(self, variaapp, variaVersion):
     self.download_button.set_child(download_button_box)
     self.download_button.add_css_class("suggested-action")
     self.download_button.set_sensitive(False)
-    self.download_button.connect("clicked", on_download_clicked, self, download_entry, None, None, "regular", None, False, self.appconf["download_directory"])
+    self.download_button.connect("clicked", on_download_clicked, self, download_entry, None, None, "regular", None, False, self.appconf["download_directory"], 0)
 
     self.video_button_icon = Gtk.Image.new_from_icon_name("camera-video-symbolic")
     self.video_button_text = Gtk.Label(label=_("Video / Audio"))
@@ -148,7 +148,7 @@ def window_create_sidebar(self, variaapp, variaVersion):
     frame_add_download.set_margin_bottom(8)
     frame_add_download.set_child(box_add_download)
 
-    self.filter_button_show_all = Gtk.ToggleButton()
+    self.filter_button_show_all = Gtk.ToggleButton(tooltip_text=_("Filter downloads by {filter option}").replace("{filter option}", _("All")))
     self.filter_button_show_all.add_css_class('flat')
     filter_button_show_all_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     filter_button_show_all_box.set_margin_top(8)
@@ -161,7 +161,7 @@ def window_create_sidebar(self, variaapp, variaVersion):
     self.filter_button_show_all.set_active(True)
     self.filter_button_show_all.connect("clicked", self.filter_download_list, "show_all")
 
-    self.filter_button_show_downloading = Gtk.ToggleButton()
+    self.filter_button_show_downloading = Gtk.ToggleButton(tooltip_text=_("Filter downloads by {filter option}").replace("{filter option}", _("In Progress")))
     self.filter_button_show_downloading.add_css_class('flat')
     filter_button_show_downloading_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     filter_button_show_downloading_box.set_margin_top(8)
@@ -173,7 +173,7 @@ def window_create_sidebar(self, variaapp, variaVersion):
     self.filter_button_show_downloading.set_child(filter_button_show_downloading_box)
     self.filter_button_show_downloading.connect("clicked", self.filter_download_list, "show_downloading")
 
-    self.filter_button_show_completed = Gtk.ToggleButton()
+    self.filter_button_show_completed = Gtk.ToggleButton(tooltip_text=_("Filter downloads by {filter option}").replace("{filter option}", _("Completed")))
     self.filter_button_show_completed.add_css_class('flat')
     filter_button_show_completed_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     filter_button_show_completed_box.set_margin_top(8)
@@ -185,7 +185,7 @@ def window_create_sidebar(self, variaapp, variaVersion):
     self.filter_button_show_completed.set_child(filter_button_show_completed_box)
     self.filter_button_show_completed.connect("clicked", self.filter_download_list, "show_completed")
 
-    self.filter_button_show_seeding = Gtk.ToggleButton()
+    self.filter_button_show_seeding = Gtk.ToggleButton(tooltip_text=_("Filter downloads by {filter option}").replace("{filter option}", _("Seeding")))
     self.filter_button_show_seeding.add_css_class('flat')
     filter_button_show_seeding_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     filter_button_show_seeding_box.set_margin_top(8)
@@ -197,7 +197,7 @@ def window_create_sidebar(self, variaapp, variaVersion):
     self.filter_button_show_seeding.set_child(filter_button_show_seeding_box)
     self.filter_button_show_seeding.connect("clicked", self.filter_download_list, "show_seeding")
 
-    self.filter_button_show_failed = Gtk.ToggleButton()
+    self.filter_button_show_failed = Gtk.ToggleButton(tooltip_text=_("Filter downloads by {filter option}").replace("{filter option}", _("Failed")))
     self.filter_button_show_failed.add_css_class('flat')
     filter_button_show_failed_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     filter_button_show_failed_box.set_margin_top(8)

@@ -325,7 +325,12 @@ msgstr ""
 msgid "Remote Timestamp"
 msgstr ""
 
+# Download type: Torrent
 msgid "Torrent"
+msgstr ""
+
+# Download type: Regular
+msgid "Regular"
 msgstr ""
 
 #Updater
@@ -571,6 +576,42 @@ msgstr ""
 
 # Snap packaging permissions dialog part 2/2
 msgid "To enable these functions you must run these commands in a terminal to give the required permissions and then restart Varia:"
+msgstr ""
+
+# Tooltip for when focused on filter options in the sidebar. Do not translate {filter option}, it will be replaced by the filter type. ("All", "In Progress", etc)
+msgid "Filter downloads by {filter option}"
+msgstr ""
+
+# For screen readers - Tooltip for when focused on a download item. Not a verb.
+msgid "Download item"
+msgstr ""
+
+# For screen readers - Tooltip for when focused on options for timespan in scheduler
+msgid "Timespan {number}"
+msgstr ""
+
+# Tooltip for when focused on timespan day of the week dropdown
+msgid "Day of the week for timespan {number}"
+msgstr ""
+
+# Tooltip for when focused on delete button for timespan in scheduler
+msgid "Remove timespan {number}"
+msgstr ""
+
+# Tooltip for when focused on timespan start hour
+msgid "Start hour for timespan {number}"
+msgstr ""
+
+# Tooltip for when focused on timespan start minute
+msgid "Start minute for timespan {number}"
+msgstr ""
+
+# Tooltip for when focused on timespan end hour
+msgid "End hour for timespan {number}"
+msgstr ""
+
+# Tooltip for when focused on timespan end minute
+msgid "End minute for timespan {number}"
 msgstr ""
 
 #: src/gtk/help-overlay.ui:11

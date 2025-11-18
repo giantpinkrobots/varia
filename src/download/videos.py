@@ -426,4 +426,4 @@ def on_video_option_download_clicked(self, prefswindow, type, download_object, d
         else:
             break
 
-    on_download_clicked(None, self, url, filename, None, "video", video_options, False, self.appconf["download_directory"])
+    on_download_clicked(None, self, url, filename, None, "video", video_options, False, self.appconf["download_directory"], 0)

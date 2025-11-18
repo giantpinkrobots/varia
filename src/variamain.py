@@ -177,7 +177,7 @@ class MainWindow(application_window):
                 windows_updater(None, self, variaapp, None, variaVersion, 0)
 
         # Load incomplete downloads:
-        default_state = {"url": None, "filename": None, "type": "regular", "video_options": {}, "paused": False, "index": 0, "dir": self.appconf["download_directory"]}
+        default_state = {"url": None, "filename": None, "type": "regular", "video_options": {}, "paused": False, "index": 0, "dir": self.appconf["download_directory"], "percentage": 0}
         download_dicts = []
 
         for filename in os.listdir(self.appconf["download_directory"]):
@@ -204,7 +204,7 @@ class MainWindow(application_window):
         download_dicts = sorted(download_dicts, key=itemgetter("index"))
 
         for download in download_dicts:
-            on_download_clicked(None, self, download["url"], download["filename"], None, download["type"], download["video_options"], download["paused"], download["dir"])
+            on_download_clicked(None, self, download["url"], download["filename"], None, download["type"], download["video_options"], download["paused"], download["dir"], download["percentage"])
 
         self.check_all_status() # Set Pause All / Resume All button
 
@@ -729,7 +729,7 @@ class MyApp(Adw.Application):
                 
                 else:
                     actionrow = create_actionrow(self.win, item)
-                    download_thread = DownloadThread(self.win, item, actionrow, item, None, "regular", None, False, self.win.appconf["download_directory"])
+                    download_thread = DownloadThread(self.win, item, actionrow, item, None, "regular", None, False, self.win.appconf["download_directory"], 0)
                     actionrow.download_thread = download_thread
                     self.win.downloads.append(download_thread)
                     download_thread.start()

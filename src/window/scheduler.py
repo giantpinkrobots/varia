@@ -24,22 +24,9 @@ def add_timespan_clicked(button, self, timespans_box, day, start_h, start_m, end
     box_column_2.set_margin_top(4)
     box_column_2.set_margin_bottom(4)
 
-    days_combobox = Gtk.ComboBoxText()
-    all_days = [_("Monday"), _("Tuesday"), _("Wednesday"), _("Thursday"), _("Friday"), _("Saturday"), _("Sunday")]
-
-    for day_in_days in all_days:
-        days_combobox.append_text(day_in_days)
-
-    days_combobox.set_active(day)
-    days_combobox.connect("changed", on_edit, None, self)
-
-    remove_button = Gtk.Button.new_from_icon_name("list-remove-symbolic")
-    remove_button.set_margin_start(4)
-    remove_button.set_margin_end(4)
-    remove_button.set_margin_top(4)
-    remove_button.set_margin_bottom(4)
-    remove_button.add_css_class("destructive-action")
-    remove_button.connect("clicked", remove_timespan, self, timespans_box, timespan_row, len(self.timespans_list), switch_enabled)
+    days_dropdown = Gtk.DropDown.new_from_strings([_("Monday"), _("Tuesday"), _("Wednesday"), _("Thursday"), _("Friday"), _("Saturday"), _("Sunday")])
+    days_dropdown.set_selected(day)
+    days_dropdown.connect("notify::selected-item", on_edit, self)
 
     timespan_count_label = Gtk.Label()
     timespan_count_label.set_halign(Gtk.Align.START)
@@ -75,10 +62,17 @@ def add_timespan_clicked(button, self, timespans_box, day, start_h, start_m, end
     end_timespan_box.append(end_timespan_spin_m)
 
     box_column_1.append(timespan_count_label)
-    box_column_1.append(days_combobox)
+    box_column_1.append(days_dropdown)
 
     box_column_2.append(start_timespan_box)
     box_column_2.append(end_timespan_box)
+
+    remove_button = Gtk.Button.new_from_icon_name("list-remove-symbolic")
+    remove_button.set_margin_start(4)
+    remove_button.set_margin_end(4)
+    remove_button.set_margin_top(4)
+    remove_button.set_margin_bottom(4)
+    remove_button.add_css_class("destructive-action")
 
     root_box.append(box_column_1)
     root_box.append(Gtk.Box(hexpand=True))
@@ -87,11 +81,15 @@ def add_timespan_clicked(button, self, timespans_box, day, start_h, start_m, end
     root_box.append(remove_button)
 
     timespans_box.append(timespan_row)
-    timespan_info = {'id': len(self.timespans_list), 'day': days_combobox, 'start_h': start_timespan_spin_h, 'start_m': start_timespan_spin_m, 'end_h': end_timespan_spin_h, 'end_m': end_timespan_spin_m, 'label': timespan_count_label}
+    timespan_info = {'bin': timespan_row, 'day': days_dropdown, 'start_h': start_timespan_spin_h,
+                     'start_m': start_timespan_spin_m, 'end_h': end_timespan_spin_h, 'end_m': end_timespan_spin_m, 'label': timespan_count_label, 'remove_button': remove_button}
+    remove_button.connect("clicked", remove_timespan, self, timespans_box, timespan_row, timespan_info, switch_enabled)
     self.timespans_list.append(timespan_info)
 
     adjust_timespan_labels(self)
     on_edit(None, None, self)
+    timespan_row.set_focusable(True)
+    timespan_row.grab_focus()
 
 def discard_all(widget, self):
     self.preferencesWindow.pop_subpage()
@@ -103,15 +101,22 @@ def on_edit(widget, state, self):
         discard_button = Gtk.Button(tooltip_text=_("Cancel"), label=_("Cancel"))
         discard_button.connect("clicked", discard_all, self)
         discard_button.add_css_class("destructive-action")
-        self.schedulerDialog_headerbar.pack_start(discard_button)
+        self.schedulerDialog.headerbar.pack_start(discard_button)
 
-def remove_timespan(button, self, timespans_box, timespan_row, timespan_id, switch_enabled):
+def remove_timespan(button, self, timespans_box, timespan_row, timespan_info, switch_enabled):
+    i = self.timespans_list.index(timespan_info)
     timespan_row.unrealize()
     timespans_box.remove(timespan_row)
-    self.timespans_list = [item for item in self.timespans_list if item.get('id') != timespan_id]
+    self.timespans_list.remove(timespan_info)
     if_there_are_any_timespans(self, switch_enabled)
     adjust_timespan_labels(self)
     on_edit(None, None, self)
+
+    if i > 0:
+        self.timespans_list[i - 1]['bin'].grab_focus()
+    
+    else:
+        self.schedulerDialog.add_timespan_button.grab_focus()
 
 def change_schedule_mode(switch, state, self, mode, switch_mode_1, switch_mode_2):
     if (mode == 'inclusive'):
@@ -149,7 +154,7 @@ def save_schedule(preferencesDialog, self, switch_mode_1, switch_enabled):
     timespan_appconf = []
 
     for item in self.timespans_list:
-        timespan_day = item['day'].get_active()
+        timespan_day = item['day'].get_selected()
         timespan_start_h = item['start_h'].get_value_as_int()
         timespan_start_m = item['start_m'].get_value_as_int()
         timespan_end_h = item['end_h'].get_value_as_int()
@@ -170,6 +175,15 @@ def adjust_timespan_labels(self):
     i = 1
     for timespan in self.timespans_list:
         timespan['label'].set_label(str(i) + " / " + str(len(self.timespans_list)))
+
+        timespan['bin'].set_tooltip_text(_("Timespan {number}").replace("{number}", str(i)))
+        timespan['day'].set_tooltip_text(_("Day of the week for timespan {number}").replace("{number}", str(i)))
+        timespan['remove_button'].set_tooltip_text(_("Remove timespan {number}").replace("{number}", str(i)))
+        timespan['start_h'].set_tooltip_text(_("Start hour for timespan {number}").replace("{number}", str(i)))
+        timespan['start_m'].set_tooltip_text(_("Start minute for timespan {number}").replace("{number}", str(i)))
+        timespan['end_h'].set_tooltip_text(_("End hour for timespan {number}").replace("{number}", str(i)))
+        timespan['end_m'].set_tooltip_text(_("End minute for timespan {number}").replace("{number}", str(i)))
+
         i += 1
 
 def show_scheduler_dialog(self, preferencesWindow, variaapp, show_preferences, variaVersion):
@@ -190,11 +204,11 @@ def show_scheduler_dialog(self, preferencesWindow, variaapp, show_preferences, v
     scrolled_window = Gtk.ScrolledWindow()
     scrolled_window.set_child(root_box)
 
-    self.schedulerDialog_headerbar = Adw.HeaderBar()
-    self.schedulerDialog_headerbar.set_show_end_title_buttons(False)
-    self.schedulerDialog_headerbar.add_css_class('flat')
+    self.schedulerDialog.headerbar = Adw.HeaderBar()
+    self.schedulerDialog.headerbar.set_show_end_title_buttons(False)
+    self.schedulerDialog.headerbar.add_css_class('flat')
     
-    root_box.append(self.schedulerDialog_headerbar)
+    root_box.append(self.schedulerDialog.headerbar)
     root_box.append(main_box)
     self.schedulerDialog.set_child(scrolled_window)
 
@@ -207,7 +221,7 @@ def show_scheduler_dialog(self, preferencesWindow, variaapp, show_preferences, v
     expanding_box_enabled = Gtk.Box()
     Gtk.Widget.set_hexpand(expanding_box_enabled, True)
 
-    switch_enabled = Gtk.Switch()
+    switch_enabled = Gtk.Switch(tooltip_text=_("Enabled"))
     switch_enabled.set_active(self.appconf["schedule_enabled"])
     switch_enabled.connect("state-set", on_edit, self)
 
@@ -219,7 +233,7 @@ def show_scheduler_dialog(self, preferencesWindow, variaapp, show_preferences, v
     label_mode_1 = Gtk.Label(label=_("Start downloading in these times"))
     expanding_box_mode_1 = Gtk.Box()
     Gtk.Widget.set_hexpand(expanding_box_mode_1, True)
-    switch_mode_1 = Gtk.Switch()
+    switch_mode_1 = Gtk.Switch(tooltip_text=_("Start downloading in these times"))
     if self.appconf["schedule_mode"] == 'inclusive':
         switch_mode_1.set_active(True)
     box_mode_1.append(label_mode_1)
@@ -230,7 +244,7 @@ def show_scheduler_dialog(self, preferencesWindow, variaapp, show_preferences, v
     label_mode_2 = Gtk.Label(label=_("Stop downloading in these times"))
     expanding_box_mode_2 = Gtk.Box()
     Gtk.Widget.set_hexpand(expanding_box_mode_2, True)
-    switch_mode_2 = Gtk.Switch()
+    switch_mode_2 = Gtk.Switch(tooltip_text=_("Stop downloading in these times"))
     if self.appconf["schedule_mode"] == 'exclusive':
         switch_mode_2.set_active(True)
     box_mode_2.append(label_mode_2)
@@ -253,19 +267,19 @@ def show_scheduler_dialog(self, preferencesWindow, variaapp, show_preferences, v
 
     timespans_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
     
-    add_timespan_button = Gtk.Button(label=_("Add Timespan"))
-    add_timespan_button.set_halign(Gtk.Align.CENTER)
-    add_timespan_button.add_css_class("suggested-action")
-    add_timespan_button.connect("clicked", add_timespan_clicked, self, timespans_box, 0, 0, 0, 0, 0, switch_enabled)
+    self.schedulerDialog.add_timespan_button = Gtk.Button(label=_("Add Timespan"))
+    self.schedulerDialog.add_timespan_button.set_halign(Gtk.Align.CENTER)
+    self.schedulerDialog.add_timespan_button.add_css_class("suggested-action")
+    self.schedulerDialog.add_timespan_button.connect("clicked", add_timespan_clicked, self, timespans_box, 0, 0, 0, 0, 0, switch_enabled)
 
-    main_box.append(add_timespan_button)
+    main_box.append(self.schedulerDialog.add_timespan_button)
 
     main_box.append(timespans_box)
 
     save_button = Gtk.Button(tooltip_text=_("Save"), label=_("Save"))
     save_button.connect("clicked", save_schedule, self, switch_mode_1, switch_enabled)
     save_button.add_css_class("suggested-action")
-    self.schedulerDialog_headerbar.pack_end(save_button)
+    self.schedulerDialog.headerbar.pack_end(save_button)
 
     # Build timespans from appconf:
     for item in self.appconf["schedule"]:

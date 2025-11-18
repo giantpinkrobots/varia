@@ -8,7 +8,7 @@ from download.details import show_download_details_dialog
 import json
 import os
 
-def on_download_clicked(button, self, entry, downloadname, download, mode, video_options, paused, dir):
+def on_download_clicked(button, self, entry, downloadname, download, mode, video_options, paused, dir, percentage):
     if isinstance(entry, str):
         url = entry
     else:
@@ -25,7 +25,7 @@ def on_download_clicked(button, self, entry, downloadname, download, mode, video
         else:
             download_item = create_actionrow(self, url)
 
-        download_thread = DownloadThread(self, url, download_item, downloadname, download, mode, video_options, paused, dir)
+        download_thread = DownloadThread(self, url, download_item, downloadname, download, mode, video_options, paused, dir, percentage)
         download_item.download_thread = download_thread
         self.downloads.append(download_thread)
         download_thread.start()
@@ -112,8 +112,7 @@ def create_actionrow(self, filename):
     box_2.append(progress_bar)
 
     self.download_list.prepend(download_item)
-
-    self.content_root_overlay.remove_overlay(self.status_page_widget)
+    GLib.idle_add(self.content_root_overlay.remove_overlay, self.status_page_widget)
 
     download_item.percentage_label = percentage_label
     download_item.progress_bar = progress_bar
@@ -126,7 +125,6 @@ def create_actionrow(self, filename):
     return download_item
 
 def on_pause_clicked(button, self, pause_button, download_item, force_pause, run_pause_function):
-
     if download_item.download_thread.return_is_paused() and force_pause == False:
         download_item.download_thread.resume()
 
@@ -150,7 +148,7 @@ def pause_button_set_open_mode(button, self, download_item):
     button.set_tooltip_text(_("Open File"))
 
 def pause_button_on_retry_clicked(button, self, download_item):
-    new_download_item = on_download_clicked(None, self, download_item.url, download_item.downloadname, None, download_item.mode, download_item.video_options, False, download_item.downloaddir)
+    new_download_item = on_download_clicked(None, self, download_item.url, download_item.downloadname, None, download_item.mode, download_item.video_options, False, download_item.downloaddir, 0)
 
     self.download_list.reorder_child_after(new_download_item.actionrow, download_item.actionrow)
     self.downloads.remove(new_download_item)

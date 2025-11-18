@@ -156,7 +156,7 @@ def add_download_to_ui(self, download_item_to_be_added, variaapp):
     variaapp.send_notification(None, notification)
 
     actionrow = create_actionrow(self, download_item_url)
-    download_thread = DownloadThread(self, download_item_url, actionrow, download_item_url, download_item_to_be_added, "regular", None, False, self.appconf["download_directory"])
+    download_thread = DownloadThread(self, download_item_url, actionrow, download_item_url, download_item_to_be_added, "regular", None, False, self.appconf["download_directory"], 0)
     actionrow.download_thread = download_thread
     self.downloads.append(download_thread)
     download_thread.start()

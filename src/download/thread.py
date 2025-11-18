@@ -11,9 +11,10 @@ from yt_dlp import YoutubeDL
 import re
 import base64
 import multiprocessing as multiprocessing
+import math
 
 class DownloadThread(threading.Thread):
-    def __init__(self, app, url, actionrow, downloadname, download, mode, video_options, paused, dir):
+    def __init__(self, app, url, actionrow, downloadname, download, mode, video_options, paused, dir, percentage):
         threading.Thread.__init__(self)
         self.api = app.api
         self.downloaddir = dir
@@ -28,16 +29,17 @@ class DownloadThread(threading.Thread):
         self.cancelled = False
         self.mode = mode
         self.speed = 0
+        self.percentage_number = percentage
         self.paused_because_exceeds_limit = False
         self.total_file_size_text = ""
         self.download_message_shown = False
         self.download_details = {
-            'type': "",
+            'type': _("Regular") if mode == "regular" else _("Video / Audio"),
             'status': _("Downloading"),
             'remaining': "∞",
             'download_speed': "0 B/s",
-            'percentage': "0%",
-            'messaage': "",
+            'percentage': _("{number}%").replace("{number}", str(self.percentage_number)),
+            'message': "",
             'completed_length': 0,
             'upload_length': 0,
             'torrent_seeding_speed': "0 B/s",
@@ -104,6 +106,7 @@ class DownloadThread(threading.Thread):
                 download_options["dir"] = self.app.appconf["torrent_download_directory"]
                 download_options["follow_torrent"] = "true"
                 self.downloaddir = self.app.appconf["torrent_download_directory"]
+                self.download_details['type'] = _("Torrent")
 
             else:
                 try:
@@ -132,8 +135,11 @@ class DownloadThread(threading.Thread):
                 print ("Authentication enabled.")
 
         print(self.downloadname)
-
         self.app.check_all_status()
+
+        if self.percentage_number > 0:
+            GLib.idle_add(self.actionrow.progress_bar.set_fraction, self.percentage_number / 100)
+            GLib.idle_add(self.actionrow.percentage_label.set_text, self.download_details['percentage'])
 
         # Regular download, use aria2p:
         if self.mode == "regular":
@@ -287,6 +293,13 @@ class DownloadThread(threading.Thread):
         GLib.idle_add(self.speed_label.set_text, message)
         self.download_details['message'] = message
         self.download_message_shown = True
+    
+    def set_actionrow_tooltip_text(self):
+        GLib.idle_add(self.actionrow.set_tooltip_text, _("Download item")
+                            + "\n" + _("File Name") + ": " + self.downloadname
+                            + "\n" + _("Type") + ": " + self.download_details['type']
+                            + "\n" + _("Status") + ": " + self.download_details['status']
+                            + "\n" + self.download_details['percentage'])
 
     def update_labels_and_things(self, video_object):
         speed_label_text = ""
@@ -298,51 +311,53 @@ class DownloadThread(threading.Thread):
 
         if self.mode == "regular":
             progress = self.download.progress
-            speed = self.download.download_speed
-            self.speed = speed
 
-            if self.download.is_torrent:
-                self.download_details['torrent_peers'] = self.app.api.client.call("aria2.getPeers", [self.download.gid])
-                self.download_details['completed_length'] = self.download.completed_length
-                self.download_details['upload_length'] = self.download.upload_length
+            if progress > 0.0:
+                speed = self.download.download_speed
+                self.speed = speed
 
-                if self.download.seeder:
-                    if self.app.appconf["torrent_seeding_enabled"] == "1":
-                        GLib.idle_add(self.show_message(_("Seeding torrent")))
+                if self.download.is_torrent:
+                    self.download_details['torrent_peers'] = self.app.api.client.call("aria2.getPeers", [self.download.gid])
+                    self.download_details['completed_length'] = self.download.completed_length
+                    self.download_details['upload_length'] = self.download.upload_length
+
+                    if self.download.seeder:
+                        if self.app.appconf["torrent_seeding_enabled"] == "1":
+                            GLib.idle_add(self.show_message(_("Seeding torrent")))
+                        else:
+                            GLib.idle_add(self.set_complete)
+                        return
+                
+                download_delta = self.download.eta
+                download_speed_mb = (speed / 1024 / 1024)
+
+                download_seconds = download_delta.total_seconds()
+                download_seconds = abs(int(download_seconds))
+                download_hours, download_seconds = divmod(download_seconds, 3600)
+                download_minutes, download_seconds = divmod(download_seconds, 60)
+
+                download_hours = str(download_hours).zfill(2)
+                download_minutes = str(download_minutes).zfill(2)
+                download_seconds = str(download_seconds).zfill(2)
+
+                if speed != 0:
+                    download_remaining_string = f"{download_hours}:{download_minutes}:{download_seconds}"
+                
+                percentage_label_text = _("{number}%").replace("{number}", str(round(progress)))
+                
+                if int(str(download_speed_mb)[0]) == 0:
+                    download_speed_kb = (speed / 1024)
+                    if int(str(download_speed_kb)[0]) == 0:
+                        speed_label_text_speed = f"{round(speed, 2)} {_(' B/s')}"
                     else:
-                        GLib.idle_add(self.set_complete)
-                    return
-            
-            download_delta = self.download.eta
-            download_speed_mb = (speed / 1024 / 1024)
-
-            download_seconds = download_delta.total_seconds()
-            download_seconds = abs(int(download_seconds))
-            download_hours, download_seconds = divmod(download_seconds, 3600)
-            download_minutes, download_seconds = divmod(download_seconds, 60)
-
-            download_hours = str(download_hours).zfill(2)
-            download_minutes = str(download_minutes).zfill(2)
-            download_seconds = str(download_seconds).zfill(2)
-
-            if speed != 0:
-                download_remaining_string = f"{download_hours}:{download_minutes}:{download_seconds}"
-            
-            percentage_label_text = _("{number}%").replace("{number}", str(round(progress)))
-            
-            if int(str(download_speed_mb)[0]) == 0:
-                download_speed_kb = (speed / 1024)
-                if int(str(download_speed_kb)[0]) == 0:
-                    speed_label_text_speed = f"{round(speed, 2)} {_(' B/s')}"
+                        speed_label_text_speed = f"{round(speed / 1024, 2)} {_(' KB/s')}"
                 else:
-                    speed_label_text_speed = f"{round(speed / 1024, 2)} {_(' KB/s')}"
-            else:
-                speed_label_text_speed = f"{round(speed / 1024 / 1024, 2)} {_(' MB/s')}"
-            
-            if self.download.is_torrent and hasattr(self.download, "files"):
-                for file in self.download.files:
-                    if file not in self.download_temp_files:
-                        self.download_temp_files.append(file)
+                    speed_label_text_speed = f"{round(speed / 1024 / 1024, 2)} {_(' MB/s')}"
+                
+                if self.download.is_torrent and hasattr(self.download, "files"):
+                    for file in self.download.files:
+                        if file not in self.download_temp_files:
+                            self.download_temp_files.append(file)
         
         elif self.mode == "video":
             if video_object['status'] == "finished":
@@ -354,6 +369,7 @@ class DownloadThread(threading.Thread):
             elif video_object['status'] == "error":
                 self.video_status = "error"
                 GLib.idle_add(self.set_failed, progress / 100)
+
             elif video_object['status'] == "idle":
                 self.video_status = "idle"
 
@@ -416,16 +432,23 @@ class DownloadThread(threading.Thread):
                     percentage_label_text = _("Part {indicator}").replace("{indicator}", "1 / 2") + "  ·  " + percentage_label_text
                 elif self.video_download_stage == 1:
                     percentage_label_text = _("Part {indicator}").replace("{indicator}", "2 / 2") + "  ·  " + percentage_label_text
-
+        
         speed_label_text = f"{speed_label_text}{self.total_file_size_text}  ·  {speed_label_text_speed}  ·  {download_remaining_string} {_('remaining')}"
         self.download_details['message'] = ""
 
+        self.set_actionrow_tooltip_text()
+
+        if progress > 0:
+            self.percentage_number = progress
+
         if self.is_complete == False:
-            GLib.idle_add(self.actionrow.progress_bar.set_fraction, progress / 100)
+            if progress > 0:
+                GLib.idle_add(self.actionrow.progress_bar.set_fraction, progress / 100)
+                GLib.idle_add(self.actionrow.percentage_label.set_text, percentage_label_text)
+                self.download_details['percentage'] = percentage_label_text
+
             GLib.idle_add(self.speed_label.set_text, speed_label_text)
-            GLib.idle_add(self.actionrow.percentage_label.set_text, percentage_label_text)
             self.download_details['remaining'] = download_remaining_string
-            self.download_details['percentage'] = percentage_label_text
             self.download_details['download_speed'] = speed_label_text_speed
 
     def pause(self, change_pause_button_icon):
@@ -592,7 +615,8 @@ class DownloadThread(threading.Thread):
                 'video_options': json.dumps(self.video_options),
                 'paused': self.paused,
                 'index': self.app.downloads.index(self),
-                'dir': self.downloaddir
+                'dir': self.downloaddir,
+                'percentage': math.floor(self.percentage_number)
             }
 
             if self.mode == "regular":
