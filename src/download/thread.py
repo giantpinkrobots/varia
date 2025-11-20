@@ -12,6 +12,7 @@ import re
 import base64
 import multiprocessing as multiprocessing
 import math
+import subprocess
 
 class DownloadThread(threading.Thread):
     def __init__(self, app, url, actionrow, downloadname, download, mode, video_options, paused, dir, percentage):
@@ -662,8 +663,6 @@ class DownloadThread(threading.Thread):
         GLib.idle_add(self.speed_label.set_text, _("Download complete."))
         self.cancelled = True
         self.app.filter_download_list("no", self.app.applied_filter)
-        self.actionrow.progress_bar.set_fraction(1)
-        self.actionrow.progress_bar.add_css_class("success")
 
         self.download_details['status'] = _("Completed")
         self.download_details['remaining'] = ""
@@ -680,6 +679,50 @@ class DownloadThread(threading.Thread):
         if os.path.exists(self.state_file):
             os.remove(self.state_file)
         
+        if self.app.appconf["extract_archives"] == "0":
+            file_extension = self.downloadname.split('.')[-1].lower()
+
+            if file_extension in self.app.supported_archive_formats:
+                GLib.idle_add(self.actionrow.progress_bar.add_css_class, "warning")
+
+                extract_folder = os.path.join(os.path.dirname(os.path.abspath(self.filepath)), self.downloadname.rsplit('.', 1)[0])
+
+                sevenzip_extract_command = [self.app.sevenzexec, 'x', self.filepath, '-o' + extract_folder, '-y', '-bsp1']
+                sevenzip_extract_process = subprocess.Popen(
+                    sevenzip_extract_command,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT,
+                    bufsize=1,
+                    universal_newlines=True
+                )
+                
+                last_percent_number = 0
+                try:
+                    for raw_line in sevenzip_extract_process.stdout:
+                        line = raw_line.strip()
+                        if not line:
+                            continue
+
+                        output_after_regex = re.compile(r'(\d{1,3})\s*%').search(line) # Regex to find percentage in 7-zip output
+                        if output_after_regex:
+                            try:
+                                percent = int(output_after_regex.group(1))
+                                percent = max(0, min(100, percent))
+                                if percent is not last_percent_number:
+                                    last_percent_number = percent
+                                    GLib.idle_add(self.actionrow.progress_bar.set_fraction, math.floor(percent) / 100)
+                            except Exception:
+                                pass
+
+                    sevenzip_extract_process.wait()
+
+                except Exception as e:
+                    sevenzip_extract_process.kill()
+                    GLib.idle_add(self.show_message, _("Extraction error: ") + str(e))
+                    return
+        
+        GLib.idle_add(self.actionrow.progress_bar.set_fraction, 1)
+        GLib.idle_add(self.actionrow.progress_bar.add_css_class, "success")
         GLib.idle_add(self.actionrow.stop_button.remove_css_class, "destructive-action")
         GLib.idle_add(self.actionrow.stop_button.set_icon_name, "process-stop-symbolic")
         GLib.idle_add(self.actionrow.percentage_label.set_visible, False)

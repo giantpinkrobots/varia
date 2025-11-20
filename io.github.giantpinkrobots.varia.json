@@ -17,6 +17,21 @@
         "--talk-name=org.kde.StatusNotifierWatcher",
         "--own-name=io.github.giantpinkrobots.varia-tray"
     ],
+    "sdk-extensions" : [
+        "org.freedesktop.Sdk.Extension.rust-stable",
+        "org.freedesktop.Sdk.Extension.llvm21"
+    ],
+    "build-options" : {
+        "append-path" : "/usr/lib/sdk/rust-stable/bin:/usr/lib/sdk/llvm21/bin",
+        "build-args" : [
+            "--share=network"
+        ],
+        "env" : {
+            "CARGO_HOME" : "/run/build/rust-flatpak/cargo",
+            "CC": "clang",
+            "CXX": "clang++"
+        }
+    },
     "cleanup" : [
         "/include",
         "/lib/pkgconfig",
@@ -83,6 +98,39 @@
                 }
             ]
         },
+        {
+            "name" : "7-zip",
+            "buildsystem" : "simple",
+            "build-commands" :
+            [
+                "for bundle in Alone2 SFXCon; do pushd CPP/7zip/Bundles/${bundle}; make -j ${FLATPAK_BUILDER_N_JOBS} -f ../../cmpl_gcc.mak; popd; done",
+                "install -Dm755 CPP/7zip/Bundles/Alone2/b/g/7zz   $FLATPAK_DEST/bin/7zz"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/ip7z/7zip.git",
+                    "tag" : "25.01",
+                    "commit" : "5e96a8279489832924056b1fa82f29d5837c9469"
+                }
+            ]
+        },
+        {
+            "name": "deno",
+            "buildsystem": "simple",
+            "build-commands": [
+                "cargo fetch --locked --manifest-path Cargo.toml",
+                "cargo build --release",
+                "install -Dm755 ./target/release/deno -t /app/bin/"
+            ],
+            "sources": [
+                {
+                "type": "archive",
+                "url": "https://github.com/denoland/deno/archive/refs/tags/v2.5.6.tar.gz",
+                "sha256": "cc12a16d167f754f6e473fa8dba6a7a536761463091c15c44b4a6d43ac80c5f5"
+                }
+            ]
+        },
         "./python3-aria2p.json",
         "./python3-yt-dlp.json",
         "./python3-dbus-next.json",
@@ -101,8 +149,5 @@
                 "--libdir=lib"
             ]
         }
-    ],
-    "build-options" : {
-        "env" : {        }
-    }
+    ]
 }

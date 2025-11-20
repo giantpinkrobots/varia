@@ -222,7 +222,13 @@ msgstr ""
 msgid "Shutdown on Completion"
 msgstr ""
 
+msgid "Sleep on Completion"
+msgstr ""
+
 msgid "Varia is about to shut down your computer."
+msgstr ""
+
+msgid "Varia is about to put your computer to sleep."
 msgstr ""
 
 msgid "Press Cancel to cancel and disable."

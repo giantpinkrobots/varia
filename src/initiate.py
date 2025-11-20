@@ -158,7 +158,7 @@ def initiate(self, variaapp, variaVersion, first_run, issnap):
     self.exit_mode = False
     self.exit_dialog_raised = False
 
-    if (os.name == 'nt') and (first_run == True) and (os.path.exists("./updater-function-enabled")):
+    if (os.name == 'nt' or os.uname().sysname == 'Darwin') and (first_run == True) and (os.path.exists("./updater-function-enabled")):
         dialog = Adw.AlertDialog()
         dialog.set_body(_("Do you want to check for updates on startup?"))
         dialog.add_response("yes",  _("Yes"))

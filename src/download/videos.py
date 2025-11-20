@@ -4,7 +4,7 @@ gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, GLib
 import threading
-import multiprocessing
+from concurrent.futures import ThreadPoolExecutor
 import os
 import yt_dlp
 
@@ -56,35 +56,36 @@ def on_video_clicked(button, self, entry):
     loading_dialog.present(self)
 
     def ytdlp_startsubprocess():
+        youtube_dl_options = {'js_runtimes': {'deno': {'path': self.denoexec}}}
+
         if self.appconf["cookies_txt"] == "1":
-            youtube_dl_options = {'cookiefile': os.path.join(self.appdir, 'cookies.txt')}
-        else:
-            youtube_dl_options = {}
+            youtube_dl_options['cookiefile'] = os.path.join(self.appdir, 'cookies.txt')
         
-        def ytdlp_get_data(shared_dict):
+        def ytdlp_get_data():
             try:
                 with yt_dlp.YoutubeDL(youtube_dl_options) as ydl:
-                    shared_dict['data'] = ydl.sanitize_info(ydl.extract_info(url, download=False))
-                    shared_dict['ytdlp_error'] = ""
+                    return {
+                        "data": ydl.sanitize_info(ydl.extract_info(url, download=False)),
+                        "ytdlp_error": ""
+                    }
 
             except Exception as error:
                 print(error)
-                shared_dict['data'] = False
-                shared_dict['ytdlp_error'] = str(error)
+                return {
+                    "data": False,
+                    "ytdlp_error": str(error)
+                }
+        
+        executor = ThreadPoolExecutor(max_workers=1)
+        future = executor.submit(ytdlp_get_data)
 
-        with multiprocessing.Manager() as manager:
-            dict = manager.dict()
-            process = multiprocessing.Process(target=ytdlp_get_data, args=(dict,))
-            process.start()
-
-            while process.is_alive():
-                if self.video_loading_cancelled == True:
-                    process.terminate()
-                    process.join()
-                    return
-            
-            data = dict['data']
-            ytdlp_error = dict['ytdlp_error']
+        while not future.done():
+            if self.video_loading_cancelled:
+                return
+        
+        result = future.result()
+        data = result["data"]
+        ytdlp_error = result["ytdlp_error"]
 
         video_formats = []
         audio_formats = []
@@ -376,12 +377,12 @@ def on_video_clicked(button, self, entry):
             error_dialog.set_response_appearance("ok", Adw.ResponseAppearance.SUGGESTED)
             error_dialog.set_close_response("ok")
             GLib.idle_add(error_dialog.present, self)
-    
+
         GLib.idle_add(loading_dialog.set_can_close, True)
         GLib.idle_add(loading_dialog.close)
 
         return
-    
+
     thread = threading.Thread(target=ytdlp_startsubprocess, daemon=True)
     thread.start()
 

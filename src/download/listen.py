@@ -170,11 +170,23 @@ def raise_shutdown_dialog(variamain, variaapp):
             break
 
     notification = Gio.Notification.new(_("Warning"))
-    notification.set_body(_("Varia is about to shut down your computer."))
+    
+    if (os.uname().sysname == 'Darwin'):
+        notification.set_body(_("Varia is about to put your computer to sleep."))
+
+    else:
+        notification.set_body(_("Varia is about to shut down your computer."))
+
     variaapp.send_notification(None, notification)
 
     dialog = Adw.AlertDialog()
-    dialog.set_body(textwrap.fill(_("Varia is about to shut down your computer.") + " " + _("Press Cancel to cancel and disable."), 50))
+
+    if (os.uname().sysname == 'Darwin'):
+        dialog.set_body(textwrap.fill(_("Varia is about to put your computer to sleep.") + " " + _("Press Cancel to cancel and disable."), 50))
+    
+    else:
+        dialog.set_body(textwrap.fill(_("Varia is about to shut down your computer.") + " " + _("Press Cancel to cancel and disable."), 50))
+
     dialog.add_response("cancel",  _("Cancel"))
     dialog.set_default_response("cancel")
     dialog.set_close_response("cancel")
@@ -196,6 +208,10 @@ def initiate_shutdown(variamain, shutdown_id):
     if (variamain.shutdown_dialog_raised == True) and (shutdown_id == variamain.shutdown_id):
         if os.name == 'nt':
             os.system('shutdown -s -t 0')
+        
+        elif (os.uname().sysname == 'Darwin'):
+            os.system('pmset sleepnow')
+
         else:
             bus = Gio.bus_get_sync(Gio.BusType.SYSTEM, None)
             proxy = Gio.DBusProxy.new_sync(bus, Gio.DBusProxyFlags.NONE, None,

@@ -7,6 +7,7 @@ from download.thread import DownloadThread
 from download.details import show_download_details_dialog
 import json
 import os
+import subprocess
 
 def on_download_clicked(button, self, entry, downloadname, download, mode, video_options, paused, dir, percentage):
     if isinstance(entry, str):
@@ -158,4 +159,7 @@ def pause_button_on_retry_clicked(button, self, download_item):
 
 def pause_button_on_open_clicked(button, self, download_item):
     if os.path.exists(download_item.filepath):
-        Gio.AppInfo.launch_default_for_uri("file://" + download_item.filepath, None)
+        if (os.uname().sysname == 'Darwin'):
+            subprocess.call(('open', download_item.filepath))
+        else:
+            Gio.AppInfo.launch_default_for_uri("file://" + download_item.filepath, None)

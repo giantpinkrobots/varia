@@ -7,11 +7,18 @@ from gi.repository import Gtk, Adw
 import threading
 
 def window_create_content(self):
+    scrolled_window = Gtk.ScrolledWindow()
+    self.content_root_overlay = Gtk.Overlay()
+
     self.content_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+    self.content_box.append(self.content_root_overlay)
+
     header_box = Gtk.Box()
 
     self.total_download_speed_label = Gtk.Label(label=self.total_download_speed)
     self.total_download_speed_label.add_css_class("heading")
+    self.total_download_speed_label.set_halign(Gtk.Align.CENTER)
+    self.total_download_speed_label.set_hexpand(True)
 
     header_show_sidebar_button = Gtk.Button()
     header_show_sidebar_button.add_css_class('flat')
@@ -30,28 +37,44 @@ def window_create_content(self):
     self.header_pause_button.add_css_class('flat')
     self.header_pause_button.set_sensitive(False)
     self.header_pause_button.set_child(self.header_pause_content)
+    self.header_pause_button.set_halign(Gtk.Align.END)
     self.header_pause_button.connect("clicked", lambda button: self.pause_all())
     
-    header_expanding_box_1 = Gtk.Box()
-    header_expanding_box_1.set_hexpand(True)
-    header_expanding_box_2 = Gtk.Box()
-    header_expanding_box_2.set_hexpand(True)
-    
-    header_box.append(header_expanding_box_1)
     header_box.append(self.total_download_speed_label)
-    header_box.append(header_expanding_box_2)
     header_box.append(self.header_pause_button)
     
     if (os.name == 'nt'): # Don't use Adw.HeaderBar on Windows
         header_box.prepend(self.header_show_sidebar_button_revealer)
         self.content_box.append(header_box)
+        self.overlay_split_view.set_content(self.content_box)
+
+    elif (os.uname().sysname == 'Darwin'):
+            varia_title_label_for_mac = Gtk.Label(label="Varia")
+            varia_title_label_for_mac.add_css_class("title-3")
+            varia_title_label_for_mac.set_margin_start(8)
+            header_box.prepend(varia_title_label_for_mac)
+
+            header_toolbar = Adw.ToolbarView()
+            gtk_headerbar = Gtk.HeaderBar()
+            gtk_headerbar.set_decoration_layout("")
+            gtk_headerbar.set_title_widget(header_box)
+            header_toolbar.add_top_bar(gtk_headerbar)
+            header_toolbar.set_content(self.content_box)
+
+            self.mac_header_empty_space = Gtk.Box()
+            self.mac_header_empty_space.set_margin_start(60)
+            self.mac_header_empty_space.set_visible(False)
+            header_box.prepend(self.mac_header_empty_space)
+            self.overlay_split_view.set_content(header_toolbar)
 
     else:
         header_bar = Adw.HeaderBar()
         header_bar.add_css_class('flat')
+
         header_bar.pack_start(self.header_show_sidebar_button_revealer)
         header_bar.set_title_widget(header_box)
-        self.content_box.append(header_bar)
+        self.content_box.prepend(header_bar)
+        self.overlay_split_view.set_content(self.content_box)
 
     status_page_begin_button_box = Gtk.Box(spacing=12)
     status_page_begin_button_box.append(Gtk.Image.new_from_icon_name("sidebar-show-symbolic"))
@@ -81,16 +104,10 @@ def window_create_content(self):
     self.download_list_box.set_hexpand(True)
     self.download_list_box.set_vexpand(True)
 
-    scrolled_window = Gtk.ScrolledWindow()
     scrolled_window.set_child(self.download_list)
-
-    self.content_root_overlay = Gtk.Overlay()
     self.content_root_overlay.set_child(self.download_list_box)
     self.content_root_overlay.add_overlay(self.status_page_widget)
-
     self.download_list_box.append(scrolled_window)
-    self.content_box.append(self.content_root_overlay)
-    self.overlay_split_view.set_content(self.content_box)
 
     self.total_download_speed_calculator_thread = threading.Thread(target=self.total_download_speed_get, args=(self.downloads, self.total_download_speed_label), daemon=True)
     self.total_download_speed_calculator_thread.start()

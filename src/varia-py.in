@@ -18,12 +18,14 @@ gettext.install('varia', localedir)
 
 aria2cexec = sys.argv[1]
 ffmpegexec = sys.argv[2]
-snapvar = sys.argv[3]
+sevenzexec = sys.argv[3]
+denoexec = sys.argv[4]
+snapvar = sys.argv[5]
 arguments = []
 
-if (len(sys.argv) > 4):
+if (len(sys.argv) > 5):
 	arguments = sys.argv
-	del arguments[:4]
+	del arguments[:5]
 
 arguments = json.dumps(arguments)
 
@@ -57,4 +59,4 @@ if __name__ == '__main__':
 	sys.path.append( mymodule_dir )
 	os.listdir(mymodule_dir)
 	from variamain import main
-	sys.exit(main(VERSION, aria2cexec, ffmpegexec, issnap, arguments))
+	sys.exit(main(VERSION, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments))

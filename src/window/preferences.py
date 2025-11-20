@@ -43,7 +43,7 @@ def show_preferences(button, self, app, variaVersion):
 
     # Updater section for Windows:
 
-    if (os.name == 'nt') and (os.path.exists("./updater-function-enabled")):
+    if (os.name == 'nt' or (os.uname().sysname == 'Darwin')) and (os.path.exists("./updater-function-enabled")):
         update_actionrow = Adw.SwitchRow()
         update_actionrow.set_title(_("Automatically Check for Updates"))
         update_actionrow.connect("notify::active", on_switch_auto_update_check, self)
@@ -235,7 +235,7 @@ def show_preferences(button, self, app, variaVersion):
     group_tray.add(tray_icon_always_visible)
     group_tray.add(start_in_background)
 
-    if ((os.name == 'nt') and (os.path.exists("./updater-function-enabled") == False)) == False: # Windows portable not supported
+    if ((os.name == 'nt' or (os.uname().sysname == 'Darwin')) and (os.path.exists("./updater-function-enabled") == False)) == False: # Windows portable not supported
         group_tray.add(open_on_startup)
 
     # Remote aria2:

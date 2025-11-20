@@ -1,4 +1,4 @@
-variaVersion = "v2025.10.14-1" # Also update actions-inno-install-script.iss
+variaVersion = "dev" # Also update actions-inno-install-script.iss
 
 import ctypes
 import gi
@@ -37,7 +37,7 @@ else:
     from stringstorage import gettext as _
 
 class MainWindow(application_window):
-    def __init__(self, variaapp, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, issnap, *args, **kwargs):
+    def __init__(self, variaapp, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         from window.sidebar import window_create_sidebar
@@ -61,6 +61,11 @@ class MainWindow(application_window):
         self.tray_process = None
         self.ip_geolocation_cache = {}
         self.issnap = issnap
+        self.sevenzexec = sevenzexec
+        self.denoexec = denoexec
+
+        # For 7-zip integration:
+        self.supported_archive_formats = ["7z", "xz", "bzip2", "gzip", "tar", "zip", "wim", "apfs", "ar", "arj", "cab", "chm", "cpio", "cramfs", "dmg", "ext", "fat", "gpt", "hfs", "ihex", "iso", "lzh", "lzma", "mbr", "msi", "nsis", "ntfs", "qcow2", "rar", "rpm", "squashfs", "udf", "uefi", "vdi", "vhd", "vhdx", "vmdk", "xar", "z"]
 
         # Set up variables and all:
         aria2_connection_successful = initiate(self, variaapp, variaVersion, first_run, issnap)
@@ -168,11 +173,12 @@ class MainWindow(application_window):
         thread = threading.Thread(target=lambda: schedule_downloads(self, True), daemon=True)
         thread.start()
 
+        icon_theme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default())
+        icon_theme.add_search_path("./icons")
+
         # Windows only stuff:
         if (os.name == 'nt'):
             os.environ['GTK_CSD'] = '0'
-            icon_theme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default())
-            icon_theme.add_search_path("./icons")
             if (self.appconf["check_for_updates_on_startup_enabled"] == '1') and (os.path.exists("./updater-function-enabled")):
                 windows_updater(None, self, variaapp, None, variaVersion, 0)
 
@@ -235,10 +241,13 @@ class MainWindow(application_window):
 
     def start_tray_process(self, variaapp):
         if self.tray_process == None: # If tray process is not already running
-            if os.name == 'nt':
+            if os.name == 'nt' or (os.uname().sysname == 'Darwin'):
 
-                if os.path.exists(os.path.join(os.getcwd(), 'tray', 'varia-tray.exe')): # Built with PyInstaller
+                if os.path.exists(os.path.join(os.getcwd(), 'tray', 'varia-tray.exe')): # Built with PyInstaller (Windows)
                     tray_subprocess_input = [os.path.join(os.getcwd(), 'tray', 'varia-tray.exe'), _("Show"), _("Quit")]
+
+                elif os.path.exists(os.path.join(os.getcwd(), 'tray', 'varia-tray')): # Built with PyInstaller (Mac)
+                    tray_subprocess_input = [os.path.join(os.getcwd(), 'tray', 'varia-tray'), _("Show"), _("Quit")]
 
                 else: # Running standalone
                     tray_subprocess_input = [sys.executable, os.path.join(os.path.dirname(__file__), 'tray', 'tray_windows.py'), _("Show"), _("Quit")]
@@ -267,7 +276,8 @@ class MainWindow(application_window):
                         if message == "show":
                             self.unminimize()
                             self.set_visible(True)
-                            self.present()
+                            if os.uname().sysname != 'Darwin':
+                                self.present()
                             if self.appconf["tray_always_visible"] != "true":
                                 self.tray_process.kill()
                                 self.tray_process = None
@@ -384,7 +394,7 @@ class MainWindow(application_window):
 
         if isinstance(value, Gio.File) and \
             value.get_path() and \
-            value.query_info("standard::content-type", Gio.FileQueryInfoFlags.NONE, None).get_content_type() == "application/x-bittorrent":
+            value.get_path().lower().endswith(".torrent"):
 
             try:
                 if self.appconf["torrent_download_directory_custom_enabled"] == "1":
@@ -421,11 +431,17 @@ class MainWindow(application_window):
             self.status_page_begin_button_revealer.set_reveal_child(True)
             self.overlay_split_view.set_show_sidebar(False)
 
+            if (os.uname().sysname == 'Darwin'):
+                self.mac_header_empty_space.set_visible(True)
+
         else:
             self.header_show_sidebar_button_revealer.set_reveal_child(False)
             self.status_page_begin_button_revealer.set_reveal_child(False)
             self.overlay_split_view.set_collapsed(False)
             self.overlay_split_view.set_show_sidebar(True)
+
+            if (os.uname().sysname == 'Darwin'):
+                self.mac_header_empty_space.set_visible(False)
 
     def total_download_speed_get(self, downloads, total_download_speed_label):
         while (self.terminating == False):
@@ -651,9 +667,9 @@ def send_to_varia_instance(message):
         print("Couldn't contact existing instance.")
 
 class MyApp(Adw.Application):
-    def __init__(self, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, issnap, arguments, **kwargs):
+    def __init__(self, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments, **kwargs):
         super().__init__(**kwargs)
-        self.connect('activate', self.on_activate, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, issnap, arguments)
+        self.connect('activate', self.on_activate, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments)
         quit_action = Gio.SimpleAction.new("quit", None)
         quit_action.connect("activate", self.quit_action)
         self.add_action(quit_action)
@@ -668,9 +684,9 @@ class MyApp(Adw.Application):
         
         self.add_downloads(arguments)
 
-    def on_activate(self, app, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, issnap, arguments):
+    def on_activate(self, app, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments):
         if not hasattr(self, 'win'):
-            self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf, first_run=first_run, aria2c_subprocess=aria2c_subprocess, aria2cexec=aria2cexec, ffmpegexec=ffmpegexec, issnap=issnap)
+            self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf, first_run=first_run, aria2c_subprocess=aria2c_subprocess, aria2cexec=aria2cexec, ffmpegexec=ffmpegexec, sevenzexec=sevenzexec, denoexec=denoexec, issnap=issnap)
 
         try:
             if ((self.win.terminating == False) and ((appconf["default_mode"] == "visible") or (self.initiated == True))):
@@ -753,8 +769,8 @@ class MyApp(Adw.Application):
     def quit_action(self, action, parameter):
         self.win.quit_action_received(self)
 
-def main(version, aria2cexec, ffmpegexec, issnap, arguments):
-    if (os.name == 'nt'): # Varia server only used on Windows to send data to the already running instance.
+def main(version, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments):
+    if (os.name == 'nt' or (os.uname().sysname == 'Darwin')): # Varia server only used on Windows to send data to the already running instance.
         if not start_varia_server():
             send_to_varia_instance(arguments)
             return
@@ -811,7 +827,9 @@ def main(version, aria2cexec, ffmpegexec, issnap, arguments):
         'torrent_enabled': '1',
         'torrent_require_encryption': 'false',
         'torrent_peers_ip_lookup': '1',
-        'autostart_on_boot_enabled': 'false'}
+        'autostart_on_boot_enabled': 'false',
+        'extract_archives': '0',
+        'extract_archives_delete_archives': '0'}
 
     if os.path.exists(os.path.join(appdir, 'varia.conf')):
         first_run = False
@@ -854,7 +872,6 @@ def main(version, aria2cexec, ffmpegexec, issnap, arguments):
     if (appconf['remote'] == '0'):
         if (os.name == 'nt'):
             aria2c_subprocess = subprocess.Popen([aria2cexec] + aria2_config, shell=True, creationflags=subprocess.CREATE_NEW_PROCESS_GROUP)
-
         else:
             if hasattr(os, 'posix_fallocate'):
                 aria2_config.append("--file-allocation=falloc") # Set fallocate on Linux for better performance
@@ -872,7 +889,7 @@ def main(version, aria2cexec, ffmpegexec, issnap, arguments):
 
     arguments = json.loads(arguments)
     global myapp
-    myapp = MyApp(appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, issnap, arguments, application_id="io.github.giantpinkrobots.varia", flags=Gio.ApplicationFlags.HANDLES_OPEN)
+    myapp = MyApp(appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments, application_id="io.github.giantpinkrobots.varia", flags=Gio.ApplicationFlags.HANDLES_OPEN)
 
     try:
         myapp.run()
@@ -903,21 +920,30 @@ def stop_subprocesses_and_exit(*args):
     except:
         return
 
-if ((__name__ == '__main__') and (os.name == 'nt')):
+if (__name__ == '__main__'):
     import gettext
-    import ctypes
-    import locale
 
-    os.chdir(os.path.dirname(sys.executable))
-    windll = ctypes.windll.kernel32
-    lang_id = windll.GetUserDefaultUILanguage()
-    current_locale = locale.windows_locale.get(lang_id)
-    print(current_locale)
+    if os.name == 'nt':
+        import ctypes
+        import locale
 
-    translation = gettext.translation('varia', localedir='./locale', languages=[current_locale], fallback=True)
+        os.chdir(os.path.dirname(sys.executable))
+        windll = ctypes.windll.kernel32
+        lang_id = windll.GetUserDefaultUILanguage()
+        current_locale = locale.windows_locale.get(lang_id)
+        print(current_locale)
 
-    stringstorage.setstrings_win(translation.gettext)
+        translation = gettext.translation('varia', localedir='./locale', languages=[current_locale], fallback=True)
 
-    from stringstorage import gettext as _
+        stringstorage.setstrings_win(translation.gettext)
+        from stringstorage import gettext as _
 
-    sys.exit(main(variaVersion, os.path.join(os.getcwd(), "aria2c.exe"), os.path.join(os.getcwd(), "ffmpeg.exe"), False, json.dumps(sys.argv)))
+        sys.exit(main(variaVersion, os.path.join(os.getcwd(), "aria2c.exe"), os.path.join(os.getcwd(), "ffmpeg.exe"), os.path.join(os.getcwd(), "7z.exe"), False, json.dumps(sys.argv)))
+
+    elif os.uname().sysname == 'Darwin':
+        translation = gettext.translation('varia', localedir='./locale', languages=["en-US"], fallback=True)
+
+        stringstorage.setstrings_win(translation.gettext)
+        from stringstorage import gettext as _
+
+        sys.exit(main(variaVersion, os.path.join(os.getcwd(), "aria2c"), os.path.join(os.getcwd(), "ffmpeg"), os.path.join(os.getcwd(), "7zz"), False, json.dumps(sys.argv)))

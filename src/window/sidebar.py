@@ -70,7 +70,10 @@ def window_create_sidebar(self, variaapp, variaVersion):
     completion_submenu_item_exit = Gio.MenuItem.new(_("Exit on Completion"), "app.exit_on_completion")
     completion_submenu_model.append_item(completion_submenu_item_exit)
 
-    completion_submenu_item_shutdown = Gio.MenuItem.new(_("Shutdown on Completion"), "app.shutdown_on_completion")
+    if (os.uname().sysname == 'Darwin'):
+        completion_submenu_item_shutdown = Gio.MenuItem.new(_("Sleep on Completion"), "app.shutdown_on_completion")
+    else:
+        completion_submenu_item_shutdown = Gio.MenuItem.new(_("Shutdown on Completion"), "app.shutdown_on_completion")
     completion_submenu_model.append_item(completion_submenu_item_shutdown)
 
     hamburger_menu_model.append_submenu(_("Completion Options"), completion_submenu_model)
@@ -83,8 +86,14 @@ def window_create_sidebar(self, variaapp, variaVersion):
 
     hamburger_button.set_menu_model(hamburger_menu_model)
 
-    header_bar.pack_start(preferences_button)
     header_bar.pack_end(hamburger_button)
+
+    if (os.uname().sysname == 'Darwin'):
+        header_bar.pack_end(preferences_button)
+        header_bar.set_show_title(False)
+
+    else:
+        header_bar.pack_start(preferences_button)
 
     box_add_download = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
     box_add_download.set_margin_start(8)
@@ -267,7 +276,7 @@ def on_add_torrent(file_dialog, result, self):
         self.api.add_torrent(file)
 
 def background_mode(app, variaapp1, self, variaapp):
-    if variaapp.issnap and ((variaapp.snap_is_connected["dbus-varia-tray"] == False) or (variaapp.snap_is_connected["dbusmenu"] == False)): # If running on Snap and doesn't have the required permissions
+    if os.uname().sysname == "Linux" and variaapp.issnap and ((variaapp.snap_is_connected["dbus-varia-tray"] == False) or (variaapp.snap_is_connected["dbusmenu"] == False)): # If running on Snap and doesn't have the required permissions
         variaapp.show_snap_permissions_required_dialog()
 
     else:
@@ -298,7 +307,7 @@ def show_about(app, variaapp, self, variaVersion):
     dialog.set_release_notes('''
         <ul><li>Minor bugfix and translations update.</li></ul>''')
     
-    if os.name != 'nt':
+    if (os.uname().sysname == 'Linux'):
         dialog.add_other_app("io.github.giantpinkrobots.flatsweep",
                             "Flatsweep",
                             "Flatpak leftover cleaner")
@@ -312,10 +321,10 @@ def show_about(app, variaapp, self, variaVersion):
     dialog.present(self)
 
 def open_downloads_folder(self, app, variaapp, appconf):
-    if (os.name == 'nt'):
-        os.startfile(appconf["download_directory"])
-    else:
+    if (os.uname().sysname == 'Linux'):
         subprocess.Popen(["xdg-open", appconf["download_directory"]])
+    else:
+        os.startfile(appconf["download_directory"])
 
 def shutdown_on_completion(self, app, variaapp):
     if variaapp.issnap and (variaapp.snap_is_connected["shutdown"] == False): # If running on Snap and doesn't have the required permission

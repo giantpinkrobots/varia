@@ -4,22 +4,26 @@ pkgdatadir='@pkgdatadir@'
 
 aria2cexec=$pkgdatadir/../../bin/aria2c
 ffmpegexec=$pkgdatadir/../../bin/ffmpeg
+sevenzexec=$pkgdatadir/../../bin/7zz
+denoexec=$pkgdatadir/../../bin/deno
 
-if !(test -f $aria2cexec;) || !(test -f $ffmpegexec;)
+if !(test -f $aria2cexec;) || !(test -f $ffmpegexec;) || !(test -f $sevenzexec;) || !(test -f $denoexec;)
 then
-	echo "Trying to find the system's aria2c and ffmpeg..."
+	echo "Trying to find the system's aria2c, ffmpeg, 7z and deno executables."
 	aria2cexec=$(which aria2c)
 	ffmpegexec=$(which ffmpeg)
-	if !(test -f $aria2cexec;) || !(test -f $ffmpegexec;)
+	sevenzexec=$(which 7z)
+	denoexec=$(which deno)
+	if !(test -f $aria2cexec;) || !(test -f $ffmpegexec;) || !(test -f $sevenzexec;) || !(test -f $denoexec;)
 	then
-		echo "aria2c and/or ffmpeg not found. Exiting."
+		echo "aria2c and/or ffmpeg and/or 7z and/or deno not found. Exiting."
 		exit
 	fi
 fi
 
 if [ -z "$SNAP" ];
 then
-	$pythonexec $pkgdatadir/../../bin/varia-py.py "$aria2cexec" "$ffmpegexec" "NOSNAP" "$@"
+	$pythonexec $pkgdatadir/../../bin/varia-py.py "$aria2cexec" "$ffmpegexec" "$sevenzexec" "$denoexec" "NOSNAP" "$@"
 else
-	python3 $SNAP/usr/bin/varia-py.py "$aria2cexec" "$ffmpegexec" "$SNAP" "$@"
+	python3 $SNAP/usr/bin/varia-py.py "$aria2cexec" "$ffmpegexec" "$sevenzexec" "$denoexec" "$SNAP" "$@"
 fi
