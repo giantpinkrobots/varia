@@ -105,6 +105,25 @@ def show_preferences(button, self, app, variaVersion):
         download_directory_actionrow.add_suffix(download_directory_change_button)
     else:
         download_directory_actionrow.add_suffix(download_directory_change_remote_label)
+    
+    # Extract archives:
+    
+    extract_archives_delete_archives = Adw.SwitchRow()
+    extract_archives_delete_archives.set_title(_("Delete Archives After Extraction"))
+    extract_archives_delete_archives.connect("notify::active", on_extract_archives_delete_archives, self)
+
+    if self.appconf["extract_archives_delete_archives"] == "1":
+        extract_archives_delete_archives.set_active("active")
+    
+    extract_archives = Adw.SwitchRow()
+    extract_archives.set_title(_("Automatically Extract Archives"))
+    extract_archives.connect("notify::active", on_extract_archives, self, extract_archives_delete_archives)
+
+    if self.appconf["extract_archives"] == "1":
+        extract_archives.set_active("active")
+    
+    else:
+        extract_archives_delete_archives.set_sensitive(False)
 
     # Speed limit:
 
@@ -227,6 +246,8 @@ def show_preferences(button, self, app, variaVersion):
     # Construct Group 1:
 
     group_1.add(download_directory_actionrow)
+    group_1.add(extract_archives)
+    group_1.add(extract_archives_delete_archives)
     group_1.add(speed_limit_expander_box)
     group_1.add(scheduler_actionrow)
     group_1.add(simultaneous_download_amount_spinrow)
@@ -537,6 +558,26 @@ def on_switch_auto_update_check(switch, state, self):
         if hasattr(self, 'update_available_banner'):
             if self.update_available_banner != None:
                 self.update_available_banner.set_revealed(False)
+
+    self.save_appconf()
+
+def on_extract_archives(switch, state, self, delete_archives_switchrow):
+    state = switch.get_active()
+    if state:
+        self.appconf["extract_archives"] = '1'
+        delete_archives_switchrow.set_sensitive(True)
+    else:
+        self.appconf["extract_archives"] = '0'
+        delete_archives_switchrow.set_sensitive(False)
+
+    self.save_appconf()
+
+def on_extract_archives_delete_archives(switch, state, self):
+    state = switch.get_active()
+    if state:
+        self.appconf["extract_archives_delete_archives"] = '1'
+    else:
+        self.appconf["extract_archives_delete_archives"] = '0'
 
     self.save_appconf()
 

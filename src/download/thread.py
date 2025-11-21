@@ -74,6 +74,9 @@ class DownloadThread(threading.Thread):
         self.state_file = ""
         self.is_complete = False
         self.paused = paused
+        self.extracting_archive = False
+        self.cancel_extraction = False
+        self.extract_complete = False
 
         self.retry = False
 
@@ -539,6 +542,10 @@ class DownloadThread(threading.Thread):
                     pass
 
     def stop(self):
+        if self.extracting_archive == True:
+            self.cancel_extraction = True
+            return
+
         if self.download:
             if self.mode == "regular":
                 downloadgid = self.download.gid
@@ -656,15 +663,86 @@ class DownloadThread(threading.Thread):
                     return True
                 else:
                     return False
+    
+    def extract_archive(self):
+        GLib.idle_add(self.speed_label.set_text, _("Extracting"))
+        GLib.idle_add(self.actionrow.pause_button.set_visible, False)
+        self.download_details["status"] = _("Extracting")
+        GLib.idle_add(self.actionrow.progress_bar.add_css_class, "warning")
+        self.extracting_archive = True
+        extract_folder = self.downloadname.rsplit(".", 1)[0]
+
+        while(True):
+            if os.path.exists(os.path.join(os.path.dirname(os.path.abspath(self.filepath)), extract_folder)):
+                extract_folder = extract_folder + "-1"
+
+            else:
+                extract_folder = os.path.join(os.path.dirname(os.path.abspath(self.filepath)), extract_folder)
+                break
+
+        sevenzip_extract_command = [
+            self.app.sevenzexec,
+            "x", self.filepath,
+            "-o" + extract_folder,
+            "-y",
+            "-bsp1",
+            "-bso1"
+        ]
+
+        process = subprocess.Popen(
+            sevenzip_extract_command,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+            bufsize=1
+        )
+
+        buffer = ""
+
+        while process.poll() is None:
+            if self.cancel_extraction: # If the user presses stop during extraction
+                process.kill()
+                break
+
+            char = process.stdout.read(1)
+
+            if not char:
+                time.sleep(0.01)
+                continue
+
+            if char == "\x08": # Remove backspace character
+                buffer = buffer[:-1]
+                continue
+
+            if char in ("\r", "\n"):
+                buffer = ""
+                continue
+
+            buffer += char
+
+            match = re.search(r"(\d{1,3})\s*%", buffer)
+            if match:
+                percent = int(match.group(1))
+                GLib.idle_add(self.actionrow.progress_bar.set_fraction, percent / 100)
+                percentage_label_text = _("{number}%").replace("{number}", str(percent))
+                GLib.idle_add(self.actionrow.percentage_label.set_text, percentage_label_text)
+
+        self.extracting_archive = False
+
+        if self.cancel_extraction == False:
+            if self.app.appconf["extract_archives_delete_archives"] == "1":
+                os.remove(self.filepath)
+            
+            self.filepath = extract_folder
+
+        GLib.idle_add(self.actionrow.pause_button.set_visible, True)
+        self.extract_complete = True
+        self.set_complete()
                 
     def set_complete(self):
         self.is_complete = True
-        self.cancelled = True
-        GLib.idle_add(self.speed_label.set_text, _("Download complete."))
-        self.cancelled = True
         self.app.filter_download_list("no", self.app.applied_filter)
 
-        self.download_details['status'] = _("Completed")
         self.download_details['remaining'] = ""
         self.download_details['download_speed'] = ""
 
@@ -679,47 +757,18 @@ class DownloadThread(threading.Thread):
         if os.path.exists(self.state_file):
             os.remove(self.state_file)
         
-        if self.app.appconf["extract_archives"] == "0":
+        if self.extract_complete == False and self.app.appconf["extract_archives"] == "1":
             file_extension = self.downloadname.split('.')[-1].lower()
 
             if file_extension in self.app.supported_archive_formats:
-                GLib.idle_add(self.actionrow.progress_bar.add_css_class, "warning")
-
-                extract_folder = os.path.join(os.path.dirname(os.path.abspath(self.filepath)), self.downloadname.rsplit('.', 1)[0])
-
-                sevenzip_extract_command = [self.app.sevenzexec, 'x', self.filepath, '-o' + extract_folder, '-y', '-bsp1']
-                sevenzip_extract_process = subprocess.Popen(
-                    sevenzip_extract_command,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT,
-                    bufsize=1,
-                    universal_newlines=True
-                )
-                
-                last_percent_number = 0
-                try:
-                    for raw_line in sevenzip_extract_process.stdout:
-                        line = raw_line.strip()
-                        if not line:
-                            continue
-
-                        output_after_regex = re.compile(r'(\d{1,3})\s*%').search(line) # Regex to find percentage in 7-zip output
-                        if output_after_regex:
-                            try:
-                                percent = int(output_after_regex.group(1))
-                                percent = max(0, min(100, percent))
-                                if percent is not last_percent_number:
-                                    last_percent_number = percent
-                                    GLib.idle_add(self.actionrow.progress_bar.set_fraction, math.floor(percent) / 100)
-                            except Exception:
-                                pass
-
-                    sevenzip_extract_process.wait()
-
-                except Exception as e:
-                    sevenzip_extract_process.kill()
-                    GLib.idle_add(self.show_message, _("Extraction error: ") + str(e))
-                    return
+                thread = threading.Thread(target=self.extract_archive, daemon=True)
+                thread.start()
+                return
+        
+        self.cancelled = True
+        self.set_actionrow_tooltip_text()
+        GLib.idle_add(self.speed_label.set_text, _("Download complete."))
+        self.download_details['status'] = _("Completed")
         
         GLib.idle_add(self.actionrow.progress_bar.set_fraction, 1)
         GLib.idle_add(self.actionrow.progress_bar.add_css_class, "success")

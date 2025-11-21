@@ -552,6 +552,9 @@ msgstr ""
 msgid "Paused"
 msgstr ""
 
+msgid "Extracting"
+msgstr ""
+
 msgid "Percentage Downloaded"
 msgstr ""
 
@@ -618,6 +621,12 @@ msgstr ""
 
 # Tooltip for when focused on timespan end minute
 msgid "End minute for timespan {number}"
+msgstr ""
+
+msgid "Automatically Extract Archives"
+msgstr ""
+
+msgid "Delete Archives After Extraction"
 msgstr ""
 
 #: src/gtk/help-overlay.ui:11

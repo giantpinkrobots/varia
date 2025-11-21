@@ -481,23 +481,18 @@ class MainWindow(application_window):
                     download_thread.pause(False)
 
     def check_all_status(self):
-        if len(self.downloads) == 0:
-            self.all_paused = False
-            self.header_pause_content.set_icon_name("media-playback-pause-symbolic")
-            self.header_pause_content.set_label(_("Pause All"))
-            self.header_pause_button.set_sensitive(False)
+        any_ongoing_downloads = False
+        all_paused = True
 
-            GLib.idle_add(self.header_pause_button.set_sensitive, False)
-            self.content_root_overlay.add_overlay(self.status_page_widget)
-        
-        else:
-            all_paused = True
+        for download_item in self.downloads.copy():
+            if download_item.is_complete == False and download_item.cancelled == False:
+                any_ongoing_downloads = True
 
-            for download_item in self.downloads.copy():
-                if download_item.is_complete == False and download_item.cancelled == False and download_item.paused == False:
+                if download_item.paused == False:
                     all_paused = False
                     break
 
+        if any_ongoing_downloads:
             if all_paused:
                 self.all_paused = True
                 self.header_pause_content.set_icon_name("media-playback-start-symbolic")
@@ -509,6 +504,17 @@ class MainWindow(application_window):
                 self.header_pause_content.set_icon_name("media-playback-pause-symbolic")
                 self.header_pause_content.set_label(_("Pause All"))
                 self.header_pause_button.set_sensitive(True)
+        
+        else:
+            self.all_paused = False
+            self.header_pause_content.set_icon_name("media-playback-pause-symbolic")
+            self.header_pause_content.set_label(_("Pause All"))
+            self.header_pause_button.set_sensitive(False)
+
+            GLib.idle_add(self.header_pause_button.set_sensitive, False)
+
+            if len(self.downloads) == 0:
+                self.content_root_overlay.add_overlay(self.status_page_widget)
 
     def stop_all(self, app, variaapp):
         while self.downloads != []:
