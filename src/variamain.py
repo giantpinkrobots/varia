@@ -944,7 +944,7 @@ if (__name__ == '__main__'):
         stringstorage.setstrings_win(translation.gettext)
         from stringstorage import gettext as _
 
-        sys.exit(main(variaVersion, os.path.join(os.getcwd(), "aria2c.exe"), os.path.join(os.getcwd(), "ffmpeg.exe"), os.path.join(os.getcwd(), "7z.exe"), False, json.dumps(sys.argv)))
+        sys.exit(main(variaVersion, os.path.join(os.getcwd(), "aria2c.exe"), os.path.join(os.getcwd(), "ffmpeg.exe"), os.path.join(os.getcwd(), "7zz.exe"), os.path.join(os.getcwd(), "deno.exe"), False, json.dumps(sys.argv)))
 
     elif os.uname().sysname == 'Darwin':
         translation = gettext.translation('varia', localedir='./locale', languages=["en-US"], fallback=True)
@@ -952,4 +952,4 @@ if (__name__ == '__main__'):
         stringstorage.setstrings_win(translation.gettext)
         from stringstorage import gettext as _
 
-        sys.exit(main(variaVersion, os.path.join(os.getcwd(), "aria2c"), os.path.join(os.getcwd(), "ffmpeg"), os.path.join(os.getcwd(), "7zz"), False, json.dumps(sys.argv)))
+        sys.exit(main(variaVersion, os.path.join(os.getcwd(), "aria2c"), os.path.join(os.getcwd(), "ffmpeg"), os.path.join(os.getcwd(), "7zz"), os.path.join(os.getcwd(), "deno"), False, json.dumps(sys.argv)))

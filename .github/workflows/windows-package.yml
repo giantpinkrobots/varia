@@ -20,7 +20,7 @@ jobs:
       - name: Run build script in UCRT64 shell
         shell: msys2 {0}
         run: |
-          bash ./build-for-windows.sh -u
+          bash ./windows/build.sh -u
 
       - name: Compile .ISS to .EXE Installer
         uses: Minionguyjpro/Inno-Setup-Action@v1.2.7

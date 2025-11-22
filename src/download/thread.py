@@ -236,6 +236,7 @@ class DownloadThread(threading.Thread):
             video_options_final['outtmpl'] = os.path.join(self.downloaddir, self.downloadname)
             video_options_final['continuedl'] = True
             video_options_final['ffmpeg_location'] = self.app.ffmpegexec
+            video_options_final['js_runtimes'] = {'deno': {'path': self.denoexec}}
 
             if self.app.appconf["remote_time"] == "0": # Don't take the video's timestamp if Remote Time is disabled
                 video_options_final['no-mtime'] = True

@@ -139,11 +139,11 @@ cd varia
 ```
 - Run the build script:
 ```
-./build-for-windows.sh
+./windows/build.sh
 ```
 Or with the updater function enabled: (it just creates an empty file in the dist directory named 'updater-function-enabled')
 ```
-./build-for-windows.sh -u
+./windows/build.sh -u
 ```
 
 Varia will be built into src/dist/variamain. Main executable is variamain.exe.
