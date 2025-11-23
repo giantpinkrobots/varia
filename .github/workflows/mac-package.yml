@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-deps:
+  build-distributable:
     strategy:
       matrix:
         arch: [arm64, x86_64]
@@ -12,7 +12,7 @@ jobs:
 
     env:
       MAC_ARCH: ${{ matrix.arch }}
-      DEPS_DIR: mac/dependencies-${{ matrix.arch }}
+      DEPS_DIR: ${{ github.workspace }}/mac/dependencies-${{ matrix.arch }}
 
     steps:
       - name: Checkout
@@ -47,7 +47,7 @@ jobs:
           make -j$(sysctl -n hw.ncpu)
           make install
 
-          cp out/bin/aria2c "../../$DEPS_DIR/"
+          cp out/bin/aria2c "$DEPS_DIR/"
 
       - name: Build 7-Zip for ${{ matrix.arch }}
         run: |
@@ -59,7 +59,7 @@ jobs:
           export LDFLAGS="-arch ${MAC_ARCH}"
 
           make -f makefile.macos
-          cp 7zz "../../$DEPS_DIR/"
+          cp 7zz "$DEPS_DIR/"
 
       - name: Build FFmpeg for ${{ matrix.arch }}
         run: |
@@ -71,21 +71,24 @@ jobs:
           export LDFLAGS="-arch ${MAC_ARCH}"
 
           ./configure \
-            --arch="${MAC_ARCH}" \
-            --target-os=darwin \
-            --enable-pic \
-            --prefix=$PWD/out \
-            --disable-everything \
-            --enable-decoder=pcm_s16le \
-            --enable-demuxer=wav \
-            --disable-debug \
-            --disable-doc \
-            --enable-small
+          --prefix=$PWD/out \
+          --disable-debug \
+          --disable-devices \
+          --disable-doc \
+          --disable-ffplay \
+          --disable-static \
+          --enable-gnutls \
+          --enable-libmp3lame \
+          --enable-libopus \
+          --enable-libvorbis \
+          --enable-shared \
+          --enable-ffprobe
 
           make -j$(sysctl -n hw.ncpu)
           make install
 
-          cp out/bin/ffmpeg "../../$DEPS_DIR/"
+          cp out/bin/ffmpeg "$DEPS_DIR/"
+          cp out/bin/ffprobe "$DEPS_DIR/"
 
       - name: Download Deno for ${{ matrix.arch }}
         run: |
