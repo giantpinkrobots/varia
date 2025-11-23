@@ -25,7 +25,7 @@ jobs:
       - name: Install build dependencies
         run: |
           brew update
-          brew install automake autoconf libtool pkg-config nasm yasm cmake ninja gtk4 libadwaita python3
+          brew install automake autoconf libtool pkg-config nasm yasm cmake ninja gtk4 libadwaita python3 lame opus libvorbis libogg gnutls
           python3 -m pip install --break-system-packages pillow pygobject yt-dlp pyinstaller aria2p pystray emoji-country-flag
 
       - name: Build aria2 for ${{ matrix.arch }}
@@ -52,14 +52,14 @@ jobs:
       - name: Build 7-Zip for ${{ matrix.arch }}
         run: |
           git clone https://github.com/ip7z/7zip.git
-          cd 7zip/C
+          cd 7zip/CPP/7zip/Bundles/Alone2
 
           export CFLAGS="-arch ${MAC_ARCH}"
           export CXXFLAGS="-arch ${MAC_ARCH}"
           export LDFLAGS="-arch ${MAC_ARCH}"
 
-          make -f makefile.macos
-          cp 7zz "$DEPS_DIR/"
+          make -f makefile.gcc
+          cp bin/7zz "$DEPS_DIR/"
 
       - name: Build FFmpeg for ${{ matrix.arch }}
         run: |
@@ -70,25 +70,32 @@ jobs:
           export CXXFLAGS="-arch ${MAC_ARCH}"
           export LDFLAGS="-arch ${MAC_ARCH}"
 
+          if [ "$MAC_ARCH" = "arm64" ]; then
+            FF_ARCH="arm64"
+          else
+            FF_ARCH="x86_64"
+          fi
+
           ./configure \
-          --prefix=$PWD/out \
-          --disable-debug \
-          --disable-devices \
-          --disable-doc \
-          --disable-ffplay \
-          --disable-static \
-          --enable-gnutls \
-          --enable-libmp3lame \
-          --enable-libopus \
-          --enable-libvorbis \
-          --enable-shared \
-          --enable-ffprobe
+            --prefix=$PWD/out \
+            --arch="$FF_ARCH" \
+            --disable-debug \
+            --disable-devices \
+            --disable-doc \
+            --disable-ffplay \
+            --disable-static \
+            --enable-gnutls \
+            --enable-libmp3lame \
+            --enable-libopus \
+            --enable-libvorbis \
+            --enable-shared
 
           make -j$(sysctl -n hw.ncpu)
           make install
 
           cp out/bin/ffmpeg "$DEPS_DIR/"
           cp out/bin/ffprobe "$DEPS_DIR/"
+          cp out/lib/*.dylib "$DEPS_DIR/"
 
       - name: Download Deno for ${{ matrix.arch }}
         run: |
