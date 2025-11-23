@@ -39,10 +39,8 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon='./icon.ico',
-    info_plist='Info.plist',
-    version='./version.txt',
 )
+
 coll = COLLECT(
     exe,
     a.binaries,

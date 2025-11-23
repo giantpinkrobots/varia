@@ -1,0 +1,114 @@
+name: Build for macOS
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-deps:
+    strategy:
+      matrix:
+        arch: [arm64, x86_64]
+    runs-on: macos-14
+
+    env:
+      MAC_ARCH: ${{ matrix.arch }}
+      DEPS_DIR: mac/dependencies-${{ matrix.arch }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Prepare folders
+        run: |
+          mkdir -p "$DEPS_DIR"
+
+      - name: Install build dependencies
+        run: |
+          brew update
+          brew install automake autoconf libtool pkg-config nasm yasm cmake ninja gtk4 libadwaita python3
+          python3 -m pip install --break-system-packages pillow pygobject yt-dlp pyinstaller aria2p pystray emoji-country-flag
+
+      - name: Build aria2 for ${{ matrix.arch }}
+        run: |
+          git clone https://github.com/aria2/aria2.git
+          cd aria2
+          autoreconf -i
+
+          if [ "$MAC_ARCH" = "arm64" ]; then
+            HOST="aarch64-apple-darwin"
+          else
+            HOST="x86_64-apple-darwin"
+          fi
+
+          ./configure \
+            --host="$HOST" \
+            --prefix=$PWD/out
+
+          make -j$(sysctl -n hw.ncpu)
+          make install
+
+          cp out/bin/aria2c "../../$DEPS_DIR/"
+
+      - name: Build 7-Zip for ${{ matrix.arch }}
+        run: |
+          git clone https://github.com/ip7z/7zip.git
+          cd 7zip/C
+
+          export CFLAGS="-arch ${MAC_ARCH}"
+          export CXXFLAGS="-arch ${MAC_ARCH}"
+          export LDFLAGS="-arch ${MAC_ARCH}"
+
+          make -f makefile.macos
+          cp 7zz "../../$DEPS_DIR/"
+
+      - name: Build FFmpeg for ${{ matrix.arch }}
+        run: |
+          git clone https://github.com/FFmpeg/FFmpeg.git
+          cd FFmpeg
+
+          export CFLAGS="-arch ${MAC_ARCH}"
+          export CXXFLAGS="-arch ${MAC_ARCH}"
+          export LDFLAGS="-arch ${MAC_ARCH}"
+
+          ./configure \
+            --arch="${MAC_ARCH}" \
+            --target-os=darwin \
+            --enable-pic \
+            --prefix=$PWD/out \
+            --disable-everything \
+            --enable-decoder=pcm_s16le \
+            --enable-demuxer=wav \
+            --disable-debug \
+            --disable-doc \
+            --enable-small
+
+          make -j$(sysctl -n hw.ncpu)
+          make install
+
+          cp out/bin/ffmpeg "../../$DEPS_DIR/"
+
+      - name: Download Deno for ${{ matrix.arch }}
+        run: |
+          cd "$DEPS_DIR"
+
+          if [ "$MAC_ARCH" = "arm64" ]; then
+            URL="https://github.com/denoland/deno/releases/latest/download/deno-aarch64-apple-darwin.zip"
+          else
+            URL="https://github.com/denoland/deno/releases/latest/download/deno-x86_64-apple-darwin.zip"
+          fi
+
+          curl -fsSL "$URL" -o deno.zip
+          unzip deno.zip
+          rm deno.zip
+
+      - name: Run build.sh for ${{ matrix.arch }}
+        run: |
+          cd mac
+          chmod +x build.sh
+          ./build.sh "${MAC_ARCH}"
+
+      - name: Upload DMG for ${{ matrix.arch }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: Varia-${{ matrix.arch }}
+          path: mac/Varia-${{ matrix.arch }}.dmg

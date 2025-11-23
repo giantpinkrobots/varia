@@ -5,13 +5,13 @@
 <dict>
     <key>CFBundleName</key>
     <string>Varia</string>
-    <key>CFBundleDisplayName</key>
-    <string>Varia</string>
     <key>CFBundleIdentifier</key>
     <string>io.github.giantpinkrobots.varia</string>
     <key>CFBundleVersion</key>
-    <string>1.0</string>
-    <key>LSUIElement</key>
-    <string>1</string>
+    <string>2025.11.23</string>
+    <key>CFBundleIconFile</key>
+    <string>varia.icns</string>
+    <key>CFBundleExecutable</key>
+    <string>Varia</string>
 </dict>
 </plist>
