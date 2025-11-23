@@ -54,9 +54,15 @@ jobs:
           git clone https://github.com/ip7z/7zip.git
           cd 7zip/CPP/7zip/Bundles/Alone2
 
-          make -f ../../cmpl_mac.mak -j$(sysctl -n hw.ncpu)
+          export CC=clang
+          export CXX=clang++
+          export CFLAGS="-arch ${MAC_ARCH}"
+          export CXXFLAGS="-arch ${MAC_ARCH}"
+          export LDFLAGS="-arch ${MAC_ARCH}"
 
-          cp 7zz "$DEPS_DIR/"
+          make -f makefile.gcc 7zz
+
+          cp ./7zz "$DEPS_DIR/"
 
       - name: Build FFmpeg for ${{ matrix.arch }}
         run: |
