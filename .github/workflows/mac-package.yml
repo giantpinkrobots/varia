@@ -55,10 +55,6 @@ jobs:
           cd 7zip/CPP/7zip/Bundles/Alone2
           export COMPL_STATIC=1
 
-          ./configure \
-            --host="$HOST" \
-            --prefix=$PWD/out
-
           make -f makefile.gcc -j$(sysctl -n hw.ncpu)
 
           if test -f "7zzs"; then
