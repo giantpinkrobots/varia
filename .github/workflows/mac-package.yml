@@ -25,7 +25,7 @@ jobs:
       - name: Install build dependencies
         run: |
           brew update
-          brew install automake autoconf libtool pkg-config nasm yasm cmake ninja gtk4 libadwaita python3 lame opus libvorbis libogg gnutls
+          brew install automake autoconf libtool pkg-config nasm yasm cmake ninja gtk4 libadwaita python3 lame opus libvorbis libogg gnutls pygobject3
           python3 -m pip install --break-system-packages pillow pygobject yt-dlp pyinstaller aria2p pystray emoji-country-flag
 
       - name: Build aria2 for ${{ matrix.arch }}
