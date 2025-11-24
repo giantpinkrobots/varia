@@ -49,20 +49,6 @@ jobs:
 
           mv out/bin/aria2c "$DEPS_DIR/"
 
-      - name: Build 7-Zip for ${{ matrix.arch }}
-        run: |
-          git clone https://github.com/ip7z/7zip.git
-          cd 7zip/CPP/7zip/Bundles/Alone2
-          export COMPL_STATIC=1
-
-          make -f makefile.gcc -j$(sysctl -n hw.ncpu)
-
-          if test -f "7zzs"; then
-            mv 7zzs "$DEPS_DIR/7zz"
-          else
-            mv 7zz "$DEPS_DIR/"
-          fi
-
       - name: Build FFmpeg for ${{ matrix.arch }}
         run: |
           git clone https://github.com/FFmpeg/FFmpeg.git
@@ -98,6 +84,14 @@ jobs:
           cp out/bin/ffmpeg "$DEPS_DIR/"
           cp out/bin/ffprobe "$DEPS_DIR/"
           cp out/lib/*.dylib "$DEPS_DIR/"
+
+      - name: Download 7zz (Universal binary)
+        run: |
+          curl -fsSL "https://www.7-zip.org/a/7z2501-mac.tar.xz" -o 7z.tar.xz
+          tar -xJf 7z.tar.xz
+          rm 7z.tar.xz
+
+          mv 7zz "$DEPS_DIR/7zz"
 
       - name: Download Deno for ${{ matrix.arch }}
         run: |
