@@ -47,22 +47,27 @@ jobs:
           make -j$(sysctl -n hw.ncpu)
           make install
 
-          cp out/bin/aria2c "$DEPS_DIR/"
+          mv out/bin/aria2c "$DEPS_DIR/"
 
       - name: Build 7-Zip for ${{ matrix.arch }}
         run: |
           git clone https://github.com/ip7z/7zip.git
           cd 7zip/CPP/7zip/Bundles/Alone2
 
-          export CC=clang
-          export CXX=clang++
-          export CFLAGS="-arch ${MAC_ARCH}"
-          export CXXFLAGS="-arch ${MAC_ARCH}"
-          export LDFLAGS="-arch ${MAC_ARCH}"
+          cd CPP/7zip/Bundles/Alone2
+          export COMPL_STATIC=1
 
-          make -f makefile.gcc 7zz
+          ./configure \
+            --host="$HOST" \
+            --prefix=$PWD/out
 
-          cp ./7zz "$DEPS_DIR/"
+          make -f makefile.gcc -j$(sysctl -n hw.ncpu)
+
+          if test -f "7zzs"; then
+            mv 7zzs "$DEPS_DIR/7zz"
+          else
+            mv 7zz "$DEPS_DIR/"
+          fi
 
       - name: Build FFmpeg for ${{ matrix.arch }}
         run: |

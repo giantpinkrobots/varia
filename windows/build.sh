@@ -112,7 +112,8 @@ cp data/icons/hicolor/scalable/apps/io.github.giantpinkrobots.varia.svg src/dist
 cp -r data/icons/hicolor/symbolic/ui/* src/dist/variamain/icons/
 cp -r dependencies_information src/dist/variamain/
 cp ./aria2/$aria2/aria2c.exe src/dist/variamain/
-cp -r ./ffmpeg/$ffmpeg/bin/* src/dist/variamain/
+cp ./ffmpeg/$ffmpeg/bin/ffmpeg.exe src/dist/variamain/
+cp ./ffmpeg/$ffmpeg/bin/ffprobe.exe src/dist/variamain/
 cp ./deno/deno.exe src/dist/variamain/
 cp ./7zip/7z.exe src/dist/variamain/
 cp ./7zip/7-zip.dll src/dist/variamain/
