@@ -49,61 +49,36 @@ jobs:
 
           mv out/bin/aria2c "$DEPS_DIR/"
 
-      - name: Build FFmpeg for ${{ matrix.arch }}
+      - name: Download binaries
         run: |
-          git clone https://github.com/FFmpeg/FFmpeg.git
-          cd FFmpeg
-
-          export CFLAGS="-arch ${MAC_ARCH}"
-          export CXXFLAGS="-arch ${MAC_ARCH}"
-          export LDFLAGS="-arch ${MAC_ARCH}"
-
           if [ "$MAC_ARCH" = "arm64" ]; then
-            FF_ARCH="arm64"
+            DENOURL="https://github.com/denoland/deno/releases/latest/download/deno-aarch64-apple-darwin.zip"
+            FFMPEGURL="https://ffmpeg.martin-riedl.de/download/macos/arm64/1756401489_8.0/ffmpeg.zip"
+            FFPROBEURL="https://ffmpeg.martin-riedl.de/download/macos/arm64/1756401489_8.0/ffprobe.zip"
           else
-            FF_ARCH="x86_64"
+            DENOURL="https://github.com/denoland/deno/releases/latest/download/deno-x86_64-apple-darwin.zip"
+            FFMPEGURL="https://ffmpeg.martin-riedl.de/download/macos/amd64/1756407576_8.0/ffmpeg.zip"
+            FFPROBEURL="https://ffmpeg.martin-riedl.de/download/macos/amd64/1756407576_8.0/ffprobe.zip"
           fi
 
-          ./configure \
-            --prefix=$PWD/out \
-            --arch="$FF_ARCH" \
-            --disable-debug \
-            --disable-devices \
-            --disable-doc \
-            --disable-ffplay \
-            --disable-static \
-            --enable-gnutls \
-            --enable-libmp3lame \
-            --enable-libopus \
-            --enable-libvorbis \
-            --enable-shared
+          # FFmpeg and FFprobe
+          curl -fsSL "$FFMPEGURL" -o ffmpeg.zip
+          curl -fsSL "$FFPROBEURL" -o ffprobe.zip
+          unzip ffmpeg.zip -d "$DEPS_DIR/"
+          unzip ffprobe.zip -d "$DEPS_DIR/"
+          rm ffmpeg.zip ffprobe.zip
 
-          make -j$(sysctl -n hw.ncpu)
-          make install
-
-          cp out/bin/ffmpeg "$DEPS_DIR/"
-          cp out/bin/ffprobe "$DEPS_DIR/"
-          cp out/lib/*.dylib "$DEPS_DIR/"
-
-      - name: Download 7zz (Universal binary)
-        run: |
+          # 7zz
           curl -fsSL "https://www.7-zip.org/a/7z2501-mac.tar.xz" -o 7z.tar.xz
           tar -xJf 7z.tar.xz
           rm 7z.tar.xz
 
           mv 7zz "$DEPS_DIR/7zz"
-
-      - name: Download Deno for ${{ matrix.arch }}
-        run: |
+          
+          # Deno
           cd "$DEPS_DIR"
 
-          if [ "$MAC_ARCH" = "arm64" ]; then
-            URL="https://github.com/denoland/deno/releases/latest/download/deno-aarch64-apple-darwin.zip"
-          else
-            URL="https://github.com/denoland/deno/releases/latest/download/deno-x86_64-apple-darwin.zip"
-          fi
-
-          curl -fsSL "$URL" -o deno.zip
+          curl -fsSL "$DENOURL" -o deno.zip
           unzip deno.zip
           rm deno.zip
 
