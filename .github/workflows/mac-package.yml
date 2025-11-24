@@ -12,7 +12,7 @@ jobs:
 
     env:
       MAC_ARCH: ${{ matrix.arch }}
-      DEPS_DIR: ${{ github.workspace }}/mac/dependencies-${{ matrix.arch }}
+      DEPS_DIR: ${{ github.workspace }}/mac/dependencies
 
     steps:
       - name: Checkout
@@ -86,7 +86,7 @@ jobs:
         run: |
           cd mac
           chmod +x build.sh
-          ./build.sh "${MAC_ARCH}"
+          ./build.sh
 
       - name: Upload DMG for ${{ matrix.arch }}
         uses: actions/upload-artifact@v4

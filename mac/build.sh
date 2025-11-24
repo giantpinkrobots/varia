@@ -2,11 +2,6 @@
 
 set -e
 
-ARCH="$1"
-if [ -z "$ARCH" ]; then
-  exit 1
-fi
-
 sign_all_binaries() {
     find "$1" -type f | while read -r file; do
         if file "$file" | grep -q "Mach-O"; then
@@ -17,8 +12,8 @@ sign_all_binaries() {
 
 cd "$(dirname "$0")"
 
-DEPS_DIR="dependencies-$ARCH"
-BUILD_DIR="build-$ARCH"
+DEPS_DIR="dependencies"
+BUILD_DIR="/Users/runner/work/varia/varia/mac/build"
 
 rm -rf $BUILD_DIR/Varia.app
 mkdir -p $BUILD_DIR/Varia.app/Contents/MacOS
@@ -37,11 +32,11 @@ cp Info.plist $BUILD_DIR/Varia.app/Contents
 cp varia.spec ../src
 cd ../src/tray
 pyinstaller -n varia-tray --noconsole --noconfirm tray_windows.py
-mv dist/varia-tray/* ../../mac/$BUILD_DIR/Varia.app/Contents/Resources/tray
-cp tray.png ../../mac/$BUILD_DIR/Varia.app/Contents/Resources/tray/_internal
+mv dist/varia-tray/* $BUILD_DIR/Varia.app/Contents/Resources/tray
+cp tray.png $BUILD_DIR/Varia.app/Contents/Resources/tray/_internal
 cd ..
 pyinstaller --noconfirm varia.spec
-mv dist/variamain/* ../mac/$BUILD_DIR/Varia.app/Contents/Resources
+mv dist/variamain/* $BUILD_DIR/Varia.app/Contents/Resources
 
 sign_all_binaries "$BUILD_DIR/Varia.app"
 codesign -f -s - "$BUILD_DIR/Varia.app"
