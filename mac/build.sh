@@ -10,7 +10,7 @@ sign_all_binaries() {
     done
 }
 
-MAC_DIR="$(dirname "$0")"
+MAC_DIR=$(dirname $(realpath -s $0))
 cd "$MAC_DIR/"
 
 rm -rf "$MAC_DIR/Varia.app"
