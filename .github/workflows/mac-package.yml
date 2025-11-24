@@ -64,8 +64,8 @@ jobs:
           # FFmpeg and FFprobe
           curl -fsSL "$FFMPEGURL" -o ffmpeg.zip
           curl -fsSL "$FFPROBEURL" -o ffprobe.zip
-          unzip ffmpeg.zip -d "$DEPS_DIR/"
-          unzip ffprobe.zip -d "$DEPS_DIR/"
+          unzip ffmpeg.zip -d "$DEPS_DIR"
+          unzip ffprobe.zip -d "$DEPS_DIR"
           rm ffmpeg.zip ffprobe.zip
 
           # 7zz
@@ -86,7 +86,7 @@ jobs:
         run: |
           cd mac
           chmod +x build.sh
-          ./build.sh
+          ./build.sh "$DEPS_DIR/.."
 
       - name: Upload DMG for ${{ matrix.arch }}
         uses: actions/upload-artifact@v4
