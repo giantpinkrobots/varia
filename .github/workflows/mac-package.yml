@@ -31,44 +31,15 @@ jobs:
 
       - name: Build aria2 from source
         run: |
-          LDFLAGS="-framework Security -framework CoreFoundation"
-
           git clone https://github.com/aria2/aria2.git
           cd aria2
-          autoreconf -i
-
-          if [ "$MAC_ARCH" = "arm64" ]; then
-            HOST="aarch64-apple-darwin"
-          else
-            HOST="x86_64-apple-darwin"
-          fi
-
-          ./configure \
-            --host="$HOST" \
-            --prefix=$PWD/out \
-            --without-libxml2 \
-            --without-sqlite3 \
-            --without-appletls \
-            --without-gnutls \
-            --without-libgmp \
-            --without-libnettle \
-            --without-libgcrypt \
-            --without-libssh2 \
-            --without-cppunit \
-            --without-libz \
-            --without-libcunit \
-            --without-libcares \
-            --without-libaria2 \
-            --disable-nls \
-            --with-openssl \
-            --disable-ftp \
-            --enable-shared=no \
-            ARIA2_STATIC=yes
-
-          make -j$(sysctl -n hw.ncpu)
-          make install
-
-          mv out/bin/aria2c "$DEPS_DIR/"
+          cp "$MAC_DIR/makerelease-osx-v2.mk" ./
+          mkdir build-release
+          cd build-release
+          ln -s ../makerelease-osx-v2.mk Makefile
+          make ARCH=${{ matrix.arch }}
+          cd aria2-def/bin
+          mv aria2c "$DEPS_DIR/"
 
       - name: Download binaries for other dependencies
         run: |
