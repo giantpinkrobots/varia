@@ -139,8 +139,10 @@ jobs:
             --window-size 700 478 \
             --icon Varia.app 175 200 \
             --app-drop-link 525 200 \
-            "Varia-$ARCH.dmg" \
+            "Varia.dmg" \
             ./Varia.app
+
+          mv "Varia.dmg" "Varia-${MAC_ARCH}.dmg"
 
       - name: Upload DMG for ${{ matrix.arch }}
         uses: actions/upload-artifact@v4
