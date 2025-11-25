@@ -31,10 +31,7 @@ jobs:
 
       - name: Build aria2 from source
         run: |
-          export LIBEXPAT_LIBS="-L/usr/local/opt/expat/lib"
-          export LIBEXPAT_CFLAGS="-I/usr/local/opt/expat/include"   
-          export LDFLAGS="-L/usr/local/lib"
-          export CPPFLAGS="-I/usr/local/include"
+          LDFLAGS="-framework Security -framework CoreFoundation"
 
           git clone https://github.com/aria2/aria2.git
           cd aria2
