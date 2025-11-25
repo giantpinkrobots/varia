@@ -29,8 +29,13 @@ jobs:
           brew install automake autoconf libtool pkg-config nasm yasm cmake ninja gtk4 libadwaita python3 lame opus libvorbis libogg gnutls pygobject3 create-dmg
           python3 -m pip install --break-system-packages pillow pygobject yt-dlp pyinstaller aria2p pystray emoji-country-flag
 
-      - name: Build aria2 for ${{ matrix.arch }}
+      - name: Build aria2 from source
         run: |
+          export LIBEXPAT_LIBS="-L/usr/local/opt/expat/lib"
+          export LIBEXPAT_CFLAGS="-I/usr/local/opt/expat/include"   
+          export LDFLAGS="-L/usr/local/lib"
+          export CPPFLAGS="-I/usr/local/include"
+
           git clone https://github.com/aria2/aria2.git
           cd aria2
           autoreconf -i
@@ -43,14 +48,32 @@ jobs:
 
           ./configure \
             --host="$HOST" \
-            --prefix=$PWD/out
+            --prefix=$PWD/out \
+            --without-libxml2 \
+            --without-sqlite3 \
+            --without-appletls \
+            --without-gnutls \
+            --without-libgmp \
+            --without-libnettle \
+            --without-libgcrypt \
+            --without-libssh2 \
+            --without-cppunit \
+            --without-libz \
+            --without-libcunit \
+            --without-libcares \
+            --without-libaria2 \
+            --disable-nls \
+            --with-openssl \
+            --disable-ftp \
+            --enable-shared=no \
+            ARIA2_STATIC=yes
 
           make -j$(sysctl -n hw.ncpu)
           make install
 
           mv out/bin/aria2c "$DEPS_DIR/"
 
-      - name: Download binaries
+      - name: Download binaries for other dependencies
         run: |
           if [ "$MAC_ARCH" = "arm64" ]; then
             DENOURL="https://github.com/denoland/deno/releases/latest/download/deno-aarch64-apple-darwin.zip"
