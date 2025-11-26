@@ -29,29 +29,24 @@ jobs:
           brew install automake autoconf libtool pkg-config nasm yasm cmake ninja gtk4 libadwaita python3 lame opus libvorbis libogg gnutls pygobject3 create-dmg
           python3 -m pip install --break-system-packages pillow pygobject yt-dlp pyinstaller aria2p pystray emoji-country-flag
 
-      - name: Build aria2 from source
-        run: |
-          git clone https://github.com/aria2/aria2.git
-          cd aria2
-          cp "$MAC_DIR/makerelease-osx-v2.mk" ./
-          mkdir build-release
-          cd build-release
-          ln -s ../makerelease-osx-v2.mk Makefile
-          make ARCH=${{ matrix.arch }}
-          cd aria2-def/bin
-          mv aria2c "$DEPS_DIR/"
-
-      - name: Download binaries for other dependencies
+      - name: Download binaries for dependencies
         run: |
           if [ "$MAC_ARCH" = "arm64" ]; then
+            ARIA2CURL="https://github.com/giantpinkrobots/aria2c-macos-standalone-binary/releases/download/1.37.0/aria2c-macos-arm64.tar.gz"
             DENOURL="https://github.com/denoland/deno/releases/latest/download/deno-aarch64-apple-darwin.zip"
             FFMPEGURL="https://ffmpeg.martin-riedl.de/download/macos/arm64/1756401489_8.0/ffmpeg.zip"
             FFPROBEURL="https://ffmpeg.martin-riedl.de/download/macos/arm64/1756401489_8.0/ffprobe.zip"
           else
+            ARIA2CURL="https://github.com/giantpinkrobots/aria2c-macos-standalone-binary/releases/download/1.37.0/aria2c-macos-x86_64.tar.gz"
             DENOURL="https://github.com/denoland/deno/releases/latest/download/deno-x86_64-apple-darwin.zip"
             FFMPEGURL="https://ffmpeg.martin-riedl.de/download/macos/amd64/1756407576_8.0/ffmpeg.zip"
             FFPROBEURL="https://ffmpeg.martin-riedl.de/download/macos/amd64/1756407576_8.0/ffprobe.zip"
           fi
+
+          # Aria2c
+          curl -fsSL "$ARIA2CURL" -o aria2c.tar.gz
+          tar -xzf aria2c.tar.gz -d "$DEPS_DIR"
+          rm aria2c.tar.gz
 
           # FFmpeg and FFprobe
           curl -fsSL "$FFMPEGURL" -o ffmpeg.zip
