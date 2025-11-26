@@ -113,7 +113,7 @@ jobs:
           mkdir "$MAC_DIR/Varia.app/Contents/Resources/icons"
           cp "$MAC_DIR/../data/icons/hicolor/symbolic/apps/io.github.giantpinkrobots.varia-symbolic.svg" "$MAC_DIR/Varia.app/Contents/Resources/icons/"
           cp "$MAC_DIR/../data/icons/hicolor/scalable/apps/io.github.giantpinkrobots.varia.svg" "$MAC_DIR/Varia.app/Contents/Resources/icons/"
-          cp -r "$MAC_DIR/../data/icons/hicolor/symbolic/ui/*" "$MAC_DIR/Varia.app/Contents/Resources/icons/"
+          cp -r "$MAC_DIR/../data/icons/hicolor/symbolic/ui/"* "$MAC_DIR/Varia.app/Contents/Resources/icons/"
 
           cp -r "$MAC_DIR/../dependencies_information" "$MAC_DIR/Varia.app/Contents/Resources/"
 
@@ -124,13 +124,13 @@ jobs:
           cd "$MAC_DIR/../src/tray"
           pyinstaller -n varia-tray --noconsole --noconfirm tray_win_mac.py
 
-          cp -r "$MAC_DIR/../src/tray/dist/varia-tray/*" "$MAC_DIR/Varia.app/Contents/Resources/tray/"
+          cp -r "$MAC_DIR/../src/tray/dist/varia-tray/"* "$MAC_DIR/Varia.app/Contents/Resources/tray/"
           cp "$MAC_DIR/../src/tray/trayicon_mac.png" "$MAC_DIR/Varia.app/Contents/Resources/tray/_internal/"
 
           cd "$MAC_DIR/../src"
           pyinstaller --noconfirm varia.spec
 
-          cp -r "$MAC_DIR/../src/dist/Varia/*" "$MAC_DIR/Varia.app/Contents/Resources/"
+          cp -r "$MAC_DIR/../src/dist/Varia/"* "$MAC_DIR/Varia.app/Contents/Resources/"
 
           sign_all_binaries "$MAC_DIR/Varia.app/"
 
