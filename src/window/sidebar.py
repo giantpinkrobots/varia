@@ -38,6 +38,10 @@ def window_create_sidebar(self, variaapp, variaVersion):
     about_action.connect("activate", open_downloads_folder, self, self.appconf)
     variaapp.add_action(about_action)
 
+    mac_preferences_action = Gio.SimpleAction.new("preferences", None)
+    mac_preferences_action.connect("activate", menubar_preferences_clicked, self, variaapp, variaVersion)
+    variaapp.add_action(mac_preferences_action)
+
     quit_action = Gio.SimpleAction.new("quit_varia", None)
     quit_action.connect("activate", quit_varia, self)
     variaapp.add_action(quit_action)
@@ -76,6 +80,13 @@ def window_create_sidebar(self, variaapp, variaVersion):
         completion_submenu_item_shutdown = Gio.MenuItem.new(_("Shutdown on Completion"), "app.shutdown_on_completion")
     completion_submenu_model.append_item(completion_submenu_item_shutdown)
 
+    if (os.uname().sysname == 'Darwin'):
+        mac_submenu_model = Gio.Menu()
+        mac_submenu_model.append_item(hamburger_menu_item_background)
+        mac_submenu_model.append_item(hamburger_menu_item_cancel_all)
+        mac_submenu_model.append_item(hamburger_menu_item_open_downloads_folder)
+        hamburger_menu_model.append_submenu(_("Other"), mac_submenu_model)
+
     hamburger_menu_model.append_submenu(_("Completion Options"), completion_submenu_model)
 
     hamburger_menu_item_about = Gio.MenuItem.new(_("About Varia"), "app.about")
@@ -86,14 +97,14 @@ def window_create_sidebar(self, variaapp, variaVersion):
 
     hamburger_button.set_menu_model(hamburger_menu_model)
 
-    header_bar.pack_end(hamburger_button)
-
     if (os.uname().sysname == 'Darwin'):
         header_bar.pack_end(preferences_button)
         header_bar.set_show_title(False)
+        variaapp.set_menubar(hamburger_menu_model)
 
     else:
         header_bar.pack_start(preferences_button)
+        header_bar.pack_end(hamburger_button)
 
     box_add_download = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
     box_add_download.set_margin_start(8)
@@ -275,6 +286,9 @@ def on_add_torrent(file_dialog, result, self):
     if file.endswith(".torrent"):
         self.api.add_torrent(file)
 
+def menubar_preferences_clicked(app, variaapp1, self, variaapp, variaVersion):
+    show_preferences(None, self, variaapp, variaVersion)
+
 def background_mode(app, variaapp1, self, variaapp):
     if os.uname().sysname == "Linux" and variaapp.issnap and ((variaapp.snap_is_connected["dbus-varia-tray"] == False) or (variaapp.snap_is_connected["dbusmenu"] == False)): # If running on Snap and doesn't have the required permissions
         variaapp.show_snap_permissions_required_dialog()
@@ -323,6 +337,8 @@ def show_about(app, variaapp, self, variaVersion):
 def open_downloads_folder(self, app, variaapp, appconf):
     if (os.uname().sysname == 'Linux'):
         subprocess.Popen(["xdg-open", appconf["download_directory"]])
+    elif (os.uname().sysname == 'Darwin'):
+        subprocess.call(('open', appconf["download_directory"]))
     else:
         os.startfile(appconf["download_directory"])
 

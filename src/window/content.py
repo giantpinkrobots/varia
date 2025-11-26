@@ -49,23 +49,19 @@ def window_create_content(self):
         self.overlay_split_view.set_content(self.content_box)
 
     elif (os.uname().sysname == 'Darwin'):
-            varia_title_label_for_mac = Gtk.Label(label="Varia")
-            varia_title_label_for_mac.add_css_class("title-3")
-            varia_title_label_for_mac.set_margin_start(8)
-            header_box.prepend(varia_title_label_for_mac)
+        header_toolbar = Adw.ToolbarView()
+        gtk_headerbar = Gtk.HeaderBar()
+        gtk_headerbar.set_decoration_layout("")
+        gtk_headerbar.set_title_widget(header_box)
+        header_toolbar.add_top_bar(gtk_headerbar)
+        header_toolbar.set_content(self.content_box)
 
-            header_toolbar = Adw.ToolbarView()
-            gtk_headerbar = Gtk.HeaderBar()
-            gtk_headerbar.set_decoration_layout("")
-            gtk_headerbar.set_title_widget(header_box)
-            header_toolbar.add_top_bar(gtk_headerbar)
-            header_toolbar.set_content(self.content_box)
-
-            self.mac_header_empty_space = Gtk.Box()
-            self.mac_header_empty_space.set_margin_start(60)
-            self.mac_header_empty_space.set_visible(False)
-            header_box.prepend(self.mac_header_empty_space)
-            self.overlay_split_view.set_content(header_toolbar)
+        self.mac_header_empty_space = Gtk.Box()
+        self.mac_header_empty_space.set_margin_start(60)
+        self.mac_header_empty_space.set_visible(False)
+        header_box.prepend(self.header_show_sidebar_button_revealer)
+        header_box.prepend(self.mac_header_empty_space)
+        self.overlay_split_view.set_content(header_toolbar)
 
     else:
         header_bar = Adw.HeaderBar()

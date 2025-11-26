@@ -60,6 +60,7 @@ class MainWindow(application_window):
         self.tray_connection_thread_stop = False
         self.tray_process = None
         self.ip_geolocation_cache = {}
+        self.preferences_shown = False
         self.issnap = issnap
         self.sevenzexec = sevenzexec
         self.denoexec = denoexec
@@ -675,6 +676,7 @@ def send_to_varia_instance(message):
 class MyApp(Adw.Application):
     def __init__(self, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments, **kwargs):
         super().__init__(**kwargs)
+        GLib.set_application_name("Varia")
         self.connect('activate', self.on_activate, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments)
         quit_action = Gio.SimpleAction.new("quit", None)
         quit_action.connect("activate", self.quit_action)

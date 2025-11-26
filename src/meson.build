@@ -70,8 +70,9 @@ varia_sources_download = [
 
 varia_sources_tray = [
   'tray/tray_linux.py',
-  'tray/tray_windows.py',
-  'tray/tray.png',
+  'tray/tray_win_mac.py',
+  'tray/trayicon_win.png',
+  'tray/trayicon_mac.png',
 ]
 
 install_data(varia_sources, install_dir: moduledir)

@@ -99,9 +99,9 @@ cd tray
 echo "      -   Building PyInstaller distributable of the tray process"
 
 if [ $debug -eq 1 ]; then
-	pyinstaller -n varia-tray --noconfirm tray_windows.py
+	pyinstaller -n varia-tray --noconfirm tray_win_mac.py
 else
-	pyinstaller -n varia-tray --noconsole --noconfirm tray_windows.py
+	pyinstaller -n varia-tray --noconsole --noconfirm tray_win_mac.py
 fi
 
 cd ../..
@@ -122,7 +122,7 @@ cp ./7zip/7z.dll src/dist/variamain/
 
 mkdir src/dist/variamain/tray
 cp -r src/tray/dist/varia-tray/* src/dist/variamain/tray/
-cp src/tray/tray.png src/dist/variamain/tray/_internal/
+cp src/tray/trayicon_win.png src/dist/variamain/tray/_internal/
 
 if [ $updater -eq 1 ]; then
 	touch src/dist/variamain/updater-function-enabled

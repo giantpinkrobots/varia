@@ -5,10 +5,10 @@ let resourcesdir = bundleURL.appendingPathComponent("Contents/Resources")
 
 FileManager.default.changeCurrentDirectoryPath(resourcesdir.path)
 
-let execPath = resourcesdir.appendingPathComponent("variamain").path
+let execPath = resourcesdir.appendingPathComponent("Varia").path
 
 let args: [UnsafeMutablePointer<CChar>?] = [
-    strdup("variamain"),
+    strdup("Varia"),
     nil
 ]
 

@@ -12,7 +12,13 @@ from window.updater import windows_updater
 
 import autostart_util
 
+def close_preferences(dialog, self):
+    self.preferences_shown = False
+
 def show_preferences(button, self, app, variaVersion):
+    if self.preferences_shown:
+        return
+
     if self.overlay_split_view.get_show_sidebar() and \
         self.overlay_split_view.get_collapsed():
 
@@ -544,9 +550,13 @@ def show_preferences(button, self, app, variaVersion):
 
     torrent_settings_set_sensitive(self)
 
+    self.preferences_shown = True
+    preferences.connect("closed", close_preferences, self)
+
     if os.name == 'nt':
         preferences.set_content_width(self.get_default_size()[0])
         preferences.set_content_height(self.get_default_size()[1])
+
     preferences.present(self)
 
 def on_switch_auto_update_check(switch, state, self):

@@ -8,7 +8,11 @@ def tray_action_show(arg):
 def tray_action_quit(arg):
     conn.send("quit")
 
-image_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "tray.png")
+if os.path.exists(os.path.join(os.path.dirname(os.path.realpath(__file__)), "trayicon_win.png")):
+    image_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "trayicon_win.png")
+else:
+    image_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "trayicon_mac.png")
+
 show_text = sys.argv[1]
 quit_text = sys.argv[2]
 

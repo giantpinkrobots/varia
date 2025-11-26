@@ -71,7 +71,7 @@ jobs:
           unzip deno.zip
           rm deno.zip
 
-      - name: Run build.sh for ${{ matrix.arch }}
+      - name: Build for ${{ matrix.arch }}
         run: |
           cd mac
 
@@ -99,20 +99,38 @@ jobs:
           codesign --remove-signature "$MAC_DIR/Varia.app/Contents/Resources/7zz" || true
           codesign --remove-signature "$MAC_DIR/Varia.app/Contents/Resources/deno" || true
 
+          cd "$MAC_DIR/../"
+          rm -rf locale
+          mkdir locale
+          for po in po/*.po; do
+            lang=$(basename "$po" .po)
+            mkdir locale/$lang
+            mkdir locale/$lang/LC_MESSAGES
+            msgfmt -o "locale/$lang/LC_MESSAGES/varia.mo" "$po"
+          done
+          cp -r locale "$MAC_DIR/Varia.app/Contents/Resources/"
+
+          mkdir "$MAC_DIR/Varia.app/Contents/Resources/icons"
+          cp "$MAC_DIR/../data/icons/hicolor/symbolic/apps/io.github.giantpinkrobots.varia-symbolic.svg" "$MAC_DIR/Varia.app/Contents/Resources/icons/"
+          cp "$MAC_DIR/../data/icons/hicolor/scalable/apps/io.github.giantpinkrobots.varia.svg" "$MAC_DIR/Varia.app/Contents/Resources/icons/"
+          cp -r "$MAC_DIR/../data/icons/hicolor/symbolic/ui/*" "$MAC_DIR/Varia.app/Contents/Resources/icons/"
+
+          cp -r "$MAC_DIR/../dependencies_information" "$MAC_DIR/Varia.app/Contents/Resources/"
+
           cp "$MAC_DIR/Info.plist" "$MAC_DIR/Varia.app/Contents/"
 
           cp "$MAC_DIR/varia.spec" "$MAC_DIR/../src/"
 
           cd "$MAC_DIR/../src/tray"
-          pyinstaller -n varia-tray --noconsole --noconfirm tray_windows.py
+          pyinstaller -n varia-tray --noconsole --noconfirm tray_win_mac.py
 
-          cp -r "$MAC_DIR/../src/tray/dist/varia-tray"/* "$MAC_DIR/Varia.app/Contents/Resources/tray/"
-          cp "$MAC_DIR/../src/tray/tray.png" "$MAC_DIR/Varia.app/Contents/Resources/tray/_internal/"
+          cp -r "$MAC_DIR/../src/tray/dist/varia-tray/*" "$MAC_DIR/Varia.app/Contents/Resources/tray/"
+          cp "$MAC_DIR/../src/tray/trayicon_mac.png" "$MAC_DIR/Varia.app/Contents/Resources/tray/_internal/"
 
           cd "$MAC_DIR/../src"
           pyinstaller --noconfirm varia.spec
 
-          cp -r "$MAC_DIR/../src/dist/variamain"/* "$MAC_DIR/Varia.app/Contents/Resources/"
+          cp -r "$MAC_DIR/../src/dist/Varia/*" "$MAC_DIR/Varia.app/Contents/Resources/"
 
           sign_all_binaries "$MAC_DIR/Varia.app/"
 
