@@ -45,8 +45,10 @@ jobs:
 
           # Aria2c
           curl -fsSL "$ARIA2CURL" -o aria2c.tar.gz
-          tar -xzf aria2c.tar.gz -d "$DEPS_DIR"
+          tar -xzf aria2c.tar.gz
           rm aria2c.tar.gz
+
+          mv aria2c "$DEPS_DIR/aria2c"
 
           # FFmpeg and FFprobe
           curl -fsSL "$FFMPEGURL" -o ffmpeg.zip
