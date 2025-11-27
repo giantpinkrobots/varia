@@ -177,11 +177,13 @@ class MainWindow(application_window):
         icon_theme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default())
         icon_theme.add_search_path("./icons")
 
-        # Windows only stuff:
+        # Use server side decorations on Windows because tiling doesn't work well otherwise:
         if (os.name == 'nt'):
             os.environ['GTK_CSD'] = '0'
-            if (self.appconf["check_for_updates_on_startup_enabled"] == '1') and (os.path.exists("./updater-function-enabled")):
-                windows_updater(None, self, variaapp, None, variaVersion, 0)
+        
+        # Updater for Windows and Mac:
+        if (os.name == 'nt' or os.uname().sysname == 'Darwin') and self.appconf["check_for_updates_on_startup_enabled"] == '1' and os.path.exists("./updater-function-enabled"):
+            windows_updater(None, self, variaapp, None, variaVersion, 0)
 
         # Load incomplete downloads:
         default_state = {"url": None, "filename": None, "type": "regular", "video_options": {}, "paused": False, "index": 0, "dir": self.appconf["download_directory"], "percentage": 0}
@@ -609,7 +611,10 @@ class MainWindow(application_window):
                 variaapp.quit()
 
                 if self.update_executable != None:
-                    subprocess.Popen([self.update_executable, "/SILENT", "SUPPRESSMSGBOXES", "SP-", "/NOICONS", "/MERGETASKS=\"!desktopicon\"", "&&", os.path.join(os.getcwd(), "variamain.exe")], shell=True)
+                    if os.name == 'nt':
+                        subprocess.Popen([self.update_executable, "/SILENT", "SUPPRESSMSGBOXES", "SP-", "/NOICONS", "/MERGETASKS=\"!desktopicon\"", "&&", os.path.join(os.getcwd(), "variamain.exe")], shell=True)
+                    else: # Mac
+                        subprocess.call(('open', self.update_executable.filepath))
 
     def aria2c_exiting_check(self, app, counter, variaapp, exiting_dialog):
         print(counter)

@@ -116,6 +116,7 @@ jobs:
           cp -r "$MAC_DIR/../data/icons/hicolor/symbolic/ui/"* "$MAC_DIR/Varia.app/Contents/Resources/icons/"
 
           cp -r "$MAC_DIR/../dependencies_information" "$MAC_DIR/Varia.app/Contents/Resources/"
+          touch "$MAC_DIR/Varia.app/Contents/Resources/updater-function-enabled"
 
           cp "$MAC_DIR/Info.plist" "$MAC_DIR/Varia.app/Contents/"
 

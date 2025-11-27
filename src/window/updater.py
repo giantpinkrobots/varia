@@ -8,10 +8,11 @@ import threading
 import os
 import subprocess
 import time
+import platform
 
 update_download_progress = 0
 
-def windows_updater(bannerButton, app, variaapp, parentWindow, variaVersion, mode):
+def windows_updater(bannerButton, app, variaapp, parentWindow, variaVersion, mode): # This is actually for Windows and Mac
     if mode == 1:
         if parentWindow is not None:
             parentWindow.close()
@@ -65,7 +66,7 @@ def start_update_check(variaVersion, app, variaapp, checking_dialog, mode):
                 pass
 
     else:
-        latest_name_for_windows = "failed"
+        latest_release_available = "failed"
     
     i = 0
     while True:
@@ -73,38 +74,43 @@ def start_update_check(variaVersion, app, variaapp, checking_dialog, mode):
             contents = json.loads(all_releases)[i]
         except:
             print("Couldn't check for updates.")
-            latest_name_for_windows = "failed"
+            latest_release_available = "failed"
             break
 
-        latest_name_for_windows = contents["name"]
-        latest_windows_binary_url = 'https://github.com/giantpinkrobots/varia/releases/download/' + latest_name_for_windows + '/varia-windows-setup-amd64.exe'
+        if os.name == 'nt' or os.uname().sysname == 'Darwin': # For testing, download the Windows binary on Mac as well
+            latest_release_available = contents["name"]
+            binary_url = 'https://github.com/giantpinkrobots/varia/releases/download/' + latest_release_available + '/varia-windows-setup-amd64.exe'
         
-        if latest_windows_binary_url in all_releases:
+        else: # Mac
+            latest_release_available = contents["name"]
+            binary_url = 'https://github.com/giantpinkrobots/varia/releases/download/' + latest_release_available + '/varia-mac-' + platform.machine() + '.dmg'
+        
+        if binary_url in all_releases:
             break
         else:
             i += 1
             if i > len(json.loads(all_releases)):
                 print("Couldn't check for updates.")
-                latest_name_for_windows = "failed"
+                latest_release_available = "failed"
                 break
 
     if checking_dialog != None:
         checking_dialog.set_can_close(True)
         checking_dialog.close()
 
-    if latest_name_for_windows != variaVersion and latest_name_for_windows != "failed":
+    if latest_release_available != variaVersion and latest_release_available != "failed":
         if mode == 1:
-            GLib.idle_add(show_update_question_dialog, update_pressed, latest_windows_binary_url, latest_name_for_windows, app, variaapp)
+            GLib.idle_add(show_update_question_dialog, update_pressed, binary_url, latest_release_available, app, variaapp)
         else:
             GLib.idle_add(show_update_available_banner, windows_updater, app, variaapp, variaVersion)
             
-def show_update_question_dialog(update_pressed, latest_windows_binary_url, latest_name_for_windows, app, variaapp):
+def show_update_question_dialog(update_pressed, binary_url, latest_release_available, app, variaapp):
     update_question_dialog = Adw.AlertDialog()
     update_question_dialog.set_body(_("A new version of Varia is available. Do you want to update?"))
     update_question_dialog.add_response("yes",  _("Yes"))
     update_question_dialog.add_response("no",  _("No"))
     update_question_dialog.set_response_appearance("yes", Adw.ResponseAppearance.SUGGESTED)
-    update_question_dialog.connect("response", update_pressed, latest_windows_binary_url, latest_name_for_windows, app, variaapp)
+    update_question_dialog.connect("response", update_pressed, binary_url, latest_release_available, app, variaapp)
     update_question_dialog.set_close_response("no")
     update_question_dialog.present(app)
 
@@ -115,7 +121,7 @@ def show_update_available_banner(windows_updater, app, variaapp, variaVersion):
     app.update_available_banner.set_revealed(True)
     app.content_box.insert_child_after(app.update_available_banner, app.content_box.get_first_child())
 
-def update_pressed(dialog, response_id, latest_windows_binary_url, latest_name_for_windows, app, variaapp):
+def update_pressed(dialog, response_id, binary_url, latest_release_available, app, variaapp):
     dialog.set_can_close(True)
     dialog.close()
     dialog = None
@@ -149,8 +155,14 @@ def update_pressed(dialog, response_id, latest_windows_binary_url, latest_name_f
         
         def download_update():
             global update_download_progress
+
+            if os.name == 'nt' or os.uname().sysname == 'Darwin': # For test
+                out_file_extension = '.exe'
+            else:
+                out_file_extension = '.dmg'
+
             process = subprocess.Popen(
-                [app.aria2cexec, '--dir=' + app.appconf['download_directory'], '--out=variaUpdate-' + latest_name_for_windows + '.exe', '--quiet=false', '--summary-interval=1', latest_windows_binary_url],
+                [app.aria2cexec, '--dir=' + app.appconf['download_directory'], '--out=variaUpdate-' + latest_release_available + out_file_extension, '--quiet=false', '--summary-interval=1', binary_url],
                 shell=True, text=True, bufsize=1, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
             )
             
@@ -181,7 +193,7 @@ def update_pressed(dialog, response_id, latest_windows_binary_url, latest_name_f
             
             if process.returncode == 0:
                 update_downloading_dialog_progress_bar.set_fraction(100)
-                app.update_executable = os.path.join(app.appconf['download_directory'], "variaUpdate-" + latest_name_for_windows + ".exe")
+                app.update_executable = os.path.join(app.appconf['download_directory'], "variaUpdate-" + latest_release_available + out_file_extension)
                 app.exitProgram(variaapp, variaapp, background=False)
             else:
                 dialog = Adw.AlertDialog()
