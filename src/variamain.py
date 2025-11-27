@@ -778,7 +778,7 @@ class MyApp(Adw.Application):
         self.win.quit_action_received(self)
 
 def main(version, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments):
-    if (os.name == 'nt' or (os.uname().sysname == 'Darwin')): # Varia server only used on Windows to send data to the already running instance.
+    if os.name == 'nt' or os.uname().sysname == 'Darwin': # Varia server only used on Windows/Mac to send data to the already running instance.
         if not start_varia_server():
             send_to_varia_instance(arguments)
             return
@@ -791,16 +791,18 @@ def main(version, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, argument
         if not os.path.exists(appdir):
             os.makedirs(appdir)
 
-    download_directory = ''
-
-    try:
-        if (os.path.exists(GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOWNLOAD))):
-            download_directory = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOWNLOAD)
+    def default_download_directory():
+        if GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOWNLOAD) and os.path.exists(GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOWNLOAD)):
+            return GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOWNLOAD)
+        elif os.path.exists(os.path.join(os.path.expanduser('~'), 'Downloads')):
+            return os.path.join(os.path.expanduser('~'), 'Downloads')
+        elif GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_HOME) and os.path.exists(GLib.UserDirectory.DIRECTORY_HOME):
+            return GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_HOME)
         else:
-            download_directory = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_HOME)
-    except AttributeError:
-        print("Can't find GLib user special dirs")
-        download_directory = os.path.expanduser("~")
+            print("Can't find GLib user special dirs")
+            return os.path.expanduser("~")
+    
+    download_directory = default_download_directory()
 
     appconf = {
         'window_size': [800, 630],
@@ -843,6 +845,14 @@ def main(version, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, argument
         first_run = False
         with open(os.path.join(appdir, 'varia.conf'), 'r') as f:
             appconf.update(json.load(f))
+        
+        if os.path.exists(appconf['download_directory']) == False:
+            appconf['download_directory'] = download_directory
+            print("Download directory from config not found, reset to default.")
+        
+        if appconf['torrent_download_directory_custom_enabled'] == '1' and os.path.exists(appconf['torrent_download_directory']) == False:
+            appconf['torrent_download_directory'] = download_directory
+            print("Torrent download directory from config not found, reset to default.")
 
     else:
         first_run = True
