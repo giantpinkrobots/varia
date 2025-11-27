@@ -125,7 +125,7 @@ jobs:
           pyinstaller -n varia-tray --noconsole --noconfirm tray_win_mac.py
 
           cp -r "$MAC_DIR/../src/tray/dist/varia-tray/"* "$MAC_DIR/Varia.app/Contents/Resources/tray/"
-          cp "$MAC_DIR/../src/tray/trayicon_mac.png" "$MAC_DIR/Varia.app/Contents/Resources/tray/_internal/"
+          cp "$MAC_DIR/../src/tray/trayicon_win.png" "$MAC_DIR/Varia.app/Contents/Resources/tray/_internal/trayicon_mac.png"
 
           cd "$MAC_DIR/../src"
           pyinstaller --noconfirm varia.spec

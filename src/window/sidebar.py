@@ -98,8 +98,6 @@ def window_create_sidebar(self, variaapp, variaVersion):
     hamburger_button.set_menu_model(hamburger_menu_model)
 
     if (os.uname().sysname == 'Darwin'):
-        header_bar.pack_end(preferences_button)
-        header_bar.set_show_title(False)
         variaapp.set_menubar(hamburger_menu_model)
 
     else:
