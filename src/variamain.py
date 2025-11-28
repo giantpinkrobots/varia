@@ -614,7 +614,7 @@ class MainWindow(application_window):
                     if os.name == 'nt':
                         subprocess.Popen([self.update_executable, "/SILENT", "SUPPRESSMSGBOXES", "SP-", "/NOICONS", "/MERGETASKS=\"!desktopicon\"", "&&", os.path.join(os.getcwd(), "variamain.exe")], shell=True)
                     else: # Mac
-                        subprocess.call(('open', self.update_executable.filepath))
+                        subprocess.call(('open', self.update_executable))
 
     def aria2c_exiting_check(self, app, counter, variaapp, exiting_dialog):
         print(counter)
@@ -639,7 +639,10 @@ class MainWindow(application_window):
                 print(thread.name)
 
             if self.update_executable != None:
-                subprocess.Popen([self.update_executable, "/SILENT", "SUPPRESSMSGBOXES", "SP-", "/NOICONS", "/MERGETASKS=\"!desktopicon\"", "&&", os.path.join(os.getcwd(), "variamain.exe")], shell=True)
+                if os.name == 'nt':
+                    subprocess.Popen([self.update_executable, "/SILENT", "SUPPRESSMSGBOXES", "SP-", "/NOICONS", "/MERGETASKS=\"!desktopicon\"", "&&", os.path.join(os.getcwd(), "variamain.exe")], shell=True)
+                else: # Mac
+                    subprocess.call(('open', self.update_executable))
 
             return
 

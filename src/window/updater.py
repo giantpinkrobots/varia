@@ -45,9 +45,14 @@ def windows_updater(bannerButton, app, variaapp, parentWindow, variaVersion, mod
 
 def start_update_check(variaVersion, app, variaapp, checking_dialog, mode):
     print(os.path.join(app.appdir, 'updater-all-releases.txt'))
+
+    if os.name == 'nt':
+        process_cmd = [os.path.join(os.getcwd(), app.aria2cexec), '--quiet=true', '--console-log-level=warn', '--download-result=hide', '--out=updater-all-releases.txt', 'https://api.github.com/repos/giantpinkrobots/varia/releases']
+    else: # Mac
+        process_cmd = app.aria2cexec + ' --quiet=true --console-log-level=warn --download-result=hide --out=updater-all-releases.txt https://api.github.com/repos/giantpinkrobots/varia/releases'
+    
     process = subprocess.Popen(
-        [os.path.join(os.getcwd(), app.aria2cexec), '--quiet=true', '--console-log-level=warn', '--download-result=hide',
-         '--out=updater-all-releases.txt', 'https://api.github.com/repos/giantpinkrobots/varia/releases'],
+        process_cmd,
         text=True, shell=True, cwd = app.appdir
     )
     
@@ -77,7 +82,7 @@ def start_update_check(variaVersion, app, variaapp, checking_dialog, mode):
             latest_release_available = "failed"
             break
 
-        if os.name == 'nt' or os.uname().sysname == 'Darwin': # For testing, download the Windows binary on Mac as well
+        if os.name == 'nt':
             latest_release_available = contents["name"]
             binary_url = 'https://github.com/giantpinkrobots/varia/releases/download/' + latest_release_available + '/varia-windows-setup-amd64.exe'
         
@@ -119,7 +124,11 @@ def show_update_available_banner(windows_updater, app, variaapp, variaVersion):
     app.update_available_banner.set_button_label(_("Update"))
     app.update_available_banner.connect("button-clicked", windows_updater, app, variaapp, None, variaVersion, 1)
     app.update_available_banner.set_revealed(True)
-    app.content_box.insert_child_after(app.update_available_banner, app.content_box.get_first_child())
+
+    if os.name == 'nt':
+        app.content_box.insert_child_after(app.update_available_banner, app.content_box.get_first_child())
+    else: # Mac
+        app.content_box.prepend(app.update_available_banner)
 
 def update_pressed(dialog, response_id, binary_url, latest_release_available, app, variaapp):
     dialog.set_can_close(True)
@@ -156,13 +165,15 @@ def update_pressed(dialog, response_id, binary_url, latest_release_available, ap
         def download_update():
             global update_download_progress
 
-            if os.name == 'nt' or os.uname().sysname == 'Darwin': # For test
+            if os.name == 'nt':
                 out_file_extension = '.exe'
-            else:
+                process_cmd = [app.aria2cexec, '--dir=' + app.appconf['download_directory'], '--out=variaUpdate-' + latest_release_available + out_file_extension, '--quiet=false', '--summary-interval=1', binary_url]
+            else: # Mac
                 out_file_extension = '.dmg'
+                process_cmd = app.aria2cexec + ' --dir=' + app.appconf['download_directory'] + ' --out=variaUpdate-' + latest_release_available + out_file_extension + ' --quiet=false --summary-interval=1 ' + binary_url
 
             process = subprocess.Popen(
-                [app.aria2cexec, '--dir=' + app.appconf['download_directory'], '--out=variaUpdate-' + latest_release_available + out_file_extension, '--quiet=false', '--summary-interval=1', binary_url],
+                process_cmd,
                 shell=True, text=True, bufsize=1, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
             )
             
