@@ -813,7 +813,7 @@ def main(version, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, argument
     download_directory = default_download_directory()
 
     appconf = {
-        'window_size': [800, 630],
+        'window_size': [650, 570],
         'download_speed_limit_enabled': '0',
         'download_speed_limit': '0',
         'auth': '0',
