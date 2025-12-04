@@ -73,7 +73,8 @@ def listen_to_aria2(self, variaapp):
                     on_video_clicked(None, self, downloadurl)
                     self.unminimize()
                     self.set_visible(True)
-                    self.present()
+                    if os.uname().sysname != 'Darwin':
+                        self.present()
                     print("Video added through browser extension")
                 
                 except:

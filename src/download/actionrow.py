@@ -130,8 +130,7 @@ def on_pause_clicked(button, self, pause_button, download_item, force_pause, run
         download_item.download_thread.resume()
 
     else:
-        if run_pause_function:
-            download_item.download_thread.pause(False)
+        download_item.download_thread.pause()
 
 def on_stop_clicked(button, self, download_item):
     download_item.download_thread.stop()

@@ -552,6 +552,9 @@ msgstr ""
 msgid "Paused"
 msgstr ""
 
+msgid "Scheduled"
+msgstr ""
+
 msgid "Extracting"
 msgstr ""
 

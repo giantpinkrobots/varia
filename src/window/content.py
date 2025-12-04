@@ -38,7 +38,7 @@ def window_create_content(self):
     self.header_pause_button.set_sensitive(False)
     self.header_pause_button.set_child(self.header_pause_content)
     self.header_pause_button.set_halign(Gtk.Align.END)
-    self.header_pause_button.connect("clicked", lambda button: self.pause_all())
+    self.header_pause_button.connect("clicked", lambda button: self.pause_all(False))
     
     header_box.append(self.total_download_speed_label)
     header_box.append(self.header_pause_button)

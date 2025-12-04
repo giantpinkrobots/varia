@@ -60,7 +60,7 @@ def set_aria2c_download_simultaneous_amount(self): # Now an unused function, wil
         if (download_thread.download):
             if (download_thread.return_is_paused() == False):
                 downloads_that_will_restart.append(download_thread.return_gid())
-                download_thread.pause(False)
+                download_thread.pause()
 
     token = "token:" + self.appconf['remote_secret']
     json_request = {

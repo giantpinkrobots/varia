@@ -473,15 +473,15 @@ class MainWindow(application_window):
 
             time.sleep(0.5)
 
-    def pause_all(self):
+    def pause_all(self, called_by_scheduler):
         if len(self.downloads) > 0:
             if self.all_paused:
                 for download_thread in self.downloads:
-                    download_thread.resume()
+                    download_thread.resume(called_by_scheduler)
 
             else:
                 for download_thread in self.downloads:
-                    download_thread.pause(False)
+                    download_thread.pause(called_by_scheduler)
 
     def check_all_status(self):
         any_ongoing_downloads = False
@@ -570,7 +570,7 @@ class MainWindow(application_window):
             self.all_paused = False
 
             if (self.remote_successful == False):
-                self.pause_all()
+                self.pause_all(False)
                 self.api.client.shutdown()
 
                 if (self.is_visible() == False):

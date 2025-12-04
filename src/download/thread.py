@@ -74,6 +74,7 @@ class DownloadThread(threading.Thread):
         self.state_file = ""
         self.is_complete = False
         self.paused = paused
+        self.currently_downloading = False
         self.extracting_archive = False
         self.cancel_extraction = False
         self.extract_complete = False
@@ -154,14 +155,17 @@ class DownloadThread(threading.Thread):
             if self.download == None:
                 self.download = self.api.add_uris([self.url], options=download_options)
 
-            if self.app.scheduler_currently_downloading and self.paused == False and self.download.gid:
-                if self.download.is_paused:
+            if self.download.gid:
+                if self.paused == False and self.app.scheduler_currently_downloading == False:
+                    self.pause(True)
+                
+                elif self.paused:
+                    self.pause()
+                
+                else:
                     self.download.resume()
-
-                self.download_details['status'] = _("Downloading")
-
-            else:
-                self.pause(True)
+                    self.download_details['status'] = _("Downloading")
+                    self.currently_downloading = True
 
             if self.download.is_torrent:
                 self.download_details['type'] = _("Torrent")
@@ -183,12 +187,6 @@ class DownloadThread(threading.Thread):
             while (self.cancelled == False):
                 try:
                     self.download.update()
-
-                    if self.download.is_paused:
-                        self.download_details['status'] = _("Paused")
-                    
-                    else:
-                        self.download_details['status'] = _("Downloading")
 
                     try:
                         self.total_file_size_text = self.download.total_length_string(True) # Get human readable format
@@ -226,9 +224,7 @@ class DownloadThread(threading.Thread):
         
         # Video/audio download, use yt_dlp:
         elif self.mode == "video":
-
             self.download_details['type'] = _("Video / Audio")
-
             self.total_file_size_text = self.video_options['filesize_to_show']
 
             video_options_final = self.video_options.copy()
@@ -236,10 +232,10 @@ class DownloadThread(threading.Thread):
             video_options_final['outtmpl'] = os.path.join(self.downloaddir, self.downloadname)
             video_options_final['continuedl'] = True
             video_options_final['ffmpeg_location'] = self.app.ffmpegexec
-            video_options_final['js_runtimes'] = {'deno': {'path': self.denoexec}}
+            video_options_final['js_runtimes'] = {'deno': {'path': self.app.denoexec}}
 
-            if self.app.appconf["remote_time"] == "0": # Don't take the video's timestamp if Remote Time is disabled
-                video_options_final['no-mtime'] = True
+            if self.app.appconf["remote_time"] == '1':
+                video_options_final['updatetime'] = True
 
             if self.app.appconf["cookies_txt"] == "1":
                 video_options_final['cookiefile'] = os.path.join(self.app.appdir, 'cookies.txt')
@@ -253,20 +249,15 @@ class DownloadThread(threading.Thread):
             if self.retry == False:
                 self.save_state()
             
-            if self.app.appconf["schedule_enabled"] == 1 and self.app.scheduler_currently_downloading == False:
-                self.pause(False)
-            
-                while True:
-                    if self.app.scheduler_currently_downloading == True:
-                        self.resume()
-                        break
-                    time.sleep(1)
-            
-            if self.paused:
+            if self.paused == False and self.app.scheduler_currently_downloading == False:
                 self.pause(True)
             
-            while self.paused:
-                time.sleep(0.25)
+            elif self.paused:
+                self.pause()
+            
+            else:
+                self.download_details['status'] = _("Downloading")
+                self.currently_downloading = True
             
             GLib.idle_add(self.speed_label.set_text, _("Starting download..."))
 
@@ -288,7 +279,7 @@ class DownloadThread(threading.Thread):
             self.youtubedl_thread.start()
 
             while self.video_stop_event.is_set() == False and self.cancelled == False:
-                continue
+                time.sleep(0.5)
             
             self.cancelled = True
             return
@@ -456,7 +447,7 @@ class DownloadThread(threading.Thread):
             self.download_details['remaining'] = download_remaining_string
             self.download_details['download_speed'] = speed_label_text_speed
 
-    def pause(self, change_pause_button_icon):
+    def pause(self, called_by_scheduler = False):
         if self.download and self.is_complete == False:
             if self.mode == "regular":
                 try:
@@ -467,62 +458,56 @@ class DownloadThread(threading.Thread):
             elif self.mode == "video":
                 self.video_pause_event.clear()
 
-            if self.app.terminating == False:
-                self.paused = True
-                self.app.check_all_status()
-                change_pause_button_icon = True
+            if called_by_scheduler and self.app.scheduler_currently_downloading == False and self.paused == False:
+                self.download_details['status'] = _("Scheduled")
 
-            print ("Download paused.")
-            self.save_state()
-            
-            self.paused_because_exceeds_limit = False
-            
-            if change_pause_button_icon:
+            else:
+                self.download_details['status'] = _("Paused")
                 self.actionrow.pause_button.get_child().set_from_icon_name("media-playback-start-symbolic")
                 self.actionrow.pause_button.set_tooltip_text(_("Resume"))
+                self.paused = True
 
-            self.download_details['status'] = _("Paused")
-
-    def resume(self):
-        if self.download and self.is_complete == False:
-            change_pause_button_icon = False
-
-            if self.mode == "regular":
-                if self.download.is_paused == True:
-
-                    self.paused = False
-                    change_pause_button_icon = True
-
-                    try:
-                        self.download.resume()
-                        print ("Download resumed.")
-                        self.save_state()
-
-                    except:
-                        try:
-                            self.show_message(_("An error occurred:") + " " + self.download.error_message.split("status=")[1])
-                            print ("An error occurred when resuming. " + self.download.error_message.split("status=")[1])
-                        except:
-                            pass
-            
-            elif self.mode == "video":
-                if self.video_pause_event.is_set() == False:
-
-                    self.paused = False
-                    change_pause_button_icon = True
-
-                    self.video_pause_event.set()
-                    print ("Download resumed.")
-
-                    self.save_state()
-            
-            if change_pause_button_icon:
-                self.actionrow.pause_button.get_child().set_from_icon_name("media-playback-pause-symbolic")
-                self.actionrow.pause_button.set_tooltip_text(_("Pause"))
+            self.currently_downloading = False
+            self.paused_because_exceeds_limit = False
         
+        if self.mode == "video":
+            self.set_actionrow_tooltip_text()
+
+        self.save_state()
         self.app.check_all_status()
 
-        self.download_details['status'] = _("Downloading")
+    def resume(self, called_by_scheduler = False):
+        if self.download and self.is_complete == False:
+            change_button = False
+
+            if called_by_scheduler and self.app.scheduler_currently_downloading and self.paused:
+                self.download_details['status'] = _("Paused")
+            
+            elif self.app.scheduler_currently_downloading == False and self.paused:
+                self.download_details['status'] = _("Scheduled")
+                self.paused = False
+                change_button = True
+
+            else:
+                if self.mode == "regular":
+                    if self.download.is_paused:
+                        self.download.resume()
+
+                elif self.mode == "video":
+                    if self.video_pause_event.is_set() == False:
+                        self.video_pause_event.set()
+
+                self.currently_downloading = True
+                self.download_details['status'] = _("Downloading")
+                self.paused = False
+                change_button = True
+            
+            if change_button:
+                self.actionrow.pause_button.get_child().set_from_icon_name("media-playback-pause-symbolic")
+                self.actionrow.pause_button.set_tooltip_text(_("Pause"))
+
+            self.app.check_all_status()
+            self.save_state()
 
     def video_remove_temp_files(self):
         if "temp_files" in self.video_options:
@@ -652,6 +637,7 @@ class DownloadThread(threading.Thread):
             return self.download.gid
 
     def return_is_paused(self):
+        return self.paused
         if self.download:
             if self.mode == "regular":
                 if self.download.is_paused:
