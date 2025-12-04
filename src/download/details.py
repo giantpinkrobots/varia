@@ -7,7 +7,7 @@ import time
 import math
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import Gtk, Adw, GLib, Gio, GObject
+from gi.repository import Gtk, Adw, GLib, Gio, GObject, Pango
 from stringstorage import gettext as _
 from urllib.parse import unquote
 
@@ -51,14 +51,14 @@ def show_download_details_dialog(button, self, download_item):
 
     actionrow_download_file_name = Adw.ActionRow(title=_("File Name"), tooltip_text=_("File Name") + ": " + download_item.download_thread.actionrow.filename_label.get_text())
     label_download_file_name = Gtk.Label(label=download_item.download_thread.actionrow.filename_label.get_text())
-    label_download_file_name.set_wrap(True)
+    label_download_file_name.set_ellipsize(Pango.EllipsizeMode.END)
     actionrow_download_file_name.add_suffix(label_download_file_name)
     group_1.add(actionrow_download_file_name)
 
     actionrow_download_url = Adw.ActionRow(title=_("URL"), tooltip_text=_("URL") + ": " + download_item.download_thread.url)
     label_url = Gtk.Label(label=download_item.download_thread.url)
-    label_url.set_wrap(True)
     label_url.set_selectable(True)
+    label_url.set_ellipsize(Pango.EllipsizeMode.END)
     actionrow_download_url.add_suffix(label_url)
     group_1.add(actionrow_download_url)
 
