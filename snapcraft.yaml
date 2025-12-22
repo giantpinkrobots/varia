@@ -14,17 +14,6 @@ slots:
     bus: session
     name: io.github.giantpinkrobots.varia
 
-plugs:
-  dbus-varia-tray:
-    interface: dbus
-    bus: session
-    name: io.github.giantpinkrobots.varia-tray
-  
-  dbusmenu:
-    interface: dbus
-    bus: session
-    name: com.canonical.dbusmenu
-
 parts:
   python-packages:
     plugin: python
@@ -134,7 +123,6 @@ parts:
     plugin: nil
     source: https://github.com/ip7z/7zip.git
     source-type: git
-    source-tag: "25.01"
     source-commit: 5e96a8279489832924056b1fa82f29d5837c9469
 
     override-build: |
@@ -188,8 +176,6 @@ apps:
       - x11
       - desktop
       - shutdown
-      - dbus-varia-tray
-      - dbusmenu
     desktop: usr/share/applications/io.github.giantpinkrobots.varia.desktop
     common-id: io.github.giantpinkrobots.varia.desktop
     autostart: io.github.giantpinkrobots.varia.desktop

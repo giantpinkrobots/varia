@@ -225,7 +225,8 @@ def show_preferences(button, self, app, variaVersion):
 
     use_tray_icon = Adw.SwitchRow()
     use_tray_icon.set_title(_("Background Mode on Close"))
-    use_tray_icon.set_subtitle(_("Upon closing, Varia will close to tray insted of exiting."))
+    if self.issnap == False: # Don't mention tray icons in Snap confinement
+        use_tray_icon.set_subtitle(_("Upon closing, Varia will close to tray insted of exiting."))
     use_tray_icon.connect("notify::active", on_use_tray_icon, self)
 
     if self.appconf["use_tray"] == "true":
@@ -259,7 +260,8 @@ def show_preferences(button, self, app, variaVersion):
     group_1.add(simultaneous_download_amount_spinrow)
 
     group_tray.add(use_tray_icon)
-    group_tray.add(tray_icon_always_visible)
+    if self.issnap == False: # Tray icon not a thing in Snap confinement
+        group_tray.add(tray_icon_always_visible)
     group_tray.add(start_in_background)
 
     if ((os.name == 'nt' or (os.uname().sysname == 'Darwin')) and (os.path.exists("./updater-function-enabled") == False)) == False: # Windows portable not supported

@@ -12,13 +12,11 @@ def show_snap_permissions_required_dialog(self):
     dialog_commands_label = Gtk.Label()
     dialog_commands_label.set_wrap(True)
     dialog_commands_label.set_selectable(True)
-    dialog_commands_label.set_markup("<b>$</b> sudo snap connect varia:dbus-varia-tray"
-                                + "\n<b>$</b> sudo snap connect varia:dbusmenu"
-                                + "\n<b>$</b> sudo snap connect varia:shutdown")
+    dialog_commands_label.set_markup("<b>$</b> sudo snap connect varia:shutdown")
 
     dialog = Adw.AlertDialog()
     dialog.set_body(_("You are using Varia as a Snap package. There are some functions that you can't use without manually giving Varia some extra permissions. These are:")
-                    + "\n\n - " + _("Background Mode")
+                    #+ "\n\n - " + _("Background Mode")
                     + "\n - " + _("Shutdown on Completion")
                     + "\n\n" + _("To enable these functions you must run these commands in a terminal to give the required permissions and then restart Varia:"))
     dialog.set_extra_child(dialog_commands_label)
