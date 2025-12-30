@@ -133,17 +133,14 @@ def show_preferences(button, self, app, variaVersion):
 
     # Speed limit:
 
-    speed_limit_unit_names_dropdown = Gtk.DropDown.new_from_strings(["KB/s", "MB/s", "GB/s"])
-    speed_limit_unit_names_dropdown.set_selected(0)
-    speed_limit_unit_names_dropdown.connect("notify::selected-item", lambda dropdown, param: on_speed_limit_changed(self, speed_limit_entry, speed_limit_unit_names_dropdown, speed_limit_expander_switch))
-
-    speed_limit_expander_box = Adw.ExpanderRow()
-    speed_limit_expander_box.set_title(_("Speed Limit"))
-
     speed_limit_expander_switch = Gtk.Switch()
     speed_limit_expander_switch.set_halign(Gtk.Align.START)
     speed_limit_expander_switch.set_valign(Gtk.Align.CENTER)
     speed_limit_expander_switch.connect("state-set", on_switch_speed_limit, self, preferences)
+
+    speed_limit_unit_names_dropdown = Gtk.DropDown.new_from_strings(["KB/s", "MB/s", "GB/s"])
+    speed_limit_unit_names_dropdown.set_selected(0)
+    speed_limit_unit_names_dropdown.connect("notify::selected-item", lambda dropdown, param: on_speed_limit_changed(self, speed_limit_entry, speed_limit_unit_names_dropdown, speed_limit_expander_switch))
 
     speed_limit_entry = Adw.EntryRow()
     speed_limit_entry.set_title(_("Speed"))
@@ -151,6 +148,16 @@ def show_preferences(button, self, app, variaVersion):
     speed_limit_entry.set_show_apply_button(True)
     speed_limit_entry.connect('changed', speed_limit_text_filter, self)
     speed_limit_entry.connect('apply', lambda clicked: on_speed_limit_changed(self, speed_limit_entry, speed_limit_unit_names_dropdown, speed_limit_expander_switch))
+
+    speed_limit = Adw.ActionRow()
+    speed_limit.set_title(_("Speed Limit"))
+
+    speed_limit_options_box = Gtk.Box(spacing=4)
+    speed_limit_options_box.append(speed_limit_unit_names_dropdown)
+    speed_limit_options_box.append(speed_limit_entry)
+
+    speed_limit.add_suffix(speed_limit_options_box)
+    speed_limit.add_suffix(speed_limit_expander_switch)
 
     if (self.appconf["download_speed_limit"][0] != "0"):
         speed_limit_expander_switch.set_sensitive(True)
@@ -168,8 +175,6 @@ def show_preferences(button, self, app, variaVersion):
     if (self.appconf["download_speed_limit_enabled"] == "1"):
         speed_limit_expander_switch.set_active("active")
 
-    speed_limit_expander_box.add_action(speed_limit_expander_switch)
-
     speed_limit_dropdown_hexpanding_box_left = Gtk.Box()
     Gtk.Widget.set_hexpand(speed_limit_dropdown_hexpanding_box_left, True)
     speed_limit_dropdown_hexpanding_box_right = Gtk.Box()
@@ -182,9 +187,6 @@ def show_preferences(button, self, app, variaVersion):
 
     speed_limit_dropdown_box.set_margin_top(5)
     speed_limit_dropdown_box.set_margin_bottom(5)
-
-    speed_limit_expander_box.add_row(speed_limit_dropdown_box)
-    speed_limit_expander_box.add_row(speed_limit_entry)
 
     # Scheduler:
 
@@ -254,7 +256,7 @@ def show_preferences(button, self, app, variaVersion):
     group_1.add(download_directory_actionrow)
     group_1.add(extract_archives)
     group_1.add(extract_archives_delete_archives)
-    group_1.add(speed_limit_expander_box)
+    group_1.add(speed_limit)
     group_1.add(scheduler_actionrow)
     group_1.add(simultaneous_download_amount_spinrow)
 
