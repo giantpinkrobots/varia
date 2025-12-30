@@ -13,6 +13,8 @@ function toggleLinuxInstructions() {
     windowsInstructionsContent.classList.add("hidden");
     var linuxInstructionsContent = document.getElementById("linux-instructions");
     linuxInstructionsContent.classList.toggle("hidden");
+    var macInstructionsContent = document.getElementById("mac-instructions");
+    macInstructionsContent.classList.add("hidden");
 }
 
 function toggleWindowsInstructions(id) {
@@ -20,6 +22,17 @@ function toggleWindowsInstructions(id) {
     linuxInstructionsContent.classList.add("hidden");
     var windowsInstructionsContent = document.getElementById("windows-instructions");
     windowsInstructionsContent.classList.toggle("hidden");
+    var macInstructionsContent = document.getElementById("mac-instructions");
+    macInstructionsContent.classList.add("hidden");
+}
+
+function toggleMacInstructions(id) {
+    var linuxInstructionsContent = document.getElementById("linux-instructions");
+    linuxInstructionsContent.classList.add("hidden");
+    var windowsInstructionsContent = document.getElementById("windows-instructions");
+    windowsInstructionsContent.classList.add("hidden");
+    var macInstructionsContent = document.getElementById("mac-instructions");
+    macInstructionsContent.classList.toggle("hidden");
 }
 </script>
 
@@ -40,13 +53,19 @@ function toggleWindowsInstructions(id) {
             <span class="button-label"><img src="tuxIcon.png" class="button-icon">&nbsp;&nbsp;&nbsp;&nbsp;Download for Linux</span>
         </button>
 
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;
 
         <button style="display: inline-block" class="pill-button pill-button-blue" onclick="toggleWindowsInstructions()">
             <span class="button-label"><img src="windowsIcon.png" class="button-icon">&nbsp;&nbsp;&nbsp;&nbsp;Download for Windows</span>
         </button>
 
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;
+
+        <button style="display: inline-block" class="pill-button pill-button-blue" onclick="toggleMacInstructions()">
+            <span class="button-label"><img src="macIcon.png" class="button-icon">&nbsp;&nbsp;&nbsp;&nbsp;Download for Mac</span>
+        </button>
+
+        &nbsp;&nbsp;&nbsp;
         
         <div style="display: inline-block"><a href="https://github.com/giantpinkrobots/varia" class="pill-button pill-button-gray"><img src="githubIcon.png" class="button-icon">&nbsp;&nbsp;&nbsp;&nbsp;Source on GitHub</a></div>
     </div>
@@ -66,6 +85,10 @@ function toggleWindowsInstructions(id) {
         
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
+        <div style="display: inline-block"><a href="https://github.com/pkgforge-dev/Varia-AppImage/releases/latest" class="pill-button pill-button-ltblue"><img src="gearIcon.png" class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;AppImage (unofficial)</a></div>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
         <div style="display: inline-block"><a href="https://aur.archlinux.org/packages/varia" class="pill-button pill-button-ltblue"><img src="archLinuxIcon.png" class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;AUR (unofficial)</a></div>
         
         <br>
@@ -76,7 +99,7 @@ function toggleWindowsInstructions(id) {
             <br><br>
             You can also get it as a Snap through the Snap Store.
             <br><br>
-            If you're on Arch Linux you can install it through the AUR as well, but it is not maintained by me and could be out of date.
+            Varia is also available as an AppImage and through the AUR on Arch Linux, but these are unofficial and could be out of date.
         </div>
     </div>
 
@@ -96,6 +119,21 @@ function toggleWindowsInstructions(id) {
             The portable version does not have automatic updates.
             <br><br>
             Varia may trigger a safety warning on Windows because it was not signed with a very expensive digital signature.
+        </div>
+    </div>
+
+    <div id='mac-instructions' class='linux-instructions hidden' display='hidden'>
+        <div style="display: inline-block"><a href="https://github.com/giantpinkrobots/varia/releases/download/v2025.10.14-1/varia-mac-arm.dmg" class="pill-button pill-button-ltblue"><img src="packageIcon.png" class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;DMG for Apple Silicon</a></div>
+        
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <div style="display: inline-block"><a href="https://github.com/giantpinkrobots/varia/releases/download/v2025.10.14-1/varia-mac-intel.dmg" class="pill-button pill-button-ltblue"><img src="packageIcon.png" class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;DMG for Intel</a></div>
+
+        <br>
+        <br>
+        
+        <div style="padding-left: 70px; padding-right: 70px;">
+            You will need to give permission to Varia in Settings -> Privacy and Security, because it was not signed with an Apple developer account.
         </div>
     </div>
     
@@ -160,6 +198,9 @@ function toggleWindowsInstructions(id) {
     <br>
     <br>
     The Snap / Snapcraft logo was created by Canonical.
+    <br>
+    <br>
+    The Mac / Apple logo is the trademark of Apple Inc.
     </h4>
     
     <br>
