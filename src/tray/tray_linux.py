@@ -1,3 +1,5 @@
+# This file is currently unused.
+
 import sys
 from multiprocessing.connection import Client
 

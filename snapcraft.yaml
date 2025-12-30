@@ -8,23 +8,6 @@ description: |
 grade: stable
 confinement: strict
 
-slots:
-  dbus-varia:
-    interface: dbus
-    bus: session
-    name: io.github.giantpinkrobots.varia
-
-plugs:
-  dbus-varia-tray:
-    interface: dbus
-    bus: session
-    name: io.github.giantpinkrobots.varia-tray
-  
-  dbusmenu:
-    interface: dbus
-    bus: session
-    name: com.canonical.dbusmenu
-
 parts:
   python-packages:
     plugin: python
@@ -100,41 +83,23 @@ parts:
       - yasm
   
   deno:
-    plugin: nil
-    source: https://github.com/denoland/deno/archive/refs/tags/v2.5.6.tar.gz
+    plugin: rust
+    source: https://github.com/denoland/deno/archive/refs/tags/v2.6.3.tar.gz
     source-type: tar
+    
     override-build: |
-      export PATH="$HOME/.cargo/bin:$PATH"
-      cargo fetch --locked --manifest-path Cargo.toml
-      cargo build --release
+      cargo build --locked --release
       install -Dm755 ./target/release/deno "$SNAPCRAFT_PART_INSTALL/bin/deno"
+    
     build-packages:
-      - curl
-      - git
-      - unzip
-      - python3
-      - python3-pip
-      - pkg-config
-      - libc++-dev
-      - libclang-dev
-      - clang
-      - llvm
-      - libssl-dev
-      - zlib1g-dev
-      - libstdc++-dev
-      - rustc
-      - cargo
-      - nodejs
-      - npm
-    stage-packages:
-      - libgcc-s1
-      - libstdc++6
+    - cmake
+    - clang
+    - libclang-dev
   
   sevenzip:
     plugin: nil
     source: https://github.com/ip7z/7zip.git
     source-type: git
-    source-tag: "25.01"
     source-commit: 5e96a8279489832924056b1fa82f29d5837c9469
 
     override-build: |
@@ -179,8 +144,6 @@ apps:
   varia:
     extensions: [gnome]
     command: usr/bin/varia
-    slots:
-      - dbus-varia
     plugs:
       - network
       - home
@@ -188,8 +151,7 @@ apps:
       - x11
       - desktop
       - shutdown
-      - dbus-varia-tray
-      - dbusmenu
+      - desktop-legacy
     desktop: usr/share/applications/io.github.giantpinkrobots.varia.desktop
     common-id: io.github.giantpinkrobots.varia.desktop
     autostart: io.github.giantpinkrobots.varia.desktop

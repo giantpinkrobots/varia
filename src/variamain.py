@@ -73,17 +73,6 @@ class MainWindow(application_window):
 
         if aria2_connection_successful == -1:
             return
-        
-        # Get status of Snap interface connections:
-        if self.issnap:
-            self.snap_is_connected = {"dbus-varia-tray": False, "dbusmenu": False, "shutdown": False}
-
-            for key in self.snap_is_connected:
-                self.snap_is_connected[key] = subprocess.run(["snapctl", "is-connected", key], capture_output=True, shell=True).returncode == 0
-            
-            if not (self.snap_is_connected["dbus-varia-tray"] and self.snap_is_connected["dbusmenu"]): # Can't use tray icons, disable Background mode
-                self.appconf["tray_always_visible"] == "false"
-                self.appconf["use_tray"] == "false"
 
         # Create window contents:
         window_create_sidebar(self, variaapp, variaVersion)
@@ -256,24 +245,19 @@ class MainWindow(application_window):
                     tray_subprocess_input = [sys.executable, os.path.join(os.path.dirname(__file__), 'tray', 'tray_windows.py'), _("Show"), _("Quit")]
 
             else:
-                tray_subprocess_input = [sys.executable, os.path.join(os.path.dirname(__file__), 'tray', 'tray_linux.py'), _("Show"), _("Quit")]
+                tray_subprocess_input = [sys.executable, os.path.join(os.path.dirname(__file__), 'tray', 'tray_linux_appindicator.py'), _("Show"), _("Quit")]
 
             def tray_process_connection():
                 address = ('localhost', 6802)
-                listener = Listener(address, authkey=b'varia-tray-process')
-
-                print("Waiting for tray process connection...")
-                conn = listener.accept()
-                print("Connected to the tray icon process.")
-
-                self.tray_connection_thread_stop = False
+                tray_listener = Listener(address, authkey=b'varia-tray-process')
+                tray_conn = tray_listener.accept()
 
                 while True:
                     if self.tray_connection_thread_stop:
                         break
 
                     try:
-                        message = conn.recv()
+                        message = tray_conn.recv()
                         print("Tray icon pressed function: ", message)
 
                         if message == "show":
@@ -281,26 +265,29 @@ class MainWindow(application_window):
                             self.set_visible(True)
                             if os.uname().sysname != 'Darwin':
                                 self.present()
+                            
                             if self.appconf["tray_always_visible"] != "true":
                                 self.tray_process.kill()
                                 self.tray_process = None
+                                break
 
                         elif message == "quit":
                             self.exitProgram(self, variaapp, False)
                             break
 
-                    except EOFError:
-                        break
+                    except:
+                        pass
+                
+                tray_listener.close()
 
-            # Tray icon process must be separate as libayatana-appindicator relies on Gtk 3.
-            self.tray_process = subprocess.Popen(
-                tray_subprocess_input
-            )
+            self.tray_connection_thread_stop = False
+            self.tray_process = subprocess.Popen(tray_subprocess_input)
 
             global tray_process_global
             tray_process_global = self.tray_process
 
-            self.tray_process_connection_thread = threading.Thread(target=tray_process_connection, daemon=True).start()
+            tray_process_connection_thread = threading.Thread(target=tray_process_connection, daemon=True)
+            tray_process_connection_thread.start()
 
     def filter_download_list(self, button, filter_mode):
         if (button != "no"):
@@ -385,8 +372,6 @@ class MainWindow(application_window):
     def on_drag_leave(self, target, timeout_milliseconds):
         GLib.timeout_add(timeout_milliseconds - 250, self.drag_drop_revealer.set_reveal_child, False)
         GLib.timeout_add(timeout_milliseconds, self.root_window_overlay.remove_overlay, self.drag_drop_revealer)
-        GLib.timeout_add(timeout_milliseconds, self.drag_drop_status_page.remove_css_class, "drag_drop_status_page_error")
-        GLib.timeout_add(timeout_milliseconds, self.drag_drop_status_page.remove_css_class, "drag_drop_status_page_success")
         GLib.timeout_add(timeout_milliseconds, self.drag_drop_status_page.add_css_class, "drag_drop_status_page")
         GLib.timeout_add(timeout_milliseconds, self.drag_drop_status_page.set_icon_name, "document-send-symbolic")
 
@@ -408,18 +393,16 @@ class MainWindow(application_window):
 
                 print(f"Torrent file dragged: {value.get_path()}")
                 timeout_milliseconds = 600
-                self.drag_drop_status_page.remove_css_class("drag_drop_status_page")
-                self.drag_drop_status_page.add_css_class("drag_drop_status_page_success")
+                #self.drag_drop_status_page.remove_css_class("drag_drop_status_page")
+                #self.drag_drop_status_page.add_css_class("drag_drop_status_page_success")
 
             except:
                 pass
 
         if timeout_milliseconds == 1000:
-            self.drag_drop_status_page.remove_css_class("drag_drop_status_page")
-            self.drag_drop_status_page.add_css_class("drag_drop_status_page_error")
-            self.drag_drop_status_page.set_icon_name("media-playback-stop-symbolic")
+            # Error
+            pass
 
-        GLib.idle_add(self.on_drag_leave, None, timeout_milliseconds)
         return 0
 
     # Adaptive layout stuff:
@@ -472,6 +455,22 @@ class MainWindow(application_window):
             GLib.idle_add(total_download_speed_label.set_text, download_speed_text)
 
             time.sleep(0.5)
+    
+    def show_snap_permissions_required_dialog(self):
+        dialog_commands_label = Gtk.Label()
+        dialog_commands_label.set_wrap(True)
+        dialog_commands_label.set_selectable(True)
+        dialog_commands_label.set_markup("<b>$</b> sudo snap connect varia:shutdown")
+
+        dialog = Adw.AlertDialog()
+        dialog.set_body(_("You are using Varia as a Snap package. There are some functions that you can't use without manually giving Varia some extra permissions. These are:")
+                        + "\n\n - " + _("Shutdown on Completion")
+                        + "\n\n" + _("To enable these functions you must run these commands in a terminal to give the required permissions and then restart Varia:"))
+        dialog.set_extra_child(dialog_commands_label)
+        dialog.add_response("ok",  _("OK"))
+        dialog.set_response_appearance("ok", Adw.ResponseAppearance.SUGGESTED)
+        dialog.set_close_response("ok")
+        dialog.present(self)
 
     def pause_all(self, called_by_scheduler):
         if len(self.downloads) > 0:

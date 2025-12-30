@@ -288,11 +288,7 @@ def menubar_preferences_clicked(app, variaapp1, self, variaapp, variaVersion):
     show_preferences(None, self, variaapp, variaVersion)
 
 def background_mode(app, variaapp1, self, variaapp):
-    if os.uname().sysname == "Linux" and variaapp.issnap and ((variaapp.snap_is_connected["dbus-varia-tray"] == False) or (variaapp.snap_is_connected["dbusmenu"] == False)): # If running on Snap and doesn't have the required permissions
-        variaapp.show_snap_permissions_required_dialog()
-
-    else:
-        self.exitProgram(app=app, variaapp=variaapp, background=True)
+    self.exitProgram(app=app, variaapp=variaapp, background=True)
 
 def show_about(app, variaapp, self, variaVersion):
     if self.overlay_split_view.get_show_sidebar() and \
@@ -309,7 +305,7 @@ def show_about(app, variaapp, self, variaVersion):
     dialog.set_website("https://giantpinkrobots.github.io/varia")
     dialog.set_issue_url("https://github.com/giantpinkrobots/varia/issues")
     dialog.set_copyright("2023 Giant Pink Robots!\n\n" + _("This application relies on the following pieces of software:") +
-        "\n\n- aria2\n- yt-dlp\n- FFmpeg\n- 7zip\n- GTK4\n- Libadwaita\n- Meson\n- OpenSSL\n- Python-appdirs\n- Python-aria2p\n- Python-certifi\n- Python-charset-normalizer\n- Python-gettext\n- Python-idna\n- Python-loguru\n- Python-requests\n- Python-setuptools\n- Python-urllib3\n- Python-websocket-client\n- Python-pystray\n- Python-dbus-next\n- Python-emoji-country-flag\n- PyInstaller\n\n" +
+        "\n\n- aria2\n- yt-dlp\n- FFmpeg\n- Deno\n- 7zip\n- GTK4\n- Libadwaita\n- Meson\n- OpenSSL\n- Libayatana-AppIndicator\n- Python-appdirs\n- Python-aria2p\n- Python-certifi\n- Python-charset-normalizer\n- Python-gettext\n- Python-idna\n- Python-loguru\n- Python-requests\n- Python-setuptools\n- Python-urllib3\n- Python-websocket-client\n- Python-pystray\n- Python-dbus-next\n- Python-emoji-country-flag\n- PyInstaller\n\n" +
         _("The licenses of all of these pieces of software can be found in the dependencies_information directory in this application's app directory."))
     dialog.set_developers(["Giant Pink Robots! (@giantpinkrobots) https://github.com/giantpinkrobots"])
     dialog.set_application_icon("io.github.giantpinkrobots.varia")
@@ -341,25 +337,21 @@ def open_downloads_folder(self, app, variaapp, appconf):
         os.startfile(appconf["download_directory"])
 
 def shutdown_on_completion(self, app, variaapp):
-    if variaapp.issnap and (variaapp.snap_is_connected["shutdown"] == False): # If running on Snap and doesn't have the required permission
-        variaapp.show_snap_permissions_required_dialog()
-
+    if (variaapp.shutdown_mode == False):
+        variaapp.shutdown_mode = True
+        variaapp.exit_mode = False
+        try:
+            variaapp.sidebar_content_box.remove(variaapp.sidebar_exit_on_completion_label)
+        except:
+            pass
+        variaapp.sidebar_exit_on_completion_label.set_text(_("Shutdown on Completion"))
+        variaapp.sidebar_content_box.append(variaapp.sidebar_exit_on_completion_label)
     else:
-        if (variaapp.shutdown_mode == False):
-            variaapp.shutdown_mode = True
-            variaapp.exit_mode = False
-            try:
-                variaapp.sidebar_content_box.remove(variaapp.sidebar_exit_on_completion_label)
-            except:
-                pass
-            variaapp.sidebar_exit_on_completion_label.set_text(_("Shutdown on Completion"))
-            variaapp.sidebar_content_box.append(variaapp.sidebar_exit_on_completion_label)
-        else:
-            variaapp.shutdown_mode = False
-            try:
-                variaapp.sidebar_content_box.remove(variaapp.sidebar_exit_on_completion_label)
-            except:
-                pass
+        variaapp.shutdown_mode = False
+        try:
+            variaapp.sidebar_content_box.remove(variaapp.sidebar_exit_on_completion_label)
+        except:
+            pass
 
 def exit_on_completion(self, app, variaapp):
     if (variaapp.exit_mode == False):

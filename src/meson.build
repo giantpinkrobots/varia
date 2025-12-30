@@ -69,7 +69,7 @@ varia_sources_download = [
 ]
 
 varia_sources_tray = [
-  'tray/tray_linux.py',
+  'tray/tray_linux_appindicator.py',
   'tray/tray_win_mac.py',
   'tray/trayicon_win.png',
 ]
