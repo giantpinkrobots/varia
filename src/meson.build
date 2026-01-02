@@ -48,6 +48,7 @@ varia_sources = [
   'initiate.py',
   'stringstorage.py',
   'autostart_util.py',
+  'server.py',
 ]
 
 varia_sources_window = [
@@ -56,6 +57,8 @@ varia_sources_window = [
   'window/preferences.py',
   'window/scheduler.py',
   'window/updater.py',
+  'window/drag_and_drop.py',
+  'window/window_management.py',
 ]
 
 varia_sources_download = [
@@ -66,9 +69,11 @@ varia_sources_download = [
   'download/scheduler.py',
   'download/videos.py',
   'download/details.py',
+  'download/manage_downloads.py',
 ]
 
 varia_sources_tray = [
+  'tray/start_tray_process.py',
   'tray/tray_linux_appindicator.py',
   'tray/tray_win_mac.py',
   'tray/trayicon_win.png',

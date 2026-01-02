@@ -3,7 +3,6 @@ variaVersion = "dev" # Also update actions-inno-install-script.iss
 import ctypes
 import gi
 import sys
-import time
 import json
 import os
 import threading
@@ -13,20 +12,33 @@ import re
 import stringstorage
 import atexit
 import signal
-from multiprocessing.connection import Listener
-import socket
 import traceback
 
 from download.actionrow import on_download_clicked
-from download.listen import deal_with_simultaneous_download_limit
+from download.listen import deal_with_simultaneous_download_limit, listen_to_aria2
 from download.actionrow import create_actionrow
 from download.thread import DownloadThread
+from download.communicate import set_speed_limit, set_aria2c_download_directory, set_aria2c_custom_global_option, set_aria2c_cookies
+from download.scheduler import schedule_downloads
+from download.manage_downloads import pause_all, stop_all, check_all_status, total_download_speed_get
+
+from window.sidebar import window_create_sidebar
+from window.content import window_create_content
+from window.updater import windows_updater
+from window.drag_and_drop import on_drag_enter, on_drag_leave, on_file_drop
+from window.window_management import on_window_resize, apply_window_resize, save_window_size
+
+from tray.start_tray_process import start_tray_process
+
+from initiate import initiate
+
+global start_varia_server
+global send_to_varia_instance
+from server import start_varia_server, send_to_varia_instance
+
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, GLib, Gio, Gdk
-
-varia_server_host = '127.0.0.1'
-varia_server_port = 54682
 
 if os.name == 'nt':
     application_window = Gtk.ApplicationWindow
@@ -37,16 +49,35 @@ else:
     from stringstorage import gettext as _
 
 class MainWindow(application_window):
+    window_create_sidebar = window_create_sidebar
+    window_create_content = window_create_content
+    windows_updater = windows_updater
+    on_drag_enter = on_drag_enter
+    on_drag_leave = on_drag_leave
+    on_file_drop = on_file_drop
+    on_window_resize = on_window_resize
+    apply_window_resize = apply_window_resize
+    save_window_size = save_window_size
+
+    set_speed_limit = set_speed_limit
+    set_aria2c_download_directory = set_aria2c_download_directory
+    set_aria2c_custom_global_option = set_aria2c_custom_global_option
+    set_aria2c_cookies = set_aria2c_cookies
+    listen_to_aria2 = listen_to_aria2
+    schedule_downloads = schedule_downloads
+    pause_all = pause_all
+    stop_all = stop_all
+    check_all_status = check_all_status
+    total_download_speed_get = total_download_speed_get
+
+    start_tray_process = start_tray_process
+
+    initiate = initiate
+
+    global tray_process_global
+
     def __init__(self, variaapp, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-        from window.sidebar import window_create_sidebar
-        from window.content import window_create_content
-        from window.updater import windows_updater
-        from download.communicate import set_speed_limit, set_aria2c_download_directory, set_aria2c_custom_global_option, set_aria2c_cookies
-        from initiate import initiate
-        from download.listen import listen_to_aria2
-        from download.scheduler import schedule_downloads
 
         self.scheduler_currently_downloading = False
         self.appdir = appdir
@@ -231,64 +262,6 @@ class MainWindow(application_window):
         if self.appconf["tray_always_visible"] == "true":
             self.start_tray_process(variaapp)
 
-    def start_tray_process(self, variaapp):
-        if self.tray_process == None: # If tray process is not already running
-            if os.name == 'nt' or (os.uname().sysname == 'Darwin'):
-
-                if os.path.exists(os.path.join(os.getcwd(), 'tray', 'varia-tray.exe')): # Built with PyInstaller (Windows)
-                    tray_subprocess_input = [os.path.join(os.getcwd(), 'tray', 'varia-tray.exe'), _("Show"), _("Quit")]
-
-                elif os.path.exists(os.path.join(os.getcwd(), 'tray', 'varia-tray')): # Built with PyInstaller (Mac)
-                    tray_subprocess_input = [os.path.join(os.getcwd(), 'tray', 'varia-tray'), _("Show"), _("Quit")]
-
-                else: # Running standalone
-                    tray_subprocess_input = [sys.executable, os.path.join(os.path.dirname(__file__), 'tray', 'tray_windows.py'), _("Show"), _("Quit")]
-
-            else:
-                tray_subprocess_input = [sys.executable, os.path.join(os.path.dirname(__file__), 'tray', 'tray_linux_appindicator.py'), _("Show"), _("Quit")]
-
-            def tray_process_connection():
-                address = ('localhost', 6802)
-                tray_listener = Listener(address, authkey=b'varia-tray-process')
-                tray_conn = tray_listener.accept()
-
-                while True:
-                    if self.tray_connection_thread_stop:
-                        break
-
-                    try:
-                        message = tray_conn.recv()
-                        print("Tray icon pressed function: ", message)
-
-                        if message == "show":
-                            self.unminimize()
-                            self.set_visible(True)
-                            if os.uname().sysname != 'Darwin':
-                                self.present()
-                            
-                            if self.appconf["tray_always_visible"] != "true":
-                                self.tray_process.kill()
-                                self.tray_process = None
-                                break
-
-                        elif message == "quit":
-                            self.exitProgram(self, variaapp, False)
-                            break
-
-                    except:
-                        pass
-                
-                tray_listener.close()
-
-            self.tray_connection_thread_stop = False
-            self.tray_process = subprocess.Popen(tray_subprocess_input)
-
-            global tray_process_global
-            tray_process_global = self.tray_process
-
-            tray_process_connection_thread = threading.Thread(target=tray_process_connection, daemon=True)
-            tray_process_connection_thread.start()
-
     def filter_download_list(self, button, filter_mode):
         if (button != "no"):
             self.filter_button_show_all.set_active(False)
@@ -361,100 +334,6 @@ class MainWindow(application_window):
 
     def escape_special_characters(self, string):
         return re.compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])').sub('', string).replace("&", "&amp;")
-
-    # Drag and drop:
-
-    def on_drag_enter(self, target, x, y):
-        self.root_window_overlay.add_overlay(self.drag_drop_revealer)
-        self.drag_drop_revealer.set_reveal_child(True)
-        return 0
-
-    def on_drag_leave(self, target, timeout_milliseconds):
-        GLib.timeout_add(timeout_milliseconds - 250, self.drag_drop_revealer.set_reveal_child, False)
-        GLib.timeout_add(timeout_milliseconds, self.root_window_overlay.remove_overlay, self.drag_drop_revealer)
-        GLib.timeout_add(timeout_milliseconds, self.drag_drop_status_page.add_css_class, "drag_drop_status_page")
-        GLib.timeout_add(timeout_milliseconds, self.drag_drop_status_page.set_icon_name, "document-send-symbolic")
-
-        return 0
-
-    def on_file_drop(self, target, value, x, y):
-        timeout_milliseconds = 1000
-
-        if isinstance(value, Gio.File) and \
-            value.get_path() and \
-            value.get_path().lower().endswith(".torrent"):
-
-            try:
-                if self.appconf["torrent_download_directory_custom_enabled"] == "1":
-                    self.api.add_torrent(value.get_path(), options={"dir": self.appconf["torrent_download_directory"]})
-
-                else:
-                    self.api.add_torrent(value.get_path())
-
-                print(f"Torrent file dragged: {value.get_path()}")
-                timeout_milliseconds = 600
-                #self.drag_drop_status_page.remove_css_class("drag_drop_status_page")
-                #self.drag_drop_status_page.add_css_class("drag_drop_status_page_success")
-
-            except:
-                pass
-
-        if timeout_milliseconds == 1000:
-            # Error
-            pass
-
-        return 0
-
-    # Adaptive layout stuff:
-
-    def on_window_resize(self, widget, param):
-        GLib.idle_add(self.apply_window_resize)
-        GLib.timeout_add(50, self.apply_window_resize)
-    
-    def apply_window_resize(self):
-        if self.root_window_overlay.get_width() < 600:
-            self.header_show_sidebar_button_revealer.set_reveal_child(True)
-            self.status_page_begin_button_revealer.set_reveal_child(True)
-            self.overlay_split_view.set_show_sidebar(False)
-
-            if (os.uname().sysname == 'Darwin'):
-                self.mac_header_empty_space.set_visible(True)
-
-        else:
-            self.header_show_sidebar_button_revealer.set_reveal_child(False)
-            self.status_page_begin_button_revealer.set_reveal_child(False)
-            self.overlay_split_view.set_collapsed(False)
-            self.overlay_split_view.set_show_sidebar(True)
-
-            if (os.uname().sysname == 'Darwin'):
-                self.mac_header_empty_space.set_visible(False)
-
-    def total_download_speed_get(self, downloads, total_download_speed_label):
-        while (self.terminating == False):
-            total_download_speed = 0
-            total_completed_download_amount = 0
-
-            for download_thread in downloads:
-                total_download_speed += download_thread.speed
-
-                if download_thread.is_complete:
-                    total_completed_download_amount += 1
-
-            if (total_download_speed == 0):
-                download_speed_text = "0" + _(" B/s")
-            elif (total_download_speed < 1024):
-                download_speed_text = str(total_download_speed) + _(" B/s")
-            elif ((total_download_speed >= 1024) and (total_download_speed < 1048576)):
-                download_speed_text = str(round(total_download_speed / 1024, 2)) + _(" KB/s")
-            else:
-                download_speed_text = str(round(total_download_speed / 1024 / 1024, 2)) + _(" MB/s")
-
-            if len(downloads) > 0:
-                download_speed_text = f"{download_speed_text}  ·  {total_completed_download_amount}/{len(downloads)}"
-
-            GLib.idle_add(total_download_speed_label.set_text, download_speed_text)
-
-            time.sleep(0.5)
     
     def show_snap_permissions_required_dialog(self):
         dialog_commands_label = Gtk.Label()
@@ -472,70 +351,10 @@ class MainWindow(application_window):
         dialog.set_close_response("ok")
         dialog.present(self)
 
-    def pause_all(self, called_by_scheduler):
-        if len(self.downloads) > 0:
-            if self.all_paused:
-                for download_thread in self.downloads:
-                    download_thread.resume(called_by_scheduler)
-
-            else:
-                for download_thread in self.downloads:
-                    download_thread.pause(called_by_scheduler)
-
-    def check_all_status(self):
-        any_ongoing_downloads = False
-        all_paused = True
-
-        for download_item in self.downloads.copy():
-            if download_item.is_complete == False and download_item.cancelled == False:
-                any_ongoing_downloads = True
-
-                if download_item.paused == False:
-                    all_paused = False
-                    break
-
-        if any_ongoing_downloads:
-            if all_paused:
-                self.all_paused = True
-                self.header_pause_content.set_icon_name("media-playback-start-symbolic")
-                self.header_pause_content.set_label(_("Resume All"))
-                self.header_pause_button.set_sensitive(True)
-            
-            else:
-                self.all_paused = False
-                self.header_pause_content.set_icon_name("media-playback-pause-symbolic")
-                self.header_pause_content.set_label(_("Pause All"))
-                self.header_pause_button.set_sensitive(True)
-        
-        else:
-            self.all_paused = False
-            self.header_pause_content.set_icon_name("media-playback-pause-symbolic")
-            self.header_pause_content.set_label(_("Pause All"))
-            self.header_pause_button.set_sensitive(False)
-
-            GLib.idle_add(self.header_pause_button.set_sensitive, False)
-
-            if len(self.downloads) == 0:
-                self.content_root_overlay.add_overlay(self.status_page_widget)
-
-    def stop_all(self, app, variaapp):
-        while self.downloads != []:
-            for download_item in self.downloads:
-                download_item.stop()
-
-        self.header_pause_content.set_icon_name("media-playback-pause-symbolic")
-        self.header_pause_content.set_label(_("Pause All"))
-        self.header_pause_button.set_sensitive(False)
-        self.content_root_overlay.add_overlay(self.status_page_widget)
-
     def save_appconf(self):
         with open(os.path.join(self.appdir, 'varia.conf'), 'w') as f:
             json.dump(self.appconf, f)
         print("Config saved")
-
-    def save_window_size(self):
-        self.appconf['window_size'] = self.get_default_size()
-        self.save_appconf()
 
     def exit_or_tray(self, app, variaapp):
         if self.appconf["use_tray"] == "true":
@@ -648,37 +467,6 @@ class MainWindow(application_window):
     def quit_action_received(self, variaapp):
         if (self.terminating == False):
             self.exitProgram(variaapp, variaapp, False)
-
-def handle_connection(sock):
-    while True:
-        conn, _ = sock.accept()
-        data = conn.recv(1024).decode()
-        if data:
-            data = json.loads(data)
-            myapp.add_downloads(data)
-        conn.close()
-        time.sleep(0.5)
-
-def start_varia_server():
-    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-    try:
-        server.bind((varia_server_host, varia_server_port))
-
-    except OSError:
-        return False # Another Varia instance is already running
-
-    server.listen(1)
-    threading.Thread(target=handle_connection, args=(server,), daemon=True).start()
-    return True
-   
-def send_to_varia_instance(message):
-    try:
-        with socket.create_connection((varia_server_host, varia_server_port), timeout=2) as sock:
-            sock.sendall(message.encode())
-
-    except OSError:
-        print("Couldn't contact existing instance.")
 
 class MyApp(Adw.Application):
     def __init__(self, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments, **kwargs):

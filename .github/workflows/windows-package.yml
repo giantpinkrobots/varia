@@ -21,6 +21,10 @@ jobs:
         shell: msys2 {0}
         run: |
           bash ./windows/build.sh -u
+      
+      - name: Move Inno script to root
+        run: |
+          mv ./windows/actions-inno-install-script.iss ./
 
       - name: Compile .ISS to .EXE Installer
         uses: Minionguyjpro/Inno-Setup-Action@v1.2.7
