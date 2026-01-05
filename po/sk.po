@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-11-05 00:51+0000\n"
+"PO-Revision-Date: 2025-12-05 16:00+0000\n"
 "Last-Translator: Peter Vančo <petervanco347@gmail.com>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/varia/varia/sk/>\n"
 "Language: sk\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
-"X-Generator: Weblate 5.14.1-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -236,8 +236,14 @@ msgstr "Rozšírenie pre prehliadače"
 msgid "Shutdown on Completion"
 msgstr "Vypnúť počítač po dokončení"
 
+msgid "Sleep on Completion"
+msgstr "Uspať po dokončení"
+
 msgid "Varia is about to shut down your computer."
 msgstr "Varia o chvíľu vypne váš počítač."
+
+msgid "Varia is about to put your computer to sleep."
+msgstr "Varia sa chystá uspať váš počítač."
 
 msgid "Press Cancel to cancel and disable."
 msgstr "Stlačte Zrušiť na deaktivovanie a zrušenie."
@@ -341,6 +347,10 @@ msgstr "Vzdialená časová pečiatka"
 
 msgid "Torrent"
 msgstr "Torrent"
+
+# Download type: Regular
+msgid "Regular"
+msgstr "Štandardný"
 
 # Updater
 msgid "Checking for updates..."
@@ -599,6 +609,12 @@ msgstr "Sťahovanie"
 msgid "Paused"
 msgstr "Pozastavené"
 
+msgid "Scheduled"
+msgstr "Naplánované"
+
+msgid "Extracting"
+msgstr "Rozbaľovanie"
+
 msgid "Percentage Downloaded"
 msgstr "Percento stiahnutia"
 
@@ -639,6 +655,45 @@ msgid ""
 msgstr ""
 "Ak chcete tieto funkcie povoliť, musíte v termináli spustiť nasledujúce "
 "príkazy, aby ste udelili potrebné oprávnenia, a potom reštartovať Varia:"
+
+# Tooltip for when focused on filter options in the sidebar. Do not translate {filter option}, it will be replaced by the filter type. ("All", "In Progress", etc)
+msgid "Filter downloads by {filter option}"
+msgstr "Filtrovať stiahnuté súbory podľa {filter option}"
+
+msgid "Download item"
+msgstr "Položka na stiahnutie"
+
+msgid "Timespan {number}"
+msgstr "Časový úsek {number}"
+
+# Tooltip for when focused on timespan day of the week dropdown
+msgid "Day of the week for timespan {number}"
+msgstr "Deň v týždni pre časový úsek {number}"
+
+msgid "Remove timespan {number}"
+msgstr "Odstrániť časový úsek {number}"
+
+# Tooltip for when focused on timespan start hour
+msgid "Start hour for timespan {number}"
+msgstr "Začiatočná hodina pre časový úsek {number}"
+
+# Tooltip for when focused on timespan start minute
+msgid "Start minute for timespan {number}"
+msgstr "Začiatočná minúta pre časový úsek {number}"
+
+# Tooltip for when focused on timespan end hour
+msgid "End hour for timespan {number}"
+msgstr "Koncová hodina pre časový úsek {number}"
+
+# Tooltip for when focused on timespan end minute
+msgid "End minute for timespan {number}"
+msgstr "Koncová minúta pre časový úsek {number}"
+
+msgid "Automatically Extract Archives"
+msgstr "Automatické rozbaľovanie archívov"
+
+msgid "Delete Archives After Extraction"
+msgstr "Odstrániť archívy po rozbalení"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

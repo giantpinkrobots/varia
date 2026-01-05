@@ -10,8 +10,8 @@ msgstr ""
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
 "PO-Revision-Date: 2025-11-05 00:51+0000\n"
 "Last-Translator: lubbesflipperi <pierluca@pm.me>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/varia/varia/it/>"
-"\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/varia/varia/it/"
+">\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -233,7 +233,17 @@ msgstr "Estensione browser"
 msgid "Shutdown on Completion"
 msgstr "Spegni a download completato"
 
+#, fuzzy
+#| msgid "Exit on Completion"
+msgid "Sleep on Completion"
+msgstr "Esci al completamento"
+
 msgid "Varia is about to shut down your computer."
+msgstr "Varia sta per spegnere il tuo computer."
+
+#, fuzzy
+#| msgid "Varia is about to shut down your computer."
+msgid "Varia is about to put your computer to sleep."
 msgstr "Varia sta per spegnere il tuo computer."
 
 msgid "Press Cancel to cancel and disable."
@@ -338,6 +348,10 @@ msgstr "Timestamp Remoto"
 
 msgid "Torrent"
 msgstr "Torrent"
+
+# Download type: Regular
+msgid "Regular"
+msgstr ""
 
 # Updater
 msgid "Checking for updates..."
@@ -582,6 +596,14 @@ msgstr "Scaricamento"
 msgid "Paused"
 msgstr "In pausa"
 
+#, fuzzy
+#| msgid "Scheduler"
+msgid "Scheduled"
+msgstr "Scheduler"
+
+msgid "Extracting"
+msgstr ""
+
 msgid "Percentage Downloaded"
 msgstr "Percentuale scaricata"
 
@@ -618,6 +640,53 @@ msgstr ""
 msgid ""
 "To enable these functions you must run these commands in a terminal to give "
 "the required permissions and then restart Varia:"
+msgstr ""
+
+# Tooltip for when focused on filter options in the sidebar. Do not translate {filter option}, it will be replaced by the filter type. ("All", "In Progress", etc)
+msgid "Filter downloads by {filter option}"
+msgstr ""
+
+#, fuzzy
+#| msgid "Download"
+msgid "Download item"
+msgstr "Scarica"
+
+#, fuzzy
+#| msgid "{number}%"
+msgid "Timespan {number}"
+msgstr "{number}%"
+
+# Tooltip for when focused on timespan day of the week dropdown
+msgid "Day of the week for timespan {number}"
+msgstr ""
+
+#, fuzzy
+#| msgid "Remote Timestamp"
+msgid "Remove timespan {number}"
+msgstr "Timestamp Remoto"
+
+# Tooltip for when focused on timespan start hour
+msgid "Start hour for timespan {number}"
+msgstr ""
+
+# Tooltip for when focused on timespan start minute
+msgid "Start minute for timespan {number}"
+msgstr ""
+
+# Tooltip for when focused on timespan end hour
+msgid "End hour for timespan {number}"
+msgstr ""
+
+# Tooltip for when focused on timespan end minute
+msgid "End minute for timespan {number}"
+msgstr ""
+
+#, fuzzy
+#| msgid "Automatically Check for Updates"
+msgid "Automatically Extract Archives"
+msgstr "Verifica automatica degli aggiornamenti"
+
+msgid "Delete Archives After Extraction"
 msgstr ""
 
 #: src/gtk/help-overlay.ui:11

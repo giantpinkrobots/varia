@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-11-10 20:21+0000\n"
+"PO-Revision-Date: 2025-12-09 13:00+0000\n"
 "Last-Translator: xXSunfaceXx <community.shell@posteo.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/varia/varia/de/>\n"
 "Language: de\n"
@@ -233,7 +233,13 @@ msgstr "Browser Erweiterung"
 msgid "Shutdown on Completion"
 msgstr "Herunterfahren wenn abgeschlossen"
 
+msgid "Sleep on Completion"
+msgstr "Nach Abschluss beenden"
+
 msgid "Varia is about to shut down your computer."
+msgstr "Varia wird Ihren Computer in Kürze herunterfahren."
+
+msgid "Varia is about to put your computer to sleep."
 msgstr "Varia wird Ihren Computer in Kürze herunterfahren."
 
 msgid "Press Cancel to cancel and disable."
@@ -338,6 +344,10 @@ msgstr "Remote Zeitstempel"
 
 msgid "Torrent"
 msgstr "Torrent"
+
+# Download type: Regular
+msgid "Regular"
+msgstr "Standard Download"
 
 # Updater
 msgid "Checking for updates..."
@@ -580,6 +590,12 @@ msgstr "Lädt herunter"
 msgid "Paused"
 msgstr "Pausiert"
 
+msgid "Scheduled"
+msgstr "Geplant"
+
+msgid "Extracting"
+msgstr "Entpacken"
+
 msgid "Percentage Downloaded"
 msgstr "Fortschritt in Prozent"
 
@@ -621,6 +637,45 @@ msgstr ""
 "Um diese Funkionen zu aktivieren führen sie folgende Befehle in einem "
 "Terminal aus um die erforderlichen Berechtigungen zu erteilen, und starten "
 "sie Varia dann neu:"
+
+# Tooltip for when focused on filter options in the sidebar. Do not translate {filter option}, it will be replaced by the filter type. ("All", "In Progress", etc)
+msgid "Filter downloads by {filter option}"
+msgstr "Downloads filtern nach {filter option}"
+
+msgid "Download item"
+msgstr "Herunterladen"
+
+msgid "Timespan {number}"
+msgstr "Zeitraum {number}"
+
+# Tooltip for when focused on timespan day of the week dropdown
+msgid "Day of the week for timespan {number}"
+msgstr "Tag {number}"
+
+msgid "Remove timespan {number}"
+msgstr "Zeitraum entfernen {number}"
+
+# Tooltip for when focused on timespan start hour
+msgid "Start hour for timespan {number}"
+msgstr "Startzeit {number}"
+
+# Tooltip for when focused on timespan start minute
+msgid "Start minute for timespan {number}"
+msgstr "Startminute {number}"
+
+# Tooltip for when focused on timespan end hour
+msgid "End hour for timespan {number}"
+msgstr "Endstunde {number}"
+
+# Tooltip for when focused on timespan end minute
+msgid "End minute for timespan {number}"
+msgstr "Endminute {number}"
+
+msgid "Automatically Extract Archives"
+msgstr "Archive automatisch entpacken"
+
+msgid "Delete Archives After Extraction"
+msgstr "Archive nach dem Extrahieren löschen"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

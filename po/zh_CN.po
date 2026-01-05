@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: varia main\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-11-05 00:51+0000\n"
+"PO-Revision-Date: 2025-12-16 01:00+0000\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/varia/varia/zh_Hans/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.14.1-dev\n"
+"X-Generator: Weblate 5.15.1-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -229,8 +229,14 @@ msgstr "浏览器扩展"
 msgid "Shutdown on Completion"
 msgstr "完成时关机"
 
+msgid "Sleep on Completion"
+msgstr "完成时睡眠"
+
 msgid "Varia is about to shut down your computer."
 msgstr "Varia 即将关闭您的计算机。"
+
+msgid "Varia is about to put your computer to sleep."
+msgstr "Varia 即将使您的计算机进入睡眠。"
 
 msgid "Press Cancel to cancel and disable."
 msgstr "按“取消”以取消和禁用。"
@@ -334,6 +340,10 @@ msgstr "远程时间戳"
 
 msgid "Torrent"
 msgstr "种子"
+
+# Download type: Regular
+msgid "Regular"
+msgstr "常规"
 
 # Updater
 msgid "Checking for updates..."
@@ -564,6 +574,12 @@ msgstr "正在下载"
 msgid "Paused"
 msgstr "已暂停"
 
+msgid "Scheduled"
+msgstr "已计划"
+
+msgid "Extracting"
+msgstr "正在提取"
+
 msgid "Percentage Downloaded"
 msgstr "已下载百分比"
 
@@ -592,7 +608,8 @@ msgstr "种子对等点"
 msgid ""
 "You are using Varia as a Snap package. There are some functions that you "
 "can't use without manually giving Varia some extra permissions. These are:"
-msgstr "您在使用 Snap 软件包格式的 Varia。有些功能只有您手动授予 Varia 一些额外权限才"
+msgstr ""
+"您在使用 Snap 软件包格式的 Varia。有些功能只有您手动授予 Varia 一些额外权限才"
 "能使用。这些功能为："
 
 # Snap packaging permissions dialog part 2/2
@@ -600,6 +617,45 @@ msgid ""
 "To enable these functions you must run these commands in a terminal to give "
 "the required permissions and then restart Varia:"
 msgstr "要启用这些功能您必须在终端中运行以下命令来授予所需权限并重启 Varia："
+
+# Tooltip for when focused on filter options in the sidebar. Do not translate {filter option}, it will be replaced by the filter type. ("All", "In Progress", etc)
+msgid "Filter downloads by {filter option}"
+msgstr "按{filter option}筛选下载"
+
+msgid "Download item"
+msgstr "下载项目"
+
+msgid "Timespan {number}"
+msgstr "时段 {number}"
+
+# Tooltip for when focused on timespan day of the week dropdown
+msgid "Day of the week for timespan {number}"
+msgstr "用于时段 {number} 的星期几"
+
+msgid "Remove timespan {number}"
+msgstr "移除时段 {number}"
+
+# Tooltip for when focused on timespan start hour
+msgid "Start hour for timespan {number}"
+msgstr "用于时段 {number} 的开始小时"
+
+# Tooltip for when focused on timespan start minute
+msgid "Start minute for timespan {number}"
+msgstr "用于时段 {number} 的开始分钟"
+
+# Tooltip for when focused on timespan end hour
+msgid "End hour for timespan {number}"
+msgstr "用于时段 {number} 的结束小时"
+
+# Tooltip for when focused on timespan end minute
+msgid "End minute for timespan {number}"
+msgstr "用于时段 {number} 的结束分钟"
+
+msgid "Automatically Extract Archives"
+msgstr "自动提取归档文件"
+
+msgid "Delete Archives After Extraction"
+msgstr "提取后删除归档文件"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

@@ -230,7 +230,17 @@ msgstr "Trình mở rộng của trình duyệt"
 msgid "Shutdown on Completion"
 msgstr "Tắt máy sau khi hoàn thành"
 
+#, fuzzy
+#| msgid "Exit on Completion"
+msgid "Sleep on Completion"
+msgstr "Thoát khi Hoàn thành"
+
 msgid "Varia is about to shut down your computer."
+msgstr "Varia đang chuẩn bị tắt máy."
+
+#, fuzzy
+#| msgid "Varia is about to shut down your computer."
+msgid "Varia is about to put your computer to sleep."
 msgstr "Varia đang chuẩn bị tắt máy."
 
 msgid "Press Cancel to cancel and disable."
@@ -335,6 +345,10 @@ msgstr "Mốc thời gian từ xa"
 
 msgid "Torrent"
 msgstr "Torrent"
+
+# Download type: Regular
+msgid "Regular"
+msgstr ""
 
 # Updater
 msgid "Checking for updates..."
@@ -595,6 +609,14 @@ msgstr "Tải xuống"
 msgid "Paused"
 msgstr "Dừng Tất Cả"
 
+#, fuzzy
+#| msgid "Scheduler"
+msgid "Scheduled"
+msgstr "Lên lịch"
+
+msgid "Extracting"
+msgstr ""
+
 msgid "Percentage Downloaded"
 msgstr ""
 
@@ -639,6 +661,53 @@ msgstr ""
 msgid ""
 "To enable these functions you must run these commands in a terminal to give "
 "the required permissions and then restart Varia:"
+msgstr ""
+
+# Tooltip for when focused on filter options in the sidebar. Do not translate {filter option}, it will be replaced by the filter type. ("All", "In Progress", etc)
+msgid "Filter downloads by {filter option}"
+msgstr ""
+
+#, fuzzy
+#| msgid "Download"
+msgid "Download item"
+msgstr "Tải xuống"
+
+#, fuzzy
+#| msgid "{number}%"
+msgid "Timespan {number}"
+msgstr "{number}%"
+
+# Tooltip for when focused on timespan day of the week dropdown
+msgid "Day of the week for timespan {number}"
+msgstr ""
+
+#, fuzzy
+#| msgid "Remote Timestamp"
+msgid "Remove timespan {number}"
+msgstr "Mốc thời gian từ xa"
+
+# Tooltip for when focused on timespan start hour
+msgid "Start hour for timespan {number}"
+msgstr ""
+
+# Tooltip for when focused on timespan start minute
+msgid "Start minute for timespan {number}"
+msgstr ""
+
+# Tooltip for when focused on timespan end hour
+msgid "End hour for timespan {number}"
+msgstr ""
+
+# Tooltip for when focused on timespan end minute
+msgid "End minute for timespan {number}"
+msgstr ""
+
+#, fuzzy
+#| msgid "Automatically Check for Updates"
+msgid "Automatically Extract Archives"
+msgstr "Tự động kiếm tra bản cập nhật mới"
+
+msgid "Delete Archives After Extraction"
 msgstr ""
 
 #: src/gtk/help-overlay.ui:11

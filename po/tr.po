@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-11-03 23:02+0000\n"
-"Last-Translator: Giant Pink Robots! <giantpinkrobots@protonmail.com>\n"
+"PO-Revision-Date: 2025-12-05 16:00+0000\n"
+"Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/varia/varia/tr/>"
 "\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14.1-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -233,8 +233,14 @@ msgstr "Tarayıcı Uzantısı"
 msgid "Shutdown on Completion"
 msgstr "İndirmeler Bittiğinde Bilgisayarı Kapat"
 
+msgid "Sleep on Completion"
+msgstr "İndirmeler Bittiğinde Uyu"
+
 msgid "Varia is about to shut down your computer."
 msgstr "Varia birazdan bilgisayarınızı kapatacak."
+
+msgid "Varia is about to put your computer to sleep."
+msgstr "Varia birazdan bilgisayarınızı uyutacak."
 
 msgid "Press Cancel to cancel and disable."
 msgstr "İptal edip devre dışı bırakmak için Vazgeç'e basın."
@@ -338,6 +344,10 @@ msgstr "Uzak Zaman Damgası"
 
 msgid "Torrent"
 msgstr "Torrent"
+
+# Download type: Regular
+msgid "Regular"
+msgstr "Dosya"
 
 msgid "Checking for updates..."
 msgstr "Güncellemeler denetleniyor..."
@@ -581,6 +591,12 @@ msgstr "İndiriliyor"
 msgid "Paused"
 msgstr "Duraklatıldı"
 
+msgid "Scheduled"
+msgstr "Zamanlandı"
+
+msgid "Extracting"
+msgstr "Arşivden çıkarılıyor"
+
 msgid "Percentage Downloaded"
 msgstr "İndirilen Yüzde"
 
@@ -621,6 +637,45 @@ msgstr ""
 "Bu fonksiyonları etkinleştirmek için gerekli izinleri vermek üzere bir "
 "terminalde şu komutları çalıştırmalı ve ardından Varia'yı yeniden "
 "başlatmalısınız:"
+
+# Tooltip for when focused on filter options in the sidebar. Do not translate {filter option}, it will be replaced by the filter type. ("All", "In Progress", etc)
+msgid "Filter downloads by {filter option}"
+msgstr "İndirmeleri filtrele: {filter option}"
+
+msgid "Download item"
+msgstr "İndirme öğesi"
+
+msgid "Timespan {number}"
+msgstr "{number} Zaman aralığı"
+
+# Tooltip for when focused on timespan day of the week dropdown
+msgid "Day of the week for timespan {number}"
+msgstr "{number}. zaman aralığı için haftanın günü"
+
+msgid "Remove timespan {number}"
+msgstr "{number}. zaman aralığını sil"
+
+# Tooltip for when focused on timespan start hour
+msgid "Start hour for timespan {number}"
+msgstr "{number}. zaman aralığının başlangıç saati"
+
+# Tooltip for when focused on timespan start minute
+msgid "Start minute for timespan {number}"
+msgstr "{number}. zaman aralığının başlangıç dakikası"
+
+# Tooltip for when focused on timespan end hour
+msgid "End hour for timespan {number}"
+msgstr "{number}. zaman aralığının bitiş saati"
+
+# Tooltip for when focused on timespan end minute
+msgid "End minute for timespan {number}"
+msgstr "{number}. zaman aralığının bitiş dakikası"
+
+msgid "Automatically Extract Archives"
+msgstr "Arşivleri Otomatik Olarak Çıkar"
+
+msgid "Delete Archives After Extraction"
+msgstr "Arşivleri Çıkardıktan Sonra Sil"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

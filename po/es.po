@@ -230,7 +230,17 @@ msgstr "Extensión para el navegador"
 msgid "Shutdown on Completion"
 msgstr "Apagado al finalizar"
 
+#, fuzzy
+#| msgid "Exit on Completion"
+msgid "Sleep on Completion"
+msgstr "Salir al finalizar"
+
 msgid "Varia is about to shut down your computer."
+msgstr "Varia está a punto de apagar el equipo."
+
+#, fuzzy
+#| msgid "Varia is about to shut down your computer."
+msgid "Varia is about to put your computer to sleep."
 msgstr "Varia está a punto de apagar el equipo."
 
 msgid "Press Cancel to cancel and disable."
@@ -335,6 +345,10 @@ msgstr "Marca de tiempo remota"
 
 msgid "Torrent"
 msgstr "Torrent"
+
+# Download type: Regular
+msgid "Regular"
+msgstr ""
 
 # Updater
 msgid "Checking for updates..."
@@ -588,6 +602,14 @@ msgstr "Descargar"
 msgid "Paused"
 msgstr "Pausar todo"
 
+#, fuzzy
+#| msgid "Scheduler"
+msgid "Scheduled"
+msgstr "Planificador"
+
+msgid "Extracting"
+msgstr ""
+
 msgid "Percentage Downloaded"
 msgstr ""
 
@@ -632,6 +654,53 @@ msgstr ""
 msgid ""
 "To enable these functions you must run these commands in a terminal to give "
 "the required permissions and then restart Varia:"
+msgstr ""
+
+# Tooltip for when focused on filter options in the sidebar. Do not translate {filter option}, it will be replaced by the filter type. ("All", "In Progress", etc)
+msgid "Filter downloads by {filter option}"
+msgstr ""
+
+#, fuzzy
+#| msgid "Download"
+msgid "Download item"
+msgstr "Descargar"
+
+#, fuzzy
+#| msgid "{number}%"
+msgid "Timespan {number}"
+msgstr "{number} %"
+
+# Tooltip for when focused on timespan day of the week dropdown
+msgid "Day of the week for timespan {number}"
+msgstr ""
+
+#, fuzzy
+#| msgid "Remote Timestamp"
+msgid "Remove timespan {number}"
+msgstr "Marca de tiempo remota"
+
+# Tooltip for when focused on timespan start hour
+msgid "Start hour for timespan {number}"
+msgstr ""
+
+# Tooltip for when focused on timespan start minute
+msgid "Start minute for timespan {number}"
+msgstr ""
+
+# Tooltip for when focused on timespan end hour
+msgid "End hour for timespan {number}"
+msgstr ""
+
+# Tooltip for when focused on timespan end minute
+msgid "End minute for timespan {number}"
+msgstr ""
+
+#, fuzzy
+#| msgid "Automatically Check for Updates"
+msgid "Automatically Extract Archives"
+msgstr "Comprobación automática de actualizaciones"
+
+msgid "Delete Archives After Extraction"
 msgstr ""
 
 #: src/gtk/help-overlay.ui:11

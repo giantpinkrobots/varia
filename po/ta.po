@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-07-02 16:01+0000\n"
-"Last-Translator: தமிழ்நேரம் <anishprabu.t@gmail.com>\n"
+"PO-Revision-Date: 2026-01-01 04:01+0000\n"
+"Last-Translator: தமிழ்நேரம் <tamilneram247@gmail.com>\n"
 "Language-Team: Tamil <https://hosted.weblate.org/projects/varia/varia/ta/>\n"
 "Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -231,8 +231,14 @@ msgstr "உலாவி நீட்டிப்பு"
 msgid "Shutdown on Completion"
 msgstr "முடிந்ததும் பணிநிறுத்தம்"
 
+msgid "Sleep on Completion"
+msgstr "முடிந்தவுடன் தூங்குங்கள்"
+
 msgid "Varia is about to shut down your computer."
 msgstr "வரியா உங்கள் கணினியை மூட உள்ளது."
+
+msgid "Varia is about to put your computer to sleep."
+msgstr "வேரியா உங்கள் கணினியை தூங்க வைக்கப் போகிறார்."
 
 msgid "Press Cancel to cancel and disable."
 msgstr "ரத்துசெய் மற்றும் முடக்க ரத்துசெய்."
@@ -336,6 +342,10 @@ msgstr "தொலைநிலை நேர முத்திரை"
 
 msgid "Torrent"
 msgstr "டொரண்ட்"
+
+# Download type: Regular
+msgid "Regular"
+msgstr "வழக்கமான"
 
 # Updater
 msgid "Checking for updates..."
@@ -524,114 +534,139 @@ msgstr "தொலைதூர ARIA2C உதாரணத்திற்கு QUI
 msgid "Configure"
 msgstr "உள்ளமை"
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Download Segments"
-msgstr "முழுமையான பதிவிறக்கம்."
+msgstr "பிரிவுகளைப் பதிவிறக்கவும்"
 
-#, fuzzy
-#| msgid "Pause All"
 msgid "Pause"
-msgstr "அனைத்தையும் இடைநிறுத்துங்கள்"
+msgstr "இடைநிறுத்தம்"
 
-#, fuzzy
-#| msgid "Resume All"
 msgid "Resume"
-msgstr "அனைத்தையும் மீண்டும் தொடங்குங்கள்"
+msgstr "ரெச்யூம்"
 
 msgid "Stop"
-msgstr ""
+msgstr "நிறுத்து"
 
-#, fuzzy
-#| msgid "File"
 msgid "Open File"
-msgstr "கோப்பு"
+msgstr "கோப்பை திற"
 
 msgid "Retry"
-msgstr ""
+msgstr "மீண்டும் முயற்சிக்கவும்"
 
 msgid "Require Encryption"
-msgstr ""
+msgstr "குறியாக்கம் தேவை"
 
 msgid "Get Country Info of Peers"
-msgstr ""
+msgstr "சகாக்களின் நாட்டுத் தகவலைப் பெறுங்கள்"
 
 msgid ""
 "This will use an external service to get the IP geolocation of your torrent "
 "peers in order to show country flags in the details window."
 msgstr ""
+"விவரங்கள் சாளரத்தில் நாட்டின் கொடிகளைக் காண்பிப்பதற்காக உங்கள் டொரண்ட் சகாக்களின் ஐபி "
+"புவிஇருப்பிடத்தைப் பெற இது வெளிப்புறச் சேவையைப் பயன்படுத்தும்."
 
-#, fuzzy
-#| msgid "Download failed."
 msgid "Download Details"
-msgstr "பதிவிறக்கம் தோல்வியடைந்தது."
+msgstr "பதிவிறக்க விவரங்கள்"
 
 msgid "Type"
-msgstr ""
+msgstr "வகை"
 
 msgid "Status"
-msgstr ""
+msgstr "நிலை"
 
-#, fuzzy
-#| msgid "File"
 msgid "File Name"
-msgstr "கோப்பு"
+msgstr "கோப்பு பெயர்"
 
-#, fuzzy
-#| msgid "Download"
 msgid "Downloading"
-msgstr "பதிவிறக்கம்"
+msgstr "பதிவிறக்குகிறது"
 
-#, fuzzy
-#| msgid "Pause All"
 msgid "Paused"
-msgstr "அனைத்தையும் இடைநிறுத்துங்கள்"
+msgstr "இடைநிறுத்தப்பட்டது"
+
+msgid "Scheduled"
+msgstr "திட்டமிடப்பட்டது"
+
+msgid "Extracting"
+msgstr "பிரித்தெடுத்தல்"
 
 msgid "Percentage Downloaded"
-msgstr ""
+msgstr "விழுக்காடு பதிவிறக்கப்பட்டது"
 
-#, fuzzy
-#| msgid "remaining"
 msgid "Remaining"
-msgstr "மீதமுள்ள"
+msgstr "மீதமுள்ளவை"
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Download Speed"
-msgstr "முழுமையான பதிவிறக்கம்."
+msgstr "பதிவிறக்க விரைவு"
 
-#, fuzzy
-#| msgid "Seeding"
 msgid "Seeding Speed"
-msgstr "விதைப்பு"
+msgstr "விதைப்பு விரைவு"
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Amount Downloaded"
-msgstr "முழுமையான பதிவிறக்கம்."
+msgstr "பதிவிறக்கம் செய்யப்பட்ட தொகை"
 
 msgid "Amount Uploaded"
-msgstr ""
+msgstr "பதிவேற்றப்பட்ட தொகை"
 
 msgid "Ratio"
-msgstr ""
+msgstr "விகிதம்"
 
-#, fuzzy
-#| msgid "Torrent"
 msgid "Torrent Peers"
-msgstr "டொரண்ட்"
+msgstr "டோரண்ட் பியர்ச்"
 
 # Snap packaging permissions dialog part 1/2
 msgid ""
 "You are using Varia as a Snap package. There are some functions that you "
 "can't use without manually giving Varia some extra permissions. These are:"
 msgstr ""
+"நீங்கள் Varia ஐ Snap தொகுப்பாகப் பயன்படுத்துகிறீர்கள். Varia க்கு கைமுறையாக சில கூடுதல் "
+"அனுமதிகளை வழங்காமல் நீங்கள் பயன்படுத்த முடியாத சில செயல்பாடுகள் உள்ளன. இவை:"
 
 # Snap packaging permissions dialog part 2/2
 msgid ""
 "To enable these functions you must run these commands in a terminal to give "
 "the required permissions and then restart Varia:"
 msgstr ""
+"இந்த செயல்பாடுகளை இயக்க, தேவையான அனுமதிகளை வழங்க, இந்த கட்டளைகளை டெர்மினலில் இயக்க "
+"வேண்டும், பின்னர் Varia ஐ மறுதொடக்கம் செய்ய வேண்டும்:"
+
+# Tooltip for when focused on filter options in the sidebar. Do not translate {filter option}, it will be replaced by the filter type. ("All", "In Progress", etc)
+msgid "Filter downloads by {filter option}"
+msgstr "{filter option} மூலம் பதிவிறக்கங்களை வடிகட்டவும்"
+
+msgid "Download item"
+msgstr "பொருளைப் பதிவிறக்கவும்"
+
+msgid "Timespan {number}"
+msgstr "கால இடைவெளி {number}"
+
+# Tooltip for when focused on timespan day of the week dropdown
+msgid "Day of the week for timespan {number}"
+msgstr "நேர இடைவெளிக்கான வாரத்தின் நாள் {number}"
+
+msgid "Remove timespan {number}"
+msgstr "நேர இடைவெளியை அகற்று {number}"
+
+# Tooltip for when focused on timespan start hour
+msgid "Start hour for timespan {number}"
+msgstr "நேர இடைவெளிக்கான தொடக்க மணிநேரம் {number}"
+
+# Tooltip for when focused on timespan start minute
+msgid "Start minute for timespan {number}"
+msgstr "நேர இடைவெளிக்கான தொடக்க மணித்துளி {number}"
+
+# Tooltip for when focused on timespan end hour
+msgid "End hour for timespan {number}"
+msgstr "நேர இடைவெளிக்கான இறுதி மணிநேரம் {number}"
+
+# Tooltip for when focused on timespan end minute
+msgid "End minute for timespan {number}"
+msgstr "நேர இடைவெளிக்கான இறுதி மணித்துளி {number}"
+
+msgid "Automatically Extract Archives"
+msgstr "காப்பகங்களை தானாக பிரித்தெடுக்கவும்"
+
+msgid "Delete Archives After Extraction"
+msgstr "பிரித்தெடுத்த பிறகு காப்பகங்களை நீக்கு"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

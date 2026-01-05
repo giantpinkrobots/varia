@@ -39,7 +39,8 @@ msgid ""
 "Varia is a download manager based on aria2 that utilizes GTK4 and Libadwaita "
 "to provide a easy to use interface that integrates well with the GNOME "
 "desktop."
-msgstr "Varia 基於 aria2 且使用 GTK4 與 Libadwaita 以提供易用介面，並與 Gnome 良好整"
+msgstr ""
+"Varia 基於 aria2 且使用 GTK4 與 Libadwaita 以提供易用介面，並與 Gnome 良好整"
 "合的下載管理員。"
 
 #: src/variamain.py:45
@@ -226,7 +227,17 @@ msgstr "瀏覽器擴充"
 msgid "Shutdown on Completion"
 msgstr "完成後關機"
 
+#, fuzzy
+#| msgid "Exit on Completion"
+msgid "Sleep on Completion"
+msgstr "完成後退出"
+
 msgid "Varia is about to shut down your computer."
+msgstr "Varia 即將關閉您的電腦。"
+
+#, fuzzy
+#| msgid "Varia is about to shut down your computer."
+msgid "Varia is about to put your computer to sleep."
 msgstr "Varia 即將關閉您的電腦。"
 
 msgid "Press Cancel to cancel and disable."
@@ -331,6 +342,10 @@ msgstr "遠端時間戳"
 
 msgid "Torrent"
 msgstr "種子"
+
+# Download type: Regular
+msgid "Regular"
+msgstr ""
 
 # Updater
 msgid "Checking for updates..."
@@ -586,6 +601,14 @@ msgstr "下載"
 msgid "Paused"
 msgstr "全部暫停"
 
+#, fuzzy
+#| msgid "Scheduler"
+msgid "Scheduled"
+msgstr "調度程式"
+
+msgid "Extracting"
+msgstr ""
+
 msgid "Percentage Downloaded"
 msgstr ""
 
@@ -630,6 +653,53 @@ msgstr ""
 msgid ""
 "To enable these functions you must run these commands in a terminal to give "
 "the required permissions and then restart Varia:"
+msgstr ""
+
+# Tooltip for when focused on filter options in the sidebar. Do not translate {filter option}, it will be replaced by the filter type. ("All", "In Progress", etc)
+msgid "Filter downloads by {filter option}"
+msgstr ""
+
+#, fuzzy
+#| msgid "Download"
+msgid "Download item"
+msgstr "下載"
+
+#, fuzzy
+#| msgid "{number}%"
+msgid "Timespan {number}"
+msgstr "{number}%"
+
+# Tooltip for when focused on timespan day of the week dropdown
+msgid "Day of the week for timespan {number}"
+msgstr ""
+
+#, fuzzy
+#| msgid "Remote Timestamp"
+msgid "Remove timespan {number}"
+msgstr "遠端時間戳"
+
+# Tooltip for when focused on timespan start hour
+msgid "Start hour for timespan {number}"
+msgstr ""
+
+# Tooltip for when focused on timespan start minute
+msgid "Start minute for timespan {number}"
+msgstr ""
+
+# Tooltip for when focused on timespan end hour
+msgid "End hour for timespan {number}"
+msgstr ""
+
+# Tooltip for when focused on timespan end minute
+msgid "End minute for timespan {number}"
+msgstr ""
+
+#, fuzzy
+#| msgid "Automatically Check for Updates"
+msgid "Automatically Extract Archives"
+msgstr "自動檢查更新"
+
+msgid "Delete Archives After Extraction"
 msgstr ""
 
 #: src/gtk/help-overlay.ui:11

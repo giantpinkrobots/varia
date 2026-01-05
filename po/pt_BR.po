@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-11-11 09:52+0000\n"
-"Last-Translator: xand <alexandreferrocha@gmail.com>\n"
+"PO-Revision-Date: 2025-11-22 17:17+0000\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "varia/varia/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -230,8 +230,14 @@ msgstr "Extensão de Navegador"
 msgid "Shutdown on Completion"
 msgstr "Desligar ao concluir"
 
+msgid "Sleep on Completion"
+msgstr "Suspender ao concluir"
+
 msgid "Varia is about to shut down your computer."
 msgstr "A Varia está prestes a desligar o computador."
+
+msgid "Varia is about to put your computer to sleep."
+msgstr "A Varia está prestes a suspender o computador."
 
 msgid "Press Cancel to cancel and disable."
 msgstr "Pressione Cancelar para cancelar e desabilitar."
@@ -335,6 +341,10 @@ msgstr "Registro de data e hora remota"
 
 msgid "Torrent"
 msgstr "Torrent"
+
+# Download type: Regular
+msgid "Regular"
+msgstr "Regular"
 
 # Updater
 msgid "Checking for updates..."
@@ -577,6 +587,14 @@ msgstr "Baixando"
 msgid "Paused"
 msgstr "Pausado"
 
+#, fuzzy
+#| msgid "Scheduler"
+msgid "Scheduled"
+msgstr "Agendador"
+
+msgid "Extracting"
+msgstr "Extraindo"
+
 msgid "Percentage Downloaded"
 msgstr "Porcentagem baixada"
 
@@ -618,6 +636,45 @@ msgstr ""
 "Para habilitar estas funções, você deve executar estes comandos em um "
 "terminal para conceder as permissões necessárias e, em seguida, reiniciar o "
 "Varia:"
+
+# Tooltip for when focused on filter options in the sidebar. Do not translate {filter option}, it will be replaced by the filter type. ("All", "In Progress", etc)
+msgid "Filter downloads by {filter option}"
+msgstr "Filtrar downloads por {filter option}"
+
+msgid "Download item"
+msgstr "Baixar item"
+
+msgid "Timespan {number}"
+msgstr "Período de tempo {number}"
+
+# Tooltip for when focused on timespan day of the week dropdown
+msgid "Day of the week for timespan {number}"
+msgstr "Dia da semana do período de tempo {number}"
+
+msgid "Remove timespan {number}"
+msgstr "Remover período de tempo {number}"
+
+# Tooltip for when focused on timespan start hour
+msgid "Start hour for timespan {number}"
+msgstr "Hora de início do período de tempo {number}"
+
+# Tooltip for when focused on timespan start minute
+msgid "Start minute for timespan {number}"
+msgstr "Minuto de início do período de tempo {number}"
+
+# Tooltip for when focused on timespan end hour
+msgid "End hour for timespan {number}"
+msgstr "Hora de fim do período de tempo {number}"
+
+# Tooltip for when focused on timespan end minute
+msgid "End minute for timespan {number}"
+msgstr "Minuto de fim do período de tempo {number}"
+
+msgid "Automatically Extract Archives"
+msgstr "Extrair arquivos automaticamente"
+
+msgid "Delete Archives After Extraction"
+msgstr "Excluir arquivos após a extração"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

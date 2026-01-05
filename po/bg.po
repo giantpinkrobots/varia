@@ -9,16 +9,16 @@ msgstr ""
 "Project-Id-Version: Varia\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-11-05 00:51+0000\n"
+"PO-Revision-Date: 2025-12-05 16:00+0000\n"
 "Last-Translator: Любомир Василев <lyubomirv@gmx.com>\n"
-"Language-Team: Bulgarian <https://hosted.weblate.org/projects/varia/varia/bg/"
-">\n"
+"Language-Team: Bulgarian <https://hosted.weblate.org/projects/varia/varia/"
+"bg/>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14.1-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -231,8 +231,14 @@ msgstr "Браузър разширение"
 msgid "Shutdown on Completion"
 msgstr "Изключване при завършване"
 
+msgid "Sleep on Completion"
+msgstr "Заспиване при завършване"
+
 msgid "Varia is about to shut down your computer."
-msgstr "„Varia“ ще изключи компютъра ви."
+msgstr "Varia се подготвя да изключи компютъра."
+
+msgid "Varia is about to put your computer to sleep."
+msgstr "Varia се подготвя да приспи компютъра."
 
 msgid "Press Cancel to cancel and disable."
 msgstr "Натиснете „Отказване“, за да откажете и изключите."
@@ -336,6 +342,10 @@ msgstr "Дата на отдалеченото място"
 
 msgid "Torrent"
 msgstr "Торент"
+
+# Download type: Regular
+msgid "Regular"
+msgstr "Обикновено"
 
 # Updater
 msgid "Checking for updates..."
@@ -585,6 +595,12 @@ msgstr "Сваляне"
 msgid "Paused"
 msgstr "На пауза"
 
+msgid "Scheduled"
+msgstr "Планирано"
+
+msgid "Extracting"
+msgstr "Разархивиране"
+
 msgid "Percentage Downloaded"
 msgstr "Процент свалено"
 
@@ -626,6 +642,45 @@ msgstr ""
 "За да включите тези функционалности, трябва да изпълните тези команди в "
 "терминала – така ще дадете необходимите разрешения. След това трябва да "
 "рестартирате Varia:"
+
+# Tooltip for when focused on filter options in the sidebar. Do not translate {filter option}, it will be replaced by the filter type. ("All", "In Progress", etc)
+msgid "Filter downloads by {filter option}"
+msgstr "Филтриране на свалянията по {filter option}"
+
+msgid "Download item"
+msgstr "Сваляне на елемента"
+
+msgid "Timespan {number}"
+msgstr "Времеви интервал {number}"
+
+# Tooltip for when focused on timespan day of the week dropdown
+msgid "Day of the week for timespan {number}"
+msgstr "Ден от седмицата за времевия интервал {number}"
+
+msgid "Remove timespan {number}"
+msgstr "Премахване на времевия интервал {number}"
+
+# Tooltip for when focused on timespan start hour
+msgid "Start hour for timespan {number}"
+msgstr "Начален час за времевия интервал {number}"
+
+# Tooltip for when focused on timespan start minute
+msgid "Start minute for timespan {number}"
+msgstr "Начална минута за времевия интервал {number}"
+
+# Tooltip for when focused on timespan end hour
+msgid "End hour for timespan {number}"
+msgstr "Краен час за времевия интервал {number}"
+
+# Tooltip for when focused on timespan end minute
+msgid "End minute for timespan {number}"
+msgstr "Крайна минута за времевия интервал {number}"
+
+msgid "Automatically Extract Archives"
+msgstr "Автоматично разархивиране на архивите"
+
+msgid "Delete Archives After Extraction"
+msgstr "Изтриване на архивните файлове след разархивиране"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

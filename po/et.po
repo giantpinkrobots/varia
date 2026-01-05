@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-11-03 23:02+0000\n"
+"PO-Revision-Date: 2025-12-05 16:00+0000\n"
 "Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/varia/varia/et/>"
 "\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14.1-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -235,8 +235,14 @@ msgstr "Brauseri lisamoodul"
 msgid "Shutdown on Completion"
 msgstr "Allalaadimise lõppemisel lülita välja"
 
+msgid "Sleep on Completion"
+msgstr "Lõpetamisel lülita arvuti unerežiimi"
+
 msgid "Varia is about to shut down your computer."
 msgstr "Varia on lülitamas sinu arvutit välja."
+
+msgid "Varia is about to put your computer to sleep."
+msgstr "Varia on lülitamas sinu arvutit unereziimi."
 
 msgid "Press Cancel to cancel and disable."
 msgstr "Tühistamiseks ja edaspidiseks vältimiseks vajuta nuppu „Katkesta“."
@@ -340,6 +346,10 @@ msgstr "Kasuta välise teenuse ajatemplit"
 
 msgid "Torrent"
 msgstr "Torrent"
+
+# Download type: Regular
+msgid "Regular"
+msgstr "Tavaline"
 
 # Updater
 msgid "Checking for updates..."
@@ -579,6 +589,12 @@ msgstr "Allalaadimisel"
 msgid "Paused"
 msgstr "Peatatud"
 
+msgid "Scheduled"
+msgstr "Ajastatud"
+
+msgid "Extracting"
+msgstr "Pakin lahti"
+
 msgid "Percentage Downloaded"
 msgstr "Allalaaditud protsent"
 
@@ -619,6 +635,45 @@ msgid ""
 msgstr ""
 "Nende funktsionaalsuste kasutamiseks sa pead vajalike õiguste lubamiseks "
 "terminalis käivitama järgnevad käsud ja siis Varia uuesti käivitama:"
+
+# Tooltip for when focused on filter options in the sidebar. Do not translate {filter option}, it will be replaced by the filter type. ("All", "In Progress", etc)
+msgid "Filter downloads by {filter option}"
+msgstr "Filtreeri allalaadimisi: {filter option}"
+
+msgid "Download item"
+msgstr "Laadi objekt alla"
+
+msgid "Timespan {number}"
+msgstr "Ajavahemik {number}"
+
+# Tooltip for when focused on timespan day of the week dropdown
+msgid "Day of the week for timespan {number}"
+msgstr "Ajavahemiku nädalapäev {number}"
+
+msgid "Remove timespan {number}"
+msgstr "Eemalda ajavahemik {number}"
+
+# Tooltip for when focused on timespan start hour
+msgid "Start hour for timespan {number}"
+msgstr "Ajavahemiku {number} esimene tund"
+
+# Tooltip for when focused on timespan start minute
+msgid "Start minute for timespan {number}"
+msgstr "Ajavahemiku {number} esimene minut"
+
+# Tooltip for when focused on timespan end hour
+msgid "End hour for timespan {number}"
+msgstr "Ajavahemiku {number} viimane tund"
+
+# Tooltip for when focused on timespan end minute
+msgid "End minute for timespan {number}"
+msgstr "Ajavahemiku {number} viimane minut"
+
+msgid "Automatically Extract Archives"
+msgstr "Paki failid automaatselt lahti"
+
+msgid "Delete Archives After Extraction"
+msgstr "Peale lahtipakkimist kustuta failid"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
