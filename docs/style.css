@@ -65,6 +65,14 @@ p {
     display: inline-block;
 }
 
+.pill-button-download {
+    padding: 10px 60px;
+    border-radius: 60px;
+    margin-bottom: 10px;
+    font-size: 100%;
+    filter: drop-shadow(rgba(0, 0, 0, 0.4) 0rem 0rem 2px);
+}
+
 .pill-button-linux {
     overflow: hidden;
 }

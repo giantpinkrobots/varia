@@ -25,6 +25,7 @@
 <lang>fa_IR</lang>
 <lang>fi_FI</lang>
 <lang>fr_FR</lang>
+<lang>he_IL</lang>
 <lang>hi_IN</lang>
 <lang>hu_HU</lang>
 <lang>id_ID</lang>
@@ -104,7 +105,6 @@ Control a remote aria2 instance running on any server
 </screenshot>
 </screenshots>
 
-
 <requires>
 <display_length compare="ge">360</display_length>
 </requires>
@@ -116,9 +116,17 @@ Control a remote aria2 instance running on any server
 </supports>
 
 <releases>
-<release version="v2025.10.14-1" date="2025-11-11">
+<release version="v2026.1.5" date="2026-01-05">
 <description translatable="yes">
-<ul><li>Minor bugfix and translations update.</li></ul>
+<ul><li>Option to automatically extract downloaded archives</li>
+<li>Inclusion of the Deno JavaScript engine as required by yt-dlp</li>
+<li>Newly added tooltip text for various options and better keyboard navigation to improve accessibility</li>
+<li>The scheduler is now much more reliable</li>
+<li>Paused downloads show their download percentages when reloaded upon app startup before resume</li>
+<li>Download details window layout no longer breaks with very long URLs</li>
+<li>Hebrew language support</li>
+<li>(Snap version) The tray icon on Snap is fully functional</li>
+<li>(Mac version) Initial experimental release on macOS</li></ul>
 </description>
 </release>
 </releases>

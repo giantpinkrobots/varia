@@ -19,8 +19,8 @@
 
 | Download for Linux | Download for Windows | Browser Extension |
 | -------- | ------- | ------- |
-| [⬇ Flathub](https://flathub.org/apps/io.github.giantpinkrobots.varia) | [⬇ Installer](https://github.com/giantpinkrobots/varia/releases/download/v2025.10.14-1/varia-windows-setup-amd64.exe) | [❖ Firefox](https://addons.mozilla.org/firefox/addon/varia-integrator/) |
-| [⬇ Snap Store](https://snapcraft.io/varia) | [⬇ Portable](https://github.com/giantpinkrobots/varia/releases/download/v2025.10.14-1/varia-windows-portable-amd64.zip) | [❖ Chrome](https://chrome.google.com/webstore/detail/dacakhfljjhgdfdlgjpabkkjhbpcmiff) |
+| [⬇ Flathub](https://flathub.org/apps/io.github.giantpinkrobots.varia) | [⬇ Installer](https://github.com/giantpinkrobots/varia/releases/download/v2026.1.5/varia-windows-setup-amd64.exe) | [❖ Firefox](https://addons.mozilla.org/firefox/addon/varia-integrator/) |
+| [⬇ Snap Store](https://snapcraft.io/varia) | [⬇ Portable](https://github.com/giantpinkrobots/varia/releases/download/v2026.1.5/varia-windows-portable-amd64.zip) | [❖ Chrome](https://chrome.google.com/webstore/detail/dacakhfljjhgdfdlgjpabkkjhbpcmiff) |
 | [⬇ AUR (unofficial)](https://aur.archlinux.org/packages/varia) | | |
 
 <br>
@@ -65,57 +65,53 @@ However, you will need to give it additional permissions through the terminal if
 sudo snap connect varia:shutdown
 ```
 
-#### AUR (Arch Linux) (Unofficial)
-You can get Varia via the [AUR](https://aur.archlinux.org/packages/varia) as well, but it is **unofficial** and not handled by me.
+#### Unofficial methods
+These are **unofficial** methods of getting Varia. They are built and distributed by others and may get updates later than official methods.
+
+- [AUR on Arch Linux](https://aur.archlinux.org/packages/varia)
+- [AppImage](https://github.com/pkgforge-dev/Varia-AppImage)
 
 ### Windows
 You can find amd64 builds of Varia in the Releases section in both installer and portable forms. The installer version is recommended and it includes an auto updater function.
+
+### macOS (experimental)
+macOS version is brand new and still experimental. Available for both Apple Silicon and Intel Macs in the Releases section.
 
 ## Browser Extension
 Download it for [Firefox](https://addons.mozilla.org/firefox/addon/varia-integrator/) or [Chrome](https://chrome.google.com/webstore/detail/dacakhfljjhgdfdlgjpabkkjhbpcmiff).
 
 ## Building
 
-There are two branches here: 'main' and 'next'. 'next' is where the feature developments for the next version happen.
-
-The 'main' branch can be built with the instructions below. The 'next' branch may also be built with these instructions, but it's not guaranteed. If you want to build the 'next' branch, it can be built with GNOME Builder on Linux.
+There are two branches here: 'next' and 'main'. The Next branch is where all new development happens before merging into the Main branch at each stable release. I develop and test for Flatpak first and tackle other platforms later, which may result in the Next branch not building on other platforms due to new platform-specific issues or newly introduced dependencies. Therefore it is recommended you use Flatpak to test out the Next branch, or at least keep this in mind in case of problems. Next is the default branch.
 
 ### for Linux
 
-The easiest way of building Varia is to use GNOME Builder. Just clone this repository, and open the folder using Builder. Then, press run. This is the way I make Varia, and the 'next' branch can only be reliably built this way.
+Varia is developed to be Flatpak-first, therefore the easiest way to build it from source on Linux is to run it with [GNOME Builder](https://flathub.org/en/apps/org.gnome.Builder).
 
-Varia is developed to be Flatpak-first, so it can be built with GNOME Builder with a single click on the Run button. You can also run it directly using flatpak-builder:
+Using flatpak-builder is also possible:
 ```
 flatpak-builder --force-clean --install --user ./_build ./io.github.giantpinkrobots.varia.json && flatpak run io.github.giantpinkrobots.varia
 ```
 
-To build Varia without Flatpak or GNOME Builder though, you'll need:
-- meson
-- python-setuptools
+To build Varia outside Flatpak, you need these dependencies:
+
+- Meson
 - Gtk4 and its development libraries
+- Pango
+- (Python) GObject
 - Libadwaita
-- gettext
-- aria2 and the aria2p python package.
-- yt-dlp python package
+- aria2
+- (Python) aria2p
+- yt-dlp
+- 7zip (7z)
 - FFmpeg (without GPL is okay)
-- python-dbus-next
+- Deno
+- Libayatana-AppIndicator
+- gettext
+- (Python) appdirs
+- (Python) requests
+- (Python) emoji-country-flag
 
-To install the ones besides aria2p on some Linux systems:
-```
-Ubuntu, Debian, Mint etc:
-sudo apt install meson ninja-build aria2 python3-setuptools libgtk-4-dev libadwaita-1-0 gettext ffmpeg python3-dbus-next
-
-Fedora, RHEL etc:
-sudo dnf install meson ninja-build aria2 python3-setuptools gtk4-devel libadwaita gettext ffmpeg python3-dbus-next
-
-Arch, EndeavourOS, Manjaro etc:
-sudo pacman -S meson aria2 python-setuptools gtk4 libadwaita gettext ffmpeg python-dbus-next
-```
-To install aria2p and yt-dlp using pip (your distro probably doesn't have them in its repos - they're on the AUR for Arch):
-```
-pip install aria2p
-pip install yt-dlp
-```
 Then, you can use meson commands to build Varia:
 ```
 git clone https://github.com/giantpinkrobots/varia
@@ -137,7 +133,7 @@ pacman -Syyu
 ```
 cd varia
 ```
-- Run the build script:
+- Run the build script (which will also automatically install the dependencies):
 ```
 ./windows/build.sh
 ```
@@ -147,6 +143,10 @@ Or with the updater function enabled: (it just creates an empty file in the dist
 ```
 
 Varia will be built into src/dist/variamain. Main executable is variamain.exe.
+
+### for macOS
+
+macOS builds are handled with GitHub Actions through (this)[https://github.com/giantpinkrobots/varia/blob/next/.github/workflows/mac-package.yml] file. I will prepare a friendlier automatic build script (like on Windows) later.
 
 ## Contributing
 

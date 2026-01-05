@@ -59,6 +59,7 @@ varia_sources_window = [
   'window/updater.py',
   'window/drag_and_drop.py',
   'window/window_management.py',
+  'window/about.py',
 ]
 
 varia_sources_download = [

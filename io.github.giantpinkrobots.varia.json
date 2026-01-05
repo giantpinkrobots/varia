@@ -132,7 +132,6 @@
         },
         "./flatpak_extra_manifests/python3-aria2p.json",
         "./flatpak_extra_manifests/python3-yt-dlp.json",
-        "./flatpak_extra_manifests/python3-dbus-next.json",
         "./flatpak_extra_manifests/python3-emoji-country-flag.json",
         "shared-modules/libayatana-appindicator/libayatana-appindicator-gtk3.json",
         {

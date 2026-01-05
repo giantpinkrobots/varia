@@ -9,7 +9,6 @@ denoexec=$pkgdatadir/../../bin/deno
 
 if !(test -f $aria2cexec;) || !(test -f $ffmpegexec;) || !(test -f $sevenzexec;) || !(test -f $denoexec;)
 then
-	echo "Trying to find the system's aria2c, ffmpeg, 7z and deno executables."
 	aria2cexec=$(which aria2c)
 	ffmpegexec=$(which ffmpeg)
 	sevenzexec=$(which 7z)

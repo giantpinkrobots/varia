@@ -49,47 +49,43 @@ function toggleMacInstructions(id) {
     <br>
     
     <div class='parent'>
-        <button style="display: inline-block" class="pill-button pill-button-blue" onclick="toggleLinuxInstructions()">
+        <button style="display: inline-block; width: 50%" class="pill-button pill-button-blue" onclick="toggleLinuxInstructions()">
             <span class="button-label"><img src="tuxIcon.png" class="button-icon">&nbsp;&nbsp;&nbsp;&nbsp;Download for Linux</span>
         </button>
 
-        &nbsp;&nbsp;&nbsp;
+        <br><br>
 
-        <button style="display: inline-block" class="pill-button pill-button-blue" onclick="toggleWindowsInstructions()">
+        <button style="display: inline-block; width: 50%" class="pill-button pill-button-blue" onclick="toggleWindowsInstructions()">
             <span class="button-label"><img src="windowsIcon.png" class="button-icon">&nbsp;&nbsp;&nbsp;&nbsp;Download for Windows</span>
         </button>
 
-        &nbsp;&nbsp;&nbsp;
+        <br><br>
 
-        <button style="display: inline-block" class="pill-button pill-button-blue" onclick="toggleMacInstructions()">
+        <button style="display: inline-block; width: 50%" class="pill-button pill-button-blue" onclick="toggleMacInstructions()">
             <span class="button-label"><img src="macIcon.png" class="button-icon">&nbsp;&nbsp;&nbsp;&nbsp;Download for Mac</span>
         </button>
-
-        &nbsp;&nbsp;&nbsp;
-        
-        <div style="display: inline-block"><a href="https://github.com/giantpinkrobots/varia" class="pill-button pill-button-gray"><img src="githubIcon.png" class="button-icon">&nbsp;&nbsp;&nbsp;&nbsp;Source on GitHub</a></div>
     </div>
 
     <br>
 
     <div id='linux-instructions' class='linux-instructions hidden' display='hidden'>
-        <div style="display: inline-block"><a href="https://flathub.org/apps/io.github.giantpinkrobots.varia" class="pill-button pill-button-ltblue"><img src="flathubIcon.png" class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;Flathub</a></div>
+        <div style="display: inline-block"><a href="https://flathub.org/apps/io.github.giantpinkrobots.varia" class="pill-button pill-button-ltblue pill-button-download"><img src="flathubIcon.png" class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;Flathub</a></div>
 
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <br>
 
-        <div style="display: inline-block"><a href="https://snapcraft.io/varia" class="pill-button pill-button-ltblue"><img src="snapIcon.png" class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;Snap Store</a></div>
+        <div style="display: inline-block"><a href="https://snapcraft.io/varia" class="pill-button pill-button-ltblue pill-button-download"><img src="snapIcon.png" class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;Snap Store</a></div>
 
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <br>
 
-        <div style="display: inline-block"><a href="https://github.com/giantpinkrobots/varia/releases/download/v2025.10.14-1/io.github.giantpinkrobots.varia.flatpak" class="pill-button pill-button-ltblue"><img src="flatpakIcon.png" class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;Flatpak file</a></div>
+        <div style="display: inline-block"><a href="https://github.com/giantpinkrobots/varia/releases/download/v2026.1.5/io.github.giantpinkrobots.varia.flatpak" class="pill-button pill-button-ltblue pill-button-download"><img src="flatpakIcon.png" class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;Flatpak file</a></div>
         
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <br>
 
-        <div style="display: inline-block"><a href="https://github.com/pkgforge-dev/Varia-AppImage/releases/latest" class="pill-button pill-button-ltblue"><img src="gearIcon.png" class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;AppImage (unofficial)</a></div>
+        <div style="display: inline-block"><a href="https://github.com/pkgforge-dev/Varia-AppImage/releases/latest" class="pill-button pill-button-ltblue pill-button-download"><img src="gearIcon.png" class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;AppImage (unofficial)</a></div>
 
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <br>
 
-        <div style="display: inline-block"><a href="https://aur.archlinux.org/packages/varia" class="pill-button pill-button-ltblue"><img src="archLinuxIcon.png" class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;AUR (unofficial)</a></div>
+        <div style="display: inline-block"><a href="https://aur.archlinux.org/packages/varia" class="pill-button pill-button-ltblue pill-button-download"><img src="archLinuxIcon.png" class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;AUR (unofficial)</a></div>
         
         <br>
         <br>
@@ -104,11 +100,11 @@ function toggleMacInstructions(id) {
     </div>
 
     <div id='windows-instructions' class='linux-instructions hidden' display='hidden'>
-        <div style="display: inline-block"><a href="https://github.com/giantpinkrobots/varia/releases/download/v2025.10.14-1/varia-windows-setup-amd64.exe" class="pill-button pill-button-ltblue"><img src="packageIcon.png" class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;Installer</a></div>
+        <div style="display: inline-block"><a href="https://github.com/giantpinkrobots/varia/releases/download/v2026.1.5/varia-windows-setup-amd64.exe" class="pill-button pill-button-ltblue pill-button-download"><img src="packageIcon.png" class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;Installer</a></div>
         
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <br>
 
-        <div style="display: inline-block"><a href="https://github.com/giantpinkrobots/varia/releases/download/v2025.10.14-1/varia-windows-portable-amd64.zip" class="pill-button pill-button-ltblue"><img src="packageIcon.png" class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;Portable</a></div>
+        <div style="display: inline-block"><a href="https://github.com/giantpinkrobots/varia/releases/download/v2026.1.5/varia-windows-portable-amd64.zip" class="pill-button pill-button-ltblue pill-button-download"><img src="packageIcon.png" class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;Portable</a></div>
 
         <br>
         <br>
@@ -123,11 +119,11 @@ function toggleMacInstructions(id) {
     </div>
 
     <div id='mac-instructions' class='linux-instructions hidden' display='hidden'>
-        <div style="display: inline-block"><a href="https://github.com/giantpinkrobots/varia/releases/download/v2025.10.14-1/varia-mac-arm.dmg" class="pill-button pill-button-ltblue"><img src="packageIcon.png" class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;DMG for Apple Silicon</a></div>
+        <div style="display: inline-block"><a href="https://github.com/giantpinkrobots/varia/releases/download/v2026.1.5/varia-mac-arm.dmg" class="pill-button pill-button-ltblue pill-button-download"><img src="packageIcon.png" class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;DMG for Apple Silicon (M-series)</a></div>
         
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <br>
 
-        <div style="display: inline-block"><a href="https://github.com/giantpinkrobots/varia/releases/download/v2025.10.14-1/varia-mac-intel.dmg" class="pill-button pill-button-ltblue"><img src="packageIcon.png" class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;DMG for Intel</a></div>
+        <div style="display: inline-block"><a href="https://github.com/giantpinkrobots/varia/releases/download/v2026.1.5/varia-mac-intel.dmg" class="pill-button pill-button-ltblue pill-button-download"><img src="packageIcon.png" class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;DMG for Intel</a></div>
 
         <br>
         <br>
@@ -164,6 +160,12 @@ function toggleMacInstructions(id) {
     <br>
 
     <hr class="solid">
+
+    <br>
+    <br>
+    <br>
+
+    <div style="display: inline-block;"><a href="https://github.com/giantpinkrobots/varia" class="pill-button pill-button-gray"><img src="githubIcon.png" class="button-icon">&nbsp;&nbsp;&nbsp;&nbsp;Source on GitHub</a></div>
 
     <br>
     <br>
