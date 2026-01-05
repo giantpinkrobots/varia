@@ -22,9 +22,6 @@
     ],
     "build-options" : {
         "append-path" : "/usr/lib/sdk/rust-stable/bin:/usr/lib/sdk/llvm21/bin",
-        "build-args" : [
-            "--share=network"
-        ],
         "env" : {
             "CARGO_HOME" : "/run/build/rust-flatpak/cargo",
             "CC": "clang",

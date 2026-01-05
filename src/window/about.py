@@ -34,7 +34,7 @@ def show_about(app, variaapp, self, variaVersion):
             <li>The scheduler is now much more reliable</li>
             <li>Paused downloads show their download percentages when reloaded upon app startup before resume</li>
             <li>Download details window layout no longer breaks with very long URLs</li>
-            <li>Hebrew language support</li>
+            <li>New languages: Hebrew and Cornish</li>
             <li>(Snap version) The tray icon on Snap is fully functional</li>
             <li>(Mac version) Initial experimental release on macOS</li></ul>''')
     
