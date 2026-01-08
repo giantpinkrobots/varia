@@ -17,17 +17,10 @@
         "--talk-name=org.kde.StatusNotifierWatcher"
     ],
     "sdk-extensions" : [
-        "org.freedesktop.Sdk.Extension.rust-stable",
         "org.freedesktop.Sdk.Extension.llvm21"
     ],
     "build-options" : {
-        "append-path" : "/usr/lib/sdk/rust-stable/bin:/usr/lib/sdk/llvm21/bin",
-        "env" : {
-            "CARGO_HOME" : "/run/build/rust-flatpak/cargo",
-            "CARGO_NET_OFFLINE" : "true",
-            "CC" : "clang",
-            "CXX" : "clang++"
-        }
+        "append-path" : "/usr/lib/sdk/rust-stable/bin:/usr/lib/sdk/llvm21/bin"
     },
     "cleanup" : [
         "/include",
@@ -115,50 +108,23 @@
         {
             "name": "deno",
             "buildsystem": "simple",
-            "build-options": {
-	        "arch": {
-		    "x86_64": {
-		        "env": {
-		      	    "RUSTY_V8_FORCE_DOWNLOAD": "0",
-			    "RUSTY_V8_ARCHIVE": "/run/build/deno/v8/librusty_v8_release_x86_64-unknown-linux-gnu.a.gz"
-		      	}
-		    },
-		    "aarch64": {
-		        "env": {
-		      	    "RUSTY_V8_FORCE_DOWNLOAD": "0",
-			    "RUSTY_V8_ARCHIVE": "/run/build/deno/v8/librusty_v8_release_aarch64-unknown-linux-gnu.a.gz"
-		        }
-		    }
-	        }
-	    },
             "build-commands": [
-  	        "mkdir -p .cargo",
-  		"cat > .cargo/config.toml <<'EOF'\n[source.crates-io]\nreplace-with = \"vendored-sources\"\n\n[source.vendored-sources]\ndirectory = \"cargo/vendor\"\nEOF",
-  		"cargo --offline fetch --manifest-path Cargo.toml --verbose",
-  		"cargo build --offline --release --bin deno",
-  		"install -Dm755 target/release/deno /app/bin/"
-	    ],
+            	"unzip ./deno*",
+                "install -Dm755 deno /app/bin/"
+            ],
             "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://github.com/denoland/deno/archive/refs/tags/v2.6.4.zip",
-                    "sha256": "90ca63f5a3267ec127b4dc0a3d68f96ba3b9313e43381a05320b88ee97eb7e86"
-                },
-                "./flatpak_extra_manifests/cargo-deno.json",
-                {
-  		    "type": "file",
-  		    "only-arches": ["x86_64"],
-  		    "url": "https://github.com/denoland/rusty_v8/releases/download/v142.2.0/librusty_v8_release_x86_64-unknown-linux-gnu.a.gz",
-  		    "sha256": "c479a87e8f304cd83cf3f4ee0b6a57d8e1c3458b479dca12bd20674d5eb9a3ed",
-  		    "dest": "v8"
-		},
-		{
-  		    "type": "file",
-  		    "only-arches": ["aarch64"],
-  		    "url": "https://github.com/denoland/rusty_v8/releases/download/v142.2.0/librusty_v8_release_aarch64-unknown-linux-gnu.a.gz",
-  		    "sha256": "db8abac17f114d15f5b4c1aa81ccfdff037763e856c4cd9212e56b621102c92f",
-  		    "dest": "v8"
-		}
+            {
+                "type": "file",
+                "only-arches": ["x86_64"],
+                "url": "https://github.com/denoland/deno/releases/download/v2.6.4/deno-x86_64-unknown-linux-gnu.zip",
+                "sha256": "9100bbd0450c17b82002d3948bb8e7e1953c9e6506e63b586e2daa4042eca7f6"
+            },
+            {
+                "type": "file",
+                "only-arches": ["aarch64"],
+                "url": "https://github.com/denoland/deno/releases/download/v2.6.4/deno-aarch64-unknown-linux-gnu.zip",
+                "sha256": "dafb54c5454d7fcca81305215442e832e0c34e90b76a2e9a31d0676cbb06bfc6"
+            }
             ]
         },
         "./flatpak_extra_manifests/python3-aria2p.json",
