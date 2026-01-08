@@ -16,10 +16,10 @@ def start_tray_process(self, variaapp):
                 tray_subprocess_input = [os.path.join(os.getcwd(), 'tray', 'varia-tray'), _("Show"), _("Quit")]
 
             else: # Running standalone
-                tray_subprocess_input = [sys.executable, os.path.join(os.path.dirname(__file__), 'tray', 'tray_windows.py'), _("Show"), _("Quit")]
+                tray_subprocess_input = [sys.executable, os.path.join(os.path.dirname(__file__), 'tray_windows.py'), _("Show"), _("Quit")]
 
         else:
-            tray_subprocess_input = [sys.executable, os.path.join(os.path.dirname(__file__), 'tray', 'tray_linux_appindicator.py'), _("Show"), _("Quit")]
+            tray_subprocess_input = [sys.executable, os.path.join(os.path.dirname(__file__), 'tray_linux_appindicator.py'), _("Show"), _("Quit")]
 
         def tray_process_connection():
             address = ('localhost', 6802)
