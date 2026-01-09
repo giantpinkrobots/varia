@@ -8,6 +8,12 @@ description: |
 grade: stable
 confinement: strict
 
+slots:
+  dbus-varia:
+    interface: dbus
+    bus: session
+    name: io.github.giantpinkrobots.varia
+
 parts:
   python-packages:
     plugin: python
@@ -143,6 +149,8 @@ apps:
   varia:
     extensions: [gnome]
     command: usr/bin/varia
+    slots:
+      - dbus-varia
     plugs:
       - network
       - home
