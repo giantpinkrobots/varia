@@ -17,11 +17,11 @@
 
 <br>
 
-| Download for Linux | Download for Windows | Browser Extension |
+| Download for Linux | Download for Windows | Download for macOS | Browser Extension |
 | -------- | ------- | ------- |
-| [⬇ Flathub](https://flathub.org/apps/io.github.giantpinkrobots.varia) | [⬇ Installer](https://github.com/giantpinkrobots/varia/releases/download/v2026.1.5/varia-windows-setup-amd64.exe) | [❖ Firefox](https://addons.mozilla.org/firefox/addon/varia-integrator/) |
-| [⬇ Snap Store](https://snapcraft.io/varia) | [⬇ Portable](https://github.com/giantpinkrobots/varia/releases/download/v2026.1.5/varia-windows-portable-amd64.zip) | [❖ Chrome](https://chrome.google.com/webstore/detail/dacakhfljjhgdfdlgjpabkkjhbpcmiff) |
-| [⬇ AUR (unofficial)](https://aur.archlinux.org/packages/varia) | | |
+| [⬇ Flathub](https://flathub.org/apps/io.github.giantpinkrobots.varia) | [⬇ Installer](https://github.com/giantpinkrobots/varia/releases/download/v2026.1.5/varia-windows-setup-amd64.exe) | [⬇ Apple Silicon arm64](https://github.com/giantpinkrobots/varia/releases/download/v2026.1.5-1/varia-mac-arm.dmg) | [❖ Firefox](https://addons.mozilla.org/firefox/addon/varia-integrator/) |
+| [⬇ Snap Store](https://snapcraft.io/varia) | [⬇ Portable](https://github.com/giantpinkrobots/varia/releases/download/v2026.1.5/varia-windows-portable-amd64.zip) | [⬇ Intel amd64](https://github.com/giantpinkrobots/varia/releases/download/v2026.1.5-1/varia-mac-intel.dmg) | [❖ Chrome](https://chrome.google.com/webstore/detail/dacakhfljjhgdfdlgjpabkkjhbpcmiff) |
+| [⬇ AUR (unofficial)](https://aur.archlinux.org/packages/varia) | | | | [⬇ AppImage (unofficial)](https://github.com/pkgforge-dev/Varia-AppImage) | | | |
 
 <br>
 
