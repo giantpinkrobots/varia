@@ -36,13 +36,11 @@ jobs:
             DENOURL="https://github.com/denoland/deno/releases/latest/download/deno-aarch64-apple-darwin.zip"
             FFMPEGURL="https://ffmpeg.martin-riedl.de/download/macos/arm64/1756401489_8.0/ffmpeg.zip"
             FFPROBEURL="https://ffmpeg.martin-riedl.de/download/macos/arm64/1756401489_8.0/ffprobe.zip"
-            HOMEBREWDIRECTORY="/usr/local"
           else
             ARIA2CURL="https://github.com/giantpinkrobots/aria2c-macos-standalone-binary/releases/download/1.37.0/aria2c-macos-x86_64.tar.gz"
             DENOURL="https://github.com/denoland/deno/releases/latest/download/deno-x86_64-apple-darwin.zip"
             FFMPEGURL="https://ffmpeg.martin-riedl.de/download/macos/amd64/1756407576_8.0/ffmpeg.zip"
             FFPROBEURL="https://ffmpeg.martin-riedl.de/download/macos/amd64/1756407576_8.0/ffprobe.zip"
-            HOMEBREWDIRECTORY="/opt/homebrew"
           fi
 
           # Aria2c
@@ -75,6 +73,12 @@ jobs:
 
       - name: Build for ${{ matrix.arch }}
         run: |
+          if [ "$MAC_ARCH" = "arm64" ]; then
+            HOMEBREWDIRECTORY="/opt/homebrew"
+          else
+            HOMEBREWDIRECTORY="/usr/local"
+          fi
+
           cd mac
 
           sign_all_binaries() {
