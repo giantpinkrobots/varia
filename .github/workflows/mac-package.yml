@@ -26,7 +26,7 @@ jobs:
       - name: Install build dependencies
         run: |
           brew update
-          brew install automake autoconf libtool pkg-config nasm yasm cmake ninja gtk4 libadwaita python3 lame opus libvorbis libogg gnutls pygobject3 create-dmg
+          brew install automake autoconf libtool pkg-config nasm yasm cmake ninja gtk4 libadwaita python3 lame opus libvorbis libogg gnutls pygobject3 create-dmg gmp
           python3 -m pip install --break-system-packages pillow pygobject yt-dlp pyinstaller aria2p pystray emoji-country-flag
 
       - name: Download binaries for dependencies
