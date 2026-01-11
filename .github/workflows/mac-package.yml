@@ -36,11 +36,13 @@ jobs:
             DENOURL="https://github.com/denoland/deno/releases/latest/download/deno-aarch64-apple-darwin.zip"
             FFMPEGURL="https://ffmpeg.martin-riedl.de/download/macos/arm64/1756401489_8.0/ffmpeg.zip"
             FFPROBEURL="https://ffmpeg.martin-riedl.de/download/macos/arm64/1756401489_8.0/ffprobe.zip"
+            HOMEBREWDIRECTORY="/usr/local"
           else
             ARIA2CURL="https://github.com/giantpinkrobots/aria2c-macos-standalone-binary/releases/download/1.37.0/aria2c-macos-x86_64.tar.gz"
             DENOURL="https://github.com/denoland/deno/releases/latest/download/deno-x86_64-apple-darwin.zip"
             FFMPEGURL="https://ffmpeg.martin-riedl.de/download/macos/amd64/1756407576_8.0/ffmpeg.zip"
             FFPROBEURL="https://ffmpeg.martin-riedl.de/download/macos/amd64/1756407576_8.0/ffprobe.zip"
+            HOMEBREWDIRECTORY="/opt/homebrew"
           fi
 
           # Aria2c
@@ -134,8 +136,8 @@ jobs:
           cp -r "$MAC_DIR/../src/dist/Varia/"* "$MAC_DIR/Varia.app/Contents/Resources/"
           
           # Fix libgmp issue with aria2c
-          cp -r "/opt/homebrew/opt/gmp/lib/libgmp.10.dylib" "$MAC_DIR/Varia.app/Contents/Resources/"
-          install_name_tool -change /opt/homebrew/opt/gmp/lib/libgmp.10.dylib @loader_path/libgmp.10.dylib "$MAC_DIR/Varia.app/Contents/Resources/aria2c"
+          cp -r "$HOMEBREWDIRECTORY/opt/gmp/lib/libgmp.10.dylib" "$MAC_DIR/Varia.app/Contents/Resources/"
+          install_name_tool -change $HOMEBREWDIRECTORY/opt/gmp/lib/libgmp.10.dylib @loader_path/libgmp.10.dylib "$MAC_DIR/Varia.app/Contents/Resources/aria2c"
           install_name_tool -id @loader_path/libgmp.10.dylib "$MAC_DIR/Varia.app/Contents/Resources/libgmp.10.dylib"
 
           sign_all_binaries "$MAC_DIR/Varia.app/"
