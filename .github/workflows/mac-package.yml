@@ -132,6 +132,11 @@ jobs:
           pyinstaller --noconfirm varia.spec
 
           cp -r "$MAC_DIR/../src/dist/Varia/"* "$MAC_DIR/Varia.app/Contents/Resources/"
+          
+          # Fix libgmp issue with aria2c
+          cp -r "/usr/local/opt/gmp/lib/libgmp.10.dylib" "$MAC_DIR/Varia.app/Contents/Resources/"
+          install_name_tool -change /usr/local/opt/gmp/lib/libgmp.10.dylib @loader_path/libgmp.10.dylib "$MAC_DIR/Varia.app/Contents/Resources/aria2c"
+          install_name_tool -id @loader_path/libgmp.10.dylib "$MAC_DIR/Varia.app/Contents/Resources/libgmp.10.dylib"
 
           sign_all_binaries "$MAC_DIR/Varia.app/"
 
