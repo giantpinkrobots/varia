@@ -116,7 +116,7 @@ Control a remote aria2 instance running on any server
 </supports>
 
 <releases>
-<release version="v2026.1.5" date="2026-01-05">
+<release version="v2026.1.5-2" date="2026-01-14">
 <description translatable="yes">
 <ul><li>Option to automatically extract downloaded archives</li>
 <li>Inclusion of the Deno JavaScript engine as required by yt-dlp</li>

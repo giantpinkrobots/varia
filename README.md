@@ -112,6 +112,7 @@ To build Varia outside Flatpak, you need these dependencies:
 - (Python) appdirs
 - (Python) requests
 - (Python) emoji-country-flag
+- (Python) dbus-next
 
 Then, you can use meson commands to build Varia:
 ```
