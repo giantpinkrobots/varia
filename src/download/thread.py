@@ -163,7 +163,10 @@ class DownloadThread(threading.Thread):
                     self.pause()
                 
                 else:
-                    self.download.resume()
+                    try:
+                        self.download.resume()
+                    except:
+                        pass
                     self.download_details['status'] = _("Downloading")
                     self.currently_downloading = True
 
@@ -457,18 +460,19 @@ class DownloadThread(threading.Thread):
             
             elif self.mode == "video":
                 self.video_pause_event.clear()
+            
+            if self.app.terminating == False:
+                if called_by_scheduler and self.app.scheduler_currently_downloading == False and self.paused == False:
+                    self.download_details['status'] = _("Scheduled")
 
-            if called_by_scheduler and self.app.scheduler_currently_downloading == False and self.paused == False:
-                self.download_details['status'] = _("Scheduled")
+                else:
+                    self.download_details['status'] = _("Paused")
+                    self.actionrow.pause_button.get_child().set_from_icon_name("media-playback-start-symbolic")
+                    self.actionrow.pause_button.set_tooltip_text(_("Resume"))
+                    self.paused = True
 
-            else:
-                self.download_details['status'] = _("Paused")
-                self.actionrow.pause_button.get_child().set_from_icon_name("media-playback-start-symbolic")
-                self.actionrow.pause_button.set_tooltip_text(_("Resume"))
-                self.paused = True
-
-            self.currently_downloading = False
-            self.paused_because_exceeds_limit = False
+                self.currently_downloading = False
+                self.paused_because_exceeds_limit = False
         
         if self.mode == "video":
             self.set_actionrow_tooltip_text()
@@ -601,7 +605,7 @@ class DownloadThread(threading.Thread):
         return
 
     def save_state(self):
-        if self.download:
+        if self.download and self.is_complete == False:
             state = {
                 'url': self.url,
                 'filename': self.downloadname,

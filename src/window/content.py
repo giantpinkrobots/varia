@@ -45,7 +45,7 @@ def window_create_content(self):
     
     if (os.name == 'nt'): # Don't use Adw.HeaderBar on Windows
         header_box.prepend(self.header_show_sidebar_button_revealer)
-        self.content_box.append(header_box)
+        self.content_box.prepend(header_box)
         self.overlay_split_view.set_content(self.content_box)
 
     elif (os.uname().sysname == 'Darwin'):

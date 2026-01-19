@@ -227,7 +227,6 @@ class MainWindow(application_window):
 
                     download_dicts.append(state)
 
-                print(current_filename)
                 os.remove(os.path.join(self.appconf["download_directory"], current_filename))
 
         download_dicts = sorted(download_dicts, key=itemgetter("index"))
@@ -244,8 +243,6 @@ class MainWindow(application_window):
 
         self.tray_notification = False
 
-        self.present()
-
         # Run on_window_resize when the window is presented:
         def on_window_map(self):
             GLib.idle_add(self.on_window_resize, None, None)
@@ -255,12 +252,13 @@ class MainWindow(application_window):
         # Start in background mode if it was enabled in preferences:
         if (self.appconf["default_mode"] == "background"):
             self.suppress_startup_notification = True
-            self.exitProgram(app=self, variaapp=variaapp, background=True)
+            GLib.timeout_add(350, self.exitProgram, self, variaapp, True)
         else:
+            self.present()
             self.suppress_startup_notification = False
 
-        if self.appconf["tray_always_visible"] == "true":
-            self.start_tray_process(variaapp)
+            if self.appconf["tray_always_visible"] == "true":
+                self.start_tray_process(variaapp)
 
     def filter_download_list(self, button, filter_mode):
         if (button != "no"):
@@ -739,6 +737,13 @@ if (__name__ == '__main__'):
     if os.name == 'nt':
         import ctypes
         import locale
+        from collections import namedtuple
+
+        def uname_replacement():
+            uname_named_tuple = namedtuple("Uname", ["sysname"])
+            return uname_named_tuple(sysname="Windows")
+
+        os.uname = uname_replacement
 
         os.chdir(os.path.dirname(sys.executable))
         windll = ctypes.windll.kernel32
