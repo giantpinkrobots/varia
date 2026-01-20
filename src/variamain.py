@@ -32,6 +32,8 @@ from tray.start_tray_process import start_tray_process
 
 from initiate import initiate
 
+from aria2_instance import Aria2Instance
+
 global start_varia_server
 global send_to_varia_instance
 from server import start_varia_server, send_to_varia_instance
@@ -76,13 +78,12 @@ class MainWindow(application_window):
 
     global tray_process_global
 
-    def __init__(self, variaapp, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, *args, **kwargs):
+    def __init__(self, variaapp, appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.scheduler_currently_downloading = False
         self.appdir = appdir
         self.appconf = appconf
-        self.aria2c_subprocess = aria2c_subprocess
         self.bindir = aria2cexec[:-6]
         self.aria2cexec = aria2cexec
         self.remote_successful = False
@@ -95,6 +96,12 @@ class MainWindow(application_window):
         self.issnap = issnap
         self.sevenzexec = sevenzexec
         self.denoexec = denoexec
+
+        # Start aria2c process:
+        self.aria2_instance = Aria2Instance(appconf, aria2cexec)
+
+        if self.appconf['remote'] == '0' and self.aria2_instance.send_rpc_request("aria2.getVersion") == -1: # If we're not in remote mode and aria2c is not running
+            self.aria2_instance.start_subprocess()
 
         # For 7-zip integration:
         self.supported_archive_formats = ["7z", "xz", "bzip2", "gzip", "tar", "zip", "wim", "apfs", "ar", "arj", "cab", "chm", "cpio", "cramfs", "dmg", "ext", "fat", "gpt", "hfs", "ihex", "iso", "lzh", "lzma", "mbr", "msi", "nsis", "ntfs", "qcow2", "rar", "rpm", "squashfs", "udf", "uefi", "vdi", "vhd", "vhdx", "vmdk", "xar", "z"]
@@ -364,6 +371,7 @@ class MainWindow(application_window):
         return True
 
     def exitProgram(self, app, variaapp, background):
+        import time
         if background:
             self.set_visible(False)
             self.start_tray_process(variaapp)
@@ -385,92 +393,71 @@ class MainWindow(application_window):
             self.terminating = True
             self.all_paused = False
 
-            if (self.remote_successful == False):
+            if (self.is_visible() == False):
+                self.set_visible(True)
+
+            # Stop all yt_dlp threads
+            for download_thread in self.downloads:
+                if hasattr(download_thread, "youtubedl_thread"):
+                    download_thread.video_pause_event.set() # The thread must be resumed so it can detect the SystemExit call
+                    ctypes.pythonapi.PyThreadState_SetAsyncExc(ctypes.c_long(download_thread.youtubedl_thread.ident), ctypes.py_object(SystemExit))
+
+            # Kill the tray icon process
+            if self.tray_process:
+                self.tray_process.kill()
+                self.tray_connection_thread_stop = True
+
+            if self.remote_successful == False:
                 self.pause_all(False)
-                self.api.client.shutdown()
-
-                if (self.is_visible() == False):
-                    self.set_visible(True)
-
-                # Stop all yt_dlp threads
-                for download_thread in self.downloads:
-                    if hasattr(download_thread, "youtubedl_thread"):
-                        download_thread.video_pause_event.set() # The thread must be resumed so it can detect the SystemExit call
-                        ctypes.pythonapi.PyThreadState_SetAsyncExc(ctypes.c_long(download_thread.youtubedl_thread.ident), ctypes.py_object(SystemExit))
-
-                # Kill the tray icon process
-                if self.tray_process:
-                    self.tray_process.kill()
-                    self.tray_connection_thread_stop = True
-
-                exiting_dialog = Adw.AlertDialog()
-                exiting_dialog_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=25)
-                exiting_dialog.set_child(exiting_dialog_box)
-                exiting_dialog_box.set_margin_top(30)
-                exiting_dialog_box.set_margin_bottom(30)
-                exiting_dialog_box.set_margin_start(60)
-                exiting_dialog_box.set_margin_end(60)
-                exiting_dialog_spinner = Adw.Spinner()
-                exiting_dialog_spinner.set_size_request(30, 30)
-                exiting_dialog_box.append(exiting_dialog_spinner)
-                exiting_dialog_label = Gtk.Label(label=_("Exiting Varia..."))
-                exiting_dialog_label.add_css_class("title-1")
-                exiting_dialog_box.append(exiting_dialog_label)
-                exiting_dialog.set_can_close(False)
-                GLib.idle_add(exiting_dialog.present, self)
-
-                GLib.timeout_add(3000, self.aria2c_exiting_check, app, 0, variaapp, exiting_dialog)
-
+                self.aria2_instance.send_rpc_request("aria2.shutdown")
+                exiting_dialog_timeout_ms = 3000 # If we're quitting aria2
+            
             else:
-                self.save_window_size()
-                self.destroy()
-                variaapp.quit()
+                exiting_dialog_timeout_ms = 0
+            
+            exiting_dialog = Adw.AlertDialog()
+            exiting_dialog_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=25)
+            exiting_dialog.set_child(exiting_dialog_box)
+            exiting_dialog_box.set_margin_top(30)
+            exiting_dialog_box.set_margin_bottom(30)
+            exiting_dialog_box.set_margin_start(60)
+            exiting_dialog_box.set_margin_end(60)
+            exiting_dialog_spinner = Adw.Spinner()
+            exiting_dialog_spinner.set_size_request(30, 30)
+            exiting_dialog_box.append(exiting_dialog_spinner)
+            exiting_dialog_label = Gtk.Label(label=_("Exiting Varia..."))
+            exiting_dialog_label.add_css_class("title-1")
+            exiting_dialog_box.append(exiting_dialog_label)
+            exiting_dialog.set_can_close(False)
+            GLib.idle_add(exiting_dialog.present, self)
 
-                if self.update_executable != None:
-                    if os.name == 'nt':
-                        subprocess.Popen([self.update_executable, "/SILENT", "SUPPRESSMSGBOXES", "SP-", "/NOICONS", "/MERGETASKS=\"!desktopicon\"", "&&", os.path.join(os.getcwd(), "variamain.exe")], shell=True)
-                    else: # Mac
-                        subprocess.call(('open', self.update_executable))
+            GLib.timeout_add(exiting_dialog_timeout_ms, self.quit_after_waiting, exiting_dialog)
+    
+    def quit_after_waiting(self, exiting_dialog):
+        exiting_dialog.force_close()
+        self.save_window_size()
+        self.destroy()
 
-    def aria2c_exiting_check(self, app, counter, variaapp, exiting_dialog):
-        print(counter)
-        if ((counter <= 20) and (self.aria2c_subprocess.poll() is None)):
-            counter += 1
-            GLib.timeout_add(250, self.aria2c_exiting_check, app, counter, variaapp, exiting_dialog)
-        else:
-            self.aria2c_subprocess.terminate()
-            self.aria2c_subprocess.wait()
-            if (exiting_dialog is not None):
-                exiting_dialog.force_close()
-            self.save_window_size()
-            self.destroy()
+        for thread in threading.enumerate():
+            print(thread.name)
 
-            try:
-                variaapp.quit()
+        if self.update_executable != None:
+            if os.name == 'nt':
+                subprocess.Popen([self.update_executable, "/SILENT", "SUPPRESSMSGBOXES", "SP-", "/NOICONS", "/MERGETASKS=\"!desktopicon\"", "&&", os.path.join(os.getcwd(), "variamain.exe")], shell=True)
+            else: # Mac
+                subprocess.call(('open', self.update_executable))
 
-            except:
-                pass # No need to
-
-            for thread in threading.enumerate():
-                print(thread.name)
-
-            if self.update_executable != None:
-                if os.name == 'nt':
-                    subprocess.Popen([self.update_executable, "/SILENT", "SUPPRESSMSGBOXES", "SP-", "/NOICONS", "/MERGETASKS=\"!desktopicon\"", "&&", os.path.join(os.getcwd(), "variamain.exe")], shell=True)
-                else: # Mac
-                    subprocess.call(('open', self.update_executable))
-
-            return
+        return
 
     def quit_action_received(self, variaapp):
         if (self.terminating == False):
             self.exitProgram(variaapp, variaapp, False)
 
 class MyApp(Adw.Application):
-    def __init__(self, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments, **kwargs):
+    def __init__(self, appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments, **kwargs):
         super().__init__(**kwargs)
         GLib.set_application_name("Varia")
-        self.connect('activate', self.on_activate, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments)
+        self.connect('activate', self.on_activate, appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments)
         quit_action = Gio.SimpleAction.new("quit", None)
         quit_action.connect("activate", self.quit_action)
         self.add_action(quit_action)
@@ -485,9 +472,9 @@ class MyApp(Adw.Application):
         
         self.add_downloads(arguments)
 
-    def on_activate(self, app, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments):
+    def on_activate(self, app, appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments):
         if not hasattr(self, 'win'):
-            self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf, first_run=first_run, aria2c_subprocess=aria2c_subprocess, aria2cexec=aria2cexec, ffmpegexec=ffmpegexec, sevenzexec=sevenzexec, denoexec=denoexec, issnap=issnap)
+            self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf, first_run=first_run, aria2cexec=aria2cexec, ffmpegexec=ffmpegexec, sevenzexec=sevenzexec, denoexec=denoexec, issnap=issnap)
 
         try:
             if ((self.win.terminating == False) and ((appconf["default_mode"] == "visible") or (self.initiated == True))):
@@ -652,55 +639,13 @@ def main(version, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, argument
         with open(os.path.join(appdir, 'varia.conf'), 'w') as f:
             json.dump(appconf, f)
 
-    global aria2c_subprocess
-    aria2c_subprocess = None
-
-    aria2_config = [
-        "--enable-rpc",
-        "--rpc-listen-port=6801",
-        "--follow-torrent=false",
-        "--allow-overwrite=false",
-        "--auto-file-renaming=true",
-        "--min-split-size=1M",
-        "--http-accept-gzip=true",
-        "--disk-cache=128M",
-        "--bt-enable-lpd=true",
-        "--bt-hash-check-seed=true",
-        "--enable-peer-exchange=true",
-        "--enable-dht=true",
-        "--enable-dht6=true",
-        "--peer-agent=Transmission/3.00", # Some people block aria2's native user agent id because it
-                                          # doesn't do any seeding by default. Thus here we change it
-        "--peer-id-prefix=-TR3000-",      # to mimic Transmission instead.
-        "--split=32",
-        "--max-connection-per-server=16",
-        "--bt-max-peers=250",
-        "--bt-request-peer-speed-limit=5M",
-        "--bt-tracker-connect-timeout=10",
-        "--bt-tracker-interval=30",
-        "--bt-save-metadata=true"]
-
-    if (appconf['remote'] == '0'):
-        if (os.name == 'nt'):
-            aria2c_subprocess = subprocess.Popen([aria2cexec] + aria2_config, shell=True, creationflags=subprocess.CREATE_NEW_PROCESS_GROUP)
-        else:
-            if hasattr(os, 'posix_fallocate'):
-                aria2_config.append("--file-allocation=falloc") # Set fallocate on Linux for better performance
-                print("fallocate enabled.")
-                aria2c_subprocess = subprocess.Popen([aria2cexec] + aria2_config, preexec_fn=os.setsid)
-
-            else:
-                aria2c_subprocess = subprocess.Popen([aria2cexec] + aria2_config, preexec_fn=os.setsid)
-
     atexit.register(stop_subprocesses_and_exit)
-
     signal.signal(signal.SIGINT, stop_subprocesses_and_exit)
-    #signal.signal(signal.SIGTERM, stop_subprocesses_and_exit) # causes issues with other subprocesses
     sys.excepthook = global_exception_handler
 
     arguments = json.loads(arguments)
     global myapp
-    myapp = MyApp(appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments, application_id="io.github.giantpinkrobots.varia", flags=Gio.ApplicationFlags.HANDLES_OPEN)
+    myapp = MyApp(appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments, application_id="io.github.giantpinkrobots.varia", flags=Gio.ApplicationFlags.HANDLES_OPEN)
 
     try:
         myapp.run()
@@ -718,10 +663,6 @@ def stop_subprocesses_and_exit(*args):
     if "tray_process_global" in locals() and tray_process_global.poll() is None:
         tray_process_global.kill()
         myapp.win.tray_connection_thread_stop = True
-    
-    if "aria2c_subprocess" in locals() and aria2c_subprocess.poll() is None:
-        myapp.win.api.client.shutdown()
-        aria2c_subprocess.wait()
     
     try:
         myapp.win.destroy()

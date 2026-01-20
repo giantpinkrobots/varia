@@ -58,6 +58,7 @@ def initiate(self, variaapp, variaVersion, first_run, issnap):
         )
 
         self.aria2cLocation = "http://localhost:6801"
+        self.aria2_instance.set_address_and_port("http://localhost", "6801")
 
     self.set_title("Varia")
     self.set_default_size(self.appconf["window_size"][0], self.appconf["window_size"][1])

@@ -49,6 +49,7 @@ varia_sources = [
   'stringstorage.py',
   'autostart_util.py',
   'server.py',
+  'aria2_instance.py',
 ]
 
 varia_sources_window = [
