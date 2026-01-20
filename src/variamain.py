@@ -572,15 +572,19 @@ def main(version, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, argument
             os.makedirs(appdir)
 
     def default_download_directory():
-        if GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOWNLOAD) and os.path.exists(GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOWNLOAD)):
-            return GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOWNLOAD)
-        elif os.path.exists(os.path.join(os.path.expanduser('~'), 'Downloads')):
-            return os.path.join(os.path.expanduser('~'), 'Downloads')
-        elif GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_HOME) and os.path.exists(GLib.UserDirectory.DIRECTORY_HOME):
-            return GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_HOME)
-        else:
+        try:
+            if GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOWNLOAD) and os.path.exists(GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOWNLOAD)):
+                return GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOWNLOAD)
+            elif os.path.exists(os.path.join(os.path.expanduser('~'), 'Downloads')):
+                return os.path.join(os.path.expanduser('~'), 'Downloads')
+            elif GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_HOME) and os.path.exists(GLib.UserDirectory.DIRECTORY_HOME):
+                return GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_HOME)
+        except:
             print("Can't find GLib user special dirs")
-            return os.path.expanduser("~")
+            if os.path.exists(os.path.join(os.path.expanduser('~'), 'Downloads')):
+                return os.path.join(os.path.expanduser('~'), 'Downloads')
+            else:
+                return os.path.expanduser("~")
     
     download_directory = default_download_directory()
 
