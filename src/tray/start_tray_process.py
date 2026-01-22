@@ -2,6 +2,8 @@ import os
 import sys
 import subprocess
 import threading
+import ctypes
+import signal
 from multiprocessing.connection import Listener
 from stringstorage import gettext as _
 
@@ -16,7 +18,7 @@ def start_tray_process(self, variaapp):
                 tray_subprocess_input = [os.path.join(os.getcwd(), 'tray', 'varia-tray'), _("Show"), _("Quit")]
 
             else: # Running standalone
-                tray_subprocess_input = [sys.executable, os.path.join(os.path.dirname(__file__), 'tray_windows.py'), _("Show"), _("Quit")]
+                tray_subprocess_input = [sys.executable, os.path.join(os.path.dirname(__file__), 'tray_win_mac.py'), _("Show"), _("Quit")]
 
         else:
             tray_subprocess_input = [sys.executable, os.path.join(os.path.dirname(__file__), 'tray_linux_appindicator.py'), _("Show"), _("Quit")]
@@ -55,8 +57,43 @@ def start_tray_process(self, variaapp):
             tray_listener.close()
 
         self.tray_connection_thread_stop = False
-        self.tray_process = subprocess.Popen(tray_subprocess_input)
+        self.tray_process = None
 
+        if os.name == 'nt': # Windows
+            import win32job
+            import win32process
+            import win32api
+
+            CREATE_NEW_PROCESS_GROUP = 0x00000200
+            self.tray_process = subprocess.Popen(tray_subprocess_input, creationflags=CREATE_NEW_PROCESS_GROUP)
+            self.tray_job = win32job.CreateJobObject(None, "")
+
+            info = win32job.QueryInformationJobObject(self.tray_job, win32job.JobObjectExtendedLimitInformation)
+            info["BasicLimitInformation"]["LimitFlags"] |= (win32job.JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE)
+
+            win32job.SetInformationJobObject(self.tray_job, win32job.JobObjectExtendedLimitInformation, info)
+            win32job.AssignProcessToJobObject(self.tray_job, self.tray_process._handle)
+
+        elif os.uname().sysname != 'Darwin': # Linux
+            libc = ctypes.CDLL("libc.so.6", use_errno=True)
+
+            PR_SET_PDEATHSIG = 1
+            SIGTERM = signal.SIGTERM
+
+            def setup():
+                res = libc.prctl(PR_SET_PDEATHSIG, SIGTERM)
+                if res != 0:
+                    err = ctypes.get_errno()
+                    raise OSError(err, "prctl(PR_SET_PDEATHSIG) failed")
+
+        else:
+            def setup(): # Mac
+                pass
+
+        if self.tray_process == None:
+            self.tray_process = subprocess.Popen(tray_subprocess_input, preexec_fn=setup, start_new_session=True)
+
+        global tray_process_global
         tray_process_global = self.tray_process
 
         tray_process_connection_thread = threading.Thread(target=tray_process_connection, daemon=True)

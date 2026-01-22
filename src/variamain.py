@@ -1,4 +1,4 @@
-variaVersion = "v2026.1.5-2" # Also update actions-inno-install-script.iss
+variaVersion = "v2026.1.5-3" # Also update actions-inno-install-script.iss
 
 import ctypes
 import gi
@@ -410,7 +410,7 @@ class MainWindow(application_window):
             if self.remote_successful == False:
                 self.pause_all(False)
                 self.aria2_instance.send_rpc_request("aria2.shutdown")
-                exiting_dialog_timeout_ms = 3000 # If we're quitting aria2
+                exiting_dialog_timeout_ms = 3500 # If we're quitting aria2
             
             else:
                 exiting_dialog_timeout_ms = 0

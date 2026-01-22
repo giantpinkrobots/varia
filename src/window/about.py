@@ -28,15 +28,27 @@ def show_about(app, variaapp, self, variaVersion):
     dialog.set_artists(["Jakub Steiner"])
     dialog.set_release_notes_version(variaVersion)
     dialog.set_release_notes('''
+        <p>v2026.1.5</p>
         <ul><li>Option to automatically extract downloaded archives</li>
-            <li>Inclusion of the Deno JavaScript engine as required by yt-dlp</li>
-            <li>Newly added tooltip text for various options and better keyboard navigation to improve accessibility</li>
-            <li>The scheduler is now much more reliable</li>
-            <li>Paused downloads show their download percentages when reloaded upon app startup before resume</li>
-            <li>Download details window layout no longer breaks with very long URLs</li>
-            <li>New languages: Hebrew and Cornish</li>
-            <li>(Snap version) The tray icon on Snap is fully functional</li>
-            <li>(Mac version) Initial experimental release on macOS</li></ul>''')
+        <li>Inclusion of the Deno JavaScript engine as required by yt-dlp</li>
+        <li>Newly added tooltip text for various options and better keyboard navigation to improve accessibility</li>
+        <li>The scheduler is now much more reliable</li>
+        <li>Paused downloads show their download percentages when reloaded upon app startup before resume</li>
+        <li>Download details window layout no longer breaks with very long URLs</li>
+        <li>New languages: Hebrew and Cornish</li>
+        <li>(Snap version) The tray icon on Snap is fully functional</li>
+        <li>(Mac version) Initial experimental release on macOS</li></ul>
+        <p>***</p>
+        <p>v2026.1.5-1</p>
+        <ul><li>Fix for macOS Tahoe where a library couldn't be found</li></ul>
+        <p>***</p>
+        <p>v2026.1.5-2</p>
+        <ul><li>Fix for Linux where toggling Open on Startup causes a crash</li></ul>
+        <p>***</p>
+        <p>v2026.1.5-3</p>
+        <ul><li>Fix for Windows where 7z wouldn't be included</li>
+        <li>Fix where Varia wouldn't automatically start in background mode</li>
+        <li>Better handling of external processes like aria2c and tray to minimize the possibility of having a zombie process left running if Varia crashes</li></ul>''')
     
     if (os.uname().sysname == 'Linux'):
         dialog.add_other_app("io.github.giantpinkrobots.flatsweep",

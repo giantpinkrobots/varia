@@ -1,6 +1,6 @@
 name: varia
 base: core24
-version: 'v2026.1.5-2'
+version: 'v2026.1.5-3'
 summary: Download files, videos and torrents
 description: |
   Varia is a file, video and torrent downloader based on aria2 and yt-dlp

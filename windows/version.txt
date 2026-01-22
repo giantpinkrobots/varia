@@ -15,11 +15,11 @@ VSVersionInfo(
         '040904B0',
         [StringStruct('CompanyName', 'Giant Pink Robots!'),
          StringStruct('FileDescription', 'Varia'),
-         StringStruct('FileVersion', 'v2026.1.5'),
+         StringStruct('FileVersion', 'v2026.1.5-3'),
          StringStruct('InternalName', 'Varia'),
          StringStruct('OriginalFilename', 'variamain.exe'),
          StringStruct('ProductName', 'Varia'),
-         StringStruct('ProductVersion', 'v2026.1.5')])
+         StringStruct('ProductVersion', 'v2026.1.5-3')])
     ]),
     VarFileInfo([VarStruct('Translation', [1033, 1200])])
   ]
