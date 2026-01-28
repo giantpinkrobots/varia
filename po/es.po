@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-07-11 06:06+0000\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/varia/varia/es/"
-">\n"
+"PO-Revision-Date: 2026-01-13 15:46+0000\n"
+"Last-Translator: Diego <difer.bobsled932@passinbox.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/varia/varia/es/>"
+"\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.15.2-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -513,19 +513,21 @@ msgid "Background Mode on Close"
 msgstr "Modo en segundo plano al cerrar"
 
 msgid "Upon closing, Varia will close to tray insted of exiting."
-msgstr ""
+msgstr "Al salir, Varia se minimizará en lugar de cerrarse."
 
 # Tray icon always visible option
 msgid "Tray Icon Always Visible"
-msgstr ""
+msgstr "El icono de la bandeja está siempre visible"
 
 msgid ""
 "The tray icon will be visible even when Varia is not in background mode."
 msgstr ""
+"El ícono de la bandeja estará visible incluso cuando Varia no esté en modo "
+"en segundo plano."
 
 # Open on startup option
 msgid "Open on Startup"
-msgstr ""
+msgstr "Abrir al iniciar"
 
 msgid "Varia will open automatically when the system starts."
 msgstr "Varia se abrirá automáticamente al arrancar el sistema."
@@ -555,18 +557,17 @@ msgid "Resume"
 msgstr "Reanudar todo"
 
 msgid "Stop"
-msgstr ""
+msgstr "Detener"
 
-#, fuzzy
-#| msgid "File"
 msgid "Open File"
-msgstr "Archivo"
+msgstr "Abrir archivo"
 
 msgid "Retry"
-msgstr ""
+msgstr "Reintentar"
 
+#, fuzzy
 msgid "Require Encryption"
-msgstr ""
+msgstr "Requiere cifrado"
 
 msgid "Get Country Info of Peers"
 msgstr ""
@@ -575,22 +576,21 @@ msgid ""
 "This will use an external service to get the IP geolocation of your torrent "
 "peers in order to show country flags in the details window."
 msgstr ""
+"Obtener información sobre el país de los peers: esto utilizará un servicio "
+"externo para obtener la geolocalización IP de tus peers de torrent con el "
+"fin de mostrar las banderas de los países en la ventana de detalles."
 
-#, fuzzy
-#| msgid "Download failed."
 msgid "Download Details"
-msgstr "Descarga fallida."
+msgstr "Detalles de la descarga"
 
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 msgid "Status"
-msgstr ""
+msgstr "Estado"
 
-#, fuzzy
-#| msgid "File"
 msgid "File Name"
-msgstr "Archivo"
+msgstr "Nombre del archivo"
 
 #, fuzzy
 #| msgid "Download"
@@ -602,42 +602,35 @@ msgstr "Descargar"
 msgid "Paused"
 msgstr "Pausar todo"
 
-#, fuzzy
-#| msgid "Scheduler"
 msgid "Scheduled"
-msgstr "Planificador"
+msgstr "Programado"
 
 msgid "Extracting"
-msgstr ""
+msgstr "Extraer"
 
 msgid "Percentage Downloaded"
-msgstr ""
+msgstr "Porcentaje descargado"
 
-#, fuzzy
-#| msgid "remaining"
 msgid "Remaining"
-msgstr "restante"
+msgstr "Restante"
 
-#, fuzzy
-#| msgid "Download Segments"
 msgid "Download Speed"
-msgstr "Descarga por segmentos"
+msgstr "Velocidad de descarga"
 
 #, fuzzy
 #| msgid "Seeding"
 msgid "Seeding Speed"
 msgstr "Compartiendo"
 
-#, fuzzy
-#| msgid "Download Segments"
 msgid "Amount Downloaded"
-msgstr "Descarga por segmentos"
+msgstr "Cantidad descargada"
 
 msgid "Amount Uploaded"
-msgstr ""
+msgstr "Total subido"
 
+#, fuzzy
 msgid "Ratio"
-msgstr ""
+msgstr "Ratio"
 
 #, fuzzy
 #| msgid "Torrent"
@@ -649,16 +642,21 @@ msgid ""
 "You are using Varia as a Snap package. There are some functions that you "
 "can't use without manually giving Varia some extra permissions. These are:"
 msgstr ""
+"Estás utilizando Varia como un paquete Snap. Hay algunas funciones que no "
+"puedes utilizar sin otorgar manualmente algunos permisos adicionales a "
+"Varia. Estas son:"
 
 # Snap packaging permissions dialog part 2/2
 msgid ""
 "To enable these functions you must run these commands in a terminal to give "
 "the required permissions and then restart Varia:"
 msgstr ""
+"Para habilitar estas funciones, debe ejecutar estos comandos en una terminal "
+"para otorgar los permisos necesarios y, a continuación, reiniciar Varia:"
 
 # Tooltip for when focused on filter options in the sidebar. Do not translate {filter option}, it will be replaced by the filter type. ("All", "In Progress", etc)
 msgid "Filter downloads by {filter option}"
-msgstr ""
+msgstr "Filtrar descargas por {opción de filtro}"
 
 #, fuzzy
 #| msgid "Download"
@@ -668,16 +666,14 @@ msgstr "Descargar"
 #, fuzzy
 #| msgid "{number}%"
 msgid "Timespan {number}"
-msgstr "{number} %"
+msgstr "Intervalo de tiempo {number} %"
 
 # Tooltip for when focused on timespan day of the week dropdown
 msgid "Day of the week for timespan {number}"
 msgstr ""
 
-#, fuzzy
-#| msgid "Remote Timestamp"
 msgid "Remove timespan {number}"
-msgstr "Marca de tiempo remota"
+msgstr "Eliminar intervalo de tiempo {number}"
 
 # Tooltip for when focused on timespan start hour
 msgid "Start hour for timespan {number}"
@@ -695,13 +691,11 @@ msgstr ""
 msgid "End minute for timespan {number}"
 msgstr ""
 
-#, fuzzy
-#| msgid "Automatically Check for Updates"
 msgid "Automatically Extract Archives"
-msgstr "Comprobación automática de actualizaciones"
+msgstr "Extraer archivos automáticamente"
 
 msgid "Delete Archives After Extraction"
-msgstr ""
+msgstr "Eliminar archivos tras la extracción"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
