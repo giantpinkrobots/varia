@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2026-01-05 21:17+0000\n"
+"PO-Revision-Date: 2026-01-28 12:33+0000\n"
 "Last-Translator: Flynn <cirilla@tuta.io>\n"
 "Language-Team: Cornish <https://hosted.weblate.org/projects/varia/varia/kw/>"
 "\n"
@@ -23,7 +23,7 @@ msgstr ""
 "1000000 == 100000) ? 2 : ((n % 100 == 3 || n % 100 == 23 || n % 100 == 43 || "
 "n % 100 == 63 || n % 100 == 83) ? 3 : ((n != 1 && (n % 100 == 1 || n % 100 "
 "== 21 || n % 100 == 41 || n % 100 == 61 || n % 100 == 81)) ? 4 : 5))));\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -156,17 +156,17 @@ msgstr "Daskemeres Oll"
 
 #: src/variamain.py:443
 msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
-msgstr "Dyghtyer iskarg selys war aria2 devnydhya GTK ha Libadwaita."
+msgstr "Dyghtyer iskarg selys war aria2 ow devnydhya GTK ha Libadwaita."
 
 #: src/variamain.py:777
 msgid "This application relies on the following pieces of software:"
-msgstr "An app ma fydhya war an medhelweyth a sew:"
+msgstr "An app ma fydhya war'n medhelweyth a sew:"
 
 #: src/variamain.py:777
 msgid "The licenses of all of these pieces of software can be found in the dependencies_information directory in this application's app directory."
 msgstr ""
-"An kummyasow a oll an medhelweyth ma yw yn an restrenva "
-"'dependencies_information' yn an restrenva an app ma."
+"An kummyasow a oll an medhelweyth ma yw y'n restrenva "
+"'dependencies_information' y'n restrenva an app ma."
 
 # This is for the credits section. Replace this string with your own information so you'll be credited for your work.
 #: src/variamain.py:449
@@ -221,13 +221,13 @@ msgid "Remote Download Location"
 msgstr "Tyller Iskarg Pell"
 
 msgid "Exiting Varia..."
-msgstr "Kwytya Varia..."
+msgstr "Ow Kwytya Varia..."
 
 msgid "Background Mode"
 msgstr "Fordh yn Kilva"
 
 msgid "Continuing the downloads in the background."
-msgstr "Pesya an iskargow yn an kilva."
+msgstr "Ow pesya an iskargow yn an kilva."
 
 msgid "Browser Extension"
 msgstr "Ystynnans Peurell"
@@ -290,17 +290,17 @@ msgid "Enabled"
 msgstr "Gallosegys"
 
 msgid "Start downloading in these times"
-msgstr "Dalleth iskarga yn an termynyow ma"
+msgstr "Dalleth owth iskarga yn an termynyow ma"
 
 msgid "Stop downloading in these times"
-msgstr "Astel iskarga yn an termynyow ma"
+msgstr "Astel owth iskarga yn an termynyow ma"
 
 msgid "Add Timespan"
 msgstr "Addya Termyn"
 
 #: When a download is currently seeding:
 msgid "Seeding"
-msgstr "Hasa"
+msgstr "Ow Hasa"
 
 msgid "Failed"
 msgstr "Fyllel"
@@ -354,7 +354,7 @@ msgstr "Rewlys"
 
 #Updater
 msgid "Checking for updates..."
-msgstr "Checkya rag nowedhyansow..."
+msgstr "Ow checkya rag nowedhyansow..."
 
 msgid "A new version of Varia is available. Do you want to update?"
 msgstr "Unn versyon nowydh Varia yw kavadow. A vynn'ta nowedhi?"
@@ -366,7 +366,7 @@ msgid "Update"
 msgstr "Nowedhi"
 
 msgid "Downloading update..."
-msgstr "Iskarga nowedhyans..."
+msgstr "Owth iskarga nowedhyans..."
 
 msgid "Download failed."
 msgstr "Y fyllis iskarga."
@@ -410,19 +410,20 @@ msgid "Bitrate:"
 msgstr "Kevradh Bytt:"
 
 msgid "Checking video..."
-msgstr "Checkya gwydhyow..."
+msgstr "Ow checkya gwydhyow..."
 
 msgid "No video or audio streams found"
 msgstr "Stremys gwydhyow po son kavosys vyth"
 
 msgid "Starting download..."
-msgstr "Dalleth iskarga..."
+msgstr "Ow dalleth iskarga..."
 
 msgid "The video platform may not be supported or you may be being blocked by the platform. If you have an active VPN connection that might be the cause, or you can try importing your browser's cookies through a cookies.txt file."
 msgstr ""
 "An bynk gwydhyow na skoodhys martesen po ty bos stoppys martesen gans an "
 "bynk. A ty kavos unn junyans VPN byw, na bos martesen an kaws, po ty assaya "
-"martesen ynperthi cookies dhyworth dha peurell dres unn restren cookies.txt."
+"martesen owth ynperthi cookies dhyworth dha peurell dres unn restren "
+"cookies.txt."
 
 msgid "This will disable the video download functionality."
 msgstr "Ma yw ungallosegi an nas iskarg gwydhyow."
@@ -432,17 +433,17 @@ msgid "Part {indicator}"
 msgstr "Darn {indicator}"
 
 msgid "Simultaneous download limit exceeded, waiting."
-msgstr "Finweth iskargow kettermynyek eksedys, gortos."
+msgstr "Finweth iskargow kettermynyek eksedys, ow gortos."
 
 #: The way percentages will be shown, like 10% or %10 depending on the language (don't translate {number}, just move it if needed)
 msgid "{number}%"
 msgstr "{number}%"
 
 msgid "Allow Seeding"
-msgstr "Alowa Hasa"
+msgstr "Alowa Hasyans"
 
 msgid "Seeding Ratio Limit"
-msgstr "Finweth Komparriv Hasa"
+msgstr "Finweth Komparriv Hasyans"
 
 msgid "Torrent Settings"
 msgstr "Settyansow Keynres"
@@ -453,13 +454,14 @@ msgstr "Restrenva Iskarg A-vusur rag Keynresyow"
 #: When the user attempts to disable seeding
 msgid "As torrenting relies on people seeding data, disabling seeding is very much frowned upon and may result in you getting throttled or banned by certain clients and trackers. Clients are usually expected to seed at least as much as they download (a ratio of 1). You may want to consider limiting your seeding ratio instead."
 msgstr ""
-"Dre reson keynresya fydhya war tus hasa data, ungallosegi hasa yw talgamma "
-"euthyk tra ha ty bos martesen strothys po stoppys gans kliensow certan. "
-"Kliensow dell yw usys desevosys dha hasa kekemmys dhe'n lyha i iskarga (unn "
-"komparriv a 1). Ty prederi martesen finwetha dha komparriv hasa yn le."
+"Dre reson ow keynresya fydhya war tus ow hasa data, owth ungallosegi hasyans "
+"yw talgamma euthyk tra ha ty ow bos martesen strothys po stoppys gans "
+"kliensow certan. Kliensow dell yw usys desevosys dha hasa kekemmys dhe'n "
+"lyha i iskarga (unn komparriv a 1). Ty prederi martesen ow finwetha dha "
+"komparriv hasyans yn le."
 
 msgid "Cancel Seeding"
-msgstr "Hedhi Hasa"
+msgstr "Hedhi Hasyans"
 
 # Save button
 msgid "Save"
@@ -472,18 +474,18 @@ msgid "OK"
 msgstr "Da Lowr"
 
 msgid "Enable Torrenting"
-msgstr "Gallosegi Keynresya"
+msgstr "Gallosegi Ow Keynresya"
 
 msgid "The browser extension will not work when Remote Mode is enabled."
 msgstr "An ystynnans peurell na oberi pan Fordh Pell yw gallosegys."
 
 msgid "Disabling torrenting will prevent new torrents from being added. It will not stop current torrent instances."
 msgstr ""
-"Ungallosegi keynresya yw preventya keynresyow nowydh addys. Y'n na stoppya "
-"keynresyow a'n jydh."
+"Owth ungallosegi ow keynresya yw preventya keynresyow nowydh addys. Y'n na "
+"stoppya keynresyow a-lemmyn."
 
 msgid "Torrenting is disabled."
-msgstr "Keynresya yw ungallosegys."
+msgstr "Ow keynresya yw ungallosegys."
 
 msgid "Unknown filesize"
 msgstr "Braster restren ankoth"
@@ -501,7 +503,7 @@ msgid "Background Mode on Close"
 msgstr "Fordh Kilva wosa Kwytya"
 
 msgid "Upon closing, Varia will close to tray insted of exiting."
-msgstr "Wosa kwytya, Varia a wra degea dhe keynres yn-dar kwytya."
+msgstr "Wosa ow kwytya, Varia a wra degea dhe keynres yn-dar ow kwytya."
 
 # Tray icon always visible option
 msgid "Tray Icon Always Visible"
@@ -519,7 +521,7 @@ msgstr "Varia a wra ygeri yn awtomatek pan an system dalleth."
 
 # Start on background mode subtitle
 msgid "Varia will start directly in background mode upon opening."
-msgstr "Varia a wra dalleth distowgh yn fordh kilva wosa ygeri."
+msgstr "Varia a wra dalleth distowgh yn fordh kilva wosa owth ygeri."
 
 # Remote mode additional explanation
 msgid "Use Varia as a GUI for a remote aria2c instance."
@@ -544,7 +546,7 @@ msgid "Open File"
 msgstr "Ygeri Restren"
 
 msgid "Retry"
-msgstr "Dasassaya"
+msgstr "Assaya Arta"
 
 msgid "Require Encryption"
 msgstr "Rekwirya Argelyans"
@@ -555,7 +557,7 @@ msgstr "Kerghes Kudhlow Bro dhyworth Kowetha"
 msgid "This will use an external service to get the IP geolocation of your torrent peers in order to show country flags in the details window."
 msgstr ""
 "Ma a wra devnydhya unn gonis a-ves rag kerghes an tyller IP a dha kowetha "
-"keynres rag diskwedhes baneryow broyow yn an fenester manylyon."
+"keynres rag diskwedhes baneryow broyow y'n fenester manylyon."
 
 # Download details dialog
 msgid "Download Details"
@@ -571,7 +573,7 @@ msgid "File Name"
 msgstr "Hanow Restren"
 
 msgid "Downloading"
-msgstr "Iskarga"
+msgstr "Owth Iskarga"
 
 msgid "Paused"
 msgstr "Powesys"
@@ -580,7 +582,7 @@ msgid "Scheduled"
 msgstr "Towlenys"
 
 msgid "Extracting"
-msgstr "Estenna"
+msgstr "Owth Estenna"
 
 msgid "Percentage Downloaded"
 msgstr "Kansran Iskargys"
@@ -592,7 +594,7 @@ msgid "Download Speed"
 msgstr "Tooth Iskarg"
 
 msgid "Seeding Speed"
-msgstr "Tooth Hasa"
+msgstr "Tooth Hasyans"
 
 msgid "Amount Downloaded"
 msgstr "Myns Iskargys"
@@ -609,8 +611,8 @@ msgstr "Kowetha Keynres"
 # Snap packaging permissions dialog part 1/2
 msgid "You are using Varia as a Snap package. There are some functions that you can't use without manually giving Varia some extra permissions. These are:"
 msgstr ""
-"Ty devnydhya Varia dell unn fardel Snap. Yma nebes nasyow ty na gallos "
-"devnydhya heb ri dre dhorn Varia nebes grontys moy. Ma yw:"
+"Ty ow devnydhya Varia dell unn fardel Snap. Yma nebes nasyow ty na gallos "
+"devnydhya heb ow ri dre dhorn Varia nebes grontys moy. Ma yw:"
 
 # Snap packaging permissions dialog part 2/2
 msgid "To enable these functions you must run these commands in a terminal to give the required permissions and then restart Varia:"
@@ -632,7 +634,7 @@ msgstr "Termyn {number}"
 
 # Tooltip for when focused on timespan day of the week dropdown
 msgid "Day of the week for timespan {number}"
-msgstr "Dydh a an seythen rag termyn {number}"
+msgstr "Dydh a'n seythen rag termyn {number}"
 
 # Tooltip for when focused on delete button for timespan in scheduler
 msgid "Remove timespan {number}"
