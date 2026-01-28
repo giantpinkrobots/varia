@@ -555,7 +555,7 @@ def show_preferences(button, self, app, variaVersion):
     self.preferences_shown = True
     preferences.connect("closed", close_preferences, self)
 
-    if os.name == 'nt':
+    if self.use_ssd:
         preferences.set_content_width(self.get_default_size()[0])
         preferences.set_content_height(self.get_default_size()[1])
 

@@ -6,6 +6,7 @@ from gi.repository import Adw, GLib, Gio
 from download.actionrow import create_actionrow
 from download.thread import DownloadThread
 from download.videos import on_video_clicked
+from notification_handler import show_notification
 import string
 import random
 import textwrap
@@ -153,8 +154,7 @@ def add_download_to_ui(self, download_item_to_be_added, variaapp):
     else:
         download_item_url = download_item_to_be_added.files[0].uris[0]["uri"].split("?")[0]
 
-    notification = Gio.Notification.new(download_item_to_be_added.name)
-    variaapp.send_notification(None, notification)
+    show_notification(download_item_to_be_added.name, "", variaapp)
 
     actionrow = create_actionrow(self, download_item_url)
     download_thread = DownloadThread(self, download_item_url, actionrow, download_item_url, download_item_to_be_added, "regular", None, False, self.appconf["download_directory"], 0)
@@ -169,16 +169,12 @@ def raise_shutdown_dialog(variamain, variaapp):
         if (shutdown_id != variamain.shutdown_id):
             variamain.shutdown_id = shutdown_id
             break
-
-    notification = Gio.Notification.new(_("Warning"))
     
     if (os.uname().sysname == 'Darwin'):
-        notification.set_body(_("Varia is about to put your computer to sleep."))
+        show_notification(_("Warning"), _("Varia is about to put your computer to sleep."), variaapp)
 
     else:
-        notification.set_body(_("Varia is about to shut down your computer."))
-
-    variaapp.send_notification(None, notification)
+        show_notification(_("Warning"), _("Varia is about to shut down your computer."), variaapp)
 
     dialog = Adw.AlertDialog()
 
@@ -223,9 +219,7 @@ def initiate_shutdown(variamain, shutdown_id):
         exit()
 
 def raise_exit_dialog(variamain, variaapp):
-    notification = Gio.Notification.new(_("Warning"))
-    notification.set_body(_("Varia is about to quit."))
-    variaapp.send_notification(None, notification)
+    show_notification(_("Warning"), _("Varia is about to quit."), variaapp)
 
     dialog = Adw.AlertDialog()
     dialog.set_body(textwrap.fill(_("Varia is about to quit.") + " " + _("Press Cancel to cancel and disable."), 50))

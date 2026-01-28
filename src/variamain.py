@@ -21,6 +21,7 @@ from download.thread import DownloadThread
 from download.communicate import set_speed_limit, set_aria2c_download_directory, set_aria2c_custom_global_option, set_aria2c_cookies
 from download.scheduler import schedule_downloads
 from download.manage_downloads import pause_all, stop_all, check_all_status, total_download_speed_get
+from download.aria2_instance import Aria2Instance
 
 from window.sidebar import window_create_sidebar
 from window.content import window_create_content
@@ -29,10 +30,8 @@ from window.drag_and_drop import on_drag_enter, on_drag_leave, on_file_drop
 from window.window_management import on_window_resize, apply_window_resize, save_window_size
 
 from tray.start_tray_process import start_tray_process
-
 from initiate import initiate
-
-from aria2_instance import Aria2Instance
+from notification_handler import show_notification
 
 global start_varia_server
 global send_to_varia_instance
@@ -42,11 +41,21 @@ gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, GLib, Gio, Gdk
 
+if os.environ.get("THE_WINDOW_DECORATIONS_ARE_IN_CAPTIVITY", "") == "THE_GALAXY_IS_AT_PEACE":
+    use_ssd = True
+else:
+    use_ssd = False
+
 if os.name == 'nt':
     application_window = Gtk.ApplicationWindow
+    use_ssd = True
 
 else:
-    application_window = Adw.ApplicationWindow
+    if use_ssd:
+        application_window = Gtk.ApplicationWindow
+    else:
+        application_window = Adw.ApplicationWindow
+
     stringstorage.setstrings_linux()
     from stringstorage import gettext as _
 
@@ -96,6 +105,7 @@ class MainWindow(application_window):
         self.issnap = issnap
         self.sevenzexec = sevenzexec
         self.denoexec = denoexec
+        self.use_ssd = use_ssd
 
         # Start aria2c process:
         self.aria2_instance = Aria2Instance(appconf, aria2cexec)
@@ -122,26 +132,6 @@ class MainWindow(application_window):
             except:
                 pass
             self.sidebar_content_box.append(self.sidebar_scheduler_label)
-
-        # Check if the download path still exists:
-        if not (os.path.exists(self.appconf["download_directory"])):
-            if GLib.get_user_special_dir(GLib.DIRECTORY_DOWNLOAD) and os.path.exists(GLib.get_user_special_dir(GLib.DIRECTORY_DOWNLOAD)):
-                self.appconf["download_directory"] = GLib.get_user_special_dir(GLib.DIRECTORY_DOWNLOAD)
-            elif GLib.get_user_special_dir(GLib.DIRECTORY_HOME):
-                self.appconf["download_directory"] = GLib.get_user_special_dir(GLib.DIRECTORY_HOME)
-            else:
-                self.appconf["download_directory"] = os.path.expanduser("~")
-            self.save_appconf()
-
-        # Check if the custom torrent download path still exists:
-        if not (os.path.exists(self.appconf["torrent_download_directory"])):
-            if GLib.get_user_special_dir(GLib.DIRECTORY_DOWNLOAD) and os.path.exists(GLib.get_user_special_dir(GLib.DIRECTORY_DOWNLOAD)):
-                self.appconf["torrent_download_directory"] = GLib.get_user_special_dir(GLib.DIRECTORY_DOWNLOAD)
-            elif GLib.get_user_special_dir(GLib.DIRECTORY_HOME):
-                self.appconf["torrent_download_directory"] = GLib.get_user_special_dir(GLib.DIRECTORY_HOME)
-            else:
-                self.appconf["torrent_download_directory"] = os.path.expanduser("~")
-            self.save_appconf()
 
         # Set download speed limit from appconf:
         if ((self.appconf["download_speed_limit_enabled"] == "1") and (self.appconf["download_speed_limit"][:-1] != "0")):
@@ -205,7 +195,7 @@ class MainWindow(application_window):
         icon_theme.add_search_path("./icons")
 
         # Use server side decorations on Windows because tiling doesn't work well otherwise:
-        if (os.name == 'nt'):
+        if self.use_ssd:
             os.environ['GTK_CSD'] = '0'
         
         # Updater for Windows and Mac:
@@ -371,7 +361,6 @@ class MainWindow(application_window):
         return True
 
     def exitProgram(self, app, variaapp, background):
-        import time
         if background:
             self.set_visible(False)
             self.start_tray_process(variaapp)
@@ -381,10 +370,7 @@ class MainWindow(application_window):
                 return
 
             if not self.tray_notification:
-                notification = Gio.Notification.new(_("Background Mode"))
-                notification.set_body(_("Continuing the downloads in the background."))
-                notification.set_title(_("Background Mode"))
-                variaapp.send_notification(None, notification)
+                show_notification(_("Background Mode"), _("Continuing the downloads in the background."), variaapp)
                 self.tray_notification = True
 
             print('Background mode')
@@ -487,7 +473,7 @@ class MyApp(Adw.Application):
         if len(arguments) > 0:
             self.add_downloads(arguments)
         
-        if os.name == 'nt':
+        if self.win.use_ssd:
             # On Windows we use Gtk.ApplicationWindow which causes an issue where the dialogs that are shown on top
             # don't seem to disable (unfocus) the window/widget below - even if it does. So we manually override
             # the realize and close signals of Gtk.Widget for Adw.Dialog to set the parent widget sensitivity
@@ -580,11 +566,15 @@ def main(version, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, argument
             elif GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_HOME) and os.path.exists(GLib.UserDirectory.DIRECTORY_HOME):
                 return GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_HOME)
         except:
-            print("Can't find GLib user special dirs")
-            if os.path.exists(os.path.join(os.path.expanduser('~'), 'Downloads')):
-                return os.path.join(os.path.expanduser('~'), 'Downloads')
-            else:
-                return os.path.expanduser("~")
+            print("Can't find GLib user special dirs.")
+            try:
+                if os.path.exists(os.path.join(os.path.expanduser('~'), 'Downloads')):
+                    return os.path.join(os.path.expanduser('~'), 'Downloads')
+                else:
+                    return os.path.expanduser("~")
+            except:
+                print("Can't determine user directory. Falling back on the file directory.")
+                return os.path.dirname(os.path.realpath(__file__))
     
     download_directory = default_download_directory()
 

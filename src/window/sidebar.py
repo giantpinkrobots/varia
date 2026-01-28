@@ -15,10 +15,6 @@ def window_create_sidebar(self, variaapp, variaVersion):
     sidebar_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
     self.sidebar_content_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
 
-    header_bar = Adw.HeaderBar()
-    header_bar.add_css_class('flat')
-    sidebar_box.append(header_bar)
-
     preferences_button = Gtk.Button(tooltip_text=_("Preferences"))
     preferences_button.set_icon_name("applications-system-symbolic")
     preferences_button.connect("clicked", show_preferences, self, variaapp, variaVersion)
@@ -98,12 +94,33 @@ def window_create_sidebar(self, variaapp, variaVersion):
 
     hamburger_button.set_menu_model(hamburger_menu_model)
 
-    if (os.uname().sysname == 'Darwin'):
-        variaapp.set_menubar(hamburger_menu_model)
+    if self.use_ssd:
+        header_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, margin_top=4, margin_bottom=4, margin_start=4, margin_end=4)
+        preferences_button.add_css_class('flat')
+        hamburger_button.add_css_class('flat')
+
+        header_box.append(preferences_button)
+
+        header_box_expanding_box = Gtk.Box()
+        Gtk.Widget.set_hexpand(header_box_expanding_box, True)
+        header_box.append(header_box_expanding_box)
+
+        header_box.append(hamburger_button)
+
+        sidebar_box.prepend(header_box)
 
     else:
-        header_bar.pack_start(preferences_button)
-        header_bar.pack_end(hamburger_button)
+        header_bar = Adw.HeaderBar()
+        header_bar.add_css_class('flat')
+
+        if (os.uname().sysname == 'Darwin'):
+            variaapp.set_menubar(hamburger_menu_model)
+
+        else:
+            header_bar.pack_start(preferences_button)
+            header_bar.pack_end(hamburger_button)
+
+        sidebar_box.prepend(header_bar)
 
     box_add_download = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
     box_add_download.set_margin_start(8)

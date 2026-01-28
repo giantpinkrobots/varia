@@ -323,7 +323,7 @@ def show_download_details_dialog(button, self, download_item):
     self.connect("notify::default-height", update_size)
     update_size()
 
-    if os.name == 'nt':
+    if self.use_ssd:
         details_dialog.set_content_width(self.get_default_size()[0])
         details_dialog.set_content_height(self.get_default_size()[1])
     details_dialog.connect("closed", on_closed)
