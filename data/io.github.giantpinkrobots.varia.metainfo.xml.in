@@ -116,7 +116,7 @@ Control a remote aria2 instance running on any server
 </supports>
 
 <releases>
-<release version="v2026.1.5-3" date="2026-01-20">
+<release version="v2026.1.5-3" date="2026-01-28">
 <description translatable="yes">
 <p>v2026.1.5</p>
 <ul><li>Option to automatically extract downloaded archives</li>
@@ -138,7 +138,8 @@ Control a remote aria2 instance running on any server
 <p>v2026.1.5-3</p>
 <ul><li>Fix for Windows where 7z wouldn't be included</li>
 <li>Fix where Varia wouldn't automatically start in background mode</li>
-<li>Better handling of external processes like aria2c and tray to minimize the possibility of having a zombie process left running if Varia crashes</li></ul>
+<li>Better handling of external processes like aria2c and tray to minimize the possibility of having a zombie process left running if Varia crashes</li>
+<li>Notifications are now shown on Windows and macOS</li></ul>
 </description>
 </release>
 </releases>

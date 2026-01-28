@@ -40,7 +40,6 @@ install_data('io.github.giantpinkrobots.varia.service',
   install_dir: join_paths(get_option('datadir'), 'dbus-1', 'services')
 )
 
-
 compile_schemas = find_program('glib-compile-schemas', required: false, disabler: true)
 test('Validate schema file',
      compile_schemas,
