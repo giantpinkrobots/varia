@@ -58,6 +58,7 @@ def initiate(self, variaapp, variaVersion, first_run, issnap):
         )
 
         self.aria2cLocation = "http://localhost:6801"
+        self.aria2_instance.set_address_and_port("http://localhost", "6801")
 
     self.set_title("Varia")
     self.set_default_size(self.appconf["window_size"][0], self.appconf["window_size"][1])
@@ -94,7 +95,7 @@ def initiate(self, variaapp, variaVersion, first_run, issnap):
     self.overlay_split_view = Adw.OverlaySplitView.new()
     self.root_window_overlay.set_child(self.overlay_split_view)
 
-    if os.name == 'nt': # Gtk.Window (used on Windows) doesn't have set_content
+    if self.use_ssd: # Gtk.Window (used on Windows) doesn't have set_content
         self.set_child(self.root_window_overlay)
 
     else:

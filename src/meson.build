@@ -49,6 +49,7 @@ varia_sources = [
   'stringstorage.py',
   'autostart_util.py',
   'server.py',
+  'notification_handler.py',
 ]
 
 varia_sources_window = [
@@ -71,6 +72,7 @@ varia_sources_download = [
   'download/videos.py',
   'download/details.py',
   'download/manage_downloads.py',
+  'download/aria2_instance.py',
 ]
 
 varia_sources_tray = [

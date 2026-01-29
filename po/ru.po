@@ -8,17 +8,17 @@ msgstr ""
 "Project-Id-Version: Varia\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-10-05 12:02+0000\n"
-"Last-Translator: Yurt Page <yurtpage+weblate@gmail.com>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/varia/varia/ru/"
-">\n"
+"PO-Revision-Date: 2026-01-25 12:25+0000\n"
+"Last-Translator: Рустам Романов <ogrenagfnagf@gmail.com>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/varia/varia/ru/>"
+"\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -231,16 +231,12 @@ msgstr "Расширение для браузера"
 msgid "Shutdown on Completion"
 msgstr "Выключить устройство после завершения"
 
-#, fuzzy
-#| msgid "Exit on Completion"
 msgid "Sleep on Completion"
 msgstr "Выйти после завершения"
 
 msgid "Varia is about to shut down your computer."
 msgstr "Varia собирается выключить ваш компьютер."
 
-#, fuzzy
-#| msgid "Varia is about to shut down your computer."
 msgid "Varia is about to put your computer to sleep."
 msgstr "Varia собирается выключить ваш компьютер."
 
@@ -349,7 +345,7 @@ msgstr "Торрент"
 
 # Download type: Regular
 msgid "Regular"
-msgstr ""
+msgstr "Обычный"
 
 msgid "Checking for updates..."
 msgstr "Проверка обновлений..."
@@ -591,13 +587,11 @@ msgstr "Скачивание"
 msgid "Paused"
 msgstr "Приостановить"
 
-#, fuzzy
-#| msgid "Scheduler"
 msgid "Scheduled"
 msgstr "Планировщик"
 
 msgid "Extracting"
-msgstr ""
+msgstr "Извлечение"
 
 msgid "Percentage Downloaded"
 msgstr "Процентов скачано"
@@ -628,59 +622,55 @@ msgid ""
 "You are using Varia as a Snap package. There are some functions that you "
 "can't use without manually giving Varia some extra permissions. These are:"
 msgstr ""
+"Вы используйте Varia как Snap пакет. Вы не сможете использовать некоторые "
+"функции без ручной выдачи дополнительных разрешений. Это:"
 
 # Snap packaging permissions dialog part 2/2
 msgid ""
 "To enable these functions you must run these commands in a terminal to give "
 "the required permissions and then restart Varia:"
 msgstr ""
+"Для включения этих функций вам нужно выполнить эти команды в терминале чтобы "
+"выдать нужные разрешения и затем перезапустить Varia:"
 
 # Tooltip for when focused on filter options in the sidebar. Do not translate {filter option}, it will be replaced by the filter type. ("All", "In Progress", etc)
 msgid "Filter downloads by {filter option}"
-msgstr ""
+msgstr "Фильтр загрузок {filter option}"
 
-#, fuzzy
-#| msgid "Download"
 msgid "Download item"
 msgstr "Загрузить"
 
-#, fuzzy
-#| msgid "{number}%"
 msgid "Timespan {number}"
 msgstr "{number}%"
 
 # Tooltip for when focused on timespan day of the week dropdown
 msgid "Day of the week for timespan {number}"
-msgstr ""
+msgstr "день недели для временного промежутка {number}"
 
-#, fuzzy
-#| msgid "Remote Timestamp"
 msgid "Remove timespan {number}"
-msgstr "Удаленная временная метка"
+msgstr "Удалить временную метку"
 
 # Tooltip for when focused on timespan start hour
 msgid "Start hour for timespan {number}"
-msgstr ""
+msgstr "Начальное время для временного интервала {number}"
 
 # Tooltip for when focused on timespan start minute
 msgid "Start minute for timespan {number}"
-msgstr ""
+msgstr "Начальная минута для временного интервала {number}"
 
 # Tooltip for when focused on timespan end hour
 msgid "End hour for timespan {number}"
-msgstr ""
+msgstr "Конец часа для заданного временного интервала {number}"
 
 # Tooltip for when focused on timespan end minute
 msgid "End minute for timespan {number}"
-msgstr ""
+msgstr "Конец минуты для заданного временного интервала {number}"
 
-#, fuzzy
-#| msgid "Automatically Check for Updates"
 msgid "Automatically Extract Archives"
-msgstr "Автоматическая проверка обновлений"
+msgstr "Автоматическое Извлечение Архивов"
 
 msgid "Delete Archives After Extraction"
-msgstr ""
+msgstr "Удалить Архививы после извлечения"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

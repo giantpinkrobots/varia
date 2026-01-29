@@ -43,9 +43,9 @@ def window_create_content(self):
     header_box.append(self.total_download_speed_label)
     header_box.append(self.header_pause_button)
     
-    if (os.name == 'nt'): # Don't use Adw.HeaderBar on Windows
+    if self.use_ssd: # Don't use Adw.HeaderBar on Windows
         header_box.prepend(self.header_show_sidebar_button_revealer)
-        self.content_box.append(header_box)
+        self.content_box.prepend(header_box)
         self.overlay_split_view.set_content(self.content_box)
 
     elif (os.uname().sysname == 'Darwin'):

@@ -1,4 +1,4 @@
-variaVersion = "v2026.1.5-2" # Also update actions-inno-install-script.iss
+variaVersion = "v2026.1.5-3" # Also update actions-inno-install-script.iss
 
 import ctypes
 import gi
@@ -21,6 +21,7 @@ from download.thread import DownloadThread
 from download.communicate import set_speed_limit, set_aria2c_download_directory, set_aria2c_custom_global_option, set_aria2c_cookies
 from download.scheduler import schedule_downloads
 from download.manage_downloads import pause_all, stop_all, check_all_status, total_download_speed_get
+from download.aria2_instance import Aria2Instance
 
 from window.sidebar import window_create_sidebar
 from window.content import window_create_content
@@ -29,8 +30,8 @@ from window.drag_and_drop import on_drag_enter, on_drag_leave, on_file_drop
 from window.window_management import on_window_resize, apply_window_resize, save_window_size
 
 from tray.start_tray_process import start_tray_process
-
 from initiate import initiate
+from notification_handler import show_notification
 
 global start_varia_server
 global send_to_varia_instance
@@ -40,11 +41,21 @@ gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, GLib, Gio, Gdk
 
+if os.environ.get("THE_WINDOW_DECORATIONS_ARE_IN_CAPTIVITY", "") == "THE_GALAXY_IS_AT_PEACE":
+    use_ssd = True
+else:
+    use_ssd = False
+
 if os.name == 'nt':
     application_window = Gtk.ApplicationWindow
+    use_ssd = True
 
 else:
-    application_window = Adw.ApplicationWindow
+    if use_ssd:
+        application_window = Gtk.ApplicationWindow
+    else:
+        application_window = Adw.ApplicationWindow
+
     stringstorage.setstrings_linux()
     from stringstorage import gettext as _
 
@@ -76,13 +87,12 @@ class MainWindow(application_window):
 
     global tray_process_global
 
-    def __init__(self, variaapp, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, *args, **kwargs):
+    def __init__(self, variaapp, appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.scheduler_currently_downloading = False
         self.appdir = appdir
         self.appconf = appconf
-        self.aria2c_subprocess = aria2c_subprocess
         self.bindir = aria2cexec[:-6]
         self.aria2cexec = aria2cexec
         self.remote_successful = False
@@ -95,6 +105,13 @@ class MainWindow(application_window):
         self.issnap = issnap
         self.sevenzexec = sevenzexec
         self.denoexec = denoexec
+        self.use_ssd = use_ssd
+
+        # Start aria2c process:
+        self.aria2_instance = Aria2Instance(appconf, aria2cexec)
+
+        if self.appconf['remote'] == '0' and self.aria2_instance.send_rpc_request("aria2.getVersion") == -1: # If we're not in remote mode and aria2c is not running
+            self.aria2_instance.start_subprocess()
 
         # For 7-zip integration:
         self.supported_archive_formats = ["7z", "xz", "bzip2", "gzip", "tar", "zip", "wim", "apfs", "ar", "arj", "cab", "chm", "cpio", "cramfs", "dmg", "ext", "fat", "gpt", "hfs", "ihex", "iso", "lzh", "lzma", "mbr", "msi", "nsis", "ntfs", "qcow2", "rar", "rpm", "squashfs", "udf", "uefi", "vdi", "vhd", "vhdx", "vmdk", "xar", "z"]
@@ -115,26 +132,6 @@ class MainWindow(application_window):
             except:
                 pass
             self.sidebar_content_box.append(self.sidebar_scheduler_label)
-
-        # Check if the download path still exists:
-        if not (os.path.exists(self.appconf["download_directory"])):
-            if GLib.get_user_special_dir(GLib.DIRECTORY_DOWNLOAD) and os.path.exists(GLib.get_user_special_dir(GLib.DIRECTORY_DOWNLOAD)):
-                self.appconf["download_directory"] = GLib.get_user_special_dir(GLib.DIRECTORY_DOWNLOAD)
-            elif GLib.get_user_special_dir(GLib.DIRECTORY_HOME):
-                self.appconf["download_directory"] = GLib.get_user_special_dir(GLib.DIRECTORY_HOME)
-            else:
-                self.appconf["download_directory"] = os.path.expanduser("~")
-            self.save_appconf()
-
-        # Check if the custom torrent download path still exists:
-        if not (os.path.exists(self.appconf["torrent_download_directory"])):
-            if GLib.get_user_special_dir(GLib.DIRECTORY_DOWNLOAD) and os.path.exists(GLib.get_user_special_dir(GLib.DIRECTORY_DOWNLOAD)):
-                self.appconf["torrent_download_directory"] = GLib.get_user_special_dir(GLib.DIRECTORY_DOWNLOAD)
-            elif GLib.get_user_special_dir(GLib.DIRECTORY_HOME):
-                self.appconf["torrent_download_directory"] = GLib.get_user_special_dir(GLib.DIRECTORY_HOME)
-            else:
-                self.appconf["torrent_download_directory"] = os.path.expanduser("~")
-            self.save_appconf()
 
         # Set download speed limit from appconf:
         if ((self.appconf["download_speed_limit_enabled"] == "1") and (self.appconf["download_speed_limit"][:-1] != "0")):
@@ -198,7 +195,7 @@ class MainWindow(application_window):
         icon_theme.add_search_path("./icons")
 
         # Use server side decorations on Windows because tiling doesn't work well otherwise:
-        if (os.name == 'nt'):
+        if self.use_ssd:
             os.environ['GTK_CSD'] = '0'
         
         # Updater for Windows and Mac:
@@ -227,7 +224,6 @@ class MainWindow(application_window):
 
                     download_dicts.append(state)
 
-                print(current_filename)
                 os.remove(os.path.join(self.appconf["download_directory"], current_filename))
 
         download_dicts = sorted(download_dicts, key=itemgetter("index"))
@@ -244,8 +240,6 @@ class MainWindow(application_window):
 
         self.tray_notification = False
 
-        self.present()
-
         # Run on_window_resize when the window is presented:
         def on_window_map(self):
             GLib.idle_add(self.on_window_resize, None, None)
@@ -255,12 +249,13 @@ class MainWindow(application_window):
         # Start in background mode if it was enabled in preferences:
         if (self.appconf["default_mode"] == "background"):
             self.suppress_startup_notification = True
-            self.exitProgram(app=self, variaapp=variaapp, background=True)
+            GLib.timeout_add(350, self.exitProgram, self, variaapp, True)
         else:
+            self.present()
             self.suppress_startup_notification = False
 
-        if self.appconf["tray_always_visible"] == "true":
-            self.start_tray_process(variaapp)
+            if self.appconf["tray_always_visible"] == "true":
+                self.start_tray_process(variaapp)
 
     def filter_download_list(self, button, filter_mode):
         if (button != "no"):
@@ -375,10 +370,7 @@ class MainWindow(application_window):
                 return
 
             if not self.tray_notification:
-                notification = Gio.Notification.new(_("Background Mode"))
-                notification.set_body(_("Continuing the downloads in the background."))
-                notification.set_title(_("Background Mode"))
-                variaapp.send_notification(None, notification)
+                show_notification(_("Background Mode"), _("Continuing the downloads in the background."), variaapp)
                 self.tray_notification = True
 
             print('Background mode')
@@ -387,92 +379,71 @@ class MainWindow(application_window):
             self.terminating = True
             self.all_paused = False
 
-            if (self.remote_successful == False):
+            if (self.is_visible() == False):
+                self.set_visible(True)
+
+            # Stop all yt_dlp threads
+            for download_thread in self.downloads:
+                if hasattr(download_thread, "youtubedl_thread"):
+                    download_thread.video_pause_event.set() # The thread must be resumed so it can detect the SystemExit call
+                    ctypes.pythonapi.PyThreadState_SetAsyncExc(ctypes.c_long(download_thread.youtubedl_thread.ident), ctypes.py_object(SystemExit))
+
+            # Kill the tray icon process
+            if self.tray_process:
+                self.tray_process.kill()
+                self.tray_connection_thread_stop = True
+
+            if self.remote_successful == False:
                 self.pause_all(False)
-                self.api.client.shutdown()
-
-                if (self.is_visible() == False):
-                    self.set_visible(True)
-
-                # Stop all yt_dlp threads
-                for download_thread in self.downloads:
-                    if hasattr(download_thread, "youtubedl_thread"):
-                        download_thread.video_pause_event.set() # The thread must be resumed so it can detect the SystemExit call
-                        ctypes.pythonapi.PyThreadState_SetAsyncExc(ctypes.c_long(download_thread.youtubedl_thread.ident), ctypes.py_object(SystemExit))
-
-                # Kill the tray icon process
-                if self.tray_process:
-                    self.tray_process.kill()
-                    self.tray_connection_thread_stop = True
-
-                exiting_dialog = Adw.AlertDialog()
-                exiting_dialog_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=25)
-                exiting_dialog.set_child(exiting_dialog_box)
-                exiting_dialog_box.set_margin_top(30)
-                exiting_dialog_box.set_margin_bottom(30)
-                exiting_dialog_box.set_margin_start(60)
-                exiting_dialog_box.set_margin_end(60)
-                exiting_dialog_spinner = Adw.Spinner()
-                exiting_dialog_spinner.set_size_request(30, 30)
-                exiting_dialog_box.append(exiting_dialog_spinner)
-                exiting_dialog_label = Gtk.Label(label=_("Exiting Varia..."))
-                exiting_dialog_label.add_css_class("title-1")
-                exiting_dialog_box.append(exiting_dialog_label)
-                exiting_dialog.set_can_close(False)
-                GLib.idle_add(exiting_dialog.present, self)
-
-                GLib.timeout_add(3000, self.aria2c_exiting_check, app, 0, variaapp, exiting_dialog)
-
+                self.aria2_instance.send_rpc_request("aria2.shutdown")
+                exiting_dialog_timeout_ms = 3500 # If we're quitting aria2
+            
             else:
-                self.save_window_size()
-                self.destroy()
-                variaapp.quit()
+                exiting_dialog_timeout_ms = 0
+            
+            exiting_dialog = Adw.AlertDialog()
+            exiting_dialog_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=25)
+            exiting_dialog.set_child(exiting_dialog_box)
+            exiting_dialog_box.set_margin_top(30)
+            exiting_dialog_box.set_margin_bottom(30)
+            exiting_dialog_box.set_margin_start(60)
+            exiting_dialog_box.set_margin_end(60)
+            exiting_dialog_spinner = Adw.Spinner()
+            exiting_dialog_spinner.set_size_request(30, 30)
+            exiting_dialog_box.append(exiting_dialog_spinner)
+            exiting_dialog_label = Gtk.Label(label=_("Exiting Varia..."))
+            exiting_dialog_label.add_css_class("title-1")
+            exiting_dialog_box.append(exiting_dialog_label)
+            exiting_dialog.set_can_close(False)
+            GLib.idle_add(exiting_dialog.present, self)
 
-                if self.update_executable != None:
-                    if os.name == 'nt':
-                        subprocess.Popen([self.update_executable, "/SILENT", "SUPPRESSMSGBOXES", "SP-", "/NOICONS", "/MERGETASKS=\"!desktopicon\"", "&&", os.path.join(os.getcwd(), "variamain.exe")], shell=True)
-                    else: # Mac
-                        subprocess.call(('open', self.update_executable))
+            GLib.timeout_add(exiting_dialog_timeout_ms, self.quit_after_waiting, exiting_dialog)
+    
+    def quit_after_waiting(self, exiting_dialog):
+        exiting_dialog.force_close()
+        self.save_window_size()
+        self.destroy()
 
-    def aria2c_exiting_check(self, app, counter, variaapp, exiting_dialog):
-        print(counter)
-        if ((counter <= 20) and (self.aria2c_subprocess.poll() is None)):
-            counter += 1
-            GLib.timeout_add(250, self.aria2c_exiting_check, app, counter, variaapp, exiting_dialog)
-        else:
-            self.aria2c_subprocess.terminate()
-            self.aria2c_subprocess.wait()
-            if (exiting_dialog is not None):
-                exiting_dialog.force_close()
-            self.save_window_size()
-            self.destroy()
+        for thread in threading.enumerate():
+            print(thread.name)
 
-            try:
-                variaapp.quit()
+        if self.update_executable != None:
+            if os.name == 'nt':
+                subprocess.Popen([self.update_executable, "/SILENT", "SUPPRESSMSGBOXES", "SP-", "/NOICONS", "/MERGETASKS=\"!desktopicon\"", "&&", os.path.join(os.getcwd(), "variamain.exe")], shell=True)
+            else: # Mac
+                subprocess.call(('open', self.update_executable))
 
-            except:
-                pass # No need to
-
-            for thread in threading.enumerate():
-                print(thread.name)
-
-            if self.update_executable != None:
-                if os.name == 'nt':
-                    subprocess.Popen([self.update_executable, "/SILENT", "SUPPRESSMSGBOXES", "SP-", "/NOICONS", "/MERGETASKS=\"!desktopicon\"", "&&", os.path.join(os.getcwd(), "variamain.exe")], shell=True)
-                else: # Mac
-                    subprocess.call(('open', self.update_executable))
-
-            return
+        return
 
     def quit_action_received(self, variaapp):
         if (self.terminating == False):
             self.exitProgram(variaapp, variaapp, False)
 
 class MyApp(Adw.Application):
-    def __init__(self, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments, **kwargs):
+    def __init__(self, appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments, **kwargs):
         super().__init__(**kwargs)
         GLib.set_application_name("Varia")
-        self.connect('activate', self.on_activate, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments)
+        self.connect('activate', self.on_activate, appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments)
         quit_action = Gio.SimpleAction.new("quit", None)
         quit_action.connect("activate", self.quit_action)
         self.add_action(quit_action)
@@ -487,9 +458,9 @@ class MyApp(Adw.Application):
         
         self.add_downloads(arguments)
 
-    def on_activate(self, app, appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments):
+    def on_activate(self, app, appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments):
         if not hasattr(self, 'win'):
-            self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf, first_run=first_run, aria2c_subprocess=aria2c_subprocess, aria2cexec=aria2cexec, ffmpegexec=ffmpegexec, sevenzexec=sevenzexec, denoexec=denoexec, issnap=issnap)
+            self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf, first_run=first_run, aria2cexec=aria2cexec, ffmpegexec=ffmpegexec, sevenzexec=sevenzexec, denoexec=denoexec, issnap=issnap)
 
         try:
             if ((self.win.terminating == False) and ((appconf["default_mode"] == "visible") or (self.initiated == True))):
@@ -502,7 +473,7 @@ class MyApp(Adw.Application):
         if len(arguments) > 0:
             self.add_downloads(arguments)
         
-        if os.name == 'nt':
+        if self.win.use_ssd:
             # On Windows we use Gtk.ApplicationWindow which causes an issue where the dialogs that are shown on top
             # don't seem to disable (unfocus) the window/widget below - even if it does. So we manually override
             # the realize and close signals of Gtk.Widget for Adw.Dialog to set the parent widget sensitivity
@@ -587,15 +558,23 @@ def main(version, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, argument
             os.makedirs(appdir)
 
     def default_download_directory():
-        if GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOWNLOAD) and os.path.exists(GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOWNLOAD)):
-            return GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOWNLOAD)
-        elif os.path.exists(os.path.join(os.path.expanduser('~'), 'Downloads')):
-            return os.path.join(os.path.expanduser('~'), 'Downloads')
-        elif GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_HOME) and os.path.exists(GLib.UserDirectory.DIRECTORY_HOME):
-            return GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_HOME)
-        else:
-            print("Can't find GLib user special dirs")
-            return os.path.expanduser("~")
+        try:
+            if GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOWNLOAD) and os.path.exists(GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOWNLOAD)):
+                return GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOWNLOAD)
+            elif os.path.exists(os.path.join(os.path.expanduser('~'), 'Downloads')):
+                return os.path.join(os.path.expanduser('~'), 'Downloads')
+            elif GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_HOME) and os.path.exists(GLib.UserDirectory.DIRECTORY_HOME):
+                return GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_HOME)
+        except:
+            print("Can't find GLib user special dirs.")
+            try:
+                if os.path.exists(os.path.join(os.path.expanduser('~'), 'Downloads')):
+                    return os.path.join(os.path.expanduser('~'), 'Downloads')
+                else:
+                    return os.path.expanduser("~")
+            except:
+                print("Can't determine user directory. Falling back on the file directory.")
+                return os.path.dirname(os.path.realpath(__file__))
     
     download_directory = default_download_directory()
 
@@ -654,55 +633,13 @@ def main(version, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, argument
         with open(os.path.join(appdir, 'varia.conf'), 'w') as f:
             json.dump(appconf, f)
 
-    global aria2c_subprocess
-    aria2c_subprocess = None
-
-    aria2_config = [
-        "--enable-rpc",
-        "--rpc-listen-port=6801",
-        "--follow-torrent=false",
-        "--allow-overwrite=false",
-        "--auto-file-renaming=true",
-        "--min-split-size=1M",
-        "--http-accept-gzip=true",
-        "--disk-cache=128M",
-        "--bt-enable-lpd=true",
-        "--bt-hash-check-seed=true",
-        "--enable-peer-exchange=true",
-        "--enable-dht=true",
-        "--enable-dht6=true",
-        "--peer-agent=Transmission/3.00", # Some people block aria2's native user agent id because it
-                                          # doesn't do any seeding by default. Thus here we change it
-        "--peer-id-prefix=-TR3000-",      # to mimic Transmission instead.
-        "--split=32",
-        "--max-connection-per-server=16",
-        "--bt-max-peers=250",
-        "--bt-request-peer-speed-limit=5M",
-        "--bt-tracker-connect-timeout=10",
-        "--bt-tracker-interval=30",
-        "--bt-save-metadata=true"]
-
-    if (appconf['remote'] == '0'):
-        if (os.name == 'nt'):
-            aria2c_subprocess = subprocess.Popen([aria2cexec] + aria2_config, shell=True, creationflags=subprocess.CREATE_NEW_PROCESS_GROUP)
-        else:
-            if hasattr(os, 'posix_fallocate'):
-                aria2_config.append("--file-allocation=falloc") # Set fallocate on Linux for better performance
-                print("fallocate enabled.")
-                aria2c_subprocess = subprocess.Popen([aria2cexec] + aria2_config, preexec_fn=os.setsid)
-
-            else:
-                aria2c_subprocess = subprocess.Popen([aria2cexec] + aria2_config, preexec_fn=os.setsid)
-
     atexit.register(stop_subprocesses_and_exit)
-
     signal.signal(signal.SIGINT, stop_subprocesses_and_exit)
-    #signal.signal(signal.SIGTERM, stop_subprocesses_and_exit) # causes issues with other subprocesses
     sys.excepthook = global_exception_handler
 
     arguments = json.loads(arguments)
     global myapp
-    myapp = MyApp(appdir, appconf, first_run, aria2c_subprocess, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments, application_id="io.github.giantpinkrobots.varia", flags=Gio.ApplicationFlags.HANDLES_OPEN)
+    myapp = MyApp(appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments, application_id="io.github.giantpinkrobots.varia", flags=Gio.ApplicationFlags.HANDLES_OPEN)
 
     try:
         myapp.run()
@@ -721,10 +658,6 @@ def stop_subprocesses_and_exit(*args):
         tray_process_global.kill()
         myapp.win.tray_connection_thread_stop = True
     
-    if "aria2c_subprocess" in locals() and aria2c_subprocess.poll() is None:
-        myapp.win.api.client.shutdown()
-        aria2c_subprocess.wait()
-    
     try:
         myapp.win.destroy()
         myapp.quit()
@@ -739,6 +672,13 @@ if (__name__ == '__main__'):
     if os.name == 'nt':
         import ctypes
         import locale
+        from collections import namedtuple
+
+        def uname_replacement():
+            uname_named_tuple = namedtuple("Uname", ["sysname"])
+            return uname_named_tuple(sysname="Windows")
+
+        os.uname = uname_replacement
 
         os.chdir(os.path.dirname(sys.executable))
         windll = ctypes.windll.kernel32

@@ -32,10 +32,14 @@ pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-python-pip
 pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-yt-dlp
 pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-pyinstaller
 pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-upx
+pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-7zip
+pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-python-winsdk
+pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-python-pywin32
 pacman -S --noconfirm --needed unzip
 pip install aria2p
 pip install pystray
 pip install emoji-country-flag
+pip install winsdk-toast
 
 echo "      -   Downloading aria2, ffmpeg, 7z and deno..."
 
@@ -56,15 +60,14 @@ rm -rf "./7zip"
 wget "https://github.com/aria2/aria2/releases/download/release-1.37.0/$aria2.zip"
 wget "https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/$ffmpeg.zip"
 wget "https://github.com/denoland/deno/releases/download/v2.5.2/deno-x86_64-pc-windows-msvc.zip"
-wget "https://7-zip.org/a/7zr.exe"
-wget "https://7-zip.org/a/7z2501-x64.exe"
+wget "https://7-zip.org/a/$sevenzip.exe"
 mkdir aria2
 unzip -d aria2 $aria2.zip
 mkdir ffmpeg
 unzip -d ffmpeg $ffmpeg.zip
 mkdir deno
 unzip -d deno deno-x86_64-pc-windows-msvc.zip
-7zr x -o7zip "./$sevenzip.exe"
+7z x -o7zip "./$sevenzip.exe"
 
 echo "      -   Generating locales..."
 
