@@ -33,6 +33,7 @@ pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-yt-dlp
 pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-pyinstaller
 pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-upx
 pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-7zip
+pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-python-winsdk
 pacman -S --noconfirm --needed unzip
 pip install aria2p
 pip install pystray
