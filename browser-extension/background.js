@@ -56,16 +56,28 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 });
 
+const aria2ProtocolAllowlist = new RegExp(/^(http|https|ftp|sftp):\/\//, "i");
+
+function filterUrl(url) {
+  return aria2ProtocolAllowlist.test(url);
+}
+
 function sendToAria2(downloadItem, downloadType) {
-  let jsonParams;
+  let jsonParams, downloadUrl;
 
   if (downloadType === "file") {
     jsonParams = [[downloadItem.url], { pause: "true" }];
+    downloadUrl = downloadItem.url
   } else if (downloadType === "video") {
     jsonParams = [[downloadItem], {
       pause: "true",
       out: "varia-video-download.variavideo"
     }];
+  }
+
+  // If downloadUrl is set and fails the filterUrl check
+  if (downloadUrl && !filterUrl(downloadUrl)) {
+    return; // cancel sending to varia, let the browser handle it
   }
 
   fetch("http://localhost:6801/jsonrpc", {
@@ -83,7 +95,7 @@ function sendToAria2(downloadItem, downloadType) {
   .then(response => response.json())
   .then(data => {
     console.log("Aria2 response:", data);
-    if (downloadType === "file") {
+    if (downloadType === "file" && data.result) {
       chrome.downloads.cancel(downloadItem.id);
     }
   })
