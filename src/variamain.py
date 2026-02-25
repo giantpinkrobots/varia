@@ -1,4 +1,4 @@
-variaVersion = "v2026.1.5-3" # Also update actions-inno-install-script.iss
+variaVersion = "dev" # Also update actions-inno-install-script.iss
 
 import ctypes
 import gi
@@ -87,7 +87,7 @@ class MainWindow(application_window):
 
     global tray_process_global
 
-    def __init__(self, variaapp, appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, *args, **kwargs):
+    def __init__(self, variaapp, appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, pkgdatadir, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.scheduler_currently_downloading = False
@@ -106,6 +106,7 @@ class MainWindow(application_window):
         self.sevenzexec = sevenzexec
         self.denoexec = denoexec
         self.use_ssd = use_ssd
+        self.pkgdatadir = pkgdatadir
 
         # Start aria2c process:
         self.aria2_instance = Aria2Instance(appconf, aria2cexec)
@@ -191,8 +192,14 @@ class MainWindow(application_window):
         thread = threading.Thread(target=lambda: schedule_downloads(self, True), daemon=True)
         thread.start()
 
+        # Add icon directories:
         icon_theme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default())
-        icon_theme.add_search_path("./icons")
+
+        if (os.name == 'nt' or os.uname().sysname == 'Darwin'):
+            icon_theme.add_search_path("./icons")
+        elif pkgdatadir:
+            icon_theme.add_search_path(os.path.join(pkgdatadir, "..", "icons", "apps"))
+            icon_theme.add_search_path(os.path.join(pkgdatadir, "..", "icons", "actions"))
 
         # Use server side decorations on Windows because tiling doesn't work well otherwise:
         if self.use_ssd:
@@ -440,10 +447,10 @@ class MainWindow(application_window):
             self.exitProgram(variaapp, variaapp, False)
 
 class MyApp(Adw.Application):
-    def __init__(self, appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments, **kwargs):
+    def __init__(self, appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, pkgdatadir, arguments, **kwargs):
         super().__init__(**kwargs)
         GLib.set_application_name("Varia")
-        self.connect('activate', self.on_activate, appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments)
+        self.connect('activate', self.on_activate, appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, pkgdatadir, arguments)
         quit_action = Gio.SimpleAction.new("quit", None)
         quit_action.connect("activate", self.quit_action)
         self.add_action(quit_action)
@@ -458,9 +465,9 @@ class MyApp(Adw.Application):
         
         self.add_downloads(arguments)
 
-    def on_activate(self, app, appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments):
+    def on_activate(self, app, appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, pkgdatadir, arguments):
         if not hasattr(self, 'win'):
-            self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf, first_run=first_run, aria2cexec=aria2cexec, ffmpegexec=ffmpegexec, sevenzexec=sevenzexec, denoexec=denoexec, issnap=issnap)
+            self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf, first_run=first_run, aria2cexec=aria2cexec, ffmpegexec=ffmpegexec, sevenzexec=sevenzexec, denoexec=denoexec, issnap=issnap, pkgdatadir=pkgdatadir)
 
         try:
             if ((self.win.terminating == False) and ((appconf["default_mode"] == "visible") or (self.initiated == True))):
@@ -543,7 +550,7 @@ class MyApp(Adw.Application):
     def quit_action(self, action, parameter):
         self.win.quit_action_received(self)
 
-def main(version, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments):
+def main(version, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, pkgdatadir, arguments):
     if os.name == 'nt' or os.uname().sysname == 'Darwin': # Varia server only used on Windows/Mac to send data to the already running instance.
         if not start_varia_server():
             send_to_varia_instance(arguments)
@@ -613,7 +620,8 @@ def main(version, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, argument
         'torrent_peers_ip_lookup': '1',
         'autostart_on_boot_enabled': 'false',
         'extract_archives': '0',
-        'extract_archives_delete_archives': '0'}
+        'extract_archives_delete_archives': '0',
+        'playlist_skip_errors': '0'}
 
     if os.path.exists(os.path.join(appdir, 'varia.conf')):
         first_run = False
@@ -639,7 +647,7 @@ def main(version, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, argument
 
     arguments = json.loads(arguments)
     global myapp
-    myapp = MyApp(appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments, application_id="io.github.giantpinkrobots.varia", flags=Gio.ApplicationFlags.HANDLES_OPEN)
+    myapp = MyApp(appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, pkgdatadir, arguments, application_id="io.github.giantpinkrobots.varia", flags=Gio.ApplicationFlags.HANDLES_OPEN)
 
     try:
         myapp.run()
@@ -691,7 +699,7 @@ if (__name__ == '__main__'):
         stringstorage.setstrings_win(translation.gettext)
         from stringstorage import gettext as _
 
-        sys.exit(main(variaVersion, os.path.join(os.getcwd(), "aria2c.exe"), os.path.join(os.getcwd(), "ffmpeg.exe"), os.path.join(os.getcwd(), "7zz.exe"), os.path.join(os.getcwd(), "deno.exe"), False, json.dumps(sys.argv)))
+        sys.exit(main(variaVersion, os.path.join(os.getcwd(), "aria2c.exe"), os.path.join(os.getcwd(), "ffmpeg.exe"), os.path.join(os.getcwd(), "7zz.exe"), os.path.join(os.getcwd(), "deno.exe"), False, None, json.dumps(sys.argv)))
 
     elif os.uname().sysname == 'Darwin':
         translation = gettext.translation('varia', localedir='./locale', languages=["en-US"], fallback=True)
@@ -699,4 +707,4 @@ if (__name__ == '__main__'):
         stringstorage.setstrings_win(translation.gettext)
         from stringstorage import gettext as _
 
-        sys.exit(main(variaVersion, os.path.join(os.getcwd(), "aria2c"), os.path.join(os.getcwd(), "ffmpeg"), os.path.join(os.getcwd(), "7zz"), os.path.join(os.getcwd(), "deno"), False, json.dumps(sys.argv)))
+        sys.exit(main(variaVersion, os.path.join(os.getcwd(), "aria2c"), os.path.join(os.getcwd(), "ffmpeg"), os.path.join(os.getcwd(), "7zz"), os.path.join(os.getcwd(), "deno"), False, None, json.dumps(sys.argv)))

@@ -130,6 +130,16 @@ def show_preferences(button, self, app, variaVersion):
     
     else:
         extract_archives_delete_archives.set_sensitive(False)
+    
+    # Playlist download skip errors:
+
+    playlist_skip_errors = Adw.SwitchRow()
+    playlist_skip_errors.set_title(_("Skip Playlist Download Errors"))
+    playlist_skip_errors.set_subtitle(_("If one of the videos in a playlist can't be downloaded, continue with the rest instead of erroring out."))
+    playlist_skip_errors.connect("notify::active", on_playlist_skip_errors, self)
+
+    if self.appconf["playlist_skip_errors"] == "1":
+        playlist_skip_errors.set_active("active")
 
     # Speed limit:
 
@@ -190,8 +200,11 @@ def show_preferences(button, self, app, variaVersion):
 
     # Scheduler:
 
-    scheduler_actionrow = Adw.ActionRow()
-    scheduler_actionrow.set_title(_("Scheduler"))
+    self.scheduler_actionrow = Adw.ActionRow()
+    self.scheduler_actionrow.set_title(_("Scheduler"))
+
+    if (self.appconf["schedule_enabled"] == 1):
+        self.scheduler_actionrow.set_subtitle(_("Enabled"))
 
     scheduler_actionrow_edit_button = Gtk.Button(label=_("Configure"))
     scheduler_actionrow_edit_button.set_halign(Gtk.Align.START)
@@ -203,7 +216,7 @@ def show_preferences(button, self, app, variaVersion):
     scheduler_actionrow_buttons_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
     scheduler_actionrow_buttons_box.append(scheduler_actionrow_edit_button)
 
-    scheduler_actionrow.add_suffix(scheduler_actionrow_buttons_box)
+    self.scheduler_actionrow.add_suffix(scheduler_actionrow_buttons_box)
 
     # Simultaneous download amount:
 
@@ -256,8 +269,9 @@ def show_preferences(button, self, app, variaVersion):
     group_1.add(download_directory_actionrow)
     group_1.add(extract_archives)
     group_1.add(extract_archives_delete_archives)
+    group_1.add(playlist_skip_errors)
     group_1.add(speed_limit)
-    group_1.add(scheduler_actionrow)
+    group_1.add(self.scheduler_actionrow)
     group_1.add(simultaneous_download_amount_spinrow)
 
     group_tray.add(use_tray_icon)
@@ -590,6 +604,15 @@ def on_extract_archives_delete_archives(switch, state, self):
         self.appconf["extract_archives_delete_archives"] = '1'
     else:
         self.appconf["extract_archives_delete_archives"] = '0'
+
+    self.save_appconf()
+
+def on_playlist_skip_errors(switch, state, self):
+    state = switch.get_active()
+    if state:
+        self.appconf["playlist_skip_errors"] = '1'
+    else:
+        self.appconf["playlist_skip_errors"] = '0'
 
     self.save_appconf()
 

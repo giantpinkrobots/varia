@@ -632,6 +632,16 @@ msgstr ""
 msgid "Delete Archives After Extraction"
 msgstr ""
 
+# For videos
+msgid "Maximum Quality"
+msgstr ""
+
+msgid "Maximum available quality"
+msgstr ""
+
+msgid "Playlist Download"
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"

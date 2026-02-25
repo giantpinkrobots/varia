@@ -139,12 +139,14 @@ def save_schedule(preferencesDialog, self, switch_mode_1, switch_enabled):
         except:
             pass
         self.sidebar_content_box.append(self.sidebar_scheduler_label)
+        self.scheduler_actionrow.set_subtitle(_("Enabled"))
     else:
         self.appconf["schedule_enabled"] = 0
         try:
             self.sidebar_content_box.remove(self.sidebar_scheduler_label)
         except:
             pass
+        self.scheduler_actionrow.set_subtitle("")
 
     if switch_mode_1.get_state():
         self.appconf["schedule_mode"] = 'inclusive'
