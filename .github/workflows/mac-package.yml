@@ -117,9 +117,9 @@ jobs:
           cp -r locale "$MAC_DIR/Varia.app/Contents/Resources/"
 
           mkdir "$MAC_DIR/Varia.app/Contents/Resources/icons"
-          cp "$MAC_DIR/../data/icons/hicolor/symbolic/apps/io.github.giantpinkrobots.varia-symbolic.svg" "$MAC_DIR/Varia.app/Contents/Resources/icons/"
-          cp "$MAC_DIR/../data/icons/hicolor/scalable/apps/io.github.giantpinkrobots.varia.svg" "$MAC_DIR/Varia.app/Contents/Resources/icons/"
-          cp -r "$MAC_DIR/../data/icons/hicolor/symbolic/ui/"* "$MAC_DIR/Varia.app/Contents/Resources/icons/"
+          cp "$MAC_DIR/../data/icons/apps/io.github.giantpinkrobots.varia-symbolic.svg" "$MAC_DIR/Varia.app/Contents/Resources/icons/"
+          cp "$MAC_DIR/../data/icons/apps/io.github.giantpinkrobots.varia.svg" "$MAC_DIR/Varia.app/Contents/Resources/icons/"
+          cp -r "$MAC_DIR/../data/icons/actions/"* "$MAC_DIR/Varia.app/Contents/Resources/icons/"
 
           cp -r "$MAC_DIR/../dependencies_information" "$MAC_DIR/Varia.app/Contents/Resources/"
           touch "$MAC_DIR/Varia.app/Contents/Resources/updater-function-enabled"

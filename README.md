@@ -148,7 +148,19 @@ Varia will be built into src/dist/variamain. Main executable is variamain.exe.
 
 ### for macOS
 
-macOS builds are handled with GitHub Actions through (this)[https://github.com/giantpinkrobots/varia/blob/next/.github/workflows/mac-package.yml] file. I will prepare a friendlier automatic build script (like on Windows) later.
+macOS builds are handled with GitHub Actions through [this](https://github.com/giantpinkrobots/varia/blob/next/.github/workflows/mac-package.yml) file. To build locally you can use [act](https://github.com/nektos/act). It's available through [Homebrew](https://formulae.brew.sh/formula/act). To build, after cd'ing to the varia directory in a Terminal, run:
+
+(for Apple Silicon)
+```
+act -p macos-15=self-hosted
+```
+
+(for Intel)
+```
+act -p macos-15-intel=self-hosted
+```
+
+It will build a ready to go .dmg file into ~/.cache/act.
 
 ## Contributing
 
