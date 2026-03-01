@@ -135,7 +135,7 @@ def show_preferences(button, self, app, variaVersion):
 
     playlist_skip_errors = Adw.SwitchRow()
     playlist_skip_errors.set_title(_("Skip Playlist Download Errors"))
-    playlist_skip_errors.set_subtitle(_("If one of the videos in a playlist can't be downloaded, continue with the rest instead of erroring out."))
+    playlist_skip_errors.set_subtitle(_("If one of the videos in a playlist can't be downloaded, continue with the rest instead of cancelling."))
     playlist_skip_errors.connect("notify::active", on_playlist_skip_errors, self)
 
     if self.appconf["playlist_skip_errors"] == "1":
@@ -278,7 +278,7 @@ def show_preferences(button, self, app, variaVersion):
     group_tray.add(tray_icon_always_visible)
     group_tray.add(start_in_background)
 
-    if ((os.name == 'nt' or (os.uname().sysname == 'Darwin')) and (os.path.exists("./updater-function-enabled") == False)) == False: # Windows portable not supported
+    if (os.uname().sysname != 'Darwin') or ((os.name == 'nt') and (os.path.exists("./updater-function-enabled"))): # Windows portable and macOS not supported
         group_tray.add(open_on_startup)
 
     # Remote aria2:

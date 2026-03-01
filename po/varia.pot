@@ -642,6 +642,12 @@ msgstr ""
 msgid "Playlist Download"
 msgstr ""
 
+msgid "Skip Playlist Download Errors"
+msgstr ""
+
+msgid "If one of the videos in a playlist can't be downloaded, continue with the rest instead of cancelling."
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"

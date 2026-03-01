@@ -144,7 +144,7 @@ parts:
       usr/local: usr
     override-prime: |
       craftctl default
-      sed -i 's|Icon=.*|Icon=/usr/share/icons/hicolor/scalable/apps/io.github.giantpinkrobots.varia.svg|' usr/share/applications/io.github.giantpinkrobots.varia.desktop
+      sed -i 's|Icon=.*|Icon=/usr/share/icons/apps/io.github.giantpinkrobots.varia.svg|' usr/share/applications/io.github.giantpinkrobots.varia.desktop
 
 apps:
   varia:
