@@ -582,6 +582,10 @@ msgstr ""
 msgid "Torrent Peers"
 msgstr ""
 
+# Torrent file selection dialog title
+msgid "Select Files to Download"
+msgstr ""
+
 # Snap packaging permissions dialog part 1/2
 msgid "You are using Varia as a Snap package. There are some functions that you can't use without manually giving Varia some extra permissions. These are:"
 msgstr ""

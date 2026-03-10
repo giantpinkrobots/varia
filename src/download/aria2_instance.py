@@ -39,7 +39,8 @@ class Aria2Instance:
             "--bt-request-peer-speed-limit=5M",
             "--bt-tracker-connect-timeout=10",
             "--bt-tracker-interval=30",
-            "--bt-save-metadata=true"]
+            "--bt-save-metadata=true",
+            "--file-allocation=none"]
     
         if os.name != 'nt' and os.uname().sysname != 'Darwin': # Running Linux
             libc = ctypes.CDLL("libc.so.6", use_errno=True)
@@ -75,8 +76,8 @@ class Aria2Instance:
 
             else:
                 if hasattr(os, 'posix_fallocate'):
-                    aria2_config.append("--file-allocation=falloc") # Set fallocate on Linux for better performance
-                    print("fallocate enabled.")
+                    #aria2_config.append("--file-allocation=falloc") # Set fallocate on Linux for better performance / Actually disabling this now
+                    #print("fallocate enabled.")
                     self.aria2c_subprocess = subprocess.Popen([self.aria2cexec] + aria2_config, preexec_fn=setup, start_new_session=True)
 
                 else:

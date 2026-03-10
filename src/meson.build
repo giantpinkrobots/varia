@@ -73,6 +73,7 @@ varia_sources_download = [
   'download/details.py',
   'download/manage_downloads.py',
   'download/aria2_instance.py',
+  'download/torrent_select_files.py',
 ]
 
 varia_sources_tray = [

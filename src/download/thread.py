@@ -70,6 +70,7 @@ class DownloadThread(threading.Thread):
         self.video_download_combined = False
         self.video_download_stage = 0
         self.video_download_progress_previous = 0
+        self.video_download_is_playlist = False
 
         self.state_file = ""
         self.is_complete = False
@@ -153,6 +154,9 @@ class DownloadThread(threading.Thread):
                 download_options["out"] = self.downloadname
 
             if self.download == None:
+                if self.url.startswith("magnet:") or self.url.lower().endswith(".torrent"):
+                    download_options["pause"] = "true"
+
                 self.download = self.api.add_uris([self.url], options=download_options)
 
             if self.download.gid:
@@ -173,6 +177,7 @@ class DownloadThread(threading.Thread):
             if self.download.is_torrent:
                 self.download_details['type'] = _("Torrent")
                 self.change_download_type_icon("torrent")
+                self.torrent_file_select_completed = False
 
             else:
                 self.download_details['type'] = _("Regular")
@@ -211,22 +216,33 @@ class DownloadThread(threading.Thread):
                         GLib.idle_add(self.actionrow.filename_label.set_text, self.download.name)
 
                     self.update_labels_and_things(None)
-                    if ((self.download.is_complete) and (self.download.is_metadata == False)):
-                        print('Download complete: ' + self.download.gid)
-                        GLib.idle_add(self.set_complete)
-                        break
+
+                    if self.download.is_torrent and len(self.download.files) > 0 and not self.torrent_file_select_completed:
+                        try:
+                            self.download.pause()
+                        except:
+                            pass
+
+                        self.selection_event = threading.Event()
+                        from download.torrent_select_files import torrent_select_files_dialog
+                        torrent_select_files_dialog(self)
+
+                        self.selection_event.wait()
+
                     elif ((self.download.is_torrent) and (self.download.seeder)):
-                        print('Torrent complete, seeding: ' + self.download.gid)
+                        print('Torrent complete: ' + self.download.gid)
                         GLib.idle_add(self.set_complete)
-                        break
+                        return
+
                     elif (self.download.status == "error"):
                         GLib.idle_add(self.set_failed, None)
                         return
+
                 except:
                     return
-                
+
                 time.sleep(0.5)
-        
+
         # Video/audio download, use yt_dlp:
         elif self.mode == "video" or self.mode == "playlist":
             self.video_object = None
@@ -367,13 +383,6 @@ class DownloadThread(threading.Thread):
                     self.download_details['torrent_peers'] = self.app.api.client.call("aria2.getPeers", [self.download.gid])
                     self.download_details['completed_length'] = self.download.completed_length
                     self.download_details['upload_length'] = self.download.upload_length
-
-                    if self.download.seeder:
-                        if self.app.appconf["torrent_seeding_enabled"] == "1":
-                            GLib.idle_add(self.show_message(_("Seeding torrent")))
-                        else:
-                            GLib.idle_add(self.set_complete)
-                        return
                 
                 download_delta = self.download.eta
                 download_speed_mb = (speed / 1024 / 1024)
@@ -625,8 +634,6 @@ class DownloadThread(threading.Thread):
                                 pass
                     
                     for file in self.download_temp_files:
-                        print(file.path)
-
                         if os.path.exists(file.path):
                             file_parentdir = file.path.parent.absolute()
 
@@ -805,20 +812,11 @@ class DownloadThread(threading.Thread):
     def set_complete(self):
         self.is_complete = True
         self.app.filter_download_list("no", self.app.applied_filter)
-
         self.download_details['remaining'] = ""
         self.download_details['download_speed'] = ""
 
-        if self.mode == "regular":
-            is_seeding = self.download.is_torrent and self.download.seeder
-            if is_seeding == False and os.path.exists(os.path.join(self.downloaddir,(self.download.gid + ".varia"))):
-                os.remove(os.path.join(self.downloaddir,(self.download.gid + ".varia")))
-
-        elif self.mode == "video":
+        if self.mode == "video":
             self.video_remove_temp_files()
-
-        if os.path.exists(self.state_file):
-            os.remove(self.state_file)
         
         if self.extract_complete == False and self.app.appconf["extract_archives"] == "1":
             file_extension = self.downloadname.split('.')[-1].lower()
@@ -830,8 +828,15 @@ class DownloadThread(threading.Thread):
         
         self.cancelled = True
         self.set_actionrow_tooltip_text()
-        GLib.idle_add(self.speed_label.set_text, _("Download complete."))
         self.download_details['status'] = _("Completed")
+
+        if (self.download.is_torrent and self.download.seeder and self.app.appconf["torrent_seeding_enabled"] == "1"):
+            GLib.idle_add(self.speed_label.set_text, _("Seeding"))
+        else:
+            GLib.idle_add(self.speed_label.set_text, _("Download complete."))
+
+            if os.path.exists(self.state_file):
+                os.remove(self.state_file)
         
         GLib.idle_add(self.actionrow.progress_bar.set_fraction, 1)
         GLib.idle_add(self.actionrow.progress_bar.add_css_class, "success")
