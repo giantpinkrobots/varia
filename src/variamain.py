@@ -588,7 +588,7 @@ def main(version, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, pkgdatad
     appconf = {
         'window_size': [650, 570],
         'download_speed_limit_enabled': '0',
-        'download_speed_limit': '0',
+        'download_speed_limit': '0M',
         'auth': '0',
         'auth_username': '',
         'auth_password': '',

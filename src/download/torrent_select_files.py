@@ -85,6 +85,8 @@ def torrent_select_files_dialog(self):
             update_parent_state(node.parent)
 
         updating = False
+
+        ok_button.set_sensitive(bool(get_selected_files(root_store))) # Disable the OK button if nothing is selected
     
     def update_parent_state(parent):
         if not parent.is_dir:

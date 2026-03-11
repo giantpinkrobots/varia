@@ -171,16 +171,20 @@ def show_preferences(button, self, app, variaVersion):
 
     if (self.appconf["download_speed_limit"][0] != "0"):
         speed_limit_expander_switch.set_sensitive(True)
-        speed_limit_entry.set_text(self.appconf["download_speed_limit"][:-1])
-        match (self.appconf["download_speed_limit"][-1]):
-            case "K":
-                speed_limit_unit_names_dropdown.set_selected(0)
-            case "M":
-                speed_limit_unit_names_dropdown.set_selected(1)
-            case "G":
-                speed_limit_unit_names_dropdown.set_selected(2)
+
     else:
         speed_limit_expander_switch.set_sensitive(False)
+    
+    if (self.appconf["download_speed_limit"][:-1] != "0"):
+        speed_limit_entry.set_text(self.appconf["download_speed_limit"][:-1])
+
+    match (self.appconf["download_speed_limit"][-1]):
+        case "K":
+            speed_limit_unit_names_dropdown.set_selected(0)
+        case "M":
+            speed_limit_unit_names_dropdown.set_selected(1)
+        case "G":
+            speed_limit_unit_names_dropdown.set_selected(2)
 
     if (self.appconf["download_speed_limit_enabled"] == "1"):
         speed_limit_expander_switch.set_active("active")
