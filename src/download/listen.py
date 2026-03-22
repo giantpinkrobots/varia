@@ -68,18 +68,15 @@ def listen_to_aria2(self, variaapp):
 
             # Handle videos:
             if download_item_to_be_added.name == "varia-video-download.variavideo":
-                try:
-                    downloadurl = download_item_to_be_added.files[0].uris[0]["uri"]
-                    download_item_to_be_added.remove(force=True)
-                    on_video_clicked(None, self, downloadurl)
-                    self.unminimize()
-                    self.set_visible(True)
-                    if os.uname().sysname != 'Darwin':
-                        self.present()
-                    print("Video added through browser extension")
-                
-                except:
-                    pass
+                downloadurl = download_item_to_be_added.files[0].uris[0]["uri"]
+                download_header = download_item_to_be_added.options.header
+                download_item_to_be_added.remove(force=True)
+                on_video_clicked(None, self, downloadurl, download_header)
+                self.unminimize()
+                self.set_visible(True)
+                if os.uname().sysname != 'Darwin':
+                    self.present()
+                print("Video added through browser extension")
             
             else:
                 new_download_files = download_item_to_be_added.files

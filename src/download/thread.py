@@ -262,6 +262,9 @@ class DownloadThread(threading.Thread):
                 self.video_download_playlist_completed_ids = []
                 video_options_final['outtmpl'] = os.path.join(self.downloaddir, "%(title)s.%(ext)s")
 
+                if self.app.appconf["playlist_skip_errors"] == "1":
+                    video_options_final['ignoreerrors'] = True
+
                 if video_options_final['type'] == 0:
                     self.video_download_combined = True
                 
@@ -283,11 +286,11 @@ class DownloadThread(threading.Thread):
             video_options_final['ffmpeg_location'] = self.app.ffmpegexec
             video_options_final['js_runtimes'] = {'deno': {'path': self.app.denoexec}}
 
+            if os.path.exists(os.path.join(self.app.appdir, "cookies_for_ytdlp.txt")):
+                video_options_final['cookiefile'] = os.path.join(self.app.appdir, "cookies_for_ytdlp.txt")
+
             if self.app.appconf["remote_time"] == '1':
                 video_options_final['updatetime'] = True
-
-            if self.app.appconf["cookies_txt"] == "1":
-                video_options_final['cookiefile'] = os.path.join(self.app.appdir, 'cookies.txt')
 
             self.download = YoutubeDL(video_options_final)
             GLib.idle_add(self.actionrow.filename_label.set_text, self.downloadname)
@@ -309,14 +312,17 @@ class DownloadThread(threading.Thread):
 
             def youtubedl_download_start():
                 quit_before_success = False
+
                 try:
                     self.download.download([self.url])
+
                 except SystemExit:
                     print("SystemExit received by yt_dlp thread")
                     self.video_stop_event.clear()
                     self.cancelled = True
                     quit_before_success = True
                     return
+
                 except Exception as e:
                     self.show_message(f"{_("An error occurred:")} {self.app.escape_special_characters(str(e))}")
                     self.video_stop_event.clear()
@@ -324,6 +330,7 @@ class DownloadThread(threading.Thread):
                     GLib.idle_add(self.set_failed, None)
                     quit_before_success = True
                     return
+
                 finally:
                     if quit_before_success == False and self.video_object['status'] == "finished":
                         GLib.idle_add(self.set_complete)
@@ -830,7 +837,7 @@ class DownloadThread(threading.Thread):
         self.set_actionrow_tooltip_text()
         self.download_details['status'] = _("Completed")
 
-        if (self.download.is_torrent and self.download.seeder and self.app.appconf["torrent_seeding_enabled"] == "1"):
+        if self.mode == "regular" and self.download.is_torrent and self.download.seeder and self.app.appconf["torrent_seeding_enabled"] == "1":
             GLib.idle_add(self.speed_label.set_text, _("Seeding"))
         else:
             GLib.idle_add(self.speed_label.set_text, _("Download complete."))
@@ -858,6 +865,9 @@ class DownloadThread(threading.Thread):
 
             else:
                 self.show_message(_("An error occurred:") + " " + str(self.download.error_code))
+        
+        elif self.video_download_is_playlist == True:
+            self.mode = "playlist"
         
         self.download_details['status'] = _("Failed")
         self.download_details['remaining'] = ""

@@ -162,7 +162,13 @@ def pause_button_set_open_mode(button, self, download_item):
     button.set_tooltip_text(_("Open File"))
 
 def pause_button_on_retry_clicked(button, self, download_item):
-    new_download_item = on_download_clicked(None, self, download_item.url, download_item.downloadname, None, download_item.mode, download_item.video_options, False, download_item.downloaddir, 0)
+    if download_item.mode == "playlist":
+        downloaddir = os.path.join(download_item.downloaddir, "..") # Playlists download into a subdirectory,
+                                                                    # so we need to take the above directory
+    else:
+        downloaddir = download_item.downloaddir
+
+    new_download_item = on_download_clicked(None, self, download_item.url, download_item.downloadname, None, download_item.mode, download_item.video_options, False, downloaddir, 0)
 
     self.download_list.reorder_child_after(new_download_item.actionrow, download_item.actionrow)
     self.downloads.remove(new_download_item)

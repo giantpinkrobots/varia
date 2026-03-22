@@ -7,6 +7,8 @@ import threading
 from concurrent.futures import ThreadPoolExecutor
 import os
 import yt_dlp
+import base64
+import json
 
 from download.actionrow import on_download_clicked
 from download.thread import DownloadThread
@@ -18,7 +20,41 @@ def format_filesize(filesize):
         filesize /= 1024.0
     return f"{filesize:.2f} TB"
 
-def on_video_clicked(button, self, entry):
+def cookies_to_netscape(cookies, app):
+    if app.appconf["cookies_txt"] == "1":
+        with open(os.path.join(app.appdir, 'cookies.txt'), 'r') as file:
+            lines = file.readlines()
+    else:
+        lines = ["# Netscape HTTP Cookie File"]
+
+    try:
+        cookies = json.loads(base64.b64decode(cookies).decode("utf-8"))
+    except:
+        return None
+
+    for cookie in cookies:
+        domain = cookie["domain"]
+        include_subdomains = "TRUE" if domain.startswith(".") else "FALSE"
+        path = cookie.get("path", "/")
+        secure = "TRUE" if cookie.get("secure") else "FALSE"
+        expiry = int(cookie.get("expirationDate", 0))
+
+        lines.append("\t".join([
+            domain,
+            include_subdomains,
+            path,
+            secure,
+            str(expiry),
+            cookie["name"],
+            cookie["value"]
+        ]))
+
+    final_file_contents = "\n".join(lines)
+
+    with open(os.path.join(app.appdir, "cookies_for_ytdlp.txt"), "w") as text_file:
+        text_file.write(final_file_contents)
+
+def on_video_clicked(button, self, entry, header):
     self.video_loading_cancelled = False
 
     if isinstance(entry, str):
@@ -27,6 +63,8 @@ def on_video_clicked(button, self, entry):
     else:
         url = entry.get_text()
         entry.set_text("")
+    
+    cookies_to_netscape(header, self) # Generate final cookies file
     
     def loading_dialog_cancel_pressed(dialog, response_id, self):
         self.video_loading_cancelled = True
@@ -60,6 +98,7 @@ def on_video_clicked(button, self, entry):
             'js_runtimes': {'deno': {'path': self.denoexec}},
             'skip_download': True,
             'extract_flat': True,
+            'cookiefile': os.path.join(self.appdir, "cookies_for_ytdlp.txt")
         }
 
         if self.appconf["cookies_txt"] == "1":
@@ -74,13 +113,20 @@ def on_video_clicked(button, self, entry):
                     }
 
             except Exception as error:
+                print("sus error!!!!")
                 print(error)
                 return {
-                    "data": False,
+                    "data": None,
                     "ytdlp_error": str(error)
                 }
         
-        data_get = False
+        second_round_with_no_extract_flat = False # We run the first round with extract_flat because
+                                                  # otherwise with playlists yt-dlp tries to extract
+                                                  # info from every video in the playlist one by one
+                                                  # but single vides require extract_flat to be False
+                                                  # to get the formats list, so if the download isn't
+                                                  # a playlist we run it again with extract_flat set to False
+
         while(True):
             executor = ThreadPoolExecutor(max_workers=1)
             future = executor.submit(ytdlp_get_data)
@@ -93,11 +139,14 @@ def on_video_clicked(button, self, entry):
             data = result["data"]
             ytdlp_error = result["ytdlp_error"]
 
-            if data.get("_type") == "playlist" or data_get:
+            if second_round_with_no_extract_flat:
                 break
-            elif data.get("_type") == "video":
-                youtube_dl_options['extract_flat'] = False
-                data_get = True
+
+            if data and data.get("_type") == "playlist":
+                break
+
+            youtube_dl_options['extract_flat'] = False
+            second_round_with_no_extract_flat = True
 
         video_formats = []
         audio_formats = []
@@ -516,7 +565,7 @@ def on_playlist_download_clicked(self, prefswindow, type, length, qualities, sel
         'length': length,
         'filesize_to_show': "...",
         'format': format_text,
-        'type': type,
+        'type': type
     }
 
     on_download_clicked(None, self, url, download_name, None, "playlist", video_options, False, self.appconf["download_directory"], 0)
