@@ -11,6 +11,8 @@ conf.set('PYTHON', python.find_installation('python3').path())
 conf.set('VERSION', meson.project_version())
 conf.set('localedir', get_option('prefix') / get_option('localedir'))
 conf.set('pkgdatadir', pkgdatadir)
+conf.set('jsruntime_name_for_ytdlp', get_option('jsruntime_name_for_ytdlp'))
+conf.set('jsruntime_exec_name', get_option('jsruntime_exec_name'))
 conf.set(
   'DESKTOP_FILE_LOCATION',
   get_option('prefix') / get_option('datadir') / 'applications' / 'io.github.giantpinkrobots.varia.desktop',

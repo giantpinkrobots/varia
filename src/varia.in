@@ -5,8 +5,9 @@ pkgdatadir='@pkgdatadir@'
 aria2cexec=$pkgdatadir/../../bin/aria2c
 ffmpegexec=$pkgdatadir/../../bin/ffmpeg
 sevenzexec=$pkgdatadir/../../bin/7zz
-jsruntime='deno'
 jsruntimeexec=$pkgdatadir/../../bin/deno
+jsruntime='@jsruntime_name_for_ytdlp@'
+jsruntimeexecname='@jsruntime_exec_name@'
 
 while [ $# -gt 0 ] ; do
   case $1 in
@@ -34,8 +35,7 @@ then
 	aria2cexec=$(which aria2c)
 	ffmpegexec=$(which ffmpeg)
 	sevenzexec=$(which 7z)
-	jsruntime='deno'
-	jsruntimeexec=$(which deno)
+	jsruntimeexec=$(which $jsruntimeexecname)
 	if !(test -f $aria2cexec;) || !(test -f $ffmpegexec;) || !(test -f $sevenzexec;) || !(test -f $jsruntimeexec;)
 	then
 		echo "aria2c and/or ffmpeg and/or 7z and/or the JS runtime (defaults to Deno) not found. Exiting."
