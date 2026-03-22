@@ -95,7 +95,7 @@ def on_video_clicked(button, self, entry, header):
 
     def ytdlp_startsubprocess():
         youtube_dl_options = {
-            'js_runtimes': {'deno': {'path': self.denoexec}},
+            'js_runtimes': {self.jsruntimeexec['name']: {'path': self.jsruntimeexec['exec']}},
             'skip_download': True,
             'extract_flat': True,
             'cookiefile': os.path.join(self.appdir, "cookies_for_ytdlp.txt")
@@ -113,8 +113,6 @@ def on_video_clicked(button, self, entry, header):
                     }
 
             except Exception as error:
-                print("sus error!!!!")
-                print(error)
                 return {
                     "data": None,
                     "ytdlp_error": str(error)

@@ -284,7 +284,9 @@ class DownloadThread(threading.Thread):
             video_options_final['progress_hooks'] = [self.update_labels_and_things]
             video_options_final['continuedl'] = True
             video_options_final['ffmpeg_location'] = self.app.ffmpegexec
-            video_options_final['js_runtimes'] = {'deno': {'path': self.app.denoexec}}
+            video_options_final['js_runtimes'] = {
+                self.app.jsruntimeexec['name']: {'path': self.app.jsruntimeexec['exec']}
+            }
 
             if os.path.exists(os.path.join(self.app.appdir, "cookies_for_ytdlp.txt")):
                 video_options_final['cookiefile'] = os.path.join(self.app.appdir, "cookies_for_ytdlp.txt")

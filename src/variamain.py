@@ -87,7 +87,7 @@ class MainWindow(application_window):
 
     global tray_process_global
 
-    def __init__(self, variaapp, appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, pkgdatadir, *args, **kwargs):
+    def __init__(self, variaapp, appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, jsruntimeexec, issnap, pkgdatadir, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.scheduler_currently_downloading = False
@@ -104,7 +104,7 @@ class MainWindow(application_window):
         self.preferences_shown = False
         self.issnap = issnap
         self.sevenzexec = sevenzexec
-        self.denoexec = denoexec
+        self.jsruntimeexec = jsruntimeexec
         self.use_ssd = use_ssd
         self.pkgdatadir = pkgdatadir
 
@@ -447,10 +447,10 @@ class MainWindow(application_window):
             self.exitProgram(variaapp, variaapp, False)
 
 class MyApp(Adw.Application):
-    def __init__(self, appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, pkgdatadir, arguments, **kwargs):
+    def __init__(self, appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, jsruntimeexec, issnap, pkgdatadir, arguments, **kwargs):
         super().__init__(**kwargs)
         GLib.set_application_name("Varia")
-        self.connect('activate', self.on_activate, appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, pkgdatadir, arguments)
+        self.connect('activate', self.on_activate, appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, jsruntimeexec, issnap, pkgdatadir, arguments)
         quit_action = Gio.SimpleAction.new("quit", None)
         quit_action.connect("activate", self.quit_action)
         self.add_action(quit_action)
@@ -465,9 +465,9 @@ class MyApp(Adw.Application):
         
         self.add_downloads(arguments)
 
-    def on_activate(self, app, appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, pkgdatadir, arguments):
+    def on_activate(self, app, appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, jsruntimeexec, issnap, pkgdatadir, arguments):
         if not hasattr(self, 'win'):
-            self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf, first_run=first_run, aria2cexec=aria2cexec, ffmpegexec=ffmpegexec, sevenzexec=sevenzexec, denoexec=denoexec, issnap=issnap, pkgdatadir=pkgdatadir)
+            self.win = MainWindow(application=app, variaapp=self, appdir=appdir, appconf=appconf, first_run=first_run, aria2cexec=aria2cexec, ffmpegexec=ffmpegexec, sevenzexec=sevenzexec, jsruntimeexec=jsruntimeexec, issnap=issnap, pkgdatadir=pkgdatadir)
 
         try:
             if ((self.win.terminating == False) and ((appconf["default_mode"] == "visible") or (self.initiated == True))):
@@ -550,7 +550,7 @@ class MyApp(Adw.Application):
     def quit_action(self, action, parameter):
         self.win.quit_action_received(self)
 
-def main(version, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, pkgdatadir, arguments):
+def main(version, aria2cexec, ffmpegexec, sevenzexec, jsruntimeexec, issnap, pkgdatadir, arguments):
     if os.name == 'nt' or os.uname().sysname == 'Darwin': # Varia server only used on Windows/Mac to send data to the already running instance.
         if not start_varia_server():
             send_to_varia_instance(arguments)
@@ -647,7 +647,7 @@ def main(version, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, pkgdatad
 
     arguments = json.loads(arguments)
     global myapp
-    myapp = MyApp(appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, pkgdatadir, arguments, application_id="io.github.giantpinkrobots.varia", flags=Gio.ApplicationFlags.HANDLES_OPEN)
+    myapp = MyApp(appdir, appconf, first_run, aria2cexec, ffmpegexec, sevenzexec, jsruntimeexec, issnap, pkgdatadir, arguments, application_id="io.github.giantpinkrobots.varia", flags=Gio.ApplicationFlags.HANDLES_OPEN)
 
     try:
         myapp.run()
@@ -699,7 +699,12 @@ if (__name__ == '__main__'):
         stringstorage.setstrings_win(translation.gettext)
         from stringstorage import gettext as _
 
-        sys.exit(main(variaVersion, os.path.join(os.getcwd(), "aria2c.exe"), os.path.join(os.getcwd(), "ffmpeg.exe"), os.path.join(os.getcwd(), "7zz.exe"), os.path.join(os.getcwd(), "deno.exe"), False, None, json.dumps(sys.argv)))
+        jsruntimeexec = {
+            'name': 'deno',
+            'exec': os.path.join(os.getcwd(), "deno.exe")
+        }
+
+        sys.exit(main(variaVersion, os.path.join(os.getcwd(), "aria2c.exe"), os.path.join(os.getcwd(), "ffmpeg.exe"), os.path.join(os.getcwd(), "7zz.exe"), jsruntimeexec, False, None, json.dumps(sys.argv)))
 
     elif os.uname().sysname == 'Darwin':
         translation = gettext.translation('varia', localedir='./locale', languages=["en-US"], fallback=True)
@@ -707,4 +712,9 @@ if (__name__ == '__main__'):
         stringstorage.setstrings_win(translation.gettext)
         from stringstorage import gettext as _
 
-        sys.exit(main(variaVersion, os.path.join(os.getcwd(), "aria2c"), os.path.join(os.getcwd(), "ffmpeg"), os.path.join(os.getcwd(), "7zz"), os.path.join(os.getcwd(), "deno"), False, None, json.dumps(sys.argv)))
+        jsruntimeexec = {
+            'name': 'deno',
+            'exec': os.path.join(os.getcwd(), "deno")
+        }
+
+        sys.exit(main(variaVersion, os.path.join(os.getcwd(), "aria2c"), os.path.join(os.getcwd(), "ffmpeg"), os.path.join(os.getcwd(), "7zz"), jsruntimeexec, False, None, json.dumps(sys.argv)))
