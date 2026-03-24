@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-07-20 08:06+0000\n"
-"Last-Translator: Mie <miesiva@tutanota.com>\n"
+"PO-Revision-Date: 2026-03-05 19:04+0000\n"
+"Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/varia/varia/"
 "id/>\n"
 "Language: id\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -232,18 +232,14 @@ msgstr "Ekstensi Browser"
 msgid "Shutdown on Completion"
 msgstr "Matikan setelah unduhan selesai"
 
-#, fuzzy
-#| msgid "Exit on Completion"
 msgid "Sleep on Completion"
-msgstr "Keluar setelah Selesai"
+msgstr "Tidur Saat Selesai"
 
 msgid "Varia is about to shut down your computer."
 msgstr "Varia akan segera mematikan komputer Anda."
 
-#, fuzzy
-#| msgid "Varia is about to shut down your computer."
 msgid "Varia is about to put your computer to sleep."
-msgstr "Varia akan segera mematikan komputer Anda."
+msgstr "Varia akan memasukkan komputer Anda ke mode tidur."
 
 msgid "Press Cancel to cancel and disable."
 msgstr "Tekan Batal untuk membatalkan dan menonaktifkan."
@@ -350,7 +346,7 @@ msgstr "Torrent"
 
 # Download type: Regular
 msgid "Regular"
-msgstr ""
+msgstr "Reguler"
 
 # Updater
 msgid "Checking for updates..."
@@ -548,164 +544,163 @@ msgstr "Konfigurasi"
 msgid "Download Segments"
 msgstr "Unduh Segmen"
 
-#, fuzzy
-#| msgid "Pause All"
 msgid "Pause"
-msgstr "Jeda semuanya"
+msgstr "Jeda"
 
-#, fuzzy
-#| msgid "Resume All"
 msgid "Resume"
-msgstr "Lanjutkan semua"
+msgstr "Lanjutkan"
 
 msgid "Stop"
-msgstr ""
+msgstr "Hentikan"
 
-#, fuzzy
-#| msgid "File"
 msgid "Open File"
-msgstr "Berkas"
+msgstr "Buka Berkas"
 
 msgid "Retry"
-msgstr ""
+msgstr "Coba Lagi"
 
 msgid "Require Encryption"
-msgstr ""
+msgstr "Wajibkan Enkripsi"
 
 msgid "Get Country Info of Peers"
-msgstr ""
+msgstr "Dapatkan Info Negara Rekan"
 
 msgid ""
 "This will use an external service to get the IP geolocation of your torrent "
 "peers in order to show country flags in the details window."
 msgstr ""
+"Ini akan menggunakan layanan eksternal untuk mendapatkan geolokasi IP rekan "
+"torrent Anda guna menampilkan bendera negara di jendela detail."
 
-#, fuzzy
-#| msgid "Download failed."
 msgid "Download Details"
-msgstr "Unduhan gagal."
+msgstr "Detail Unduhan"
 
 msgid "Type"
-msgstr ""
+msgstr "Tipe"
 
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
-#, fuzzy
-#| msgid "File"
 msgid "File Name"
-msgstr "Berkas"
+msgstr "Nama Berkas"
 
-#, fuzzy
-#| msgid "Download"
 msgid "Downloading"
-msgstr "Unduh"
+msgstr "Mengunduh"
 
-#, fuzzy
-#| msgid "Pause All"
 msgid "Paused"
-msgstr "Jeda semuanya"
+msgstr "Dijeda"
 
-#, fuzzy
-#| msgid "Scheduler"
 msgid "Scheduled"
-msgstr "Penjadwalan"
+msgstr "Terjadwal"
 
 msgid "Extracting"
-msgstr ""
+msgstr "Mengekstrak"
 
 msgid "Percentage Downloaded"
-msgstr ""
+msgstr "Persentase Terunduh"
 
-#, fuzzy
-#| msgid "remaining"
 msgid "Remaining"
-msgstr "tersisa"
+msgstr "Tersisa"
 
-#, fuzzy
-#| msgid "Download Segments"
 msgid "Download Speed"
-msgstr "Unduh Segmen"
+msgstr "Kecepatan Unduh"
 
-#, fuzzy
-#| msgid "Seeding"
 msgid "Seeding Speed"
-msgstr "Seeding"
+msgstr "Kecepatan Seeding"
 
-#, fuzzy
-#| msgid "Download Segments"
 msgid "Amount Downloaded"
-msgstr "Unduh Segmen"
+msgstr "Jumlah Terunduh"
 
 msgid "Amount Uploaded"
-msgstr ""
+msgstr "Jumlah Terunggah"
 
 msgid "Ratio"
-msgstr ""
+msgstr "Rasio"
+
+msgid "Torrent Peers"
+msgstr "Rekan Torrent"
 
 #, fuzzy
-#| msgid "Torrent"
-msgid "Torrent Peers"
-msgstr "Torrent"
+#| msgid "Playlist Download"
+msgid "Select Files to Download"
+msgstr "Unduhan Playlist"
 
 # Snap packaging permissions dialog part 1/2
 msgid ""
 "You are using Varia as a Snap package. There are some functions that you "
 "can't use without manually giving Varia some extra permissions. These are:"
 msgstr ""
+"Anda menggunakan Varia sebagai paket Snap. Ada beberapa fungsi yang tidak "
+"dapat Anda gunakan tanpa memberikan izin tambahan secara manual kepada "
+"Varia. Yaitu:"
 
 # Snap packaging permissions dialog part 2/2
 msgid ""
 "To enable these functions you must run these commands in a terminal to give "
 "the required permissions and then restart Varia:"
 msgstr ""
+"Untuk mengaktifkan fungsi-fungsi ini, Anda harus menjalankan perintah "
+"berikut di terminal untuk memberikan izin yang diperlukan, lalu mulai ulang "
+"Varia:"
 
 # Tooltip for when focused on filter options in the sidebar. Do not translate {filter option}, it will be replaced by the filter type. ("All", "In Progress", etc)
 msgid "Filter downloads by {filter option}"
-msgstr ""
+msgstr "Filter unduhan berdasarkan {opsi filter}"
 
-#, fuzzy
-#| msgid "Download"
 msgid "Download item"
-msgstr "Unduh"
+msgstr "Item unduhan"
 
-#, fuzzy
-#| msgid "{number}%"
 msgid "Timespan {number}"
-msgstr "{number}%"
+msgstr "Rentang waktu {number}"
 
 # Tooltip for when focused on timespan day of the week dropdown
 msgid "Day of the week for timespan {number}"
-msgstr ""
+msgstr "Hari dalam seminggu untuk rentang waktu {number}"
 
-#, fuzzy
-#| msgid "Remote Timestamp"
 msgid "Remove timespan {number}"
-msgstr "Stempel Waktu Remote"
+msgstr "Hapus rentang waktu {number}"
 
 # Tooltip for when focused on timespan start hour
 msgid "Start hour for timespan {number}"
-msgstr ""
+msgstr "Jam mulai untuk rentang waktu {number}"
 
 # Tooltip for when focused on timespan start minute
 msgid "Start minute for timespan {number}"
-msgstr ""
+msgstr "Menit mulai untuk rentang waktu {number}"
 
 # Tooltip for when focused on timespan end hour
 msgid "End hour for timespan {number}"
-msgstr ""
+msgstr "Jam selesai untuk rentang waktu {number}"
 
 # Tooltip for when focused on timespan end minute
 msgid "End minute for timespan {number}"
-msgstr ""
+msgstr "Menit selesai untuk rentang waktu {number}"
 
-#, fuzzy
-#| msgid "Automatically Check for Updates"
 msgid "Automatically Extract Archives"
-msgstr "Otomatis Periksa Pembaruan"
+msgstr "Ekstrak Arsip Secara Otomatis"
 
 msgid "Delete Archives After Extraction"
+msgstr "Hapus Arsip Setelah Ekstraksi"
+
+# For videos
+msgid "Maximum Quality"
+msgstr "Kualitas Maksimum"
+
+msgid "Maximum available quality"
+msgstr "Kualitas tertinggi yang tersedia"
+
+msgid "Playlist Download"
+msgstr "Unduhan Playlist"
+
+msgid "Skip Playlist Download Errors"
+msgstr "Lewati Kesalahan Unduhan Playlist"
+
+msgid ""
+"If one of the videos in a playlist can't be downloaded, continue with the "
+"rest instead of cancelling."
 msgstr ""
+"Jika salah satu video dalam playlist tidak dapat diunduh, lanjutkan dengan "
+"video lainnya alih-alih membatalkan."
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

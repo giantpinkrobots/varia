@@ -156,7 +156,9 @@ msgid "This application relies on the following pieces of software:"
 msgstr "יישום זה מסתמך על התוכנות הבאות:"
 
 #: src/variamain.py:777
-msgid "The licenses of all of these pieces of software can be found in the dependencies_information directory in this application's app directory."
+msgid ""
+"The licenses of all of these pieces of software can be found in the "
+"dependencies_information directory in this application's app directory."
 msgstr ""
 
 # This is for the credits section. Replace this string with your own information so you'll be credited for your work.
@@ -343,7 +345,7 @@ msgstr ""
 msgid "Regular"
 msgstr ""
 
-#Updater
+# Updater
 msgid "Checking for updates..."
 msgstr ""
 
@@ -409,20 +411,25 @@ msgstr ""
 msgid "Starting download..."
 msgstr ""
 
-msgid "The video platform may not be supported or you may be being blocked by the platform. If you have an active VPN connection that might be the cause, or you can try importing your browser's cookies through a cookies.txt file."
+msgid ""
+"The video platform may not be supported or you may be being blocked by the "
+"platform. If you have an active VPN connection that might be the cause, or "
+"you can try importing your browser's cookies through a cookies.txt file."
 msgstr ""
 
 msgid "This will disable the video download functionality."
 msgstr ""
 
-#: Relating to video download progress where it says "Part 1/2" - {indicator} is replaced by "1/2" or "2/2" (don't translate {indicator})
+#: Relating to video download progress where it says "Part 1/2" - {indicator}
+#: is replaced by "1/2" or "2/2" (don't translate {indicator})
 msgid "Part {indicator}"
 msgstr ""
 
 msgid "Simultaneous download limit exceeded, waiting."
 msgstr ""
 
-#: The way percentages will be shown, like 10% or %10 depending on the language (don't translate {number}, just move it if needed)
+#: The way percentages will be shown, like 10% or %10 depending on the language
+#: (don't translate {number}, just move it if needed)
 msgid "{number}%"
 msgstr ""
 
@@ -439,7 +446,12 @@ msgid "Custom Download Directory for Torrents"
 msgstr ""
 
 #: When the user attempts to disable seeding
-msgid "As torrenting relies on people seeding data, disabling seeding is very much frowned upon and may result in you getting throttled or banned by certain clients and trackers. Clients are usually expected to seed at least as much as they download (a ratio of 1). You may want to consider limiting your seeding ratio instead."
+msgid ""
+"As torrenting relies on people seeding data, disabling seeding is very much "
+"frowned upon and may result in you getting throttled or banned by certain "
+"clients and trackers. Clients are usually expected to seed at least as much "
+"as they download (a ratio of 1). You may want to consider limiting your "
+"seeding ratio instead."
 msgstr ""
 
 msgid "Cancel Seeding"
@@ -461,7 +473,9 @@ msgstr ""
 msgid "The browser extension will not work when Remote Mode is enabled."
 msgstr ""
 
-msgid "Disabling torrenting will prevent new torrents from being added. It will not stop current torrent instances."
+msgid ""
+"Disabling torrenting will prevent new torrents from being added. It will not "
+"stop current torrent instances."
 msgstr ""
 
 msgid "Torrenting is disabled."
@@ -489,7 +503,8 @@ msgstr ""
 msgid "Tray Icon Always Visible"
 msgstr ""
 
-msgid "The tray icon will be visible even when Varia is not in background mode."
+msgid ""
+"The tray icon will be visible even when Varia is not in background mode."
 msgstr ""
 
 # Open on startup option
@@ -534,7 +549,9 @@ msgstr ""
 msgid "Get Country Info of Peers"
 msgstr ""
 
-msgid "This will use an external service to get the IP geolocation of your torrent peers in order to show country flags in the details window."
+msgid ""
+"This will use an external service to get the IP geolocation of your torrent "
+"peers in order to show country flags in the details window."
 msgstr ""
 
 # Download details dialog
@@ -586,12 +603,21 @@ msgstr ""
 msgid "Torrent Peers"
 msgstr ""
 
+#, fuzzy
+#| msgid "Download"
+msgid "Select Files to Download"
+msgstr "הורדה"
+
 # Snap packaging permissions dialog part 1/2
-msgid "You are using Varia as a Snap package. There are some functions that you can't use without manually giving Varia some extra permissions. These are:"
+msgid ""
+"You are using Varia as a Snap package. There are some functions that you "
+"can't use without manually giving Varia some extra permissions. These are:"
 msgstr ""
 
 # Snap packaging permissions dialog part 2/2
-msgid "To enable these functions you must run these commands in a terminal to give the required permissions and then restart Varia:"
+msgid ""
+"To enable these functions you must run these commands in a terminal to give "
+"the required permissions and then restart Varia:"
 msgstr ""
 
 # Tooltip for when focused on filter options in the sidebar. Do not translate {filter option}, it will be replaced by the filter type. ("All", "In Progress", etc)
@@ -634,6 +660,28 @@ msgid "Automatically Extract Archives"
 msgstr ""
 
 msgid "Delete Archives After Extraction"
+msgstr ""
+
+# For videos
+msgid "Maximum Quality"
+msgstr ""
+
+msgid "Maximum available quality"
+msgstr ""
+
+#, fuzzy
+#| msgid "Download"
+msgid "Playlist Download"
+msgstr "הורדה"
+
+#, fuzzy
+#| msgid "Download"
+msgid "Skip Playlist Download Errors"
+msgstr "הורדה"
+
+msgid ""
+"If one of the videos in a playlist can't be downloaded, continue with the "
+"rest instead of cancelling."
 msgstr ""
 
 #: src/gtk/help-overlay.ui:11

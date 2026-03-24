@@ -631,6 +631,11 @@ msgstr "Racio"
 msgid "Torrent Peers"
 msgstr "Torrent"
 
+#, fuzzy
+#| msgid "Download"
+msgid "Select Files to Download"
+msgstr "Telecargar"
+
 # Snap packaging permissions dialog part 1/2
 msgid ""
 "You are using Varia as a Snap package. There are some functions that you "
@@ -685,6 +690,28 @@ msgid "Automatically Extract Archives"
 msgstr ""
 
 msgid "Delete Archives After Extraction"
+msgstr ""
+
+# For videos
+msgid "Maximum Quality"
+msgstr ""
+
+msgid "Maximum available quality"
+msgstr ""
+
+#, fuzzy
+#| msgid "Download"
+msgid "Playlist Download"
+msgstr "Telecargar"
+
+#, fuzzy
+#| msgid "Download"
+msgid "Skip Playlist Download Errors"
+msgstr "Telecargar"
+
+msgid ""
+"If one of the videos in a playlist can't be downloaded, continue with the "
+"rest instead of cancelling."
 msgstr ""
 
 #: src/gtk/help-overlay.ui:11
