@@ -24,35 +24,42 @@ def cookies_to_netscape(cookies, app):
     if app.appconf["cookies_txt"] == "1":
         with open(os.path.join(app.appdir, 'cookies.txt'), 'r') as file:
             lines = file.readlines()
+        cookies_included = True
     else:
         lines = ["# Netscape HTTP Cookie File"]
+        cookies_included = False
 
     try:
         cookies = json.loads(base64.b64decode(cookies).decode("utf-8"))
+
+        for cookie in cookies:
+            domain = cookie["domain"]
+            include_subdomains = "TRUE" if domain.startswith(".") else "FALSE"
+            path = cookie.get("path", "/")
+            secure = "TRUE" if cookie.get("secure") else "FALSE"
+            expiry = int(cookie.get("expirationDate", 0))
+
+            lines.append("\t".join([
+                domain,
+                include_subdomains,
+                path,
+                secure,
+                str(expiry),
+                cookie["name"],
+                cookie["value"]
+            ]))
+        
+        cookies_included = True
     except:
-        return None
+        pass
 
-    for cookie in cookies:
-        domain = cookie["domain"]
-        include_subdomains = "TRUE" if domain.startswith(".") else "FALSE"
-        path = cookie.get("path", "/")
-        secure = "TRUE" if cookie.get("secure") else "FALSE"
-        expiry = int(cookie.get("expirationDate", 0))
+    if cookies_included:
+        final_file_contents = "\n".join(lines)
 
-        lines.append("\t".join([
-            domain,
-            include_subdomains,
-            path,
-            secure,
-            str(expiry),
-            cookie["name"],
-            cookie["value"]
-        ]))
-
-    final_file_contents = "\n".join(lines)
-
-    with open(os.path.join(app.appdir, "cookies_for_ytdlp.txt"), "w") as text_file:
-        text_file.write(final_file_contents)
+        with open(os.path.join(app.appdir, "cookies_for_ytdlp.txt"), "w") as text_file:
+            text_file.write(final_file_contents)
+    
+    return cookies_included
 
 def on_video_clicked(button, self, entry, header):
     self.video_loading_cancelled = False
@@ -64,7 +71,7 @@ def on_video_clicked(button, self, entry, header):
         url = entry.get_text()
         entry.set_text("")
     
-    cookies_to_netscape(header, self) # Generate final cookies file
+    cookies_included = cookies_to_netscape(header, self) # Generate final cookies file
     
     def loading_dialog_cancel_pressed(dialog, response_id, self):
         self.video_loading_cancelled = True
@@ -97,12 +104,11 @@ def on_video_clicked(button, self, entry, header):
         youtube_dl_options = {
             'js_runtimes': {self.jsruntimeexec['name']: {'path': self.jsruntimeexec['exec']}},
             'skip_download': True,
-            'extract_flat': True,
-            'cookiefile': os.path.join(self.appdir, "cookies_for_ytdlp.txt")
+            'extract_flat': True
         }
 
-        if self.appconf["cookies_txt"] == "1":
-            youtube_dl_options['cookiefile'] = os.path.join(self.appdir, 'cookies.txt')
+        if cookies_included:
+            youtube_dl_options['cookiefile'] = os.path.join(self.appdir, "cookies_for_ytdlp.txt")
         
         def ytdlp_get_data():
             try:
