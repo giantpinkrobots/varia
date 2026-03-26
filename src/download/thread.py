@@ -229,8 +229,8 @@ class DownloadThread(threading.Thread):
 
                         self.selection_event.wait()
 
-                    elif ((self.download.is_torrent) and (self.download.seeder)):
-                        print('Torrent complete: ' + self.download.gid)
+                    elif self.download.status == "complete" or ((self.download.is_torrent) and (self.download.seeder)):
+                        print('Download complete: ' + self.download.gid)
                         GLib.idle_add(self.set_complete)
                         return
 

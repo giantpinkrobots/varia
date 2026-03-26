@@ -13,6 +13,7 @@
 <url type="homepage">https://giantpinkrobots.github.io/varia</url>
 <url type="vcs-browser">https://github.com/giantpinkrobots/varia</url>
 <url type="translate">https://hosted.weblate.org/projects/varia/glossary/</url>
+<url type="bugtracker">https://github.com/giantpinkrobots/varia/issues</url>
 
 <languages>
 <lang>ar_SA</lang>
@@ -63,7 +64,7 @@ Supporting videos and torrents on top of just regular files, and with a variety 
 Download anything you want quickly - potentially faster than your browser, continue incomplete downloads even after reboots
 </li>
 <li>
-Download video and audio from thousands of websites (anything supported by yt-dlp) including YouTube, TikTok, Twitter etc
+Download video and audio (as well as whole playlists) from thousands of websites (anything supported by yt-dlp) including YouTube, TikTok, Twitter etc
 </li>
 <li>
 Integrate with Firefox and Chrome (or any Chromium based browser like Brave or Opera) to redirect downloads
@@ -72,10 +73,10 @@ Integrate with Firefox and Chrome (or any Chromium based browser like Brave or O
 Schedule downloads with a powerful scheduler function allowing for custom timespans for each day of the week
 </li>
 <li>
-Download from protected areas with basic auth and cookies.txt import support
+Download from protected areas with basic auth and cookies.txt import support, as well as an option to automatically transfer your browser cookies through the extension
 </li>
 <li>
-Control a remote aria2 instance running on any server
+Control a remote aria2 instance running on any server through Remote Mode
 </li>
 </ul>
 </description>
@@ -96,12 +97,20 @@ Control a remote aria2 instance running on any server
 <image>https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-3.png</image>
 </screenshot>
 <screenshot>
-<caption>Preferences dialog</caption>
+<caption>Playlist download dialog</caption>
 <image>https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-4.png</image>
 </screenshot>
 <screenshot>
-<caption>Main window in dark mode</caption>
+<caption>Torrent download dialog</caption>
 <image>https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-5.png</image>
+</screenshot>
+<screenshot>
+<caption>Preferences dialog</caption>
+<image>https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-6.png</image>
+</screenshot>
+<screenshot>
+<caption>Main window in dark mode</caption>
+<image>https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-7.png</image>
 </screenshot>
 </screenshots>
 
@@ -116,30 +125,11 @@ Control a remote aria2 instance running on any server
 </supports>
 
 <releases>
-<release version="v2026.1.5-3" date="2026-01-28">
+<release version="v2026.3.27" date="2026-03-27">
 <description translatable="yes">
-<p>v2026.1.5</p>
-<ul><li>Option to automatically extract downloaded archives</li>
-<li>Inclusion of the Deno JavaScript engine as required by yt-dlp</li>
-<li>Newly added tooltip text for various options and better keyboard navigation to improve accessibility</li>
-<li>The scheduler is now much more reliable</li>
-<li>Paused downloads show their download percentages when reloaded upon app startup before resume</li>
-<li>Download details window layout no longer breaks with very long URLs</li>
-<li>New languages: Hebrew and Cornish</li>
-<li>(Snap version) The tray icon on Snap is fully functional</li>
-<li>(Mac version) Initial experimental release on macOS</li></ul>
-<p>***</p>
-<p>v2026.1.5-1</p>
-<ul><li>Fix for macOS Tahoe where a library couldn't be found</li></ul>
-<p>***</p>
-<p>v2026.1.5-2</p>
-<ul><li>Fix for Linux where toggling Open on Startup causes a crash</li></ul>
-<p>***</p>
-<p>v2026.1.5-3</p>
-<ul><li>Fix for Windows where 7z wouldn't be included</li>
-<li>Fix where Varia wouldn't automatically start in background mode</li>
-<li>Better handling of external processes like aria2c and tray to minimize the possibility of having a zombie process left running if Varia crashes</li>
-<li>Notifications are now shown on Windows and macOS</li></ul>
+<ul><li>Ability to download playlists through the same Video/Audio functionality</li>
+        <li>Ability to select individual files and folders to download through torrenting</li>
+        <li>Option to dynamically send browser cookies through the browser extension upon each download (separate from cookies.txt file import support)</li></ul>
 </description>
 </release>
 </releases>
