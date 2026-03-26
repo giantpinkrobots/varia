@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-12-05 16:00+0000\n"
-"Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
+"PO-Revision-Date: 2026-03-11 15:27+0000\n"
+"Last-Translator: Giant Pink Robots! <giantpinkrobots@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/varia/varia/tr/>"
 "\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -621,6 +621,9 @@ msgstr "Oran"
 msgid "Torrent Peers"
 msgstr "Torrent Eşleri"
 
+msgid "Select Files to Download"
+msgstr "İndirilecek Dosyaları Seç"
+
 # Snap packaging permissions dialog part 1/2
 msgid ""
 "You are using Varia as a Snap package. There are some functions that you "
@@ -676,6 +679,26 @@ msgstr "Arşivleri Otomatik Olarak Çıkar"
 
 msgid "Delete Archives After Extraction"
 msgstr "Arşivleri Çıkardıktan Sonra Sil"
+
+# For videos
+msgid "Maximum Quality"
+msgstr "Maksimum Kalite"
+
+msgid "Maximum available quality"
+msgstr "En iyi kalite"
+
+msgid "Playlist Download"
+msgstr "Oynatma Listesi İndirme"
+
+msgid "Skip Playlist Download Errors"
+msgstr "Oynatma Listesi İndirmelerinde Hataları Görmezden Gel"
+
+msgid ""
+"If one of the videos in a playlist can't be downloaded, continue with the "
+"rest instead of cancelling."
+msgstr ""
+"Bir oynatma listesindeki videolardan biri indirilemezse görmezden gel ve "
+"sonraki videoları indirmeye devam et."
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

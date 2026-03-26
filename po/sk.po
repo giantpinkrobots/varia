@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-12-05 16:00+0000\n"
+"PO-Revision-Date: 2026-03-11 15:27+0000\n"
 "Last-Translator: Peter Vančo <petervanco347@gmail.com>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/varia/varia/sk/>\n"
 "Language: sk\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -77,7 +77,7 @@ msgstr "Otvoriť priečinok Stiahnuté"
 
 #: src/variamain.py:196
 msgid "Speed Limit"
-msgstr "Obmedzenie rýchlosti sťahovania"
+msgstr "Obmedzenie rýchlosti"
 
 #: src/variamain.py:203 src/variamain.py:423
 msgid "Pause All"
@@ -285,7 +285,7 @@ msgid "Scheduler enabled"
 msgstr "Plánovač je zapnutý"
 
 msgid "Scheduler"
-msgstr "Plánovanie času spustenie alebo zastavenia sťahovania"
+msgstr "Plánovanie času spustenie alebo zastavenia"
 
 msgid "Enabled"
 msgstr "Zapnúť"
@@ -450,10 +450,10 @@ msgid "{number}%"
 msgstr "{number}%"
 
 msgid "Allow Seeding"
-msgstr "Povolenie zdieľania už stiahnutých súborov s ostatnými"
+msgstr "Povolenie zdieľania už stiahnutých súborov"
 
 msgid "Seeding Ratio Limit"
-msgstr "Obmedzenie množstva dát zdieľania s ostatnými"
+msgstr "Obmedzenie množstva dát zdieľania"
 
 msgid "Torrent Settings"
 msgstr "Torrent možnosti"
@@ -639,6 +639,9 @@ msgstr "Pomer"
 msgid "Torrent Peers"
 msgstr "Účastníci siete"
 
+msgid "Select Files to Download"
+msgstr "Vyberte súbory na stiahnutie"
+
 # Snap packaging permissions dialog part 1/2
 msgid ""
 "You are using Varia as a Snap package. There are some functions that you "
@@ -694,6 +697,26 @@ msgstr "Automatické rozbaľovanie archívov"
 
 msgid "Delete Archives After Extraction"
 msgstr "Odstrániť archívy po rozbalení"
+
+# For videos
+msgid "Maximum Quality"
+msgstr "Maximálna kvalita"
+
+msgid "Maximum available quality"
+msgstr "Najlepšia kvalita"
+
+msgid "Playlist Download"
+msgstr "Stiahnuť playlist"
+
+msgid "Skip Playlist Download Errors"
+msgstr "Preskočiť chyby sťahovania playlistu"
+
+msgid ""
+"If one of the videos in a playlist can't be downloaded, continue with the "
+"rest instead of cancelling."
+msgstr ""
+"Ak sa nedá stiahnuť jedno z videí v playliste, pokračovať so zvyškom "
+"namiesto zrušenia."
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

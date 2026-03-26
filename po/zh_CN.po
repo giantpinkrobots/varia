@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: varia main\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-12-16 01:00+0000\n"
+"PO-Revision-Date: 2026-03-18 14:09+0000\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/varia/varia/zh_Hans/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.1-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -604,6 +604,9 @@ msgstr "比率"
 msgid "Torrent Peers"
 msgstr "种子对等点"
 
+msgid "Select Files to Download"
+msgstr "选择要下载的文件"
+
 # Snap packaging permissions dialog part 1/2
 msgid ""
 "You are using Varia as a Snap package. There are some functions that you "
@@ -656,6 +659,24 @@ msgstr "自动提取归档文件"
 
 msgid "Delete Archives After Extraction"
 msgstr "提取后删除归档文件"
+
+# For videos
+msgid "Maximum Quality"
+msgstr "最大质量"
+
+msgid "Maximum available quality"
+msgstr "可用的最大质量"
+
+msgid "Playlist Download"
+msgstr "播放列表下载"
+
+msgid "Skip Playlist Download Errors"
+msgstr "跳过播放列表下载错误"
+
+msgid ""
+"If one of the videos in a playlist can't be downloaded, continue with the "
+"rest instead of cancelling."
+msgstr "如果播放列表中有视频无法下载，则继续下载其它视频而不是取消下载。"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

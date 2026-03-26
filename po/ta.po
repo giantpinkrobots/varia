@@ -613,6 +613,11 @@ msgstr "விகிதம்"
 msgid "Torrent Peers"
 msgstr "டோரண்ட் பியர்ச்"
 
+#, fuzzy
+#| msgid "Download"
+msgid "Select Files to Download"
+msgstr "பதிவிறக்கம்"
+
 # Snap packaging permissions dialog part 1/2
 msgid ""
 "You are using Varia as a Snap package. There are some functions that you "
@@ -667,6 +672,28 @@ msgstr "காப்பகங்களை தானாக பிரித்த�
 
 msgid "Delete Archives After Extraction"
 msgstr "பிரித்தெடுத்த பிறகு காப்பகங்களை நீக்கு"
+
+# For videos
+msgid "Maximum Quality"
+msgstr ""
+
+msgid "Maximum available quality"
+msgstr ""
+
+#, fuzzy
+#| msgid "Download"
+msgid "Playlist Download"
+msgstr "பதிவிறக்கம்"
+
+#, fuzzy
+#| msgid "Download"
+msgid "Skip Playlist Download Errors"
+msgstr "பதிவிறக்கம்"
+
+msgid ""
+"If one of the videos in a playlist can't be downloaded, continue with the "
+"rest instead of cancelling."
+msgstr ""
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

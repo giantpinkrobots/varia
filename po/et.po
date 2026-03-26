@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-12-05 16:00+0000\n"
+"PO-Revision-Date: 2026-03-14 15:09+0000\n"
 "Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/varia/varia/et/>"
 "\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -619,6 +619,9 @@ msgstr "Suhtarv"
 msgid "Torrent Peers"
 msgstr "Torrenti võrdvõrgu sõlmed"
 
+msgid "Select Files to Download"
+msgstr "Vali allalaaditavad failid"
+
 # Snap packaging permissions dialog part 1/2
 msgid ""
 "You are using Varia as a Snap package. There are some functions that you "
@@ -674,6 +677,26 @@ msgstr "Paki failid automaatselt lahti"
 
 msgid "Delete Archives After Extraction"
 msgstr "Peale lahtipakkimist kustuta failid"
+
+# For videos
+msgid "Maximum Quality"
+msgstr "Maksimaalne kvaliteet"
+
+msgid "Maximum available quality"
+msgstr "Maksimaalne saadavalolev kvaliteet"
+
+msgid "Playlist Download"
+msgstr "Esitusloendi allalaadimine"
+
+msgid "Skip Playlist Download Errors"
+msgstr "Jäta esitusloendi videote allalaadimisvead vahele"
+
+msgid ""
+"If one of the videos in a playlist can't be downloaded, continue with the "
+"rest instead of cancelling."
+msgstr ""
+"Kui mõnda esitusloendi videot ei saa alla laadida, siis katkestamise asemel "
+"jätka muude allalaadimisega."
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
