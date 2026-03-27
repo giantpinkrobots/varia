@@ -110,8 +110,8 @@ fi
 cd ../..
 cp -r locale src/dist/variamain/
 mkdir src/dist/variamain/icons/
-cp data/icons/apps/io.github.giantpinkrobots.varia-symbolic.svg src/dist/variamain/icons/
-cp data/icons/apps/io.github.giantpinkrobots.varia.svg src/dist/variamain/icons/
+cp data/icons/symbolic/apps/io.github.giantpinkrobots.varia-symbolic.svg src/dist/variamain/icons/
+cp data/icons/scalable/apps/io.github.giantpinkrobots.varia.svg src/dist/variamain/icons/
 cp -r data/icons/actions/* src/dist/variamain/icons/
 cp -r dependencies_information src/dist/variamain/
 cp ./aria2/$aria2/aria2c.exe src/dist/variamain/
