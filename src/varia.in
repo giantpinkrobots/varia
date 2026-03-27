@@ -5,24 +5,49 @@ pkgdatadir='@pkgdatadir@'
 aria2cexec=$pkgdatadir/../../bin/aria2c
 ffmpegexec=$pkgdatadir/../../bin/ffmpeg
 sevenzexec=$pkgdatadir/../../bin/7zz
-denoexec=$pkgdatadir/../../bin/deno
+jsruntimeexec=$pkgdatadir/../../bin/deno
+jsruntime='@jsruntime_name_for_ytdlp@'
+jsruntimeexecname='@jsruntime_exec_name@'
 
-if !(test -f $aria2cexec;) || !(test -f $ffmpegexec;) || !(test -f $sevenzexec;) || !(test -f $denoexec;)
+while [ $# -gt 0 ] ; do
+  case $1 in
+	-h|--help) echo "Options:
+	--aria2cexec PATH		Path to aria2c executable
+	--ffmpegexec PATH		Path to ffmpeg executable
+	--sevenzexec PATH		Path to 7z executable
+	--jsruntime NAME		JavaScript runtime name (read by yt-dlp, defaults to deno)
+	--jsruntimeexec PATH	Path to JS runtime executable
+	-h, --help				Show this help message"
+	exit 0 ;;
+	--aria2cexec) aria2cexec="$2"; shift ;;
+	--ffmpegexec) ffmpegexec="$2"; shift ;;
+	--sevenzexec) sevenzexec="$2"; shift ;;
+    --jsruntime) jsruntime="$2"; shift ;;
+	--jsruntimeexec) jsruntimeexec="$2"; shift ;;
+	*) break ;;
+  esac
+  shift
+done
+
+if !(test -f $aria2cexec;) || !(test -f $ffmpegexec;) || !(test -f $sevenzexec;) || !(test -f $jsruntimeexec;)
 then
+	echo "Given paths for dependencies not found, searching the system for them..."
 	aria2cexec=$(which aria2c)
 	ffmpegexec=$(which ffmpeg)
 	sevenzexec=$(which 7z)
-	denoexec=$(which deno)
-	if !(test -f $aria2cexec;) || !(test -f $ffmpegexec;) || !(test -f $sevenzexec;) || !(test -f $denoexec;)
+	jsruntimeexec=$(which $jsruntimeexecname)
+	if !(test -f $aria2cexec;) || !(test -f $ffmpegexec;) || !(test -f $sevenzexec;) || !(test -f $jsruntimeexec;)
 	then
-		echo "aria2c and/or ffmpeg and/or 7z and/or deno not found. Exiting."
+		echo "aria2c and/or ffmpeg and/or 7z and/or the JS runtime (defaults to Deno) not found. Exiting."
 		exit
 	fi
 fi
 
+echo "Selected JS Runtime name: ${jsruntime}"
+
 if [ -z "$SNAP" ];
 then
-	$pythonexec $pkgdatadir/../../bin/varia-py.py "$aria2cexec" "$ffmpegexec" "$sevenzexec" "$denoexec" "NOSNAP" "$@"
+	$pythonexec $pkgdatadir/../../bin/varia-py.py "$aria2cexec" "$ffmpegexec" "$sevenzexec" "$jsruntime" "$jsruntimeexec" "NOSNAP" "$@"
 else
-	python3 $SNAP/usr/bin/varia-py.py "$aria2cexec" "$ffmpegexec" "$sevenzexec" "$denoexec" "$SNAP" "$@"
+	python3 $SNAP/usr/bin/varia-py.py "$aria2cexec" "$ffmpegexec" "$sevenzexec" "$jsruntime" "$jsruntimeexec" "$SNAP" "$@"
 fi

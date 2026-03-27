@@ -19,15 +19,21 @@ gettext.install('varia', localedir)
 aria2cexec = sys.argv[1]
 ffmpegexec = sys.argv[2]
 sevenzexec = sys.argv[3]
-denoexec = sys.argv[4]
-snapvar = sys.argv[5]
+jsruntime = sys.argv[4]
+jsruntimeexec = sys.argv[5]
+snapvar = sys.argv[6]
 arguments = []
 
-if (len(sys.argv) > 5):
+if (len(sys.argv) > 6):
 	arguments = sys.argv
-	del arguments[:5]
+	del arguments[:6]
 
 arguments = json.dumps(arguments)
+
+jsruntimeexec = {
+	'name': jsruntime,
+	'exec': jsruntimeexec
+}
 
 if snapvar != "NOSNAP":
 	snap_dir = snapvar
@@ -59,4 +65,4 @@ if __name__ == '__main__':
 	sys.path.append( mymodule_dir )
 	os.listdir(mymodule_dir)
 	from variamain import main
-	sys.exit(main(VERSION, aria2cexec, ffmpegexec, sevenzexec, denoexec, issnap, arguments))
+	sys.exit(main(VERSION, aria2cexec, ffmpegexec, sevenzexec, jsruntimeexec, issnap, pkgdatadir, arguments))

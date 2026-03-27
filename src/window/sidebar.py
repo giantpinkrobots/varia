@@ -153,7 +153,7 @@ def window_create_sidebar(self, variaapp, variaVersion):
     self.video_button.set_child(video_button_box)
     self.video_button.add_css_class("suggested-action")
     self.video_button.set_sensitive(False)
-    self.video_button.connect("clicked", on_video_clicked, self, download_entry)
+    self.video_button.connect("clicked", on_video_clicked, self, download_entry, None)
 
     download_entry.connect('changed', on_download_entry_changed, self.download_button, self.video_button)
 

@@ -1,0 +1,9 @@
+option('jsruntime_name_for_ytdlp',
+       type: 'string',
+       value: 'deno',
+       description: 'Name of JS runtime to be read by yt-dlp')
+
+option('jsruntime_exec_name',
+       type: 'string',
+       value: 'deno',
+       description: 'Executable name for the JS runtime')

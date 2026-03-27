@@ -1,7 +1,7 @@
 {
   "name": "Varia Integrator",
   "description": "Route all downloads to Varia if it's running.",
-  "version": "1.4",
+  "version": "1.5",
   "icons": {
     "16": "icon16.png",
     "48": "icon48.png",
@@ -10,11 +10,17 @@
   "action": {
     "default_popup": "popup.html"
   },
-  "permissions": ["downloads", "storage", "tabs"],
-  "host_permissions": ["http://localhost:6801/jsonrpc"],
+  "permissions": [
+    "downloads",
+    "storage",
+    "tabs",
+    "cookies"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
   "manifest_version": 3,
   "background": {
     "service_worker": "background.js"
   }
 }
-

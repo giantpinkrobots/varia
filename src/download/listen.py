@@ -50,17 +50,18 @@ def listen_to_aria2(self, variaapp):
         downloads_in_frontend_gids = []
 
         for download_item in self.downloads:
-            try:
-                downloads_in_frontend_gids.append(download_item.download.gid)
-            except:
-                GLib.timeout_add(2000, listen_to_aria2, self, variaapp)
-                return
-            try:
-                if (download_item.download.status == "active" or download_item.download.status == "waiting" or download_item.download.status == "paused"):
-                    for download_file in download_item.files:
-                        downloads_in_frontend_files.append(download_file)
-            except:
-                pass
+            if download_item.mode == "regular":
+                try:
+                    downloads_in_frontend_gids.append(download_item.download.gid)
+                except:
+                    GLib.timeout_add(2000, listen_to_aria2, self, variaapp)
+                    return
+                try:
+                    if (download_item.download.status == "active" or download_item.download.status == "waiting" or download_item.download.status == "paused"):
+                        for download_file in download_item.files:
+                            downloads_in_frontend_files.append(download_file)
+                except:
+                    pass
 
         downloads_in_frontend_files = set(downloads_in_frontend_files)
 
@@ -68,18 +69,15 @@ def listen_to_aria2(self, variaapp):
 
             # Handle videos:
             if download_item_to_be_added.name == "varia-video-download.variavideo":
-                try:
-                    downloadurl = download_item_to_be_added.files[0].uris[0]["uri"]
-                    download_item_to_be_added.remove(force=True)
-                    on_video_clicked(None, self, downloadurl)
-                    self.unminimize()
-                    self.set_visible(True)
-                    if os.uname().sysname != 'Darwin':
-                        self.present()
-                    print("Video added through browser extension")
-                
-                except:
-                    pass
+                downloadurl = download_item_to_be_added.files[0].uris[0]["uri"]
+                download_header = download_item_to_be_added.options.header
+                download_item_to_be_added.remove(force=True)
+                on_video_clicked(None, self, downloadurl, download_header)
+                self.unminimize()
+                self.set_visible(True)
+                if os.uname().sysname != 'Darwin':
+                    self.present()
+                print("Video added through browser extension")
             
             else:
                 new_download_files = download_item_to_be_added.files

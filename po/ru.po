@@ -10,8 +10,8 @@ msgstr ""
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
 "PO-Revision-Date: 2026-01-25 12:25+0000\n"
 "Last-Translator: Рустам Романов <ogrenagfnagf@gmail.com>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/varia/varia/ru/>"
-"\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/varia/varia/ru/"
+">\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -617,6 +617,11 @@ msgstr "Соотношение"
 msgid "Torrent Peers"
 msgstr "Участники торрента"
 
+#, fuzzy
+#| msgid "Download"
+msgid "Select Files to Download"
+msgstr "Загрузить"
+
 # Snap packaging permissions dialog part 1/2
 msgid ""
 "You are using Varia as a Snap package. There are some functions that you "
@@ -671,6 +676,28 @@ msgstr "Автоматическое Извлечение Архивов"
 
 msgid "Delete Archives After Extraction"
 msgstr "Удалить Архививы после извлечения"
+
+# For videos
+msgid "Maximum Quality"
+msgstr ""
+
+msgid "Maximum available quality"
+msgstr ""
+
+#, fuzzy
+#| msgid "Download"
+msgid "Playlist Download"
+msgstr "Загрузить"
+
+#, fuzzy
+#| msgid "Download"
+msgid "Skip Playlist Download Errors"
+msgstr "Загрузить"
+
+msgid ""
+"If one of the videos in a playlist can't be downloaded, continue with the "
+"rest instead of cancelling."
+msgstr ""
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

@@ -1,7 +1,7 @@
 {
   "name": "Varia Integrator",
   "description": "Route all downloads to Varia if it's running.",
-  "version": "1.4",
+  "version": "1.5",
   "icons": {
     "16": "icon16.png",
     "48": "icon48.png",
@@ -10,10 +10,18 @@
   "browser_action": {
     "default_popup": "popup.html"
   },
-  "permissions": ["downloads", "storage", "<all_urls>", "tabs"],
+  "permissions": [
+    "downloads",
+    "storage",
+    "<all_urls>",
+    "tabs",
+    "cookies"
+  ],
   "manifest_version": 2,
   "background": {
-    "scripts": ["background.js"]
+    "scripts": [
+      "background.js"
+    ]
   },
   "browser_specific_settings": {
     "gecko": {

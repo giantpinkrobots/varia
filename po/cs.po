@@ -1,22 +1,21 @@
-# ITALIAN TRANSLATION.
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# ALBANO BATTISTELLA <ALBANOBATTISTELLA@GMAIL.COM>, 2024.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2026-03-24 08:09+0000\n"
-"Last-Translator: nixxo <nixxo@protonmail.com>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/varia/varia/it/>"
-"\n"
-"Language: it\n"
+"PO-Revision-Date: 2026-03-13 08:09+0000\n"
+"Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
+"Language-Team: Czech <https://hosted.weblate.org/projects/varia/varia/cs/>\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
 "X-Generator: Weblate 5.17-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
@@ -28,11 +27,11 @@ msgstr "Varia"
 #. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
 #: data/io.github.giantpinkrobots.varia.desktop.in:11
 msgid "varia;aria;download;manager;"
-msgstr "varia;aria;download;gestore;"
+msgstr "varia;aria;stáhnout;správce;"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
 msgid "Download manager based on aria2"
-msgstr "Gestore download basato su aria2"
+msgstr "Správce stahování založený na aria2"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
 msgid ""
@@ -40,29 +39,29 @@ msgid ""
 "to provide a easy to use interface that integrates well with the GNOME "
 "desktop."
 msgstr ""
-"Varia è un download manager basato su aria2 che utilizza GTK4 e Libadwaita "
-"per fornire un'interfaccia facile da usare che si integri bene con il "
-"desktop GNOME."
+"Varia je správce stahování založený na aria2, který využívá GTK4 a "
+"Libadwaita k poskytnutí snadno použitelného rozhraní, které dobře zapadá do "
+"GNOME desktop."
 
 #: src/variamain.py:45
 msgid "This is not a valid URL."
-msgstr "Questo URL non è valido."
+msgstr "Toto není platná URL."
 
 #: src/variamain.py:125
 msgid "All"
-msgstr "Tutti"
+msgstr "Vše"
 
 #: src/variamain.py:137
 msgid "In Progress"
-msgstr "In Corso"
+msgstr "Probíhá"
 
 #: src/variamain.py:148
 msgid "Completed"
-msgstr "Completati"
+msgstr "Dokončeno"
 
 #: src/variamain.py:171
 msgid "About Varia"
-msgstr "Informazioni su Varia"
+msgstr "O Varia"
 
 #: src/variamain.py:177
 msgid "URL"
@@ -70,31 +69,31 @@ msgstr "URL"
 
 #: src/variamain.py:178
 msgid "Download"
-msgstr "Scarica"
+msgstr "Stáhnout"
 
 #: src/variamain.py:184
 msgid "Open Download Folder"
-msgstr "Apri Cartella Download"
+msgstr "Otevřít složku stahování"
 
 #: src/variamain.py:196
 msgid "Speed Limit"
-msgstr "Limite Velocità"
+msgstr "Omezení rychlosti"
 
 #: src/variamain.py:203 src/variamain.py:423
 msgid "Pause All"
-msgstr "Metti in Pausa Tutti"
+msgstr "Pozastavit vše"
 
 #: src/variamain.py:212
 msgid "Speed"
-msgstr "Velocità"
+msgstr "Rychlost"
 
 #: src/variamain.py:215
 msgid "Set Speed Limit"
-msgstr "Imposta Limite di Velocità"
+msgstr "Nastavit omezení rychlosti"
 
 #: src/variamain.py:216
 msgid "Cancel All"
-msgstr "Cancella Tutti"
+msgstr "Zrušit vše"
 
 #: src/variamain.py:235
 msgid "/s"
@@ -102,19 +101,19 @@ msgstr "/s"
 
 #: src/variamain.py:238
 msgid "No limit"
-msgstr "Nessun limite"
+msgstr "Bez omezení"
 
 #: src/variamain.py:274
 msgid "Download complete."
-msgstr "Download completato."
+msgstr "Stahování dokončeno."
 
 #: src/variamain.py:276
 msgid "Download speed is limited."
-msgstr "La velocità di scaricamento è limitata."
+msgstr "Rychlost stahování je omezena."
 
 #: src/variamain.py:277
 msgid "An error occurred:"
-msgstr "Si è verificato un errore:"
+msgstr "Došlo k chybě:"
 
 #: src/variamain.py:292
 msgid "MB/s"
@@ -142,300 +141,298 @@ msgstr " B/s"
 
 #: src/variamain.py:404
 msgid "Simultaneous Download Amount"
-msgstr "Numero di Download Simultanei"
+msgstr "Objem souběžných stahování"
 
 #: src/variamain.py:410
 msgid "Resume All"
-msgstr "Riprendi Tutti"
+msgstr "Pokračovat ve všech"
 
 #: src/variamain.py:443
 msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
-msgstr "Gestore di download basato su aria2 e utilizza GTK4 con Libadwaita."
+msgstr "Správce stahování založený na aria2 využívající GTK4 a Libadwaita."
 
 #: src/variamain.py:777
 msgid "This application relies on the following pieces of software:"
-msgstr "Questa applicazione dipende dai seguenti software:"
+msgstr "Tato aplikace spoléhá na následující kousky softwaru:"
 
 #: src/variamain.py:777
 msgid ""
 "The licenses of all of these pieces of software can be found in the "
 "dependencies_information directory in this application's app directory."
 msgstr ""
-"Le licenze di tutti questi software si possono trovare nella cartella "
-"dependencies_information nella cartella dell'app di questa applicazione."
+"Licence všech těchto kusů softwaru jsou k dispozici ve složce "
+"dependencies_information přímo v složce app aplikace."
 
+# This is for the credits section. Replace this string with your own information so you'll be credited for your work.
 #: src/variamain.py:449
 msgid "translator-credits"
 msgstr ""
-"Albano Battistella <albanobattistella@gmail.com>\n"
-"Neko the gamer <gvgpcocd5@mozmail.com>\n"
-"Gorlix\n"
-"nixxo"
 
 #: src/variamain.py:457
 msgid "Download Directory"
-msgstr "Cartella Download"
+msgstr "Složka pro stahování"
 
 #: src/variamain.py:460
 msgid "Change"
-msgstr "Cambia"
+msgstr "Změnit"
 
 #: src/variamain.py:463
 msgid "Speed limited"
-msgstr "Velocità limitata"
+msgstr "Rychlost omezena"
 
 #: src/variamain.py:519
 msgid "Authentication"
-msgstr "Autenticazione"
+msgstr "Ověření se"
 
 #: src/variamain.py:532
 msgid "Username"
-msgstr "Nome Utente"
+msgstr "Uživatelské jméno"
 
 #: src/variamain.py:534
 msgid "Password"
-msgstr "Password"
+msgstr "Heslo"
 
 #: src/variamain.py:554
 msgid "Authorization failed."
-msgstr "Autorizzazione fallita."
+msgstr "Získání pověření se nezdařilo."
 
 #: src/variamain.py:806
 msgid "Failed to open directory."
-msgstr "Impossibile aprire la cartella."
+msgstr "Nepodařilo se otevřít složku."
 
 msgid "Remote Mode"
-msgstr "Modalità Remota"
+msgstr "Vzdálený režim"
 
 msgid "Remote aria2 IP"
-msgstr "IP remoto aria2"
+msgstr "IP adresa vzdáleného aria2"
 
 msgid "Remote aria2 Port"
-msgstr "Porta remota aria2"
+msgstr "Port vzdáleného aria2"
 
 msgid "Remote aria2 RPC Secret"
-msgstr "Segreto RPC remoto aria2"
+msgstr "RPC tajemství vzdáleného aria2"
 
 msgid "Remote Download Location"
-msgstr "Posizione Download Remota"
+msgstr "Umístění vzdáleného stahování"
 
 msgid "Exiting Varia..."
-msgstr "Uscendo da Varia..."
+msgstr "Ukončování Varia…"
 
 msgid "Background Mode"
-msgstr "Modalità in Background"
+msgstr "Režim na pozadí"
 
 msgid "Continuing the downloads in the background."
-msgstr "Continua i download in background."
+msgstr "Pokračovat ve stahování na pozadí."
 
 msgid "Browser Extension"
-msgstr "Estensione Browser"
+msgstr "Rozšíření pro webový prohlížeč"
 
 msgid "Shutdown on Completion"
-msgstr "Spegni al Completamento"
+msgstr "Po dokončení vypnout počítač"
 
 msgid "Sleep on Completion"
-msgstr "Sospendi al Completamento"
+msgstr "Po dokončení uspat počítač"
 
 msgid "Varia is about to shut down your computer."
-msgstr "Varia sta per spegnere il tuo computer."
+msgstr "Varia se chystá vypnout váš počítač."
 
 msgid "Varia is about to put your computer to sleep."
-msgstr "Varia sta per sospendere il tuo computer."
+msgstr "Varia se chystá uspat váš počítač."
 
 msgid "Press Cancel to cancel and disable."
-msgstr "Premi annulla per annullare e disattivare."
+msgstr "Kliknutím na Zrušit stornujete a zakážete."
 
 msgid "Cancel"
-msgstr "Annulla"
+msgstr "Zrušit"
 
 msgid "Warning"
-msgstr "Attenzione"
+msgstr "Varování"
 
 msgid "Monday"
-msgstr "Lunedì"
+msgstr "pondělí"
 
 msgid "Tuesday"
-msgstr "Martedì"
+msgstr "úterý"
 
 msgid "Wednesday"
-msgstr "Mercoledì"
+msgstr "středa"
 
 msgid "Thursday"
-msgstr "Giovedì"
+msgstr "čtvrtek"
 
 msgid "Friday"
-msgstr "Venerdì"
+msgstr "pátek"
 
 msgid "Saturday"
-msgstr "Sabato"
+msgstr "sobota"
 
 msgid "Sunday"
-msgstr "Domenica"
+msgstr "neděle"
 
 msgid "Start (h/m):"
-msgstr "Inizio (h/m):"
+msgstr "Začátek (h/m):"
 
 msgid "End (h/m):"
-msgstr "Fine (h/m):"
+msgstr "Konec (h/m):"
 
 msgid "Scheduler enabled"
-msgstr "Pianificatore attivato"
+msgstr "Plánovač zapnut"
 
 msgid "Scheduler"
-msgstr "Pianificatore"
+msgstr "Plánovač"
 
 msgid "Enabled"
-msgstr "Attivato"
+msgstr "Povoleno"
 
 msgid "Start downloading in these times"
-msgstr "Inizia a scaricare in questi orari"
+msgstr "Spustit stahování v těchto časech"
 
 msgid "Stop downloading in these times"
-msgstr "Smetti di scaricare in questi orari"
+msgstr "Zastavit stahování v těchto časech"
 
 msgid "Add Timespan"
-msgstr "Aggiungi Intervallo"
+msgstr "Přidat časové rozpětí"
 
 #: When a download is currently seeding:
 msgid "Seeding"
-msgstr "In seeding"
+msgstr "Odesílání"
 
 msgid "Failed"
-msgstr "Falliti"
+msgstr "Nezdařilo se"
 
 msgid "Completion Options"
-msgstr "Opzioni al Completamento"
+msgstr "Předvolby dokončování"
 
 msgid "Exit on Completion"
-msgstr "Esci al Completamento"
+msgstr "Při dokončení zavřít aplikaci"
 
 msgid "Varia is about to quit."
-msgstr "Varia sta per uscire."
+msgstr "Varia se chystá se ukončit."
 
 msgid "Preferences"
-msgstr "Preferenze"
+msgstr "Předvolby"
 
 msgid "Other"
-msgstr "Altro"
+msgstr "Ostatní"
 
 msgid "Basic Settings"
-msgstr "Basilari"
+msgstr "Základní nastavení"
 
 msgid "Advanced Settings"
-msgstr "Avanzate"
+msgstr "Pokročilá nastavení"
 
 msgid "Use cookies.txt"
-msgstr "Usa cookies.txt"
+msgstr "Použít cookies.txt"
 
 msgid "Import cookies.txt"
-msgstr "Importa cookies.txt"
+msgstr "Naimportovat cookies.txt"
 
 msgid "Remove cookies.txt"
-msgstr "Rimuovi cookies.txt"
+msgstr "Odebrat cookies.txt"
 
 msgid "remaining"
-msgstr "rimanenti"
+msgstr "zbývající"
 
 msgid "Start in Background Mode"
-msgstr "Avvia in Modalità in Background"
+msgstr "Spustit v režimu na pozadí"
 
 msgid "Remote Timestamp"
-msgstr "Timestamp Remoto"
+msgstr "Vzdálené časové razítko"
 
+# Download type: Torrent
 msgid "Torrent"
 msgstr "Torrent"
 
 # Download type: Regular
 msgid "Regular"
-msgstr "Normale"
+msgstr "Běžný"
 
 # Updater
 msgid "Checking for updates..."
-msgstr "Controllo degli aggiornamenti..."
+msgstr "Zjišťování aktualizací…"
 
 msgid "A new version of Varia is available. Do you want to update?"
-msgstr "È disponibile una nuova versione di Varia. Vuoi aggiornare?"
+msgstr "Je k dispozici nová verze Varia. Chcete aktualizovat?"
 
 msgid "Update available"
-msgstr "Aggiornamento disponibile"
+msgstr "Aktualizace k dispozici"
 
 msgid "Update"
-msgstr "Aggiornamento"
+msgstr "Akutalizovat"
 
 msgid "Downloading update..."
-msgstr "Download aggiornamento..."
+msgstr "Stahování aktualizace…"
 
 msgid "Download failed."
-msgstr "Download fallito."
+msgstr "Stahování se nezdařilo."
 
 msgid "Yes"
-msgstr "Sì"
+msgstr "Ano"
 
 msgid "No"
-msgstr "No"
+msgstr "Ne"
 
 msgid "Automatically Check for Updates"
-msgstr "Verifica Automatica degli Aggiornamenti"
+msgstr "Automaticky zjišťovat aktualizace"
 
 msgid "Check Now"
-msgstr "Controlla Ora"
+msgstr "Zkontrolovat nyní"
 
 msgid "Do you want to check for updates on startup?"
-msgstr "Vuoi verificare la presenza di aggiornamenti all'avvio?"
+msgstr "Chcete při spouštění zjišťovat aktualizace?"
 
 msgid "File"
-msgstr "File"
+msgstr "Soubor"
 
 msgid "Video / Audio"
-msgstr "Video / Audio"
+msgstr "Video / zvuk"
 
 msgid "Video and audio"
-msgstr "Video e audio"
+msgstr "Video a zvuk"
 
 msgid "Video only"
-msgstr "Solo Video"
+msgstr "Pouze video"
 
 msgid "Audio only"
-msgstr "Solo Audio"
+msgstr "Pouze zvuk"
 
 #: Relating to video download:
 msgid "Framerate:"
-msgstr "Framerate:"
+msgstr "Snímková frekvence:"
 
 #: Relating to video download:
 msgid "Bitrate:"
-msgstr "Bitrate:"
+msgstr "Bitová rychlost:"
 
 msgid "Checking video..."
-msgstr "Controllo del video..."
+msgstr "Kontrolování videa…"
 
 msgid "No video or audio streams found"
-msgstr "Nessun flusso video o audio trovato"
+msgstr "Nenalezeny žádné video nebo zvukové proudy"
 
 msgid "Starting download..."
-msgstr "Avvio del download..."
+msgstr "Spouštění stahování…"
 
 msgid ""
 "The video platform may not be supported or you may be being blocked by the "
 "platform. If you have an active VPN connection that might be the cause, or "
 "you can try importing your browser's cookies through a cookies.txt file."
 msgstr ""
-"La piattaforma video potrebbe non essere supportata o essere bloccata dalla "
-"piattaforma. Se avete una connessione VPN attiva, questa potrebbe essere la "
-"causa, oppure si può provare a importare i cookie del browser tramite un "
-"file cookies.txt."
+"Je možné, že videoplatforma není podporovaná nebo vás blokuje. Pokud máte "
+"zapnuté VPN připojení, může to být tím. Případně je možné vyzkoušet "
+"naimportovat cookies z webového prohlížeče prostřednictvím souboru "
+"cookies.txt."
 
 msgid "This will disable the video download functionality."
-msgstr "Questo disattiverà la funzionalità di download dei video."
+msgstr "Toto vypne funkci stahování videa."
 
 #: Relating to video download progress where it says "Part 1/2" - {indicator}
 #: is replaced by "1/2" or "2/2" (don't translate {indicator})
 msgid "Part {indicator}"
-msgstr "Parti {indicator}"
+msgstr "Část {indicator}"
 
 msgid "Simultaneous download limit exceeded, waiting."
-msgstr "Limite di download simultanei superato, in attesa."
+msgstr "Překročen limit souběžných stahování – čeká se."
 
 #: The way percentages will be shown, like 10% or %10 depending on the language
 #: (don't translate {number}, just move it if needed)
@@ -443,16 +440,16 @@ msgid "{number}%"
 msgstr "{number}%"
 
 msgid "Allow Seeding"
-msgstr "Consenti Seeding"
+msgstr ""
 
 msgid "Seeding Ratio Limit"
-msgstr "Limite al Rapporto di Seeding"
+msgstr ""
 
 msgid "Torrent Settings"
-msgstr "Torrent"
+msgstr "Nastavení pro torrent"
 
 msgid "Custom Download Directory for Torrents"
-msgstr "Cartella di Download Personalizzata per i Torrent"
+msgstr "Uživatelsky určená složka pro stahování pro torrenty"
 
 #: When the user attempts to disable seeding
 msgid ""
@@ -462,257 +459,255 @@ msgid ""
 "as they download (a ratio of 1). You may want to consider limiting your "
 "seeding ratio instead."
 msgstr ""
-"Poiché il torrenting si basa sulla condivisione dei dati da parte degli "
-"utenti, la disattivazione della condivisione è molto disapprovata e può "
-"comportare alla limitazione della velocità o al divieto di accesso da parte "
-"di alcuni client e tracker. Di solito ci si aspetta che i client effettuino "
-"il seeding almeno nella misura in cui scaricano (un rapporto di 1). Si "
-"consiglia invece di limitare il rapporto di seeding."
 
 msgid "Cancel Seeding"
-msgstr "Cancella Seeding"
+msgstr ""
 
 # Save button
 msgid "Save"
-msgstr "Salva"
+msgstr "Uložit"
 
 msgid "Show Menu"
-msgstr "Mostra il Menù"
+msgstr "Zobrazit nabídku"
 
 msgid "OK"
 msgstr "OK"
 
 msgid "Enable Torrenting"
-msgstr "Abilita Funzionalità Torrent"
+msgstr ""
 
 msgid "The browser extension will not work when Remote Mode is enabled."
 msgstr ""
-"L'estensione per browser non funzionarà quando la Modalità Remota è attiva."
+"Pokud je zapnutý vzdálený režim, rozšíření pro webový prohlížeč nebude "
+"fungovat."
 
 msgid ""
 "Disabling torrenting will prevent new torrents from being added. It will not "
 "stop current torrent instances."
 msgstr ""
-"Disabilitare la funzionalità torrent impedirà a nuovi torrent di essere "
-"aggiunti. Non cancellerà i torrent già presenti."
 
 msgid "Torrenting is disabled."
-msgstr "Funzionalità torrent disabilitata."
+msgstr ""
 
 msgid "Unknown filesize"
-msgstr "Dimensione file sconosciuta"
+msgstr "Neznámá velikost souboru"
 
+# Tray icon show button
 msgid "Show"
-msgstr "Mostra"
+msgstr "Zobrazit"
 
+# Tray icon quit button
 msgid "Quit"
-msgstr "Esci"
+msgstr "Ukončit"
 
+# Close to tray option
 msgid "Background Mode on Close"
-msgstr "Esecuzione in Background alla Chiusura"
+msgstr "Při zavření okna namísto ukončení přejít do režimu na pozadí"
 
 msgid "Upon closing, Varia will close to tray insted of exiting."
 msgstr ""
-"Alla chiusura della finestra, Varia rimarrà attivo come icona nella barra "
-"delle applicazioni invece di uscire."
+"Při zavírání se Varia minimalizuje do oznamovací oblasti namísto ukončení."
 
 # Tray icon always visible option
 msgid "Tray Icon Always Visible"
-msgstr "Icona Sempre Visibile"
+msgstr "Ikona v oznamovací oblasti vždy viditelná"
 
 msgid ""
 "The tray icon will be visible even when Varia is not in background mode."
 msgstr ""
-"L'icona nella barra delle applicazioni rimarrà visibile anche quando la "
-"modalità background non è attiva."
+"Ikona v oznamovací oblasti bude viditelná i když se Varia nebude nacházet v "
+"režimu na pozadí."
 
 # Open on startup option
 msgid "Open on Startup"
-msgstr "Apri all'Avvio"
+msgstr "Otevřít při spouštění"
 
 msgid "Varia will open automatically when the system starts."
-msgstr "Varia verrà aperto in automatico all'avvio del sistema."
+msgstr "Varie bude otevřena automaticky při startu systému."
 
 # Start on background mode subtitle
 msgid "Varia will start directly in background mode upon opening."
-msgstr "Varia viene eseguito direttamente in background all'apertura."
+msgstr "Při otevření bude Varia spuštěna přímo v režimu na pozadí."
 
 # Remote mode additional explanation
 msgid "Use Varia as a GUI for a remote aria2c instance."
-msgstr "Usa Varia come GUI per un'istanza remota di aria2c."
+msgstr "Použijte Varia jako GUI pro vzdálenou instanci aria2c."
 
 msgid "Configure"
-msgstr "Configura"
+msgstr "Nastavit"
 
 msgid "Download Segments"
-msgstr "Segmenti di Download"
+msgstr "Segmenty stahování"
 
 msgid "Pause"
-msgstr "Pausa"
+msgstr "Pozastavit"
 
 msgid "Resume"
-msgstr "Riprendi"
+msgstr "Pokračovat"
 
 msgid "Stop"
-msgstr "Ferma"
+msgstr "Zastavit"
 
 msgid "Open File"
-msgstr "Apri File"
+msgstr "Otevřít soubor"
 
 msgid "Retry"
-msgstr "Riprova"
+msgstr "Zkusit znovu"
 
 msgid "Require Encryption"
-msgstr "Richiedi Crittografia"
+msgstr "Vyžadovat šifrování"
 
 msgid "Get Country Info of Peers"
-msgstr "Mostra Informazione sul Paese dei Peer"
+msgstr "Získat informace o zemích protějšků"
 
 msgid ""
 "This will use an external service to get the IP geolocation of your torrent "
 "peers in order to show country flags in the details window."
 msgstr ""
-"Questa funzione richiede l'uso di un servizio esterno per geolocalizzare gli "
-"IP dei peer e mostrare la bandierina nella finestra dei dettagli."
+"Toto použije externí službu pro získání geolokace IP adres protějšků "
+"torrentů a pomocí toho zobrazí v okně podrobností vlajky zemí."
 
+# Download details dialog
 msgid "Download Details"
-msgstr "Dettagli del Download"
+msgstr "Podrobnosti o stahování"
 
 msgid "Type"
-msgstr "Tipo"
+msgstr "Typ"
 
 msgid "Status"
-msgstr "Stato"
+msgstr "Stav"
 
 msgid "File Name"
-msgstr "Nome File"
+msgstr "Název souboru"
 
 msgid "Downloading"
-msgstr "Scaricamento"
+msgstr "Stahování"
 
 msgid "Paused"
-msgstr "In Pausa"
+msgstr "Pozastaveno"
 
 msgid "Scheduled"
-msgstr "Programmato"
+msgstr "Naplánováno"
 
 msgid "Extracting"
-msgstr "Estrazione"
+msgstr "Rozbalování"
 
 msgid "Percentage Downloaded"
-msgstr "Percentuale Scaricata"
+msgstr "Staženo procent"
 
 msgid "Remaining"
-msgstr "Rimanente"
+msgstr "Zbývající"
 
 msgid "Download Speed"
-msgstr "Velocità Download"
+msgstr "Rychlost stahování"
 
 msgid "Seeding Speed"
-msgstr "Velocità del Seeding"
+msgstr ""
 
 msgid "Amount Downloaded"
-msgstr "Quantità Scaricata"
+msgstr "Stažený objem"
 
 msgid "Amount Uploaded"
-msgstr "Quantità Inviata"
+msgstr "Odeslaný objem"
 
 msgid "Ratio"
-msgstr "Rapporto"
+msgstr "Poměr"
 
 msgid "Torrent Peers"
-msgstr "Peer Torrent"
+msgstr "Protějšky torrentu"
 
 msgid "Select Files to Download"
-msgstr "Seleziona File da Scaricare"
+msgstr "Vyberte soubory ke stažení"
 
 # Snap packaging permissions dialog part 1/2
 msgid ""
 "You are using Varia as a Snap package. There are some functions that you "
 "can't use without manually giving Varia some extra permissions. These are:"
 msgstr ""
-"Stai usando la versione di Varia pacchettizata con Snap. Alcune funzionalità "
-"sono bloccate se non fornisci manualmente a Varia alcuni permessi "
-"aggiuntivi. Questi sono:"
+"Používáte Varia v podobě Snap balíčku. Některé z funkcí není možné používat "
+"bez toho, abyste Varia ručně dodali některá další oprávnění. Těmi jsou:"
 
 # Snap packaging permissions dialog part 2/2
 msgid ""
 "To enable these functions you must run these commands in a terminal to give "
 "the required permissions and then restart Varia:"
 msgstr ""
-"Per abilitare queste funzionalità devi eseguire questi comandi nel terminale "
-"per assegnare i permessi necessari e poi riavviare Varia:"
+"Pokud chcete povolit tyto funkce, je třeba v terminálu spustit tyto příkazy "
+"pro udělení potřebných oprávnění a poté Varia vypnout a znovu zapnout:"
 
 # Tooltip for when focused on filter options in the sidebar. Do not translate {filter option}, it will be replaced by the filter type. ("All", "In Progress", etc)
 msgid "Filter downloads by {filter option}"
-msgstr "Filtra download per {filter option}"
+msgstr "Filtrovat stahování podle {filter option}"
 
+# For screen readers - Tooltip for when focused on a download item. Not a verb.
 msgid "Download item"
-msgstr "Scarica elemento"
+msgstr "Stáhnout položku"
 
+# For screen readers - Tooltip for when focused on options for timespan in scheduler
 msgid "Timespan {number}"
-msgstr "Intervallo {number}"
+msgstr "Časové rozpětí {number}"
 
 # Tooltip for when focused on timespan day of the week dropdown
 msgid "Day of the week for timespan {number}"
-msgstr "Giorno della settimana per l'intervallo {number}"
+msgstr "Den v týdnu pro časové rozpětí {number}"
 
+# Tooltip for when focused on delete button for timespan in scheduler
 msgid "Remove timespan {number}"
-msgstr "Elimina intervallo {number}"
+msgstr "Odebrat časové rozpětí {number}"
 
 # Tooltip for when focused on timespan start hour
 msgid "Start hour for timespan {number}"
-msgstr "Ora di inizio per l'intervallo {number}"
+msgstr "Počáteční hodina pro časové rozpětí {number}"
 
 # Tooltip for when focused on timespan start minute
 msgid "Start minute for timespan {number}"
-msgstr "Minuti di inizio per l'intervallo {number}"
+msgstr "Počáteční minuta pro časové rozpětí {number}"
 
 # Tooltip for when focused on timespan end hour
 msgid "End hour for timespan {number}"
-msgstr "Ora di fine per l'intervallo {number}"
+msgstr "Koncová hodina pro časové rozpětí {number}"
 
 # Tooltip for when focused on timespan end minute
 msgid "End minute for timespan {number}"
-msgstr "Minuti di fine per l'intervallo {number}"
+msgstr "Koncová minuta pro časové rozpětí {number}"
 
 msgid "Automatically Extract Archives"
-msgstr "Estrai Automaticamente Archivi"
+msgstr "Automaticky rozbalovat archivy"
 
 msgid "Delete Archives After Extraction"
-msgstr "Cancella Archivi Dopo Estrazione"
+msgstr "Mazat archivy po jejich rozbalení"
 
 # For videos
 msgid "Maximum Quality"
-msgstr "Qualità Massima"
+msgstr "Nejvyšší kvalita"
 
 msgid "Maximum available quality"
-msgstr "Massima Qualità Disponibile"
+msgstr "Nejvyšší kvalita, jaká je k dispozici"
 
 msgid "Playlist Download"
-msgstr "Scarica Playlist"
+msgstr "Stáhnout seznam stop"
 
 msgid "Skip Playlist Download Errors"
-msgstr "Ignora Errori Download Playlist"
+msgstr "Přeskočit chyby při stahování seznamu stop"
 
 msgid ""
 "If one of the videos in a playlist can't be downloaded, continue with the "
 "rest instead of cancelling."
 msgstr ""
-"Se uno o più dei video in una playlist non può essere scaricato, continua "
-"con il resto invece di annullare."
+"Pokud jedno z videí na seznamu stop nepůjde stáhnout, pokračovat ve zbytku "
+"namísto zrušení."
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
-msgstr "Generali"
+msgstr "Obecné"
 
 #: src/gtk/help-overlay.ui:14
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
-msgstr "Mostra scorciatoie"
+msgstr "Zobrazit zkratky"
 
 #: src/gtk/help-overlay.ui:20
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr "Esci"
+msgstr "Ukončit"

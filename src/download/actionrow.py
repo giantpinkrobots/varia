@@ -43,7 +43,7 @@ def create_actionrow(self, filename):
 
     box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
     box_1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
-    box_1.set_margin_bottom(10)
+    box_1.set_margin_bottom(6)
 
     box_2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
     box_2.set_margin_start(10)
@@ -53,11 +53,23 @@ def create_actionrow(self, filename):
     download_item.set_child(box_2)
 
     percentage_and_filename_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+    percentage_and_filename_box.set_margin_bottom(2)
+
+    download_spinner = Adw.Spinner()
+    download_spinner.set_margin_end(6)
+
+    download_type_icon = Gtk.Image()
+    download_type_icon.add_css_class("dimmed")
+    download_type_icon.set_margin_end(6)
+    download_type_icon.set_visible(False)
+
+    percentage_and_filename_box.append(download_spinner)
+    percentage_and_filename_box.append(download_type_icon)
 
     percentage_label = Gtk.Label(label=_("{number}%").replace("{number}", "0"))
     percentage_label.set_halign(Gtk.Align.START)
     percentage_label.add_css_class("dim-label")
-    percentage_label.set_margin_end(5)
+    percentage_label.set_margin_end(4)
     percentage_and_filename_box.append(percentage_label)
 
     filename_label = Gtk.Label(label=filename)
@@ -115,6 +127,8 @@ def create_actionrow(self, filename):
     self.download_list.prepend(download_item)
     GLib.idle_add(self.content_root_overlay.remove_overlay, self.status_page_widget)
 
+    download_item.spinner = download_spinner
+    download_item.type_icon = download_type_icon
     download_item.percentage_label = percentage_label
     download_item.progress_bar = progress_bar
     download_item.speed_label = speed_label
@@ -148,7 +162,13 @@ def pause_button_set_open_mode(button, self, download_item):
     button.set_tooltip_text(_("Open File"))
 
 def pause_button_on_retry_clicked(button, self, download_item):
-    new_download_item = on_download_clicked(None, self, download_item.url, download_item.downloadname, None, download_item.mode, download_item.video_options, False, download_item.downloaddir, 0)
+    if download_item.mode == "playlist":
+        downloaddir = os.path.join(download_item.downloaddir, "..") # Playlists download into a subdirectory,
+                                                                    # so we need to take the above directory
+    else:
+        downloaddir = download_item.downloaddir
+
+    new_download_item = on_download_clicked(None, self, download_item.url, download_item.downloadname, None, download_item.mode, download_item.video_options, False, downloaddir, 0)
 
     self.download_list.reorder_child_after(new_download_item.actionrow, download_item.actionrow)
     self.downloads.remove(new_download_item)

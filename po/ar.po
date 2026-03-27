@@ -617,6 +617,11 @@ msgstr "النسبة"
 msgid "Torrent Peers"
 msgstr "أقران التورينت"
 
+#, fuzzy
+#| msgid "Download"
+msgid "Select Files to Download"
+msgstr "تحميل"
+
 # Snap packaging permissions dialog part 1/2
 msgid ""
 "You are using Varia as a Snap package. There are some functions that you "
@@ -674,6 +679,28 @@ msgid "Automatically Extract Archives"
 msgstr "التحقق التلقائى عن التحديثات"
 
 msgid "Delete Archives After Extraction"
+msgstr ""
+
+# For videos
+msgid "Maximum Quality"
+msgstr ""
+
+msgid "Maximum available quality"
+msgstr ""
+
+#, fuzzy
+#| msgid "Download"
+msgid "Playlist Download"
+msgstr "تحميل"
+
+#, fuzzy
+#| msgid "Download"
+msgid "Skip Playlist Download Errors"
+msgstr "تحميل"
+
+msgid ""
+"If one of the videos in a playlist can't be downloaded, continue with the "
+"rest instead of cancelling."
 msgstr ""
 
 #: src/gtk/help-overlay.ui:11

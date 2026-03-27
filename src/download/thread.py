@@ -70,6 +70,7 @@ class DownloadThread(threading.Thread):
         self.video_download_combined = False
         self.video_download_stage = 0
         self.video_download_progress_previous = 0
+        self.video_download_is_playlist = False
 
         self.state_file = ""
         self.is_complete = False
@@ -153,6 +154,9 @@ class DownloadThread(threading.Thread):
                 download_options["out"] = self.downloadname
 
             if self.download == None:
+                if self.url.startswith("magnet:") or self.url.lower().endswith(".torrent"):
+                    download_options["pause"] = "true"
+
                 self.download = self.api.add_uris([self.url], options=download_options)
 
             if self.download.gid:
@@ -172,9 +176,12 @@ class DownloadThread(threading.Thread):
 
             if self.download.is_torrent:
                 self.download_details['type'] = _("Torrent")
+                self.change_download_type_icon("torrent")
+                self.torrent_file_select_completed = False
 
             else:
                 self.download_details['type'] = _("Regular")
+                self.change_download_type_icon("regular")
             
             self.previous_filename = ""
             self.app.filter_download_list("no", self.app.applied_filter)
@@ -209,42 +216,83 @@ class DownloadThread(threading.Thread):
                         GLib.idle_add(self.actionrow.filename_label.set_text, self.download.name)
 
                     self.update_labels_and_things(None)
-                    if ((self.download.is_complete) and (self.download.is_metadata == False)):
+
+                    if self.download.is_torrent and len(self.download.files) > 0 and not self.torrent_file_select_completed:
+                        try:
+                            self.download.pause()
+                        except:
+                            pass
+
+                        self.selection_event = threading.Event()
+                        from download.torrent_select_files import torrent_select_files_dialog
+                        torrent_select_files_dialog(self)
+
+                        self.selection_event.wait()
+
+                    elif self.download.status == "complete" or ((self.download.is_torrent) and (self.download.seeder)):
                         print('Download complete: ' + self.download.gid)
                         GLib.idle_add(self.set_complete)
-                        break
-                    elif ((self.download.is_torrent) and (self.download.seeder)):
-                        print('Torrent complete, seeding: ' + self.download.gid)
-                        GLib.idle_add(self.set_complete)
-                        break
+                        return
+
                     elif (self.download.status == "error"):
                         GLib.idle_add(self.set_failed, None)
                         return
+
                 except:
                     return
-                
+
                 time.sleep(0.5)
-        
+
         # Video/audio download, use yt_dlp:
-        elif self.mode == "video":
+        elif self.mode == "video" or self.mode == "playlist":
+            self.video_object = None
+            video_options_final = self.video_options.copy()
+
+            if self.mode == "playlist":
+                self.mode = "video"
+
+                self.change_download_type_icon("playlist")
+
+                if os.path.exists(os.path.join(self.downloaddir, self.downloadname)) == False:
+                    os.mkdir(os.path.join(self.downloaddir, self.downloadname))
+
+                self.downloaddir = os.path.join(self.downloaddir, self.downloadname)
+                self.video_download_is_playlist = True
+                self.video_download_playlist_length = self.video_options['length']
+                self.video_download_playlist_completed_ids = []
+                video_options_final['outtmpl'] = os.path.join(self.downloaddir, "%(title)s.%(ext)s")
+
+                if self.app.appconf["playlist_skip_errors"] == "1":
+                    video_options_final['ignoreerrors'] = True
+
+                if video_options_final['type'] == 0:
+                    self.video_download_combined = True
+                
+                self.video_playlist_download_stage = 1
+            
+            else:
+                self.change_download_type_icon("video")
+
+                self.video_download_is_playlist = False
+                if '+' in video_options_final['format']:
+                    self.video_download_combined = True
+                video_options_final['outtmpl'] = os.path.join(self.downloaddir, self.downloadname)
+
             self.download_details['type'] = _("Video / Audio")
             self.total_file_size_text = self.video_options['filesize_to_show']
 
-            video_options_final = self.video_options.copy()
             video_options_final['progress_hooks'] = [self.update_labels_and_things]
-            video_options_final['outtmpl'] = os.path.join(self.downloaddir, self.downloadname)
             video_options_final['continuedl'] = True
             video_options_final['ffmpeg_location'] = self.app.ffmpegexec
-            video_options_final['js_runtimes'] = {'deno': {'path': self.app.denoexec}}
+            video_options_final['js_runtimes'] = {
+                self.app.jsruntimeexec['name']: {'path': self.app.jsruntimeexec['exec']}
+            }
+
+            if os.path.exists(os.path.join(self.app.appdir, "cookies_for_ytdlp.txt")):
+                video_options_final['cookiefile'] = os.path.join(self.app.appdir, "cookies_for_ytdlp.txt")
 
             if self.app.appconf["remote_time"] == '1':
                 video_options_final['updatetime'] = True
-
-            if self.app.appconf["cookies_txt"] == "1":
-                video_options_final['cookiefile'] = os.path.join(self.app.appdir, 'cookies.txt')
-            
-            if '+' in video_options_final['format']:
-                self.video_download_combined = True
 
             self.download = YoutubeDL(video_options_final)
             GLib.idle_add(self.actionrow.filename_label.set_text, self.downloadname)
@@ -265,17 +313,29 @@ class DownloadThread(threading.Thread):
             GLib.idle_add(self.speed_label.set_text, _("Starting download..."))
 
             def youtubedl_download_start():
+                quit_before_success = False
+
                 try:
                     self.download.download([self.url])
+
                 except SystemExit:
                     print("SystemExit received by yt_dlp thread")
                     self.video_stop_event.clear()
                     self.cancelled = True
+                    quit_before_success = True
+                    return
+
                 except Exception as e:
                     self.show_message(f"{_("An error occurred:")} {self.app.escape_special_characters(str(e))}")
                     self.video_stop_event.clear()
                     self.cancelled = True
                     GLib.idle_add(self.set_failed, None)
+                    quit_before_success = True
+                    return
+
+                finally:
+                    if quit_before_success == False and self.video_object['status'] == "finished":
+                        GLib.idle_add(self.set_complete)
 
             self.youtubedl_thread = threading.Thread(target=youtubedl_download_start)
             self.youtubedl_thread.daemon = True
@@ -286,6 +346,19 @@ class DownloadThread(threading.Thread):
             
             self.cancelled = True
             return
+    
+    def change_download_type_icon(self, type):
+        if type == "regular":
+            GLib.idle_add(self.actionrow.type_icon.set_from_icon_name, "paper-symbolic")
+        elif type == "torrent":
+            GLib.idle_add(self.actionrow.type_icon.set_from_icon_name, "network-wired-symbolic")
+        elif type == "video":
+            GLib.idle_add(self.actionrow.type_icon.set_from_icon_name, "camera-video-symbolic")
+        elif type == "playlist":
+            GLib.idle_add(self.actionrow.type_icon.set_from_icon_name, "playlist-symbolic")
+
+        GLib.idle_add(self.actionrow.spinner.set_visible, False)
+        GLib.idle_add(self.actionrow.type_icon.set_visible, True)
 
     def show_message(self, message):
         print(f'Download message shown: {message}')
@@ -319,13 +392,6 @@ class DownloadThread(threading.Thread):
                     self.download_details['torrent_peers'] = self.app.api.client.call("aria2.getPeers", [self.download.gid])
                     self.download_details['completed_length'] = self.download.completed_length
                     self.download_details['upload_length'] = self.download.upload_length
-
-                    if self.download.seeder:
-                        if self.app.appconf["torrent_seeding_enabled"] == "1":
-                            GLib.idle_add(self.show_message(_("Seeding torrent")))
-                        else:
-                            GLib.idle_add(self.set_complete)
-                        return
                 
                 download_delta = self.download.eta
                 download_speed_mb = (speed / 1024 / 1024)
@@ -359,15 +425,29 @@ class DownloadThread(threading.Thread):
                             self.download_temp_files.append(file)
         
         elif self.mode == "video":
-            if video_object['status'] == "finished":
-                self.video_status = "finished"
+            self.video_object = video_object
 
-                if self.video_download_combined == False or self.video_download_stage == 1:
-                    GLib.idle_add(self.set_complete)
+            if (not video_object['status']) or (video_object['status'] == "error"):
+                if self.video_download_is_playlist and self.app.appconf["playlist_skip_errors"] == "1":
+                    pass
 
-            elif video_object['status'] == "error":
-                self.video_status = "error"
-                GLib.idle_add(self.set_failed, progress / 100)
+                else:
+                    self.video_status = "error"
+                    GLib.idle_add(self.set_failed, progress / 100)
+
+            elif video_object['status'] == "finished":
+                if self.video_download_is_playlist == False:
+                    if self.video_download_combined == True:
+                        if self.video_download_stage == 0:
+                            self.video_download_stage = 1
+                        
+                        else:
+                            self.video_status = "finished"
+                            GLib.idle_add(self.set_complete)
+
+                    else:
+                        self.video_status = "finished"
+                        GLib.idle_add(self.set_complete)
 
             elif video_object['status'] == "idle":
                 self.video_status = "idle"
@@ -421,17 +501,20 @@ class DownloadThread(threading.Thread):
                 os.remove(self.state_file)
                 self.save_state()
 
-            if self.video_download_progress_previous > progress + 50:
+            if self.video_download_is_playlist == False and self.video_download_progress_previous > progress + 50:
                 self.video_download_stage = 1
 
             self.video_download_progress_previous = progress
+            
+            if self.video_download_is_playlist:
+                percentage_label_text = _("Part {indicator}").replace("{indicator}", f"{str(video_object["info_dict"].get("playlist_index", ""))} / {self.video_download_playlist_length}") + "  ·  " + percentage_label_text
 
-            if self.video_download_combined == True:
+            elif self.video_download_combined:
                 if self.video_download_stage == 0:
                     percentage_label_text = _("Part {indicator}").replace("{indicator}", "1 / 2") + "  ·  " + percentage_label_text
                 elif self.video_download_stage == 1:
                     percentage_label_text = _("Part {indicator}").replace("{indicator}", "2 / 2") + "  ·  " + percentage_label_text
-        
+
         speed_label_text = f"{speed_label_text}{self.total_file_size_text}  ·  {speed_label_text_speed}  ·  {download_remaining_string} {_('remaining')}"
         self.download_details['message'] = ""
 
@@ -560,8 +643,6 @@ class DownloadThread(threading.Thread):
                                 pass
                     
                     for file in self.download_temp_files:
-                        print(file.path)
-
                         if os.path.exists(file.path):
                             file_parentdir = file.path.parent.absolute()
 
@@ -606,14 +687,21 @@ class DownloadThread(threading.Thread):
 
     def save_state(self):
         if self.download and self.is_complete == False:
+            if self.video_download_is_playlist:
+                download_type = "playlist"
+                download_dir = os.path.join(self.downloaddir, "..")
+            else:
+                download_type = self.mode
+                download_dir = self.downloaddir
+
             state = {
                 'url': self.url,
                 'filename': self.downloadname,
-                'type': self.mode,
+                'type': download_type,
                 'video_options': json.dumps(self.video_options),
                 'paused': self.paused,
                 'index': self.app.downloads.index(self),
-                'dir': self.downloaddir,
+                'dir': download_dir,
                 'percentage': math.floor(self.percentage_number)
             }
 
@@ -733,20 +821,11 @@ class DownloadThread(threading.Thread):
     def set_complete(self):
         self.is_complete = True
         self.app.filter_download_list("no", self.app.applied_filter)
-
         self.download_details['remaining'] = ""
         self.download_details['download_speed'] = ""
 
-        if self.mode == "regular":
-            is_seeding = self.download.is_torrent and self.download.seeder
-            if is_seeding == False and os.path.exists(os.path.join(self.downloaddir,(self.download.gid + ".varia"))):
-                os.remove(os.path.join(self.downloaddir,(self.download.gid + ".varia")))
-
-        elif self.mode == "video":
+        if self.mode == "video":
             self.video_remove_temp_files()
-
-        if os.path.exists(self.state_file):
-            os.remove(self.state_file)
         
         if self.extract_complete == False and self.app.appconf["extract_archives"] == "1":
             file_extension = self.downloadname.split('.')[-1].lower()
@@ -758,8 +837,15 @@ class DownloadThread(threading.Thread):
         
         self.cancelled = True
         self.set_actionrow_tooltip_text()
-        GLib.idle_add(self.speed_label.set_text, _("Download complete."))
         self.download_details['status'] = _("Completed")
+
+        if self.mode == "regular" and self.download.is_torrent and self.download.seeder and self.app.appconf["torrent_seeding_enabled"] == "1":
+            GLib.idle_add(self.speed_label.set_text, _("Seeding"))
+        else:
+            GLib.idle_add(self.speed_label.set_text, _("Download complete."))
+
+            if os.path.exists(self.state_file):
+                os.remove(self.state_file)
         
         GLib.idle_add(self.actionrow.progress_bar.set_fraction, 1)
         GLib.idle_add(self.actionrow.progress_bar.add_css_class, "success")
@@ -781,6 +867,9 @@ class DownloadThread(threading.Thread):
 
             else:
                 self.show_message(_("An error occurred:") + " " + str(self.download.error_code))
+        
+        elif self.video_download_is_playlist == True:
+            self.mode = "playlist"
         
         self.download_details['status'] = _("Failed")
         self.download_details['remaining'] = ""

@@ -19,8 +19,8 @@
 
 | Download for Linux | Download for Windows | Download for macOS | Browser Extension |
 | -------- | ------- | ------- | ------- |
-| [⬇ Flathub](https://flathub.org/apps/io.github.giantpinkrobots.varia) | [⬇ Installer](https://github.com/giantpinkrobots/varia/releases/download/v2026.1.5-3/varia-windows-setup-amd64.exe) | [⬇ Apple Silicon arm64](https://github.com/giantpinkrobots/varia/releases/download/v2026.1.5-3/varia-mac-arm.dmg) | [❖ Firefox](https://addons.mozilla.org/firefox/addon/varia-integrator/) |
-| [⬇ Snap Store](https://snapcraft.io/varia) | [⬇ Portable](https://github.com/giantpinkrobots/varia/releases/download/v2026.1.5-3/varia-windows-portable-amd64.zip) | [⬇ Intel amd64](https://github.com/giantpinkrobots/varia/releases/download/v2026.1.5-3/varia-mac-intel.dmg) | [❖ Chrome](https://chrome.google.com/webstore/detail/dacakhfljjhgdfdlgjpabkkjhbpcmiff) |
+| [⬇ Flathub](https://flathub.org/apps/io.github.giantpinkrobots.varia) | [⬇ Installer](https://github.com/giantpinkrobots/varia/releases/download/v2026.3.27/varia-windows-setup-amd64.exe) | [⬇ Apple Silicon arm64](https://github.com/giantpinkrobots/varia/releases/download/v2026.3.27/varia-mac-arm.dmg) | [❖ Firefox](https://addons.mozilla.org/firefox/addon/varia-integrator/) |
+| [⬇ Snap Store](https://snapcraft.io/varia) | [⬇ Portable](https://github.com/giantpinkrobots/varia/releases/download/v2026.3.27/varia-windows-portable-amd64.zip) | [⬇ Intel amd64](https://github.com/giantpinkrobots/varia/releases/download/v2026.3.27/varia-mac-intel.dmg) | [❖ Chrome](https://chrome.google.com/webstore/detail/dacakhfljjhgdfdlgjpabkkjhbpcmiff) |
 | [⬇ AUR (unofficial)](https://aur.archlinux.org/packages/varia) |
 | [⬇ AppImage (unofficial)](https://github.com/pkgforge-dev/Varia-AppImage) |
 
@@ -148,7 +148,19 @@ Varia will be built into src/dist/variamain. Main executable is variamain.exe.
 
 ### for macOS
 
-macOS builds are handled with GitHub Actions through (this)[https://github.com/giantpinkrobots/varia/blob/next/.github/workflows/mac-package.yml] file. I will prepare a friendlier automatic build script (like on Windows) later.
+macOS builds are handled with GitHub Actions through [this](https://github.com/giantpinkrobots/varia/blob/next/.github/workflows/mac-package.yml) file. To build locally you can use [act](https://github.com/nektos/act). It's available through [Homebrew](https://formulae.brew.sh/formula/act). To build, after cd'ing to the varia directory in a Terminal, run:
+
+(for Apple Silicon)
+```
+act -p macos-15=self-hosted
+```
+
+(for Intel)
+```
+act -p macos-15-intel=self-hosted
+```
+
+It will build a ready to go .dmg file into ~/.cache/act.
 
 ## Contributing
 
