@@ -28,6 +28,9 @@ def show_about(app, variaapp, self, variaVersion):
     dialog.set_artists(["Jakub Steiner"])
     dialog.set_release_notes_version(variaVersion)
     dialog.set_release_notes('''
+        <p>v2026.3.27-1</p>
+        <ul><li>Windows only: Fix FFmpeg dependencies on Windows</li></ul>
+        <p>v2026.3.27</p>
         <ul><li>Ability to download playlists through the same Video/Audio functionality</li>
         <li>Ability to select individual files and folders to download through torrenting</li>
         <li>Option to dynamically send browser cookies through the browser extension upon each download (separate from cookies.txt file import support)</li></ul>''')
