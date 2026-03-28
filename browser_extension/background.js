@@ -2,7 +2,7 @@ let startTime = Date.now();
 
 chrome.runtime.onInstalled.addListener(function (details) {
   if (details.reason === 'install') {
-    chrome.storage.sync.set({ enabled: true });
+    chrome.storage.sync.set({ enabled: true, cookieTransferFile: true, cookieTransferVideo: true });
   }
 });
 

@@ -1,3 +1,4 @@
+shopt -s extglob
 updater=0
 debug=0
 
@@ -44,8 +45,8 @@ pip install winsdk-toast
 echo "      -   Downloading aria2, ffmpeg, 7z and deno..."
 
 aria2="aria2-1.37.0-win-64bit-build1"
-ffmpeg="ffmpeg-n8.0-latest-win64-lgpl-shared-8.0"
-sevenzip="7z2501-x64"
+ffmpeg="ffmpeg-n8.0.1-76-gfa4ee7ab3c-win64-lgpl-shared-8.0"
+sevenzip="7z2600-x64"
 
 rm -rf "./$aria2.zip"
 rm -rf "./$ffmpeg.zip"
@@ -58,7 +59,7 @@ rm -rf "./$sevenzip.exe"
 rm -rf "./7zip"
 
 wget "https://github.com/aria2/aria2/releases/download/release-1.37.0/$aria2.zip"
-wget "https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/$ffmpeg.zip"
+wget "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-03-28-13-02/$ffmpeg.zip"
 wget "https://github.com/denoland/deno/releases/download/v2.5.2/deno-x86_64-pc-windows-msvc.zip"
 wget "https://7-zip.org/a/$sevenzip.exe"
 mkdir aria2
@@ -115,8 +116,7 @@ cp data/icons/scalable/apps/io.github.giantpinkrobots.varia.svg src/dist/variama
 cp -r data/icons/actions/* src/dist/variamain/icons/
 cp -r dependencies_information src/dist/variamain/
 cp ./aria2/$aria2/aria2c.exe src/dist/variamain/
-cp ./ffmpeg/$ffmpeg/bin/ffmpeg.exe src/dist/variamain/
-cp ./ffmpeg/$ffmpeg/bin/ffprobe.exe src/dist/variamain/
+cp -r ./ffmpeg/$ffmpeg/bin/!(ffplay.exe) src/dist/variamain/
 cp ./deno/deno.exe src/dist/variamain/
 cp ./7zip/7z.exe src/dist/variamain/
 cp ./7zip/7-zip.dll src/dist/variamain/
