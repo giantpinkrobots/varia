@@ -140,7 +140,10 @@ class DownloadThread(threading.Thread):
                     self.url = self.auth_username + ":" + self.auth_password + "@" + self.url
                 print ("Authentication enabled.")
 
-        print(self.downloadname)
+        if self.downloadname and ("/" or "\\" in self.downloadname):
+            self.downloadname = self.downloadname.replace("/", " ")
+            self.downloadname = self.downloadname.replace("\\", " ")
+
         self.app.check_all_status()
 
         if self.percentage_number > 0:

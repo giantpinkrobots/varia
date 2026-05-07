@@ -243,9 +243,9 @@ def on_video_clicked(button, self, entry, header):
                     matched_formats.append([combined, None, combined_size_bytes, bitrate])
                 
                 # Sort the lists based on their filesize, from biggest to smallest
-                video_formats.sort(key=lambda x: ((int(x["resolution"].split('x')[0]) * int(x["resolution"].split('x')[1])), x["filesize"]), reverse=True)
+                video_formats.sort(key=lambda x: (int("".join(filter(str.isdigit, x["resolution"].split('x')[-1]))), x["filesize"]), reverse=True)
                 audio_formats.sort(key=lambda x: x["filesize"], reverse=True)
-                matched_formats.sort(key=lambda x: ((int(x[0]["resolution"].split('x')[0]) * int(x[0]["resolution"].split('x')[1])), x[2]), reverse=True)
+                matched_formats.sort(key=lambda x: (int("".join(filter(str.isdigit, x[0]["resolution"].split('x')[-1]))), x[2]), reverse=True)
 
                 def remove_duplicates_from_lists(list, mode):
                     seen = set()

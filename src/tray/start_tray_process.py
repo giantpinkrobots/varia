@@ -6,6 +6,7 @@ import ctypes
 import signal
 from multiprocessing.connection import Listener
 from stringstorage import gettext as _
+from gi.repository import GLib
 
 def start_tray_process(self, variaapp):
     if self.tray_process == None: # If tray process is not already running
@@ -37,10 +38,10 @@ def start_tray_process(self, variaapp):
                     print("Tray icon pressed function: ", message)
 
                     if message == "show":
-                        self.unminimize()
-                        self.set_visible(True)
+                        GLib.idle_add(self.unminimize)
+                        GLib.idle_add(self.set_visible, True)
                         if os.uname().sysname != 'Darwin':
-                            self.present()
+                            GLib.idle_add(self.present)
                         
                         if self.appconf["tray_always_visible"] != "true":
                             self.tray_process.kill()

@@ -1,4 +1,16 @@
-let startTime = Date.now();
+let startTime;
+
+async function initializeStartTime() {
+  const data = await chrome.storage.local.get(['startTime']);
+  if (!data.startTime) {
+    startTime = Date.now();
+    chrome.storage.local.set({ startTime });
+  } else {
+    startTime = data.startTime;
+  }
+}
+
+initializeStartTime();
 
 chrome.runtime.onInstalled.addListener(function (details) {
   if (details.reason === 'install') {
