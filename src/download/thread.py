@@ -220,7 +220,7 @@ class DownloadThread(threading.Thread):
 
                     self.update_labels_and_things(None)
 
-                    if self.download.is_torrent and len(self.download.files) > 0 and not self.torrent_file_select_completed:
+                    if self.download.is_torrent and not self.download.is_metadata and len(self.download.files) > 0 and not self.torrent_file_select_completed:
                         try:
                             self.download.pause()
                         except:
