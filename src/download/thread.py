@@ -228,7 +228,7 @@ class DownloadThread(threading.Thread):
 
                         self.selection_event = threading.Event()
                         from download.torrent_select_files import torrent_select_files_dialog
-                        torrent_select_files_dialog(self)
+                        GLib.idle_add(torrent_select_files_dialog, self)
 
                         self.selection_event.wait()
 
