@@ -621,7 +621,8 @@ def main(version, aria2cexec, ffmpegexec, sevenzexec, jsruntimeexec, issnap, pkg
         'autostart_on_boot_enabled': 'false',
         'extract_archives': '0',
         'extract_archives_delete_archives': '0',
-        'playlist_skip_errors': '0'}
+        'playlist_skip_errors': '0',
+        'automatic_sorting_enabled': '0'}
 
     if os.path.exists(os.path.join(appdir, 'varia.conf')):
         first_run = False

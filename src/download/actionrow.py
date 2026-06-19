@@ -3,7 +3,8 @@ gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, Pango, GLib, Gio
 from stringstorage import gettext as _
-from download.thread import DownloadThread
+from download.thread import DownloadThread, get_category_for_filename
+from urllib.parse import urlparse
 from download.details import show_download_details_dialog
 import json
 import os
@@ -20,6 +21,26 @@ def on_download_clicked(button, self, entry, downloadname, download, mode, video
         video_options = json.loads(video_options)
 
     if url:
+        is_torrent_url = url.startswith("magnet:") or url.lower().split('?')[0].endswith(".torrent")
+
+        if self.appconf.get("automatic_sorting_enabled", "0") == "1" and not is_torrent_url:
+            name_to_check = downloadname
+            if not name_to_check:
+                try:
+                    parsed_url = urlparse(url)
+                    name_to_check = os.path.basename(parsed_url.path)
+                except:
+                    pass
+            category = get_category_for_filename(name_to_check)
+            if category:
+                if not dir.endswith(category) and os.path.basename(dir) != category:
+                    dir = os.path.join(dir, category)
+                try:
+                    if not os.path.exists(dir):
+                        os.makedirs(dir)
+                except:
+                    pass
+
         if downloadname:
             download_item = create_actionrow(self, downloadname)
         

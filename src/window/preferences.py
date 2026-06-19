@@ -112,6 +112,16 @@ def show_preferences(button, self, app, variaVersion):
     else:
         download_directory_actionrow.add_suffix(download_directory_change_remote_label)
     
+    # Automatic folder sorting:
+
+    automatic_sorting = Adw.SwitchRow()
+    automatic_sorting.set_title(_("Automatic Folder Sorting"))
+    automatic_sorting.set_subtitle(_("Automatically sort downloads into folders based on file type (Compressed, Pictures, Documents, Video, Music)."))
+    automatic_sorting.connect("notify::active", on_automatic_sorting, self)
+
+    if self.appconf["automatic_sorting_enabled"] == "1":
+        automatic_sorting.set_active("active")
+
     # Extract archives:
     
     extract_archives_delete_archives = Adw.SwitchRow()
@@ -271,6 +281,7 @@ def show_preferences(button, self, app, variaVersion):
     # Construct Group 1:
 
     group_1.add(download_directory_actionrow)
+    group_1.add(automatic_sorting)
     group_1.add(extract_archives)
     group_1.add(extract_archives_delete_archives)
     group_1.add(playlist_skip_errors)
@@ -617,6 +628,15 @@ def on_playlist_skip_errors(switch, state, self):
         self.appconf["playlist_skip_errors"] = '1'
     else:
         self.appconf["playlist_skip_errors"] = '0'
+
+    self.save_appconf()
+
+def on_automatic_sorting(switch, state, self):
+    state = switch.get_active()
+    if state:
+        self.appconf["automatic_sorting_enabled"] = '1'
+    else:
+        self.appconf["automatic_sorting_enabled"] = '0'
 
     self.save_appconf()
 

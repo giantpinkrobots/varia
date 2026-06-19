@@ -14,10 +14,53 @@ import multiprocessing as multiprocessing
 import math
 import subprocess
 
+def get_category_for_filename(filename):
+    if not filename:
+        return None
+    ext = filename.split('.')[-1].lower()
+    
+    categories = {
+        'Compressed': ['zip', 'rar', '7z', 'tar', 'gz', 'bz2', 'xz', 'z', 'iso', 'dmg'],
+        'Pictures': ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg', 'webp', 'ico', 'tiff'],
+        'Documents': ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'odt', 'ods', 'odp', 'rtf', 'txt', 'csv'],
+        'Video': ['mp4', 'mkv', 'avi', 'mov', 'wmv', 'flv', 'webm', 'm4v', 'mpg', 'mpeg'],
+        'Music': ['mp3', 'wav', 'ogg', 'flac', 'm4a', 'aac', 'wma']
+    }
+    
+    for category, extensions in categories.items():
+        if ext in extensions:
+            return category
+    return None
+
 class DownloadThread(threading.Thread):
     def __init__(self, app, url, actionrow, downloadname, download, mode, video_options, paused, dir, percentage):
         threading.Thread.__init__(self)
         self.api = app.api
+        
+        is_torrent = False
+        if url and (url.startswith("magnet:") or url.lower().split('?')[0].endswith(".torrent")):
+            is_torrent = True
+        if download and getattr(download, "is_torrent", False):
+            is_torrent = True
+
+        if app.appconf.get("automatic_sorting_enabled", "0") == "1" and not is_torrent:
+            name_to_check = downloadname
+            if not name_to_check and url:
+                try:
+                    parsed_url = urlparse(url)
+                    name_to_check = os.path.basename(parsed_url.path)
+                except:
+                    pass
+            category = get_category_for_filename(name_to_check)
+            if category:
+                if not dir.endswith(category) and os.path.basename(dir) != category:
+                    dir = os.path.join(dir, category)
+                try:
+                    if not os.path.exists(dir):
+                        os.makedirs(dir)
+                except:
+                    pass
+
         self.downloaddir = dir
         self.url = url
         self.speed_label = actionrow.speed_label
@@ -53,7 +96,7 @@ class DownloadThread(threading.Thread):
             self.downloadname = ""
 
         try:
-            self.filepath = os.path.join(app.appconf["download_directory"], downloadname)
+            self.filepath = os.path.join(self.downloaddir, downloadname)
         
         except:
             self.filepath = None
@@ -153,6 +196,8 @@ class DownloadThread(threading.Thread):
         # Regular download, use aria2p:
         if self.mode == "regular":
 
+            download_options["dir"] = self.downloaddir
+
             if self.downloadname != None:
                 download_options["out"] = self.downloadname
 
@@ -189,7 +234,7 @@ class DownloadThread(threading.Thread):
             self.previous_filename = ""
             self.app.filter_download_list("no", self.app.applied_filter)
             download_began = False
-            self.filepath = os.path.join(self.app.appconf["download_directory"], self.downloadname)
+            self.filepath = os.path.join(self.downloaddir, self.downloadname)
 
             if self.retry == False:
                 self.save_state()
@@ -213,7 +258,7 @@ class DownloadThread(threading.Thread):
                     if (self.download.is_torrent and self.download.name.startswith("[METADATA]")) == False and self.downloadname != self.download.name:
                         self.downloadname = self.download.name
                         self.save_state()
-                        self.filepath = os.path.join(self.app.appconf["download_directory"], self.downloadname)
+                        self.filepath = os.path.join(self.downloaddir, self.downloadname)
                     
                     if self.actionrow.filename_label.get_text() != self.downloadname:
                         GLib.idle_add(self.actionrow.filename_label.set_text, self.download.name)
@@ -822,6 +867,52 @@ class DownloadThread(threading.Thread):
         self.set_complete()
                 
     def set_complete(self):
+        if self.app.appconf.get("automatic_sorting_enabled", "0") == "1":
+            is_torrent = getattr(self.download, "is_torrent", False) if self.download else False
+            if (self.mode == "regular" and not is_torrent) or self.mode == "video":
+                if self.video_download_is_playlist:
+                    category = "Video"
+                else:
+                    category = get_category_for_filename(self.downloadname)
+                
+                if category:
+                    target_dir = os.path.join(self.app.appconf["download_directory"], category)
+                    if self.video_download_is_playlist:
+                        src_path = self.downloaddir
+                    else:
+                        src_path = os.path.join(self.downloaddir, self.downloadname)
+                    dest_path = os.path.join(target_dir, self.downloadname)
+
+                    if os.path.exists(src_path) and os.path.abspath(src_path) != os.path.abspath(dest_path):
+                        if not os.path.exists(target_dir):
+                            try:
+                                os.makedirs(target_dir)
+                            except Exception as e:
+                                print(f"Error creating category directory {target_dir}: {e}")
+                        
+                        import shutil
+                        try:
+                            base_dest, ext_dest = os.path.splitext(dest_path)
+                            counter = 1
+                            while os.path.exists(dest_path):
+                                if self.video_download_is_playlist:
+                                    dest_path = f"{base_dest}-{counter}"
+                                else:
+                                    dest_path = f"{base_dest}-{counter}{ext_dest}"
+                                counter += 1
+                            
+                            shutil.move(src_path, dest_path)
+                            if self.video_download_is_playlist:
+                                self.downloaddir = dest_path
+                                self.filepath = dest_path
+                            else:
+                                self.filepath = dest_path
+                                self.downloaddir = target_dir
+                            self.downloadname = os.path.basename(dest_path)
+                            print(f"Moved completed download to: {dest_path}")
+                        except Exception as e:
+                            print(f"Error moving completed download: {e}")
+
         self.is_complete = True
         self.app.filter_download_list("no", self.app.applied_filter)
         self.download_details['remaining'] = ""
