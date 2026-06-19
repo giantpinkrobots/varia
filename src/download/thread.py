@@ -461,6 +461,9 @@ class DownloadThread(threading.Thread):
                             + "\n" + _("Status") + ": " + self.download_details['status']
                             + "\n" + _("Supports Resume") + ": " + self.download_details.get('resumable', '...')
                             + "\n" + self.download_details['percentage'])
+        if hasattr(self.actionrow, "non_resumable_badge"):
+            is_no = (self.download_details.get('resumable') == _("No"))
+            GLib.idle_add(self.actionrow.non_resumable_badge.set_visible, is_no)
 
     def update_labels_and_things(self, video_object):
         speed_label_text = ""
@@ -605,6 +608,8 @@ class DownloadThread(threading.Thread):
                     percentage_label_text = _("Part {indicator}").replace("{indicator}", "2 / 2") + "  ·  " + percentage_label_text
 
         speed_label_text = f"{speed_label_text}{self.total_file_size_text}  ·  {speed_label_text_speed}  ·  {download_remaining_string} {_('remaining')}"
+        if self.download_details.get('resumable') == _("No"):
+            speed_label_text = f"{speed_label_text}  ·  {_('Non-Resumable')}"
         self.download_details['message'] = ""
 
         self.set_actionrow_tooltip_text()

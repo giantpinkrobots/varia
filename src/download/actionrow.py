@@ -93,6 +93,14 @@ def create_actionrow(self, filename):
     percentage_label.set_margin_end(4)
     percentage_and_filename_box.append(percentage_label)
 
+    non_resumable_badge = Gtk.Label()
+    non_resumable_badge.set_markup("<span foreground='#e01b24' size='small' weight='bold'>⚠️ " + _("No Resume") + "</span>")
+    non_resumable_badge.set_margin_end(6)
+    non_resumable_badge.set_valign(Gtk.Align.CENTER)
+    non_resumable_badge.set_visible(False)
+    non_resumable_badge.set_tooltip_text(_("This download does not support resuming. If paused, it will restart from the beginning."))
+    percentage_and_filename_box.append(non_resumable_badge)
+
     filename_label = Gtk.Label(label=filename)
     filename_label.set_ellipsize(Pango.EllipsizeMode.END)
     filename_label.set_halign(Gtk.Align.START)
@@ -157,6 +165,7 @@ def create_actionrow(self, filename):
     download_item.stop_button = stop_button
     download_item.filename_label = filename_label
     download_item.info_button = info_button
+    download_item.non_resumable_badge = non_resumable_badge
 
     return download_item
 
@@ -165,7 +174,24 @@ def on_pause_clicked(button, self, pause_button, download_item, force_pause, run
         download_item.download_thread.resume()
 
     else:
-        download_item.download_thread.pause()
+        if download_item.download_thread.download_details.get('resumable') == _("No") and not force_pause:
+            dialog = Adw.AlertDialog()
+            dialog.set_heading(_("Pause Non-Resumable Download?"))
+            dialog.set_body(_("This download does not support resuming. If you pause it, the download will restart from 0% when you resume it. Are you sure you want to pause?"))
+            dialog.add_response("cancel", _("Cancel"))
+            dialog.add_response("pause", _("Pause Anyway"))
+            dialog.set_response_appearance("pause", Adw.ResponseAppearance.DESTRUCTIVE)
+            dialog.set_default_response("cancel")
+            dialog.set_close_response("cancel")
+            
+            def handle_response(d, response):
+                if response == "pause":
+                    download_item.download_thread.pause()
+            
+            dialog.connect("response", handle_response)
+            dialog.present(self)
+        else:
+            download_item.download_thread.pause()
 
 def on_stop_clicked(button, self, download_item):
     download_item.download_thread.stop()

@@ -2,7 +2,8 @@ import time
 from stringstorage import gettext as _
 import gi
 gi.require_version('Gtk', '4.0')
-from gi.repository import GLib
+gi.require_version('Adw', '1')
+from gi.repository import GLib, Adw
 
 def pause_all(self, called_by_scheduler):
     if len(self.downloads) > 0:
@@ -11,8 +12,33 @@ def pause_all(self, called_by_scheduler):
                 download_thread.resume(called_by_scheduler)
 
         else:
-            for download_thread in self.downloads:
-                download_thread.pause(called_by_scheduler)
+            # Check if any active download is not resumable
+            active_non_resumable_downloads = []
+            for d in self.downloads:
+                if not d.is_complete and not d.cancelled and not d.paused:
+                    if d.download_details.get('resumable') == _("No"):
+                        active_non_resumable_downloads.append(d)
+            
+            if active_non_resumable_downloads and not called_by_scheduler:
+                dialog = Adw.AlertDialog()
+                dialog.set_heading(_("Pause Non-Resumable Downloads?"))
+                dialog.set_body(_("One or more active downloads do not support resuming. If you pause them, their progress will be lost and they will restart from 0% when resumed. Are you sure you want to pause all?"))
+                dialog.add_response("cancel", _("Cancel"))
+                dialog.add_response("pause", _("Pause All Anyway"))
+                dialog.set_response_appearance("pause", Adw.ResponseAppearance.DESTRUCTIVE)
+                dialog.set_default_response("cancel")
+                dialog.set_close_response("cancel")
+                
+                def handle_response(d, response):
+                    if response == "pause":
+                        for download_thread in self.downloads:
+                            download_thread.pause(called_by_scheduler)
+                
+                dialog.connect("response", handle_response)
+                dialog.present(self)
+            else:
+                for download_thread in self.downloads:
+                    download_thread.pause(called_by_scheduler)
 
 def stop_all(self, app, variaapp):
     while self.downloads != []:
