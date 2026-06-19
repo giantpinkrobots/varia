@@ -77,6 +77,11 @@ def show_download_details_dialog(button, self, download_item):
     actionrow_download_download_speed.add_suffix(label_download_speed)
     group_1.add(actionrow_download_download_speed)
 
+    actionrow_download_resumable = Adw.ActionRow(title=_("Supports Resume"), tooltip_text=_("Supports Resume") + ": " + download_item.download_thread.download_details.get('resumable', '...'))
+    label_resumable = Gtk.Label(label=download_item.download_thread.download_details.get('resumable', '...'))
+    actionrow_download_resumable.add_suffix(label_resumable)
+    group_1.add(actionrow_download_resumable)
+
     # Peers
 
     scrolled_window = None
@@ -190,6 +195,7 @@ def show_download_details_dialog(button, self, download_item):
                     label_percentage.set_text(details.get('percentage', ''))
                     label_remaining.set_text(details.get('remaining', ''))
                     label_download_speed.set_text(details.get('download_speed', ''))
+                    label_resumable.set_text(details.get('resumable', ''))
 
                     if self.details_dialog_message_actionrow_added == False and download_item and download_item.download_thread.download_message_shown and download_item.download_thread.download_details.get('message', '') != '':
                         label_download_message.set_text(download_item.download_thread.download_details.get('message', ''))

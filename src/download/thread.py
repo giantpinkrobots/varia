@@ -89,8 +89,14 @@ class DownloadThread(threading.Thread):
             'completed_length': 0,
             'upload_length': 0,
             'torrent_seeding_speed': "0 B/s",
-            'torrent_peers': []
+            'torrent_peers': [],
+            'resumable': _("Checking...")
         }
+
+        if self.mode == "video" or self.mode == "playlist":
+            self.download_details['resumable'] = _("Yes")
+        elif download and getattr(download, "is_torrent", False):
+            self.download_details['resumable'] = _("Yes")
 
         if downloadname:
             self.downloadname = downloadname
@@ -150,6 +156,37 @@ class DownloadThread(threading.Thread):
             GLib.idle_add(self.actionrow.info_button.set_visible, False)
             return
         
+        if self.download_details.get('resumable') == _("Checking..."):
+            is_torrent = self.url.startswith("magnet:") or self.url.lower().split('?')[0].endswith(".torrent")
+            if is_torrent:
+                self.download_details['resumable'] = _("Yes")
+            else:
+                def check_resumability():
+                    resumable = False
+                    headers = {'Range': 'bytes=0-0'}
+                    try:
+                        req_headers = headers.copy()
+                        if self.auth == '1' and self.auth_username and self.auth_password:
+                            import base64
+                            auth_str = f"{self.auth_username}:{self.auth_password}"
+                            auth_b64 = base64.b64encode(auth_str.encode('utf-8')).decode('utf-8')
+                            req_headers['Authorization'] = f"Basic {auth_b64}"
+                        
+                        r = requests.get(self.url, headers=req_headers, allow_redirects=True, timeout=3, stream=True)
+                        if r.status_code == 206:
+                            resumable = True
+                        else:
+                            r_head = requests.head(self.url, headers=req_headers, allow_redirects=True, timeout=3)
+                            if r_head.status_code == 200 and r_head.headers.get('Accept-Ranges') == 'bytes':
+                                resumable = True
+                    except:
+                        pass
+                    self.download_details['resumable'] = _("Yes") if resumable else _("No")
+                    self.set_actionrow_tooltip_text()
+                
+                check_thread = threading.Thread(target=check_resumability, daemon=True)
+                check_thread.start()
+
         download_options = {}
 
         if self.url.startswith("magnet:"):
@@ -226,6 +263,7 @@ class DownloadThread(threading.Thread):
 
             if self.download.is_torrent:
                 self.download_details['type'] = _("Torrent")
+                self.download_details['resumable'] = _("Yes")
                 self.change_download_type_icon("torrent")
                 self.torrent_file_select_completed = False
 
@@ -421,6 +459,7 @@ class DownloadThread(threading.Thread):
                             + "\n" + _("File Name") + ": " + self.downloadname
                             + "\n" + _("Type") + ": " + self.download_details['type']
                             + "\n" + _("Status") + ": " + self.download_details['status']
+                            + "\n" + _("Supports Resume") + ": " + self.download_details.get('resumable', '...')
                             + "\n" + self.download_details['percentage'])
 
     def update_labels_and_things(self, video_object):
