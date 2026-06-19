@@ -15,7 +15,8 @@
     "storage",
     "<all_urls>",
     "tabs",
-    "cookies"
+    "cookies",
+    "contextMenus"
   ],
   "manifest_version": 3,
   "background": {

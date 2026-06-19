@@ -16,6 +16,14 @@ chrome.runtime.onInstalled.addListener(function (details) {
   if (details.reason === 'install') {
     chrome.storage.sync.set({ enabled: true, cookieTransferFile: true, cookieTransferVideo: true });
   }
+
+  chrome.contextMenus.removeAll(() => {
+    chrome.contextMenus.create({
+      id: "download-with-varia",
+      title: "Download with Varia",
+      contexts: ["link", "image", "video", "audio"]
+    });
+  });
 });
 
 chrome.downloads.onCreated.addListener(function (downloadItem) {
@@ -121,7 +129,7 @@ async function sendToAria2(downloadItem, downloadType) {
     const data = await response.json();
     console.log("Aria2 response:", data);
 
-    if (downloadType === "file" && data.result) {
+    if (downloadType === "file" && data.result && downloadItem.id) {
       chrome.downloads.cancel(downloadItem.id);
     }
 
@@ -168,3 +176,12 @@ async function getCookies(downloadUrl, downloadType) {
     return btoa(json);
   }
 }
+
+chrome.contextMenus.onClicked.addListener(function (info, tab) {
+  if (info.menuItemId === "download-with-varia") {
+    let downloadUrl = info.linkUrl || info.srcUrl;
+    if (downloadUrl) {
+      sendToAria2({ url: downloadUrl }, "file");
+    }
+  }
+});

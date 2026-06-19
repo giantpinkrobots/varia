@@ -37,29 +37,31 @@ class DownloadThread(threading.Thread):
         threading.Thread.__init__(self)
         self.api = app.api
         
-        is_torrent = False
-        if url and (url.startswith("magnet:") or url.lower().split('?')[0].endswith(".torrent")):
-            is_torrent = True
-        if download and getattr(download, "is_torrent", False):
-            is_torrent = True
+        if download is not None:
+            dir = str(getattr(download, "dir", dir))
+        
+        else:
+            is_torrent = False
+            if url and (url.startswith("magnet:") or url.lower().split('?')[0].endswith(".torrent")):
+                is_torrent = True
 
-        if app.appconf.get("automatic_sorting_enabled", "0") == "1" and not is_torrent:
-            name_to_check = downloadname
-            if not name_to_check and url:
-                try:
-                    parsed_url = urlparse(url)
-                    name_to_check = os.path.basename(parsed_url.path)
-                except:
-                    pass
-            category = get_category_for_filename(name_to_check)
-            if category:
-                if not dir.endswith(category) and os.path.basename(dir) != category:
-                    dir = os.path.join(dir, category)
-                try:
-                    if not os.path.exists(dir):
-                        os.makedirs(dir)
-                except:
-                    pass
+            if app.appconf.get("automatic_sorting_enabled", "0") == "1" and not is_torrent:
+                name_to_check = downloadname
+                if not name_to_check and url:
+                    try:
+                        parsed_url = urlparse(url)
+                        name_to_check = os.path.basename(parsed_url.path)
+                    except:
+                        pass
+                category = get_category_for_filename(name_to_check)
+                if category:
+                    if not dir.endswith(category) and os.path.basename(dir) != category:
+                        dir = os.path.join(dir, category)
+                    try:
+                        if not os.path.exists(dir):
+                            os.makedirs(dir)
+                    except:
+                        pass
 
         self.downloaddir = dir
         self.url = url
