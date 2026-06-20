@@ -1,10 +1,39 @@
 # Contributions guide for Varia
 
-If you have any questions you can always reach me via email (giantpinkrobots@protonmail.com) or through Matrix (@giantpinkrobots:matrix.org). I also have my Bluesky DMs open (giantpinkrobots.bsky.social). Thanks! :)
+<br>
+
+## About AI usage
+
+These are non-negotiable red-lines:
+- **AI generated PR descriptions and comments are not allowed. You must explain your contribution with your own words.**
+- **AI generated translations are not allowed. You yourself must be fluent in the language you're doing the translations for.**
+
+<br>
+
+I don't disallow AI assisted PRs, and things like simple bugfixes can be entirely AI generated as well. However, substantial amounts of AI-generated code without human verification will not be allowed. I don't have concrete rules when it comes to AI assisted PRs as I don't believe there is a way to implement such rules. **If you want to know about *"what % of AI-generated code in my PR is the limit"*, your PR is not acceptable.**
+
+Overall, your usage of AI is okay if it's along these lines:
+- VS Code's Copilot autofill function
+- Asking AI to figure out a mistake in your code
+- A bugfix consisting of a few simple lines that was written by AI
+- Using AI to generate boilerplate, or using it as a simple starting point to build from
+
+... and not so much with these:
+- Entire features implemented solely by AI
+- Entire blocks of AI-generated code you left as-is (like functions)
+- Code you did not check and verify yourself
+
+There aren't guidelines about disclosure. If you do disclose your AI usage, that's fantastic. But I realize there is no way to enforce it, so it's up to you.
+
+AI tools tend to over-engineer features and fixes, needlessly overcomplicating entire codebases. On top of that, many open source projects are struggling with AI-generated code spam which makes it extremely difficult to cherry-pick worthwhile contributions. Remember that people try their best, and inconsistencies in the enforcement of AI guidelines are ultimately inevitable. *Welcome to the modern internet.*
+
+<br>
 
 ## Code
 
 If you want to contribute code, you mainly want the **'next'** branch for things like new features that'll land in the next major version, as that branch is for active development. For very important bug fixes however, you want the **'main'** branch, so I can release a hotfix quickly from there without having to also release all the untested new features in development. These fixes can be applied to the 'next' branch later.
+
+<br>
 
 ## Translations
 
