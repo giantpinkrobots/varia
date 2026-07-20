@@ -13,6 +13,7 @@ import base64
 import multiprocessing as multiprocessing
 import math
 import subprocess
+import pathlib
 
 class DownloadThread(threading.Thread):
     def __init__(self, app, url, actionrow, downloadname, download, mode, video_options, paused, dir, percentage):
@@ -207,7 +208,7 @@ class DownloadThread(threading.Thread):
                         self.actionrow.pause_button.get_child().set_from_icon_name("media-playback-pause-symbolic")
                         download_began = True
                     
-                    if (self.download.is_torrent and self.download.name.startswith("[METADATA]")) == False and self.downloadname != self.download.name:
+                    if (self.download.is_torrent and self.download.is_metadata == False) and self.downloadname != self.download.name:
                         self.downloadname = self.download.name
                         self.save_state()
                         self.filepath = os.path.join(self.app.appconf["download_directory"], self.downloadname)
@@ -218,11 +219,11 @@ class DownloadThread(threading.Thread):
                     self.update_labels_and_things(None)
 
                     if self.download.is_torrent and len(self.download.files) > 0 and not self.torrent_file_select_completed:
-                        try:
-                            self.download.pause()
-                        except:
-                            pass
+                        if self.download.is_metadata:
+                            while (self.download.is_metadata):
+                                continue
 
+                        self.download.pause()
                         self.selection_event = threading.Event()
                         from download.torrent_select_files import torrent_select_files_dialog
                         torrent_select_files_dialog(self)
@@ -646,7 +647,7 @@ class DownloadThread(threading.Thread):
                                 except:
                                     pass
                             
-                            if file_parentdir is not self.downloaddir and os.listdir(file_parentdir) == []:
+                            if (pathlib.Path(file_parentdir).resolve() == pathlib.Path(self.downloaddir).resolve()) == False and os.listdir(file_parentdir) == []:
                                 os.rmdir(file_parentdir)
 
                 print ("Download stopped.")

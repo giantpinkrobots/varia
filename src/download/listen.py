@@ -23,9 +23,13 @@ def listen_to_aria2(self, variaapp):
                     if (frontend_download_item.is_alive()):
                         currently_downloading = True
                     
+                    if frontend_download_item.download.following != None:
+                        for download in self.downloads:
+                            if download.download == frontend_download_item.download.following:
+                                download.stop()
+
                     # Handle .torrent files:
                     if self.appconf["torrent_enabled"] == "1" and (frontend_download_item.download.is_metadata or frontend_download_item.download.name.endswith(".torrent")) and frontend_download_item.download.is_complete:
-
                         torrent_file_path = None
 
                         if frontend_download_item.download.is_metadata == False: # Is .torrent file and not metadata
@@ -42,6 +46,7 @@ def listen_to_aria2(self, variaapp):
                         frontend_download_item.cancelled = True
                         frontend_download_item.stop()
                         self.download_list.remove(frontend_download_item.actionrow)
+                        self.check_all_status()
 
                         if torrent_file_path != None:
                             os.remove(torrent_file_path)
