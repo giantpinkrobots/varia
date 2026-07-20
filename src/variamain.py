@@ -41,25 +41,7 @@ gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, GLib, Gio, Gdk
 
-if os.environ.get("THE_WINDOW_DECORATIONS_ARE_IN_CAPTIVITY", "") == "THE_GALAXY_IS_AT_PEACE":
-    use_ssd = True
-else:
-    use_ssd = False
-
-if os.name == 'nt':
-    application_window = Gtk.ApplicationWindow
-    use_ssd = True
-
-else:
-    if use_ssd:
-        application_window = Gtk.ApplicationWindow
-    else:
-        application_window = Adw.ApplicationWindow
-
-    stringstorage.setstrings_linux()
-    from stringstorage import gettext as _
-
-class MainWindow(application_window):
+class MainWindowBase:
     window_create_sidebar = window_create_sidebar
     window_create_content = window_create_content
     windows_updater = windows_updater
@@ -122,6 +104,19 @@ class MainWindow(application_window):
 
         if aria2_connection_successful == -1:
             return
+        
+        self.super_secret_key_combo_held_keys = set()
+        self.super_secret_key_combo_timer = None
+
+        super_secret_key_controller = Gtk.EventControllerKey()
+        super_secret_key_controller.connect("key-pressed", self.super_secret_key_combo_key_pressed)
+        super_secret_key_controller.connect("key-released", self.super_secret_key_combo_key_released)
+        self.add_controller(super_secret_key_controller)
+
+        self.gtk_css_prover = None
+
+        if self.appconf["use_kde_css"] == '1':
+            self.gtk_load_css(css="kde_css")
 
         # Create window contents:
         window_create_sidebar(self, variaapp, variaVersion)
@@ -162,7 +157,6 @@ class MainWindow(application_window):
         set_aria2c_custom_global_option(self, "rpc-save-upload-metadata", "false")
 
         # Set the maximum simultaneous download amount from appconf:
-        #set_aria2c_download_simultaneous_amount(self)
         set_aria2c_custom_global_option(self, "max-concurrent-downloads", str(self.appconf["download_simultaneous_amount"]))
 
         # Set the download segments:
@@ -366,6 +360,122 @@ class MainWindow(application_window):
             self.exitProgram(self, variaapp, False)
 
         return True
+    
+    def super_secret_key_combo_key_pressed(self, controller, keyval, keycode, state):
+        self.super_secret_key_combo_held_keys.add(keyval)
+        self.check_for_super_secret_key_combo()
+
+        return False
+
+    def super_secret_key_combo_key_released(self, controller, keyval, keycode, state):
+        self.super_secret_key_combo_held_keys.discard(keyval)
+
+        if self.super_secret_key_combo_timer is not None:
+            GLib.source_remove(self.super_secret_key_combo_timer)
+            self.super_secret_key_combo_timer = None
+
+        return False
+
+    def check_for_super_secret_key_combo(self):
+        required_keys = {
+            Gdk.KEY_x,
+            Gdk.KEY_a,
+            Gdk.KEY_b,
+            Gdk.KEY_y,
+        }
+
+        if required_keys.issubset(self.super_secret_key_combo_held_keys):
+            if self.super_secret_key_combo_timer is None:
+                self.super_secret_key_combo_timer = GLib.timeout_add(
+                    2000,
+                    self.super_secret_key_combo_complete,
+                )
+
+    def super_secret_key_combo_complete(self):
+        self.super_secret_key_combo_timer = None
+        print("Golden Torizo cheat!")
+
+        if hasattr(self, "sidebar_golden_torizo") == False:
+            self.sidebar_golden_torizo = Gtk.Label(label="▣▣▣▣▣▣▣\nENERGY")
+            self.sidebar_golden_torizo.add_css_class('dim-label')
+            self.sidebar_content_box.append(self.sidebar_golden_torizo)
+
+            super_secret_dialog = Adw.PreferencesDialog()
+            super_secret_dialog.set_title("Super Secret Cheat Menu")
+            super_secret_dialog_page = Adw.PreferencesPage()
+            super_secret_dialog_group = Adw.PreferencesGroup()
+            super_secret_dialog.add(super_secret_dialog_page)
+            super_secret_dialog_page.add(super_secret_dialog_group)
+
+            secret_switchrow_use_ssd = Adw.SwitchRow()
+            secret_switchrow_use_ssd.set_title("Use Server Side Window Decorations")
+            secret_switchrow_use_ssd.set_subtitle("Must restart Varia for this to take effect.")
+            secret_switchrow_use_ssd.connect("notify::active", self.on_secret_switch_use_ssd)
+            if self.appconf["use_ssd"] == '1':
+                secret_switchrow_use_ssd.set_active("active")
+            
+            secret_switchrow_use_kde_css = Adw.SwitchRow()
+            secret_switchrow_use_kde_css.set_title("Use KDE Plasma Theme Colors")
+            secret_switchrow_use_kde_css.connect("notify::active", self.on_secret_switch_use_kde_css)
+            if self.appconf["use_kde_css"] == '1':
+                secret_switchrow_use_kde_css.set_active("active")
+
+            super_secret_dialog_group.add(secret_switchrow_use_ssd)
+            super_secret_dialog_group.add(secret_switchrow_use_kde_css)
+
+            GLib.idle_add(super_secret_dialog.present, self)
+            GLib.timeout_add(25000, self.remove_super_secret_message)
+        
+        return GLib.SOURCE_REMOVE
+    
+    def remove_super_secret_message(self):
+        self.sidebar_content_box.remove(self.sidebar_golden_torizo)
+        self.sidebar_golden_torizo = None
+    
+    def on_secret_switch_use_ssd(self, switch, state):
+        state = switch.get_active()
+        if state:
+            self.appconf["use_ssd"] = '1'
+        else:
+            self.appconf["use_ssd"] = '0'
+
+        self.save_appconf()
+    
+    def on_secret_switch_use_kde_css(self, switch, state):
+        state = switch.get_active()
+        if state:
+            self.appconf["use_kde_css"] = '1'
+            self.gtk_load_css(css="kde_css")
+        else:
+            self.appconf["use_kde_css"] = '0'
+            self.gtk_load_css(load=False)
+
+        self.save_appconf()
+    
+    def gtk_load_css(self, css=None, load=True):
+        if load:
+            if css is not None:
+                if css == "kde_css":
+                    css = os.path.join(os.path.dirname(os.path.realpath(__file__)), "gtk-kde.css")
+
+                self.gtk_load_css(load=False)
+
+                self.gtk_css_prover = Gtk.CssProvider()
+                self.gtk_css_prover.load_from_path(css)
+
+                Gtk.StyleContext.add_provider_for_display(
+                    Gdk.Display.get_default(),
+                    self.gtk_css_prover,
+                    Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
+                )
+        
+        else:
+            if self.gtk_css_prover is not None:
+                Gtk.StyleContext.remove_provider_for_display(
+                    Gdk.Display.get_default(),
+                    self.gtk_css_prover,
+                )
+                self.gtk_css_prover = None
 
     def exitProgram(self, app, variaapp, background):
         if background:
@@ -621,7 +731,29 @@ def main(version, aria2cexec, ffmpegexec, sevenzexec, jsruntimeexec, issnap, pkg
         'autostart_on_boot_enabled': 'false',
         'extract_archives': '0',
         'extract_archives_delete_archives': '0',
-        'playlist_skip_errors': '0'}
+        'playlist_skip_errors': '0',
+        'use_ssd': '0',
+        'use_kde_css': '0'}
+    
+    if os.name == 'nt':
+        appconf['use_ssd'] = '1'
+   
+    global use_ssd
+    global application_window
+
+    if os.environ.get("THE_WINDOW_DECORATIONS_ARE_IN_CAPTIVITY", "") == "THE_GALAXY_IS_AT_PEACE":
+        use_ssd = True
+    else:
+        use_ssd = False
+
+    if os.name != 'nt':
+        if use_ssd:
+            application_window = Gtk.ApplicationWindow
+        else:
+            application_window = Adw.ApplicationWindow
+
+        stringstorage.setstrings_linux()
+        from stringstorage import gettext as _
 
     if os.path.exists(os.path.join(appdir, 'varia.conf')):
         first_run = False
@@ -635,6 +767,10 @@ def main(version, aria2cexec, ffmpegexec, sevenzexec, jsruntimeexec, issnap, pkg
         if appconf['torrent_download_directory_custom_enabled'] == '1' and os.path.exists(appconf['torrent_download_directory']) == False:
             appconf['torrent_download_directory'] = download_directory
             print("Torrent download directory from config not found, reset to default.")
+        
+        if appconf['use_ssd'] == '1':
+            use_ssd = True
+            application_window = Gtk.ApplicationWindow
 
     else:
         first_run = True
@@ -644,6 +780,9 @@ def main(version, aria2cexec, ffmpegexec, sevenzexec, jsruntimeexec, issnap, pkg
     atexit.register(stop_subprocesses_and_exit)
     signal.signal(signal.SIGINT, stop_subprocesses_and_exit)
     sys.excepthook = global_exception_handler
+
+    global MainWindow
+    MainWindow = type('MainWindow', (MainWindowBase, application_window), {})
 
     arguments = json.loads(arguments)
     global myapp

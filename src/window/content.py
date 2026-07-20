@@ -45,6 +45,10 @@ def window_create_content(self):
     
     if self.use_ssd: # Don't use Adw.HeaderBar on Windows
         header_box.prepend(self.header_show_sidebar_button_revealer)
+        header_box.set_margin_top(4)
+        header_box.set_margin_bottom(4)
+        header_box.set_margin_start(4)
+        header_box.set_margin_end(4)
         self.content_box.prepend(header_box)
         self.overlay_split_view.set_content(self.content_box)
 

@@ -1,0 +1,130 @@
+/* This file is sourced from: */
+/* https://github.com/chikenpotpi/adwaita-kde-colors/blob/main/gtk-4.0/gtk.css */
+
+@define-color borders @borders_breeze;
+
+@define-color window_bg_color @theme_bg_color_breeze;
+@define-color window_fg_color @theme_fg_color_breeze;
+
+@define-color view_bg_color @content_view_bg_breeze;
+@define-color view_fg_color @theme_fg_color_breeze;
+
+@define-color headerbar_bg_color @theme_header_background_breeze;
+@define-color headerbar_fg_color @theme_header_foreground_breeze;
+@define-color headerbar_border_color @borders;
+@define-color headerbar_backdrop_color @theme_header_background_breeze;
+
+@define-color sidebar_bg_color @content_view_bg_breeze;
+@define-color sidebar_fg_color @theme_fg_color_breeze;
+@define-color sidebar_shade_color rgba(0, 0, 0, 0.08);
+@define-color sidebar_backdrop_color @content_view_bg_breeze;
+
+@define-color secondary_sidebar_bg_color @content_view_bg_breeze;
+@define-color secondary_sidebar_fg_color @theme_fg_color_breeze;
+@define-color secondary_sidebar_shade_color rgba(0, 0, 0, 0.08);
+@define-color secondary_sidebar_backdrop_color @content_view_bg_breeze;
+
+@define-color card_bg_color @theme_base_color_breeze;
+@define-color card_fg_color @theme_fg_color_breeze;
+
+@define-color thumbnail_bg_color @theme_base_color_breeze;
+@define-color thumbnail_fg_color @theme_fg_color_breeze;
+
+@define-color dialog_bg_color @theme_base_color_breeze;
+@define-color dialog_fg_color @theme_fg_color_breeze;
+
+@define-color popover_bg_color @theme_base_color_breeze;
+@define-color popover_fg_color @theme_fg_color_breeze;
+
+@define-color shade_color rgba(0, 0, 0, 0.12);
+@define-color scrollbar_outline_color @theme_bg_color_breeze;
+
+@define-color destructive_color @error_color_breeze;
+@define-color destructive_bg_color @error_color_backdrop_breeze;
+@define-color destructive_fg_color rgba(0, 0, 0, 1.00);
+
+@define-color warning_color @warning_color_breeze;
+@define-color warning_bg_color @warning_color_backdrop_breeze;
+@define-color warning_fg_color rgba(0, 0, 0, 1.00);
+
+@define-color success_color @success_color_breeze;
+@define-color success_bg_color @success_color_backdrop_breeze;
+@define-color success_fg_color rgba(0, 0, 0, 1.00);
+
+@define-color accent_color @theme_button_decoration_focus_breeze;
+@define-color accent_bg_color @theme_button_decoration_focus_breeze;
+@define-color accent_fg_color rgba(0, 0, 0, 1.00);
+
+@define-color error_color @error_color_breeze;
+@define-color error_bg_color @error_color_backdrop_breeze;
+@define-color error_fg_color rgba(0, 0, 0, 1.00);
+
+@define-color blue_1 rgba(113, 221, 236, 1.00);
+@define-color blue_2 rgba(106, 215, 230, 1.00);
+@define-color blue_3 rgba(99, 208, 223, 1.00);
+@define-color blue_4 rgba(70, 182, 197, 1.00);
+@define-color blue_5 rgba(36, 157, 172, 1.00);
+
+@define-color green_1 rgba(159, 220, 169, 1.00);
+@define-color green_2 rgba(152, 214, 162, 1.00);
+@define-color green_3 rgba(146, 207, 156, 1.00);
+@define-color green_4 rgba(121, 181, 132, 1.00);
+@define-color green_5 rgba(97, 156, 108, 1.00);
+
+@define-color yellow_1 rgba(254, 231, 105, 1.00);
+@define-color yellow_2 rgba(250, 227, 101, 1.00);
+@define-color yellow_3 rgba(247, 224, 98, 1.00);
+@define-color yellow_4 rgba(217, 194, 64, 1.00);
+@define-color yellow_5 rgba(188, 165, 17, 1.00);
+
+@define-color red_1 rgba(255, 174, 172, 1.00);
+@define-color red_2 rgba(255, 167, 166, 1.00);
+@define-color red_3 rgba(253, 161, 160, 1.00);
+@define-color red_4 rgba(225, 136, 136, 1.00);
+@define-color red_5 rgba(198, 112, 112, 1.00);
+
+@define-color orange_1 rgba(255, 186, 38, 1.00);
+@define-color orange_2 rgba(255, 179, 24, 1.00);
+@define-color orange_3 rgba(255, 173, 0, 1.00);
+@define-color orange_4 rgba(227, 147, 0, 1.00);
+@define-color orange_5 rgba(200, 122, 0, 1.00);
+
+@define-color purple_1 rgba(225, 142, 255, 1.00);
+@define-color purple_2 rgba(216, 134, 255, 1.00);
+@define-color purple_3 rgba(207, 125, 255, 1.00);
+@define-color purple_4 rgba(183, 102, 230, 1.00);
+@define-color purple_5 rgba(160, 79, 205, 1.00);
+@define-color light_0 rgba(0, 0, 0, 1.00);
+@define-color light_1 rgba(5, 5, 5, 1.00);
+@define-color light_2 rgba(27, 27, 27, 1.00);
+@define-color light_3 rgba(54, 54, 54, 1.00);
+@define-color light_4 rgba(84, 84, 84, 1.00);
+@define-color dark_0 rgba(115, 115, 115, 1.00);
+@define-color dark_1 rgba(148, 148, 148, 1.00);
+@define-color dark_2 rgba(182, 182, 182, 1.00);
+@define-color dark_3 rgba(218, 218, 218, 1.00);
+@define-color dark_4 rgba(255, 255, 255, 1.00);
+
+:root {
+  --borders: @borders;
+  --sidebar-border-color: color-mix(in srgb, var(--borders) 30%, transparent);
+  --card-shade-color: color-mix(in srgb, var(--borders) 30%, transparent);
+  --accent-bg-color: @accent_color;
+  --headerbar-bg-color: @headerbar_bg_color;
+  --headerbar-fg-color: @headerbar_fg_color;
+}
+
+
+/* Fix for Folio borders */
+toolbarview > box > box:last-child > headerbar {
+	background: none;	
+}
+
+
+/* Chromium */
+window.background.chromium { background-color: @view_bg_color; }
+window.background.chromium headerbar.titlebar button.toggle, window.background.chromium headerbar.titlebar button.titlebutton { border: none; }
+window.background.chromium headerbar.titlebar button.titlebutton { background-image: none; }
+window.background.chromium button { border-style: solid; border-width: 1px; border-color: @accent_color; }
+window.background.chromium > textview.view { background-color: @view_bg_color; }
+window.background.chromium > searchbar { border-color: @accent_color; }
