@@ -116,14 +116,15 @@ def show_preferences(button, self, app, variaVersion):
     
     extract_archives_delete_archives = Adw.SwitchRow()
     extract_archives_delete_archives.set_title(_("Delete Archives After Extraction"))
-    extract_archives_delete_archives.connect("notify::active", on_extract_archives_delete_archives, self)
+    extract_archives_delete_archives.connect("notify::active", switch_appconf_value, self, [self.appconf["extract_archives_delete_archives"], "1", "0"])
 
     if self.appconf["extract_archives_delete_archives"] == "1":
         extract_archives_delete_archives.set_active("active")
     
     extract_archives = Adw.SwitchRow()
     extract_archives.set_title(_("Automatically Extract Archives"))
-    extract_archives.connect("notify::active", on_extract_archives, self, extract_archives_delete_archives)
+    extract_archives.connect("notify::active", switch_appconf_value, self, [self.appconf["extract_archives"], "1", "0"])
+    extract_archives.connect("notify::active", lambda switch, _: extract_archives_delete_archives.set_sensitive(switch.get_active()))
 
     if self.appconf["extract_archives"] == "1":
         extract_archives.set_active("active")
@@ -136,7 +137,7 @@ def show_preferences(button, self, app, variaVersion):
     playlist_skip_errors = Adw.SwitchRow()
     playlist_skip_errors.set_title(_("Skip Playlist Download Errors"))
     playlist_skip_errors.set_subtitle(_("If one of the videos in a playlist can't be downloaded, continue with the rest instead of cancelling."))
-    playlist_skip_errors.connect("notify::active", on_playlist_skip_errors, self)
+    playlist_skip_errors.connect("notify::active", switch_appconf_value, self, [self.appconf["playlist_skip_errors"], "1", "0"])
 
     if self.appconf["playlist_skip_errors"] == "1":
         playlist_skip_errors.set_active("active")
@@ -146,7 +147,8 @@ def show_preferences(button, self, app, variaVersion):
     speed_limit_expander_switch = Gtk.Switch()
     speed_limit_expander_switch.set_halign(Gtk.Align.START)
     speed_limit_expander_switch.set_valign(Gtk.Align.CENTER)
-    speed_limit_expander_switch.connect("state-set", on_switch_speed_limit, self, preferences)
+    speed_limit_expander_switch.connect("state-set", switch_appconf_value, self, [self.appconf["download_speed_limit_enabled"], "1", "0"])
+    speed_limit_expander_switch.connect("state-set", lambda *_: set_speed_limit(self, self.appconf["download_speed_limit"]))
 
     speed_limit_unit_names_dropdown = Gtk.DropDown.new_from_strings(["KB/s", "MB/s", "GB/s"])
     speed_limit_unit_names_dropdown.set_selected(0)
@@ -235,7 +237,7 @@ def show_preferences(button, self, app, variaVersion):
     start_in_background = Adw.SwitchRow()
     start_in_background.set_title(_("Start in Background Mode"))
     start_in_background.set_subtitle(_("Varia will start directly in background mode upon opening."))
-    start_in_background.connect("notify::active", on_start_in_background, self)
+    start_in_background.connect("notify::active", switch_appconf_value, self, [self.appconf["default_mode"], "background", "visible"])
 
     if (self.appconf["default_mode"] == "background"):
         start_in_background.set_active("active")
@@ -245,7 +247,7 @@ def show_preferences(button, self, app, variaVersion):
     use_tray_icon = Adw.SwitchRow()
     use_tray_icon.set_title(_("Background Mode on Close"))
     use_tray_icon.set_subtitle(_("Upon closing, Varia will close to tray insted of exiting."))
-    use_tray_icon.connect("notify::active", on_use_tray_icon, self)
+    use_tray_icon.connect("notify::active", switch_appconf_value, self, [self.appconf["use_tray"], "true", "false"])
 
     if self.appconf["use_tray"] == "true":
         use_tray_icon.set_active("active")
@@ -282,7 +284,7 @@ def show_preferences(button, self, app, variaVersion):
     group_tray.add(tray_icon_always_visible)
     group_tray.add(start_in_background)
 
-    if (os.uname().sysname != 'Darwin') or ((os.name == 'nt') and (os.path.exists("./updater-function-enabled"))): # Windows portable and macOS not supported
+    if (os.uname().sysname != 'Darwin') or ((os.name == 'nt') and (os.path.exists("./updater-function-enabled") == False)): # Windows portable and macOS not supported
         group_tray.add(open_on_startup)
 
     # Remote aria2:
@@ -303,7 +305,8 @@ def show_preferences(button, self, app, variaVersion):
     if (self.appconf["remote"] == "1"):
         remote_aria2_expander_switch.set_active("active")
 
-    remote_aria2_expander_switch.connect("state-set", on_switch_remote, self, preferences)
+    remote_aria2_expander_switch.connect("state-set", switch_appconf_value, self, [self.appconf["remote"], "1", "0"])
+    remote_aria2_expander_switch.connect("state-set", restart_varia_dialog, self, preferences)
 
     remote_aria2_expander_box.add_action(remote_aria2_expander_switch)
 
@@ -362,7 +365,8 @@ def show_preferences(button, self, app, variaVersion):
 
     remote_time = Adw.SwitchRow()
     remote_time.set_title(_("Remote Timestamp"))
-    remote_time.connect("notify::active", on_remote_time, self)
+    remote_time.connect("notify::active", switch_appconf_value, self, [self.appconf["remote_time"], "1", "0"])
+    remote_time.connect("notify::active", lambda switch, _: set_aria2c_custom_global_option(self, "remote-time", ("true" if switch.get_active() else "false")))
 
     if (self.appconf["remote_time"] == "1"):
         remote_time.set_active("active")
@@ -375,7 +379,7 @@ def show_preferences(button, self, app, variaVersion):
     auth_expander_switch = Gtk.Switch()
     auth_expander_switch.set_halign(Gtk.Align.START)
     auth_expander_switch.set_valign(Gtk.Align.CENTER)
-    auth_expander_switch.connect("state-set", on_switch_auth, self, preferences)
+    auth_expander_switch.connect("state-set", switch_appconf_value, self, [self.appconf["auth"], "1", "0"])
 
     username_entry = Adw.EntryRow()
     username_entry.set_title(_("Username"))
@@ -411,7 +415,8 @@ def show_preferences(button, self, app, variaVersion):
     cookies_txt_action_switch = Gtk.Switch()
     cookies_txt_action_switch.set_halign(Gtk.Align.START)
     cookies_txt_action_switch.set_valign(Gtk.Align.CENTER)
-    cookies_txt_action_switch.connect("state-set", on_switch_cookies_txt, self)
+    cookies_txt_action_switch.connect("state-set", switch_appconf_value, self, [self.appconf["cookies_txt"], "1", "0"])
+    cookies_txt_action_switch.connect("state-set", set_aria2c_cookies, self)
 
     cookies_txt_import_button = Gtk.Button(label=_("Import cookies.txt"))
     cookies_txt_import_button.set_halign(Gtk.Align.START)
@@ -485,7 +490,7 @@ def show_preferences(button, self, app, variaVersion):
     seeding_ratio_limit_switch = Gtk.Switch()
     seeding_ratio_limit_switch.set_halign(Gtk.Align.START)
     seeding_ratio_limit_switch.set_valign(Gtk.Align.CENTER)
-    seeding_ratio_limit_switch.connect("state-set", on_switch_torrent_seeding_ratio_limit, self)
+    seeding_ratio_limit_switch.connect("state-set", switch_appconf_value, self, [self.appconf["torrent_seeding_ratio"][0], True, False], ["seed-ratio", self.appconf["torrent_seeding_ratio"][1], "0"])
 
     seeding_ratio_limit_spinrow = Adw.SpinRow(adjustment=Gtk.Adjustment(step_increment=0.1))
     seeding_ratio_limit_spinrow.set_digits(1)
@@ -508,7 +513,7 @@ def show_preferences(button, self, app, variaVersion):
     torrent_download_directory_switch = Gtk.Switch()
     torrent_download_directory_switch.set_halign(Gtk.Align.START)
     torrent_download_directory_switch.set_valign(Gtk.Align.CENTER)
-    torrent_download_directory_switch.connect("state-set", on_switch_custom_torrent_download_directory, self)
+    torrent_download_directory_switch.connect("state-set", switch_appconf_value, self, [self.appconf["torrent_download_directory_custom_enabled"], "1", "0"])
 
     torrent_download_directory_change_button = Gtk.Button(label=_("Change"))
     torrent_download_directory_change_button.add_css_class("suggested-action")
@@ -539,7 +544,7 @@ def show_preferences(button, self, app, variaVersion):
     if (self.appconf["torrent_require_encryption"] == "true"):
         require_encryption_switchrow.set_active("active")
 
-    require_encryption_switchrow.connect("notify::active", on_switch_torrent_require_encryption, self)
+    require_encryption_switchrow.connect("notify::active", switch_appconf_value, self, [self.appconf["torrent_require_encryption"], "true", "false"], ["bt-force-encryption", "true", "false"])
 
     # IP lookup for peers:
 
@@ -550,7 +555,7 @@ def show_preferences(button, self, app, variaVersion):
     if (self.appconf["torrent_peers_ip_lookup"] == "1"):
         peers_ip_lookup_switchrow.set_active("active")
 
-    peers_ip_lookup_switchrow.connect("notify::active", on_switch_torrent_peers_ip_lookup, self)
+    peers_ip_lookup_switchrow.connect("notify::active", switch_appconf_value, self, [self.appconf["torrent_peers_ip_lookup"], "1", "0"])
 
     # Construct Group 4 and 3:
 
@@ -579,6 +584,21 @@ def show_preferences(button, self, app, variaVersion):
 
     preferences.present(self)
 
+def switch_appconf_value(switch, state, self, appconf_edit, aria2c_custom_global_option = None):
+    state = switch.get_active()
+
+    if state:
+        appconf_edit[0] = appconf_edit[1]
+        if aria2c_custom_global_option:
+            set_aria2c_custom_global_option(self, aria2c_custom_global_option[0], aria2c_custom_global_option[1])
+
+    else:
+        appconf_edit[0] = appconf_edit[2]
+        if aria2c_custom_global_option:
+            set_aria2c_custom_global_option(self, aria2c_custom_global_option[0], aria2c_custom_global_option[2])
+
+    self.save_appconf()
+
 def on_switch_auto_update_check(switch, state, self):
     state = switch.get_active()
     if state:
@@ -588,35 +608,6 @@ def on_switch_auto_update_check(switch, state, self):
         if hasattr(self, 'update_available_banner'):
             if self.update_available_banner != None:
                 self.update_available_banner.set_revealed(False)
-
-    self.save_appconf()
-
-def on_extract_archives(switch, state, self, delete_archives_switchrow):
-    state = switch.get_active()
-    if state:
-        self.appconf["extract_archives"] = '1'
-        delete_archives_switchrow.set_sensitive(True)
-    else:
-        self.appconf["extract_archives"] = '0'
-        delete_archives_switchrow.set_sensitive(False)
-
-    self.save_appconf()
-
-def on_extract_archives_delete_archives(switch, state, self):
-    state = switch.get_active()
-    if state:
-        self.appconf["extract_archives_delete_archives"] = '1'
-    else:
-        self.appconf["extract_archives_delete_archives"] = '0'
-
-    self.save_appconf()
-
-def on_playlist_skip_errors(switch, state, self):
-    state = switch.get_active()
-    if state:
-        self.appconf["playlist_skip_errors"] = '1'
-    else:
-        self.appconf["playlist_skip_errors"] = '0'
 
     self.save_appconf()
 
@@ -660,15 +651,6 @@ def on_download_directory_selected(dialog, result, directory_to_be_changed, self
             error_dialog.set_close_response("ok")
             error_dialog.present(prefswindow)
 
-def on_switch_speed_limit(switch, state, self, preferencesWindow):
-    if state:
-        self.appconf["download_speed_limit_enabled"] = "1"
-    else:
-        self.appconf["download_speed_limit_enabled"] = "0"
-    set_speed_limit(self, self.appconf["download_speed_limit"])
-
-    self.save_appconf()
-
 def on_speed_limit_changed(self, speed, speed_type, switch):
     speed = speed.get_text()
     if (speed == ""):
@@ -695,24 +677,6 @@ def on_speed_limit_changed(self, speed, speed_type, switch):
         switch.set_sensitive(False)
     else:
         switch.set_sensitive(True)
-
-    self.save_appconf()
-
-def on_start_in_background(switch, state, self):
-    state = switch.get_active()
-    if state:
-        self.appconf["default_mode"] = "background"
-    else:
-        self.appconf["default_mode"] = "visible"
-
-    self.save_appconf()
-
-def on_use_tray_icon(switch, state, self):
-    state = switch.get_active()
-    if state:
-        self.appconf["use_tray"] = "true"
-    else:
-        self.appconf["use_tray"] = "false"
 
     self.save_appconf()
 
@@ -753,25 +717,6 @@ def on_open_on_startup(switch, state, self, preferencesWindow):
             self.appconf["autostart_on_boot_enabled"] = "false"
             self.save_appconf()
 
-def on_remote_time(switch, state, self):
-    state = switch.get_active()
-    if state:
-        self.appconf["remote_time"] = "1"
-        set_aria2c_custom_global_option(self, "remote-time", "true")
-    else:
-        self.appconf["remote_time"] = "0"
-        set_aria2c_custom_global_option(self, "remote-time", "false")
-
-    self.save_appconf()
-
-def on_switch_auth(switch, state, self, preferencesWindow):
-    if state:
-        self.appconf["auth"] = "1"
-    else:
-        self.appconf["auth"] = "0"
-
-    self.save_appconf()
-
 def set_auth_credentials(self, username_entry, password_entry, switch):
     self.appconf["auth_username"] = username_entry.get_text()
     self.appconf["auth_password"] = password_entry.get_text()
@@ -789,7 +734,6 @@ def on_simultaneous_download_amount_changed(spinrow, self):
     print(str(int(spinrow.get_value())))
     self.save_appconf()
 
-    #set_aria2c_download_simultaneous_amount(self)
     set_aria2c_custom_global_option(self, "max-concurrent-downloads", str(self.appconf["download_simultaneous_amount"]))
 
 def on_split_downloads_changed(spinrow, self):
@@ -817,15 +761,6 @@ def set_remote(self, remote_protocol, remote_ip, remote_port, remote_secret, rem
 
     if (switch.get_active()):
         restart_varia_dialog(preferencesWindow)
-
-def on_switch_remote(switch, state, self, preferencesWindow):
-    if state:
-        self.appconf["remote"] = "1"
-    else:
-        self.appconf["remote"] = "0"
-
-    self.save_appconf()
-    restart_varia_dialog(preferencesWindow)
 
 def cookies_txt_import(self, do_import, cookies_txt_import_button, cookies_txt_remove_button, cookies_txt_action_switch):
     if do_import == True:
@@ -855,15 +790,6 @@ def on_cookies_txt_import(file_dialog, result, cookies_txt_import_button, cookie
         cookies_txt_action_switch.set_sensitive(True)
         cookies_txt_import_button.set_visible(False)
         cookies_txt_remove_button.set_visible(True)
-
-def on_switch_cookies_txt(switch, state, self):
-    state = switch.get_active()
-    if state:
-        self.appconf["cookies_txt"] = "1"
-    else:
-        self.appconf["cookies_txt"] = "0"
-    set_aria2c_cookies(self)
-    self.save_appconf()
 
 def torrent_settings_set_sensitive(self):
     if self.appconf["torrent_enabled"] == "1":
@@ -955,50 +881,6 @@ def on_torrent_seeding_ratio_limit_change(spinrow, self):
     if self.appconf["torrent_seeding_ratio"][0] == True:
         set_aria2c_custom_global_option(self, "seed-ratio", self.appconf["torrent_seeding_ratio"][1])
 
-def on_switch_torrent_seeding_ratio_limit(switch, state, self):
-    state = switch.get_active()
-    if state:
-        self.appconf["torrent_seeding_ratio"][0] = True
-        set_aria2c_custom_global_option(self, "seed-ratio", self.appconf["torrent_seeding_ratio"][1])
-
-    else:
-        self.appconf["torrent_seeding_ratio"][0] = False
-        set_aria2c_custom_global_option(self, "seed-ratio", "0")
-
-    self.save_appconf()
-
-def on_switch_custom_torrent_download_directory(switch, state, self):
-    state = switch.get_active()
-    if state:
-        self.appconf["torrent_download_directory_custom_enabled"] = "1"
-
-    else:
-        self.appconf["torrent_download_directory_custom_enabled"] = "0"
-
-    self.save_appconf()
-
-def on_switch_torrent_require_encryption(switch, state, self):
-    state = switch.get_active()
-    if state:
-        self.appconf["torrent_require_encryption"] = "true"
-        set_aria2c_custom_global_option(self, "bt-force-encryption", "true")
-
-    else:
-        self.appconf["torrent_require_encryption"] = "false"
-        set_aria2c_custom_global_option(self, "bt-force-encryption", "false")
-
-    self.save_appconf()
-
-def on_switch_torrent_peers_ip_lookup(switch, state, self):
-    state = switch.get_active()
-    if state:
-        self.appconf["torrent_peers_ip_lookup"] = "1"
-
-    else:
-        self.appconf["torrent_peers_ip_lookup"] = "0"
-
-    self.save_appconf()
-
 def error_varia_dialog(preferencesWindow):
     dialog = Adw.AlertDialog()
     dialog.set_body(_("An error occurred while applying the change. Please ensure you have proper permissions, or report the issue."))
@@ -1007,7 +889,8 @@ def error_varia_dialog(preferencesWindow):
     dialog.set_close_response("ok")
     dialog.present(preferencesWindow)
 
-def restart_varia_dialog(preferencesWindow):
+def restart_varia_dialog(*args):
+    preferencesWindow = args[-1]
     dialog = Adw.AlertDialog()
     dialog.set_body(_("Please restart Varia to apply the change."))
     dialog.add_response("ok",  _("OK"))

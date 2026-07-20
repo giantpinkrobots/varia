@@ -57,6 +57,10 @@ def window_create_sidebar(self, variaapp, variaVersion):
     self.exit_action.set_enabled(False)
     variaapp.add_action(self.exit_action)
 
+    donate_action = Gio.SimpleAction.new("donate", None)
+    donate_action.connect("activate", donate, self)
+    variaapp.add_action(donate_action)
+
     hamburger_menu_item_background = Gio.MenuItem.new(_("Background Mode"), "app.background_mode")
     hamburger_menu_model.append_item(hamburger_menu_item_background)
 
@@ -88,6 +92,9 @@ def window_create_sidebar(self, variaapp, variaVersion):
 
     hamburger_menu_item_about = Gio.MenuItem.new(_("About Varia"), "app.about")
     hamburger_menu_model.append_item(hamburger_menu_item_about)
+
+    hamburger_menu_item_donate = Gio.MenuItem.new(_("Support Varia"), "app.donate")
+    hamburger_menu_model.append_item(hamburger_menu_item_donate)
 
     hamburger_menu_item_quit = Gio.MenuItem.new(_("Quit"), "app.quit_varia")
     hamburger_menu_model.append_item(hamburger_menu_item_quit)
@@ -352,3 +359,6 @@ def exit_on_completion(self, app, variaapp):
 
 def quit_varia(app, self, variaapp):
     variaapp.exitProgram(app=app, variaapp=variaapp, background=False)
+
+def donate(app, self, variaapp):
+    Gio.AppInfo.launch_default_for_uri("https://github.com/sponsors/giantpinkrobots/")

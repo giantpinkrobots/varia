@@ -97,10 +97,9 @@
             ],
             "sources": [
                 {
-                    "type": "git",
-                    "url": "https://github.com/ip7z/7zip.git",
-                    "tag": "26.00",
-                    "commit": "839151eaaad24771892afaae6bac690e31e58384"
+                    "type": "archive",
+                    "url": "https://github.com/ip7z/7zip/archive/refs/tags/26.02.zip",
+                    "sha256": "c7d1954793bcb3fa4367ce808181e3abb070659178d4b65c0094731631e49384"
                 }
             ]
         },
@@ -117,23 +116,23 @@
                     "only-arches": [
                         "x86_64"
                     ],
-                    "url": "https://github.com/denoland/deno/releases/download/v2.6.4/deno-x86_64-unknown-linux-gnu.zip",
-                    "sha256": "9100bbd0450c17b82002d3948bb8e7e1953c9e6506e63b586e2daa4042eca7f6"
+                    "url": "https://github.com/denoland/deno/releases/download/v2.9.0/deno-x86_64-unknown-linux-gnu.zip",
+                    "sha256": "96c9c73fc05ea57603bc28d8071d41e861bd40bcf2a9f849dd5969ed1a2c8498"
                 },
                 {
                     "type": "file",
                     "only-arches": [
                         "aarch64"
                     ],
-                    "url": "https://github.com/denoland/deno/releases/download/v2.6.4/deno-aarch64-unknown-linux-gnu.zip",
-                    "sha256": "dafb54c5454d7fcca81305215442e832e0c34e90b76a2e9a31d0676cbb06bfc6"
+                    "url": "https://github.com/denoland/deno/releases/download/v2.9.0/deno-aarch64-unknown-linux-gnu.zip",
+                    "sha256": "a0f266eb189af2f27db0c6dcf9eb2f68ba2e8bbff1442c969ace398463f8b2bf"
                 }
             ]
         },
         "./flatpak_extra_manifests/python3-aria2p.json",
         "./flatpak_extra_manifests/python3-emoji-country-flag.json",
         "./flatpak_extra_manifests/python3-dbus-next.json",
-        "shared-modules/libayatana-appindicator/libayatana-appindicator-gtk3.json",
+        "./shared-modules/libayatana-appindicator/libayatana-appindicator-gtk3.json",
         "./flatpak_extra_manifests/python3-yt-dlp.json",
         {
             "name": "varia",

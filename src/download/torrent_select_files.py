@@ -264,9 +264,13 @@ def torrent_select_files_dialog(self):
 
         else: # Cancelled
             if self.download:
-                torrent_directory = os.path.join(self.downloaddir, self.download.files[0].path.relative_to(self.downloaddir).parts[0])
-                if os.path.exists(torrent_directory):
-                    shutil.rmtree(torrent_directory)
+                if self.download.files:
+                    # Get the root directory from the first file's path
+                    first_file_relative_parts = self.download.files[0].path.relative_to(self.downloaddir).parts
+                    if first_file_relative_parts:
+                        torrent_directory = os.path.join(self.downloaddir, first_file_relative_parts[0])
+                        if os.path.isdir(torrent_directory) and os.path.exists(torrent_directory):
+                            shutil.rmtree(torrent_directory)
 
                 self.stop()
 

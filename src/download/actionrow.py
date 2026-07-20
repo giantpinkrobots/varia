@@ -140,7 +140,7 @@ def create_actionrow(self, filename):
     return download_item
 
 def on_pause_clicked(button, self, pause_button, download_item, force_pause, run_pause_function):
-    if download_item.download_thread.return_is_paused() and force_pause == False:
+    if download_item.download_thread.paused and force_pause == False:
         download_item.download_thread.resume()
 
     else:

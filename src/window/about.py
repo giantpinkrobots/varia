@@ -27,6 +27,7 @@ def show_about(app, variaapp, self, variaVersion):
     dialog.set_translator_credits(_("translator-credits"))
     dialog.set_artists(["Jakub Steiner"])
     dialog.set_release_notes_version(variaVersion)
+    dialog.add_link(_("Support Varia"), "https://github.com/sponsors/giantpinkrobots/")
     dialog.set_release_notes('''
         <p>v2026.3.27-1</p>
         <ul><li>Windows only: Fix FFmpeg dependencies on Windows</li></ul>

@@ -107,7 +107,7 @@ class DownloadThread(threading.Thread):
         
         download_options = {}
 
-        if self.url.startswith("magnet:"):
+        if self.url.lower().startswith("magnet:"):
             if self.app.appconf["torrent_enabled"] == "1":
                 download_options["dir"] = self.app.appconf["torrent_download_directory"]
                 download_options["follow_torrent"] = "true"
@@ -157,9 +157,6 @@ class DownloadThread(threading.Thread):
                 download_options["out"] = self.downloadname
 
             if self.download == None:
-                if self.url.startswith("magnet:") or self.url.lower().endswith(".torrent"):
-                    download_options["pause"] = "true"
-
                 self.download = self.api.add_uris([self.url], options=download_options)
 
             if self.download.gid:
@@ -220,7 +217,7 @@ class DownloadThread(threading.Thread):
 
                     self.update_labels_and_things(None)
 
-                    if self.download.is_torrent and not self.download.is_metadata and len(self.download.files) > 0 and not self.torrent_file_select_completed:
+                    if self.download.is_torrent and len(self.download.files) > 0 and not self.torrent_file_select_completed:
                         try:
                             self.download.pause()
                         except:
@@ -228,7 +225,7 @@ class DownloadThread(threading.Thread):
 
                         self.selection_event = threading.Event()
                         from download.torrent_select_files import torrent_select_files_dialog
-                        GLib.idle_add(torrent_select_files_dialog, self)
+                        torrent_select_files_dialog(self)
 
                         self.selection_event.wait()
 
@@ -284,12 +281,19 @@ class DownloadThread(threading.Thread):
             self.download_details['type'] = _("Video / Audio")
             self.total_file_size_text = self.video_options['filesize_to_show']
 
-            video_options_final['progress_hooks'] = [self.update_labels_and_things]
-            video_options_final['continuedl'] = True
-            video_options_final['ffmpeg_location'] = self.app.ffmpegexec
-            video_options_final['js_runtimes'] = {
+            # Use setdefault so explicit video_options passed in by callers are respected
+            video_options_final.setdefault('progress_hooks', [self.update_labels_and_things])
+            video_options_final.setdefault('continuedl', True)
+            # Network/download robustness
+            video_options_final.setdefault('retries', 3)
+            video_options_final.setdefault('fragment_retries', 3)
+            video_options_final.setdefault('skip_unavailable_fragments', True)
+            video_options_final.setdefault('no_warnings', True)
+
+            video_options_final.setdefault('ffmpeg_location', self.app.ffmpegexec)
+            video_options_final.setdefault('js_runtimes', {
                 self.app.jsruntimeexec['name']: {'path': self.app.jsruntimeexec['exec']}
-            }
+            })
 
             if os.path.exists(os.path.join(self.app.appdir, "cookies_for_ytdlp.txt")):
                 video_options_final['cookiefile'] = os.path.join(self.app.appdir, "cookies_for_ytdlp.txt")
@@ -599,24 +603,6 @@ class DownloadThread(threading.Thread):
             self.app.check_all_status()
             self.save_state()
 
-    def video_remove_temp_files(self):
-        if "temp_files" in self.video_options:
-            stored_download_temp_files = json.loads(self.video_options["temp_files"])
-            print("stored temp")
-            print(stored_download_temp_files)
-
-            for stored_video_temp_file in stored_download_temp_files:
-                if stored_video_temp_file not in self.download_temp_files:
-                    self.download_temp_files.append(stored_video_temp_file)
-
-        for file_path in self.download_temp_files:
-            if os.path.exists(file_path):
-                try:
-                    os.remove(file_path)
-
-                except Exception as e:
-                    pass
-
     def stop(self):
         if self.extracting_archive == True:
             self.cancel_extraction = True
@@ -688,6 +674,24 @@ class DownloadThread(threading.Thread):
         self = None
         return
 
+    def video_remove_temp_files(self):
+        if "temp_files" in self.video_options:
+            stored_download_temp_files = json.loads(self.video_options["temp_files"])
+            print("stored temp")
+            print(stored_download_temp_files)
+
+            for stored_video_temp_file in stored_download_temp_files:
+                if stored_video_temp_file not in self.download_temp_files:
+                    self.download_temp_files.append(stored_video_temp_file)
+
+        for file_path in self.download_temp_files:
+            if os.path.exists(file_path):
+                try:
+                    os.remove(file_path)
+
+                except Exception as e:
+                    pass
+
     def save_state(self):
         if self.download and self.is_complete == False:
             if self.video_download_is_playlist:
@@ -726,25 +730,6 @@ class DownloadThread(threading.Thread):
                 self.cancelled = True
             
             self.state_file = os.path.join(self.app.appconf["download_directory"], f'{save_filename}.varia')
-
-    def return_gid(self):
-        if self.download:
-            return self.download.gid
-
-    def return_is_paused(self):
-        return self.paused
-        if self.download:
-            if self.mode == "regular":
-                if self.download.is_paused:
-                    return True
-                else:
-                    return False
-            
-            elif self.mode == "video":
-                if self.video_pause_event.is_set() == False:
-                    return True
-                else:
-                    return False
     
     def extract_archive(self):
         GLib.idle_add(self.speed_label.set_text, _("Extracting"))

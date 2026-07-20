@@ -121,7 +121,7 @@ def deal_with_simultaneous_download_limit(self):
 
         i = int(self.appconf["download_simultaneous_amount"])
         while i < len(downloads_to_be_processed):
-            if downloads_to_be_processed[i].return_is_paused() == False and \
+            if downloads_to_be_processed[i].paused == False and \
                 downloads_to_be_processed[i].paused_because_exceeds_limit == False:
 
                 downloads_to_be_processed[i].pause()
@@ -136,7 +136,7 @@ def deal_with_simultaneous_download_limit(self):
             limit = len(downloads_to_be_processed)
 
         while i < limit:
-            if downloads_to_be_processed[i].return_is_paused() == True and \
+            if downloads_to_be_processed[i].paused == True and \
                 downloads_to_be_processed[i].paused_because_exceeds_limit == True:
 
                 downloads_to_be_processed[i].resume()

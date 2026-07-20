@@ -1,21 +1,6 @@
 import os
 win_reg_key_path = r"Software\Microsoft\Windows\CurrentVersion\Run"
 
-def get_autostart(): # Unused
-    if os.name == 'nt':
-        import winreg
-        try:
-            with winreg.OpenKey(winreg.HKEY_CURRENT_USER, win_reg_key_path, 0, winreg.KEY_READ) as key:
-                value, _ = winreg.QueryValueEx(key, "VariaAutostart")
-                return True
-
-        except:
-            return False
-    
-    else:
-        import autostart_util_linux
-        return autostart_util_linux.get_autostart()
-
 def set_autostart():
     if os.name == 'nt':
         import winreg

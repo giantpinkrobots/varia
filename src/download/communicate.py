@@ -53,29 +53,8 @@ def set_aria2c_download_directory(self):
 
     response = requests.post(self.aria2cLocation + '/jsonrpc', headers={'Content-Type': 'application/json'}, data=json.dumps(json_request))
 
-def set_aria2c_download_simultaneous_amount(self): # Now an unused function, will remove if everything else works.
-    downloads_that_will_restart = []
-
-    for download_thread in self.downloads:
-        if (download_thread.download):
-            if (download_thread.return_is_paused() == False):
-                downloads_that_will_restart.append(download_thread.return_gid())
-                download_thread.pause()
-
-    token = "token:" + self.appconf['remote_secret']
-    json_request = {
-        "jsonrpc": "2.0",
-        "id": "1",
-        "method": "aria2.changeGlobalOption",
-        "params": [
-            token,
-            {"max-concurrent-downloads": str(self.appconf["download_simultaneous_amount"])}
-        ]
-    }
-
-    response = requests.post(self.aria2cLocation + '/jsonrpc', headers={'Content-Type': 'application/json'}, data=json.dumps(json_request))
-
-def set_aria2c_cookies(self):
+def set_aria2c_cookies(*args):
+    self = args[-1]
     header_string = ""
     if self.appconf["cookies_txt"] == "1":
         cookie_jar = http.cookiejar.MozillaCookieJar(os.path.join(self.appdir, 'cookies.txt'))
