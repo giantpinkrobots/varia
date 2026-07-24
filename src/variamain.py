@@ -13,6 +13,7 @@ import stringstorage
 import atexit
 import signal
 import traceback
+import libtorrent as lt
 
 from download.actionrow import on_download_clicked
 from download.listen import deal_with_simultaneous_download_limit, listen_to_aria2
@@ -95,6 +96,11 @@ class MainWindowBase:
 
         if self.appconf['remote'] == '0' and self.aria2_instance.send_rpc_request("aria2.getVersion") == -1: # If we're not in remote mode and aria2c is not running
             self.aria2_instance.start_subprocess()
+
+        # Start libtorrent session:
+        self.ltsession = lt.session({
+            "listen_interfaces": "0.0.0.0:6881",
+        })
 
         # For 7-zip integration:
         self.supported_archive_formats = ["7z", "xz", "bzip2", "gzip", "tar", "zip", "wim", "apfs", "ar", "arj", "cab", "chm", "cpio", "cramfs", "dmg", "ext", "fat", "gpt", "hfs", "ihex", "iso", "lzh", "lzma", "mbr", "msi", "nsis", "ntfs", "qcow2", "rar", "rpm", "squashfs", "udf", "uefi", "vdi", "vhd", "vhdx", "vmdk", "xar", "z"]

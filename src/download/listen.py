@@ -29,27 +29,31 @@ def listen_to_aria2(self, variaapp):
                                 download.stop()
 
                     # Handle .torrent files:
-                    if self.appconf["torrent_enabled"] == "1" and (frontend_download_item.download.is_metadata or frontend_download_item.download.name.endswith(".torrent")) and frontend_download_item.download.is_complete:
-                        torrent_file_path = None
+                    if self.appconf["torrent_enabled"] == "1" and frontend_download_item.download.name.endswith(".torrent") and frontend_download_item.download.is_complete:
+                        torrent_file_path = os.path.join(frontend_download_item.downloaddir, frontend_download_item.downloadname)
+                        torrent_file_info = self.ltsession.torrent_info(torrent_file_path)
+                        
+                        # Download torrent file to the set torrent download directory if that's enabled:
+                        if self.appconf["torrent_download_directory_custom_enabled"] == "1":
+                            torrent_params = {
+                                "ti": torrent_file_info,
+                                "save_path": self.appconf["torrent_download_directory"],
+                            }
 
-                        if frontend_download_item.download.is_metadata == False: # Is .torrent file and not metadata
-                            torrent_file_path = os.path.join(frontend_download_item.downloaddir, frontend_download_item.downloadname)
-                            
-                            # Download torrent file to the set torrent download directory if that's enabled:
-                            if self.appconf["torrent_download_directory_custom_enabled"] == "1":
-                                self.api.add_torrent(torrent_file_path, options={"dir": self.appconf["torrent_download_directory"]})
+                        else:
+                            torrent_params = {
+                                "ti": torrent_file_info,
+                                "save_path": self.appconf["download_directory"],
+                            }
 
-                            else:
-                                self.api.add_torrent(torrent_file_path)
+                        torrent_instance = self.ltsession.add_torrent(torrent_params)
                         
                         # Remove the .torrent file download itself:
                         frontend_download_item.cancelled = True
                         frontend_download_item.stop()
                         self.download_list.remove(frontend_download_item.actionrow)
+                        add_download_to_ui(self, torrent_instance, variaapp, "torrent")
                         self.check_all_status()
-
-                        if torrent_file_path != None:
-                            os.remove(torrent_file_path)
 
         downloads_in_frontend_files = []
         downloads_in_frontend_gids = []
@@ -93,7 +97,7 @@ def listen_to_aria2(self, variaapp):
                         and ((any(item in new_download_files for item in downloads_in_frontend_files)) == False) ): # Make sure it's not a duplicate
                     if not download_item_to_be_added.is_torrent:
                         print('Download added directly to aria2c, adding it to the UI: ' + download_item_to_be_added.files[0].uris[0]["uri"])
-                    add_download_to_ui(self, download_item_to_be_added, variaapp)
+                    add_download_to_ui(self, download_item_to_be_added, variaapp, "regular")
 
         if currently_downloading == True:
             self.shutdown_action.set_enabled(True)
@@ -151,16 +155,16 @@ def deal_with_simultaneous_download_limit(self):
         
         time.sleep(0.5)
 
-def add_download_to_ui(self, download_item_to_be_added, variaapp):
-    if download_item_to_be_added.is_torrent:
-        download_item_url = "magnet:?xt=urn:btih:" + download_item_to_be_added.info_hash
-    else:
+def add_download_to_ui(self, download_item_to_be_added, variaapp, mode):
+    if mode == "regular":
         download_item_url = download_item_to_be_added.files[0].uris[0]["uri"].split("?")[0]
+    elif mode == "torrent":
+        download_item_url = "torrent_instance"
 
     show_notification(download_item_to_be_added.name, "", variaapp)
 
     actionrow = create_actionrow(self, download_item_url)
-    download_thread = DownloadThread(self, download_item_url, actionrow, download_item_url, download_item_to_be_added, "regular", None, False, self.appconf["download_directory"], 0)
+    download_thread = DownloadThread(self, download_item_url, actionrow, download_item_url, download_item_to_be_added, mode, None, False, self.appconf["download_directory"], 0)
     actionrow.download_thread = download_thread
     self.downloads.append(download_thread)
     download_thread.start()

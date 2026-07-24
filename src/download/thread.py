@@ -14,6 +14,7 @@ import multiprocessing as multiprocessing
 import math
 import subprocess
 import pathlib
+import libtorrent as lt
 
 class DownloadThread(threading.Thread):
     def __init__(self, app, url, actionrow, downloadname, download, mode, video_options, paused, dir, percentage):
@@ -108,12 +109,11 @@ class DownloadThread(threading.Thread):
         
         download_options = {}
 
-        if self.url.lower().startswith("magnet:"):
+        if self.url.lower().startswith("magnet:"): # Magnet link
             if self.app.appconf["torrent_enabled"] == "1":
-                download_options["dir"] = self.app.appconf["torrent_download_directory"]
-                download_options["follow_torrent"] = "true"
                 self.downloaddir = self.app.appconf["torrent_download_directory"]
                 self.download_details['type'] = _("Torrent")
+                self.mode = "torrent"
 
             else:
                 try:
@@ -123,7 +123,7 @@ class DownloadThread(threading.Thread):
                     pass
                 return
 
-        else:
+        else: # Normal download
             if not (self.is_valid_url()):
                 try:
                     GLib.idle_add(self.show_message, _("This is not a valid URL."))
@@ -208,7 +208,7 @@ class DownloadThread(threading.Thread):
                         self.actionrow.pause_button.get_child().set_from_icon_name("media-playback-pause-symbolic")
                         download_began = True
                     
-                    if (self.download.is_torrent and self.download.is_metadata == False) and self.downloadname != self.download.name:
+                    if self.downloadname != self.download.name:
                         self.downloadname = self.download.name
                         self.save_state()
                         self.filepath = os.path.join(self.app.appconf["download_directory"], self.downloadname)
@@ -230,7 +230,7 @@ class DownloadThread(threading.Thread):
 
                         self.selection_event.wait()
 
-                    elif self.download.status == "complete" or ((self.download.is_torrent) and (self.download.seeder)):
+                    elif self.download.status == "complete":
                         print('Download complete: ' + self.download.gid)
                         GLib.idle_add(self.set_complete)
                         return
@@ -241,6 +241,30 @@ class DownloadThread(threading.Thread):
 
                 except:
                     return
+
+                time.sleep(0.5)
+
+        # Torrent download, use libtorrent
+        elif self.mode == "torrent":
+            self.download_details['type'] = _("Torrent")
+            self.change_download_type_icon("torrent")
+            self.torrent_file_select_completed = False
+
+            torrent_params = {
+                "save_path": self.downloaddir
+            }
+
+            torrent_instance = lt.add_magnet_uri(
+                self.ltsession,
+                self.url,
+                torrent_params
+            )
+
+            while(torrent_instance.status().has_metadata == False):
+                continue
+
+            while (self.cancelled == False):
+                self.update_labels_and_things(None)
 
                 time.sleep(0.5)
 

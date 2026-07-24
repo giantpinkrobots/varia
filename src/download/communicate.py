@@ -15,6 +15,7 @@ def set_speed_limit(self, download_limit):
     else:
         download_limit = "0K"
 
+    # Apply to aria2:
     token = "token:" + self.appconf['remote_secret']
     json_request = {
         "jsonrpc": "2.0",
@@ -27,6 +28,19 @@ def set_speed_limit(self, download_limit):
     }
 
     response = requests.post(self.aria2cLocation + '/jsonrpc', headers={'Content-Type': 'application/json'}, data=json.dumps(json_request))
+
+    # Apply to libtorrent:
+    if download_limit.endswith("K"):
+        lt_download_limit = int(download_limit.replace("K", "")) * 1024
+    elif download_limit.endswith("M"):
+        lt_download_limit = int(download_limit.replace("K", "")) * 1024 * 1024
+    elif download_limit.endswith("G"):
+        lt_download_limit = int(download_limit.replace("K", "")) * 1024 * 1024 * 1024
+
+    self.ltsession.apply_settings({
+        "download_rate_limit": lt_download_limit,
+        "upload_rate_limit": lt_download_limit
+    })
 
 def set_aria2c_download_directory(self):
     token = "token:" + self.appconf['remote_secret']

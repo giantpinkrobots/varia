@@ -23,6 +23,7 @@ parts:
       - aria2p
       - emoji-country-flag
       - dbus-next
+      - libtorrent
     build-packages:
       - python3-pip
       - python3-setuptools
@@ -124,6 +125,33 @@ parts:
     stage-packages:
       - libc6
       - libstdc++6
+
+  boost:
+    plugin: nil
+    source: https://archives.boost.io/release/1.86.0/source/boost_1_86_0.tar.gz
+    source-type: tar
+
+    override-build: |
+      ./bootstrap.sh --prefix=/app
+      ./b2 install --with-headers cxxflags='$CXXFLAGS' linkflags='$LDFLAGS'
+  
+  libtorrent:
+    plugin: cmake
+    source: https://github.com/arvidn/libtorrent.git
+    source-type: git
+    source-branch: RC_2_1
+
+    build-packages:
+      - build-essential
+      - libboost-dev
+      - libssl-dev
+    cmake-parameters:
+      - -DBUILD_SHARED_LIBS=OFF
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DCMAKE_CXX_STANDARD=20
+      - -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON
+    prime:
+      - -*
 
   varia:
     plugin: meson

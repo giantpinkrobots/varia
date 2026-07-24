@@ -136,6 +136,69 @@
         "./shared-modules/libayatana-appindicator/libayatana-appindicator-gtk3.json",
         "./flatpak_extra_manifests/python3-yt-dlp.json",
         {
+            "name": "boost",
+            "buildsystem": "simple",
+            "build-commands": [
+                "./bootstrap.sh --prefix=/app",
+                "./b2 install --with-headers cxxflags='$CXXFLAGS' linkflags='$LDFLAGS' -j $FLATPAK_BUILDER_N_JOBS"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://archives.boost.io/release/1.86.0/source/boost_1_86_0.tar.gz",
+                    "sha256": "2575e74ffc3ef1cd0babac2c1ee8bdb5782a0ee672b1912da40e5b4b591ca01f"
+                }
+            ]
+        },
+        {
+            "name": "libtorrent",
+            "buildsystem": "cmake-ninja",
+            "builddir": true,
+            "config-opts": [
+                "-DBUILD_SHARED_LIBS=OFF",
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-DCMAKE_CXX_STANDARD=20",
+                "-DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/arvidn/libtorrent.git",
+                    "commit": "578e06824c3546f3371ab43967ab288a7e253eca",
+                    "x-checker-data": {
+                        "type": "json",
+                        "url": "https://api.github.com/repos/arvidn/libtorrent/branches/RC_2_1",
+                        "commit-query": ".commit.sha"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "python-libtorrent",
+            "buildsystem": "simple",
+            "build-commands": [
+                "pip3 install --no-deps --prefix=/app *.whl"
+            ],
+            "sources": [
+                {
+                    "type": "file",
+                    "only-arches": [
+                        "x86_64"
+                    ],
+                    "url": "https://github.com/arvidn/libtorrent/releases/download/v2.1.0/libtorrent-2.1.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+                    "sha256": "1c44c20e87fc1d3000b7e149da5668192caf4a70a106d61bc60940b990de3faa"
+                },
+                {
+                    "type": "file",
+                    "only-arches": [
+                        "aarch64"
+                    ],
+                    "url": "https://github.com/arvidn/libtorrent/releases/download/v2.1.0/libtorrent-2.1.0-cp313-cp313-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",
+                    "sha256": "1b64f6ce69874666a795f0161727be0ac5096bf626768574f1f298f8daa886bc"
+                }
+            ]
+        },
+        {
             "name": "varia",
             "builddir": true,
             "buildsystem": "meson",
