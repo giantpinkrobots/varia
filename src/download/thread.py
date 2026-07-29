@@ -73,6 +73,7 @@ class DownloadThread(threading.Thread):
         self.video_download_stage = 0
         self.video_download_progress_previous = 0
         self.video_download_is_playlist = False
+        self.torrent_instance = None
 
         self.state_file = ""
         self.is_complete = False
@@ -109,18 +110,21 @@ class DownloadThread(threading.Thread):
         
         download_options = {}
 
-        if self.url.lower().startswith("magnet:"): # Magnet link
+        if self.url.lower().startswith("magnet:") or self.mode == "torrent": # Is torrent
+
             if self.app.appconf["torrent_enabled"] == "1":
-                self.downloaddir = self.app.appconf["torrent_download_directory"]
+                if self.app.appconf["torrent_download_directory_custom_enabled"] == "1":
+                    self.downloaddir = self.app.appconf["torrent_download_directory"]
+
+                else:
+                    self.downloaddir = self.app.appconf["download_directory"]
+            
                 self.download_details['type'] = _("Torrent")
                 self.mode = "torrent"
 
             else:
-                try:
-                    GLib.idle_add(self.show_message, _("Torrenting is disabled."))
-                    print("Error: Can't add magnet link because torrenting is disabled.")
-                except:
-                    pass
+                GLib.idle_add(self.show_message, _("Torrenting is disabled."))
+                print("Error: Can't add magnet link because torrenting is disabled.")
                 return
 
         else: # Normal download
@@ -141,15 +145,17 @@ class DownloadThread(threading.Thread):
                     self.url = self.auth_username + ":" + self.auth_password + "@" + self.url
                 print ("Authentication enabled.")
 
-        if self.downloadname and ("/" or "\\" in self.downloadname):
-            self.downloadname = self.downloadname.replace("/", " ")
-            self.downloadname = self.downloadname.replace("\\", " ")
+        #if self.downloadname and ("/" or "\\" in self.downloadname):
+        #    self.downloadname = self.downloadname.replace("/", " ")
+        #    self.downloadname = self.downloadname.replace("\\", " ")
 
         self.app.check_all_status()
 
         if self.percentage_number > 0:
             GLib.idle_add(self.actionrow.progress_bar.set_fraction, self.percentage_number / 100)
             GLib.idle_add(self.actionrow.percentage_label.set_text, self.download_details['percentage'])
+
+        GLib.timeout_add_seconds(360, self.periodically_save_state)
 
         # Regular download, use aria2p:
         if self.mode == "regular":
@@ -175,14 +181,8 @@ class DownloadThread(threading.Thread):
                     self.download_details['status'] = _("Downloading")
                     self.currently_downloading = True
 
-            if self.download.is_torrent:
-                self.download_details['type'] = _("Torrent")
-                self.change_download_type_icon("torrent")
-                self.torrent_file_select_completed = False
-
-            else:
-                self.download_details['type'] = _("Regular")
-                self.change_download_type_icon("regular")
+            self.download_details['type'] = _("Regular")
+            self.change_download_type_icon("regular")
             
             self.previous_filename = ""
             self.app.filter_download_list("no", self.app.applied_filter)
@@ -246,22 +246,68 @@ class DownloadThread(threading.Thread):
 
         # Torrent download, use libtorrent
         elif self.mode == "torrent":
+            self.download = True
             self.download_details['type'] = _("Torrent")
             self.change_download_type_icon("torrent")
             self.torrent_file_select_completed = False
 
-            torrent_params = {
-                "save_path": self.downloaddir
-            }
+            try:
+                resume_data = base64.b64decode(self.downloadname)
+                try:
+                    lt.read_resume_data(resume_data)
+                except RuntimeError:
+                    resume_data = None
+            except:
+                resume_data = None
 
-            torrent_instance = lt.add_magnet_uri(
-                self.ltsession,
-                self.url,
-                torrent_params
-            )
+            if resume_data != None:
+                torrent_params = lt.read_resume_data(resume_data)
+                if self.paused:
+                    torrent_params.flags += lt.torrent_flags.paused
+                self.torrent_instance = self.app.ltsession.add_torrent(torrent_params)
 
-            while(torrent_instance.status().has_metadata == False):
-                continue
+            else:
+                if self.url.lower().startswith("magnet:"):
+                    torrent_params = {
+                        "save_path": self.downloaddir
+                    }
+
+                    self.torrent_instance = lt.add_magnet_uri(
+                        self.app.ltsession,
+                        self.url,
+                        torrent_params
+                    )
+
+                else:
+                    print(self.url)
+                    torrent_params = {
+                        "save_path": self.downloaddir,
+                        "ti": lt.torrent_info(self.url)
+                    }
+
+                    self.torrent_instance = self.app.ltsession.add_torrent(torrent_params)
+
+                while(self.torrent_instance.status().has_metadata == False):
+                    continue
+
+                if self.torrent_instance.torrent_file():
+                    self.url = lt.make_magnet_uri(self.torrent_instance.torrent_file())
+
+                self.torrent_instance.pause()
+                self.selection_event = threading.Event()
+                from download.torrent_select_files import torrent_select_files_dialog
+                torrent_select_files_dialog(self)
+
+                self.selection_event.wait()
+
+            if self.paused == False and self.app.scheduler_currently_downloading == False:
+                self.pause(True)
+
+            elif self.paused:
+                self.pause()
+
+            if self.retry == False:
+                self.save_state()
 
             while (self.cancelled == False):
                 self.update_labels_and_things(None)
@@ -419,11 +465,6 @@ class DownloadThread(threading.Thread):
             if progress > 0.0:
                 speed = self.download.download_speed
                 self.speed = speed
-
-                if self.download.is_torrent:
-                    self.download_details['torrent_peers'] = self.app.api.client.call("aria2.getPeers", [self.download.gid])
-                    self.download_details['completed_length'] = self.download.completed_length
-                    self.download_details['upload_length'] = self.download.upload_length
                 
                 download_delta = self.download.eta
                 download_speed_mb = (speed / 1024 / 1024)
@@ -455,7 +496,77 @@ class DownloadThread(threading.Thread):
                     for file in self.download.files:
                         if file not in self.download_temp_files:
                             self.download_temp_files.append(file)
-        
+
+        elif self.mode == "torrent":
+            if self.torrent_instance:
+                status = self.torrent_instance.status()
+
+                if self.downloadname != status.name:
+                    self.downloadname = status.name
+                if self.actionrow.filename_label.get_text() != self.downloadname:
+                    GLib.idle_add(self.actionrow.filename_label.set_text, self.downloadname)
+
+                self.filepath = os.path.join(status.save_path, status.name)
+
+                progress = status.progress * 100.0
+                self.speed = status.download_rate
+
+                download_remaining_string = "∞"
+
+                if self.speed > 0:
+                    remaining = status.total_wanted - status.total_wanted_done
+                    eta = int(remaining / self.speed)
+
+                    hours, rem = divmod(eta, 3600)
+                    minutes, seconds = divmod(rem, 60)
+
+                    download_remaining_string = (
+                        f"{hours:02}:{minutes:02}:{seconds:02}"
+                    )
+
+                percentage_label_text = _("{number}%").replace(
+                    "{number}",
+                    str(round(progress))
+                )
+
+                def bytes_to_readable(given_bytes, is_speed):
+                    readable = ""
+                    if is_speed == False and given_bytes >= 1024 * 1024 * 1024:
+                        readable = (f"{str(round(given_bytes / 1024 / 1024 / 1024, 2))} {' GiB'}")
+                    elif given_bytes >= 1024 * 1024:
+                        readable = (str(round(given_bytes / 1024 / 1024, 2)))
+                        if is_speed:
+                            readable += _(' MB/s')
+                        else:
+                            readable += ' MiB'
+                    elif given_bytes >= 1024:
+                        readable = (str(round(given_bytes / 1024, 2)))
+                        if is_speed:
+                            readable += _(' KB/s')
+                        else:
+                            readable += ' KiB'
+                    else:
+                        readable = (str(given_bytes))
+                        if is_speed:
+                            readable += _(' B/s')
+                        else:
+                            readable += ' B'
+                    return readable
+
+                speed_label_text_speed = bytes_to_readable(self.speed, True)
+                self.total_file_size_text = bytes_to_readable(status.total_wanted, False)
+
+                self.download_details["completed_length"] = status.total_wanted_done
+                self.download_details["upload_length"] = status.total_upload
+                self.download_details["torrent_peers"] = self.torrent_instance.get_peer_info()
+                self.download_details["torrent_seeding_speed"] = bytes_to_readable(status.upload_rate, False)
+
+                if status.progress == 1.0:
+                    self.set_complete()
+
+                elif status.errc.value() != 0:
+                    self.set_failed(None)
+
         elif self.mode == "video":
             self.video_object = video_object
 
@@ -568,10 +679,10 @@ class DownloadThread(threading.Thread):
     def pause(self, called_by_scheduler = False):
         if self.download and self.is_complete == False:
             if self.mode == "regular":
-                try:
-                    self.download.pause()
-                except:
-                    pass
+                self.download.pause()
+
+            elif self.mode == "torrent":
+                self.torrent_instance.pause()
             
             elif self.mode == "video":
                 self.video_pause_event.clear()
@@ -611,6 +722,9 @@ class DownloadThread(threading.Thread):
                 if self.mode == "regular":
                     if self.download.is_paused:
                         self.download.resume()
+
+                elif self.mode == "torrent":
+                    self.torrent_instance.resume()
 
                 elif self.mode == "video":
                     if self.video_pause_event.is_set() == False:
@@ -675,6 +789,10 @@ class DownloadThread(threading.Thread):
                                 os.rmdir(file_parentdir)
 
                 print ("Download stopped.")
+
+            elif self.mode == "torrent":
+                self.app.ltsession.remove_torrent(self.torrent_instance)
+                self.torrent_instance = None
             
             elif self.mode == "video":
                 self.video_pause_event.clear()
@@ -726,9 +844,37 @@ class DownloadThread(threading.Thread):
                 download_type = self.mode
                 download_dir = self.downloaddir
 
+            if self.mode == "regular":
+                save_filename = self.download.gid
+                download_file_name = self.downloadname
+
+            elif self.mode == "torrent":
+                self.torrent_instance.save_resume_data()
+                resume_data = None
+
+                while True:
+                    for alert in self.app.ltsession.pop_alerts():
+                        if (
+                            isinstance(alert, lt.save_resume_data_alert)
+                            and alert.handle == self.torrent_instance
+                        ):
+                            resume_data = lt.write_resume_data_buf(alert.params)
+                            break
+
+                    if resume_data != None:
+                        break
+                    time.sleep(0.01)
+                    
+                save_filename = base64.b64encode(self.url.encode('ascii')).decode('ascii').replace("/", "")
+                download_file_name = base64.b64encode(resume_data).decode("ascii")
+
+            elif self.mode == "video":
+                save_filename = base64.b64encode(self.url.encode('ascii')).decode('ascii').replace("/", "")
+                download_file_name = self.downloadname
+
             state = {
                 'url': self.url,
-                'filename': self.downloadname,
+                'filename': download_file_name,
                 'type': download_type,
                 'video_options': json.dumps(self.video_options),
                 'paused': self.paused,
@@ -736,12 +882,6 @@ class DownloadThread(threading.Thread):
                 'dir': download_dir,
                 'percentage': math.floor(self.percentage_number)
             }
-
-            if self.mode == "regular":
-                save_filename = self.download.gid
-
-            elif self.mode == "video":
-                save_filename = base64.b64encode(self.url.encode('ascii')).decode('ascii').replace("/", "")
             
             if os.path.isfile(os.path.join(self.app.appconf["download_directory"], f'{save_filename}.varia')):
                 os.remove(os.path.join(self.app.appconf["download_directory"], f'{save_filename}.varia'))
@@ -847,15 +987,15 @@ class DownloadThread(threading.Thread):
                 thread = threading.Thread(target=self.extract_archive, daemon=True)
                 thread.start()
                 return
-        
-        self.cancelled = True
+
         self.set_actionrow_tooltip_text()
         self.download_details['status'] = _("Completed")
 
-        if self.mode == "regular" and self.download.is_torrent and self.download.seeder and self.app.appconf["torrent_seeding_enabled"] == "1":
+        if self.mode == "torrent" and self.torrent_instance.status().is_seeding and self.app.appconf["torrent_seeding_enabled"] == "1":
             GLib.idle_add(self.speed_label.set_text, _("Seeding"))
         else:
             GLib.idle_add(self.speed_label.set_text, _("Download complete."))
+            self.cancelled = True
 
             if os.path.exists(self.state_file):
                 os.remove(self.state_file)
@@ -890,3 +1030,10 @@ class DownloadThread(threading.Thread):
 
         GLib.idle_add(self.actionrow.pause_button.set_retry_mode, self.actionrow.pause_button, self.app, self)
         self.app.filter_download_list("no", self.app.applied_filter)
+
+    def periodically_save_state(self):
+        if self.cancelled or self.app.terminating:
+            return
+
+        self.save_state()
+        GLib.timeout_add_seconds(360, self.periodically_save_state)

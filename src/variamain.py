@@ -19,7 +19,7 @@ from download.actionrow import on_download_clicked
 from download.listen import deal_with_simultaneous_download_limit, listen_to_aria2
 from download.actionrow import create_actionrow
 from download.thread import DownloadThread
-from download.communicate import set_speed_limit, set_aria2c_download_directory, set_aria2c_custom_global_option, set_aria2c_cookies
+from download.communicate import set_speed_limit, set_aria2c_download_directory, set_aria2c_custom_global_option, set_aria2c_cookies, set_lt_seeding
 from download.scheduler import schedule_downloads
 from download.manage_downloads import pause_all, stop_all, check_all_status, total_download_speed_get
 from download.aria2_instance import Aria2Instance
@@ -57,6 +57,7 @@ class MainWindowBase:
     set_aria2c_download_directory = set_aria2c_download_directory
     set_aria2c_custom_global_option = set_aria2c_custom_global_option
     set_aria2c_cookies = set_aria2c_cookies
+    set_lt_seeding = set_lt_seeding
     listen_to_aria2 = listen_to_aria2
     schedule_downloads = schedule_downloads
     pause_all = pause_all
@@ -101,6 +102,8 @@ class MainWindowBase:
         self.ltsession = lt.session({
             "listen_interfaces": "0.0.0.0:6881",
         })
+
+        set_lt_seeding(self) # We set this again after adding the downloads
 
         # For 7-zip integration:
         self.supported_archive_formats = ["7z", "xz", "bzip2", "gzip", "tar", "zip", "wim", "apfs", "ar", "arj", "cab", "chm", "cpio", "cramfs", "dmg", "ext", "fat", "gpt", "hfs", "ihex", "iso", "lzh", "lzma", "mbr", "msi", "nsis", "ntfs", "qcow2", "rar", "rpm", "squashfs", "udf", "uefi", "vdi", "vhd", "vhdx", "vmdk", "xar", "z"]
@@ -239,6 +242,8 @@ class MainWindowBase:
             on_download_clicked(None, self, download["url"], download["filename"], None, download["type"], download["video_options"], download["paused"], download["dir"], download["percentage"])
 
         self.check_all_status() # Set Pause All / Resume All button
+
+        set_lt_seeding(self) # Set it again to make sure after adding downloads
 
         self.connect('close-request', self.exit_or_tray, variaapp)
         self.connect("notify::default-width", self.on_window_resize)

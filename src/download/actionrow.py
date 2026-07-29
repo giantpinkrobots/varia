@@ -72,7 +72,7 @@ def create_actionrow(self, filename):
     percentage_label.set_margin_end(4)
     percentage_and_filename_box.append(percentage_label)
 
-    filename_label = Gtk.Label(label=filename)
+    filename_label = Gtk.Label(label=str(filename))
     filename_label.set_ellipsize(Pango.EllipsizeMode.END)
     filename_label.set_halign(Gtk.Align.START)
     percentage_and_filename_box.append(filename_label)

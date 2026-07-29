@@ -3,6 +3,7 @@ import json
 import http.cookiejar
 import os
 from stringstorage import gettext as _
+import libtorrent as lt
 
 def set_speed_limit(self, download_limit):
     try:
@@ -90,3 +91,28 @@ def set_aria2c_custom_global_option(self, key, value):
     }
 
     response = requests.post(self.aria2cLocation + '/jsonrpc', headers={'Content-Type': 'application/json'}, data=json.dumps(json_request))
+
+def set_lt_seeding(self, *args):
+    settings = self.ltsession.get_settings()
+
+    if self.appconf["torrent_seeding_enabled"] == '0':
+        settings["unchoke_slots_limit"] = 0
+        settings["num_optimistic_unchoke_slots"] = 0
+        settings["share_ratio_limit"] = 0.0
+        settings["upload_rate_limit"] = 1  # Upload speed set to 1 bytes per second as an extra safety measure
+
+    else:
+        settings["unchoke_slots_limit"] = -1
+        settings["num_optimistic_unchoke_slots"] = 1
+        settings["share_ratio_limit"] = -1
+        settings["upload_rate_limit"] = -1
+
+        if self.appconf["torrent_seeding_ratio"][0] == True:
+            settings["share_ratio_limit"] = self.appconf["torrent_seeding_ratio"][1]
+
+    self.ltsession.apply_settings(settings)
+
+    if hasattr(self, "downloads"):
+        for download in self.downloads:
+            if download.mode == "torrent" and download.is_complete and download.cancelled == False:
+                download.set_complete()

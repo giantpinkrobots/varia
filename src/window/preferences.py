@@ -830,11 +830,6 @@ def on_switch_torrent_seeding(switch, state, self, preferencesWindow):
     state = switch.get_active()
     if state:
         self.appconf["torrent_seeding_enabled"] = "1"
-        set_aria2c_custom_global_option(self, "seed-time", "0")
-        set_aria2c_custom_global_option(self, "bt-seed-unverified", "true")
-        set_aria2c_custom_global_option(self, "bt-enable-lpd", "true")
-        set_aria2c_custom_global_option(self, "enable-dht", "true")
-        set_aria2c_custom_global_option(self, "enable-dht6", "true")
 
     else:
         def dialog_response_handle(dialog, response_id, self, dialog_checkbutton, switch):
@@ -849,11 +844,6 @@ def on_switch_torrent_seeding(switch, state, self, preferencesWindow):
 
         def disable_torrent_seeding(self):
             self.appconf["torrent_seeding_enabled"] = "0"
-            set_aria2c_custom_global_option(self, "seed-time", "")
-            set_aria2c_custom_global_option(self, "bt-seed-unverified", "false")
-            set_aria2c_custom_global_option(self, "bt-enable-lpd", "false")
-            set_aria2c_custom_global_option(self, "enable-dht", "false")
-            set_aria2c_custom_global_option(self, "enable-dht6", "false")
             self.save_appconf()
 
         if self.appconf["torrent_seeding_disable_warning_dont_show"] == "1":
@@ -873,13 +863,14 @@ def on_switch_torrent_seeding(switch, state, self, preferencesWindow):
             dialog.set_response_appearance("disable", Adw.ResponseAppearance.DESTRUCTIVE)
             dialog.connect("response", dialog_response_handle, self, dialog_checkbutton, switch)
             dialog.present(preferencesWindow)
+    
+    self.set_lt_seeding()
 
 def on_torrent_seeding_ratio_limit_change(spinrow, self):
     self.appconf["torrent_seeding_ratio"][1] = str(floor(spinrow.get_value() * 10) / 10)
     self.save_appconf()
 
-    if self.appconf["torrent_seeding_ratio"][0] == True:
-        set_aria2c_custom_global_option(self, "seed-ratio", self.appconf["torrent_seeding_ratio"][1])
+    self.set_lt_seeding()
 
 def error_varia_dialog(preferencesWindow):
     dialog = Adw.AlertDialog()

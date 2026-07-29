@@ -6,6 +6,7 @@ from stringstorage import gettext as _
 from pathlib import Path
 import os
 import shutil
+import libtorrent as lt
 
 class FileNode(GObject.Object):
     name = GObject.Property(type=str)
@@ -22,7 +23,9 @@ class FileNode(GObject.Object):
         self.children = Gio.ListStore.new(FileNode) if is_dir else None # Only directories will have children
 
 def torrent_select_files_dialog(self):
-    files = self.download.files
+    torrent_info = self.torrent_instance.torrent_file()
+    files = torrent_info.files()
+    storage = self.torrent_instance.torrent_file().files()
     downloaddir_path = Path(self.downloaddir)
     root_store = Gio.ListStore.new(FileNode)
 
@@ -39,14 +42,15 @@ def torrent_select_files_dialog(self):
 
     updating = False # To prevent recursive updates when toggling checkboxes
 
-    for file_index, file in enumerate(files):
-        parts = Path(file.path).relative_to(downloaddir_path).parts
+    for file_index in range(storage.num_files()):
+        parts = Path(storage.file_path(file_index)).parts
+
         current_store = root_store
         current_parent = None
         current_path = Path()
 
         for i, part in enumerate(parts):
-            current_path = current_path / part
+            current_path /= part
             key = str(current_path)
 
             is_last = i == len(parts) - 1
@@ -59,6 +63,7 @@ def torrent_select_files_dialog(self):
                     parent=current_parent,
                     file_index=file_index if is_last else -1
                 )
+
                 nodes[key] = node
                 current_store.append(node)
 
@@ -241,38 +246,30 @@ def torrent_select_files_dialog(self):
 
     def on_dialog_closed(dialog):
         if selected_files:
-            file_indices = [str(idx + 1) for idx in selected_files] # aria2 file indices start with 1
-            select_file_option = ",".join(file_indices)
+            info = self.torrent_instance.torrent_file()
+            storage = info.files()
 
-            if self.download:
-                self.api.client.call("aria2.changeOption", [self.download.gid, {"select-file": select_file_option}])
+            priorities = []
 
-                while True:
-                    try:
-                        self.download.resume()
-                        break
+            for file_index in range(storage.num_files()):
+                if file_index in selected_files:
+                    priorities.append(4) # Priority is normal
+                else:
+                    priorities.append(0) # Exclude
 
-                    except:
-                        pass
+            self.torrent_instance.prioritize_files(priorities)
+            self.torrent_instance.resume()
 
-                self.torrent_file_select_completed = True
+            self.torrent_file_select_completed = True
 
-                # Remove the unselected files
-                for download_file in self.download.files:
-                    if (str(download_file.index) not in file_indices) and (download_file.path.exists()):
-                        os.remove(download_file.path)
+        else:  # Cancelled
+            if self.torrent_instance:
+                self.app.ltsession.remove_torrent(
+                    self.torrent_instance,
+                    lt.options_t.delete_files
+                )
 
-        else: # Cancelled
-            if self.download:
-                if self.download.files:
-                    # Get the root directory from the first file's path
-                    first_file_relative_parts = self.download.files[0].path.relative_to(self.downloaddir).parts
-                    if first_file_relative_parts:
-                        torrent_directory = os.path.join(self.downloaddir, first_file_relative_parts[0])
-                        if os.path.isdir(torrent_directory) and os.path.exists(torrent_directory):
-                            shutil.rmtree(torrent_directory)
-
-                self.stop()
+            self.stop()
 
         self.selection_event.set()
 

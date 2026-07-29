@@ -10,6 +10,7 @@ gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, GLib, Gio, GObject, Pango
 from stringstorage import gettext as _
 from urllib.parse import unquote
+import libtorrent as lt
 
 def show_download_details_dialog(button, self, download_item):
     self.download_details_dialog_shown = True
@@ -81,7 +82,7 @@ def show_download_details_dialog(button, self, download_item):
 
     scrolled_window = None
 
-    if download_item and download_item.download_thread and download_item.download_thread.mode == "regular" and download_item.download_thread.download.is_torrent:
+    if download_item and download_item.download_thread and download_item.download_thread.mode == "torrent":
         actionrow_download_seeding_speed = Adw.ActionRow(title=_("Seeding Speed"))
         label_seeding_speed = Gtk.Label()
         actionrow_download_seeding_speed.add_suffix(label_seeding_speed)
@@ -118,7 +119,7 @@ def show_download_details_dialog(button, self, download_item):
         actionrow_download_ratio.add_prefix(actionrow_download_ratio_icon)
         group_2_2.add(actionrow_download_ratio)
 
-        if download_item.download_thread.download.is_torrent:
+        if download_item.download_thread.mode == "torrent":
             group_3 = Adw.PreferencesGroup(title=_("Torrent Peers"))
             prefs_page.add(group_3)
 
@@ -191,6 +192,11 @@ def show_download_details_dialog(button, self, download_item):
                     label_remaining.set_text(details.get('remaining', ''))
                     label_download_speed.set_text(details.get('download_speed', ''))
 
+                    if download_item.download_thread.is_complete:
+                        actionrow_download_percentage.hide()
+                    else:
+                        actionrow_download_percentage.show()
+
                     if self.details_dialog_message_actionrow_added == False and download_item and download_item.download_thread.download_message_shown and download_item.download_thread.download_details.get('message', '') != '':
                         label_download_message.set_text(download_item.download_thread.download_details.get('message', ''))
                         prefs_page.insert(group_message, 0)
@@ -200,7 +206,7 @@ def show_download_details_dialog(button, self, download_item):
                         prefs_page.remove(group_message)
                         self.details_dialog_message_actionrow_added = False
 
-                    if download_item and download_item.download_thread.mode == "regular" and download_item.download_thread.download.is_torrent:
+                    if download_item and download_item.download_thread.mode == "torrent":
                         label_seeding_speed.set_text(details.get('torrent_seeding_speed', ''))
                         actionrow_download_download_amount.set_subtitle(str(details.get('completed_length', 0)))
                         actionrow_download_upload_amount.set_subtitle(str(details.get('upload_length', 0)))
@@ -221,32 +227,20 @@ def show_download_details_dialog(button, self, download_item):
                         previous_peer_amount = peer_store.get_n_items()
 
                         for peer_data in details.get("torrent_peers", []):
-                            peer_id = unquote(peer_data.get("peerId", ""))
-                            if peer_id.startswith("-AR"):
-                                peer_id = f"Aria2 ({peer_id[3:]})"
-                            elif peer_id.startswith("-TR"):
-                                peer_id = f"Transmission ({peer_id[3:]})"
-                            elif peer_id.startswith("-qB"):
-                                peer_id = f"qBittorrent ({peer_id[3:]})"
-                            elif peer_id.startswith("-DE"):
-                                peer_id = f"Deluge ({peer_id[3:]})"
-                            elif peer_id.startswith("-UT"):
-                                peer_id = f"µTorrent ({peer_id[3:]})"
-                            elif peer_id.startswith("-AZ"):
-                                peer_id = f"Azureus/Vuze ({peer_id[3:]})"
-                            elif peer_id.startswith("-LT"):
-                                peer_id = f"libtorrent ({peer_id[3:]})"
-                            
-                            ip = peer_data.get("ip", "")
-                            if ip != "" and ip not in list(self.ip_geolocation_cache.keys()):
+                            peer_id = getattr(peer_data, "client", "")
+                            peer_id = str(peer_id).replace("b'", "")
+
+                            ip = str(peer_data.ip[0])  # IP address without the port
+
+                            if ip and ip not in self.ip_geolocation_cache:
                                 self.ip_geolocation_cache[ip] = ""
 
                             peer = Peer(
-                                peerId = peer_id,
-                                ip = f"{self.ip_geolocation_cache[ip]} {peer_data.get("ip", "")}",
-                                downloadSpeed = peer_data.get("downloadSpeed", ""),
-                                uploadSpeed = peer_data.get("uploadSpeed", ""),
-                                seeder = str(peer_data.get("seeder", "")),
+                                peerId=peer_id,
+                                ip=f"{self.ip_geolocation_cache[ip]} {ip}",
+                                downloadSpeed=peer_data.down_speed,
+                                uploadSpeed=peer_data.up_speed,
+                                seeder=str(bool(peer_data.flags & lt.peer_info.seed)),
                             )
 
                             updated_peers.append(peer)
