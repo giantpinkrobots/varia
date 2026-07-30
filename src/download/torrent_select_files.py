@@ -230,8 +230,6 @@ def torrent_select_files_dialog(self):
     selected_files = []
 
     def on_ok_clicked(button):
-        nonlocal selected_files
-        selected_files = get_selected_files(root_store)
         dialog.set_can_close(True)
         dialog.close()
 
@@ -239,12 +237,10 @@ def torrent_select_files_dialog(self):
         dialog.set_can_close(True)
         dialog.close()
 
-    ok_button.connect("clicked", on_ok_clicked)
-    cancel_button.connect("clicked", on_cancel_clicked)
-
-    GLib.idle_add(dialog.present, self.app)
-
     def on_dialog_closed(dialog):
+        nonlocal selected_files
+        selected_files = get_selected_files(root_store)
+
         if selected_files:
             info = self.torrent_instance.torrent_file()
             storage = info.files()
@@ -274,3 +270,12 @@ def torrent_select_files_dialog(self):
         self.selection_event.set()
 
     dialog.connect("closed", on_dialog_closed)
+
+    ok_button.connect("clicked", on_ok_clicked)
+    cancel_button.connect("clicked", on_cancel_clicked)
+
+    if self.app.appconf['torrent_always_download_all'] == '0':
+        GLib.idle_add(dialog.present, self.app)
+
+    else:
+        on_dialog_closed(None)

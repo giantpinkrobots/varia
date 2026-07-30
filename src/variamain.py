@@ -19,7 +19,7 @@ from download.actionrow import on_download_clicked
 from download.listen import deal_with_simultaneous_download_limit, listen_to_aria2
 from download.actionrow import create_actionrow
 from download.thread import DownloadThread
-from download.communicate import set_speed_limit, set_aria2c_download_directory, set_aria2c_custom_global_option, set_aria2c_cookies, set_lt_seeding
+from download.communicate import set_speed_limit, set_aria2c_download_directory, set_aria2c_custom_global_option, set_aria2c_cookies, set_lt_seeding, set_lt_encryption
 from download.scheduler import schedule_downloads
 from download.manage_downloads import pause_all, stop_all, check_all_status, total_download_speed_get
 from download.aria2_instance import Aria2Instance
@@ -57,7 +57,6 @@ class MainWindowBase:
     set_aria2c_download_directory = set_aria2c_download_directory
     set_aria2c_custom_global_option = set_aria2c_custom_global_option
     set_aria2c_cookies = set_aria2c_cookies
-    set_lt_seeding = set_lt_seeding
     listen_to_aria2 = listen_to_aria2
     schedule_downloads = schedule_downloads
     pause_all = pause_all
@@ -68,6 +67,8 @@ class MainWindowBase:
     start_tray_process = start_tray_process
 
     initiate = initiate
+    set_lt_seeding = set_lt_seeding
+    set_lt_encryption = set_lt_encryption
 
     global tray_process_global
 
@@ -104,6 +105,7 @@ class MainWindowBase:
         })
 
         set_lt_seeding(self) # We set this again after adding the downloads
+        set_lt_encryption(self)
 
         # For 7-zip integration:
         self.supported_archive_formats = ["7z", "xz", "bzip2", "gzip", "tar", "zip", "wim", "apfs", "ar", "arj", "cab", "chm", "cpio", "cramfs", "dmg", "ext", "fat", "gpt", "hfs", "ihex", "iso", "lzh", "lzma", "mbr", "msi", "nsis", "ntfs", "qcow2", "rar", "rpm", "squashfs", "udf", "uefi", "vdi", "vhd", "vhdx", "vmdk", "xar", "z"]
@@ -300,7 +302,10 @@ class MainWindowBase:
                 for download_thread in self.downloads:
                     if (download_thread.download):
                         if download_thread.mode == "regular":
-                            if (((download_thread.download.status == "waiting") or (download_thread.download.status == "active")) and (download_thread.download.seeder != True)):
+                            if (((download_thread.download.status == "waiting") or (download_thread.download.status == "active"))):
+                                download_thread.actionrow.set_visible(download_thread.actionrow.is_visible)
+                        elif download_thread.mode == "torrent":
+                            if download_thread.is_complete == False and download_thread.torrent_instance.status().is_seeding == False:
                                 download_thread.actionrow.set_visible(download_thread.actionrow.is_visible)
                         elif download_thread.mode == "video":
                             if download_thread.video_status == "downloading" or download_thread.video_status == "idle":
@@ -323,7 +328,7 @@ class MainWindowBase:
                 self.applied_filter = "show_seeding"
                 for download_thread in self.downloads:
                     if (download_thread.download):
-                        if (download_thread.mode == "regular") and (download_thread.download.seeder == True):
+                        if (download_thread.mode == "torrent") and (download_thread.torrent_instance.status().is_seeding):
                             download_thread.actionrow.set_visible(download_thread.actionrow.is_visible)
                 self.filter_button_show_seeding.set_active(True)
 
@@ -737,6 +742,7 @@ def main(version, aria2cexec, ffmpegexec, sevenzexec, jsruntimeexec, issnap, pkg
         'torrent_download_directory_custom_enabled': '0',
         'torrent_download_directory': download_directory,
         'torrent_enabled': '1',
+        'torrent_always_download_all': '0',
         'torrent_require_encryption': 'false',
         'torrent_peers_ip_lookup': '1',
         'autostart_on_boot_enabled': 'false',

@@ -2,8 +2,8 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="variaIcon.png" />
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" type="image/png" href="./variaIcon.png" />
     <title>Varia - Quick and efficient download manager</title>
 </head>
 
@@ -41,20 +41,19 @@
     <center>
 
         <div class='parent'>
-            <div name='logo' style="display: inline-block"><img src="variaIcon.png" alt="Varia icon" width="250"
+            <div name='logo' style="display: inline-block"><img src="./variaIcon.png" alt="Varia icon" width="250"
                     height="250"></div>
-            <h1 style="display: inline-block">Varia</h1>
         </div>
 
-        <h2>Quick and efficient download manager</h2>
-        <h3>for regular downloads, videos and torrents</h3>
+        <h1>Varia</h1>
+        <h2>The complete download suite</h2>
 
-        <br>
+        <br><br>
 
         <div class='parent'>
             <button style="display: inline-block; width: 50%" class="pill-button pill-button-blue"
                 onclick="toggleLinuxInstructions()">
-                <span class="button-label"><img src="tuxIcon.png" class="button-icon">&nbsp;&nbsp;&nbsp;&nbsp;Download
+                <span class="button-label"><img src="./tuxIcon.png" class="button-icon">&nbsp;&nbsp;&nbsp;&nbsp;Download
                     for Linux</span>
             </button>
 
@@ -62,7 +61,7 @@
 
             <button style="display: inline-block; width: 50%" class="pill-button pill-button-blue"
                 onclick="toggleWindowsInstructions()">
-                <span class="button-label"><img src="windowsIcon.png"
+                <span class="button-label"><img src="./windowsIcon.png"
                         class="button-icon">&nbsp;&nbsp;&nbsp;&nbsp;Download for Windows</span>
             </button>
 
@@ -70,7 +69,7 @@
 
             <button style="display: inline-block; width: 50%" class="pill-button pill-button-blue"
                 onclick="toggleMacInstructions()">
-                <span class="button-label"><img src="macIcon.png" class="button-icon">&nbsp;&nbsp;&nbsp;&nbsp;Download
+                <span class="button-label"><img src="./macIcon.png" class="button-icon">&nbsp;&nbsp;&nbsp;&nbsp;Download
                     for Mac</span>
             </button>
         </div>
@@ -79,13 +78,13 @@
 
         <div id='linux-instructions' class='linux-instructions hidden' display='hidden'>
             <div style="display: inline-block"><a href="https://flathub.org/apps/io.github.giantpinkrobots.varia"
-                    class="pill-button pill-button-ltblue pill-button-download"><img src="flathubIcon.png"
+                    class="pill-button pill-button-ltblue pill-button-download"><img src="./flathubIcon.png"
                         class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;Flathub</a></div>
 
             <br>
 
             <div style="display: inline-block"><a href="https://snapcraft.io/varia"
-                    class="pill-button pill-button-ltblue pill-button-download"><img src="snapIcon.png"
+                    class="pill-button pill-button-ltblue pill-button-download"><img src="./snapIcon.png"
                         class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;Snap Store</a>
             </div>
 
@@ -93,21 +92,21 @@
 
             <div style="display: inline-block"><a
                     href="https://github.com/giantpinkrobots/varia/releases/download/v2026.3.27/io.github.giantpinkrobots.varia.flatpak"
-                    class="pill-button pill-button-ltblue pill-button-download"><img src="flatpakIcon.png"
+                    class="pill-button pill-button-ltblue pill-button-download"><img src="./flatpakIcon.png"
                         class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;Flatpak file</a>
             </div>
 
             <br>
 
             <div style="display: inline-block"><a href="https://github.com/pkgforge-dev/Varia-AppImage/releases/latest"
-                    class="pill-button pill-button-ltblue pill-button-download"><img src="gearIcon.png"
+                    class="pill-button pill-button-ltblue pill-button-download"><img src="./gearIcon.png"
                         class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;AppImage
                     (unofficial)</a></div>
 
             <br>
 
             <div style="display: inline-block"><a href="https://aur.archlinux.org/packages/varia"
-                    class="pill-button pill-button-ltblue pill-button-download"><img src="archLinuxIcon.png"
+                    class="pill-button pill-button-ltblue pill-button-download"><img src="./archLinuxIcon.png"
                         class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;AUR
                     (unofficial)</a></div>
 
@@ -128,14 +127,14 @@
         <div id='windows-instructions' class='linux-instructions hidden' display='hidden'>
             <div style="display: inline-block"><a
                     href="https://github.com/giantpinkrobots/varia/releases/download/v2026.3.27-1/varia-windows-setup-amd64.exe"
-                    class="pill-button pill-button-ltblue pill-button-download"><img src="packageIcon.png"
+                    class="pill-button pill-button-ltblue pill-button-download"><img src="./packageIcon.png"
                         class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;Installer</a></div>
 
             <br>
 
             <div style="display: inline-block"><a
                     href="https://github.com/giantpinkrobots/varia/releases/download/v2026.3.27-1/varia-windows-portable-amd64.zip"
-                    class="pill-button pill-button-ltblue pill-button-download"><img src="packageIcon.png"
+                    class="pill-button pill-button-ltblue pill-button-download"><img src="./packageIcon.png"
                         class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;Portable</a></div>
 
             <br>
@@ -154,7 +153,7 @@
         <div id='mac-instructions' class='linux-instructions hidden' display='hidden'>
             <div style="display: inline-block"><a
                     href="https://github.com/giantpinkrobots/varia/releases/download/v2026.3.27/varia-mac-arm.dmg"
-                    class="pill-button pill-button-ltblue pill-button-download"><img src="packageIcon.png"
+                    class="pill-button pill-button-ltblue pill-button-download"><img src="./packageIcon.png"
                         class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;DMG for Apple
                     Silicon (M-series)</a></div>
 
@@ -162,7 +161,7 @@
 
             <div style="display: inline-block"><a
                     href="https://github.com/giantpinkrobots/varia/releases/download/v2026.3.27/varia-mac-intel.dmg"
-                    class="pill-button pill-button-ltblue pill-button-download"><img src="packageIcon.png"
+                    class="pill-button pill-button-ltblue pill-button-download"><img src="./packageIcon.png"
                         class="button-icon" style="filter: brightness(10%);">&nbsp;&nbsp;&nbsp;&nbsp;DMG for Intel</a>
             </div>
 
@@ -184,26 +183,46 @@
                 alt="Varia screenshot">
         </picture>
 
-        <h2>Download quickly.</h2>
+        <br><br><br>
+
+        <h2>Varia is better than your browser at downloading stuff</h2>
+        <p>Supporting files, videos, audio and torrents, Varia is the all encompassing download manager.</p>
+
+        <br>
+
+        <img style="max-width: 25%; height: auto;"
+            src="https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-2.png">
+        <img style="max-width: 25%; height: auto;"
+            src="https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-3.png">
+        <img style="max-width: 25%; height: auto;"
+            src="https://raw.githubusercontent.com/giantpinkrobots/varia/main/screenshots/Screenshot-Varia-5.png">
+
+        <br><br><br>
+
+        <hr class="solid">
+
+        <br><br>
+
+        <h2>Download quickly</h2>
         <p>Download files and torrents quickly - potentially faster than your browser, continue incomplete downloads
             even after reboots.</p>
 
         <br>
 
-        <h2>Get web video and audio.</h2>
+        <h2>Get web video and audio</h2>
         <p>Download video and audio (as well as whole playlists) from thousands of websites like YouTube, TikTok and
             Twitter in any supported quality
             setting.</p>
 
         <br>
 
-        <h2>Connect it to your browser.</h2>
+        <h2>Connect it to your browser</h2>
         <p>Varia integrates seamlessly with Firefox and Chrome/ium through an extension. It can route all downloads to
             itself.</p>
 
         <br>
 
-        <h2>Powerful underneath.</h2>
+        <h2>Powerful underneath</h2>
         <p>Schedule downloads with a powerful scheduler allowing for custom timespans for each day of the week. Use
             basic authentication and import cookies from a file, or dynamically transfer your browser cookies upon each
             download through the extension. Adjust other settings like the download speed, the
@@ -219,7 +238,7 @@
         <br>
 
         <div style="display: inline-block;"><a href="https://github.com/giantpinkrobots/varia"
-                class="pill-button pill-button-gray"><img src="githubIcon.png"
+                class="pill-button pill-button-gray"><img src="./githubIcon.png"
                     class="button-icon">&nbsp;&nbsp;&nbsp;&nbsp;Source on GitHub</a></div>
 
         <br>

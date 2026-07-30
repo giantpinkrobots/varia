@@ -167,13 +167,15 @@ p {
 
     .footer-icon {
         filter: brightness(100%);
-    }    
+    }
 
     h1 {
         color: #62a0ea;
     }
 
-    h2, h4, p {
+    h2,
+    h4,
+    p {
         color: #f6f5f4;
     }
 
