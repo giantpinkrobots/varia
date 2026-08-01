@@ -745,6 +745,7 @@ def main(version, aria2cexec, ffmpegexec, sevenzexec, jsruntimeexec, issnap, pkg
         'torrent_always_download_all': '0',
         'torrent_require_encryption': 'false',
         'torrent_peers_ip_lookup': '1',
+        'torrent_download_all_without_asking': '0',
         'autostart_on_boot_enabled': 'false',
         'extract_archives': '0',
         'extract_archives_delete_archives': '0',

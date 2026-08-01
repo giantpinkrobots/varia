@@ -62,27 +62,33 @@ def check_all_status(self):
 
 def total_download_speed_get(self, downloads, total_download_speed_label):
     while (self.terminating == False):
-        total_download_speed = 0
-        total_completed_download_amount = 0
+        if self.scheduler_currently_downloading:
+            total_download_speed = 0
+            total_completed_download_amount = 0
 
-        for download_thread in downloads:
-            total_download_speed += download_thread.speed
+            for download_thread in downloads:
+                total_download_speed += download_thread.speed
 
-            if download_thread.is_complete:
-                total_completed_download_amount += 1
+                if download_thread.is_complete:
+                    total_completed_download_amount += 1
 
-        if (total_download_speed == 0):
-            download_speed_text = "0" + _(" B/s")
-        elif (total_download_speed < 1024):
-            download_speed_text = str(total_download_speed) + _(" B/s")
-        elif ((total_download_speed >= 1024) and (total_download_speed < 1048576)):
-            download_speed_text = str(round(total_download_speed / 1024, 2)) + _(" KB/s")
+            if (total_download_speed == 0):
+                download_speed_text = "0" + _(" B/s")
+            elif (total_download_speed < 1024):
+                download_speed_text = str(total_download_speed) + _(" B/s")
+            elif ((total_download_speed >= 1024) and (total_download_speed < 1048576)):
+                download_speed_text = str(round(total_download_speed / 1024, 2)) + _(" KB/s")
+            else:
+                download_speed_text = str(round(total_download_speed / 1024 / 1024, 2)) + _(" MB/s")
+
+            if len(downloads) > 0:
+                download_speed_text = f"{download_speed_text}  ·  {total_completed_download_amount}/{len(downloads)}"
+
+            GLib.idle_add(total_download_speed_label.remove_css_class, "accent")
+            GLib.idle_add(total_download_speed_label.set_text, download_speed_text)
+
         else:
-            download_speed_text = str(round(total_download_speed / 1024 / 1024, 2)) + _(" MB/s")
-
-        if len(downloads) > 0:
-            download_speed_text = f"{download_speed_text}  ·  {total_completed_download_amount}/{len(downloads)}"
-
-        GLib.idle_add(total_download_speed_label.set_text, download_speed_text)
+            GLib.idle_add(total_download_speed_label.add_css_class, "accent")
+            GLib.idle_add(total_download_speed_label.set_text, _("Scheduled"))
 
         time.sleep(0.5)
