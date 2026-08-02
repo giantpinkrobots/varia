@@ -197,6 +197,10 @@ class MainWindowBase:
         thread = threading.Thread(target=lambda: schedule_downloads(self, True), daemon=True)
         thread.start()
 
+        # Begin thread to show total download speed:
+        self.total_download_speed_calculator_thread = threading.Thread(target=self.total_download_speed_get, args=(self.downloads, self.total_download_speed_label), daemon=True)
+        self.total_download_speed_calculator_thread.start()
+
         # Add icon directories:
         icon_theme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default())
 

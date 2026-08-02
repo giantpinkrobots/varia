@@ -48,7 +48,13 @@ chrome.downloads.onCreated.addListener(function (downloadItem) {
           console.log('Download Size:', item.totalBytes);
 
           // Defaults to sending to Varia if totalBytes cannot be determined
-          if (data.enabled && (item.totalBytes >= minSize || retries >= maxRetries)) {
+          if (
+            data.enabled && (
+              item.totalBytes >= minSize ||
+              retries >= maxRetries ||
+              item.filename.toLowerCase().endsWith(".torrent")
+            )
+          ) {
             sendToAria2(item, "file");
           }
         });

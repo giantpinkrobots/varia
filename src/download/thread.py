@@ -309,7 +309,7 @@ class DownloadThread(threading.Thread):
             if self.retry == False:
                 self.save_state()
 
-            while (self.cancelled == False or self.app.terminating == False):
+            while (self.cancelled == False and self.app.terminating == False):
                 self.update_labels_and_things(None)
 
                 time.sleep(0.5)

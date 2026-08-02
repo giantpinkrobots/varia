@@ -120,16 +120,16 @@ def set_lt_seeding(self, *args):
 def set_lt_encryption(self, *args):
     if self.appconf["torrent_require_encryption"] == 'true':
         self.ltsession.apply_settings({
-            "in_enc_policy": lt.enc_policy.forced,
-            "out_enc_policy": lt.enc_policy.forced,
-            "allowed_enc_level": lt.enc_level.rc4,
+            "in_enc_policy": lt.enc_policy.pe_forced,
+            "out_enc_policy": lt.enc_policy.pe_forced,
+            "allowed_enc_level": lt.enc_level.pe_rc4,
             "prefer_rc4": True
         })
 
     else:
         self.ltsession.apply_settings({
-            "in_enc_policy": lt.enc_policy.enabled,
-            "out_enc_policy": lt.enc_policy.enabled,
-            "allowed_enc_level": lt.enc_level.both,
+            "in_enc_policy": lt.enc_policy.pe_enabled,
+            "out_enc_policy": lt.enc_policy.pe_enabled,
+            "allowed_enc_level": lt.enc_level.pe_both,
             "prefer_rc4": False
         })

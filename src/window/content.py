@@ -109,9 +109,6 @@ def window_create_content(self):
     self.content_root_overlay.add_overlay(self.status_page_widget)
     self.download_list_box.append(scrolled_window)
 
-    self.total_download_speed_calculator_thread = threading.Thread(target=self.total_download_speed_get, args=(self.downloads, self.total_download_speed_label), daemon=True)
-    self.total_download_speed_calculator_thread.start()
-
 def toggle_sidebar_overlay(button, self):
     if self.overlay_split_view.get_show_sidebar() == False:
         self.overlay_split_view.set_collapsed(True)

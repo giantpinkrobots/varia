@@ -20,7 +20,7 @@ def show_about(app, variaapp, self, variaVersion):
     dialog.set_website("https://giantpinkrobots.github.io/varia")
     dialog.set_issue_url("https://github.com/giantpinkrobots/varia/issues")
     dialog.set_copyright("2023 Giant Pink Robots!\n\n" + _("This application relies on the following pieces of software:") +
-        "\n\n- aria2\n- yt-dlp\n- FFmpeg\n- Deno\n- 7zip\n- GTK4\n- Libadwaita\n- Meson\n- OpenSSL\n- Libayatana-AppIndicator\n- Python-appdirs\n- Python-aria2p\n- Python-certifi\n- Python-charset-normalizer\n- Python-gettext\n- Python-idna\n- Python-loguru\n- Python-requests\n- Python-setuptools\n- Python-urllib3\n- Python-websocket-client\n- Python-pystray\n- Python-emoji-country-flag\n- Python-winsdk-toast\n- PyInstaller\n\n" +
+        "\n\n- aria2\n- yt-dlp\n- libtorrent\n- FFmpeg\n- Deno\n- 7zip\n- GTK4\n- Libadwaita\n- Meson\n- OpenSSL\n- Libayatana-AppIndicator\n- Python-appdirs\n- Python-aria2p\n- Python-certifi\n- Python-charset-normalizer\n- Python-gettext\n- Python-idna\n- Python-loguru\n- Python-requests\n- Python-setuptools\n- Python-urllib3\n- Python-websocket-client\n- Python-pystray\n- Python-emoji-country-flag\n- Python-winsdk-toast\n- PyInstaller\n\n" +
         _("The licenses of all of these pieces of software can be found in the dependencies_information directory in this application's app directory."))
     dialog.set_developers(["Giant Pink Robots! (@giantpinkrobots) https://github.com/giantpinkrobots"])
     dialog.set_application_icon("io.github.giantpinkrobots.varia")
@@ -29,12 +29,10 @@ def show_about(app, variaapp, self, variaVersion):
     dialog.set_release_notes_version(variaVersion)
     dialog.add_link(_("Support Varia"), "https://github.com/sponsors/giantpinkrobots/")
     dialog.set_release_notes('''
-        <p>v2026.3.27-1</p>
-        <ul><li>Windows only: Fix FFmpeg dependencies on Windows</li></ul>
-        <p>v2026.3.27</p>
-        <ul><li>Ability to download playlists through the same Video/Audio functionality</li>
-        <li>Ability to select individual files and folders to download through torrenting</li>
-        <li>Option to dynamically send browser cookies through the browser extension upon each download (separate from cookies.txt file import support)</li></ul>''')
+        <ul>
+        <li>New torrent backend (libtorrent), leading to a way better torrenting experience</li>
+        <li>Video downloader backend overhauls for better performance and less issues</li>
+        </ul>''')
     
     if (os.uname().sysname == 'Linux'):
         dialog.add_other_app("io.github.giantpinkrobots.flatsweep",
