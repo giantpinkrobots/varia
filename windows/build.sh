@@ -86,7 +86,7 @@ cd libtorrent
 git switch --detach 578e06824c3546f3371ab43967ab288a7e253eca
 mkdir build
 cd build
-cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Release -Dpython-bindings=ON -DBUILD_SHARED_LIBS=OFF -Dstatic_runtime=ON
+cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Release -Dpython-bindings=ON -DBUILD_SHARED_LIBS=OFF -Dstatic_runtime=ON -DPython3_EXECUTABLE="$(which python)"
 cmake --build .
 cmake --install . --prefix /ucrt64
 cd ../..
