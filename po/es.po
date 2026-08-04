@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2026-01-13 15:46+0000\n"
-"Last-Translator: Diego <difer.bobsled932@passinbox.com>\n"
+"PO-Revision-Date: 2026-04-02 04:09+0000\n"
+"Last-Translator: Gonzalo Cruz <prplmanta@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/varia/varia/es/"
 ">\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.2-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -216,7 +216,7 @@ msgid "Remote Download Location"
 msgstr "Ubicación de descarga remota"
 
 msgid "Exiting Varia..."
-msgstr "Salir de Varia..."
+msgstr "Saliendo de Varia..."
 
 msgid "Background Mode"
 msgstr "Modo en segundo plano"
@@ -722,6 +722,14 @@ msgstr "Descargar"
 msgid ""
 "If one of the videos in a playlist can't be downloaded, continue with the "
 "rest instead of cancelling."
+msgstr ""
+
+msgid "Download All Files Without Asking"
+msgstr ""
+
+msgid ""
+"If enabled, Varia will no longer give you the option to uncheck individual "
+"files and folders in a torrent download."
 msgstr ""
 
 #: src/gtk/help-overlay.ui:11

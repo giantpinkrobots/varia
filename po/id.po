@@ -702,6 +702,14 @@ msgstr ""
 "Jika salah satu video dalam playlist tidak dapat diunduh, lanjutkan dengan "
 "video lainnya alih-alih membatalkan."
 
+msgid "Download All Files Without Asking"
+msgstr ""
+
+msgid ""
+"If enabled, Varia will no longer give you the option to uncheck individual "
+"files and folders in a torrent download."
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"

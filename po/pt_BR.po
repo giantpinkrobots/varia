@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2026-01-22 14:01+0000\n"
+"PO-Revision-Date: 2026-05-24 05:11+0000\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "varia/varia/pt_BR/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 2026.6.dev0\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -617,10 +617,8 @@ msgstr "Ratio"
 msgid "Torrent Peers"
 msgstr "Peers do Torrent"
 
-#, fuzzy
-#| msgid "Download"
 msgid "Select Files to Download"
-msgstr "Download"
+msgstr "Selecionar arquivos para baixar"
 
 # Snap packaging permissions dialog part 1/2
 msgid ""
@@ -681,24 +679,30 @@ msgstr "Excluir arquivos após a extração"
 
 # For videos
 msgid "Maximum Quality"
-msgstr ""
+msgstr "Qualidade máxima"
 
 msgid "Maximum available quality"
-msgstr ""
+msgstr "Qualidade máxima disponível"
 
-#, fuzzy
-#| msgid "Download"
 msgid "Playlist Download"
-msgstr "Download"
+msgstr "Baixar lista de reprodução"
 
-#, fuzzy
-#| msgid "Download"
 msgid "Skip Playlist Download Errors"
-msgstr "Download"
+msgstr "Ignorar erros de download da lista de reprodução"
 
 msgid ""
 "If one of the videos in a playlist can't be downloaded, continue with the "
 "rest instead of cancelling."
+msgstr ""
+"Se um dos vídeos em uma lista de reprodução não puder ser baixado, continua "
+"com os demais em vez de cancelar."
+
+msgid "Download All Files Without Asking"
+msgstr ""
+
+msgid ""
+"If enabled, Varia will no longer give you the option to uncheck individual "
+"files and folders in a torrent download."
 msgstr ""
 
 #: src/gtk/help-overlay.ui:11

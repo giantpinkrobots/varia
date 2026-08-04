@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-09-30 16:01+0000\n"
+"PO-Revision-Date: 2026-07-05 20:01+0000\n"
 "Last-Translator: Сказка <mohamedhero932@yahoo.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/varia/varia/ar/>\n"
 "Language: ar\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 2026.7.1.dev0\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -230,18 +230,14 @@ msgstr "إضافة المتصفح"
 msgid "Shutdown on Completion"
 msgstr "إيقاف الحاسوب بعد الانتهاء من التنزيل"
 
-#, fuzzy
-#| msgid "Exit on Completion"
 msgid "Sleep on Completion"
-msgstr "الخروج عند انتهاء التحميل"
+msgstr "النوم عند الاكتمال"
 
 msgid "Varia is about to shut down your computer."
 msgstr "Varia على وشك إيقاف تشغيل هذا الجهاز."
 
-#, fuzzy
-#| msgid "Varia is about to shut down your computer."
 msgid "Varia is about to put your computer to sleep."
-msgstr "Varia على وشك إيقاف تشغيل هذا الجهاز."
+msgstr "فاريا على وشك ان يضع حاسوبك للنوم."
 
 msgid "Press Cancel to cancel and disable."
 msgstr "انقر على \"إلغاء\" للإيقاف والتعطيل."
@@ -348,7 +344,7 @@ msgstr "تورينت"
 
 # Download type: Regular
 msgid "Regular"
-msgstr ""
+msgstr "نوع التحميل: عادى"
 
 # Updater
 msgid "Checking for updates..."
@@ -585,13 +581,11 @@ msgstr "جارى التحميل"
 msgid "Paused"
 msgstr "موقف"
 
-#, fuzzy
-#| msgid "Scheduler"
 msgid "Scheduled"
-msgstr "خاصية الجدولة"
+msgstr "مُجَدْوَل"
 
 msgid "Extracting"
-msgstr ""
+msgstr "جاري الاستخراج"
 
 msgid "Percentage Downloaded"
 msgstr "النسبة المئوية المحملة"
@@ -617,90 +611,90 @@ msgstr "النسبة"
 msgid "Torrent Peers"
 msgstr "أقران التورينت"
 
-#, fuzzy
-#| msgid "Download"
 msgid "Select Files to Download"
-msgstr "تحميل"
+msgstr "اختر ملفات للتحميل"
 
 # Snap packaging permissions dialog part 1/2
 msgid ""
 "You are using Varia as a Snap package. There are some functions that you "
 "can't use without manually giving Varia some extra permissions. These are:"
 msgstr ""
+"أنت تستخدم فاريا كاحزمة Snap. هناك بعض الوظائف لا يمكنك استخدامها قبل أن "
+"تعطى فاريا المزيد من الصلاحيات. هذه الصلاحيات هى:"
 
 # Snap packaging permissions dialog part 2/2
 msgid ""
 "To enable these functions you must run these commands in a terminal to give "
 "the required permissions and then restart Varia:"
 msgstr ""
+"لكى تفعل هذه الوظائف يجب عليك ان تشغل هذه الأوامر فى ال terminal لكى تعطى "
+"الصلاحيات المطلوبة ثم قم بأعادة تشغيل فاريا:"
 
 # Tooltip for when focused on filter options in the sidebar. Do not translate {filter option}, it will be replaced by the filter type. ("All", "In Progress", etc)
 msgid "Filter downloads by {filter option}"
-msgstr ""
+msgstr "تصفية التحميلات عن طريق {filter option}"
 
-#, fuzzy
-#| msgid "Download"
 msgid "Download item"
-msgstr "تحميل"
+msgstr "تحميل الملف"
 
-#, fuzzy
-#| msgid "{number}%"
 msgid "Timespan {number}"
-msgstr "{number}%"
+msgstr "الفترة الزمنية {number}"
 
 # Tooltip for when focused on timespan day of the week dropdown
 msgid "Day of the week for timespan {number}"
-msgstr ""
+msgstr "يوم الاسبوع للفترة الزمنية {number}"
 
-#, fuzzy
-#| msgid "Remote Timestamp"
 msgid "Remove timespan {number}"
-msgstr "الطابع الزمني للجهاز البعيد"
+msgstr "أزالة الفترة الزمنية {number}"
 
 # Tooltip for when focused on timespan start hour
 msgid "Start hour for timespan {number}"
-msgstr ""
+msgstr "ساعة البداية للفترة الزمنية {number}"
 
 # Tooltip for when focused on timespan start minute
 msgid "Start minute for timespan {number}"
-msgstr ""
+msgstr "دقيقة البداية للفترة الزمنية {number}"
 
 # Tooltip for when focused on timespan end hour
 msgid "End hour for timespan {number}"
-msgstr ""
+msgstr "ساعة النهاية للفترة الزمنية {number}"
 
 # Tooltip for when focused on timespan end minute
 msgid "End minute for timespan {number}"
-msgstr ""
+msgstr "دقيقة النهاية للفترة الزمنية {number}"
 
-#, fuzzy
-#| msgid "Automatically Check for Updates"
 msgid "Automatically Extract Archives"
-msgstr "التحقق التلقائى عن التحديثات"
+msgstr "استخراج الأرشيفات تلقائيًا"
 
 msgid "Delete Archives After Extraction"
-msgstr ""
+msgstr "حذف الأرشيفات بعد الاستخراج"
 
 # For videos
 msgid "Maximum Quality"
-msgstr ""
+msgstr "اعلى جودة"
 
 msgid "Maximum available quality"
-msgstr ""
+msgstr "اعلى جودة متاحة"
 
-#, fuzzy
-#| msgid "Download"
 msgid "Playlist Download"
-msgstr "تحميل"
+msgstr "تحميل قائمة الشغيل"
 
-#, fuzzy
-#| msgid "Download"
 msgid "Skip Playlist Download Errors"
-msgstr "تحميل"
+msgstr "تجاوز أخطاء تحميل قائمة التشغيل"
 
 msgid ""
 "If one of the videos in a playlist can't be downloaded, continue with the "
 "rest instead of cancelling."
+msgstr ""
+"إذا تعذر تحميل أحد الفيديوهات في قائمة التشغيل، فسيستمر النظام في تحميل "
+"الباقي بدلاً من الإلغاء."
+
+msgid "Download All Files Without Asking"
+msgstr ""
+
+msgid ""
+"If enabled, Varia will no longer give you the option to uncheck individual "
+"files and folders in a torrent download."
 msgstr ""
 
 #: src/gtk/help-overlay.ui:11
