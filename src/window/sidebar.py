@@ -94,8 +94,8 @@ def window_create_sidebar(self, variaapp, variaVersion):
     hamburger_menu_item_about = Gio.MenuItem.new(_("About Varia"), "app.about")
     hamburger_menu_model.append_item(hamburger_menu_item_about)
 
-    hamburger_menu_item_donate = Gio.MenuItem.new(_("Support Varia"), "app.donate")
-    hamburger_menu_model.append_item(hamburger_menu_item_donate)
+    #hamburger_menu_item_donate = Gio.MenuItem.new(_("Support Varia"), "app.donate")
+    #hamburger_menu_model.append_item(hamburger_menu_item_donate)
 
     hamburger_menu_item_quit = Gio.MenuItem.new(_("Quit"), "app.quit_varia")
     hamburger_menu_model.append_item(hamburger_menu_item_quit)

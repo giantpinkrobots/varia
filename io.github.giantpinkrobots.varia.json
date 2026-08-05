@@ -13,7 +13,6 @@
         "--device=dri",
         "--socket=wayland",
         "--filesystem=xdg-download",
-        "--filesystem=xdg-config/gtk-4.0:ro",
         "--system-talk-name=org.freedesktop.login1",
         "--talk-name=org.kde.StatusNotifierWatcher"
     ],

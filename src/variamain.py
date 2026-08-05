@@ -436,6 +436,8 @@ class MainWindowBase:
             
             secret_switchrow_use_kde_css = Adw.SwitchRow()
             secret_switchrow_use_kde_css.set_title("Use KDE Plasma Theme Colors")
+            if "FLATPAK_ID" in os.environ:
+                secret_switchrow_use_kde_css.set_subtitle("Varia needs (read only) access to xdg-config/gtk-4.0 for this.")
             secret_switchrow_use_kde_css.connect("notify::active", self.on_secret_switch_use_kde_css)
             if self.appconf["use_kde_css"] == '1':
                 secret_switchrow_use_kde_css.set_active("active")

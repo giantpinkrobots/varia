@@ -7,3 +7,4 @@ _build
 /src/window/__pycache__
 /src/tray/__pycache__
 .DS_Store
+repo
