@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-11-03 23:02+0000\n"
-"Last-Translator: Giant Pink Robots! <giantpinkrobots@protonmail.com>\n"
+"PO-Revision-Date: 2026-04-28 11:20+0000\n"
+"Last-Translator: ovl-1 <ovl-002@mailinator.com>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/varia/"
 "varia/nb_NO/>\n"
 "Language: nb\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14.1-dev\n"
+"X-Generator: Weblate 5.17.1-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -32,7 +32,7 @@ msgstr "aria2;nedlasting;nedlastning;last ned;"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
 msgid "Download manager based on aria2"
-msgstr "Last ned store filer"
+msgstr "Nedlastingsprogram basert på aria2"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
 msgid ""
@@ -50,7 +50,7 @@ msgstr "Ugyldig adresse."
 
 #: src/variamain.py:125
 msgid "All"
-msgstr "Alt"
+msgstr "Alle"
 
 #: src/variamain.py:137
 msgid "In Progress"
@@ -82,7 +82,7 @@ msgstr "Hastighetsgrense"
 
 #: src/variamain.py:203 src/variamain.py:423
 msgid "Pause All"
-msgstr "Stans alt"
+msgstr "Sett alle på pause"
 
 #: src/variamain.py:212
 msgid "Speed"
@@ -94,7 +94,7 @@ msgstr "Velg hastighetsgrense"
 
 #: src/variamain.py:216
 msgid "Cancel All"
-msgstr "Avbryt alt"
+msgstr "Avbryt alle"
 
 #: src/variamain.py:235
 msgid "/s"
@@ -106,15 +106,15 @@ msgstr "Ingen grense"
 
 #: src/variamain.py:274
 msgid "Download complete."
-msgstr "Nedlasting fullført"
+msgstr "Nedlasting fullført."
 
 #: src/variamain.py:276
 msgid "Download speed is limited."
-msgstr "Nedlastingshastighet begrenset"
+msgstr "Nedlastingshastighet begrenset."
 
 #: src/variamain.py:277
 msgid "An error occurred:"
-msgstr "Noe gikk galt:"
+msgstr "En feil oppstod:"
 
 #: src/variamain.py:292
 msgid "MB/s"
@@ -146,7 +146,7 @@ msgstr "Antall parallelle nedlastinger"
 
 #: src/variamain.py:410
 msgid "Resume All"
-msgstr "Fortsett alt"
+msgstr "Fortsett alle"
 
 #: src/variamain.py:443
 msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
@@ -225,16 +225,16 @@ msgid "Background Mode"
 msgstr "Bakgrunnsmodus"
 
 msgid "Continuing the downloads in the background."
-msgstr "Fortsett nedlastinger når appen er lukket"
+msgstr "Fortsetter nedlastingene i bakgrunnen."
 
 msgid "Browser Extension"
 msgstr "Nettleserutvidelser"
 
 msgid "Shutdown on Completion"
-msgstr ""
+msgstr "Slå av ved fullføring"
 
 msgid "Sleep on Completion"
-msgstr ""
+msgstr "Dvalemodus ved fullføring"
 
 msgid "Varia is about to shut down your computer."
 msgstr ""
@@ -243,51 +243,49 @@ msgid "Varia is about to put your computer to sleep."
 msgstr ""
 
 msgid "Press Cancel to cancel and disable."
-msgstr ""
+msgstr "Trykk Avbryt for å avbryte og deaktivere."
 
-#, fuzzy
-#| msgid "Cancel All"
 msgid "Cancel"
-msgstr "Avbryt alt"
+msgstr "Avbryt"
 
 msgid "Warning"
-msgstr ""
+msgstr "Advarsel"
 
 msgid "Monday"
-msgstr ""
+msgstr "Mandag"
 
 msgid "Tuesday"
-msgstr ""
+msgstr "Tirsdag"
 
 msgid "Wednesday"
-msgstr ""
+msgstr "Onsdag"
 
 msgid "Thursday"
-msgstr ""
+msgstr "Torsdag"
 
 msgid "Friday"
-msgstr ""
+msgstr "Fredag"
 
 msgid "Saturday"
-msgstr ""
+msgstr "Lørdag"
 
 msgid "Sunday"
-msgstr ""
+msgstr "Søndag"
 
 msgid "Start (h/m):"
-msgstr ""
+msgstr "Start (t/m):"
 
 msgid "End (h/m):"
-msgstr ""
+msgstr "Slutt (t/m):"
 
 msgid "Scheduler enabled"
-msgstr ""
+msgstr "Planlegging aktivert"
 
 msgid "Scheduler"
-msgstr ""
+msgstr "Planlegging"
 
 msgid "Enabled"
-msgstr ""
+msgstr "Aktivert"
 
 msgid "Start downloading in these times"
 msgstr ""
@@ -303,13 +301,13 @@ msgid "Seeding"
 msgstr ""
 
 msgid "Failed"
-msgstr ""
+msgstr "Mislyktes"
 
 msgid "Completion Options"
-msgstr ""
+msgstr "Fullføringsalternativer"
 
 msgid "Exit on Completion"
-msgstr ""
+msgstr "Avslutt ved fullføring"
 
 msgid "Varia is about to quit."
 msgstr ""
@@ -321,30 +319,28 @@ msgid "Other"
 msgstr ""
 
 msgid "Basic Settings"
-msgstr ""
+msgstr "Grunninnstillinger"
 
 msgid "Advanced Settings"
-msgstr ""
+msgstr "Avanserte innstillinger"
 
 msgid "Use cookies.txt"
-msgstr ""
+msgstr "Bruk cookies.txt"
 
 msgid "Import cookies.txt"
 msgstr ""
 
 msgid "Remove cookies.txt"
-msgstr ""
+msgstr "Fjern cookies.txt"
 
 msgid "remaining"
 msgstr ""
 
-#, fuzzy
-#| msgid "Background Mode"
 msgid "Start in Background Mode"
-msgstr "Bakgrunnsmodus"
+msgstr "Start i bakgrunnsmodus"
 
 msgid "Remote Timestamp"
-msgstr ""
+msgstr "Fjern-tidsstempel"
 
 msgid "Torrent"
 msgstr ""
@@ -366,15 +362,11 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Downloading update..."
-msgstr "Nedlasting fullført"
+msgstr "Laster ned oppdatering..."
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Download failed."
-msgstr "Nedlasting fullført"
+msgstr "Nedlasting feilet."
 
 msgid "Yes"
 msgstr ""
@@ -389,22 +381,22 @@ msgid "Check Now"
 msgstr ""
 
 msgid "Do you want to check for updates on startup?"
-msgstr ""
+msgstr "Vil du se etter oppdateringer ved oppstart?"
 
 msgid "File"
-msgstr ""
+msgstr "Fil"
 
 msgid "Video / Audio"
 msgstr ""
 
 msgid "Video and audio"
-msgstr ""
+msgstr "Video og lyd"
 
 msgid "Video only"
-msgstr ""
+msgstr "Kun video"
 
 msgid "Audio only"
-msgstr ""
+msgstr "Kun lyd"
 
 #: Relating to video download:
 msgid "Framerate:"
@@ -437,10 +429,8 @@ msgstr ""
 msgid "Part {indicator}"
 msgstr ""
 
-#, fuzzy
-#| msgid "Simultaneous Download Amount"
 msgid "Simultaneous download limit exceeded, waiting."
-msgstr "Antall parallelle nedlastinger"
+msgstr "Overskredet det maksimale antall samtidige nedlastinger, venter."
 
 #: The way percentages will be shown, like 10% or %10 depending on the language
 #: (don't translate {number}, just move it if needed)
@@ -456,7 +446,7 @@ msgid "Seeding Ratio Limit"
 msgstr "Hastighetsgrense"
 
 msgid "Torrent Settings"
-msgstr ""
+msgstr "Torrent-innstillinger"
 
 #, fuzzy
 #| msgid "Download Directory"
@@ -497,7 +487,7 @@ msgid ""
 msgstr ""
 
 msgid "Torrenting is disabled."
-msgstr ""
+msgstr "Torrent deaktivert."
 
 msgid "Unknown filesize"
 msgstr ""
@@ -506,27 +496,26 @@ msgstr ""
 msgid "Show"
 msgstr ""
 
-#, fuzzy
-#| msgctxt "shortcut window"
-#| msgid "Quit"
 msgid "Quit"
 msgstr "Avslutt"
 
-#, fuzzy
-#| msgid "Background Mode"
 msgid "Background Mode on Close"
-msgstr "Bakgrunnsmodus"
+msgstr "Bakgrunnsmodus ved lukking"
 
 msgid "Upon closing, Varia will close to tray insted of exiting."
 msgstr ""
+"Ved lukking vil Varia minimeres til systemstatusfelt i stedet for å "
+"avsluttes."
 
 # Tray icon always visible option
 msgid "Tray Icon Always Visible"
-msgstr ""
+msgstr "Systemstatusfeltikon vises alltid"
 
 msgid ""
 "The tray icon will be visible even when Varia is not in background mode."
 msgstr ""
+"Ikonet i systemstatusfeltet vil være synlig selv når Varia ikke er i "
+"bakgrunnsmodus."
 
 # Open on startup option
 msgid "Open on Startup"
@@ -537,7 +526,7 @@ msgstr ""
 
 # Start on background mode subtitle
 msgid "Varia will start directly in background mode upon opening."
-msgstr ""
+msgstr "Varia starter direkte i bakgrunnsmodus under åpning."
 
 # Remote mode additional explanation
 msgid "Use Varia as a GUI for a remote aria2c instance."
@@ -546,20 +535,14 @@ msgstr ""
 msgid "Configure"
 msgstr ""
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Download Segments"
-msgstr "Nedlasting fullført"
+msgstr "Nedlastingssegmenter"
 
-#, fuzzy
-#| msgid "Pause All"
 msgid "Pause"
-msgstr "Stans alt"
+msgstr "Pause"
 
-#, fuzzy
-#| msgid "Resume All"
 msgid "Resume"
-msgstr "Fortsett alt"
+msgstr "Fortsett"
 
 msgid "Stop"
 msgstr ""
@@ -581,10 +564,8 @@ msgid ""
 "peers in order to show country flags in the details window."
 msgstr ""
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Download Details"
-msgstr "Nedlasting fullført"
+msgstr "Nedlastingsdetaljer"
 
 msgid "Type"
 msgstr ""
@@ -593,42 +574,34 @@ msgid "Status"
 msgstr ""
 
 msgid "File Name"
-msgstr ""
+msgstr "Filnavn"
 
-#, fuzzy
-#| msgid "Download"
 msgid "Downloading"
-msgstr "Last ned"
+msgstr "Nedlasting"
 
-#, fuzzy
-#| msgid "Pause All"
 msgid "Paused"
-msgstr "Stans alt"
+msgstr "Satt på pause"
 
 msgid "Scheduled"
-msgstr ""
+msgstr "Planlagt"
 
 msgid "Extracting"
 msgstr ""
 
 msgid "Percentage Downloaded"
-msgstr ""
+msgstr "Prosentandel lastet ned"
 
 msgid "Remaining"
-msgstr ""
+msgstr "Gjenstående"
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Download Speed"
-msgstr "Nedlasting fullført"
+msgstr "Nedlastingshastighet"
 
 msgid "Seeding Speed"
 msgstr ""
 
-#, fuzzy
-#| msgid "Download complete."
 msgid "Amount Downloaded"
-msgstr "Nedlasting fullført"
+msgstr "Nedlastingsmengde"
 
 msgid "Amount Uploaded"
 msgstr ""
@@ -639,10 +612,8 @@ msgstr ""
 msgid "Torrent Peers"
 msgstr ""
 
-#, fuzzy
-#| msgid "Download"
 msgid "Select Files to Download"
-msgstr "Last ned"
+msgstr "Velg filer å laste ned"
 
 # Snap packaging permissions dialog part 1/2
 msgid ""
@@ -658,7 +629,7 @@ msgstr ""
 
 # Tooltip for when focused on filter options in the sidebar. Do not translate {filter option}, it will be replaced by the filter type. ("All", "In Progress", etc)
 msgid "Filter downloads by {filter option}"
-msgstr ""
+msgstr "Filtrer nedlastinger etter {filter option}"
 
 #, fuzzy
 #| msgid "Download"
@@ -694,17 +665,17 @@ msgid "End minute for timespan {number}"
 msgstr ""
 
 msgid "Automatically Extract Archives"
-msgstr ""
+msgstr "Pakk ut arkivfiler automatisk"
 
 msgid "Delete Archives After Extraction"
-msgstr ""
+msgstr "Slett arkivfiler etter utpakking"
 
 # For videos
 msgid "Maximum Quality"
-msgstr ""
+msgstr "Høyeste kvalitet"
 
 msgid "Maximum available quality"
-msgstr ""
+msgstr "Høyeste kvalitet tilgjengelig"
 
 #, fuzzy
 #| msgid "Download"
@@ -719,6 +690,14 @@ msgstr "Last ned"
 msgid ""
 "If one of the videos in a playlist can't be downloaded, continue with the "
 "rest instead of cancelling."
+msgstr ""
+
+msgid "Download All Files Without Asking"
+msgstr ""
+
+msgid ""
+"If enabled, Varia will no longer give you the option to uncheck individual "
+"files and folders in a torrent download."
 msgstr ""
 
 #: src/gtk/help-overlay.ui:11

@@ -8,16 +8,15 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-04-13 22:08+0000\n"
-"Last-Translator: Giant Pink Robots! <giantpinkrobots@protonmail.com>\n"
-"Language-Team: Interlingua <https://hosted.weblate.org/projects/varia/varia/"
-"ia/>\n"
-"Language: ia\n"
+"PO-Revision-Date: 2026-04-22 12:09+0000\n"
+"Last-Translator: Anucha Lhaononkor <achn.syps@gmail.com>\n"
+"Language-Team: Thai <https://hosted.weblate.org/projects/varia/varia/th/>\n"
+"Language: th\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.17.1-dev\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -28,11 +27,11 @@ msgstr "Varia"
 #. Translators: These are search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
 #: data/io.github.giantpinkrobots.varia.desktop.in:11
 msgid "varia;aria;download;manager;"
-msgstr "varia;aria;discargamento;gestor;"
+msgstr ""
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:4
 msgid "Download manager based on aria2"
-msgstr ""
+msgstr "จัดการดาวน์โหลดโดยใช้ aria2"
 
 #: data/io.github.giantpinkrobots.varia.metainfo.xml.in:16
 msgid ""
@@ -40,26 +39,28 @@ msgid ""
 "to provide a easy to use interface that integrates well with the GNOME "
 "desktop."
 msgstr ""
+"Varia เป็นโปรแกรมจัดการดาวน์โหลดที่ใช้ aria2 เป็นพื้นฐาน โดยใช้ GTK4 และ Libadwaita "
+"เพื่อมอบอินเทอร์เฟซที่ใช้งานง่ายและผสานรวมเข้ากับเดสก์ท็อป GNOME ได้อย่างลงตัว"
 
 #: src/variamain.py:45
 msgid "This is not a valid URL."
-msgstr ""
+msgstr "นี่ไม่ใช่ URL ที่ถูกต้อง"
 
 #: src/variamain.py:125
 msgid "All"
-msgstr "Toto"
+msgstr "ทั้งหมด"
 
 #: src/variamain.py:137
 msgid "In Progress"
-msgstr ""
+msgstr "กำลังดำเนินการ"
 
 #: src/variamain.py:148
 msgid "Completed"
-msgstr ""
+msgstr "เสร็จสิ้น"
 
 #: src/variamain.py:171
 msgid "About Varia"
-msgstr ""
+msgstr "เกี่ยวกับ Varia"
 
 #: src/variamain.py:177
 msgid "URL"
@@ -67,240 +68,242 @@ msgstr "URL"
 
 #: src/variamain.py:178
 msgid "Download"
-msgstr ""
+msgstr "ดาวน์โหลด"
 
 #: src/variamain.py:184
 msgid "Open Download Folder"
-msgstr ""
+msgstr "เปิดโฟลเดอร์ดาวน์โหลด"
 
 #: src/variamain.py:196
 msgid "Speed Limit"
-msgstr ""
+msgstr "จำกัดความเร็ว"
 
 #: src/variamain.py:203 src/variamain.py:423
 msgid "Pause All"
-msgstr ""
+msgstr "หยุดชั่วคราวทั้งหมด"
 
 #: src/variamain.py:212
 msgid "Speed"
-msgstr ""
+msgstr "ความเร็ว"
 
 #: src/variamain.py:215
 msgid "Set Speed Limit"
-msgstr ""
+msgstr "จำกัดความเร็ว"
 
 #: src/variamain.py:216
 msgid "Cancel All"
-msgstr ""
+msgstr "ยกเลิกทั้งหมด"
 
 #: src/variamain.py:235
 msgid "/s"
-msgstr ""
+msgstr "/s"
 
 #: src/variamain.py:238
 msgid "No limit"
-msgstr ""
+msgstr "ไม่จำกัด"
 
 #: src/variamain.py:274
 msgid "Download complete."
-msgstr ""
+msgstr "เสร็จสมบูรณ์"
 
 #: src/variamain.py:276
 msgid "Download speed is limited."
-msgstr ""
+msgstr "มีจำกัดความเร็วดาวน์โหลด"
 
 #: src/variamain.py:277
 msgid "An error occurred:"
-msgstr ""
+msgstr "เกิดข้อผิดพลาด:"
 
 #: src/variamain.py:292
 msgid "MB/s"
-msgstr ""
+msgstr "เมกะไบต์/วินาที"
 
 #: src/variamain.py:294
 msgid "KB/s"
-msgstr ""
+msgstr "กิโลไบต์/วินาที"
 
 #: src/variamain.py:298
 msgid "0 B/s"
-msgstr ""
+msgstr "0 ไบต์/วินาที"
 
 #: src/variamain.py:300
 msgid " MB/s"
-msgstr ""
+msgstr " เมกะไบต์/วินาที"
 
 #: src/variamain.py:302
 msgid " KB/s"
-msgstr ""
+msgstr " กิโลไบต์/วินาที"
 
 #: src/variamain.py:304
 msgid " B/s"
-msgstr ""
+msgstr " ไบต์/วินาที"
 
 #: src/variamain.py:404
 msgid "Simultaneous Download Amount"
-msgstr ""
+msgstr "จำนวนดาวน์โหลดพร้อมกัน"
 
 #: src/variamain.py:410
 msgid "Resume All"
-msgstr ""
+msgstr "ดำเนินการต่อทั้งหมด"
 
 #: src/variamain.py:443
 msgid "aria2 based download manager utilizing GTK4 and Libadwaita."
-msgstr ""
+msgstr "โปรแกรมจัดการดาวน์โหลดใช้ aria2 และ GTK4 กับ Libadwaita"
 
 #: src/variamain.py:777
 msgid "This application relies on the following pieces of software:"
-msgstr ""
+msgstr "แอปพลิเคชันต้องอาศัยซอฟต์แวร์ต่อไปนี้:"
 
 #: src/variamain.py:777
 msgid ""
 "The licenses of all of these pieces of software can be found in the "
 "dependencies_information directory in this application's app directory."
 msgstr ""
+"สามารถดูใบอนุญาตของซอฟต์แวร์ทั้งหมดนี้ได้ในไดเร็กทอรี dependencies_information "
+"ภายในไดเร็กทอรี app ของแอปพลิเคชันนี้"
 
 # This is for the credits section. Replace this string with your own information so you'll be credited for your work.
 #: src/variamain.py:449
 msgid "translator-credits"
-msgstr ""
+msgstr "เครดิตผู้แปล"
 
 #: src/variamain.py:457
 msgid "Download Directory"
-msgstr ""
+msgstr "ไดเร็กทอรีดาวน์โหลด"
 
 #: src/variamain.py:460
 msgid "Change"
-msgstr ""
+msgstr "เปลี่ยน"
 
 #: src/variamain.py:463
 msgid "Speed limited"
-msgstr ""
+msgstr "จำกัดความเร็ว"
 
 #: src/variamain.py:519
 msgid "Authentication"
-msgstr ""
+msgstr "การตรวจสอบสิทธิ์"
 
 #: src/variamain.py:532
 msgid "Username"
-msgstr "Nomine de usator"
+msgstr "ชื่อผู้ใช้"
 
 #: src/variamain.py:534
 msgid "Password"
-msgstr ""
+msgstr "รหัสผ่าน"
 
 #: src/variamain.py:554
 msgid "Authorization failed."
-msgstr ""
+msgstr "การตรวจสอบสิทธิ์ล้มเหลว"
 
 #: src/variamain.py:806
 msgid "Failed to open directory."
-msgstr ""
+msgstr "ไม่สามารถเปิดไดเร็กทอรีได้"
 
 msgid "Remote Mode"
-msgstr ""
+msgstr "โหมดระยะไกล"
 
 msgid "Remote aria2 IP"
-msgstr ""
+msgstr "รีโมท aria2 IP"
 
 msgid "Remote aria2 Port"
-msgstr ""
+msgstr "พอร์ต aria2 ระยะไกล"
 
 msgid "Remote aria2 RPC Secret"
-msgstr ""
+msgstr "รหัส RPC aria2 ระยะไกล"
 
 msgid "Remote Download Location"
-msgstr ""
+msgstr "ตำแหน่งดาวน์โหลดระยะไกล"
 
 msgid "Exiting Varia..."
-msgstr ""
+msgstr "กำลังออกจาก Varia..."
 
 msgid "Background Mode"
-msgstr ""
+msgstr "โหมดพื้นหลัง"
 
 msgid "Continuing the downloads in the background."
-msgstr ""
+msgstr "กำลังดำเนินการดาวน์โหลดต่อในพื้นหลัง"
 
 msgid "Browser Extension"
-msgstr ""
+msgstr "ส่วนขยายเบราว์เซอร์"
 
 msgid "Shutdown on Completion"
-msgstr ""
+msgstr "ปิดระบบเมื่อเสร็จสิ้น"
 
 msgid "Sleep on Completion"
 msgstr ""
 
 msgid "Varia is about to shut down your computer."
-msgstr ""
+msgstr "โปรแกรม Varia กำลังจะปิดเครื่องคอมพิวเตอร์ของคุณ"
 
 msgid "Varia is about to put your computer to sleep."
-msgstr ""
+msgstr "Varia กำลังจะทำให้คอมพิวเตอร์ของคุณเข้าสู่โหมดพักเครื่อง"
 
 msgid "Press Cancel to cancel and disable."
-msgstr ""
+msgstr "กดปุ่มยกเลิกเพื่อยกเลิกและปิดใช้งาน"
 
 msgid "Cancel"
-msgstr ""
+msgstr "ยกเลิก"
 
 msgid "Warning"
-msgstr ""
+msgstr "คำเตือน"
 
 msgid "Monday"
-msgstr ""
+msgstr "จันทร์"
 
 msgid "Tuesday"
-msgstr ""
+msgstr "อังคาร"
 
 msgid "Wednesday"
-msgstr ""
+msgstr "พุธ"
 
 msgid "Thursday"
-msgstr ""
+msgstr "พฤหัสบดี"
 
 msgid "Friday"
-msgstr ""
+msgstr "ศุกร์"
 
 msgid "Saturday"
-msgstr ""
+msgstr "เสาร์"
 
 msgid "Sunday"
-msgstr ""
+msgstr "อาทิตย์"
 
 msgid "Start (h/m):"
-msgstr ""
+msgstr "เวลาเริ่ม (ชม./นาที):"
 
 msgid "End (h/m):"
-msgstr ""
+msgstr "สิ้นสุด (ชั่วโมง/นาที):"
 
 msgid "Scheduler enabled"
-msgstr ""
+msgstr "เปิดใช้งานตัวกำหนดเวลา"
 
 msgid "Scheduler"
-msgstr ""
+msgstr "ตารางเวลา"
 
 msgid "Enabled"
-msgstr ""
+msgstr "เปิดใช้งาน"
 
 msgid "Start downloading in these times"
-msgstr ""
+msgstr "เริ่มดาวน์โหลด"
 
 msgid "Stop downloading in these times"
-msgstr ""
+msgstr "หยุดดาวน์โหลด"
 
 msgid "Add Timespan"
-msgstr ""
+msgstr "เพิ่มช่วงเวลา"
 
 #: When a download is currently seeding:
 msgid "Seeding"
-msgstr ""
+msgstr "กำลังปล่อย"
 
 msgid "Failed"
-msgstr ""
+msgstr "ล้มเหลว"
 
 msgid "Completion Options"
-msgstr ""
+msgstr "ตัวเลือกการกรอกข้อมูล"
 
 msgid "Exit on Completion"
-msgstr ""
+msgstr "ออกเมื่อเสร็จสิ้น"
 
 msgid "Varia is about to quit."
 msgstr ""
@@ -315,10 +318,10 @@ msgid "Basic Settings"
 msgstr ""
 
 msgid "Advanced Settings"
-msgstr "Configurationes avantiate"
+msgstr ""
 
 msgid "Use cookies.txt"
-msgstr "Usar cookies.txt"
+msgstr ""
 
 msgid "Import cookies.txt"
 msgstr ""
@@ -335,6 +338,7 @@ msgstr ""
 msgid "Remote Timestamp"
 msgstr ""
 
+# Download type: Torrent
 msgid "Torrent"
 msgstr ""
 
@@ -350,10 +354,10 @@ msgid "A new version of Varia is available. Do you want to update?"
 msgstr ""
 
 msgid "Update available"
-msgstr "Actualisation disponibile"
+msgstr ""
 
 msgid "Update"
-msgstr "Actualisar"
+msgstr ""
 
 msgid "Downloading update..."
 msgstr ""
@@ -362,7 +366,7 @@ msgid "Download failed."
 msgstr ""
 
 msgid "Yes"
-msgstr "Si"
+msgstr ""
 
 msgid "No"
 msgstr ""
@@ -456,10 +460,10 @@ msgstr ""
 
 # Save button
 msgid "Save"
-msgstr "Salvar"
+msgstr ""
 
 msgid "Show Menu"
-msgstr "Monstrar menu"
+msgstr ""
 
 msgid "OK"
 msgstr ""
@@ -481,16 +485,13 @@ msgstr ""
 msgid "Unknown filesize"
 msgstr ""
 
-#, fuzzy
-#| msgid "Show Menu"
+# Tray icon show button
 msgid "Show"
-msgstr "Monstrar menu"
+msgstr ""
 
-#, fuzzy
-#| msgctxt "shortcut window"
-#| msgid "Quit"
+# Tray icon quit button
 msgid "Quit"
-msgstr "Quitar"
+msgstr ""
 
 # Close to tray option
 msgid "Background Mode on Close"
@@ -690,14 +691,14 @@ msgstr ""
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
-msgstr "General"
+msgstr ""
 
 #: src/gtk/help-overlay.ui:14
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
-msgstr "Monstrar commandos curte"
+msgstr ""
 
 #: src/gtk/help-overlay.ui:20
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr "Quitar"
+msgstr ""

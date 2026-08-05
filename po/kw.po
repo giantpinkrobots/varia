@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2026-03-04 11:09+0000\n"
+"PO-Revision-Date: 2026-03-31 10:09+0000\n"
 "Last-Translator: Flynn <cirilla@tuta.io>\n"
 "Language-Team: Cornish <https://hosted.weblate.org/projects/varia/varia/kw/"
 ">\n"
@@ -625,10 +625,8 @@ msgstr "Komparriv"
 msgid "Torrent Peers"
 msgstr "Kowetha Keynres"
 
-#, fuzzy
-#| msgid "Playlist Download"
 msgid "Select Files to Download"
-msgstr "Iskarg Rol Media"
+msgstr "Dewis Restrennow rag Iskarg"
 
 # Snap packaging permissions dialog part 1/2
 msgid ""
@@ -707,6 +705,14 @@ msgid ""
 msgstr ""
 "Mars unn a'n gwydhyowyow yn rol ny yllir bos iskargys, pesya gans an "
 "remenant yn-dar ow hedhi."
+
+msgid "Download All Files Without Asking"
+msgstr ""
+
+msgid ""
+"If enabled, Varia will no longer give you the option to uncheck individual "
+"files and folders in a torrent download."
+msgstr ""
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

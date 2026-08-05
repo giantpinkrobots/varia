@@ -700,6 +700,14 @@ msgstr ""
 "Überspringe Videos die nicht heruntergeladen werden können, anstatt den "
 "Download abzubrechen."
 
+msgid "Download All Files Without Asking"
+msgstr ""
+
+msgid ""
+"If enabled, Varia will no longer give you the option to uncheck individual "
+"files and folders in a torrent download."
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
