@@ -155,20 +155,13 @@
             "builddir": true,
             "config-opts": [
                 "-DBUILD_SHARED_LIBS=OFF",
-                "-DCMAKE_BUILD_TYPE=Release",
-                "-DCMAKE_CXX_STANDARD=20",
-                "-DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON"
+                "-DCMAKE_BUILD_TYPE=Release"
             ],
             "sources": [
                 {
                     "type": "git",
                     "url": "https://github.com/arvidn/libtorrent.git",
-                    "commit": "578e06824c3546f3371ab43967ab288a7e253eca",
-                    "x-checker-data": {
-                        "type": "json",
-                        "url": "https://api.github.com/repos/arvidn/libtorrent/branches/RC_2_1",
-                        "commit-query": ".commit.sha"
-                    }
+                    "commit": "578e06824c3546f3371ab43967ab288a7e253eca"
                 }
             ]
         },
