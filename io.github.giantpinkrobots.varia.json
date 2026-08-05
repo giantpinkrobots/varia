@@ -84,8 +84,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://ffmpeg.org/releases/ffmpeg-9.0.tar.xz",
-                    "sha256": "7f607a00dd0d28a729d5a4811205812eef01cf6ef6155025febb6f36a9062d52"
+                    "url": "https://github.com/FFmpeg/FFmpeg/archive/refs/tags/n9.0.tar.gz",
+                    "sha256": "d97647ace36a307f17ba2bca052d68937487bed8682e1eb9b6737076a9c442b7"
                 }
             ]
         },
@@ -145,8 +145,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://archives.boost.io/release/1.86.0/source/boost_1_86_0.tar.gz",
-                    "sha256": "2575e74ffc3ef1cd0babac2c1ee8bdb5782a0ee672b1912da40e5b4b591ca01f"
+                    "url": "https://github.com/boostorg/boost/releases/download/boost-1.90.0/boost-1.90.0-b2-nodocs.tar.xz",
+                    "sha256": "9e6bee9ab529fb2b0733049692d57d10a72202af085e553539a05b4204211a6f"
                 }
             ]
         },
