@@ -1,6 +1,6 @@
 name: varia
 base: core24
-version: 'v2026.3.27-1'
+version: 'v2026.8.5'
 summary: Download files, videos and torrents
 description: |
   Varia is a file, video and torrent downloader based on aria2 and yt-dlp
@@ -64,8 +64,8 @@ parts:
 
   ffmpeg:
     plugin: autotools
-    source: https://ffmpeg.org/releases/ffmpeg-7.1.tar.xz
-    source-checksum: sha256/40973d44970dbc83ef302b0609f2e74982be2d85916dd2ee7472d30678a7abe6
+    source: https://ffmpeg.org/releases/ffmpeg-9.0.tar.xz
+    source-checksum: sha256/7f607a00dd0d28a729d5a4811205812eef01cf6ef6155025febb6f36a9062d52
     override-build: |
       ./configure \
         --disable-debug \
@@ -88,27 +88,32 @@ parts:
       - libopus-dev
       - libvorbis-dev
       - yasm
-  
+
+  rust-deps:
+    plugin: nil
+    build-packages:
+      - curl
+    override-pull: |
+      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+
   deno:
     plugin: rust
-    source: https://github.com/denoland/deno/archive/refs/tags/v2.6.3.tar.gz
+    source: https://github.com/denoland/deno/archive/refs/tags/v2.9.4.tar.gz
     source-type: tar
-    
+    after: [rust-deps]
     override-build: |
       cargo build --locked --release
       install -Dm755 ./target/release/deno "$SNAPCRAFT_PART_INSTALL/bin/deno"
-    
     build-packages:
     - cmake
     - clang
     - libclang-dev
-  
+
   sevenzip:
     plugin: nil
     source: https://github.com/ip7z/7zip.git
     source-type: git
-    source-commit: 5e96a8279489832924056b1fa82f29d5837c9469
-
+    source-commit: f9d78aff31a5f2521ae7ddbdc97c4a8855808959
     override-build: |
       for bundle in Alone2 SFXCon; do
         pushd CPP/7zip/Bundles/${bundle}
@@ -116,12 +121,10 @@ parts:
         popd
       done
       install -Dm755 CPP/7zip/Bundles/Alone2/b/g/7zz "$SNAPCRAFT_PART_INSTALL/bin/7zz"
-
     build-packages:
       - build-essential
       - g++
       - make
-
     stage-packages:
       - libc6
       - libstdc++6
@@ -130,17 +133,15 @@ parts:
     plugin: nil
     source: https://archives.boost.io/release/1.86.0/source/boost_1_86_0.tar.gz
     source-type: tar
-
     override-build: |
       ./bootstrap.sh --prefix=/app
       ./b2 install --with-headers cxxflags='$CXXFLAGS' linkflags='$LDFLAGS'
-  
+
   libtorrent:
     plugin: cmake
     source: https://github.com/arvidn/libtorrent.git
     source-type: git
-    source-branch: RC_2_1
-
+    source-commit: 578e06824c3546f3371ab43967ab288a7e253eca
     build-packages:
       - build-essential
       - libboost-dev

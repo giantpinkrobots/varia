@@ -1,4 +1,4 @@
-variaVersion = "v2026.3.27-1" # Also update actions-inno-install-script.iss
+variaVersion = "v2026.8.5" # Also update actions-inno-install-script.iss
 
 import ctypes
 import gi
@@ -441,7 +441,9 @@ class MainWindowBase:
                 secret_switchrow_use_kde_css.set_active("active")
 
             super_secret_dialog_group.add(secret_switchrow_use_ssd)
-            super_secret_dialog_group.add(secret_switchrow_use_kde_css)
+
+            if self.issnap == False and os.uname().sysname == 'Linux':
+                super_secret_dialog_group.add(secret_switchrow_use_kde_css)
 
             GLib.idle_add(super_secret_dialog.present, self)
             GLib.timeout_add(25000, self.remove_super_secret_message)

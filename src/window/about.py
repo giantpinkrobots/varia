@@ -27,7 +27,7 @@ def show_about(app, variaapp, self, variaVersion):
     dialog.set_translator_credits(_("translator-credits"))
     dialog.set_artists(["Jakub Steiner"])
     dialog.set_release_notes_version(variaVersion)
-    dialog.add_link(_("Support Varia"), "https://github.com/sponsors/giantpinkrobots/")
+    #dialog.add_link(_("Support Varia"), "https://github.com/sponsors/giantpinkrobots/")
     dialog.set_release_notes('''
         <ul>
         <li>New torrent backend (libtorrent), leading to a way better torrenting experience</li>

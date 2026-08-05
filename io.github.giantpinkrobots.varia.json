@@ -5,7 +5,7 @@
     "//!": "!!!!!!Also update the GNOME version in ./.github/workflows/flatpak-package.yml",
     "sdk": "org.gnome.Sdk",
     "command": "varia",
-    "//": "Justifications for the permissions: This program utilizes aria2c, and aria2c requires the networking permission and the xdg-download directory in order to download files. It also has a 'shut down once all downloads are completed' feature that requires access to org.freedesktop.login1.",
+    "//": "Justifications for the permissions: This program utilizes aria2c, and aria2c requires the networking permission and the xdg-download directory in order to download files. It also has a 'shut down once all downloads are completed' feature that requires access to org.freedesktop.login1. Access to the GTK4 theme directory is required for a secret easter-egg function allowing for the usage of the Plasma color scheme.",
     "finish-args": [
         "--share=network",
         "--share=ipc",
@@ -84,8 +84,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://ffmpeg.org/releases/ffmpeg-8.1.tar.xz",
-                    "sha256": "b072aed6871998cce9b36e7774033105ca29e33632be5b6347f3206898e0756a"
+                    "url": "https://ffmpeg.org/releases/ffmpeg-9.0.tar.xz",
+                    "sha256": "7f607a00dd0d28a729d5a4811205812eef01cf6ef6155025febb6f36a9062d52"
                 }
             ]
         },
@@ -117,16 +117,16 @@
                     "only-arches": [
                         "x86_64"
                     ],
-                    "url": "https://github.com/denoland/deno/releases/download/v2.9.0/deno-x86_64-unknown-linux-gnu.zip",
-                    "sha256": "96c9c73fc05ea57603bc28d8071d41e861bd40bcf2a9f849dd5969ed1a2c8498"
+                    "url": "https://github.com/denoland/deno/releases/download/v2.9.4/deno-x86_64-unknown-linux-gnu.zip",
+                    "sha256": "c24f955d9fbfe0ea5ae2b501c8e71ae76e31e4c9782390a54a284b3364fda725"
                 },
                 {
                     "type": "file",
                     "only-arches": [
                         "aarch64"
                     ],
-                    "url": "https://github.com/denoland/deno/releases/download/v2.9.0/deno-aarch64-unknown-linux-gnu.zip",
-                    "sha256": "a0f266eb189af2f27db0c6dcf9eb2f68ba2e8bbff1442c969ace398463f8b2bf"
+                    "url": "https://github.com/denoland/deno/releases/download/v2.9.4/deno-aarch64-unknown-linux-gnu.zip",
+                    "sha256": "111da5c05c240cfdc4340f234a0e3539d39dbcb6755221f19dcd60bacc8be5aa"
                 }
             ]
         },

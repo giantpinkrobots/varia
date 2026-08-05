@@ -106,13 +106,14 @@ def window_create_sidebar(self, variaapp, variaVersion):
         header_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, margin_top=4, margin_bottom=4, margin_start=4, margin_end=4)
         preferences_button.add_css_class('flat')
         hamburger_button.add_css_class('flat')
+        varia_title_label = Gtk.Label(label="Varia")
+        varia_title_label.add_css_class("heading")
+        varia_title_label.set_valign(Gtk.Align.CENTER)
 
         header_box.append(preferences_button)
-
-        header_box_expanding_box = Gtk.Box()
-        Gtk.Widget.set_hexpand(header_box_expanding_box, True)
-        header_box.append(header_box_expanding_box)
-
+        header_box.append(Gtk.Box(hexpand=True))
+        header_box.append(varia_title_label)
+        header_box.append(Gtk.Box(hexpand=True))
         header_box.append(hamburger_button)
 
         sidebar_box.prepend(header_box)

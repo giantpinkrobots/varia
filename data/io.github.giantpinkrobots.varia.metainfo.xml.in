@@ -125,11 +125,10 @@ Control a remote aria2 instance running on any server through Remote Mode
 </supports>
 
 <releases>
-<release version="v2026.3.27-1" date="2026-03-27">
+<release version="v2026.8.5" date="2026-05-08">
 <description translatable="yes">
-<ul><li>Ability to download playlists through the same Video/Audio functionality</li>
-        <li>Ability to select individual files and folders to download through torrenting</li>
-        <li>Option to dynamically send browser cookies through the browser extension upon each download (separate from cookies.txt file import support)</li></ul>
+<ul><li>New torrent backend (libtorrent), leading to a way better torrenting experience</li>
+        <li>Video downloader backend overhauls for better performance and less issues</li></ul>
 </description>
 </release>
 </releases>

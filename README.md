@@ -19,8 +19,8 @@
 
 | Download for Linux | Download for Windows | Download for macOS | Browser Extension |
 | -------- | ------- | ------- | ------- |
-| [⬇ Flathub](https://flathub.org/apps/io.github.giantpinkrobots.varia) | [⬇ Installer](https://github.com/giantpinkrobots/varia/releases/download/v2026.3.27-1/varia-windows-setup-amd64.exe) | [⬇ Apple Silicon arm64](https://github.com/giantpinkrobots/varia/releases/download/v2026.3.27/varia-mac-arm.dmg) | [❖ Firefox](https://addons.mozilla.org/firefox/addon/varia-integrator/) |
-| [⬇ Snap Store](https://snapcraft.io/varia) | [⬇ Portable](https://github.com/giantpinkrobots/varia/releases/download/v2026.3.27-1/varia-windows-portable-amd64.zip) | [⬇ Intel amd64](https://github.com/giantpinkrobots/varia/releases/download/v2026.3.27/varia-mac-intel.dmg) | [❖ Chrome](https://chrome.google.com/webstore/detail/dacakhfljjhgdfdlgjpabkkjhbpcmiff) |
+| [⬇ Flathub](https://flathub.org/apps/io.github.giantpinkrobots.varia) | [⬇ Installer](https://github.com/giantpinkrobots/varia/releases/download/v2026.8.5/varia-windows-setup-amd64.exe) | [⬇ Apple Silicon arm64](https://github.com/giantpinkrobots/varia/releases/download/v2026.8.5/varia-mac-arm.dmg) | [❖ Firefox](https://addons.mozilla.org/firefox/addon/varia-integrator/) |
+| [⬇ Snap Store](https://snapcraft.io/varia) | [⬇ Portable](https://github.com/giantpinkrobots/varia/releases/download/v2026.8.5/varia-windows-portable-amd64.zip) | [⬇ Intel amd64](https://github.com/giantpinkrobots/varia/releases/download/v2026.8.5/varia-mac-intel.dmg) | [❖ Chrome](https://chrome.google.com/webstore/detail/dacakhfljjhgdfdlgjpabkkjhbpcmiff) |
 | [⬇ AUR (unofficial)](https://aur.archlinux.org/packages/varia) |
 | [⬇ AppImage (unofficial)](https://github.com/pkgforge-dev/Varia-AppImage) |
 
@@ -97,13 +97,12 @@ flatpak-builder --force-clean --install --user ./_build ./io.github.giantpinkrob
 To build Varia outside Flatpak, you need these dependencies:
 
 - Meson
-- Gtk4 and its development libraries
-- Pango
-- (Python) GObject
+- Gtk4 and its development libraries, with the GObject Python bindings
+- Pango (GTK)
 - Libadwaita
-- aria2
-- (Python) aria2p
+- aria2 (alongside the Python bindings: aria2p)
 - yt-dlp
+- libtorrent (alongside the Python bindings)
 - 7zip (7z)
 - FFmpeg (without GPL is okay)
 - Deno
