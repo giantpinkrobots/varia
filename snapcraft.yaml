@@ -88,26 +88,23 @@ parts:
       - libopus-dev
       - libvorbis-dev
       - yasm
-
-  rust-deps:
-    plugin: nil
-    build-packages:
-      - curl
-    override-pull: |
-      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-
+  
   deno:
-    plugin: rust
+    plugin: nil
     source: https://github.com/denoland/deno/archive/refs/tags/v2.9.4.tar.gz
     source-type: tar
-    after: [rust-deps]
     override-build: |
+      export CARGO_HOME="$SNAPCRAFT_PART_BUILD/.cargo"
+      export RUSTUP_HOME="$SNAPCRAFT_PART_BUILD/.rustup"
+      export PATH="$CARGO_HOME/bin:$PATH"
+      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
       cargo build --locked --release
       install -Dm755 ./target/release/deno "$SNAPCRAFT_PART_INSTALL/bin/deno"
     build-packages:
-    - cmake
-    - clang
-    - libclang-dev
+      - curl
+      - cmake
+      - clang
+      - libclang-dev
 
   sevenzip:
     plugin: nil
