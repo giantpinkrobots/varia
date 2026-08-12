@@ -90,6 +90,31 @@ def show_preferences(button, self, app, variaVersion):
 
     group_extensions.add(browser_extension_actionrow)
 
+    # Set color scheme:
+    color_scheme_actionrow = Adw.ActionRow()
+    color_scheme_actionrow.set_title(_("Theme"))
+
+    color_scheme_toggle_auto = Adw.Toggle(label=_("Automatic"))
+    color_scheme_toggle_light = Adw.Toggle(icon_name="display-brightness-symbolic")
+    color_scheme_toggle_light.set_tooltip(_("Light theme"))
+    color_scheme_toggle_dark = Adw.Toggle(icon_name="weather-clear-night-symbolic")
+    color_scheme_toggle_dark.set_tooltip(_("Dark theme"))
+    color_scheme_toggle_group = Adw.ToggleGroup()
+    color_scheme_toggle_group.set_valign(Gtk.Align.CENTER)
+    color_scheme_toggle_group.add(color_scheme_toggle_auto)
+    color_scheme_toggle_group.add(color_scheme_toggle_light)
+    color_scheme_toggle_group.add(color_scheme_toggle_dark)
+    color_scheme_actionrow.add_suffix(color_scheme_toggle_group)
+
+    if (self.appconf["color_scheme"] == "auto"):
+        color_scheme_toggle_group.set_active(0)
+    elif (self.appconf["color_scheme"] == "light"):
+        color_scheme_toggle_group.set_active(1)
+    elif (self.appconf["color_scheme"] == "dark"):
+        color_scheme_toggle_group.set_active(2)
+
+    color_scheme_toggle_group.connect("notify::active", on_color_scheme_changed, self, preferences)
+
     # Download directory:
 
     download_directory_actionrow = Adw.ActionRow()
@@ -151,6 +176,7 @@ def show_preferences(button, self, app, variaVersion):
     speed_limit_expander_switch.connect("state-set", lambda *_: set_speed_limit(self, self.appconf["download_speed_limit"]))
 
     speed_limit_unit_names_dropdown = Gtk.DropDown.new_from_strings(["KB/s", "MB/s", "GB/s"])
+    speed_limit_unit_names_dropdown.set_valign(Gtk.Align.CENTER)
     speed_limit_unit_names_dropdown.set_selected(0)
     speed_limit_unit_names_dropdown.connect("notify::selected-item", lambda dropdown, param: on_speed_limit_changed(self, speed_limit_entry, speed_limit_unit_names_dropdown, speed_limit_expander_switch))
 
@@ -272,6 +298,7 @@ def show_preferences(button, self, app, variaVersion):
 
     # Construct Group 1:
 
+    group_1.add(color_scheme_actionrow)
     group_1.add(download_directory_actionrow)
     group_1.add(extract_archives)
     group_1.add(extract_archives_delete_archives)
@@ -646,6 +673,24 @@ def on_extension_selected(self, prefswindow, browser):
     else:
         link = 'https://chrome.google.com/webstore/detail/dacakhfljjhgdfdlgjpabkkjhbpcmiff'
     Gio.AppInfo.launch_default_for_uri(link)
+
+def on_color_scheme_changed(toggle_group, param, self, prefswindow):
+    style_manager = Adw.StyleManager.get_default()
+
+    active_toggle = toggle_group.get_active()
+
+    if active_toggle == 0:
+        self.appconf["color_scheme"] = "auto"
+        style_manager.set_color_scheme(Adw.ColorScheme.PREFER_LIGHT)
+    elif active_toggle == 1:
+        self.appconf["color_scheme"] = "light"
+        style_manager.set_color_scheme(Adw.ColorScheme.FORCE_LIGHT)
+    elif active_toggle == 2:
+        self.appconf["color_scheme"] = "dark"
+        style_manager.set_color_scheme(Adw.ColorScheme.FORCE_DARK)
+
+    self.save_appconf()
+
 
 def on_download_directory_change(self, directory_to_be_changed, prefswindow, actionrow):
     Gtk.FileDialog().select_folder(None, None, on_download_directory_selected, directory_to_be_changed, self, prefswindow, actionrow)

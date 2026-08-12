@@ -758,6 +758,7 @@ def main(version, aria2cexec, ffmpegexec, sevenzexec, jsruntimeexec, issnap, pkg
         'extract_archives': '0',
         'extract_archives_delete_archives': '0',
         'playlist_skip_errors': '0',
+        'color_scheme': 'auto',
         'use_ssd': '0',
         'use_kde_css': '0'}
     

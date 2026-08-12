@@ -69,6 +69,14 @@ def initiate(self, variaapp, variaVersion, first_run, issnap):
     
     Gtk.Settings.get_default().set_property("gtk-icon-theme-name", "Adwaita")
 
+    style_manager = Adw.StyleManager.get_default()
+    if self.appconf["color_scheme"] == "auto":
+        style_manager.set_color_scheme(Adw.ColorScheme.PREFER_LIGHT)
+    elif self.appconf["color_scheme"] == "light":
+        style_manager.set_color_scheme(Adw.ColorScheme.FORCE_LIGHT)
+    elif self.appconf["color_scheme"] == "dark":
+        style_manager.set_color_scheme(Adw.ColorScheme.FORCE_DARK)
+
     if ("dev" in variaVersion):
         self.add_css_class("devel")
 
