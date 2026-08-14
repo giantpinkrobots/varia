@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Varia\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2026-08-04 05:03+0000\n"
+"PO-Revision-Date: 2026-08-14 04:51+0000\n"
 "Last-Translator: Любомир Василев <lyubomirv@gmx.com>\n"
 "Language-Team: Bulgarian <https://hosted.weblate.org/projects/varia/varia/"
 "bg/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.8.1.dev0\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -714,6 +714,22 @@ msgid ""
 msgstr ""
 "Ако е включено, Varia вече няма да предоставя възможност за махане на "
 "отметките от отделни файлове и папки при сваляне на торент."
+
+# Theme setting title to change the color scheme
+msgid "Theme"
+msgstr "Тема"
+
+# Theme setting to follow the user's device theme
+msgid "Automatic"
+msgstr "Автоматично"
+
+# Tooltip for the light theme setting
+msgid "Light theme"
+msgstr "Светла тема"
+
+# Tooltip for the dark theme setting
+msgid "Dark theme"
+msgstr "Тъмна тема"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
