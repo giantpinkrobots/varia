@@ -34,9 +34,9 @@ def set_speed_limit(self, download_limit):
     if download_limit.endswith("K"):
         lt_download_limit = int(download_limit.replace("K", "")) * 1024
     elif download_limit.endswith("M"):
-        lt_download_limit = int(download_limit.replace("K", "")) * 1024 * 1024
+        lt_download_limit = int(download_limit.replace("M", "")) * 1024 * 1024
     elif download_limit.endswith("G"):
-        lt_download_limit = int(download_limit.replace("K", "")) * 1024 * 1024 * 1024
+        lt_download_limit = int(download_limit.replace("G", "")) * 1024 * 1024 * 1024
 
     self.ltsession.apply_settings({
         "download_rate_limit": lt_download_limit,
