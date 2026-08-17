@@ -894,6 +894,7 @@ def on_switch_torrent_seeding(switch, state, self, preferencesWindow):
     state = switch.get_active()
     if state:
         self.appconf["torrent_seeding_enabled"] = "1"
+        self.set_lt_seeding()
 
     else:
         def dialog_response_handle(dialog, response_id, self, dialog_checkbutton, switch):
@@ -909,6 +910,7 @@ def on_switch_torrent_seeding(switch, state, self, preferencesWindow):
         def disable_torrent_seeding(self):
             self.appconf["torrent_seeding_enabled"] = "0"
             self.save_appconf()
+            self.set_lt_seeding()
 
         if self.appconf["torrent_seeding_disable_warning_dont_show"] == "1":
             disable_torrent_seeding(self)
@@ -927,8 +929,6 @@ def on_switch_torrent_seeding(switch, state, self, preferencesWindow):
             dialog.set_response_appearance("disable", Adw.ResponseAppearance.DESTRUCTIVE)
             dialog.connect("response", dialog_response_handle, self, dialog_checkbutton, switch)
             dialog.present(preferencesWindow)
-    
-    self.set_lt_seeding()
 
 def on_torrent_seeding_ratio_limit_change(spinrow, self):
     self.appconf["torrent_seeding_ratio"][1] = str(floor(spinrow.get_value() * 10) / 10)

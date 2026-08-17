@@ -98,7 +98,7 @@ def set_lt_seeding(self, *args):
     if self.appconf["torrent_seeding_enabled"] == '0':
         settings["unchoke_slots_limit"] = 0
         settings["num_optimistic_unchoke_slots"] = 0
-        settings["share_ratio_limit"] = 0.0
+        settings["share_ratio_limit"] = 0
         settings["upload_rate_limit"] = 1  # Upload speed set to 1 bytes per second as an extra safety measure
 
     else:
