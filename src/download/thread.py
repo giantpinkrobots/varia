@@ -135,7 +135,12 @@ class DownloadThread(threading.Thread):
                 except:
                     print("Error: Couldn't display 'not a valid url' error, for some reason.")
                 return
-            response = requests.head(self.url)
+            try:
+                response = requests.head(self.url)
+            except Exception as e:
+                GLib.idle_add(self.set_failed, None, (f"{_("An error occurred:")} {self.app.escape_special_characters(str(e))}"))
+                return
+
             if ((response.status_code == 401) and (self.auth == '1')):
                 if (self.url[0:7] == "http://"):
                     self.url = self.url[:7] + self.auth_username + ":" + self.auth_password + "@" + self.url[7:]
@@ -1007,28 +1012,36 @@ class DownloadThread(threading.Thread):
         GLib.idle_add(self.actionrow.percentage_label.set_visible, False)
         GLib.idle_add(self.actionrow.pause_button.set_open_mode, self.actionrow.pause_button, self.app, self)
     
-    def set_failed(self, fraction):
+    def set_failed(self, fraction, message=None):
+        GLib.idle_add(self.actionrow.spinner.set_visible, False)
+
         if fraction is not None:
             self.actionrow.progress_bar.set_fraction(fraction)
 
         self.actionrow.progress_bar.add_css_class("error")
         self.cancelled = True
 
-        if self.mode == "regular":
-            if (self.download.error_code == "24"):
-                self.show_message(_("Authorization failed."))
+        if message is not None:
+            self.show_message(message)
 
-            else:
-                self.show_message(_("An error occurred:") + " " + str(self.download.error_code))
-        
-        elif self.video_download_is_playlist == True:
-            self.mode = "playlist"
+        else:
+            if self.mode == "regular":
+                if (self.download.error_code == "24"):
+                    self.show_message(_("Authorization failed."))
+
+                else:
+                    self.show_message(_("An error occurred:") + " " + str(self.download.error_code))
+            
+            elif self.video_download_is_playlist == True:
+                self.mode = "playlist"
         
         self.download_details['status'] = _("Failed")
         self.download_details['remaining'] = ""
         self.download_details['download_speed'] = ""
 
         GLib.idle_add(self.actionrow.pause_button.set_retry_mode, self.actionrow.pause_button, self.app, self)
+        GLib.idle_add(self.actionrow.stop_button.remove_css_class, "destructive-action")
+        GLib.idle_add(self.actionrow.stop_button.set_icon_name, "process-stop-symbolic")
         self.app.filter_download_list("no", self.app.applied_filter)
 
     def periodically_save_state(self):
