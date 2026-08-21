@@ -718,6 +718,22 @@ msgid ""
 "files and folders in a torrent download."
 msgstr ""
 
+# Theme setting title to change the color scheme
+msgid "Theme"
+msgstr ""
+
+# Theme setting to follow the user's device theme
+msgid "Automatic"
+msgstr ""
+
+# Tooltip for the light theme setting
+msgid "Light theme"
+msgstr ""
+
+# Tooltip for the dark theme setting
+msgid "Dark theme"
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
