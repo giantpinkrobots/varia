@@ -1,4 +1,4 @@
-variaVersion = "v2026.8.5" # Also update actions-inno-install-script.iss
+variaVersion = "v2026.8.5-1" # Also update actions-inno-install-script.iss
 
 import ctypes
 import gi

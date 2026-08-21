@@ -125,10 +125,9 @@ Control a remote aria2 instance running on any server through Remote Mode
 </supports>
 
 <releases>
-<release version="v2026.8.5" date="2026-05-08">
+<release version="v2026.8.5-1" date="2026-08-21">
 <description translatable="yes">
-<ul><li>New torrent backend (libtorrent), leading to a way better torrenting experience</li>
-        <li>Video downloader backend overhauls for better performance and less issues</li></ul>
+<ul><li>Various fixes relating to torrenting.</li></ul>
 </description>
 </release>
 </releases>
