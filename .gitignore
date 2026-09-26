@@ -8,3 +8,5 @@ _build
 /src/tray/__pycache__
 .DS_Store
 repo
+# OpenCode agent working state
+.opencode/
