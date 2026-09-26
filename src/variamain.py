@@ -210,6 +210,15 @@ class MainWindowBase:
             icon_theme.add_search_path(os.path.join(pkgdatadir, "..", "icons", "apps"))
             icon_theme.add_search_path(os.path.join(pkgdatadir, "..", "icons", "actions"))
 
+        # Initialize QueueManager after downloads list exists
+        from queue_manager import QueueManager
+        self.queue_manager = QueueManager(self)
+
+        # Restore queues from config
+        if "queues" in self.appconf and isinstance(self.appconf["queues"], list):
+            from queue_manager import QueueManager as _QM
+            self.queue_manager = _QM.from_dict({"queues": self.appconf["queues"]}, self)
+
         # Use server side decorations on Windows because tiling doesn't work well otherwise:
         if self.use_ssd:
             os.environ['GTK_CSD'] = '0'
@@ -368,6 +377,9 @@ class MainWindowBase:
         dialog.present(self)
 
     def save_appconf(self):
+        # Persist queue configuration
+        if hasattr(self, 'queue_manager'):
+            self.appconf["queues"] = self.queue_manager.to_dict()
         with open(os.path.join(self.appdir, 'varia.conf'), 'w') as f:
             json.dump(self.appconf, f)
         print("Config saved")

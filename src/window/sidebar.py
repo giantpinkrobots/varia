@@ -8,6 +8,7 @@ from stringstorage import gettext as _
 
 from window.preferences import show_preferences
 from window.about import show_about
+from window.url_preview import show_file_import_dialog, show_clipboard_import_dialog
 from download.actionrow import on_download_clicked
 from download.videos import on_video_clicked
 from download.listen import add_download_to_ui
@@ -186,6 +187,19 @@ def window_create_sidebar(self, variaapp, variaVersion):
     box_add_download.append(download_entry)
     box_add_download.append(self.download_button)
     box_add_download.append(self.video_button)
+
+    # Batch import buttons
+    batch_buttons_row = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    file_button = Gtk.Button.new_from_icon_name("document-open-symbolic")
+    file_button.set_tooltip_text(_("Load URLs from File"))
+    file_button.connect("clicked", lambda btn: show_file_import_dialog(self))
+    clipboard_button = Gtk.Button.new_from_icon_name("edit-paste-symbolic")
+    clipboard_button.set_tooltip_text(_("Add from Clipboard"))
+    clipboard_button.connect("clicked", lambda btn: show_clipboard_import_dialog(self))
+    batch_buttons_row.append(file_button)
+    batch_buttons_row.append(clipboard_button)
+    box_add_download.append(batch_buttons_row)
+
     box_add_download.append(Gtk.Separator(margin_top=8, margin_bottom=8))
     box_add_download.append(self.add_torrent_button)
 
@@ -262,9 +276,16 @@ def window_create_sidebar(self, variaapp, variaVersion):
     sidebar_filter_buttons_box.append(self.filter_button_show_failed)
 
     self.sidebar_content_box.append(frame_add_download)
+    self.sidebar_queue_listbox = Gtk.ListBox()
+    self.sidebar_queue_listbox.set_selection_mode(Gtk.SelectionMode.SINGLE)
+    self.sidebar_queue_listbox.add_css_class("navigation-sidebar")
+    self.sidebar_queue_listbox.connect("row-selected", on_queue_row_selected, self)
+    self.sidebar_content_box.append(self.sidebar_queue_listbox)
     self.sidebar_content_box.append(sidebar_filter_buttons_box)
     self.sidebar_content_box.append(Gtk.Box(vexpand=True))
     sidebar_box.append(self.sidebar_content_box)
+    if hasattr(self, 'queue_manager'):
+        populate_queue_list(self)
 
     self.sidebar_shutdown_mode_label = Gtk.Label()
     self.sidebar_shutdown_mode_label.add_css_class('dim-label')

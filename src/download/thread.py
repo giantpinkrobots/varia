@@ -55,7 +55,7 @@ class DownloadThread(threading.Thread):
             self.downloadname = ""
 
         try:
-            self.filepath = os.path.join(app.appconf["download_directory"], downloadname)
+            self.filepath = os.path.join(self.downloaddir, self.downloadname)
         
         except:
             self.filepath = None
@@ -84,6 +84,8 @@ class DownloadThread(threading.Thread):
         self.extract_complete = False
 
         self.retry = False
+        self.queue_id = "infow"  # Which queue this download belongs to
+        self.queue_id = "infow"  # Which queue this download belongs to
 
     def is_valid_url(self):
         try:
@@ -216,7 +218,7 @@ class DownloadThread(threading.Thread):
                     if self.downloadname != self.download.name:
                         self.downloadname = self.download.name
                         self.save_state()
-                        self.filepath = os.path.join(self.app.appconf["download_directory"], self.downloadname)
+                        self.filepath = os.path.join(self.downloaddir, self.downloadname)
                     
                     if self.actionrow.filename_label.get_text() != self.downloadname:
                         GLib.idle_add(self.actionrow.filename_label.set_text, self.download.name)
@@ -885,7 +887,8 @@ class DownloadThread(threading.Thread):
                 'paused': self.paused,
                 'index': self.app.downloads.index(self),
                 'dir': download_dir,
-                'percentage': math.floor(self.percentage_number)
+                'percentage': math.floor(self.percentage_number),
+                'queue_id': getattr(self, 'queue_id', 'infow') or 'infow'
             }
             
             if os.path.isfile(os.path.join(self.app.appconf["download_directory"], f'{save_filename}.varia')):
@@ -1050,3 +1053,24 @@ class DownloadThread(threading.Thread):
 
         self.save_state()
         GLib.timeout_add_seconds(360, self.periodically_save_state)
+    def set_download_path(self, new_dir):
+        """Set custom download directory for this download. Called before download starts."""
+        self.downloaddir = new_dir
+        try:
+            self.filepath = os.path.join(new_dir, self.downloadname)
+        except:
+            pass
+    def relocate_download(self, new_path):
+        """Move completed download to new path. Returns True on success."""
+        if not (self.cancelled or self.is_complete):
+            return False
+        try:
+            import shutil
+            os.makedirs(os.path.dirname(new_path), exist_ok=True)
+            if os.path.exists(self.filepath):
+                shutil.move(self.filepath, new_path)
+                self.filepath = new_path
+                return True
+        except Exception as e:
+            print(f"Relocation error: {e}")
+        return False

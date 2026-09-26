@@ -28,7 +28,11 @@ def on_download_clicked(button, self, entry, downloadname, download, mode, video
 
         download_thread = DownloadThread(self, url, download_item, downloadname, download, mode, video_options, paused, dir, percentage)
         download_item.download_thread = download_thread
-        self.downloads.append(download_thread)
+        # Route via QueueManager so the download lands in the active queue
+        if hasattr(self, 'queue_manager'):
+            self.queue_manager.add_download(download_thread)
+        else:
+            self.downloads.append(download_thread)
         download_thread.start()
 
         if paused == False:
@@ -113,6 +117,15 @@ def create_actionrow(self, filename):
     stop_button.connect("clicked", on_stop_clicked, self, download_item)
     stop_button.set_tooltip_text(_("Stop"))
     button_box.append(stop_button)
+    # Secondary menu: move to queue / move to folder
+    menu_button = Gtk.MenuButton()
+    menu_button.set_valign(Gtk.Align.CENTER)
+    menu_button.add_css_class("circular")
+    menu_button.set_icon_name("open-menu-symbolic")
+    menu_button.set_tooltip_text(_("More"))
+    _attach_actionrow_popover(menu_button, self, download_item)
+    button_box.append(menu_button)
+    download_item.menu_button = menu_button
 
     box_1.append(box)
 
@@ -182,3 +195,95 @@ def pause_button_on_open_clicked(button, self, download_item):
             subprocess.call(('open', download_item.filepath))
         else:
             Gio.AppInfo.launch_default_for_uri("file://" + download_item.filepath, None)
+def _attach_actionrow_popover(menu_button, self, download_item):
+    """Attach a popover with queue/location actions to the menu button."""
+    popover = Gtk.Popover()
+    box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
+    box.set_margin_top(6)
+    box.set_margin_bottom(6)
+    box.set_margin_start(6)
+    box.set_margin_end(6)
+
+    move_folder_button = Gtk.Button.new_with_label(_("Move to folder…"))
+    move_folder_button.set_halign(Gtk.Align.FILL)
+    move_folder_button.connect("clicked", _move_to_folder_clicked, self, download_item)
+    box.append(move_folder_button)
+
+    if hasattr(self, 'queue_manager') and len(self.queue_manager.get_all_queue_ids()) > 1:
+        queue_label = Gtk.Label(label=_("Move to queue"))
+        queue_label.add_css_class("dim-label")
+        queue_label.set_halign(Gtk.Align.START)
+        box.append(queue_label)
+        for queue_id in self.queue_manager.get_all_queue_ids():
+            queue = self.queue_manager.get_queue(queue_id)
+            if queue_id == download_item.download_thread.get_queue_id():
+                continue
+            queue_button = Gtk.Button.new_with_label(queue.name)
+            queue_button.set_halign(Gtk.Align.FILL)
+            queue_button.connect("clicked", _move_to_queue_clicked, self, download_item, queue_id)
+            box.append(queue_button)
+
+    popover.set_child(box)
+    popover.set_parent(menu_button)
+    menu_button.set_popover(popover)
+
+
+def _move_to_folder_clicked(button, self, download_item):
+    download_thread = download_item.download_thread
+    if not (download_thread.cancelled or download_thread.is_complete):
+        # Pre-download: set the target directory for this download
+        folder_chooser = Gtk.FolderChooserNative(
+            title=_("Set Download Folder"),
+            transient_for=self,
+            action=Gtk.FileChooserAction.SELECT_FOLDER,
+            accept_label=_("Select"),
+            cancel_label=_("Cancel"),
+        )
+        folder_chooser.set_modal(True)
+        if os.path.exists(download_thread.downloaddir):
+            folder_chooser.set_folder(download_thread.downloaddir)
+        folder_chooser.set_initial_folder(GLib.get_home_dir())
+
+        def on_folder_response(chooser, response):
+            if response == Gtk.ResponseType.ACCEPT:
+                new_dir = chooser.get_file().get_path()
+                if new_dir:
+                    download_thread.set_download_path(new_dir)
+                    GLib.idle_add(download_thread.show_message, _("Download folder set."))
+            chooser.destroy()
+
+        folder_chooser.connect("response", on_folder_response)
+        folder_chooser.show()
+    else:
+        # Post-download: move the completed file
+        file_chooser = Gtk.FileChooserNative(
+            title=_("Move Download To…"),
+            transient_for=self,
+            action=Gtk.FileChooserAction.SELECT_FOLDER,
+            accept_label=_("Move Here"),
+            cancel_label=_("Cancel"),
+        )
+        file_chooser.set_modal(True)
+        if os.path.exists(os.path.dirname(download_thread.filepath or "")):
+            file_chooser.set_folder(os.path.dirname(download_thread.filepath))
+        else:
+            file_chooser.set_initial_folder(GLib.get_home_dir())
+
+        def on_move_response(chooser, response):
+            if response == Gtk.ResponseType.ACCEPT:
+                new_dir = chooser.get_file().get_path()
+                if new_dir and download_thread.filepath:
+                    new_path = os.path.join(new_dir, os.path.basename(download_thread.filepath))
+                    if download_thread.relocate_download(new_path):
+                        GLib.idle_add(download_thread.show_message, _("Download moved."))
+            chooser.destroy()
+
+        file_chooser.connect("response", on_move_response)
+        file_chooser.show()
+
+
+def _move_to_queue_clicked(button, self, download_item, queue_id):
+    download_thread = download_item.download_thread
+    if hasattr(self, 'queue_manager'):
+        if self.queue_manager.move_download(download_thread, queue_id):
+            GLib.idle_add(download_thread.show_message, _("Moved to queue."))
