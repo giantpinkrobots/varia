@@ -8,10 +8,10 @@ def tray_action_show(arg):
 def tray_action_quit(arg):
     conn.send("quit")
 
-if os.path.exists(os.path.join(os.path.dirname(os.path.realpath(__file__)), "trayicon_win.png")):
-    image_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "trayicon_win.png")
-else:
+if (os.uname().sysname == 'Darwin'):
     image_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "trayicon_mac.png")
+else:
+    image_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "trayicon_win.png")
 
 show_text = sys.argv[1]
 quit_text = sys.argv[2]
@@ -36,7 +36,16 @@ def create_tray_icon_pystray():
 
     icon.title = "Varia"
 
-    icon.run()
+    if (os.uname().sysname == 'Darwin'):
+        def setup_tray(icon):
+            icon.visible = True
+            if hasattr(icon, '_icon_image'):
+                icon._icon_image.setTemplate_(True)
+
+        icon.run(setup=setup_tray)
+
+    else:
+        icon.run()
 
 address = ('localhost', 6802)
 conn = Client(address, authkey=b'varia-tray-process')

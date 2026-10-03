@@ -25,9 +25,9 @@ jobs:
 
       - name: Install build dependencies
         run: |
-          brew update
-          brew install automake autoconf libtool pkg-config nasm yasm cmake ninja gtk4 libadwaita python3 lame opus libvorbis libogg gnutls pygobject3 create-dmg gmp libtorrent-rasterbar
-          python3 -m pip install --break-system-packages pillow pygobject yt-dlp pyinstaller aria2p pystray emoji-country-flag
+          yes | brew update
+          yes | brew install automake autoconf libtool pkg-config nasm yasm cmake ninja gtk4 libadwaita python3 lame opus libvorbis libogg gnutls pygobject3 create-dmg gmp libtorrent-rasterbar
+          python3 -m pip install pillow pygobject yt-dlp pyinstaller aria2p pystray emoji-country-flag
 
       - name: Download binaries for dependencies
         run: |
@@ -132,7 +132,7 @@ jobs:
           pyinstaller -n varia-tray --noconsole --noconfirm tray_win_mac.py
 
           cp -r "$MAC_DIR/../src/tray/dist/varia-tray/"* "$MAC_DIR/Varia.app/Contents/Resources/tray/"
-          cp "$MAC_DIR/../src/tray/trayicon_win.png" "$MAC_DIR/Varia.app/Contents/Resources/tray/_internal/trayicon_mac.png"
+          cp "$MAC_DIR/../src/tray/trayicon_mac.png" "$MAC_DIR/Varia.app/Contents/Resources/tray/_internal/trayicon_mac.png"
 
           cd "$MAC_DIR/../src"
           pyinstaller --noconfirm varia.spec
