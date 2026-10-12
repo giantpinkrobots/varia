@@ -1,6 +1,7 @@
-variaVersion = "v2026.8.5-1" # Also update actions-inno-install-script.iss
+variaVersion = "dev" # Also update actions-inno-install-script.iss
 
 import ctypes
+import shutil
 import gi
 import sys
 import json
@@ -640,6 +641,28 @@ class MyApp(Adw.Application):
 
             Adw.Dialog = AdwDialogForWindows
 
+        if (os.uname().sysname == 'Darwin'):
+            # On Mac the traffic light buttons overlap with dialogs, so we hide/show them accordingly.
+            class AdwDialogForMac(Adw.Dialog):
+                def __init__(self, **kwargs):
+                    super().__init__(**kwargs)
+                    self.connect_after("realize", self.dialog_show)
+                    self.connect_after("closed", self.dialog_close)
+            
+                def present(self, parent=None):
+                    if parent is not None:
+                        self._parentwidget = parent
+                    super().present(parent)
+                    
+                def dialog_show(self, dialog):
+                    self.get_root().sidebar_header_bar.set_show_start_title_buttons(False)
+
+                def dialog_close(self, dialog):
+                    if self._parentwidget == self.get_root():
+                        self._parentwidget.sidebar_header_bar.set_show_start_title_buttons(True)
+    
+            Adw.Dialog = AdwDialogForMac
+
     def add_downloads(self, arguments):
         torrent_not_enabled_error_shown = False
         
@@ -878,9 +901,22 @@ if (__name__ == '__main__'):
         stringstorage.setstrings_win(translation.gettext)
         from stringstorage import gettext as _
 
-        jsruntimeexec = {
-            'name': 'deno',
-            'exec': os.path.join(os.getcwd(), "deno")
-        }
+        if variaVersion == "dev":
+            jsruntimeexec = {
+                'name': 'deno',
+                'exec': shutil.which("deno")
+            }
+            aria2cexec = shutil.which("aria2c")
+            ffmpegexec = shutil.which("ffmpeg")
+            sevenzexec = shutil.which("7zz")
 
-        sys.exit(main(variaVersion, os.path.join(os.getcwd(), "aria2c"), os.path.join(os.getcwd(), "ffmpeg"), os.path.join(os.getcwd(), "7zz"), jsruntimeexec, False, None, json.dumps(sys.argv)))
+        else:
+            jsruntimeexec = {
+                'name': 'deno',
+                'exec': os.path.join(os.getcwd(), "deno")
+            }
+            aria2cexec = os.path.join(os.getcwd(), "aria2c")
+            ffmpegexec = os.path.join(os.getcwd(), "ffmpeg")
+            sevenzexec = os.path.join(os.getcwd(), "7zz")
+
+        sys.exit(main(variaVersion, aria2cexec, ffmpegexec, sevenzexec, jsruntimeexec, False, None, json.dumps(sys.argv)))

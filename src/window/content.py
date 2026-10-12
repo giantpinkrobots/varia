@@ -61,7 +61,7 @@ def window_create_content(self):
         header_toolbar.set_content(self.content_box)
 
         self.mac_header_empty_space = Gtk.Box()
-        self.mac_header_empty_space.set_margin_start(60)
+        self.mac_header_empty_space.set_margin_start(84)
         self.mac_header_empty_space.set_visible(False)
         header_box.prepend(self.header_show_sidebar_button_revealer)
         header_box.prepend(self.mac_header_empty_space)

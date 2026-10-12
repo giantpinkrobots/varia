@@ -119,17 +119,17 @@ def window_create_sidebar(self, variaapp, variaVersion):
         sidebar_box.prepend(header_box)
 
     else:
-        header_bar = Adw.HeaderBar()
-        header_bar.add_css_class('flat')
+        self.sidebar_header_bar = Adw.HeaderBar()
+        self.sidebar_header_bar.add_css_class('flat')
 
         if (os.uname().sysname == 'Darwin'):
             variaapp.set_menubar(hamburger_menu_model)
 
         else:
-            header_bar.pack_start(preferences_button)
-            header_bar.pack_end(hamburger_button)
+            self.sidebar_header_bar.pack_start(preferences_button)
+            self.sidebar_header_bar.pack_end(hamburger_button)
 
-        sidebar_box.prepend(header_bar)
+        sidebar_box.prepend(self.sidebar_header_bar)
 
     box_add_download = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
     box_add_download.set_margin_start(8)
