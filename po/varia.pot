@@ -674,6 +674,21 @@ msgstr ""
 msgid "Dark theme"
 msgstr ""
 
+msgid "Ask for Download Directory for Each Download"
+msgstr ""
+
+msgid "Always"
+msgstr ""
+
+msgid "Never"
+msgstr ""
+
+msgid "Only for Torrents"
+msgstr ""
+
+msgid "Only for Files/Videos"
+msgstr ""
+
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"

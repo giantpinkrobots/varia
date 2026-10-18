@@ -250,6 +250,25 @@ def show_preferences(button, self, app, variaVersion):
 
     self.scheduler_actionrow.add_suffix(scheduler_actionrow_buttons_box)
 
+    # Always ask for download directory:
+
+    always_ask_for_download_directory_comborow = Adw.ComboRow()
+    always_ask_for_download_directory_comborow.set_title(_("Ask for Download Directory for Each Download"))
+
+    always_ask_for_download_directory_comborow_model = Gtk.StringList.new(strings=[
+        _("Never"),
+        _("Always"),
+        _("Only for Torrents"),
+        _("Only for Files/Videos")
+    ])
+
+    always_ask_for_download_directory_comborow.set_model(always_ask_for_download_directory_comborow_model)
+
+    if (self.appconf["download_directory_always_ask"] != "0"):
+        always_ask_for_download_directory_comborow.set_selected(int(self.appconf["download_directory_always_ask"]))
+
+    always_ask_for_download_directory_comborow.connect("notify::selected", on_always_ask_for_download_directory_changed, self)
+
     # Simultaneous download amount:
 
     simultaneous_download_amount_spinrow = Adw.SpinRow(adjustment=Gtk.Adjustment(step_increment=1.0))
@@ -305,6 +324,7 @@ def show_preferences(button, self, app, variaVersion):
     group_1.add(playlist_skip_errors)
     group_1.add(speed_limit)
     group_1.add(self.scheduler_actionrow)
+    group_1.add(always_ask_for_download_directory_comborow)
     group_1.add(simultaneous_download_amount_spinrow)
 
     group_tray.add(use_tray_icon)
@@ -691,7 +711,6 @@ def on_color_scheme_changed(toggle_group, param, self, prefswindow):
 
     self.save_appconf()
 
-
 def on_download_directory_change(self, directory_to_be_changed, prefswindow, actionrow):
     Gtk.FileDialog().select_folder(None, None, on_download_directory_selected, directory_to_be_changed, self, prefswindow, actionrow)
 
@@ -946,6 +965,11 @@ def on_switch_torrent_encryption(switch, state, self):
 
     self.save_appconf()
     self.set_lt_encryption()
+
+def on_always_ask_for_download_directory_changed(comborow, GParamUInt, self):
+    selected = comborow.get_selected()
+    self.appconf["download_directory_always_ask"] = str(selected)
+    self.save_appconf()
 
 def error_varia_dialog(preferencesWindow):
     dialog = Adw.AlertDialog()

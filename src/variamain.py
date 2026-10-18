@@ -223,15 +223,25 @@ class MainWindowBase:
         default_state = {"url": None, "filename": None, "type": "regular", "video_options": {}, "paused": False, "index": 0, "dir": self.appconf["download_directory"], "percentage": 0}
         download_dicts = []
 
-        for filename in os.listdir(self.appconf["download_directory"]):
-            if (os.path.isdir(filename) == False) and ( (filename.endswith('.varia.json')) or (filename.endswith('.varia')) ):
-                if (filename.endswith(".varia.json")):
-                    current_filename = filename.replace(".json", "")
-                    os.rename(os.path.join(self.appconf["download_directory"], filename), os.path.join(self.appconf["download_directory"], current_filename))
-                else:
-                    current_filename = filename
+        save_files = []
 
-                with open(os.path.join(self.appconf["download_directory"], current_filename), 'r') as f:
+        def build_save_files_list(dir):
+            for item in os.scandir(dir):
+                if item.is_file():
+                    save_files.append(item.path)
+
+        build_save_files_list(self.appconf["download_directory"])
+        build_save_files_list(self.appdir)
+
+        for file in save_files:
+            if (file.endswith('.varia.json')) or (file.endswith('.varia')):
+                if (file.endswith(".varia.json")):
+                    current_filename = file.replace(".json", "")
+                    os.rename(file, current_filename)
+                else:
+                    current_filename = file
+
+                with open(current_filename, 'r') as f:
                     loaded_state = json.load(f)
                     state = {**default_state, **loaded_state}
 
@@ -241,7 +251,7 @@ class MainWindowBase:
 
                     download_dicts.append(state)
 
-                os.remove(os.path.join(self.appconf["download_directory"], current_filename))
+                os.remove(current_filename)
 
         download_dicts = sorted(download_dicts, key=itemgetter("index"))
 
@@ -783,7 +793,8 @@ def main(version, aria2cexec, ffmpegexec, sevenzexec, jsruntimeexec, issnap, pkg
         'playlist_skip_errors': '0',
         'color_scheme': 'auto',
         'use_ssd': '0',
-        'use_kde_css': '0'}
+        'use_kde_css': '0',
+        'download_directory_always_ask': '0'}
     
     if os.name == 'nt':
         appconf['use_ssd'] = '1'

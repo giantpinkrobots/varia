@@ -150,7 +150,7 @@ def window_create_sidebar(self, variaapp, variaVersion):
     self.download_button.set_child(download_button_box)
     self.download_button.add_css_class("suggested-action")
     self.download_button.set_sensitive(False)
-    self.download_button.connect("clicked", on_download_clicked, self, download_entry, None, None, "regular", None, False, self.appconf["download_directory"], 0)
+    self.download_button.connect("clicked", on_download_clicked, self, download_entry, None, None, "regular", None, False, None, 0)
 
     self.video_button_icon = Gtk.Image.new_from_icon_name("camera-video-symbolic")
     self.video_button_text = Gtk.Label(label=_("Video / Audio"))

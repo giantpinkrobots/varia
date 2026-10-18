@@ -1,5 +1,9 @@
+import gi
+gi.require_version('Gtk', '4.0')
+gi.require_version('Adw', '1')
+
 import ctypes
-from gi.repository import GLib
+from gi.repository import GLib, Gtk, Adw
 import threading
 from urllib.parse import urlparse
 import requests
@@ -55,7 +59,7 @@ class DownloadThread(threading.Thread):
             self.downloadname = ""
 
         try:
-            self.filepath = os.path.join(app.appconf["download_directory"], downloadname)
+            self.filepath = os.path.join(self.downloaddir, downloadname)
         
         except:
             self.filepath = None
@@ -68,6 +72,7 @@ class DownloadThread(threading.Thread):
         self.video_stop_event = threading.Event()
         self.video_pause_event = threading.Event()
         self.video_pause_event.set()
+        self.directory_selection_event = threading.Event()
         self.video_status = "idle"
         self.video_download_combined = False
         self.video_download_stage = 0
@@ -113,11 +118,17 @@ class DownloadThread(threading.Thread):
         if self.url.lower().startswith("magnet:") or self.mode == "torrent": # Is torrent
 
             if self.app.appconf["torrent_enabled"] == "1":
-                if self.app.appconf["torrent_download_directory_custom_enabled"] == "1":
-                    self.downloaddir = self.app.appconf["torrent_download_directory"]
+                if self.downloaddir == None:
+                    if self.app.appconf["download_directory_always_ask"] in ("1", "2"):
+                        if not self.select_download_directory():
+                            self.cancel_pending_download()
+                            return
 
-                else:
-                    self.downloaddir = self.app.appconf["download_directory"]
+                    elif self.app.appconf["torrent_download_directory_custom_enabled"] == "1":
+                        self.downloaddir = self.app.appconf["torrent_download_directory"]
+
+                    else:
+                        self.downloaddir = self.app.appconf["download_directory"]
             
                 self.download_details['type'] = _("Torrent")
                 self.mode = "torrent"
@@ -150,9 +161,13 @@ class DownloadThread(threading.Thread):
                     self.url = self.auth_username + ":" + self.auth_password + "@" + self.url
                 print ("Authentication enabled.")
 
-        #if self.downloadname and ("/" or "\\" in self.downloadname):
-        #    self.downloadname = self.downloadname.replace("/", " ")
-        #    self.downloadname = self.downloadname.replace("\\", " ")
+            if (self.downloaddir == None) and ((self.app.appconf["download_directory_always_ask"] == "1") or (self.app.appconf["download_directory_always_ask"] == "3")):
+                if not self.select_download_directory():
+                    self.cancel_pending_download()
+                    return
+
+            elif self.downloaddir == None:
+                self.downloaddir = self.app.appconf["download_directory"]
 
         self.app.check_all_status()
 
@@ -168,6 +183,9 @@ class DownloadThread(threading.Thread):
             if self.downloadname != None:
                 download_options["out"] = self.downloadname
 
+            if self.downloaddir != None:
+                download_options["dir"] = self.downloaddir
+
             if self.download == None:
                 self.download = self.api.add_uris([self.url], options=download_options)
 
@@ -176,7 +194,8 @@ class DownloadThread(threading.Thread):
                     self.pause(True)
                 
                 elif self.paused:
-                    self.pause()
+                    self.pause(force=True, save=False)
+                    print("Download added in paused state. | " + self.download.gid + "\n" + self.downloaddir + "\n" + self.url)
                 
                 else:
                     try:
@@ -192,13 +211,12 @@ class DownloadThread(threading.Thread):
             self.previous_filename = ""
             self.app.filter_download_list("no", self.app.applied_filter)
             download_began = False
-            self.filepath = os.path.join(self.app.appconf["download_directory"], self.downloadname)
+            self.filepath = os.path.join(self.downloaddir, self.downloadname)
 
             if self.retry == False:
                 self.save_state()
 
             print("Download added. | " + self.download.gid + "\n" + self.downloaddir + "\n" + self.url)
-            print(download_options)
 
             while (self.cancelled == False):
                 try:
@@ -216,7 +234,7 @@ class DownloadThread(threading.Thread):
                     if self.downloadname != self.download.name:
                         self.downloadname = self.download.name
                         self.save_state()
-                        self.filepath = os.path.join(self.app.appconf["download_directory"], self.downloadname)
+                        self.filepath = os.path.join(self.downloaddir, self.downloadname)
                     
                     if self.actionrow.filename_label.get_text() != self.downloadname:
                         GLib.idle_add(self.actionrow.filename_label.set_text, self.download.name)
@@ -268,7 +286,9 @@ class DownloadThread(threading.Thread):
             if resume_data != None:
                 torrent_params = lt.read_resume_data(resume_data)
                 if self.paused:
-                    torrent_params.flags += lt.torrent_flags.paused
+                    torrent_params.flags |= lt.torrent_flags.paused
+                else:
+                    torrent_params.flags &= ~lt.torrent_flags.paused
                 self.torrent_instance = self.app.ltsession.add_torrent(torrent_params)
 
             else:
@@ -309,7 +329,7 @@ class DownloadThread(threading.Thread):
                 self.pause(True)
 
             elif self.paused:
-                self.pause()
+                self.pause(force=True, save=False)
 
             if self.retry == False:
                 self.save_state()
@@ -387,7 +407,7 @@ class DownloadThread(threading.Thread):
                 self.pause(True)
             
             elif self.paused:
-                self.pause()
+                self.pause(force=True, save=False)
             
             else:
                 self.download_details['status'] = _("Downloading")
@@ -681,7 +701,10 @@ class DownloadThread(threading.Thread):
             self.download_details['remaining'] = download_remaining_string
             self.download_details['download_speed'] = speed_label_text_speed
 
-    def pause(self, called_by_scheduler = False):
+    def pause(self, called_by_scheduler = False, force = False, save = True):
+        if self.paused and not force:
+            return
+
         if self.download and self.is_complete == False:
             if self.mode == "regular":
                 self.download.pause()
@@ -708,7 +731,8 @@ class DownloadThread(threading.Thread):
         if self.mode == "video":
             self.set_actionrow_tooltip_text()
 
-        self.save_state()
+        if save:
+            self.save_state()
         self.app.check_all_status()
 
     def resume(self, called_by_scheduler = False):
@@ -765,11 +789,11 @@ class DownloadThread(threading.Thread):
 
                 if ((istorrent and self.download.seeder) or self.download.is_complete) == False: # Delete files if incomplete
 
-                    if os.path.exists(os.path.join(self.app.appconf["download_directory"], (downloadgid + ".varia"))):
-                        os.remove(os.path.join(self.app.appconf["download_directory"], (downloadgid + ".varia")))
+                    if os.path.exists(os.path.join(self.app.appdir, (downloadgid + ".varia"))):
+                        os.remove(os.path.join(self.app.appdir, (downloadgid + ".varia")))
                     
                     if istorrent == False:
-                        if os.path.exists(os.path.join(self.downloaddir, downloadname)):
+                        if self.downloaddir is not None and os.path.exists(os.path.join(self.downloaddir, downloadname)):
                             try:
                                 os.remove(os.path.join(self.downloaddir, downloadname))
                             except:
@@ -790,7 +814,7 @@ class DownloadThread(threading.Thread):
                                 except:
                                     pass
                             
-                            if (pathlib.Path(file_parentdir).resolve() == pathlib.Path(self.downloaddir).resolve()) == False and os.listdir(file_parentdir) == []:
+                            if self.downloaddir is not None and pathlib.Path(file_parentdir).resolve() != pathlib.Path(self.downloaddir).resolve() and os.listdir(file_parentdir) == []:
                                 os.rmdir(file_parentdir)
 
                 print ("Download stopped.")
@@ -856,8 +880,9 @@ class DownloadThread(threading.Thread):
             elif self.mode == "torrent":
                 self.torrent_instance.save_resume_data()
                 resume_data = None
+                deadline = time.monotonic() + 2
 
-                while True:
+                while resume_data == None and time.monotonic() < deadline:
                     for alert in self.app.ltsession.pop_alerts():
                         if (
                             isinstance(alert, lt.save_resume_data_alert)
@@ -869,6 +894,10 @@ class DownloadThread(threading.Thread):
                     if resume_data != None:
                         break
                     time.sleep(0.01)
+
+                if resume_data == None:
+                    print("Timed out waiting for torrent resume data; keeping the previous saved state.")
+                    return
                     
                 save_filename = base64.b64encode(self.url.encode('ascii')).decode('ascii').replace("/", "")[-20:]
                 download_file_name = base64.b64encode(resume_data).decode("ascii")
@@ -888,10 +917,10 @@ class DownloadThread(threading.Thread):
                 'percentage': math.floor(self.percentage_number)
             }
             
-            if os.path.isfile(os.path.join(self.app.appconf["download_directory"], f'{save_filename}.varia')):
-                os.remove(os.path.join(self.app.appconf["download_directory"], f'{save_filename}.varia'))
+            if os.path.isfile(os.path.join(self.app.appdir, f'{save_filename}.varia')):
+                os.remove(os.path.join(self.app.appdir, f'{save_filename}.varia'))
 
-            with open(os.path.join(self.app.appconf["download_directory"], f'{save_filename}.varia'), 'w') as f:
+            with open(os.path.join(self.app.appdir, f'{save_filename}.varia'), 'w') as f:
                 json.dump(state, f)
 
             print ("State saved for download.")
@@ -899,7 +928,7 @@ class DownloadThread(threading.Thread):
             if self.app.terminating == True:
                 self.cancelled = True
             
-            self.state_file = os.path.join(self.app.appconf["download_directory"], f'{save_filename}.varia')
+            self.state_file = os.path.join(self.app.appdir, f'{save_filename}.varia')
     
     def extract_archive(self):
         GLib.idle_add(self.speed_label.set_text, _("Extracting"))
@@ -1050,3 +1079,44 @@ class DownloadThread(threading.Thread):
 
         self.save_state()
         GLib.timeout_add_seconds(360, self.periodically_save_state)
+
+    def custom_download_directory_select(self):
+        self.new_selected_directory = None
+        self.app.present()
+        Gtk.FileDialog().select_folder(self.app, None, self.on_custom_download_directory_select)
+
+    def select_download_directory(self):
+        self.new_selected_directory = None
+        self.directory_selection_event.clear()
+        GLib.idle_add(self.custom_download_directory_select)
+        self.directory_selection_event.wait()
+        if self.new_selected_directory is None:
+            return False
+
+        self.downloaddir = self.new_selected_directory
+
+        if self.download and self.mode == "regular" and not self.url.lower().startswith("magnet:"):
+            self.download.api.client.change_option(self.download.gid, {"dir": self.downloaddir})
+            self.download.update()
+
+        return True
+
+    def cancel_pending_download(self):
+        self.cancelled = True
+        GLib.idle_add(self.stop)
+    
+    def on_custom_download_directory_select(self, dialog, result):
+        try:
+            self.new_selected_directory = dialog.select_folder_finish(result).get_path()
+    
+        except GLib.GError as exception:
+            if (exception.domain == 'gtk-dialog-error-quark' and exception.code == 2) == False:
+                error_dialog = Adw.AlertDialog()
+                error_dialog.set_body(_("Failed to open directory."))
+                error_dialog.add_response("ok",  _("OK"))
+                error_dialog.set_default_response("ok")
+                error_dialog.set_close_response("ok")
+                error_dialog.present(self.app)
+
+        finally:
+            self.directory_selection_event.set()
