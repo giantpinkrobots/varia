@@ -7,40 +7,37 @@ import ctypes
 import signal
 
 class Aria2Instance:
-    def __init__(self, appconf, aria2cexec):
+    def __init__(self, appconf, aria2cexec, appdir):
         
         self.address = "http://localhost"
         self.port = "6801"
         self.appconf = appconf
         self.aria2cexec = aria2cexec
+        self.appdir = appdir
     
     def start_subprocess(self):
         aria2_config = [
             "--enable-rpc",
-            "--rpc-listen-port=6801",
+            "--rpc-listen-port=" + self.port,
             "--rpc-allow-origin-all",
-            "--follow-torrent=false",
             "--allow-overwrite=false",
-            "--auto-file-renaming=true",
             "--min-split-size=1M",
             "--http-accept-gzip=true",
             "--disk-cache=128M",
-            "--bt-enable-lpd=true",
-            "--bt-hash-check-seed=true",
-            "--enable-peer-exchange=true",
-            "--enable-dht=true",
-            "--enable-dht6=true",
-            "--peer-agent=Transmission/3.00", # Some people block aria2's native user agent id because it
-                                            # doesn't do any seeding by default. Thus here we change it
-            "--peer-id-prefix=-TR3000-",      # to mimic Transmission instead.
             "--split=32",
             "--max-connection-per-server=16",
-            "--bt-max-peers=250",
-            "--bt-request-peer-speed-limit=5M",
-            "--bt-tracker-connect-timeout=10",
-            "--bt-tracker-interval=30",
-            "--bt-save-metadata=true",
-            "--file-allocation=none"]
+            "--file-allocation=none",
+            "--always-resume=true",
+            "--save-session-interval=10",
+            "--state-dir=" + os.path.join(self.appdir, 'aria2_state'),
+            # Disable torrent features of aria2-next:
+            "--enable-peer-exchange=false",
+            "--enable-dht=false",
+            "--enable-dht6=false",
+            "--bt-enable-lpd=false",
+            "--follow-torrent=false",
+            "--check-integrity=false",
+            "--bt-max-peers=0"]
     
         if os.name != 'nt' and os.uname().sysname != 'Darwin': # Running Linux
             libc = ctypes.CDLL("libc.so.6", use_errno=True)

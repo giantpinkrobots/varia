@@ -1,7 +1,7 @@
 {
     "id": "io.github.giantpinkrobots.varia",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "50",
+    "runtime-version": "51",
     "//!": "!!!!!!Also update the GNOME version in ./.github/workflows/flatpak-package.yml",
     "sdk": "org.gnome.Sdk",
     "command": "varia",
@@ -17,10 +17,10 @@
         "--talk-name=org.kde.StatusNotifierWatcher"
     ],
     "sdk-extensions": [
-        "org.freedesktop.Sdk.Extension.llvm21"
+        "org.freedesktop.Sdk.Extension.llvm22"
     ],
     "build-options": {
-        "append-path": "/usr/lib/sdk/rust-stable/bin:/usr/lib/sdk/llvm21/bin"
+        "append-path": "/usr/lib/sdk/rust-stable/bin:/usr/lib/sdk/llvm22/bin"
     },
     "cleanup": [
         "/include",
@@ -34,35 +34,6 @@
         "*.a"
     ],
     "modules": [
-        {
-            "name": "aria2",
-            "buildsystem": "autotools",
-            "config-opts": [
-                "--without-libxml2",
-                "--without-sqlite3",
-                "--without-appletls",
-                "--without-gnutls",
-                "--without-libgmp",
-                "--without-libnettle",
-                "--without-libgcrypt",
-                "--without-libssh2",
-                "--without-cppunit",
-                "--without-libz",
-                "--without-libcunit",
-                "--without-libcares",
-                "--without-libaria2",
-                "--disable-nls",
-                "--with-openssl",
-                "--disable-ftp"
-            ],
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://github.com/aria2/aria2/releases/download/release-1.37.0/aria2-1.37.0.tar.xz",
-                    "sha256": "60a420ad7085eb616cb6e2bdf0a7206d68ff3d37fb5a956dc44242eb2f79b66b"
-                }
-            ]
-        },
         {
             "name": "ffmpeg",
             "config-opts": [
@@ -92,23 +63,8 @@
             "name": "7-zip",
             "buildsystem": "simple",
             "build-commands": [
-                "for bundle in Alone2 SFXCon; do pushd CPP/7zip/Bundles/${bundle}; make -j ${FLATPAK_BUILDER_N_JOBS} -f ../../cmpl_gcc.mak; popd; done",
-                "install -Dm755 CPP/7zip/Bundles/Alone2/b/g/7zz   $FLATPAK_DEST/bin/7zz"
-            ],
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://github.com/ip7z/7zip/archive/refs/tags/26.02.zip",
-                    "sha256": "c7d1954793bcb3fa4367ce808181e3abb070659178d4b65c0094731631e49384"
-                }
-            ]
-        },
-        {
-            "name": "deno",
-            "buildsystem": "simple",
-            "build-commands": [
-                "unzip ./deno*",
-                "install -Dm755 deno /app/bin/"
+                "tar -xf ./7z*",
+                "install -Dm755 7zzs /app/bin/7zz"
             ],
             "sources": [
                 {
@@ -116,16 +72,32 @@
                     "only-arches": [
                         "x86_64"
                     ],
-                    "url": "https://github.com/denoland/deno/releases/download/v2.9.4/deno-x86_64-unknown-linux-gnu.zip",
-                    "sha256": "c24f955d9fbfe0ea5ae2b501c8e71ae76e31e4c9782390a54a284b3364fda725"
+                    "url": "https://github.com/ip7z/7zip/releases/download/26.04/7z2604-linux-x64.tar.xz",
+                    "sha256": "fc0327ba27e89bd086cf426dff17d77de582953cdbbc10a6576540a06853ffcd"
                 },
                 {
                     "type": "file",
                     "only-arches": [
                         "aarch64"
                     ],
-                    "url": "https://github.com/denoland/deno/releases/download/v2.9.4/deno-aarch64-unknown-linux-gnu.zip",
-                    "sha256": "111da5c05c240cfdc4340f234a0e3539d39dbcb6755221f19dcd60bacc8be5aa"
+                    "url": "https://github.com/ip7z/7zip/releases/download/26.04/7z2604-linux-arm64.tar.xz",
+                    "sha256": "5b0ac3aa91c1e3499f011d6af69d7f6b4de3ef2f011d9e2ff44c58ebd04aa388"
+                }
+            ]
+        },
+        {
+            "name": "quickjs",
+            "buildsystem": "simple",
+            "build-commands": [
+                "make qjs cxxflags='$CXXFLAGS' linkflags='$LDFLAGS' -j $FLATPAK_BUILDER_N_JOBS",
+                "strip qjs",
+                "install -m 755 qjs /app/bin/"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/bellard/quickjs",
+                    "commit": "84e723f1ace5e3823cef8149dd0f890fe74b77ce"
                 }
             ]
         },
@@ -139,13 +111,13 @@
             "buildsystem": "simple",
             "build-commands": [
                 "./bootstrap.sh --prefix=/app",
-                "./b2 install --with-headers cxxflags='$CXXFLAGS' linkflags='$LDFLAGS' -j $FLATPAK_BUILDER_N_JOBS"
+                "./b2 install --with-headers --with-python cxxflags='$CXXFLAGS' linkflags='$LDFLAGS' -j $FLATPAK_BUILDER_N_JOBS"
             ],
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://github.com/boostorg/boost/releases/download/boost-1.90.0/boost-1.90.0-b2-nodocs.tar.xz",
-                    "sha256": "9e6bee9ab529fb2b0733049692d57d10a72202af085e553539a05b4204211a6f"
+                    "url": "https://github.com/boostorg/boost/releases/download/boost-1.92.0/boost-1.92.0-b2-nodocs.tar.xz",
+                    "sha256": "ea7b982002cc9dfbe59b0b217b206f470dc75f3de0bb2973d844118934d82411"
                 }
             ]
         },
@@ -155,21 +127,26 @@
             "builddir": true,
             "config-opts": [
                 "-DBUILD_SHARED_LIBS=OFF",
-                "-DCMAKE_BUILD_TYPE=Release"
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-Dpython-bindings=ON",
+                "-DCMAKE_POSITION_INDEPENDENT_CODE=ON"
+            ],
+            "build-commands": [
+                "ninja install"
             ],
             "sources": [
                 {
                     "type": "git",
                     "url": "https://github.com/arvidn/libtorrent.git",
-                    "commit": "578e06824c3546f3371ab43967ab288a7e253eca"
+                    "commit": "6da363d2994f17c0b3c0450d124cf73a31a73847"
                 }
             ]
         },
         {
-            "name": "python-libtorrent",
+            "name": "aria2-next",
             "buildsystem": "simple",
             "build-commands": [
-                "pip3 install --no-deps --prefix=/app *.whl"
+                "install -Dm755 aria2-next-* /app/bin/aria2-next"
             ],
             "sources": [
                 {
@@ -177,16 +154,16 @@
                     "only-arches": [
                         "x86_64"
                     ],
-                    "url": "https://github.com/arvidn/libtorrent/releases/download/v2.1.0/libtorrent-2.1.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-                    "sha256": "1c44c20e87fc1d3000b7e149da5668192caf4a70a106d61bc60940b990de3faa"
+                    "url": "https://github.com/AnInsomniacy/aria2-next/releases/download/v3.0.7/aria2-next-3.0.7-linux-x86_64",
+                    "sha256": "ba9191b084c0d853b626c1a163bd472e78ef61c9a8498e93f5c6519999dc90a8"
                 },
                 {
                     "type": "file",
                     "only-arches": [
                         "aarch64"
                     ],
-                    "url": "https://github.com/arvidn/libtorrent/releases/download/v2.1.0/libtorrent-2.1.0-cp313-cp313-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",
-                    "sha256": "1b64f6ce69874666a795f0161727be0ac5096bf626768574f1f298f8daa886bc"
+                    "url": "https://github.com/AnInsomniacy/aria2-next/releases/download/v3.0.7/aria2-next-3.0.7-linux-aarch64",
+                    "sha256": "8abfb13eddfc669267fc608fd6b116c483255ea018d033d2448a003b97faeb2b"
                 }
             ]
         },

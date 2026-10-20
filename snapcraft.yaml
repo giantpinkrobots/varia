@@ -1,5 +1,6 @@
+
 name: varia
-base: core24
+base: core26
 version: 'v2026.8.5-1'
 summary: Download files, videos and torrents
 description: |
@@ -15,9 +16,20 @@ slots:
     name: io.github.giantpinkrobots.varia
 
 parts:
+  python-runtime:
+    plugin: nil
+    stage-packages:
+      - libpython3.14-minimal
+      - libpython3.14-stdlib
+      - python3-minimal
+      - python3.14-minimal
+      - python3.14-venv
+
   python-packages:
     plugin: python
     source: .
+    after:
+      - python-runtime
     python-packages:
       - yt-dlp[default]
       - aria2p
@@ -27,45 +39,33 @@ parts:
     build-packages:
       - python3-pip
       - python3-setuptools
-    stage-packages:
-      - python3
-
-  aria2:
-    plugin: autotools
-    source: https://github.com/aria2/aria2/releases/download/release-1.37.0/aria2-1.37.0.tar.xz
-    source-checksum: sha256/60a420ad7085eb616cb6e2bdf0a7206d68ff3d37fb5a956dc44242eb2f79b66b
-    override-build: |
-      ./configure \
-        --without-libxml2 \
-        --without-sqlite3 \
-        --without-appletls \
-        --without-gnutls \
-        --without-libgmp \
-        --without-libnettle \
-        --without-libgcrypt \
-        --without-libssh2 \
-        --without-cppunit \
-        --without-libz \
-        --without-libcunit \
-        --without-libcares \
-        --without-libaria2 \
-        --disable-nls \
-        --with-openssl \
-        --disable-ftp \
-        --prefix=$SNAPCRAFT_PART_INSTALL
-      make
-      make install
-    build-packages:
+      - python3-wheel
       - build-essential
-      - autoconf
-      - automake
-      - libssl-dev
-      - pkg-config
+
+  aria2-next:
+    plugin: nil
+    source:
+      - on amd64: https://github.com/AnInsomniacy/aria2-next/releases/download/v3.0.7/aria2-next-3.0.7-linux-x86_64
+      - on arm64: https://github.com/AnInsomniacy/aria2-next/releases/download/v3.0.7/aria2-next-3.0.7-linux-aarch64
+    source-type: file
+    override-build: |
+      install -Dm755 aria2-next-* "$CRAFT_PART_INSTALL/bin/aria2-next"
 
   ffmpeg:
     plugin: autotools
-    source: https://ffmpeg.org/releases/ffmpeg-9.0.tar.xz
-    source-checksum: sha256/7f607a00dd0d28a729d5a4811205812eef01cf6ef6155025febb6f36a9062d52
+    source: https://github.com/FFmpeg/FFmpeg/archive/refs/tags/n9.0.tar.gz
+    source-checksum: sha256/d97647ace36a307f17ba2bca052d68937487bed8682e1eb9b6737076a9c442b7
+    autotools-configure-parameters:
+      - --disable-debug
+      - --disable-devices
+      - --disable-doc
+      - --disable-ffplay
+      - --disable-static
+      - --enable-gnutls
+      - --enable-libmp3lame
+      - --enable-libopus
+      - --enable-libvorbis
+      - --enable-shared
     override-build: |
       ./configure \
         --disable-debug \
@@ -78,8 +78,8 @@ parts:
         --enable-libopus \
         --enable-libvorbis \
         --enable-shared \
-        --prefix=$SNAPCRAFT_PART_INSTALL
-      make
+        --prefix="$CRAFT_PART_INSTALL"
+      make -j"${CRAFT_PARALLEL_BUILD_COUNT:-2}"
       make install
     build-packages:
       - build-essential
@@ -89,73 +89,41 @@ parts:
       - libvorbis-dev
       - yasm
       - nasm
-  
-  deno:
+
+  quickjs:
     plugin: nil
-    source: https://github.com/denoland/deno/archive/refs/tags/v2.9.4.tar.gz
-    source-type: tar
+    source: https://github.com/bellard/quickjs
+    source-type: git
+    source-commit: 84e723f1ace5e3823cef8149dd0f890fe74b77ce
     override-build: |
-      export CARGO_HOME="$SNAPCRAFT_PART_BUILD/.cargo"
-      export RUSTUP_HOME="$SNAPCRAFT_PART_BUILD/.rustup"
-      export PATH="$CARGO_HOME/bin:$PATH"
-      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
-      cargo build --locked --release
-      install -Dm755 ./target/release/deno "$SNAPCRAFT_PART_INSTALL/bin/deno"
+      make -j"${CRAFT_PARALLEL_BUILD_COUNT:-2}" \
+        qjs cxxflags="$CXXFLAGS" linkflags="$LDFLAGS"
+      strip qjs
+      install -Dm755 qjs "$CRAFT_PART_INSTALL/bin/qjs"
     build-packages:
-      - curl
-      - cmake
-      - clang
-      - libclang-dev
+      - build-essential
 
   sevenzip:
     plugin: nil
-    source: https://github.com/ip7z/7zip.git
-    source-type: git
-    source-commit: f9d78aff31a5f2521ae7ddbdc97c4a8855808959
+    source:
+      - on amd64: https://github.com/ip7z/7zip/releases/download/26.04/7z2604-linux-x64.tar.xz
+      - on arm64: https://github.com/ip7z/7zip/releases/download/26.04/7z2604-linux-arm64.tar.xz
+    source-type: file
     override-build: |
-      for bundle in Alone2 SFXCon; do
-        pushd CPP/7zip/Bundles/${bundle}
-        make -j"$(nproc)" -f ../../cmpl_gcc.mak
-        popd
-      done
-      install -Dm755 CPP/7zip/Bundles/Alone2/b/g/7zz "$SNAPCRAFT_PART_INSTALL/bin/7zz"
-    build-packages:
-      - build-essential
-      - g++
-      - make
-    stage-packages:
-      - libc6
-      - libstdc++6
-
-  boost:
-    plugin: nil
-    source: https://archives.boost.io/release/1.86.0/source/boost_1_86_0.tar.gz
-    source-type: tar
-    override-build: |
-      ./bootstrap.sh --prefix=/app
-      ./b2 install --with-headers cxxflags='$CXXFLAGS' linkflags='$LDFLAGS'
-
-  libtorrent:
-    plugin: cmake
-    source: https://github.com/arvidn/libtorrent.git
-    source-type: git
-    source-commit: 578e06824c3546f3371ab43967ab288a7e253eca
-    build-packages:
-      - build-essential
-      - libboost-dev
-      - libssl-dev
-    cmake-parameters:
-      - -DBUILD_SHARED_LIBS=OFF
-      - -DCMAKE_BUILD_TYPE=Release
-      - -DCMAKE_CXX_STANDARD=20
-      - -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON
-    prime:
-      - -*
+      tar -xf ./7z*
+      install -Dm755 7zzs "$CRAFT_PART_INSTALL/bin/7zz"
 
   varia:
     plugin: meson
     source: .
-    parse-info: [usr/local/share/metainfo/io.github.giantpinkrobots.varia.metainfo.xml]
+    after:
+      - python-packages
+      - aria2-next
+      - ffmpeg
+      - quickjs
+      - sevenzip
+    parse-info:
+      - usr/local/share/metainfo/io.github.giantpinkrobots.varia.metainfo.xml
     build-packages:
       - meson
       - ninja-build
@@ -164,18 +132,18 @@ parts:
       - libgtk-4-dev
       - desktop-file-utils
     stage-packages:
-      - libssl-dev
-      - libc6
-      - libstdc++6
+      - libssl3t64
     organize:
       usr/local: usr
     override-prime: |
       craftctl default
-      sed -i 's|Icon=.*|Icon=io.github.giantpinkrobots.varia.svg|' usr/share/applications/io.github.giantpinkrobots.varia.desktop
+      sed -i 's|Icon=.*|Icon=io.github.giantpinkrobots.varia.svg|' \
+        usr/share/applications/io.github.giantpinkrobots.varia.desktop
 
 apps:
   varia:
-    extensions: [gnome]
+    extensions:
+      - gnome
     command: usr/bin/varia
     slots:
       - dbus-varia

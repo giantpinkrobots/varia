@@ -428,13 +428,13 @@ def on_video_clicked(button, self, entry, header):
                     bitrate_audio = format_bitrate(audio_bitrate)
 
                     if bitrate_video and bitrate_audio:
-                        parts.append(_("Bitrate:") + " 🎞 " + bitrate_video + " &amp; 🕪 " + bitrate_audio)
+                        parts.append(_("Bitrate:") + "  ▶ " + bitrate_video + "  /  ♫ " + bitrate_audio)
                     
                     elif bitrate_video:
-                        parts.append(_("Bitrate:") + " 🎞 " + bitrate_video)
+                        parts.append(_("Bitrate:") + "  ▶ " + bitrate_video)
 
                     elif bitrate_audio:
-                        parts.append(_("Bitrate:") + " 🕪 " + bitrate_audio)
+                        parts.append(_("Bitrate:") + "  ♫ " + bitrate_audio)
 
                     # Combined bitrate text fallback (show only if specific bitrates weren't available)
                     if combined_bitrate_text and not (bitrate_video or bitrate_audio):
@@ -660,7 +660,7 @@ def on_video_option_download_clicked(self, prefswindow, type, download_object, d
 
     filename = unique_filename(self.appconf["download_directory"], download_name, file_ext)
 
-    on_download_clicked(None, self, url, filename, None, "video", video_options, False, self.appconf["download_directory"], 0)
+    on_download_clicked(None, self, url, filename, None, "video", video_options, False, self.appconf["download_directory"], 0, None)
 
 def on_playlist_download_clicked(self, prefswindow, type, length, qualities, selected_quality_index, download_name, url):
     prefswindow.close()
@@ -685,4 +685,4 @@ def on_playlist_download_clicked(self, prefswindow, type, length, qualities, sel
         'type': type
     }
 
-    on_download_clicked(None, self, url, download_name, None, "playlist", video_options, False, self.appconf["download_directory"], 0)
+    on_download_clicked(None, self, url, download_name, None, "playlist", video_options, False, self.appconf["download_directory"], 0, None)

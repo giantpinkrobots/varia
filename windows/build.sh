@@ -52,7 +52,7 @@ pip install --break-system-packages aria2p \
 
 echo -e "\n\n\n      -   Downloading aria2, ffmpeg, 7z and deno...\n"
 
-aria2="aria2-1.37.0-win-64bit-build1"
+aria2="aria2-next-3.0.7-windows-x86_64"
 ffmpeg="ffmpeg-n8.1.2-34-g9b6c8969e0-win64-lgpl-8.1"
 ffmpeg_tag="autobuild-2026-08-02-13-17"
 sevenzip="7z2600-x64"
@@ -67,12 +67,12 @@ rm -rf "./7zr.exe"
 rm -rf "./$sevenzip.exe"
 rm -rf "./7zip"
 
-wget "https://github.com/aria2/aria2/releases/download/release-1.37.0/$aria2.zip"
+wget "https://github.com/AnInsomniacy/aria2-next/releases/download/v3.0.7/$aria2.exe"
 wget "https://github.com/BtbN/FFmpeg-Builds/releases/download/$ffmpeg_tag/$ffmpeg.zip"
 wget "https://github.com/denoland/deno/releases/download/v2.5.2/deno-x86_64-pc-windows-msvc.zip"
 wget "https://7-zip.org/a/$sevenzip.exe"
 mkdir aria2
-unzip -d aria2 $aria2.zip
+mv ./$aria2.exe ./aria2/aria2c.exe
 mkdir ffmpeg
 unzip -d ffmpeg $ffmpeg.zip
 mkdir deno
@@ -136,7 +136,7 @@ cp data/icons/symbolic/apps/io.github.giantpinkrobots.varia-symbolic.svg src/dis
 cp data/icons/scalable/apps/io.github.giantpinkrobots.varia.svg src/dist/variamain/icons/
 cp -r data/icons/actions/* src/dist/variamain/icons/
 cp -r dependencies_information src/dist/variamain/
-cp ./aria2/$aria2/aria2c.exe src/dist/variamain/
+cp ./aria2/aria2c.exe src/dist/variamain/
 cp -r ./ffmpeg/$ffmpeg/bin/!(ffplay.exe) src/dist/variamain/
 cp ./deno/deno.exe src/dist/variamain/
 cp ./7zip/7z.exe src/dist/variamain/

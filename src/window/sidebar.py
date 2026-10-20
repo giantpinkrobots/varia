@@ -150,7 +150,7 @@ def window_create_sidebar(self, variaapp, variaVersion):
     self.download_button.set_child(download_button_box)
     self.download_button.add_css_class("suggested-action")
     self.download_button.set_sensitive(False)
-    self.download_button.connect("clicked", on_download_clicked, self, download_entry, None, None, "regular", None, False, None, 0)
+    self.download_button.connect("clicked", on_download_clicked, self, download_entry, None, None, "regular", None, False, None, 0, None)
 
     self.video_button_icon = Gtk.Image.new_from_icon_name("camera-video-symbolic")
     self.video_button_text = Gtk.Label(label=_("Video / Audio"))
@@ -283,9 +283,9 @@ def window_create_sidebar(self, variaapp, variaVersion):
     self.sidebar_exit_on_completion_label = Gtk.Label()
     self.sidebar_exit_on_completion_label.add_css_class('dim-label')
 
-    self.sidebar_content_box.set_margin_start(4)
-    self.sidebar_content_box.set_margin_end(4)
-    self.sidebar_content_box.set_margin_bottom(4)
+    self.sidebar_content_box.set_margin_start(5)
+    self.sidebar_content_box.set_margin_end(5)
+    self.sidebar_content_box.set_margin_bottom(5)
 
     self.overlay_split_view.set_sidebar(sidebar_box)
 

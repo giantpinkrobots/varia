@@ -21,7 +21,7 @@ import pathlib
 import libtorrent as lt
 
 class DownloadThread(threading.Thread):
-    def __init__(self, app, url, actionrow, downloadname, download, mode, video_options, paused, dir, percentage):
+    def __init__(self, app, url, actionrow, downloadname, download, mode, video_options, paused, dir, percentage, gid):
         threading.Thread.__init__(self)
         self.api = app.api
         self.downloaddir = dir
@@ -37,6 +37,7 @@ class DownloadThread(threading.Thread):
         self.mode = mode
         self.speed = 0
         self.percentage_number = percentage
+        self.download_gid = gid
         self.paused_because_exceeds_limit = False
         self.total_file_size_text = ""
         self.download_message_shown = False
@@ -186,6 +187,9 @@ class DownloadThread(threading.Thread):
             if self.downloaddir != None:
                 download_options["dir"] = self.downloaddir
 
+            if self.download_gid != None:
+                download_options["gid"] = self.download_gid
+
             if self.download == None:
                 self.download = self.api.add_uris([self.url], options=download_options)
 
@@ -217,6 +221,8 @@ class DownloadThread(threading.Thread):
                 self.save_state()
 
             print("Download added. | " + self.download.gid + "\n" + self.downloaddir + "\n" + self.url)
+
+            self.download_gid = self.download.gid
 
             while (self.cancelled == False):
                 try:
@@ -914,7 +920,8 @@ class DownloadThread(threading.Thread):
                 'paused': self.paused,
                 'index': self.app.downloads.index(self),
                 'dir': download_dir,
-                'percentage': math.floor(self.percentage_number)
+                'percentage': math.floor(self.percentage_number),
+                'gid': self.download_gid
             }
             
             if os.path.isfile(os.path.join(self.app.appdir, f'{save_filename}.varia')):

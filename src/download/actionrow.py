@@ -9,7 +9,7 @@ import json
 import os
 import subprocess
 
-def on_download_clicked(button, self, entry, downloadname, download, mode, video_options, paused, dir, percentage):
+def on_download_clicked(button, self, entry, downloadname, download, mode, video_options, paused, dir, percentage, gid):
     if isinstance(entry, str):
         url = entry
     else:
@@ -26,7 +26,7 @@ def on_download_clicked(button, self, entry, downloadname, download, mode, video
         else:
             download_item = create_actionrow(self, url)
 
-        download_thread = DownloadThread(self, url, download_item, downloadname, download, mode, video_options, paused, dir, percentage)
+        download_thread = DownloadThread(self, url, download_item, downloadname, download, mode, video_options, paused, dir, percentage, gid)
         download_item.download_thread = download_thread
         self.downloads.append(download_thread)
         download_thread.start()
@@ -168,7 +168,7 @@ def pause_button_on_retry_clicked(button, self, download_item):
     else:
         downloaddir = download_item.downloaddir
 
-    new_download_item = on_download_clicked(None, self, download_item.url, download_item.downloadname, None, download_item.mode, download_item.video_options, False, downloaddir, 0)
+    new_download_item = on_download_clicked(None, self, download_item.url, download_item.downloadname, None, download_item.mode, download_item.video_options, False, downloaddir, 0, download_item.gid)
 
     self.download_list.reorder_child_after(new_download_item.actionrow, download_item.actionrow)
     self.downloads.remove(new_download_item)

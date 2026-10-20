@@ -95,7 +95,7 @@ class MainWindowBase:
         self.pkgdatadir = pkgdatadir
 
         # Start aria2c process:
-        self.aria2_instance = Aria2Instance(appconf, aria2cexec)
+        self.aria2_instance = Aria2Instance(appconf, aria2cexec, appdir)
 
         if self.appconf['remote'] == '0' and self.aria2_instance.send_rpc_request("aria2.getVersion") == -1: # If we're not in remote mode and aria2c is not running
             self.aria2_instance.start_subprocess()
@@ -152,22 +152,6 @@ class MainWindowBase:
         # Set download directory from appconf:
         set_aria2c_download_directory(self)
 
-        # Set seeding setting:
-        if self.appconf["torrent_seeding_enabled"] == "0":
-            set_aria2c_custom_global_option(self, "seed-time", "")
-            set_aria2c_custom_global_option(self, "bt-seed-unverified", "false")
-            set_aria2c_custom_global_option(self, "bt-enable-lpd", "false")
-            set_aria2c_custom_global_option(self, "enable-dht", "false")
-            set_aria2c_custom_global_option(self, "enable-dht6", "false")
-
-        # Set seeding ratio limit:
-        if self.appconf["torrent_seeding_ratio"][0] == True:
-            set_aria2c_custom_global_option(self, "seed-ratio", self.appconf["torrent_seeding_ratio"][1])
-
-        # Don't save .torrent files:
-        set_aria2c_custom_global_option(self, "bt-save-metadata", "false")
-        set_aria2c_custom_global_option(self, "rpc-save-upload-metadata", "false")
-
         # Set the maximum simultaneous download amount from appconf:
         set_aria2c_custom_global_option(self, "max-concurrent-downloads", str(self.appconf["download_simultaneous_amount"]))
 
@@ -186,9 +170,6 @@ class MainWindowBase:
 
         # Set cookies.txt:
         set_aria2c_cookies(self)
-
-        # Set bt require encryption:
-        set_aria2c_custom_global_option(self, "bt-force-encryption", self.appconf["torrent_require_encryption"])
 
         # Listen to aria2c:
         thread = threading.Thread(target=lambda: listen_to_aria2(self, variaapp), daemon=True)
@@ -220,7 +201,7 @@ class MainWindowBase:
             windows_updater(None, self, variaapp, None, variaVersion, 0)
 
         # Load incomplete downloads:
-        default_state = {"url": None, "filename": None, "type": "regular", "video_options": {}, "paused": False, "index": 0, "dir": self.appconf["download_directory"], "percentage": 0}
+        default_state = {"url": None, "filename": None, "type": "regular", "video_options": {}, "paused": False, "index": 0, "dir": self.appconf["download_directory"], "percentage": 0, "gid": None}
         download_dicts = []
 
         save_files = []
@@ -256,7 +237,7 @@ class MainWindowBase:
         download_dicts = sorted(download_dicts, key=itemgetter("index"))
 
         for download in download_dicts:
-            on_download_clicked(None, self, download["url"], download["filename"], None, download["type"], download["video_options"], download["paused"], download["dir"], download["percentage"])
+            on_download_clicked(None, self, download["url"], download["filename"], None, download["type"], download["video_options"], download["paused"], download["dir"], download["percentage"], download["gid"])
 
         self.check_all_status() # Set Pause All / Resume All button
 
@@ -693,7 +674,7 @@ class MyApp(Adw.Application):
                 
                 else:
                     actionrow = create_actionrow(self.win, item)
-                    download_thread = DownloadThread(self.win, item, actionrow, item, None, "regular", None, False, self.win.appconf["download_directory"], 0)
+                    download_thread = DownloadThread(self.win, item, actionrow, item, None, "regular", None, False, self.win.appconf["download_directory"], 0, None)
                     actionrow.download_thread = download_thread
                     self.win.downloads.append(download_thread)
                     download_thread.start()
@@ -730,6 +711,10 @@ def main(version, aria2cexec, ffmpegexec, sevenzexec, jsruntimeexec, issnap, pkg
         appdir = os.path.join(os.path.expanduser('~'), '.varia')
         if not os.path.exists(appdir):
             os.makedirs(appdir)
+
+    aria2_state_dir = os.path.join(appdir, 'aria2_state')
+    if not os.path.exists(aria2_state_dir):
+        os.makedirs(aria2_state_dir)
 
     def default_download_directory():
         try:
@@ -914,17 +899,18 @@ if (__name__ == '__main__'):
 
         if variaVersion == "dev":
             jsruntimeexec = {
-                'name': 'deno',
-                'exec': shutil.which("deno")
+                'name': 'quickjs',
+                'exec': shutil.which("qjs")
             }
-            aria2cexec = shutil.which("aria2c")
+            #aria2cexec = shutil.which("aria2c")
+            aria2cexec = os.path.join(os.getcwd(), "aria2c")
             ffmpegexec = shutil.which("ffmpeg")
             sevenzexec = shutil.which("7zz")
 
         else:
             jsruntimeexec = {
-                'name': 'deno',
-                'exec': os.path.join(os.getcwd(), "deno")
+                'name': 'quickjs',
+                'exec': os.path.join(os.getcwd(), "qjs")
             }
             aria2cexec = os.path.join(os.getcwd(), "aria2c")
             ffmpegexec = os.path.join(os.getcwd(), "ffmpeg")

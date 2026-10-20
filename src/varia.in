@@ -2,10 +2,10 @@
 pythonexec='@PYTHON@'
 pkgdatadir='@pkgdatadir@'
 
-aria2cexec=$pkgdatadir/../../bin/aria2c
+aria2cexec=$pkgdatadir/../../bin/aria2-next
 ffmpegexec=$pkgdatadir/../../bin/ffmpeg
 sevenzexec=$pkgdatadir/../../bin/7zz
-jsruntimeexec=$pkgdatadir/../../bin/deno
+jsruntimeexec=$pkgdatadir/../../bin/qjs
 jsruntime='@jsruntime_name_for_ytdlp@'
 jsruntimeexecname='@jsruntime_exec_name@'
 
@@ -15,7 +15,7 @@ while [ $# -gt 0 ] ; do
 	--aria2cexec PATH		Path to aria2c executable
 	--ffmpegexec PATH		Path to ffmpeg executable
 	--sevenzexec PATH		Path to 7z executable
-	--jsruntime NAME		JavaScript runtime name (read by yt-dlp, defaults to deno)
+	--jsruntime NAME		JavaScript runtime name (read by yt-dlp, defaults to quickjs)
 	--jsruntimeexec PATH	Path to JS runtime executable
 	-h, --help				Show this help message"
 	exit 0 ;;
@@ -29,17 +29,43 @@ while [ $# -gt 0 ] ; do
   shift
 done
 
-if !(test -f $aria2cexec;) || !(test -f $ffmpegexec;) || !(test -f $sevenzexec;) || !(test -f $jsruntimeexec;)
+if !(test -f $aria2cexec;)
 then
-	echo "Given paths for dependencies not found, searching the system for them..."
-	aria2cexec=$(which aria2c)
-	ffmpegexec=$(which ffmpeg)
-	sevenzexec=$(which 7z)
-	jsruntimeexec=$(which $jsruntimeexecname)
-	if !(test -f $aria2cexec;) || !(test -f $ffmpegexec;) || !(test -f $sevenzexec;) || !(test -f $jsruntimeexec;)
+	aria2cexec=$(which aria2-next)
+	if !(test -f $aria2cexec;)
 	then
-		echo "aria2c and/or ffmpeg and/or 7z and/or the JS runtime (defaults to Deno) not found. Exiting."
-		exit
+		aria2cexec=$(which aria2c)
+		if !(test -f $aria2cexec;)
+		then
+			echo "Error: aria2-next or aria2c not found."
+		fi
+	fi
+fi
+
+if !(test -f $ffmpegexec;)
+then
+	ffmpegexec=$(which ffmpeg)
+	if !(test -f $ffmpegexec;)
+	then
+		echo "Error: ffmpeg not found."
+	fi
+fi
+
+if !(test -f $sevenzexec;)
+then
+	sevenzexec=$(which 7z)
+	if !(test -f $sevenzexec;)
+	then
+		echo "Error: 7z not found."
+	fi
+fi
+
+if !(test -f $jsruntimeexec;)
+then
+	jsruntimeexec=$(which $jsruntimeexecname)
+	if !(test -f $jsruntimeexec;)
+	then
+		echo "Error: JS runtime (defaults to QuickJS) not found."
 	fi
 fi
 
