@@ -254,7 +254,7 @@ class DownloadThread(threading.Thread):
 
                         self.download.pause()
                         self.selection_event = threading.Event()
-                        from download.torrent_select_files import torrent_select_files_dialog
+                        from download.torrents import torrent_select_files_dialog
                         torrent_select_files_dialog(self)
 
                         self.selection_event.wait()
@@ -326,7 +326,7 @@ class DownloadThread(threading.Thread):
 
                 self.torrent_instance.pause()
                 self.selection_event = threading.Event()
-                from download.torrent_select_files import torrent_select_files_dialog
+                from download.torrents import torrent_select_files_dialog
                 torrent_select_files_dialog(self)
 
                 self.selection_event.wait()

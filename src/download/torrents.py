@@ -7,6 +7,7 @@ from pathlib import Path
 import os
 import shutil
 import libtorrent as lt
+from download.listen import add_download_to_ui
 
 class FileNode(GObject.Object):
     name = GObject.Property(type=str)
@@ -228,17 +229,20 @@ def torrent_select_files_dialog(self):
     dialog.set_can_close(False)
 
     selected_files = []
+    download_commence = False
+    download_stopped = False
 
-    def on_ok_clicked(button):
-        dialog.set_can_close(True)
-        dialog.close()
+    def on_dialog_close(button):
+        nonlocal download_commence
+        if download_commence == False:
+            download_stop()
 
-    def on_cancel_clicked(button):
-        dialog.set_can_close(True)
-        dialog.close()
+        GLib.idle_add(dialog.set_can_close, True)
+        GLib.idle_add(dialog.close)
 
-    def on_dialog_closed(dialog):
+    def on_ok_clicked(dialog):
         nonlocal selected_files
+        nonlocal download_commence
         selected_files = get_selected_files(root_store)
 
         if selected_files:
@@ -257,8 +261,19 @@ def torrent_select_files_dialog(self):
             self.torrent_instance.resume()
 
             self.torrent_file_select_completed = True
+            download_commence = True
 
-        else:  # Cancelled
+        else:
+            download_stop()
+            download_commence = False
+
+        self.selection_event.set()
+        on_dialog_close(None)
+
+    def download_stop():
+        nonlocal download_stopped
+
+        if download_stopped == False:
             if self.torrent_instance:
                 self.app.ltsession.remove_torrent(
                     self.torrent_instance,
@@ -267,15 +282,37 @@ def torrent_select_files_dialog(self):
 
             self.stop()
 
-        self.selection_event.set()
+            download_stopped = True
 
-    dialog.connect("closed", on_dialog_closed)
-
+    dialog.connect("closed", on_dialog_close)
     ok_button.connect("clicked", on_ok_clicked)
-    cancel_button.connect("clicked", on_cancel_clicked)
+    cancel_button.connect("clicked", on_dialog_close)
 
     if self.app.appconf['torrent_always_download_all'] == '0':
         GLib.idle_add(dialog.present, self.app)
 
     else:
-        on_dialog_closed(None)
+        on_dialog_close(None)
+
+def show_torrent_not_enabled_error(self):
+    dialog = Adw.AlertDialog()
+    dialog.set_body(_("Torrenting is disabled."))
+    dialog.add_response("ok",  _("OK"))
+    dialog.set_default_response("ok")
+    dialog.set_close_response("ok")
+    dialog.present(self)
+
+def add_torrent_file(self, filepath):
+    if filepath.endswith(".torrent"):
+        if self.appconf['torrent_enabled'] == '0':
+            show_torrent_not_enabled_error(self)
+
+        else:
+            class torrent_instance_object(object):
+                pass
+            
+            torrent_instance = torrent_instance_object
+            torrent_instance.url = filepath
+            torrent_instance.name = filepath
+            add_download_to_ui(self, torrent_instance, self, "torrent", False)
+            self.check_all_status()

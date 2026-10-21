@@ -10,7 +10,7 @@ from window.preferences import show_preferences
 from window.about import show_about
 from download.actionrow import on_download_clicked
 from download.videos import on_video_clicked
-from download.listen import add_download_to_ui
+from download.torrents import add_torrent_file
 
 def window_create_sidebar(self, variaapp, variaVersion):
     sidebar_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
@@ -309,15 +309,7 @@ def on_add_torrent(file_dialog, result, variaapp):
     except:
         return
 
-    if file.endswith(".torrent"):
-        class torrent_instance_object(object):
-            pass
-        
-        torrent_instance = torrent_instance_object
-        torrent_instance.url = file
-        torrent_instance.name = file
-        add_download_to_ui(variaapp, torrent_instance, variaapp, "torrent", False)
-        variaapp.check_all_status()
+    add_torrent_file(variaapp, file)
 
 def menubar_preferences_clicked(app, variaapp1, self, variaapp, variaVersion):
     show_preferences(None, self, variaapp, variaVersion)

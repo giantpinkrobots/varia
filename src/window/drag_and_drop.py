@@ -2,6 +2,7 @@ from stringstorage import gettext as _
 import gi
 gi.require_version('Gtk', '4.0')
 from gi.repository import GLib, Gio
+from download.torrents import add_torrent_file
 
 def on_drag_enter(self, target, x, y):
     self.root_window_overlay.add_overlay(self.drag_drop_revealer)
@@ -23,20 +24,9 @@ def on_file_drop(self, target, value, x, y):
         value.get_path() and \
         value.get_path().lower().endswith(".torrent"):
 
-        try:
-            if self.appconf["torrent_download_directory_custom_enabled"] == "1":
-                self.api.add_torrent(value.get_path(), options={"dir": self.appconf["torrent_download_directory"]})
-
-            else:
-                self.api.add_torrent(value.get_path())
-
-            print(f"Torrent file dragged: {value.get_path()}")
-            timeout_milliseconds = 600
-            #self.drag_drop_status_page.remove_css_class("drag_drop_status_page")
-            #self.drag_drop_status_page.add_css_class("drag_drop_status_page_success")
-
-        except:
-            pass
+        add_torrent_file(self, value.get_path())
+        print(f"Torrent file dragged: {value.get_path()}")
+        timeout_milliseconds = 600
 
     if timeout_milliseconds == 1000:
         # Error

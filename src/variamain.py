@@ -24,6 +24,7 @@ from download.communicate import set_speed_limit, set_aria2c_download_directory,
 from download.scheduler import schedule_downloads
 from download.manage_downloads import pause_all, stop_all, check_all_status, total_download_speed_get
 from download.aria2_instance import Aria2Instance
+from download.torrents import add_torrent_file, show_torrent_not_enabled_error
 
 from window.sidebar import window_create_sidebar
 from window.content import window_create_content
@@ -656,43 +657,25 @@ class MyApp(Adw.Application):
 
     def add_downloads(self, arguments):
         torrent_not_enabled_error_shown = False
-        
-        def show_torrent_not_enabled_error():
-            dialog = Adw.AlertDialog()
-            dialog.set_body(_("Torrenting is disabled."))
-            dialog.add_response("ok",  _("OK"))
-            dialog.set_default_response("ok")
-            dialog.set_close_response("ok")
-            dialog.present(self.win)
 
         for item in arguments:
             if item.startswith("magnet:"):
                 if self.win.appconf['torrent_enabled'] == '0':
                     if torrent_not_enabled_error_shown == False:
-                        show_torrent_not_enabled_error()
+                        show_torrent_not_enabled_error(self)
                         torrent_not_enabled_error_shown = True
                 
                 else:
                     actionrow = create_actionrow(self.win, item)
-                    download_thread = DownloadThread(self.win, item, actionrow, item, None, "regular", None, False, self.win.appconf["download_directory"], 0, None)
+                    download_thread = DownloadThread(self.win, item, actionrow, item, None, "regular", None, False, None, 0, None)
                     actionrow.download_thread = download_thread
                     self.win.downloads.append(download_thread)
                     download_thread.start()
                     download_thread.actionrow.pause_button.set_visible(True)
             
             elif item.endswith(".torrent"):
-                if self.win.appconf['torrent_enabled'] == '0':
-                    if torrent_not_enabled_error_shown == False:
-                        show_torrent_not_enabled_error()
-                        torrent_not_enabled_error_shown = True
-                
-                else:
-                    if self.win.appconf["torrent_download_directory_custom_enabled"] == "1":
-                        self.win.api.add_torrent(item, options={"dir": self.win.appconf["torrent_download_directory"]})
+                add_torrent_file(self, item)
 
-                    else:
-                        self.win.api.add_torrent(item)
-        
         self.win.present()
 
     def quit_action(self, action, parameter):
