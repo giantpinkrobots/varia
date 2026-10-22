@@ -587,8 +587,7 @@ class MyApp(Adw.Application):
         arguments = []
 
         for item in files:
-            arguments.append(item.get_uri())
-            print(item)
+            arguments.append(item.get_path())
         
         self.add_downloads(arguments)
 
@@ -662,7 +661,7 @@ class MyApp(Adw.Application):
             if item.startswith("magnet:"):
                 if self.win.appconf['torrent_enabled'] == '0':
                     if torrent_not_enabled_error_shown == False:
-                        show_torrent_not_enabled_error(self)
+                        show_torrent_not_enabled_error(self.win)
                         torrent_not_enabled_error_shown = True
                 
                 else:
@@ -674,7 +673,7 @@ class MyApp(Adw.Application):
                     download_thread.actionrow.pause_button.set_visible(True)
             
             elif item.endswith(".torrent"):
-                add_torrent_file(self, item)
+                add_torrent_file(self.win, item)
 
         self.win.present()
 

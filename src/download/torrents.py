@@ -4,8 +4,6 @@ gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, Gio, GObject, GLib
 from stringstorage import gettext as _
 from pathlib import Path
-import os
-import shutil
 import libtorrent as lt
 from download.listen import add_download_to_ui
 
