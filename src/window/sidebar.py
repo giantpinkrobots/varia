@@ -152,15 +152,19 @@ def window_create_sidebar(self, variaapp, variaVersion):
     self.download_button.set_sensitive(False)
     self.download_button.connect("clicked", on_download_clicked, self, download_entry, None, None, "regular", None, False, None, 0, None)
 
-    self.video_button_icon = Gtk.Image.new_from_icon_name("camera-video-symbolic")
+    self.video_button = Gtk.Button()
     self.video_button_text = Gtk.Label(label=_("Video / Audio"))
+    self.video_button_icon = Gtk.Image.new_from_icon_name("camera-video-symbolic")
+    self.video_button.add_css_class("suggested-action")
+
+    if self.appconf["remote"] == "1":
+        self.video_button.set_visible(False)
+
     video_button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
     video_button_box.append(self.video_button_icon)
     video_button_box.append(self.video_button_text)
 
-    self.video_button = Gtk.Button()
     self.video_button.set_child(video_button_box)
-    self.video_button.add_css_class("suggested-action")
     self.video_button.set_sensitive(False)
     self.video_button.connect("clicked", on_video_clicked, self, download_entry, None)
 
@@ -169,7 +173,7 @@ def window_create_sidebar(self, variaapp, variaVersion):
     self.add_torrent_button = Gtk.Button()
     self.add_torrent_button.connect("clicked", on_add_torrent_clicked, self)
 
-    if (self.appconf['torrent_enabled'] == '1'):
+    if self.appconf['torrent_enabled'] == '1' and self.appconf['remote'] == '0':
         self.torrent_button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
         self.torrent_button_box.append(Gtk.Image.new_from_icon_name("document-open-symbolic"))
         self.torrent_button_box.append(Gtk.Label(label=_("Torrent")))

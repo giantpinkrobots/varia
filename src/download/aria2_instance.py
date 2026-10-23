@@ -1,10 +1,13 @@
 import os
 import subprocess
 import json
+import gi
 import requests
 import socket
 import ctypes
 import signal
+gi.require_version('Gtk', '4.0')
+from gi.repository import GLib
 
 class Aria2Instance:
     def __init__(self, appconf, aria2cexec, appdir):
@@ -113,3 +116,18 @@ class Aria2Instance:
     def set_address_and_port(self, address, port):
         self.address = address
         self.port = port
+
+    def ensure_aria2_running(self, seconds):
+        timeout_reached = False
+        def ensure_aria2_running_timeout():
+            nonlocal timeout_reached
+            timeout_reached = True
+
+        GLib.timeout_add_seconds(seconds, ensure_aria2_running_timeout)
+
+        while True:
+            response = self.send_rpc_request("aria2.getVersion")
+            if response != -1:
+                return 0
+            if timeout_reached:
+                return -1

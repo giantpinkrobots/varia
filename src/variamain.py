@@ -101,6 +101,13 @@ class MainWindowBase:
         if self.appconf['remote'] == '0' and self.aria2_instance.send_rpc_request("aria2.getVersion") == -1: # If we're not in remote mode and aria2c is not running
             self.aria2_instance.start_subprocess()
 
+            # Ensure the aria2c process is running before continuing (timeout at 15 seconds):
+            aria2_is_running = self.aria2_instance.ensure_aria2_running(15)
+
+            if aria2_is_running == -1:
+                print("Error: aria2c didn't start within 15 seconds.")
+                sys.exit()
+
         # Start libtorrent session:
         self.ltsession = lt.session({
             "listen_interfaces": "0.0.0.0:6881",

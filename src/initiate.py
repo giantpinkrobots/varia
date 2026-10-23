@@ -37,7 +37,6 @@ def initiate(self, variaapp, variaVersion, first_run, issnap):
         except:
             pass
 
-    if (self.appconf['remote'] == '1'):
         if (self.remote_successful == False):
             self.appconf["remote"] = "0"
             self.save_appconf()
@@ -49,6 +48,7 @@ def initiate(self, variaapp, variaVersion, first_run, issnap):
             dialog.connect("response", on_dialog_dismiss, self)
             dialog.present()
             return -1
+
     else:
         self.api = aria2p.API(
             aria2p.Client(

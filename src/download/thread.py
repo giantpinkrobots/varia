@@ -162,7 +162,10 @@ class DownloadThread(threading.Thread):
                     self.url = self.auth_username + ":" + self.auth_password + "@" + self.url
                 print ("Authentication enabled.")
 
-            if (self.downloaddir == None) and ((self.app.appconf["download_directory_always_ask"] == "1") or (self.app.appconf["download_directory_always_ask"] == "3")):
+            if self.app.appconf["remote"] == "1":
+                self.downloaddir = self.app.appconf["remote_location"]
+
+            elif (self.downloaddir == None) and ((self.app.appconf["download_directory_always_ask"] == "1") or (self.app.appconf["download_directory_always_ask"] == "3")):
                 if not self.select_download_directory():
                     self.cancel_pending_download()
                     return

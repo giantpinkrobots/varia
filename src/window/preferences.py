@@ -128,14 +128,14 @@ def show_preferences(button, self, app, variaVersion):
     download_directory_change_button.set_valign(Gtk.Align.CENTER)
     download_directory_change_button.connect("clicked", lambda clicked: on_download_directory_change(self, "download_directory", preferences, download_directory_actionrow))
 
+    download_directory_actionrow.add_suffix(download_directory_change_button)
     download_directory_change_remote_label = Gtk.Label(label=_("Remote Mode"))
     download_directory_change_remote_label.set_halign(Gtk.Align.START)
     download_directory_change_remote_label.set_valign(Gtk.Align.CENTER)
 
-    if (self.appconf["remote"] == "0"):
-        download_directory_actionrow.add_suffix(download_directory_change_button)
-    else:
-        download_directory_actionrow.add_suffix(download_directory_change_remote_label)
+    if (self.appconf["remote"] == "1"):
+        download_directory_actionrow.set_subtitle(_("Remote Mode"))
+        download_directory_actionrow.set_sensitive(False)
     
     # Extract archives:
     
@@ -156,6 +156,12 @@ def show_preferences(button, self, app, variaVersion):
     
     else:
         extract_archives_delete_archives.set_sensitive(False)
+
+    if (self.appconf["remote"] == "1"):
+        extract_archives.set_sensitive(False)
+        extract_archives_delete_archives.set_sensitive(False)
+        extract_archives.set_subtitle(_("Remote Mode"))
+        extract_archives_delete_archives.set_subtitle(_("Remote Mode"))
     
     # Playlist download skip errors:
 
@@ -166,6 +172,10 @@ def show_preferences(button, self, app, variaVersion):
 
     if self.appconf["playlist_skip_errors"] == "1":
         playlist_skip_errors.set_active("active")
+
+    if (self.appconf["remote"] == "1"):
+        playlist_skip_errors.set_sensitive(False)
+        playlist_skip_errors.set_subtitle(_("Remote Mode"))
 
     # Speed limit:
 
@@ -268,6 +278,10 @@ def show_preferences(button, self, app, variaVersion):
         always_ask_for_download_directory_comborow.set_selected(int(self.appconf["download_directory_always_ask"]))
 
     always_ask_for_download_directory_comborow.connect("notify::selected", on_always_ask_for_download_directory_changed, self)
+
+    if (self.appconf["remote"] == "1"):
+        always_ask_for_download_directory_comborow.set_sensitive(False)
+        always_ask_for_download_directory_comborow.set_subtitle(_("Remote Mode"))
 
     # Simultaneous download amount:
 
@@ -513,14 +527,14 @@ def show_preferences(button, self, app, variaVersion):
 
     # Enable or disable torrenting:
 
-    torrent_enabled_switchrow = Adw.SwitchRow()
-    torrent_enabled_switchrow.set_title(_("Enable Torrenting"))
-    torrent_enabled_switchrow.set_subtitle(_("Disabling torrenting will prevent new torrents from being added. It will not stop current torrent instances."))
+    self.torrent_enabled_switchrow = Adw.SwitchRow()
+    self.torrent_enabled_switchrow.set_title(_("Enable Torrenting"))
+    self.torrent_enabled_switchrow.set_subtitle(_("Disabling torrenting will prevent new torrents from being added. It will not stop current torrent instances."))
 
     if (self.appconf["torrent_enabled"] == "1"):
-        torrent_enabled_switchrow.set_active("active")
+        self.torrent_enabled_switchrow.set_active("active")
 
-    torrent_enabled_switchrow.connect("notify::active", on_switch_torrent, self)
+    self.torrent_enabled_switchrow.connect("notify::active", on_switch_torrent, self)
 
     # Enable or disable seeding:
 
@@ -617,7 +631,7 @@ def show_preferences(button, self, app, variaVersion):
 
     # Construct Group 4 and 3:
 
-    group_4.add(torrent_enabled_switchrow)
+    group_4.add(self.torrent_enabled_switchrow)
 
     self.group_3_options = [seeding_enabled_switchrow,
                             seeding_ratio_limit_spinrow,
@@ -875,11 +889,15 @@ def on_cookies_txt_import(file_dialog, result, cookies_txt_import_button, cookie
         cookies_txt_remove_button.set_visible(True)
 
 def torrent_settings_set_sensitive(self):
-    if self.appconf["torrent_enabled"] == "1":
+    if self.appconf["torrent_enabled"] == "1" and self.appconf["remote"] == "0":
         for option in self.group_3_options:
             option.set_sensitive(True)
 
     else:
+        if self.appconf["remote"] == "1":
+            self.torrent_enabled_switchrow.set_subtitle(_("Remote Mode"))
+            self.torrent_enabled_switchrow.set_sensitive(False)
+
         for option in self.group_3_options:
             option.set_sensitive(False)
 

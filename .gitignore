@@ -6,5 +6,6 @@ _build
 /src/download/__pycache__
 /src/window/__pycache__
 /src/tray/__pycache__
+/src/aria2c
 .DS_Store
 repo
