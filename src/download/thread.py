@@ -829,7 +829,8 @@ class DownloadThread(threading.Thread):
                 print ("Download stopped.")
 
             elif self.mode == "torrent":
-                self.app.ltsession.remove_torrent(self.torrent_instance)
+                if self.torrent_instance is not None:
+                    self.app.ltsession.remove_torrent(self.torrent_instance)
                 self.torrent_instance = None
             
             elif self.mode == "video":

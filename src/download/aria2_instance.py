@@ -1,6 +1,7 @@
 import os
 import subprocess
 import json
+import time
 import gi
 import requests
 import socket
@@ -118,16 +119,14 @@ class Aria2Instance:
         self.port = port
 
     def ensure_aria2_running(self, seconds):
-        timeout_reached = False
-        def ensure_aria2_running_timeout():
-            nonlocal timeout_reached
-            timeout_reached = True
-
-        GLib.timeout_add_seconds(seconds, ensure_aria2_running_timeout)
+        start_time = time.time()
 
         while True:
             response = self.send_rpc_request("aria2.getVersion")
             if response != -1:
                 return 0
-            if timeout_reached:
+
+            if (time.time() - start_time) >= seconds:
                 return -1
+
+            time.sleep(0.1)

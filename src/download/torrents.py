@@ -23,9 +23,7 @@ class FileNode(GObject.Object):
 
 def torrent_select_files_dialog(self):
     torrent_info = self.torrent_instance.torrent_file()
-    files = torrent_info.files()
     storage = self.torrent_instance.torrent_file().files()
-    downloaddir_path = Path(self.downloaddir)
     root_store = Gio.ListStore.new(FileNode)
 
     tree_model = Gtk.TreeListModel.new(
@@ -198,8 +196,12 @@ def torrent_select_files_dialog(self):
 
     list_view = Gtk.ListView.new(selection, factory)
 
+    scrolled_list_view = Gtk.ScrolledWindow(vexpand=True, hexpand=True, propagate_natural_height=True, propagate_natural_width=True)
+    scrolled_list_view.set_child(list_view)
+
     dialog_header = Adw.HeaderBar()
     dialog_header.add_css_class('flat')
+    dialog_header.set_show_start_title_buttons(False)
     dialog_header.set_show_end_title_buttons(False)
 
     button_box = Gtk.Box(spacing=6)
@@ -219,7 +221,7 @@ def torrent_select_files_dialog(self):
 
     dialog_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
     dialog_box.append(dialog_header)
-    dialog_box.append(list_view)
+    dialog_box.append(scrolled_list_view)
     dialog_box.append(button_box)
     
     dialog = Adw.AlertDialog(title=_("Select Files to Download"))
@@ -232,11 +234,16 @@ def torrent_select_files_dialog(self):
 
     def on_dialog_close(button):
         nonlocal download_commence
-        if download_commence == False:
-            download_stop()
 
-        GLib.idle_add(dialog.set_can_close, True)
-        GLib.idle_add(dialog.close)
+        try:
+            if download_commence == False:
+                self.cancelled = True
+                download_stop()
+
+        finally:
+            self.selection_event.set()
+            dialog.set_can_close(True)
+            dialog.close()
 
     def on_ok_clicked(dialog):
         nonlocal selected_files
@@ -277,12 +284,12 @@ def torrent_select_files_dialog(self):
                     self.torrent_instance,
                     lt.options_t.delete_files
                 )
+                self.torrent_instance = None
 
             self.stop()
 
             download_stopped = True
 
-    dialog.connect("closed", on_dialog_close)
     ok_button.connect("clicked", on_ok_clicked)
     cancel_button.connect("clicked", on_dialog_close)
 
