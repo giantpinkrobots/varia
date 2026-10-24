@@ -561,7 +561,7 @@ def show_preferences(button, self, app, variaVersion):
     seeding_ratio_limit_spinrow.connect("changed", on_torrent_seeding_ratio_limit_change, self)
     seeding_ratio_limit_spinrow.add_suffix(seeding_ratio_limit_switch)
 
-    if (self.appconf["torrent_seeding_ratio"][1] == True):
+    if (self.appconf["torrent_seeding_ratio"][0] == True):
         seeding_ratio_limit_switch.set_active("active")
 
     # Custom download directory for torrents:

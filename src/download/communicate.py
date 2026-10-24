@@ -108,7 +108,7 @@ def set_lt_seeding(self, *args):
         settings["upload_rate_limit"] = -1
 
         if self.appconf["torrent_seeding_ratio"][0] == True:
-            settings["share_ratio_limit"] = self.appconf["torrent_seeding_ratio"][1]
+            settings["share_ratio_limit"] = int(float(self.appconf["torrent_seeding_ratio"][1])*100)
 
     self.ltsession.apply_settings(settings)
 
