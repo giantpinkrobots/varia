@@ -52,6 +52,7 @@ varia_sources = [
   'autostart_util.py',
   'server.py',
   'notification_handler.py',
+  'formatting.py',
   'gtk-kde.css',
 ]
 

@@ -18,8 +18,6 @@ import libtorrent as lt
 
 from download.actionrow import on_download_clicked
 from download.listen import deal_with_simultaneous_download_limit, listen_to_aria2
-from download.actionrow import create_actionrow
-from download.thread import DownloadThread
 from download.communicate import set_speed_limit, set_aria2c_download_directory, set_aria2c_custom_global_option, set_aria2c_cookies, set_lt_seeding, set_lt_encryption
 from download.scheduler import schedule_downloads
 from download.manage_downloads import pause_all, stop_all, check_all_status, total_download_speed_get
@@ -294,12 +292,12 @@ class MainWindowBase:
         if (filter_mode == "show_all"):
             self.applied_filter = "show_all"
             for download_thread in self.downloads:
-                download_thread.actionrow.set_visible(True)
+                self.download_rows[download_thread].set_visible(True)
             self.filter_button_show_all.set_active(True)
 
         else:
             for download_thread in self.downloads:
-                download_thread.actionrow.set_visible(False)
+                self.download_rows[download_thread].set_visible(False)
 
             if (filter_mode == "show_downloading"):
                 self.applied_filter = "show_downloading"
@@ -307,13 +305,13 @@ class MainWindowBase:
                     if (download_thread.download):
                         if download_thread.mode == "regular":
                             if (((download_thread.download.status == "waiting") or (download_thread.download.status == "active"))):
-                                download_thread.actionrow.set_visible(download_thread.actionrow.is_visible)
+                                self.download_rows[download_thread].set_visible(self.download_rows[download_thread].is_visible)
                         elif download_thread.mode == "torrent":
                             if download_thread.is_complete == False and download_thread.torrent_instance.status().is_seeding == False:
-                                download_thread.actionrow.set_visible(download_thread.actionrow.is_visible)
+                                self.download_rows[download_thread].set_visible(self.download_rows[download_thread].is_visible)
                         elif download_thread.mode == "video":
                             if download_thread.video_status == "downloading" or download_thread.video_status == "idle":
-                                download_thread.actionrow.set_visible(download_thread.actionrow.is_visible)
+                                self.download_rows[download_thread].set_visible(self.download_rows[download_thread].is_visible)
                 self.filter_button_show_downloading.set_active(True)
 
             elif (filter_mode == "show_completed"):
@@ -322,10 +320,10 @@ class MainWindowBase:
                     if (download_thread.download):
                         if download_thread.mode == "regular":
                             if (download_thread.download.status == "complete"):
-                                download_thread.actionrow.set_visible(download_thread.actionrow.is_visible)
+                                self.download_rows[download_thread].set_visible(self.download_rows[download_thread].is_visible)
                         elif download_thread.mode == "video":
                             if download_thread.video_status == "finished":
-                                download_thread.actionrow.set_visible(download_thread.actionrow.is_visible)
+                                self.download_rows[download_thread].set_visible(self.download_rows[download_thread].is_visible)
                 self.filter_button_show_completed.set_active(True)
 
             elif (filter_mode == "show_seeding"):
@@ -333,7 +331,7 @@ class MainWindowBase:
                 for download_thread in self.downloads:
                     if (download_thread.download):
                         if (download_thread.mode == "torrent") and (download_thread.torrent_instance.status().is_seeding):
-                            download_thread.actionrow.set_visible(download_thread.actionrow.is_visible)
+                            self.download_rows[download_thread].set_visible(self.download_rows[download_thread].is_visible)
                 self.filter_button_show_seeding.set_active(True)
 
             else:
@@ -342,14 +340,11 @@ class MainWindowBase:
                     if (download_thread.download):
                         if download_thread.mode == "regular":
                             if (download_thread.download.status == "error"):
-                                download_thread.actionrow.set_visible(download_thread.actionrow.is_visible)
+                                self.download_rows[download_thread].set_visible(self.download_rows[download_thread].is_visible)
                         elif download_thread.mode == "video":
                             if download_thread.video_status == "error":
-                                download_thread.actionrow.set_visible(download_thread.actionrow.is_visible)
+                                self.download_rows[download_thread].set_visible(self.download_rows[download_thread].is_visible)
                 self.filter_button_show_failed.set_active(True)
-
-    def escape_special_characters(self, string):
-        return re.compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])').sub('', string).replace("&", "&amp;")
     
     def show_snap_permissions_required_dialog(self):
         dialog_commands_label = Gtk.Label()
@@ -672,12 +667,10 @@ class MyApp(Adw.Application):
                         torrent_not_enabled_error_shown = True
                 
                 else:
-                    actionrow = create_actionrow(self.win, item)
-                    download_thread = DownloadThread(self.win, item, actionrow, item, None, "regular", None, False, None, 0, None)
-                    actionrow.download_thread = download_thread
-                    self.win.downloads.append(download_thread)
-                    download_thread.start()
-                    download_thread.actionrow.pause_button.set_visible(True)
+                    on_download_clicked(
+                        None, self.win, item, item, None, "regular", None, False,
+                        self.win.appconf["download_directory"], 0, None
+                    )
             
             elif item.endswith(".torrent"):
                 add_torrent_file(self.win, item)

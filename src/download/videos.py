@@ -14,47 +14,7 @@ import re
 
 from download.actionrow import on_download_clicked
 from download.thread import DownloadThread
-
-def format_filesize(filesize):
-    try:
-        if filesize is None:
-            filesize = 0
-
-        if isinstance(filesize, str):
-            filesize = float(filesize) if filesize.strip() != "" else 0
-        filesize = float(filesize)
-
-    except Exception:
-        filesize = 0
-
-    for unit in ['B', 'KB', 'MB', 'GB', 'TB']:
-        if filesize < 1024.0:
-            return f"{filesize:.2f} {unit}"
-        filesize /= 1024.0
-
-    return f"{filesize:.2f} TB"
-
-
-def format_bitrate(bitrate):
-    try:
-        if bitrate is None:
-            return None
-
-        if isinstance(bitrate, str):
-            if bitrate.strip() == "":
-                return None
-            bitrate = float(bitrate)
-
-        bitrate = float(bitrate)
-
-        # Assume kbps for bitrate
-        if bitrate >= 1000:
-            return f"{bitrate/1000:.2f} Mbps"
-        else:
-            return f"{int(round(bitrate))} kbps"
-
-    except Exception:
-        return None
+from formatting import escape_special_characters, format_filesize, format_bitrate
 
 def resolution_height(resolution):
     try:
@@ -242,7 +202,7 @@ def on_video_clicked(button, self, entry, header):
         video_download_options_preferences_dialog = Adw.PreferencesDialog()
 
         if data:
-            video_title = self.escape_special_characters(data.get("title", "?"))
+            video_title = escape_special_characters(data.get("title", "?"))
             if data.get("_type") == "video":
                 uploader_name = data.get("uploader", "?")
 
@@ -598,7 +558,7 @@ def on_video_clicked(button, self, entry, header):
                 f"{_("An error occurred:")}\n\n"
                 f"{_("The video platform may not be supported or you may be being blocked by the platform. If you have an active VPN connection that might be the cause, or you can try importing your browser's cookies through a cookies.txt file.")}\n\n\n"
                 "────────────────────────────\n\n\n"
-                f"{self.escape_special_characters(ytdlp_error)}"
+                f"{escape_special_characters(ytdlp_error)}"
             )
             error_dialog = Adw.AlertDialog()
             error_dialog.set_body(error_body)

@@ -1,9 +1,5 @@
-import gi
-gi.require_version('Gtk', '4.0')
-gi.require_version('Adw', '1')
-
+from __future__ import annotations
 import ctypes
-from gi.repository import GLib, Gtk, Adw
 import threading
 from urllib.parse import urlparse
 import requests
@@ -19,20 +15,40 @@ import math
 import subprocess
 import pathlib
 import libtorrent as lt
+from typing import Any, Callable
+from download.runtime import DownloadRuntime
+from formatting import escape_special_characters, format_binary_size, \
+    format_eta, format_percentage, format_speed, parse_ytdlp_percentage, parse_ytdlp_speed
 
 class DownloadThread(threading.Thread):
-    def __init__(self, app, url, actionrow, downloadname, download, mode, video_options, paused, dir, percentage, gid):
+    def __init__(
+        self,
+        runtime: DownloadRuntime,
+        url,
+        downloadname,
+        download,
+        mode,
+        video_options,
+        paused,
+        dir,
+        percentage,
+        gid,
+        on_event: Callable[[DownloadThread, str, dict[str, Any]], None] | None = None,
+        request_directory: Callable[[DownloadThread], None] | None = None,
+        request_torrent_selection: Callable[[DownloadThread], None] | None = None,
+    ):
         threading.Thread.__init__(self)
-        self.api = app.api
+        self.api = runtime.api
         self.downloaddir = dir
         self.url = url
-        self.speed_label = actionrow.speed_label
         self.download = download
-        self.auth = app.appconf["auth"]
-        self.auth_username = app.appconf["auth_username"]
-        self.auth_password = app.appconf["auth_password"]
-        self.actionrow = actionrow
-        self.app = app
+        self.auth = runtime.appconf["auth"]
+        self.auth_username = runtime.appconf["auth_username"]
+        self.auth_password = runtime.appconf["auth_password"]
+        self.runtime = runtime
+        self.on_event = on_event
+        self.request_directory = request_directory
+        self.request_torrent_selection = request_torrent_selection
         self.cancelled = False
         self.mode = mode
         self.speed = 0
@@ -46,7 +62,7 @@ class DownloadThread(threading.Thread):
             'status': _("Downloading"),
             'remaining': "∞",
             'download_speed': "0 B/s",
-            'percentage': _("{number}%").replace("{number}", str(self.percentage_number)),
+            'percentage': format_percentage(self.percentage_number, _),
             'message': "",
             'completed_length': 0,
             'upload_length': 0,
@@ -90,6 +106,11 @@ class DownloadThread(threading.Thread):
         self.extract_complete = False
 
         self.retry = False
+        self._save_timer = None
+
+    def emit_event(self, event, **payload):
+        if self.on_event is not None:
+            self.on_event(self, event, payload)
 
     def is_valid_url(self):
         try:
@@ -106,43 +127,41 @@ class DownloadThread(threading.Thread):
         if (self.url == "sus"):
             try:
                 # Lol nice - Caleb (N0tACyb0rg)
-                GLib.idle_add(self.show_message("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⣤⣤⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⠟⠉⠉⠉⠉⠉⠉⠉⠙⠻⢶⣄⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣷⡀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⡟⠀⣠⣶⠛⠛⠛⠛⠛⠛⠳⣦⡀⠀⠘⣿⡄⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⠁⠀⢹⣿⣦⣀⣀⣀⣀⣀⣠⣼⡇⠀⠀⠸⣷⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡏⠀⠀⠀⠉⠛⠿⠿⠿⠿⠛⠋⠁⠀⠀⠀⠀⣿⡄⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⡇⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⣸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣧⠀\n⠀⠀⠀⠀⠀⠀⠀⢸⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⠀\n⠀⠀⠀⠀⠀⠀⠀⣾⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀\n⠀⠀⠀⠀⠀⠀⠀⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀\n⠀⠀⠀⠀⠀⠀⢰⣿⠀⠀⠀⠀⣠⡶⠶⠿⠿⠿⠿⢷⣦⠀⠀⠀⠀⠀⠀⠀⣿⠀\n⠀⠀⣀⣀⣀⠀⣸⡇⠀⠀⠀⠀⣿⡀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⠀⣿⠀\n⣠⡿⠛⠛⠛⠛⠻⠀⠀⠀⠀⠀⢸⣇⠀⠀⠀⠀⠀⠀⣿⠇⠀⠀⠀⠀⠀⠀⣿⠀\n⢻⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⡟⠀⠀⢀⣤⣤⣴⣿⠀⠀⠀⠀⠀⠀⠀⣿⠀\n⠈⠙⢷⣶⣦⣤⣤⣤⣴⣶⣾⠿⠛⠁⢀⣶⡟⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡟⠀\n⠀⠀⠀⠀⠉⠉⠉⠉⠉⠀⠀⠀⠀⠀⠈⣿⣆⡀⠀⠀⠀⠀⠀⠀⢀⣠⣴⡾⠃⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⠻⢿⣿⣾⣿⡿⠿⠟⠋⠁⠀⠀⠀"))
+                self.show_message("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⣤⣤⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⠟⠉⠉⠉⠉⠉⠉⠉⠙⠻⢶⣄⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣷⡀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⡟⠀⣠⣶⠛⠛⠛⠛⠛⠛⠳⣦⡀⠀⠘⣿⡄⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⠁⠀⢹⣿⣦⣀⣀⣀⣀⣀⣠⣼⡇⠀⠀⠸⣷⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡏⠀⠀⠀⠉⠛⠿⠿⠿⠿⠛⠋⠁⠀⠀⠀⠀⣿⡄⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⡇⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⣸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣧⠀\n⠀⠀⠀⠀⠀⠀⠀⢸⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⠀\n⠀⠀⠀⠀⠀⠀⠀⣾⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀\n⠀⠀⠀⠀⠀⠀⠀⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀\n⠀⠀⠀⠀⠀⠀⢰⣿⠀⠀⠀⠀⣠⡶⠶⠿⠿⠿⠿⢷⣦⠀⠀⠀⠀⠀⠀⠀⣿⠀\n⠀⠀⣀⣀⣀⠀⣸⡇⠀⠀⠀⠀⣿⡀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⠀⣿⠀\n⣠⡿⠛⠛⠛⠛⠻⠀⠀⠀⠀⠀⢸⣇⠀⠀⠀⠀⠀⠀⣿⠇⠀⠀⠀⠀⠀⠀⣿⠀\n⢻⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⡟⠀⠀⢀⣤⣤⣴⣿⠀⠀⠀⠀⠀⠀⠀⣿⠀\n⠈⠙⢷⣶⣦⣤⣤⣤⣴⣶⣾⠿⠛⠁⢀⣶⡟⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡟⠀\n⠀⠀⠀⠀⠉⠉⠉⠉⠉⠀⠀⠀⠀⠀⠈⣿⣆⡀⠀⠀⠀⠀⠀⠀⢀⣠⣴⡾⠃⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⠻⢿⣿⣾⣿⡿⠿⠟⠋⠁⠀⠀⠀")
             except:
                 pass
-            GLib.idle_add(self.actionrow.pause_button.set_visible, False)
-            GLib.idle_add(self.actionrow.progress_bar.set_visible, False)
-            GLib.idle_add(self.actionrow.info_button.set_visible, False)
+            self.emit_event("hide_row_controls")
             return
         
         download_options = {}
 
         if self.url.lower().startswith("magnet:") or self.mode == "torrent": # Is torrent
 
-            if self.app.appconf["torrent_enabled"] == "1":
+            if self.runtime.appconf["torrent_enabled"] == "1":
                 if self.downloaddir == None:
-                    if self.app.appconf["download_directory_always_ask"] in ("1", "2"):
+                    if self.runtime.appconf["download_directory_always_ask"] in ("1", "2"):
                         if not self.select_download_directory():
                             self.cancel_pending_download()
                             return
 
-                    elif self.app.appconf["torrent_download_directory_custom_enabled"] == "1":
-                        self.downloaddir = self.app.appconf["torrent_download_directory"]
+                    elif self.runtime.appconf["torrent_download_directory_custom_enabled"] == "1":
+                        self.downloaddir = self.runtime.appconf["torrent_download_directory"]
 
                     else:
-                        self.downloaddir = self.app.appconf["download_directory"]
+                        self.downloaddir = self.runtime.appconf["download_directory"]
             
                 self.download_details['type'] = _("Torrent")
                 self.mode = "torrent"
 
             else:
-                GLib.idle_add(self.show_message, _("Torrenting is disabled."))
+                self.show_message(_("Torrenting is disabled."))
                 print("Error: Can't add magnet link because torrenting is disabled.")
                 return
 
         else: # Normal download
             if not (self.is_valid_url()):
                 try:
-                    GLib.idle_add(self.show_message, _("This is not a valid URL."))
+                    self.show_message(_("This is not a valid URL."))
                     print("Error: Not a valid url.")
                 except:
                     print("Error: Couldn't display 'not a valid url' error, for some reason.")
@@ -150,7 +169,7 @@ class DownloadThread(threading.Thread):
             try:
                 response = requests.head(self.url)
             except Exception as e:
-                GLib.idle_add(self.set_failed, None, (f"{_("An error occurred:")} {self.app.escape_special_characters(str(e))}"))
+                self.set_failed(None, f"{_("An error occurred:")} {escape_special_characters(str(e))}")
                 return
 
             if ((response.status_code == 401) and (self.auth == '1')):
@@ -162,24 +181,23 @@ class DownloadThread(threading.Thread):
                     self.url = self.auth_username + ":" + self.auth_password + "@" + self.url
                 print ("Authentication enabled.")
 
-            if self.app.appconf["remote"] == "1":
-                self.downloaddir = self.app.appconf["remote_location"]
+            if self.runtime.appconf["remote"] == "1":
+                self.downloaddir = self.runtime.appconf["remote_location"]
 
-            elif (self.downloaddir == None) and ((self.app.appconf["download_directory_always_ask"] == "1") or (self.app.appconf["download_directory_always_ask"] == "3")):
+            elif (self.downloaddir == None) and ((self.runtime.appconf["download_directory_always_ask"] == "1") or (self.runtime.appconf["download_directory_always_ask"] == "3")):
                 if not self.select_download_directory():
                     self.cancel_pending_download()
                     return
 
             elif self.downloaddir == None:
-                self.downloaddir = self.app.appconf["download_directory"]
+                self.downloaddir = self.runtime.appconf["download_directory"]
 
-        self.app.check_all_status()
+        self.emit_event("collection_changed")
 
         if self.percentage_number > 0:
-            GLib.idle_add(self.actionrow.progress_bar.set_fraction, self.percentage_number / 100)
-            GLib.idle_add(self.actionrow.percentage_label.set_text, self.download_details['percentage'])
+            self.emit_event("progress", fraction=self.percentage_number / 100, percentage=self.download_details['percentage'])
 
-        GLib.timeout_add_seconds(360, self.periodically_save_state)
+        self.schedule_state_save()
 
         # Regular download, use aria2p:
         if self.mode == "regular":
@@ -197,7 +215,7 @@ class DownloadThread(threading.Thread):
                 self.download = self.api.add_uris([self.url], options=download_options)
 
             if self.download.gid:
-                if self.paused == False and self.app.scheduler_currently_downloading == False:
+                if self.paused == False and self.runtime.scheduler_currently_downloading == False:
                     self.pause(True)
                 
                 elif self.paused:
@@ -216,7 +234,7 @@ class DownloadThread(threading.Thread):
             self.change_download_type_icon("regular")
             
             self.previous_filename = ""
-            self.app.filter_download_list("no", self.app.applied_filter)
+            self.emit_event("filter_downloads")
             download_began = False
             self.filepath = os.path.join(self.downloaddir, self.downloadname)
 
@@ -237,7 +255,7 @@ class DownloadThread(threading.Thread):
                         pass
 
                     if download_began == False and self.download.is_active:
-                        self.actionrow.pause_button.get_child().set_from_icon_name("media-playback-pause-symbolic")
+                        self.emit_event("pause_button", paused=False)
                         download_began = True
                     
                     if self.downloadname != self.download.name:
@@ -245,8 +263,8 @@ class DownloadThread(threading.Thread):
                         self.save_state()
                         self.filepath = os.path.join(self.downloaddir, self.downloadname)
                     
-                    if self.actionrow.filename_label.get_text() != self.downloadname:
-                        GLib.idle_add(self.actionrow.filename_label.set_text, self.download.name)
+                    if self.downloadname:
+                        self.emit_event("filename", value=self.download.name)
 
                     self.update_labels_and_things(None)
 
@@ -256,19 +274,15 @@ class DownloadThread(threading.Thread):
                                 continue
 
                         self.download.pause()
-                        self.selection_event = threading.Event()
-                        from download.torrents import torrent_select_files_dialog
-                        torrent_select_files_dialog(self)
-
-                        self.selection_event.wait()
+                        self.select_torrent_files()
 
                     elif self.download.status == "complete":
                         print('Download complete: ' + self.download.gid)
-                        GLib.idle_add(self.set_complete)
+                        self.set_complete()
                         return
 
                     elif (self.download.status == "error"):
-                        GLib.idle_add(self.set_failed, None)
+                        self.set_failed(None)
                         return
 
                 except:
@@ -298,7 +312,7 @@ class DownloadThread(threading.Thread):
                     torrent_params.flags |= lt.torrent_flags.paused
                 else:
                     torrent_params.flags &= ~lt.torrent_flags.paused
-                self.torrent_instance = self.app.ltsession.add_torrent(torrent_params)
+                self.torrent_instance = self.runtime.ltsession.add_torrent(torrent_params)
 
             else:
                 if self.url.lower().startswith("magnet:"):
@@ -307,7 +321,7 @@ class DownloadThread(threading.Thread):
                     }
 
                     self.torrent_instance = lt.add_magnet_uri(
-                        self.app.ltsession,
+                        self.runtime.ltsession,
                         self.url,
                         torrent_params
                     )
@@ -319,7 +333,7 @@ class DownloadThread(threading.Thread):
                         "ti": lt.torrent_info(self.url)
                     }
 
-                    self.torrent_instance = self.app.ltsession.add_torrent(torrent_params)
+                    self.torrent_instance = self.runtime.ltsession.add_torrent(torrent_params)
 
                 while(self.torrent_instance.status().has_metadata == False):
                     continue
@@ -328,13 +342,9 @@ class DownloadThread(threading.Thread):
                     self.url = lt.make_magnet_uri(self.torrent_instance.torrent_file())
 
                 self.torrent_instance.pause()
-                self.selection_event = threading.Event()
-                from download.torrents import torrent_select_files_dialog
-                torrent_select_files_dialog(self)
+                self.select_torrent_files()
 
-                self.selection_event.wait()
-
-            if self.paused == False and self.app.scheduler_currently_downloading == False:
+            if self.paused == False and self.runtime.scheduler_currently_downloading == False:
                 self.pause(True)
 
             elif self.paused:
@@ -343,7 +353,7 @@ class DownloadThread(threading.Thread):
             if self.retry == False:
                 self.save_state()
 
-            while (self.cancelled == False and self.app.terminating == False):
+            while (self.cancelled == False and self.runtime.terminating == False):
                 self.update_labels_and_things(None)
 
                 time.sleep(0.5)
@@ -367,7 +377,7 @@ class DownloadThread(threading.Thread):
                 self.video_download_playlist_completed_ids = []
                 video_options_final['outtmpl'] = os.path.join(self.downloaddir, "%(title)s.%(ext)s")
 
-                if self.app.appconf["playlist_skip_errors"] == "1":
+                if self.runtime.appconf["playlist_skip_errors"] == "1":
                     video_options_final['ignoreerrors'] = True
 
                 if video_options_final['type'] == 0:
@@ -395,24 +405,24 @@ class DownloadThread(threading.Thread):
             video_options_final.setdefault('skip_unavailable_fragments', True)
             video_options_final.setdefault('no_warnings', True)
 
-            video_options_final.setdefault('ffmpeg_location', self.app.ffmpegexec)
+            video_options_final.setdefault('ffmpeg_location', self.runtime.ffmpegexec)
             video_options_final.setdefault('js_runtimes', {
-                self.app.jsruntimeexec['name']: {'path': self.app.jsruntimeexec['exec']}
+                self.runtime.jsruntimeexec['name']: {'path': self.runtime.jsruntimeexec['exec']}
             })
 
-            if os.path.exists(os.path.join(self.app.appdir, "cookies_for_ytdlp.txt")):
-                video_options_final['cookiefile'] = os.path.join(self.app.appdir, "cookies_for_ytdlp.txt")
+            if os.path.exists(os.path.join(self.runtime.appdir, "cookies_for_ytdlp.txt")):
+                video_options_final['cookiefile'] = os.path.join(self.runtime.appdir, "cookies_for_ytdlp.txt")
 
-            if self.app.appconf["remote_time"] == '1':
+            if self.runtime.appconf["remote_time"] == '1':
                 video_options_final['updatetime'] = True
 
             self.download = YoutubeDL(video_options_final)
-            GLib.idle_add(self.actionrow.filename_label.set_text, self.downloadname)
+            self.emit_event("filename", value=self.downloadname)
 
             if self.retry == False:
                 self.save_state()
             
-            if self.paused == False and self.app.scheduler_currently_downloading == False:
+            if self.paused == False and self.runtime.scheduler_currently_downloading == False:
                 self.pause(True)
             
             elif self.paused:
@@ -422,7 +432,7 @@ class DownloadThread(threading.Thread):
                 self.download_details['status'] = _("Downloading")
                 self.currently_downloading = True
             
-            GLib.idle_add(self.speed_label.set_text, _("Starting download..."))
+            self.emit_event("speed_text", value=_("Starting download..."))
 
             def youtubedl_download_start():
                 quit_before_success = False
@@ -438,16 +448,16 @@ class DownloadThread(threading.Thread):
                     return
 
                 except Exception as e:
-                    self.show_message(f"{_("An error occurred:")} {self.app.escape_special_characters(str(e))}")
+                    self.show_message(f"{_("An error occurred:")} {escape_special_characters(str(e))}")
                     self.video_stop_event.clear()
                     self.cancelled = True
-                    GLib.idle_add(self.set_failed, None)
+                    self.set_failed(None)
                     quit_before_success = True
                     return
 
                 finally:
                     if quit_before_success == False and self.video_object['status'] == "finished":
-                        GLib.idle_add(self.set_complete)
+                        self.set_complete()
 
             self.youtubedl_thread = threading.Thread(target=youtubedl_download_start)
             self.youtubedl_thread.daemon = True
@@ -460,30 +470,23 @@ class DownloadThread(threading.Thread):
             return
     
     def change_download_type_icon(self, type):
-        if type == "regular":
-            GLib.idle_add(self.actionrow.type_icon.set_from_icon_name, "paper-symbolic")
-        elif type == "torrent":
-            GLib.idle_add(self.actionrow.type_icon.set_from_icon_name, "network-wired-symbolic")
-        elif type == "video":
-            GLib.idle_add(self.actionrow.type_icon.set_from_icon_name, "camera-video-symbolic")
-        elif type == "playlist":
-            GLib.idle_add(self.actionrow.type_icon.set_from_icon_name, "playlist-symbolic")
-
-        GLib.idle_add(self.actionrow.spinner.set_visible, False)
-        GLib.idle_add(self.actionrow.type_icon.set_visible, True)
+        self.emit_event("download_type", value=type)
 
     def show_message(self, message):
         print(f'Download message shown: {message}')
-        GLib.idle_add(self.speed_label.set_text, message)
         self.download_details['message'] = message
         self.download_message_shown = True
+        self.emit_event("message", value=message)
     
-    def set_actionrow_tooltip_text(self):
-        GLib.idle_add(self.actionrow.set_tooltip_text, _("Download item")
-                            + "\n" + _("File Name") + ": " + self.downloadname
-                            + "\n" + _("Type") + ": " + self.download_details['type']
-                            + "\n" + _("Status") + ": " + self.download_details['status']
-                            + "\n" + self.download_details['percentage'])
+    def emit_tooltip(self):
+        self.emit_event(
+            "tooltip",
+            value=_("Download item")
+            + "\n" + _("File Name") + ": " + self.downloadname
+            + "\n" + _("Type") + ": " + self.download_details['type']
+            + "\n" + _("Status") + ": " + self.download_details['status']
+            + "\n" + self.download_details['percentage'],
+        )
 
     def update_labels_and_things(self, video_object):
         speed_label_text = ""
@@ -501,30 +504,11 @@ class DownloadThread(threading.Thread):
                 self.speed = speed
                 
                 download_delta = self.download.eta
-                download_speed_mb = (speed / 1024 / 1024)
-
-                download_seconds = download_delta.total_seconds()
-                download_seconds = abs(int(download_seconds))
-                download_hours, download_seconds = divmod(download_seconds, 3600)
-                download_minutes, download_seconds = divmod(download_seconds, 60)
-
-                download_hours = str(download_hours).zfill(2)
-                download_minutes = str(download_minutes).zfill(2)
-                download_seconds = str(download_seconds).zfill(2)
-
                 if speed != 0:
-                    download_remaining_string = f"{download_hours}:{download_minutes}:{download_seconds}"
+                    download_remaining_string = format_eta(download_delta.total_seconds())
                 
-                percentage_label_text = _("{number}%").replace("{number}", str(round(progress)))
-                
-                if int(str(download_speed_mb)[0]) == 0:
-                    download_speed_kb = (speed / 1024)
-                    if int(str(download_speed_kb)[0]) == 0:
-                        speed_label_text_speed = f"{round(speed, 2)} {_(' B/s')}"
-                    else:
-                        speed_label_text_speed = f"{round(speed / 1024, 2)} {_(' KB/s')}"
-                else:
-                    speed_label_text_speed = f"{round(speed / 1024 / 1024, 2)} {_(' MB/s')}"
+                percentage_label_text = format_percentage(progress, _)
+                speed_label_text_speed = format_speed(speed, _)
                 
                 if self.download.is_torrent and hasattr(self.download, "files"):
                     for file in self.download.files:
@@ -537,63 +521,26 @@ class DownloadThread(threading.Thread):
 
                 if self.downloadname != status.name:
                     self.downloadname = status.name
-                if self.actionrow.filename_label.get_text() != self.downloadname:
-                    GLib.idle_add(self.actionrow.filename_label.set_text, self.downloadname)
+                self.emit_event("filename", value=self.downloadname)
 
                 self.filepath = os.path.join(status.save_path, status.name)
 
                 progress = status.progress * 100.0
                 self.speed = status.download_rate
 
-                download_remaining_string = "∞"
-
                 if self.speed > 0:
                     remaining = status.total_wanted - status.total_wanted_done
                     eta = int(remaining / self.speed)
+                    download_remaining_string = format_eta(eta)
 
-                    hours, rem = divmod(eta, 3600)
-                    minutes, seconds = divmod(rem, 60)
-
-                    download_remaining_string = (
-                        f"{hours:02}:{minutes:02}:{seconds:02}"
-                    )
-
-                percentage_label_text = _("{number}%").replace(
-                    "{number}",
-                    str(round(progress))
-                )
-
-                def bytes_to_readable(given_bytes, is_speed):
-                    readable = ""
-                    if is_speed == False and given_bytes >= 1024 * 1024 * 1024:
-                        readable = (f"{str(round(given_bytes / 1024 / 1024 / 1024, 2))} {' GiB'}")
-                    elif given_bytes >= 1024 * 1024:
-                        readable = (str(round(given_bytes / 1024 / 1024, 2)))
-                        if is_speed:
-                            readable += _(' MB/s')
-                        else:
-                            readable += ' MiB'
-                    elif given_bytes >= 1024:
-                        readable = (str(round(given_bytes / 1024, 2)))
-                        if is_speed:
-                            readable += _(' KB/s')
-                        else:
-                            readable += ' KiB'
-                    else:
-                        readable = (str(given_bytes))
-                        if is_speed:
-                            readable += _(' B/s')
-                        else:
-                            readable += ' B'
-                    return readable
-
-                speed_label_text_speed = bytes_to_readable(self.speed, True)
-                self.total_file_size_text = bytes_to_readable(status.total_wanted, False)
+                percentage_label_text = format_percentage(progress, _)
+                speed_label_text_speed = format_speed(self.speed, _)
+                self.total_file_size_text = format_binary_size(status.total_wanted)
 
                 self.download_details["completed_length"] = status.total_wanted_done
                 self.download_details["upload_length"] = status.total_upload
                 self.download_details["torrent_peers"] = self.torrent_instance.get_peer_info()
-                self.download_details["torrent_seeding_speed"] = bytes_to_readable(status.upload_rate, False)
+                self.download_details["torrent_seeding_speed"] = format_speed(status.upload_rate, _)
 
                 if status.progress == 1.0:
                     self.set_complete()
@@ -605,12 +552,12 @@ class DownloadThread(threading.Thread):
             self.video_object = video_object
 
             if (not video_object['status']) or (video_object['status'] == "error"):
-                if self.video_download_is_playlist and self.app.appconf["playlist_skip_errors"] == "1":
+                if self.video_download_is_playlist and self.runtime.appconf["playlist_skip_errors"] == "1":
                     pass
 
                 else:
                     self.video_status = "error"
-                    GLib.idle_add(self.set_failed, progress / 100)
+                    self.set_failed(progress / 100)
 
             elif video_object['status'] == "finished":
                 if self.video_download_is_playlist == False:
@@ -620,11 +567,11 @@ class DownloadThread(threading.Thread):
                         
                         else:
                             self.video_status = "finished"
-                            GLib.idle_add(self.set_complete)
+                            self.set_complete()
 
                     else:
                         self.video_status = "finished"
-                        GLib.idle_add(self.set_complete)
+                        self.set_complete()
 
             elif video_object['status'] == "idle":
                 self.video_status = "idle"
@@ -638,35 +585,16 @@ class DownloadThread(threading.Thread):
                 self.video_status = "downloading"
 
                 try:
-                    progress = str(video_object['_percent_str'])
-                    progress = self.app.escape_special_characters(progress)
-                    progress = progress.replace(" ", "")
-                    progress = progress.replace("%", "")
+                    progress = parse_ytdlp_percentage(video_object['_percent_str'])
+                    percentage_label_text = format_percentage(progress, _)
+                    speed_label_text_speed = escape_special_characters(str(video_object['_speed_str']))
+                    speed_bytes = parse_ytdlp_speed(video_object['_speed_str'])
+                    if speed_bytes is not None:
+                        self.speed = round(speed_bytes)
+                        speed_label_text_speed = format_speed(self.speed, _)
 
-                    speed = str(video_object['_speed_str'])
-                    speed = self.app.escape_special_characters(speed)
-                    speed = speed.replace("i", "")
-                    speed = speed.replace(" ", "")
-                    speed = re.sub(r'(\d)([A-Za-z])', r'\1 \2', speed)
-
-                    speed_label_text_speed = speed
-                    percentage_label_text = _("{number}%").replace("{number}", str(progress))
-                    progress = float(progress)
-
-                    speed_bytes = 0
-                    speed = speed.split(" ")
-                    if speed[1] == "KB/s":
-                        speed_bytes = float(speed[0]) * 1024
-                    elif speed[1] == "MB/s":
-                        speed_bytes = float(speed[0]) * 1024 * 1024
-                    elif speed[1] == "GB/s":
-                        speed_bytes = float(speed[0]) * 1024 * 1024 * 1024
-                    
-                    self.speed = round(speed_bytes)
-
-                    if speed != 0:
-                        download_remaining_string = str(video_object['_eta_str'])
-                        download_remaining_string = self.app.escape_special_characters(download_remaining_string)
+                    if self.speed > 0:
+                        download_remaining_string = escape_special_characters(str(video_object['_eta_str']))
                 
                 except:
                     pass
@@ -695,18 +623,17 @@ class DownloadThread(threading.Thread):
         speed_label_text = f"{speed_label_text}{self.total_file_size_text}  ·  {speed_label_text_speed}  ·  {download_remaining_string} {_('remaining')}"
         self.download_details['message'] = ""
 
-        self.set_actionrow_tooltip_text()
+        self.emit_tooltip()
 
         if progress > 0:
             self.percentage_number = progress
 
         if self.is_complete == False:
             if progress > 0:
-                GLib.idle_add(self.actionrow.progress_bar.set_fraction, progress / 100)
-                GLib.idle_add(self.actionrow.percentage_label.set_text, percentage_label_text)
+                self.emit_event("progress", fraction=progress / 100, percentage=percentage_label_text)
                 self.download_details['percentage'] = percentage_label_text
 
-            GLib.idle_add(self.speed_label.set_text, speed_label_text)
+            self.emit_event("speed_text", value=speed_label_text)
             self.download_details['remaining'] = download_remaining_string
             self.download_details['download_speed'] = speed_label_text_speed
 
@@ -724,34 +651,33 @@ class DownloadThread(threading.Thread):
             elif self.mode == "video":
                 self.video_pause_event.clear()
             
-            if self.app.terminating == False:
-                if called_by_scheduler and self.app.scheduler_currently_downloading == False and self.paused == False:
+            if self.runtime.terminating == False:
+                if called_by_scheduler and self.runtime.scheduler_currently_downloading == False and self.paused == False:
                     self.download_details['status'] = _("Scheduled")
 
                 else:
                     self.download_details['status'] = _("Paused")
-                    self.actionrow.pause_button.get_child().set_from_icon_name("media-playback-start-symbolic")
-                    self.actionrow.pause_button.set_tooltip_text(_("Resume"))
+                    self.emit_event("pause_button", paused=True)
                     self.paused = True
 
                 self.currently_downloading = False
                 self.paused_because_exceeds_limit = False
         
         if self.mode == "video":
-            self.set_actionrow_tooltip_text()
+            self.emit_tooltip()
 
         if save:
             self.save_state()
-        self.app.check_all_status()
+        self.emit_event("collection_changed")
 
     def resume(self, called_by_scheduler = False):
         if self.download and self.is_complete == False:
             change_button = False
 
-            if called_by_scheduler and self.app.scheduler_currently_downloading and self.paused:
+            if called_by_scheduler and self.runtime.scheduler_currently_downloading and self.paused:
                 self.download_details['status'] = _("Paused")
             
-            elif self.app.scheduler_currently_downloading == False and self.paused:
+            elif self.runtime.scheduler_currently_downloading == False and self.paused:
                 self.download_details['status'] = _("Scheduled")
                 self.paused = False
                 change_button = True
@@ -774,10 +700,9 @@ class DownloadThread(threading.Thread):
                 change_button = True
             
             if change_button:
-                self.actionrow.pause_button.get_child().set_from_icon_name("media-playback-pause-symbolic")
-                self.actionrow.pause_button.set_tooltip_text(_("Pause"))
+                self.emit_event("pause_button", paused=False)
 
-            self.app.check_all_status()
+            self.emit_event("collection_changed")
             self.save_state()
 
     def stop(self):
@@ -798,8 +723,8 @@ class DownloadThread(threading.Thread):
 
                 if ((istorrent and self.download.seeder) or self.download.is_complete) == False: # Delete files if incomplete
 
-                    if os.path.exists(os.path.join(self.app.appdir, (downloadgid + ".varia"))):
-                        os.remove(os.path.join(self.app.appdir, (downloadgid + ".varia")))
+                    if os.path.exists(os.path.join(self.runtime.appdir, (downloadgid + ".varia"))):
+                        os.remove(os.path.join(self.runtime.appdir, (downloadgid + ".varia")))
                     
                     if istorrent == False:
                         if self.downloaddir is not None and os.path.exists(os.path.join(self.downloaddir, downloadname)):
@@ -830,7 +755,7 @@ class DownloadThread(threading.Thread):
 
             elif self.mode == "torrent":
                 if self.torrent_instance is not None:
-                    self.app.ltsession.remove_torrent(self.torrent_instance)
+                    self.runtime.ltsession.remove_torrent(self.torrent_instance)
                 self.torrent_instance = None
             
             elif self.mode == "video":
@@ -847,11 +772,10 @@ class DownloadThread(threading.Thread):
         
         self.download_temp_files.clear()
 
-        self.app.download_list.remove(self.actionrow)
-        self.app.downloads.remove(self)
+        self.runtime.downloads.remove(self)
         self.download = None
-
-        self.app.check_all_status()
+        self.emit_event("removed")
+        self.emit_event("collection_changed")
 
         self = None
         return
@@ -893,7 +817,7 @@ class DownloadThread(threading.Thread):
                 deadline = time.monotonic() + 2
 
                 while resume_data == None and time.monotonic() < deadline:
-                    for alert in self.app.ltsession.pop_alerts():
+                    for alert in self.runtime.ltsession.pop_alerts():
                         if (
                             isinstance(alert, lt.save_resume_data_alert)
                             and alert.handle == self.torrent_instance
@@ -922,30 +846,28 @@ class DownloadThread(threading.Thread):
                 'type': download_type,
                 'video_options': json.dumps(self.video_options),
                 'paused': self.paused,
-                'index': self.app.downloads.index(self),
+                'index': self.runtime.downloads.index(self),
                 'dir': download_dir,
                 'percentage': math.floor(self.percentage_number),
                 'gid': self.download_gid
             }
             
-            if os.path.isfile(os.path.join(self.app.appdir, f'{save_filename}.varia')):
-                os.remove(os.path.join(self.app.appdir, f'{save_filename}.varia'))
+            if os.path.isfile(os.path.join(self.runtime.appdir, f'{save_filename}.varia')):
+                os.remove(os.path.join(self.runtime.appdir, f'{save_filename}.varia'))
 
-            with open(os.path.join(self.app.appdir, f'{save_filename}.varia'), 'w') as f:
+            with open(os.path.join(self.runtime.appdir, f'{save_filename}.varia'), 'w') as f:
                 json.dump(state, f)
 
             print ("State saved for download.")
 
-            if self.app.terminating == True:
+            if self.runtime.terminating == True:
                 self.cancelled = True
             
-            self.state_file = os.path.join(self.app.appdir, f'{save_filename}.varia')
+            self.state_file = os.path.join(self.runtime.appdir, f'{save_filename}.varia')
     
     def extract_archive(self):
-        GLib.idle_add(self.speed_label.set_text, _("Extracting"))
-        GLib.idle_add(self.actionrow.pause_button.set_visible, False)
+        self.emit_event("extraction_started")
         self.download_details["status"] = _("Extracting")
-        GLib.idle_add(self.actionrow.progress_bar.add_css_class, "warning")
         self.extracting_archive = True
         extract_folder = self.downloadname.rsplit(".", 1)[0]
 
@@ -958,7 +880,7 @@ class DownloadThread(threading.Thread):
                 break
 
         sevenzip_extract_command = [
-            self.app.sevenzexec,
+            self.runtime.sevenzexec,
             "x", self.filepath,
             "-o" + extract_folder,
             "-y",
@@ -1000,65 +922,53 @@ class DownloadThread(threading.Thread):
             match = re.search(r"(\d{1,3})\s*%", buffer)
             if match:
                 percent = int(match.group(1))
-                GLib.idle_add(self.actionrow.progress_bar.set_fraction, percent / 100)
-                percentage_label_text = _("{number}%").replace("{number}", str(percent))
-                GLib.idle_add(self.actionrow.percentage_label.set_text, percentage_label_text)
+                percentage_label_text = format_percentage(percent, _)
+                self.emit_event("progress", fraction=percent / 100, percentage=percentage_label_text)
 
         self.extracting_archive = False
 
         if self.cancel_extraction == False:
-            if self.app.appconf["extract_archives_delete_archives"] == "1":
+            if self.runtime.appconf["extract_archives_delete_archives"] == "1":
                 os.remove(self.filepath)
             
             self.filepath = extract_folder
 
-        GLib.idle_add(self.actionrow.pause_button.set_visible, True)
+        self.emit_event("extraction_finished")
         self.extract_complete = True
         self.set_complete()
                 
     def set_complete(self):
         self.is_complete = True
-        self.app.filter_download_list("no", self.app.applied_filter)
+        self.emit_event("filter_downloads")
         self.download_details['remaining'] = ""
         self.download_details['download_speed'] = ""
 
         if self.mode == "video":
             self.video_remove_temp_files()
         
-        if self.extract_complete == False and self.app.appconf["extract_archives"] == "1":
+        if self.extract_complete == False and self.runtime.appconf["extract_archives"] == "1":
             file_extension = self.downloadname.split('.')[-1].lower()
 
-            if file_extension in self.app.supported_archive_formats:
+            if file_extension in self.runtime.supported_archive_formats:
                 thread = threading.Thread(target=self.extract_archive, daemon=True)
                 thread.start()
                 return
 
-        self.set_actionrow_tooltip_text()
+        self.emit_tooltip()
         self.download_details['status'] = _("Completed")
 
-        if self.mode == "torrent" and self.torrent_instance.status().is_seeding and self.app.appconf["torrent_seeding_enabled"] == "1":
-            GLib.idle_add(self.speed_label.set_text, _("Seeding"))
+        if self.mode == "torrent" and self.torrent_instance.status().is_seeding and self.runtime.appconf["torrent_seeding_enabled"] == "1":
+            self.emit_event("speed_text", value=_("Seeding"))
         else:
-            GLib.idle_add(self.speed_label.set_text, _("Download complete."))
+            self.emit_event("speed_text", value=_("Download complete."))
             self.cancelled = True
 
             if os.path.exists(self.state_file):
                 os.remove(self.state_file)
         
-        GLib.idle_add(self.actionrow.progress_bar.set_fraction, 1)
-        GLib.idle_add(self.actionrow.progress_bar.add_css_class, "success")
-        GLib.idle_add(self.actionrow.stop_button.remove_css_class, "destructive-action")
-        GLib.idle_add(self.actionrow.stop_button.set_icon_name, "process-stop-symbolic")
-        GLib.idle_add(self.actionrow.percentage_label.set_visible, False)
-        GLib.idle_add(self.actionrow.pause_button.set_open_mode, self.actionrow.pause_button, self.app, self)
+        self.emit_event("completed")
     
     def set_failed(self, fraction, message=None):
-        GLib.idle_add(self.actionrow.spinner.set_visible, False)
-
-        if fraction is not None:
-            self.actionrow.progress_bar.set_fraction(fraction)
-
-        self.actionrow.progress_bar.add_css_class("error")
         self.cancelled = True
 
         if message is not None:
@@ -1079,27 +989,29 @@ class DownloadThread(threading.Thread):
         self.download_details['remaining'] = ""
         self.download_details['download_speed'] = ""
 
-        GLib.idle_add(self.actionrow.pause_button.set_retry_mode, self.actionrow.pause_button, self.app, self)
-        GLib.idle_add(self.actionrow.stop_button.remove_css_class, "destructive-action")
-        GLib.idle_add(self.actionrow.stop_button.set_icon_name, "process-stop-symbolic")
-        self.app.filter_download_list("no", self.app.applied_filter)
+        self.emit_event("failed", fraction=fraction)
+        self.emit_event("filter_downloads")
 
     def periodically_save_state(self):
-        if self.cancelled or self.app.terminating:
+        if self.cancelled or self.runtime.terminating:
             return
 
         self.save_state()
-        GLib.timeout_add_seconds(360, self.periodically_save_state)
+        self.schedule_state_save()
 
-    def custom_download_directory_select(self):
-        self.new_selected_directory = None
-        self.app.present()
-        Gtk.FileDialog().select_folder(self.app, None, self.on_custom_download_directory_select)
+    def schedule_state_save(self):
+        if self._save_timer is not None:
+            self._save_timer.cancel()
+        self._save_timer = threading.Timer(360, self.periodically_save_state)
+        self._save_timer.daemon = True
+        self._save_timer.start()
 
     def select_download_directory(self):
         self.new_selected_directory = None
         self.directory_selection_event.clear()
-        GLib.idle_add(self.custom_download_directory_select)
+        if self.request_directory is None:
+            return False
+        self.request_directory(self)
         self.directory_selection_event.wait()
         if self.new_selected_directory is None:
             return False
@@ -1112,22 +1024,13 @@ class DownloadThread(threading.Thread):
 
         return True
 
+    def select_torrent_files(self):
+        if self.request_torrent_selection is None:
+            raise RuntimeError("Torrent file selection requires a presentation handler.")
+        self.selection_event = threading.Event()
+        self.request_torrent_selection(self)
+        self.selection_event.wait()
+
     def cancel_pending_download(self):
         self.cancelled = True
-        GLib.idle_add(self.stop)
-    
-    def on_custom_download_directory_select(self, dialog, result):
-        try:
-            self.new_selected_directory = dialog.select_folder_finish(result).get_path()
-    
-        except GLib.GError as exception:
-            if (exception.domain == 'gtk-dialog-error-quark' and exception.code == 2) == False:
-                error_dialog = Adw.AlertDialog()
-                error_dialog.set_body(_("Failed to open directory."))
-                error_dialog.add_response("ok",  _("OK"))
-                error_dialog.set_default_response("ok")
-                error_dialog.set_close_response("ok")
-                error_dialog.present(self.app)
-
-        finally:
-            self.directory_selection_event.set()
+        self.stop()

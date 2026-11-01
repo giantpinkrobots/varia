@@ -1,5 +1,6 @@
 import time
 from stringstorage import gettext as _
+from formatting import format_speed
 import gi
 gi.require_version('Gtk', '4.0')
 from gi.repository import GLib
@@ -72,14 +73,7 @@ def total_download_speed_get(self, downloads, total_download_speed_label):
                 if download_thread.is_complete:
                     total_completed_download_amount += 1
 
-            if (total_download_speed == 0):
-                download_speed_text = "0" + _(" B/s")
-            elif (total_download_speed < 1024):
-                download_speed_text = str(total_download_speed) + _(" B/s")
-            elif ((total_download_speed >= 1024) and (total_download_speed < 1048576)):
-                download_speed_text = str(round(total_download_speed / 1024, 2)) + _(" KB/s")
-            else:
-                download_speed_text = str(round(total_download_speed / 1024 / 1024, 2)) + _(" MB/s")
+            download_speed_text = format_speed(total_download_speed, _)
 
             if len(downloads) > 0:
                 download_speed_text = f"{download_speed_text}  ·  {total_completed_download_amount}/{len(downloads)}"

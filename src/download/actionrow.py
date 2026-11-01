@@ -26,15 +26,152 @@ def on_download_clicked(button, self, entry, downloadname, download, mode, video
         else:
             download_item = create_actionrow(self, url)
 
-        download_thread = DownloadThread(self, url, download_item, downloadname, download, mode, video_options, paused, dir, percentage, gid)
-        download_item.download_thread = download_thread
-        self.downloads.append(download_thread)
-        download_thread.start()
+        download_thread = start_download_thread(
+            self, download_item, url, downloadname, download, mode,
+            video_options, paused, dir, percentage, gid
+        )
 
         if paused == False:
             self.all_paused = False
     
     return download_thread
+
+def start_download_thread(app, download_item, url, downloadname, download, mode, video_options, paused, dir, percentage, gid):
+    download_thread = DownloadThread(
+        app,
+        url,
+        downloadname,
+        download,
+        mode,
+        video_options,
+        paused,
+        dir,
+        percentage,
+        gid,
+        on_event=lambda worker, event, payload: dispatch_download_event(app, download_item, worker, event, payload),
+        request_directory=lambda worker: request_download_directory(app, worker),
+        request_torrent_selection=lambda worker: request_torrent_file_selection(app, worker),
+    )
+
+    download_item.download_thread = download_thread
+    app.downloads.append(download_thread)
+
+    if not hasattr(app, "download_rows"):
+        app.download_rows = {}
+
+    app.download_rows[download_thread] = download_item
+    download_thread.start()
+
+    return download_thread
+
+def dispatch_download_event(app, download_item, download_thread, event, payload):
+    GLib.idle_add(apply_download_event, app, download_item, download_thread, event, payload)
+
+def apply_download_event(app, download_item, download_thread, event, payload):
+    if event == "hide_row_controls":
+        download_item.pause_button.set_visible(False)
+        download_item.progress_bar.set_visible(False)
+        download_item.info_button.set_visible(False)
+
+    elif event == "filename":
+        download_item.filename_label.set_text(payload["value"])
+
+    elif event == "pause_button":
+        paused = payload["paused"]
+        download_item.pause_button.get_child().set_from_icon_name(
+            "media-playback-start-symbolic" if paused else "media-playback-pause-symbolic"
+        )
+        download_item.pause_button.set_tooltip_text(_("Resume") if paused else _("Pause"))
+
+    elif event == "download_type":
+        icon_name = {
+            "regular": "paper-symbolic",
+            "torrent": "network-wired-symbolic",
+            "video": "camera-video-symbolic",
+            "playlist": "playlist-symbolic",
+        }[payload["value"]]
+        download_item.type_icon.set_from_icon_name(icon_name)
+        download_item.spinner.set_visible(False)
+        download_item.type_icon.set_visible(True)
+
+    elif event == "message" or event == "speed_text":
+        download_item.speed_label.set_text(payload["value"])
+
+    elif event == "tooltip":
+        download_item.set_tooltip_text(payload["value"])
+
+    elif event == "progress":
+        download_item.progress_bar.set_fraction(payload["fraction"])
+        download_item.percentage_label.set_text(payload["percentage"])
+
+    elif event == "extraction_started":
+        download_item.speed_label.set_text(_("Extracting"))
+        download_item.pause_button.set_visible(False)
+        download_item.progress_bar.add_css_class("warning")
+
+    elif event == "extraction_finished":
+        download_item.pause_button.set_visible(True)
+
+    elif event == "completed":
+        download_item.progress_bar.set_fraction(1)
+        download_item.progress_bar.add_css_class("success")
+        download_item.stop_button.remove_css_class("destructive-action")
+        download_item.stop_button.set_icon_name("process-stop-symbolic")
+        download_item.percentage_label.set_visible(False)
+        pause_button_set_open_mode(download_item.pause_button, app, download_item)
+
+    elif event == "failed":
+        download_item.spinner.set_visible(False)
+
+        if payload["fraction"] is not None:
+            download_item.progress_bar.set_fraction(payload["fraction"])
+
+        download_item.progress_bar.add_css_class("error")
+        pause_button_set_retry_mode(download_item.pause_button, app, download_item)
+        download_item.stop_button.remove_css_class("destructive-action")
+        download_item.stop_button.set_icon_name("process-stop-symbolic")
+
+    elif event == "removed":
+        app.download_list.remove(download_item)
+        app.download_rows.pop(download_thread, None)
+
+    elif event == "collection_changed":
+        app.check_all_status()
+
+    elif event == "filter_downloads":
+        app.filter_download_list("no", app.applied_filter)
+
+    return GLib.SOURCE_REMOVE
+
+def request_download_directory(app, download_thread):
+    def show_dialog():
+        app.present()
+        Gtk.FileDialog().select_folder(
+            app, None, on_download_directory_selected, app, download_thread
+        )
+
+    GLib.idle_add(show_dialog)
+
+def request_torrent_file_selection(app, download_thread):
+    def show_dialog():
+        from download.torrents import torrent_select_files_dialog
+        torrent_select_files_dialog(download_thread, app)
+
+    GLib.idle_add(show_dialog)
+
+def on_download_directory_selected(dialog, result, app, download_thread):
+    try:
+        download_thread.new_selected_directory = dialog.select_folder_finish(result).get_path()
+    except GLib.GError as exception:
+        if (exception.domain == "gtk-dialog-error-quark" and exception.code == 2) == False:
+            error_dialog = Adw.AlertDialog()
+            error_dialog.set_body(_("Failed to open directory."))
+            error_dialog.add_response("ok", _("OK"))
+            error_dialog.set_default_response("ok")
+            error_dialog.set_close_response("ok")
+            error_dialog.present(app)
+    finally:
+        download_thread.directory_selection_event.set()
 
 def create_actionrow(self, filename):
     download_item = Adw.Bin()
@@ -170,7 +307,9 @@ def pause_button_on_retry_clicked(button, self, download_item):
 
     new_download_item = on_download_clicked(None, self, download_item.url, download_item.downloadname, None, download_item.mode, download_item.video_options, False, downloaddir, 0, download_item.gid)
 
-    self.download_list.reorder_child_after(new_download_item.actionrow, download_item.actionrow)
+    new_row = self.download_rows[new_download_item]
+    current_row = self.download_rows[download_item]
+    self.download_list.reorder_child_after(new_row, current_row)
     self.downloads.remove(new_download_item)
     self.downloads.insert(self.downloads.index(download_item), new_download_item)
 

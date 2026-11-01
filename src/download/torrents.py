@@ -21,7 +21,7 @@ class FileNode(GObject.Object):
         self.file_index = file_index
         self.children = Gio.ListStore.new(FileNode) if is_dir else None # Only directories will have children
 
-def torrent_select_files_dialog(self):
+def torrent_select_files_dialog(self, parent):
     torrent_info = self.torrent_instance.torrent_file()
     storage = self.torrent_instance.torrent_file().files()
     root_store = Gio.ListStore.new(FileNode)
@@ -280,7 +280,7 @@ def torrent_select_files_dialog(self):
 
         if download_stopped == False:
             if self.torrent_instance:
-                self.app.ltsession.remove_torrent(
+                self.runtime.ltsession.remove_torrent(
                     self.torrent_instance,
                     lt.options_t.delete_files
                 )
@@ -293,8 +293,8 @@ def torrent_select_files_dialog(self):
     ok_button.connect("clicked", on_ok_clicked)
     cancel_button.connect("clicked", on_dialog_close)
 
-    if self.app.appconf['torrent_always_download_all'] == '0':
-        GLib.idle_add(dialog.present, self.app)
+    if self.runtime.appconf['torrent_always_download_all'] == '0':
+        GLib.idle_add(dialog.present, parent)
 
     else:
         on_dialog_close(None)

@@ -3,8 +3,7 @@ import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Adw, GLib, Gio
-from download.actionrow import create_actionrow
-from download.thread import DownloadThread
+from download.actionrow import create_actionrow, start_download_thread
 from download.videos import on_video_clicked
 from notification_handler import show_notification
 import string
@@ -42,7 +41,6 @@ def listen_to_aria2(self, variaapp):
                         # Remove the .torrent file download itself:
                         frontend_download_item.cancelled = True
                         frontend_download_item.stop()
-                        self.download_list.remove(frontend_download_item.actionrow)
                         add_download_to_ui(self, torrent_instance, variaapp, "torrent", True)
                         self.check_all_status()
 
@@ -113,7 +111,7 @@ def deal_with_simultaneous_download_limit(self):
         
         for download in self.downloads:
             try:
-                if download and download.actionrow.pause_button.get_child().get_icon_name() == "media-playback-pause-symbolic":
+                if download and not download.paused:
                     downloads_to_be_processed.append(download)
 
             except:
@@ -156,11 +154,11 @@ def add_download_to_ui(self, download_item_to_be_added, variaapp, mode, notifica
         show_notification(download_item_to_be_added.name, "", variaapp)
 
     actionrow = create_actionrow(self, download_item_url)
-    download_thread = DownloadThread(self, download_item_url, actionrow, download_item_url, download_item_to_be_added, mode, None, False, None, 0, None)
-    actionrow.download_thread = download_thread
-    self.downloads.append(download_thread)
-    download_thread.start()
-    download_thread.actionrow.pause_button.set_visible(True)
+    start_download_thread(
+        self, actionrow, download_item_url, download_item_url,
+        download_item_to_be_added, mode, None, False, None, 0, None
+    )
+    actionrow.pause_button.set_visible(True)
 
 def raise_shutdown_dialog(variamain, variaapp):
     while (True):

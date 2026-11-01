@@ -50,8 +50,8 @@ def show_download_details_dialog(button, self, download_item):
     actionrow_download_status.add_suffix(label_download_status)
     group_1.add(actionrow_download_status)
 
-    actionrow_download_file_name = Adw.ActionRow(title=_("File Name"), tooltip_text=_("File Name") + ": " + download_item.download_thread.actionrow.filename_label.get_text())
-    label_download_file_name = Gtk.Label(label=download_item.download_thread.actionrow.filename_label.get_text())
+    actionrow_download_file_name = Adw.ActionRow(title=_("File Name"), tooltip_text=_("File Name") + ": " + download_item.download_thread.downloadname)
+    label_download_file_name = Gtk.Label(label=download_item.download_thread.downloadname)
     label_download_file_name.set_ellipsize(Pango.EllipsizeMode.END)
     actionrow_download_file_name.add_suffix(label_download_file_name)
     group_1.add(actionrow_download_file_name)
