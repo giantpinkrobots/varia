@@ -299,25 +299,28 @@ def pause_button_set_open_mode(button, self, download_item):
     button.set_tooltip_text(_("Open File"))
 
 def pause_button_on_retry_clicked(button, self, download_item):
-    if download_item.mode == "playlist":
-        downloaddir = os.path.join(download_item.downloaddir, "..") # Playlists download into a subdirectory,
+    if download_item.download_thread.mode == "playlist":
+        downloaddir = os.path.join(download_item.download_thread.downloaddir, "..") # Playlists download into a subdirectory,
                                                                     # so we need to take the above directory
     else:
-        downloaddir = download_item.downloaddir
+        downloaddir = download_item.download_thread.downloaddir
 
-    new_download_item = on_download_clicked(None, self, download_item.url, download_item.downloadname, None, download_item.mode, download_item.video_options, False, downloaddir, 0, download_item.gid)
+    new_download_gid = getattr(download_item.download_thread, 'gid', None)
+
+    new_download_item = on_download_clicked(None, self, download_item.download_thread.url, download_item.download_thread.downloadname,
+        None, download_item.download_thread.mode, download_item.download_thread.video_options, False, downloaddir, 0, new_download_gid)
 
     new_row = self.download_rows[new_download_item]
-    current_row = self.download_rows[download_item]
+    current_row = self.download_rows[download_item.download_thread]
     self.download_list.reorder_child_after(new_row, current_row)
     self.downloads.remove(new_download_item)
-    self.downloads.insert(self.downloads.index(download_item), new_download_item)
+    self.downloads.insert(self.downloads.index(download_item.download_thread), new_download_item)
 
-    download_item.stop()
+    download_item.download_thread.stop()
 
 def pause_button_on_open_clicked(button, self, download_item):
-    if os.path.exists(download_item.filepath):
+    if os.path.exists(download_item.download_thread.filepath):
         if (os.uname().sysname == 'Darwin'):
-            subprocess.call(('open', download_item.filepath))
+            subprocess.call(('open', download_item.download_thread.filepath))
         else:
-            Gio.AppInfo.launch_default_for_uri("file://" + download_item.filepath, None)
+            Gio.AppInfo.launch_default_for_uri("file://" + download_item.download_thread.filepath, None)
