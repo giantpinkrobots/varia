@@ -29,18 +29,68 @@ parts:
     plugin: python
     source: .
     after:
+      - libtorrent
       - python-runtime
     python-packages:
       - yt-dlp[default]
       - aria2p
       - emoji-country-flag
       - dbus-next
-      - libtorrent
     build-packages:
       - python3-pip
       - python3-setuptools
       - python3-wheel
+      - python3.14-venv
       - build-essential
+
+  boost:
+    plugin: nil
+    source: https://github.com/boostorg/boost/releases/download/boost-1.92.0/boost-1.92.0-b2-nodocs.tar.xz
+    source-type: tar
+    source-checksum: sha256/ea7b982002cc9dfbe59b0b217b206f470dc75f3de0bb2973d844118934d82411
+    after:
+      - python-runtime
+    override-build: |
+      ./bootstrap.sh \
+        --prefix="$CRAFT_PART_INSTALL/usr" \
+        --with-python=/usr/bin/python3.14 \
+        --with-python-version=3.14
+      ./b2 install \
+        --prefix="$CRAFT_PART_INSTALL/usr" \
+        --with-headers \
+        --with-python \
+        link=static,shared \
+        variant=release \
+        -j"${CRAFT_PARALLEL_BUILD_COUNT:-2}"
+    build-packages:
+      - build-essential
+      - python3.14-dev
+ 
+  libtorrent:
+    plugin: nil
+    source: https://github.com/arvidn/libtorrent.git
+    source-type: git
+    source-commit: 6da363d2994f17c0b3c0450d124cf73a31a73847
+    after:
+      - boost
+    override-build: |
+      cmake -S . -B build -G Ninja \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/ \
+        -DCMAKE_PREFIX_PATH="$CRAFT_STAGE/usr" \
+        -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
+        -DBUILD_SHARED_LIBS=OFF \
+        -DPython3_EXECUTABLE=/usr/bin/python3.14 \
+        -Dpython-bindings=ON
+      cmake --build build --parallel "${CRAFT_PARALLEL_BUILD_COUNT:-2}"
+      cmake --install build --prefix "$CRAFT_PART_INSTALL"
+    build-packages:
+      - build-essential
+      - cmake
+      - libssl-dev
+      - ninja-build
+      - python3.14-dev
+      - zlib1g-dev
 
   aria2-next:
     plugin: nil
@@ -155,6 +205,8 @@ apps:
       - desktop
       - shutdown
       - desktop-legacy
+    environment:
+      PATH: $SNAP/bin:$PATH
     desktop: usr/share/applications/io.github.giantpinkrobots.varia.desktop
     common-id: io.github.giantpinkrobots.varia.desktop
     autostart: io.github.giantpinkrobots.varia.desktop

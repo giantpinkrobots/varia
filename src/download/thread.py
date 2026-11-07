@@ -310,6 +310,7 @@ class DownloadThread(threading.Thread):
                 torrent_params = lt.read_resume_data(resume_data)
                 if self.paused:
                     torrent_params.flags |= lt.torrent_flags.paused
+                    torrent_params.flags &= ~lt.torrent_flags.auto_managed
                 else:
                     torrent_params.flags &= ~lt.torrent_flags.paused
                 self.torrent_instance = self.runtime.ltsession.add_torrent(torrent_params)
@@ -646,6 +647,8 @@ class DownloadThread(threading.Thread):
                 self.download.pause()
 
             elif self.mode == "torrent":
+                if not called_by_scheduler:
+                    self.torrent_instance.unset_flags(lt.torrent_flags.auto_managed)
                 self.torrent_instance.pause()
             
             elif self.mode == "video":
@@ -688,6 +691,7 @@ class DownloadThread(threading.Thread):
                         self.download.resume()
 
                 elif self.mode == "torrent":
+                    self.torrent_instance.set_flags(lt.torrent_flags.auto_managed)
                     self.torrent_instance.resume()
 
                 elif self.mode == "video":
