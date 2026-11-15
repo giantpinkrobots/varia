@@ -53,8 +53,8 @@ pip install --break-system-packages aria2p \
 echo -e "\n\n\n      -   Downloading aria2, ffmpeg, 7z and deno...\n"
 
 aria2="aria2-next-3.0.7-windows-x86_64"
-ffmpeg="ffmpeg-n8.1.2-34-g9b6c8969e0-win64-lgpl-8.1"
-ffmpeg_tag="autobuild-2026-08-02-13-17"
+ffmpeg="ffmpeg-n9.0.2-57-gd838f9f9ae-win64-lgpl-shared-9.0"
+ffmpeg_tag="autobuild-2026-11-14-12-37"
 sevenzip="7z2600-x64"
 
 rm -rf "./$aria2.zip"

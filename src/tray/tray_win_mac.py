@@ -8,10 +8,10 @@ def tray_action_show(arg):
 def tray_action_quit(arg):
     conn.send("quit")
 
-if (os.uname().sysname == 'Darwin'):
-    image_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "trayicon_mac.png")
-else:
+if os.name == 'nt':
     image_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "trayicon_win.png")
+else:
+    image_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "trayicon_mac.png")
 
 show_text = sys.argv[1]
 quit_text = sys.argv[2]
@@ -36,7 +36,7 @@ def create_tray_icon_pystray():
 
     icon.title = "Varia"
 
-    if (os.uname().sysname == 'Darwin'):
+    if os.name != 'nt':
         def setup_tray(icon):
             icon.visible = True
             if hasattr(icon, '_icon_image'):

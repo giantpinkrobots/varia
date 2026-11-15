@@ -855,7 +855,8 @@ if (__name__ == '__main__'):
 
         os.uname = uname_replacement
 
-        os.chdir(os.path.dirname(sys.executable))
+        work_dir = os.path.dirname(sys.executable)
+        os.chdir(work_dir)
         windll = ctypes.windll.kernel32
         lang_id = windll.GetUserDefaultUILanguage()
         current_locale = locale.windows_locale.get(lang_id)
@@ -868,10 +869,10 @@ if (__name__ == '__main__'):
 
         jsruntimeexec = {
             'name': 'deno',
-            'exec': os.path.join(os.getcwd(), "deno.exe")
+            'exec': os.path.join(work_dir, "deno.exe")
         }
 
-        sys.exit(main(variaVersion, os.path.join(os.getcwd(), "aria2c.exe"), os.path.join(os.getcwd(), "ffmpeg.exe"), os.path.join(os.getcwd(), "7zz.exe"), jsruntimeexec, False, None, json.dumps(sys.argv)))
+        sys.exit(main(variaVersion, os.path.join(work_dir, "aria2c.exe"), os.path.join(work_dir, "ffmpeg.exe"), os.path.join(work_dir, "7zz.exe"), jsruntimeexec, False, None, json.dumps(sys.argv)))
 
     elif os.uname().sysname == 'Darwin':
         translation = gettext.translation('varia', localedir='./locale', languages=["en-US"], fallback=True)
@@ -879,23 +880,25 @@ if (__name__ == '__main__'):
         stringstorage.setstrings_win(translation.gettext)
         from stringstorage import gettext as _
 
+        work_dir = os.getcwd()
+
         if variaVersion == "dev":
             jsruntimeexec = {
                 'name': 'quickjs',
                 'exec': shutil.which("qjs")
             }
             #aria2cexec = shutil.which("aria2c")
-            aria2cexec = os.path.join(os.getcwd(), "aria2c")
+            aria2cexec = os.path.join(work_dir, "aria2c")
             ffmpegexec = shutil.which("ffmpeg")
             sevenzexec = shutil.which("7zz")
 
         else:
             jsruntimeexec = {
-                'name': 'quickjs',
-                'exec': os.path.join(os.getcwd(), "qjs")
+                'name': 'deno',
+                'exec': os.path.join(work_dir, "deno")
             }
-            aria2cexec = os.path.join(os.getcwd(), "aria2c")
-            ffmpegexec = os.path.join(os.getcwd(), "ffmpeg")
-            sevenzexec = os.path.join(os.getcwd(), "7zz")
+            aria2cexec = os.path.join(work_dir, "aria2c")
+            ffmpegexec = os.path.join(work_dir, "ffmpeg")
+            sevenzexec = os.path.join(work_dir, "7zz")
 
         sys.exit(main(variaVersion, aria2cexec, ffmpegexec, sevenzexec, jsruntimeexec, False, None, json.dumps(sys.argv)))
