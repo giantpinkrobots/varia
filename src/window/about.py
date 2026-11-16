@@ -30,8 +30,17 @@ def show_about(app, variaapp, self, variaVersion):
     #dialog.add_link(_("Support Varia"), "https://github.com/sponsors/giantpinkrobots/")
     dialog.set_release_notes('''
         <ul>
-        <li>New torrent backend (libtorrent), leading to a way better torrenting experience</li>
-        <li>Video downloader backend overhauls for better performance and less issues</li>
+        <li>Option to show save dialog on every download</li>
+        <li>Switch to aria2-next and (on Linux) QuickJS</li>
+        <li>Tweaks for macOS: Better tray icon and headerbar</li>
+        <li>Remote mode tweaks for better legibility</li>
+        <li>Update to the GNOME 51 runtime</li>
+        <li>Bug fix: Torrent file selection dialog can now scroll</li>
+        <li>Bug fix: Opening large .torrent files no longer fail</li>
+        <li>Bug fix: File name too long error on macOS fixed</li>
+        <li>Bug fix: Torrent seeding ratio setting no longer causes crashes</li>
+        <li>Bug fix: Speed limit setting no longer causes crashes</li>
+        <li>Bug fix: Fixed torrents auto-restarting when paused and speed at 0B/s or when re-added with paused set to true</li>
         </ul>''')
     
     if (os.uname().sysname == 'Linux'):

@@ -5,12 +5,18 @@ def show_notification(title, message, variaapp):
         toast(title, message)
     
     elif os.uname().sysname == 'Darwin':
-        from mac_notifications import client
+        import subprocess
 
-        client.create_notification(
-            title=title,
-            subtitle=message
-        )
+        title = f"Varia - {title}"
+
+        subprocess.run([
+            "osascript",
+            "-e", "on run argv",
+            "-e", "display notification (item 2 of argv) with title (item 1 of argv)",
+            "-e", "end run",
+            title,
+            message
+        ])
     
     else:
         import gi

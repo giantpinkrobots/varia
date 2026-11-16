@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         arch: [arm64, x86_64]
-    runs-on: ${{ matrix.arch == 'arm64' && 'macos-26' || 'macos-26-intel' }}
+    runs-on: ${{ matrix.arch == 'arm64' && 'macos-latest' || 'macos-26-intel' }}
 
     env:
       MAC_ARCH: ${{ matrix.arch }}
@@ -27,7 +27,7 @@ jobs:
         run: |
           yes | brew update
           yes | brew install automake autoconf libtool pkg-config nasm yasm cmake ninja gtk4 libadwaita python3 lame opus libvorbis libogg gnutls pygobject3 create-dmg gmp libtorrent-rasterbar
-          python3 -m pip install --break-system-packages pillow pygobject yt-dlp pyinstaller aria2p pystray emoji-country-flag macos-notifications
+          python3 -m pip install --break-system-packages pillow pygobject yt-dlp pyinstaller aria2p pystray emoji-country-flag
 
       - name: Download binaries for dependencies
         run: |
@@ -101,6 +101,8 @@ jobs:
           codesign --remove-signature "$MAC_DIR/Varia.app/Contents/Resources/aria2c" || true
           codesign --remove-signature "$MAC_DIR/Varia.app/Contents/Resources/7zz" || true
           codesign --remove-signature "$MAC_DIR/Varia.app/Contents/Resources/deno" || true
+
+          chmod +x "$MAC_DIR/Varia.app/Contents/Resources/aria2c"
 
           cd "$MAC_DIR/../"
           rm -rf locale

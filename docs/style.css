@@ -96,6 +96,11 @@ p {
     color: #1b1b1b;
 }
 
+.pill-button-ltblue-alt {
+    background-color: #c6ced6;
+    color: #2c2c2c;
+}
+
 .pill-button:hover {
     transform: scale(105%);
 }
@@ -114,6 +119,10 @@ p {
 
 .pill-button-ltblue:hover {
     background-color: #F6F5F4;
+}
+
+.pill-button-ltblue-alt:hover {
+    background-color: #ebebea;
 }
 
 .button-icon {

@@ -125,9 +125,21 @@ Control a remote aria2 instance running on any server through Remote Mode
 </supports>
 
 <releases>
-<release version="v2026.8.5-1" date="2026-08-21">
+<release version="v2026.11.16" date="2026-11-16">
 <description translatable="yes">
-<ul><li>Various fixes relating to torrenting.</li></ul>
+<ul>
+<li>Option to show save dialog on every download</li>
+<li>Switch to aria2-next and (on Linux) QuickJS</li>
+<li>Tweaks for macOS: Better tray icon and headerbar</li>
+<li>Remote mode tweaks for better legibility</li>
+<li>Update to the GNOME 51 runtime</li>
+<li>Bug fix: Torrent file selection dialog can now scroll</li>
+<li>Bug fix: Opening large .torrent files no longer fail</li>
+<li>Bug fix: File name too long error on macOS fixed</li>
+<li>Bug fix: Torrent seeding ratio setting no longer causes crashes</li>
+<li>Bug fix: Speed limit setting no longer causes crashes</li>
+<li>Bug fix: Fixed torrents auto-restarting when paused and speed at 0B/s or when re-added with paused set to true</li>
+</ul>
 </description>
 </release>
 </releases>
