@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2026-08-14 04:51+0000\n"
-"Last-Translator: Peter Vančo <petervanco347@gmail.com>\n"
+"PO-Revision-Date: 2026-11-14 15:17+0000\n"
+"Last-Translator: Peter Vančo <peva@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/varia/varia/sk/>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
-"X-Generator: Weblate 2026.9.dev0\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -65,7 +65,7 @@ msgstr "O aplikácii Varia"
 
 #: src/variamain.py:177
 msgid "URL"
-msgstr "Sem vložte URL"
+msgstr "URL"
 
 #: src/variamain.py:178
 msgid "Download"
@@ -207,7 +207,7 @@ msgid "Remote aria2 IP"
 msgstr "Vzdialená IP adresa aria2"
 
 msgid "Remote aria2 Port"
-msgstr "Vzdialený Port aria2"
+msgstr "Vzdialený port aria2"
 
 msgid "Remote aria2 RPC Secret"
 msgstr "Vzdialený RPC tajný kľúč aria2"
@@ -295,7 +295,7 @@ msgstr "Pridať časový interval"
 
 #: When a download is currently seeding:
 msgid "Seeding"
-msgstr "Zdieľajúce"
+msgstr "Seedovanie"
 
 msgid "Failed"
 msgstr "Neúspešné"
@@ -307,7 +307,7 @@ msgid "Exit on Completion"
 msgstr "Zavrieť po dokončení"
 
 msgid "Varia is about to quit."
-msgstr "Varia sa o chvíľu vypne."
+msgstr "Varia sa o chvíľu ukončí."
 
 msgid "Preferences"
 msgstr "Predvoľby"
@@ -477,7 +477,7 @@ msgid "OK"
 msgstr "OK"
 
 msgid "Enable Torrenting"
-msgstr "Spustenie torrentovania"
+msgstr "Povoliť torrentovanie"
 
 msgid "The browser extension will not work when Remote Mode is enabled."
 msgstr ""
@@ -635,7 +635,7 @@ msgstr ""
 
 # Tooltip for when focused on filter options in the sidebar. Do not translate {filter option}, it will be replaced by the filter type. ("All", "In Progress", etc)
 msgid "Filter downloads by {filter option}"
-msgstr "Filtrovať stiahnuté súbory podľa {filter option}"
+msgstr "Filtrovať sťahovania podľa {filter option}"
 
 msgid "Download item"
 msgstr "Položka na stiahnutie"
@@ -717,6 +717,21 @@ msgstr "Svetlá téma"
 # Tooltip for the dark theme setting
 msgid "Dark theme"
 msgstr "Tmavá téma"
+
+msgid "Ask for Download Directory for Each Download"
+msgstr "Pri každom sťahovaní sa opýtať na priečinok"
+
+msgid "Always"
+msgstr "Vždy"
+
+msgid "Never"
+msgstr "Nikdy"
+
+msgid "Only for Torrents"
+msgstr "Iba pre torrenty"
+
+msgid "Only for Files/Videos"
+msgstr "Iba pre súbory/videá"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

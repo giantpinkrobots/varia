@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: varia main\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2026-03-18 14:09+0000\n"
-"Last-Translator: lumingzh <lumingzh@qq.com>\n"
+"PO-Revision-Date: 2026-08-31 05:39+0000\n"
+"Last-Translator: Silence <1059022187@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/varia/varia/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -679,27 +679,45 @@ msgid ""
 msgstr "如果播放列表中有视频无法下载，则继续下载其它视频而不是取消下载。"
 
 msgid "Download All Files Without Asking"
-msgstr ""
+msgstr "下载所有文件无需询问"
 
 msgid ""
 "If enabled, Varia will no longer give you the option to uncheck individual "
 "files and folders in a torrent download."
 msgstr ""
+"如果启用此功能，Varia 将不再允许你在 torrent 下载中取消勾选个别文件和文件夹。"
 
 # Theme setting title to change the color scheme
 msgid "Theme"
-msgstr ""
+msgstr "主题"
 
 # Theme setting to follow the user's device theme
 msgid "Automatic"
-msgstr ""
+msgstr "自动"
 
 # Tooltip for the light theme setting
 msgid "Light theme"
-msgstr ""
+msgstr "浅色主题"
 
 # Tooltip for the dark theme setting
 msgid "Dark theme"
+msgstr "深色主题"
+
+#, fuzzy
+#| msgid "Custom Download Directory for Torrents"
+msgid "Ask for Download Directory for Each Download"
+msgstr "自定义种子下载目录"
+
+msgid "Always"
+msgstr ""
+
+msgid "Never"
+msgstr ""
+
+msgid "Only for Torrents"
+msgstr ""
+
+msgid "Only for Files/Videos"
 msgstr ""
 
 #: src/gtk/help-overlay.ui:11

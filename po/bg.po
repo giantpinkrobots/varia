@@ -9,8 +9,9 @@ msgstr ""
 "Project-Id-Version: Varia\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2026-08-14 04:51+0000\n"
-"Last-Translator: Любомир Василев <lyubomirv@gmx.com>\n"
+"PO-Revision-Date: 2026-10-21 00:16+0000\n"
+"Last-Translator: Любомир Василев <lyubomirv@users.noreply.hosted.weblate.org>"
+"\n"
 "Language-Team: Bulgarian <https://hosted.weblate.org/projects/varia/varia/"
 "bg/>\n"
 "Language: bg\n"
@@ -18,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.9.dev0\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -730,6 +731,21 @@ msgstr "Светла тема"
 # Tooltip for the dark theme setting
 msgid "Dark theme"
 msgstr "Тъмна тема"
+
+msgid "Ask for Download Directory for Each Download"
+msgstr "Питане за целевата папката при сваляне"
+
+msgid "Always"
+msgstr "Винаги"
+
+msgid "Never"
+msgstr "Никога"
+
+msgid "Only for Torrents"
+msgstr "Само за торенти"
+
+msgid "Only for Files/Videos"
+msgstr "Само за файлове/видеа"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2026-04-02 04:09+0000\n"
-"Last-Translator: Gonzalo Cruz <prplmanta@gmail.com>\n"
+"PO-Revision-Date: 2026-09-03 08:01+0000\n"
+"Last-Translator: Quentin PAGÈS <quentinantonin@free.fr>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/varia/varia/es/"
 ">\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -661,7 +661,7 @@ msgstr ""
 
 # Tooltip for when focused on filter options in the sidebar. Do not translate {filter option}, it will be replaced by the filter type. ("All", "In Progress", etc)
 msgid "Filter downloads by {filter option}"
-msgstr "Filtrar descargas por {opción de filtro}"
+msgstr "Filtrar descargas por {filter option}"
 
 #, fuzzy
 #| msgid "Download"
@@ -746,6 +746,23 @@ msgstr ""
 
 # Tooltip for the dark theme setting
 msgid "Dark theme"
+msgstr ""
+
+#, fuzzy
+#| msgid "Custom Download Directory for Torrents"
+msgid "Ask for Download Directory for Each Download"
+msgstr "Directorio de descargas personalizado para torrents"
+
+msgid "Always"
+msgstr ""
+
+msgid "Never"
+msgstr ""
+
+msgid "Only for Torrents"
+msgstr ""
+
+msgid "Only for Files/Videos"
 msgstr ""
 
 #: src/gtk/help-overlay.ui:11

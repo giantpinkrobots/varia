@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-30 03:17+0300\n"
-"PO-Revision-Date: 2025-11-05 00:51+0000\n"
+"PO-Revision-Date: 2026-09-03 08:01+0000\n"
 "Last-Translator: Quentin PAGÈS <quentinantonin@free.fr>\n"
 "Language-Team: Occitan <https://hosted.weblate.org/projects/varia/varia/oc/"
 ">\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.14.1-dev\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #. Translators: Do NOT translate or localize the application name.
 #: data/io.github.giantpinkrobots.varia.desktop.in:4
@@ -231,18 +231,14 @@ msgstr "Extension per navegador"
 msgid "Shutdown on Completion"
 msgstr "Atudar un còp acabat"
 
-#, fuzzy
-#| msgid "Exit on Completion"
 msgid "Sleep on Completion"
-msgstr "Atudat en acabant"
+msgstr "Mesa en velha en acabant"
 
 msgid "Varia is about to shut down your computer."
 msgstr "Varia es a mand d'atudar l'ordenador."
 
-#, fuzzy
-#| msgid "Varia is about to shut down your computer."
 msgid "Varia is about to put your computer to sleep."
-msgstr "Varia es a mand d'atudar l'ordenador."
+msgstr "Varia es a mand de letre l'ordenador en velha."
 
 msgid "Press Cancel to cancel and disable."
 msgstr "Quichatz Anullar per anullar e desactivar."
@@ -290,10 +286,10 @@ msgid "Enabled"
 msgstr "Activat"
 
 msgid "Start downloading in these times"
-msgstr ""
+msgstr "Començar de telecargar a aquestes oraris"
 
 msgid "Stop downloading in these times"
-msgstr ""
+msgstr "Arrestar de telecargar a aquestes oraris"
 
 msgid "Add Timespan"
 msgstr "Apondre un orari"
@@ -312,7 +308,7 @@ msgid "Exit on Completion"
 msgstr "Atudat en acabant"
 
 msgid "Varia is about to quit."
-msgstr ""
+msgstr "Varia es a mand de sortir."
 
 msgid "Preferences"
 msgstr "Preferéncias"
@@ -349,14 +345,14 @@ msgstr "Torrent"
 
 # Download type: Regular
 msgid "Regular"
-msgstr ""
+msgstr "Normal"
 
 # Updater
 msgid "Checking for updates..."
 msgstr "Recèrca de mesas a jorn..."
 
 msgid "A new version of Varia is available. Do you want to update?"
-msgstr ""
+msgstr "Una novèla version de Varia es disponibla. La volètz installar ?"
 
 msgid "Update available"
 msgstr "Mesa a jorn disponibla"
@@ -377,13 +373,13 @@ msgid "No"
 msgstr "Non"
 
 msgid "Automatically Check for Updates"
-msgstr ""
+msgstr "Recèrca automatica de mesas a jorn"
 
 msgid "Check Now"
 msgstr "Verificar ara"
 
 msgid "Do you want to check for updates on startup?"
-msgstr ""
+msgstr "Volètz cercar las mesas a jorn a l'aviada del programa ?"
 
 msgid "File"
 msgstr "Fichièr"
@@ -402,14 +398,14 @@ msgstr "Àudio solament"
 
 #: Relating to video download:
 msgid "Framerate:"
-msgstr ""
+msgstr "Frequéncia d'imatges :"
 
 #: Relating to video download:
 msgid "Bitrate:"
-msgstr ""
+msgstr "Debit binari :"
 
 msgid "Checking video..."
-msgstr ""
+msgstr "Verificacion de la vidèo..."
 
 msgid "No video or audio streams found"
 msgstr ""
@@ -422,14 +418,17 @@ msgid ""
 "platform. If you have an active VPN connection that might be the cause, or "
 "you can try importing your browser's cookies through a cookies.txt file."
 msgstr ""
+"Es possible que la platafòrma de vidèo siá pas suportada o que vos bloca. Se "
+"sètz connectat a un VPN, aquò ne poiriá èsser la causa, o podètz ensajar "
+"d'importar los cookies de vòstre navigador via un fichièr cookies.txt."
 
 msgid "This will disable the video download functionality."
-msgstr ""
+msgstr "Aquò desactivarà la foncion de telecargament."
 
 #: Relating to video download progress where it says "Part 1/2" - {indicator}
 #: is replaced by "1/2" or "2/2" (don't translate {indicator})
 msgid "Part {indicator}"
-msgstr ""
+msgstr "Part {indicator}"
 
 #, fuzzy
 #| msgid "Simultaneous Download Amount"
@@ -439,10 +438,10 @@ msgstr "Nombre de telecargaments simultanèus"
 #: The way percentages will be shown, like 10% or %10 depending on the language
 #: (don't translate {number}, just move it if needed)
 msgid "{number}%"
-msgstr ""
+msgstr "{number} %"
 
 msgid "Allow Seeding"
-msgstr ""
+msgstr "Autorizar lo mandadís"
 
 #, fuzzy
 #| msgid "Speed Limit"
@@ -465,6 +464,12 @@ msgid ""
 "as they download (a ratio of 1). You may want to consider limiting your "
 "seeding ratio instead."
 msgstr ""
+"Coma lo torrenting repausa sus las personas que partejan de donadas "
+"(seeding), lo fach de lo desactivar es fòrça mal vist e pòt menar a una "
+"reduccion de vòstra velocitat o a un baniment per d'unes clients e trackers. "
+"S'espèra generalament que los clients partejen almens tant coma telecargan "
+"(un ratio de 1). Benlèu que voldriatz considerar de limitar vòstre ratio de "
+"partiment a la plaça."
 
 msgid "Cancel Seeding"
 msgstr "Anullar lo mandadís"
@@ -491,9 +496,11 @@ msgid ""
 "Disabling torrenting will prevent new torrents from being added. It will not "
 "stop current torrent instances."
 msgstr ""
+"Desactivar lo torrenting empacharà l'apondon de torrents novèls. Aquò "
+"arrestarà pas las instàncias de torrents actualas."
 
 msgid "Torrenting is disabled."
-msgstr ""
+msgstr "Lo telecargament de torrent es desactivat."
 
 msgid "Unknown filesize"
 msgstr "Talha de fichièr desconeguda"
@@ -508,7 +515,7 @@ msgid "Background Mode on Close"
 msgstr "Mòde rèireplan en tampant"
 
 msgid "Upon closing, Varia will close to tray insted of exiting."
-msgstr ""
+msgstr "A la tampadura Vatia se minimizarà a la plaça de se terminar."
 
 # Tray icon always visible option
 msgid "Tray Icon Always Visible"
@@ -534,7 +541,7 @@ msgid "Use Varia as a GUI for a remote aria2c instance."
 msgstr ""
 
 msgid "Configure"
-msgstr ""
+msgstr "Configurar"
 
 msgid "Download Segments"
 msgstr "Telecargar segments"
@@ -554,13 +561,13 @@ msgid "Open File"
 msgstr "Fichièr"
 
 msgid "Retry"
-msgstr ""
+msgstr "Tornar ensajar"
 
 msgid "Require Encryption"
-msgstr ""
+msgstr "Forçar lo chiframent"
 
 msgid "Get Country Info of Peers"
-msgstr ""
+msgstr "Obténer lo país dels pars"
 
 msgid ""
 "This will use an external service to get the IP geolocation of your torrent "
@@ -576,7 +583,7 @@ msgid "Type"
 msgstr "Tipe"
 
 msgid "Status"
-msgstr ""
+msgstr "Statut"
 
 #, fuzzy
 #| msgid "File"
@@ -599,10 +606,10 @@ msgid "Scheduled"
 msgstr "Planificador"
 
 msgid "Extracting"
-msgstr ""
+msgstr "Extraccion"
 
 msgid "Percentage Downloaded"
-msgstr ""
+msgstr "Percentatge de telecargament"
 
 msgid "Remaining"
 msgstr "Demorant"
@@ -613,7 +620,7 @@ msgid "Download Speed"
 msgstr "Telecargar segments"
 
 msgid "Seeding Speed"
-msgstr ""
+msgstr "Velocitat de mandadís"
 
 #, fuzzy
 #| msgid "Download Segments"
@@ -621,7 +628,7 @@ msgid "Amount Downloaded"
 msgstr "Telecargar segments"
 
 msgid "Amount Uploaded"
-msgstr ""
+msgstr "Total mandat"
 
 msgid "Ratio"
 msgstr "Racio"
@@ -650,7 +657,7 @@ msgstr ""
 
 # Tooltip for when focused on filter options in the sidebar. Do not translate {filter option}, it will be replaced by the filter type. ("All", "In Progress", etc)
 msgid "Filter downloads by {filter option}"
-msgstr ""
+msgstr "Filtrar los telecargaments per {filter option}"
 
 #, fuzzy
 #| msgid "Download"
@@ -736,6 +743,23 @@ msgstr ""
 
 # Tooltip for the dark theme setting
 msgid "Dark theme"
+msgstr ""
+
+#, fuzzy
+#| msgid "Download Directory"
+msgid "Ask for Download Directory for Each Download"
+msgstr "Repertòri de telecargament"
+
+msgid "Always"
+msgstr ""
+
+msgid "Never"
+msgstr ""
+
+msgid "Only for Torrents"
+msgstr ""
+
+msgid "Only for Files/Videos"
 msgstr ""
 
 #: src/gtk/help-overlay.ui:11
