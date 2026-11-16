@@ -1,7 +1,7 @@
 
 name: varia
 base: core26
-version: 'v2026.8.5-1'
+version: 'v2026.11.16'
 summary: Download files, videos and torrents
 description: |
   Varia is a file, video and torrent downloader based on aria2 and yt-dlp
@@ -95,8 +95,8 @@ parts:
   aria2-next:
     plugin: nil
     source:
-      - on amd64: https://github.com/AnInsomniacy/aria2-next/releases/download/v3.0.7/aria2-next-3.0.7-linux-x86_64
-      - on arm64: https://github.com/AnInsomniacy/aria2-next/releases/download/v3.0.7/aria2-next-3.0.7-linux-aarch64
+      - on amd64: https://github.com/AnInsomniacy/aria2-next/releases/download/v3.1.0/aria2-next-3.1.0-linux-x86_64
+      - on arm64: https://github.com/AnInsomniacy/aria2-next/releases/download/v3.1.0/aria2-next-3.1.0-linux-aarch64
     source-type: file
     override-build: |
       install -Dm755 aria2-next-* "$CRAFT_PART_INSTALL/bin/aria2-next"

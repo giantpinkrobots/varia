@@ -154,16 +154,16 @@
                     "only-arches": [
                         "x86_64"
                     ],
-                    "url": "https://github.com/AnInsomniacy/aria2-next/releases/download/v3.0.7/aria2-next-3.0.7-linux-x86_64",
-                    "sha256": "ba9191b084c0d853b626c1a163bd472e78ef61c9a8498e93f5c6519999dc90a8"
+                    "url": "https://github.com/AnInsomniacy/aria2-next/releases/download/v3.1.0/aria2-next-3.1.0-linux-x86_64",
+                    "sha256": "5a264fc39312cc1abc6d12cfd2d96464d27f0349fd7cb5e0cbf1ee5bd686e890"
                 },
                 {
                     "type": "file",
                     "only-arches": [
                         "aarch64"
                     ],
-                    "url": "https://github.com/AnInsomniacy/aria2-next/releases/download/v3.0.7/aria2-next-3.0.7-linux-aarch64",
-                    "sha256": "8abfb13eddfc669267fc608fd6b116c483255ea018d033d2448a003b97faeb2b"
+                    "url": "https://github.com/AnInsomniacy/aria2-next/releases/download/v3.1.0/aria2-next-3.1.0-linux-aarch64",
+                    "sha256": "38019a34ac5edd4dc7443fd7214842dc2c29b38202a1a65a6271c5e994fbd0d0"
                 }
             ]
         },

@@ -1,29 +1,16 @@
 import os
 def show_notification(title, message, variaapp):
     if os.name == 'nt':
-        from winsdk_toast import Notifier, Toast
-        from os.path import abspath
-        path_pic = abspath('./icon.ico')
-
-        notifier = Notifier(title)
-        toast = Toast()
-        toast.add_text(message)
-        toast.add_image(path_pic, placement='appLogoOverride')
-        notifier.show(toast)
+        from win11toast import toast
+        toast(title, message)
     
     elif os.uname().sysname == 'Darwin':
-        import subprocess
+        from mac_notifications import client
 
-        title = f"Varia - {title}"
-
-        subprocess.run([
-            "osascript",
-            "-e", "on run argv",
-            "-e", "display notification (item 2 of argv) with title (item 1 of argv)",
-            "-e", "end run",
-            title,
-            message
-        ])
+        client.create_notification(
+            title=title,
+            subtitle=message
+        )
     
     else:
         import gi

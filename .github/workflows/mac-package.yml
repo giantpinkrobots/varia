@@ -27,17 +27,17 @@ jobs:
         run: |
           yes | brew update
           yes | brew install automake autoconf libtool pkg-config nasm yasm cmake ninja gtk4 libadwaita python3 lame opus libvorbis libogg gnutls pygobject3 create-dmg gmp libtorrent-rasterbar
-          python3 -m pip install pillow pygobject yt-dlp pyinstaller aria2p pystray emoji-country-flag
+          python3 -m pip install --break-system-packages pillow pygobject yt-dlp pyinstaller aria2p pystray emoji-country-flag macos-notifications
 
       - name: Download binaries for dependencies
         run: |
           if [ "$MAC_ARCH" = "arm64" ]; then
-            ARIA2CURL="https://github.com/AnInsomniacy/aria2-next/releases/download/v3.0.7/aria2-next-3.0.7-macos-arm64"
+            ARIA2CURL="https://github.com/AnInsomniacy/aria2-next/releases/download/v3.1.0/aria2-next-3.1.0-macos-arm64"
             DENOURL="https://github.com/denoland/deno/releases/latest/download/deno-aarch64-apple-darwin.zip"
             FFMPEGURL="https://ffmpeg.martin-riedl.de/download/macos/arm64/1756401489_8.0/ffmpeg.zip"
             FFPROBEURL="https://ffmpeg.martin-riedl.de/download/macos/arm64/1756401489_8.0/ffprobe.zip"
           else
-            ARIA2CURL="https://github.com/AnInsomniacy/aria2-next/releases/download/v3.0.7/aria2-next-3.0.7-macos-x86_64"
+            ARIA2CURL="https://github.com/AnInsomniacy/aria2-next/releases/download/v3.1.0/aria2-next-3.1.0-macos-x86_64"
             DENOURL="https://github.com/denoland/deno/releases/latest/download/deno-x86_64-apple-darwin.zip"
             FFMPEGURL="https://ffmpeg.martin-riedl.de/download/macos/amd64/1756407576_8.0/ffmpeg.zip"
             FFPROBEURL="https://ffmpeg.martin-riedl.de/download/macos/amd64/1756407576_8.0/ffprobe.zip"

@@ -34,7 +34,6 @@ pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-python \
 	mingw-w64-ucrt-x86_64-pyinstaller \
 	mingw-w64-ucrt-x86_64-upx \
 	mingw-w64-ucrt-x86_64-7zip \
-	mingw-w64-ucrt-x86_64-python-winsdk \
 	mingw-w64-ucrt-x86_64-python-pywin32 \
 	mingw-w64-ucrt-x86_64-gcc \
 	mingw-w64-ucrt-x86_64-openssl \
@@ -48,11 +47,11 @@ pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-python \
 pip install --break-system-packages aria2p \
 	pystray \
 	emoji-country-flag \
-	winsdk-toast
+	win11toast
 
 echo -e "\n\n\n      -   Downloading aria2, ffmpeg, 7z and deno...\n"
 
-aria2="aria2-next-3.0.7-windows-x86_64"
+aria2="aria2-next-3.1.0-windows-x86_64"
 ffmpeg="ffmpeg-n9.0.2-57-gd838f9f9ae-win64-lgpl-shared-9.0"
 ffmpeg_tag="autobuild-2026-11-14-12-37"
 sevenzip="7z2600-x64"
@@ -67,7 +66,7 @@ rm -rf "./7zr.exe"
 rm -rf "./$sevenzip.exe"
 rm -rf "./7zip"
 
-wget "https://github.com/AnInsomniacy/aria2-next/releases/download/v3.0.7/$aria2.exe"
+wget "https://github.com/AnInsomniacy/aria2-next/releases/download/v3.1.0/$aria2.exe"
 wget "https://github.com/BtbN/FFmpeg-Builds/releases/download/$ffmpeg_tag/$ffmpeg.zip"
 wget "https://github.com/denoland/deno/releases/download/v2.5.2/deno-x86_64-pc-windows-msvc.zip"
 wget "https://7-zip.org/a/$sevenzip.exe"

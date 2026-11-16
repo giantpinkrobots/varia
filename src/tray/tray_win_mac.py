@@ -23,7 +23,7 @@ def create_tray_icon_pystray():
     image = Image.open(image_path)
 
     menu = Menu(
-        MenuItem(show_text, tray_action_show),
+        MenuItem(show_text, tray_action_show, default=True),
         MenuItem(quit_text, tray_action_quit)
     )
 
