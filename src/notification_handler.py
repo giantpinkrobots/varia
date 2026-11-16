@@ -2,6 +2,8 @@ import os
 def show_notification(title, message, variaapp):
     if os.name == 'nt':
         from win11toast import toast
+
+        title = f"Varia - {title}"
         toast(title, message)
     
     elif os.uname().sysname == 'Darwin':

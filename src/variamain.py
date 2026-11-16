@@ -855,8 +855,7 @@ if (__name__ == '__main__'):
 
         os.uname = uname_replacement
 
-        work_dir = os.path.dirname(sys.executable)
-        os.chdir(work_dir)
+        work_dir = os.getcwd()
         windll = ctypes.windll.kernel32
         lang_id = windll.GetUserDefaultUILanguage()
         current_locale = locale.windows_locale.get(lang_id)
